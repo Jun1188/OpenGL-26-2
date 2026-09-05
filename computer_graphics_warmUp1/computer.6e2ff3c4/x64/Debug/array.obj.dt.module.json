@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "computer.6e2ff3c4\\x64\\Debug\\array.obj",
+            "outputs": [
+                "computer.6e2ff3c4\\x64\\Debug\\array.obj.dt.module.json",
+                "computer.6e2ff3c4\\x64\\Debug\\array.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+﻿  FileName.cpp
+C:\Users\변준영\바탕 화면\학교\컴퓨터 그래픽스\computer_graphics_warmUp1\FileName.cpp(122,1): error C4716: 'Matrix::MatAdd': 값을 반환해야 합니다.
+C:\Users\변준영\바탕 화면\학교\컴퓨터 그래픽스\computer_graphics_warmUp1\FileName.cpp(118,1): error C4716: 'Matrix::MatComp': 값을 반환해야 합니다.
+C:\Users\변준영\바탕 화면\학교\컴퓨터 그래픽스\computer_graphics_warmUp1\FileName.cpp(126,1): error C4716: 'Matrix::MatSub': 값을 반환해야 합니다.
