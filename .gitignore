@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# VS File for Copliot, vs set, and else..
+*.vs
