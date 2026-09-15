@@ -1,0 +1,50 @@
+{
+  "main.cpp": {
+    "mtime": 1788866931.8647664,
+    "seen": 1788868162.998138,
+    "ast_hash": "fca67878bc85796479a37df599f745fc",
+    "semantic_hash": "fca67878bc85796479a37df599f745fc"
+  },
+  "openGL_sample0.slnx": {
+    "mtime": 1788864754.822909,
+    "seen": 1788868162.9981463,
+    "ast_hash": "c5d8959255e3156a17502734e64a18eb",
+    "semantic_hash": "c5d8959255e3156a17502734e64a18eb"
+  },
+  "openGL_sample0/x64/Debug/main.cpp.obj.dt.d.json": {
+    "mtime": 1788866938.0093763,
+    "seen": 1788868162.9981503,
+    "ast_hash": "519e5a5e8b00fb9055c80466c13cbc7f",
+    "semantic_hash": "519e5a5e8b00fb9055c80466c13cbc7f"
+  },
+  "openGL_sample0/x64/Debug/main.cpp.obj.dt.module.json": {
+    "mtime": 1788866938.0055928,
+    "seen": 1788868162.998153,
+    "ast_hash": "d242c4bdb2f5c30001abc8e5c26ed5ae",
+    "semantic_hash": "d242c4bdb2f5c30001abc8e5c26ed5ae"
+  },
+  "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h": {
+    "mtime": 1066736514.0,
+    "seen": 1788868162.9981563,
+    "ast_hash": "bd16670a548c8bb8e82af2bd6b7c1e90",
+    "semantic_hash": "bd16670a548c8bb8e82af2bd6b7c1e90"
+  },
+  "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h": {
+    "mtime": 1413563304.0,
+    "seen": 1788868162.9981592,
+    "ast_hash": "696b70f32f13b77f593a9ca317760bc0",
+    "semantic_hash": "696b70f32f13b77f593a9ca317760bc0"
+  },
+  "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h": {
+    "mtime": 1413563304.0,
+    "seen": 1788868162.9981613,
+    "ast_hash": "5d350938fc0be29757a26e466fff6414",
+    "semantic_hash": "5d350938fc0be29757a26e466fff6414"
+  },
+  "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h": {
+    "mtime": 1066736514.0,
+    "seen": 1788868162.998164,
+    "ast_hash": "160c311f69302102b6e032babc96f2a4",
+    "semantic_hash": "160c311f69302102b6e032babc96f2a4"
+  }
+}

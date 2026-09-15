@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Computer.183c4421\\x64\\Debug\\MeshReporter.obj",
+            "outputs": [
+                "Computer.183c4421\\x64\\Debug\\MeshReporter.cpp.obj.dt.module.json",
+                "Computer.183c4421\\x64\\Debug\\MeshReporter.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

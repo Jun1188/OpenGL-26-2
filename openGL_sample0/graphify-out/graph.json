@@ -1,0 +1,273 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatemenu_atexit_hack",
+      "label": "glutCreateMenu_ATEXIT_HACK()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "glutcreatemenu_atexit_hack()",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L641"
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatewindow_atexit_hack",
+      "label": "glutCreateWindow_ATEXIT_HACK()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "glutcreatewindow_atexit_hack()",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L639"
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutinit_atexit_hack",
+      "label": "glutInit_ATEXIT_HACK()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "glutinit_atexit_hack()",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L637"
+    },
+    {
+      "id": "main_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "OpenGL \uc2e4\ud589 \uc9c4\uc785\uc810",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "main.cpp",
+      "source_location": "L14"
+    },
+    {
+      "id": "fgunused",
+      "label": "FGUNUSED",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "fgunused",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "label": "freeglut_std.h",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "freeglut_std.h",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L1"
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_glut",
+      "label": "glut.h",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "FreeGLUT \ud638\ud658 \uacc4\uce35",
+      "file_type": "code",
+      "norm_label": "glut.h",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "source_location": "L1"
+    },
+    {
+      "id": "main",
+      "label": "main.cpp",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "OpenGL \uc2e4\ud589 \uc9c4\uc785\uc810",
+      "file_type": "code",
+      "norm_label": "main.cpp",
+      "source_file": "main.cpp",
+      "source_location": "L1"
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut",
+      "label": "freeglut.h",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "OpenGL \uc2e4\ud589 \uc9c4\uc785\uc810",
+      "file_type": "code",
+      "norm_label": "freeglut.h",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "source_location": "L1"
+    },
+    {
+      "id": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_ext",
+      "label": "freeglut_ext.h",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "OpenGL \uc2e4\ud589 \uc9c4\uc785\uc810",
+      "file_type": "code",
+      "norm_label": "freeglut_ext.h",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "source_location": "L1"
+    },
+    {
+      "id": "opengl_sample0",
+      "label": "openGL_sample0",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "Visual Studio \ud504\ub85c\uc81d\ud2b8",
+      "file_type": "code",
+      "norm_label": "opengl_sample0",
+      "source_file": "openGL_sample0.vcxproj",
+      "source_location": null
+    }
+  ],
+  "links": [
+    {
+      "source": "main",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "main.cpp",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_ext",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_glut",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatemenu_atexit_hack",
+      "target": "fgunused",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "return_type",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L641",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatewindow_atexit_hack",
+      "target": "fgunused",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "return_type",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L639",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutinit_atexit_hack",
+      "target": "fgunused",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "return_type",
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L637",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main.cpp",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "opengl_sample0",
+      "target": "opengl_sample0",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "openGL_sample0.slnx",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutinit_atexit_hack",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L637",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatewindow_atexit_hack",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L639",
+      "weight": 1.0
+    },
+    {
+      "source": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std",
+      "target": "packages_freeglut_3_0_0_v140_1_0_2_sources_gl_freeglut_std_glutcreatemenu_atexit_hack",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "source_location": "L641",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": []
+}

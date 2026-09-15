@@ -4,7 +4,7 @@
 */
 // [1번 수정 후]
 #ifndef PROB
-#define PROB 2 // 실행할 문제 번호: 1, 2, 3, 4
+#define PROB 4 // 실행할 문제 번호: 1, 2, 3, 4
 #endif
 
 #if PROB == 1
@@ -356,6 +356,7 @@ long long determinate(const ARR& mat, int scale) {
     if (scale == 1) return mat[0];
     if (scale == 2) return 1LL * mat[0] * mat[3] - 1LL * mat[1] * mat[2];
     long long det = 0;
+
     for (int col = 0; col < scale; ++col) {
         std::array<int, SCALE * SCALE> minor{};
         int index = 0;
@@ -880,6 +881,7 @@ class CardGame {
     std::vector<bool> matched;
     std::mt19937 random{std::random_device{}()};
     Console console;
+
     int limit() const { return width * height * 2; }
     bool complete() const { return std::all_of(matched.begin(), matched.end(), [](bool v) { return v; }); }
     void reset() {
@@ -892,10 +894,15 @@ class CardGame {
         matched.assign(cards.size(), false);
         attempts = score = 0;
     }
+
+
+
+
     int position(const std::string& token) const {
         if (token.size() != 2 || token[0] < 'a' || token[0] >= 'a' + width || token[1] < '1' || token[1] >= '1' + height) return -1;
         return (token[1] - '1') * width + token[0] - 'a';
     }
+
     void print(bool hint = false, int first = -1, int second = -1) {
         std::cout << "    ";
         for (int x = 0; x < width; ++x) std::cout << static_cast<char>('a' + x) << "   ";
@@ -919,6 +926,9 @@ class CardGame {
         std::string line;
         return static_cast<bool>(std::getline(std::cin, line)) && line != "q";
     }
+
+
+
 public:
     void run() {
         std::string line;
@@ -948,15 +958,21 @@ public:
                 }
                 continue;
             }
+
+
             if (complete() || attempts >= limit()) { std::cout << "Game over. Use r or q.\n"; continue; }
+
             if (!(input >> b) || !noExtraInput(input)) { std::cout << "Use: a1 c3\n"; continue; }
             const int first = position(a), second = position(b);
             if (first < 0 || second < 0 || first == second || matched[first] || matched[second]) {
                 std::cout << "Select two different, hidden cells inside the board.\n"; continue;
             }
+
             ++attempts;
             console.clear(); print(false, first, second);
+
             const bool joker = cards[first] == '@' || cards[second] == '@';
+
             if (cards[first] == cards[second] || joker) {
                 matched[first] = matched[second] = true;
                 if (joker) {
