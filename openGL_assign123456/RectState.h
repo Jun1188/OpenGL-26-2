@@ -138,9 +138,9 @@ private:
         float deltaTime
     ) const;
     Point calculateZigzagMovement(
-        const AnimatedRect& item,
+         AnimatedRect& item,
         float deltaTime
-    ) const;
+    );
     Point calculateOrbitMovement(
         AnimatedRect& item,
         float deltaTime,
@@ -160,6 +160,7 @@ private:
     bool isResize_ = false;
     bool isRecolor_ = false;
     bool hasCapture_ = false;
+    
 };
 
 

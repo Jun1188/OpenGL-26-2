@@ -10,6 +10,7 @@
 class DiagramStore {
 public:
     bool push(const Diagram& diagram);
+    bool replaceAt(std::size_t index, const Diagram& diagram);
     void clear();
     void selectAt(Point point);
     bool translateSelected(Point direction);

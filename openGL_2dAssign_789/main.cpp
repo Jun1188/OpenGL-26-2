@@ -1,4 +1,4 @@
-﻿#define PROB 7
+﻿#define PROB 9
 
 #include <glew.h> // GLEW must be included before GLFW.
 #include <glfw3.h>

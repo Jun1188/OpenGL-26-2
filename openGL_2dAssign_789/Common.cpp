@@ -13,6 +13,16 @@
 
 namespace {
 
+constexpr std::size_t QUAD_OUTLINE_FIRST = 0;
+constexpr std::size_t QUAD_FILL_FIRST = 4;
+constexpr std::size_t TRIANGLE_OUTLINE_FIRST = 10;
+constexpr std::size_t TRIANGLE_FILL_FIRST = 13;
+constexpr std::size_t LINE_FIRST = 16;
+
+const void* indexByteOffset(std::size_t firstIndex) {
+    return reinterpret_cast<const void*>(firstIndex * sizeof(GLuint));
+}
+
 std::random_device randomDevice;
 std::default_random_engine randomEngine(randomDevice());
 
@@ -55,10 +65,10 @@ std::size_t requiredVertices(GLShape shape) {
 
 GLenum drawMode(GLShape shape) {
     switch (shape) {
-    case GLShape::Spot: return GL_TRIANGLE_STRIP;
+    case GLShape::Spot: return GL_TRIANGLES;
     case GLShape::Line: return GL_LINES;
     case GLShape::Triangle: return GL_TRIANGLES;
-    case GLShape::Rect: return GL_TRIANGLE_STRIP;
+    case GLShape::Rect: return GL_TRIANGLES;
     }
     return GL_TRIANGLES;
 }
@@ -127,10 +137,16 @@ bool Diagram::canTranslate(Point direction) const {
     return candidate.fitsNdc();
 }
 
+
+void Diagram::saveOldPivots() {
+    oldPivots.push_back(pivot_);
+}
+
 bool Diagram::translate(Point direction) {
     if (!canTranslate(direction)) {
         return false;
     }
+    saveOldPivots();
     pivot_.x += direction.x;
     pivot_.y += direction.y;
     return true;
@@ -161,6 +177,23 @@ bool Diagram::setRotation(float degrees) {
     return true;
 }
 
+
+
+bool Diagram::setPose(Point pivot, float rotationDegrees) {
+    Diagram candidate = *this;
+    candidate.pivot_ = pivot;
+    candidate.rotationDegrees_ = rotationDegrees;
+    if (!candidate.fitsNdc()) {
+        return false;
+    }
+    if (pivot.x != pivot_.x || pivot.y != pivot_.y) {
+        saveOldPivots();
+    }
+    pivot_ = pivot;
+    rotationDegrees_ = rotationDegrees;
+    return true;
+}
+
 bool Diagram::advance(float deltaTime) {
     if (deltaTime <= 0.0f || speed_ == 0.0f
         || (direction_.x == 0.0f && direction_.y == 0.0f)) {
@@ -171,10 +204,16 @@ bool Diagram::advance(float deltaTime) {
 }
 
 std::vector<Point> Diagram::worldVertices() const {
+    return worldVerticesAt(pivot_, rotationDegrees_);
+}
+
+std::vector<Point> Diagram::worldVerticesAt(//model space -> TRS -> world space
+    Point pivot, float rotationDegrees
+) const {
     // Local point -> pivot-relative Scale -> Rotate -> world Translation.
     glm::mat4 model(1.0f);
-    model = glm::translate(model, glm::vec3(pivot_.x, pivot_.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotationDegrees_),
+    model = glm::translate(model, glm::vec3(pivot.x, pivot.y, 0.0f));
+    model = glm::rotate(model, glm::radians(rotationDegrees),
                         glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, glm::vec3(scale_.x, scale_.y, 1.0f));
     model = glm::translate(model,
@@ -215,7 +254,7 @@ bool Diagram::contains(Point point) const {
     if (shape_ == GLShape::Triangle) {
         return insideTriangle(point, p[0], p[1], p[2]);
     }
-    // The strip is 0-1-2 and 2-1-3; the perimeter is 0-1-3-2.
+    // Quad fill is 0-1-2 and 2-1-3; its perimeter is 0-1-3-2.
     return insideTriangle(point, p[0], p[1], p[2])
         || insideTriangle(point, p[2], p[1], p[3]);
 }
@@ -278,10 +317,12 @@ bool ShaderHandler::initShader(const std::filesystem::path& vertexPath,
         return false;
     }
 
+    usePathPositionLocation_ = glGetUniformLocation(shaderProgramID_, "uUsePathPosition");
     useOverrideLocation_ = glGetUniformLocation(shaderProgramID_, "uUseOverrideColor");
     overrideColorLocation_ = glGetUniformLocation(shaderProgramID_, "uOverrideColor");
-    if (useOverrideLocation_ < 0 || overrideColorLocation_ < 0) {
-        std::cerr << "Selection color uniforms are missing.\n";
+    if (usePathPositionLocation_ < 0 || useOverrideLocation_ < 0
+        || overrideColorLocation_ < 0) {
+        std::cerr << "Path position or selection color uniforms are missing.\n";
         destroy();
         return false;
     }
@@ -294,8 +335,9 @@ bool ShaderHandler::initBuffer() {
     }
     const GLint positionLocation = glGetAttribLocation(shaderProgramID_, "vPos");
     const GLint colorLocation = glGetAttribLocation(shaderProgramID_, "vColor");
-    if (positionLocation < 0 || colorLocation < 0) {
-        std::cerr << "Shader attributes vPos or vColor are missing.\n";
+    const GLint pathPositionLocation = glGetAttribLocation(shaderProgramID_, "vPathPos");
+    if (positionLocation < 0 || colorLocation < 0 || pathPositionLocation < 0) {
+        std::cerr << "Shader attributes vPos, vColor, or vPathPos are missing.\n";
         return false;
     }
 
@@ -307,23 +349,45 @@ bool ShaderHandler::initBuffer() {
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[0]);
     glBufferData(GL_ARRAY_BUFFER, bufferBytes, nullptr, GL_DYNAMIC_DRAW);
+
     glVertexAttribPointer(static_cast<GLuint>(positionLocation),
                           3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(static_cast<GLuint>(positionLocation));
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
     glBufferData(GL_ARRAY_BUFFER, bufferBytes, nullptr, GL_DYNAMIC_DRAW);
+
     glVertexAttribPointer(static_cast<GLuint>(colorLocation),
                           3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(static_cast<GLuint>(colorLocation));
 
+    // Each shape keeps its outline before its fill in this shared EBO.
+    const GLuint indices[] = {
+        0, 1, 3, 2,       // Quad outline (Spot and Rect).
+        0, 1, 2, 2, 1, 3, // Quad fill: two triangles, no drawn diagonal.
+        0, 1, 2,          // Triangle outline.
+        0, 1, 2,          // Triangle fill.
+        0, 1             // Line.
+    };
     glGenBuffers(1, &ebo_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 8 * sizeof(GLuint),
-                 nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),
+                 indices, GL_STATIC_DRAW);
     glBindVertexArray(0); // The EBO binding remains part of this VAO.
+
+    glGenVertexArrays(1, &pathVao_);
+    glBindVertexArray(pathVao_);
+    glGenBuffers(1, &pathVbo_);
+    glBindBuffer(GL_ARRAY_BUFFER, pathVbo_);
+    pathBufferBytes_ = 3 * sizeof(GLfloat);
+    glBufferData(GL_ARRAY_BUFFER, pathBufferBytes_, nullptr, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(static_cast<GLuint>(pathPositionLocation),
+                          3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(static_cast<GLuint>(pathPositionLocation));
+    glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    return vao_ != 0 && vbo_[0] != 0 && vbo_[1] != 0 && ebo_ != 0;
+    return vao_ != 0 && vbo_[0] != 0 && vbo_[1] != 0 && ebo_ != 0
+        && pathVao_ != 0 && pathVbo_ != 0;
 }
 
 bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
@@ -343,10 +407,13 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
 
     std::vector<GLfloat> positions;
     std::vector<GLfloat> colors;
+    std::vector<GLfloat> pathPositions;
     std::vector<DrawRange> ranges;
+    std::vector<DrawRange> pathRanges;
     positions.reserve(vertexCount * 3);
     colors.reserve(vertexCount * 3);
     ranges.reserve(diagrams.size());
+    pathRanges.reserve(diagrams.size());
 
     GLint first = 0;
     for (const Diagram& diagram : diagrams) {
@@ -359,6 +426,20 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
         ranges.push_back({ drawMode(diagram.getShape()), first,
                            static_cast<GLsizei>(world.size()) });
         first += static_cast<GLint>(world.size());
+
+        if (diagram.getShape() == GLShape::Triangle
+            && !diagram.getOldPivots().empty()) {
+            const GLint pathFirst = static_cast<GLint>(pathPositions.size() / 3);
+            for (const Point& pivot : diagram.getOldPivots()) {
+                pathPositions.insert(pathPositions.end(),
+                                     { pivot.x, pivot.y, 0.0f });
+            }
+            const Point current = diagram.getPivot();
+            pathPositions.insert(pathPositions.end(),
+                                 { current.x, current.y, 0.0f });
+            pathRanges.push_back({ GL_LINE_STRIP, pathFirst,
+                static_cast<GLsizei>(diagram.getOldPivots().size() + 1) });
+        }
     }
 
     // A changed empty store also replaces the old GPU data with a zero sentinel.
@@ -369,58 +450,67 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[0]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, bytes,
                     positions.empty() ? zero : positions.data());
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, bytes,
                     colors.empty() ? zero : colors.data());
+
+    glBindBuffer(GL_ARRAY_BUFFER, pathVbo_);
+    const GLsizeiptr pathBytes = pathPositions.empty()
+        ? sizeof(zero)
+        : static_cast<GLsizeiptr>(pathPositions.size() * sizeof(GLfloat));
+
+    if (pathBytes > pathBufferBytes_) {
+        pathBufferBytes_ = std::max(pathBytes, pathBufferBytes_ * 2);
+        glBufferData(GL_ARRAY_BUFFER, pathBufferBytes_, nullptr, GL_DYNAMIC_DRAW);
+    }
+    glBufferSubData(GL_ARRAY_BUFFER, 0, pathBytes,
+                    pathPositions.empty() ? zero : pathPositions.data());
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     selectedOutlineCount_ = 0;
     if (selectedIndex) {
         const Diagram& selected = diagrams[*selectedIndex];
-        const GLuint count = static_cast<GLuint>(selected.getVertexCount());
-        GLuint indices[8] = {};
-        for (GLuint i = 0; i < count; ++i) {
-            indices[i] = i; // Fill: triangle, line, or triangle strip.
-        }
-        if (count == 4) {
-            indices[4] = 0;
-            indices[5] = 1;
-            indices[6] = 3;
-            indices[7] = 2; // Perimeter of strip vertices.
-        } else {
-            for (GLuint i = 0; i < count; ++i) {
-                indices[count + i] = i;
-            }
-        }
-        glBindVertexArray(vao_);
-        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0,
-                        2 * count * sizeof(GLuint), indices);
-        glBindVertexArray(0);
-        selectedOutlineCount_ = static_cast<GLsizei>(count);
+        selectedOutlineCount_ = static_cast<GLsizei>(selected.getVertexCount());
         selectedOutlineMode_ = selected.getShape() == GLShape::Line
             ? GL_LINES : GL_LINE_LOOP;
     }
 
     drawRanges_ = std::move(ranges);
+    pathRanges_ = std::move(pathRanges);
     selectedIndex_ = selectedIndex;
     return true;
 }
 
 void ShaderHandler::render() const {
     glUseProgram(shaderProgramID_);
+    glUniform1i(usePathPositionLocation_, GL_TRUE);
+    glUniform1i(useOverrideLocation_, GL_TRUE);
+    glUniform3f(overrideColorLocation_, 0.7f, 0.7f, 0.7f);
+    glBindVertexArray(pathVao_);
+    for (const DrawRange& path : pathRanges_) {
+        glDrawArrays(path.mode, path.first, path.count);
+    }
+
+    glUniform1i(usePathPositionLocation_, GL_FALSE);
     glBindVertexArray(vao_);
     glUniform1i(useOverrideLocation_, GL_FALSE);
     glLineWidth(2.0f);
 
-    for (std::size_t i = 0; i < drawRanges_.size(); ++i) {
-        const DrawRange& range = drawRanges_[i];
-        if (selectedIndex_ && i == *selectedIndex_) {
-            // Only the selected object uses the EBO. Base vertex follows VBO repacks.
-            glDrawElementsBaseVertex(range.mode, range.count, GL_UNSIGNED_INT,
-                                     nullptr, range.first);
-        } else {
-            glDrawArrays(range.mode, range.first, range.count);
+    for (const DrawRange& range : drawRanges_) {
+        std::size_t firstIndex = LINE_FIRST;
+        GLsizei indexCount = range.count;
+        if (range.mode == GL_TRIANGLES) {
+            if (range.count == 4) {
+                firstIndex = QUAD_FILL_FIRST;
+                indexCount = 6;
+            } else {
+                firstIndex = TRIANGLE_FILL_FIRST;
+            }
         }
+        // Base vertex locates this shape's vertices in the shared VBO.
+        glDrawElementsBaseVertex(range.mode, indexCount, GL_UNSIGNED_INT,
+                                 indexByteOffset(firstIndex), range.first);
     }
 
     if (selectedIndex_) {
@@ -428,18 +518,21 @@ void ShaderHandler::render() const {
         glUniform1i(useOverrideLocation_, GL_TRUE);
         glUniform3f(overrideColorLocation_, 1.0f, 1.0f, 1.0f);
         glLineWidth(selectedOutlineMode_ == GL_LINES ? 5.0f : 4.0f);
-        const std::size_t byteOffset =
-            static_cast<std::size_t>(selected.count) * sizeof(GLuint);
+        std::size_t outlineFirst = LINE_FIRST;
+        if (selectedOutlineMode_ == GL_LINE_LOOP) {
+            outlineFirst = selected.count == 4
+                ? QUAD_OUTLINE_FIRST : TRIANGLE_OUTLINE_FIRST;
+        }
         glDrawElementsBaseVertex(selectedOutlineMode_, selectedOutlineCount_,
                                  GL_UNSIGNED_INT,
-                                 reinterpret_cast<const void*>(byteOffset),
+                                 indexByteOffset(outlineFirst),
                                  selected.first);
         if (selectedOutlineMode_ == GL_LINES) {
             // Restore the original color inside the white selected-line border.
             glUniform1i(useOverrideLocation_, GL_FALSE);
             glLineWidth(2.0f);
             glDrawElementsBaseVertex(GL_LINES, selected.count, GL_UNSIGNED_INT,
-                                     nullptr, selected.first);
+                                     indexByteOffset(LINE_FIRST), selected.first);
         }
     }
 
@@ -449,6 +542,15 @@ void ShaderHandler::render() const {
 }
 
 void ShaderHandler::destroy() {
+    if (pathVbo_ != 0) {
+        glDeleteBuffers(1, &pathVbo_);
+        pathVbo_ = 0;
+    }
+    pathBufferBytes_ = 0;
+    if (pathVao_ != 0) {
+        glDeleteVertexArrays(1, &pathVao_);
+        pathVao_ = 0;
+    }
     if (ebo_ != 0) {
         glDeleteBuffers(1, &ebo_);
         ebo_ = 0;
@@ -465,9 +567,11 @@ void ShaderHandler::destroy() {
         glDeleteProgram(shaderProgramID_);
         shaderProgramID_ = 0;
     }
+    usePathPositionLocation_ = -1;
     useOverrideLocation_ = -1;
     overrideColorLocation_ = -1;
     drawRanges_.clear();
+    pathRanges_.clear();
     selectedIndex_.reset();
     selectedOutlineCount_ = 0;
 }

@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include <cmath>
+//#include <limits>
 #include <print>
 #include <utility>
 
@@ -769,15 +770,30 @@ Point Practice4RectState::calculateDiagonalMovement(
     };
 }
 
+constexpr float ZIGZAG_VERTICAL_STEP = 1.0f;
+constexpr float ZIGZAG_VERTICAL_DURATION = 5.0f; // (int / int)면 캐스팅되지 않고 int가 된다 (1/6 == 0), 
+//실수 결과 얻으려면 안전하게 두쪽 다 float로 해줘야 함 
+
 Point Practice4RectState::calculateZigzagMovement(
-    const AnimatedRect& item,
+    AnimatedRect& item,
     float deltaTime
-) const {
-    return {
-        item.zigzagVelocity.x * deltaTime,
-        0.0f
-    };
+) {
+    if (item.isZigzagMove) return {item.zigzagVelocity.x * deltaTime, 0};
+    else {
+        if (item.zigzagStep < 1.0f) {
+            item.zigzagStep += ZIGZAG_VERTICAL_STEP / ZIGZAG_VERTICAL_DURATION;
+            
+            return { 0, item.zigzagVelocity.y * deltaTime };
+        }
+        else {
+            item.isZigzagMove = true;
+            
+            return { item.zigzagVelocity.x * deltaTime, 0 };
+        }
+    }
+    
 }
+
 
 Point Practice4RectState::calculateOrbitMovement(
     AnimatedRect& item,
@@ -924,40 +940,90 @@ Point Practice4RectState::calculateOrbitMovement(
     return movement;
 }
 
+constexpr float zigzagNormalSpeed = 0.3f;
+
+
 void Practice4RectState::moveWithinWindow(
     AnimatedRect& item,
     const Point& movement
 ) {
     Rect& rect = item.rect;
     const Point center = rect.getCenter();
-    const Point desiredCenter{ center.x + movement.x, center.y + movement.y };
+    const Point desiredCenter{
+        center.x + movement.x,
+        center.y + movement.y
+    };
+
     const float halfWidth = rect.getWidth() * 0.5f;
     const float halfHeight = rect.getHeight() * 0.5f;
 
-    if (!isOrbit_ && desiredCenter.x - halfWidth < WINDOW_BOUNDS.left) {
+    const bool hitLeft = not isOrbit_
+        && desiredCenter.x - halfWidth < WINDOW_BOUNDS.left;
+    const bool hitRight = not isOrbit_
+        && desiredCenter.x + halfWidth > WINDOW_BOUNDS.right;
+
+    
+
+    if (hitLeft) {
         if (isDiagonal_ && item.diagonalVelocity.x < 0.0f) {
             item.diagonalVelocity.x = -item.diagonalVelocity.x;
         }
-        if (isHorizontalZigzag_ && item.zigzagVelocity.x < 0.0f) {
+
+        if (isHorizontalZigzag_
+            && item.isZigzagMove
+            && item.zigzagVelocity.x < 0.0f) {
             item.zigzagVelocity.x = -item.zigzagVelocity.x;
+            item.isZigzagMove = false;
+            item.zigzagStep = 0.0f;
+            item.zigzagVelocity.y = item.zigzagVelocity.y == 0.0f ?
+                zigzagNormalSpeed
+                : ((item.zigzagVelocity.y == zigzagNormalSpeed or item.zigzagVelocity.y == -zigzagNormalSpeed) ? item.zigzagVelocity.y : item.zigzagVelocity.y / 4);
         }
     }
-    else if (!isOrbit_ && desiredCenter.x + halfWidth > WINDOW_BOUNDS.right) {
+    else if (hitRight) {
         if (isDiagonal_ && item.diagonalVelocity.x > 0.0f) {
             item.diagonalVelocity.x = -item.diagonalVelocity.x;
+            
         }
-        if (isHorizontalZigzag_ && item.zigzagVelocity.x > 0.0f) {
+
+        if (isHorizontalZigzag_
+            && item.isZigzagMove
+            && item.zigzagVelocity.x > 0.0f) {
             item.zigzagVelocity.x = -item.zigzagVelocity.x;
+            item.isZigzagMove = false;
+            item.zigzagStep = 0.0f;
+            item.zigzagVelocity.y = item.zigzagVelocity.y == 0.0f ?
+                zigzagNormalSpeed
+                : ((item.zigzagVelocity.y == zigzagNormalSpeed or item.zigzagVelocity.y == -zigzagNormalSpeed) ? item.zigzagVelocity.y : item.zigzagVelocity.y / 4);
         }
     }
-    if (!isOrbit_ && desiredCenter.y - halfHeight < WINDOW_BOUNDS.bottom) {
+
+   
+
+    const bool hitBottom = not isOrbit_
+        && desiredCenter.y - halfHeight < WINDOW_BOUNDS.bottom;
+    const bool hitTop = not isOrbit_
+        && desiredCenter.y + halfHeight > WINDOW_BOUNDS.top;
+    
+
+    if (hitBottom) {
         if (isDiagonal_ && item.diagonalVelocity.y < 0.0f) {
             item.diagonalVelocity.y = -item.diagonalVelocity.y;
         }
+        if (isHorizontalZigzag_
+            and not item.isZigzagMove
+            and item.zigzagVelocity.y < 0) {
+            item.zigzagVelocity.y = -item.zigzagVelocity.y * 4;
+        }
     }
-    else if (!isOrbit_ && desiredCenter.y + halfHeight > WINDOW_BOUNDS.top) {
+    else if (hitTop) {
         if (isDiagonal_ && item.diagonalVelocity.y > 0.0f) {
             item.diagonalVelocity.y = -item.diagonalVelocity.y;
+        }
+        if (isHorizontalZigzag_
+            and not item.isZigzagMove
+            and item.zigzagVelocity.y > 0) {
+            item.zigzagVelocity.y = -item.zigzagVelocity.y * 4;
         }
     }
 

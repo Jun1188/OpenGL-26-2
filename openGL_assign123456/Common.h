@@ -85,6 +85,9 @@ struct AnimatedRect {
     bool orbitReachedBorder = false;
     bool growing = true;
     float recolorElapsed = 0.0f;
+   
+    bool isZigzagMove = true;
+    float zigzagStep = 0.0f;
 };
 
 

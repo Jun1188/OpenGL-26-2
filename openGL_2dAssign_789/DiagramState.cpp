@@ -9,6 +9,15 @@ bool DiagramStore::push(const Diagram& diagram) {
     return true;
 }
 
+bool DiagramStore::replaceAt(std::size_t index, const Diagram& diagram) {
+    if (index >= diagrams_.size() || !diagram.fitsNdc()) {
+        return false;
+    }
+    diagrams_[index] = diagram;
+    ++revision_;
+    return true;
+}
+
 void DiagramStore::clear() {
     if (!diagrams_.empty() || selectedIndex_) {
         diagrams_.clear();
