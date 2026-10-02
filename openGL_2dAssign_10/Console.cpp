@@ -3,98 +3,18 @@
 
 #include "Console.h"
 
-#include <algorithm>
-#include <cmath>
-#include <optional>
-#include <vector>
 
-namespace {
+
 
 constexpr float MOVE_STEP = 0.04f;
 constexpr float DIAGONAL_STEP = 0.02828427f; // MOVE_STEP / sqrt(2)
-constexpr float INNER_BOUND = 0.999f;
 
-VertexBounds boundsAt(const Diagram& diagram, Point pivot, float degrees) {
-    VertexBounds bounds;
 
-    switch (diagram.getBoundCase()) {//작성해야 함
-    case BoundsCase::Fit:
-        bounds.setFit();
-        break;
-    case BoundsCase::Unfit:
-        bounds.setUnfit();
-        break;
-    default:
-    }
+
+explicit PracticeConsole::PracticeConsole(GLFWwindow* window, DiagCaseTable dct) : window_(window), store_{dct} {
     
-
-    for (Point vertex : diagram.worldVerticesAt(pivot, degrees)) {
-        bounds.left = std::min(bounds.left, vertex.x);
-        bounds.right = std::max(bounds.right, vertex.x);
-        bounds.bottom = std::min(bounds.bottom, vertex.y);
-        bounds.top = std::max(bounds.top, vertex.y);
-    }
-    return bounds;
-}
-
-Point clampPivot(const Diagram& diagram, Point pivot, float degrees) {
-    const VertexBounds bounds = boundsAt(diagram, pivot, degrees);
-    if (bounds.left < -INNER_BOUND) {
-        pivot.x += -INNER_BOUND - bounds.left;
-    }
-    else if (bounds.right > INNER_BOUND) {
-        pivot.x += INNER_BOUND - bounds.right;
-    }
-    if (bounds.bottom < -INNER_BOUND) {
-        pivot.y += -INNER_BOUND - bounds.bottom;
-    }
-    else if (bounds.top > INNER_BOUND) {
-        pivot.y += INNER_BOUND - bounds.top;
-    }
-    return pivot;
-}
-
-
-
-Diagram makeDiagram(GLShape shape, TriangleCase case_) {
-    const Point pivot{//...? 원점이어야 하지 않을까
-        randomFloat(-0.75f, 0.75f),
-        randomFloat(-0.75f, 0.75f)
-    };
-    GlColor color;
-    color.setRandom();
-    const float half = randomFloat(0.08f, 0.17f);
-
-    switch (shape) {
-    case GLShape::Spot:
-        return Diagram(shape, std::vector<Point>{
-            { -0.02f, -0.02f }, { 0.02f, -0.02f },
-            { -0.02f, 0.02f }, { 0.02f, 0.02f }
-        }, color, pivot);
-    case GLShape::Line:
-        return Diagram(shape, std::vector<Point>{
-            { -half, 0.0f }, { half, 0.0f }
-        }, color, pivot);
-    case GLShape::Triangle:
-        return Diagram(shape, setRandomTriPointByCase(case_), color, pivot);
-    case GLShape::Rect:
-        return Diagram(shape, std::vector<Point>{
-            { -half, -half }, { half, -half },
-            { -half, half }, { half, half }
-        }, color, pivot);
-    }
-    return Diagram(GLShape::Triangle, std::vector<Point>{
-        { -half, -half }, { half, -half }, { 0.0f, half }
-    }, color, pivot);
-}
-
-} // namespace
-
-
-
-explicit PracticeConsole::PracticeConsole(GLFWwindow* window) : window_(window) {
-    //store_.push(GLShape shape, const std::vector<Point>&localVertices,
-    //    GlColor color, Point pivot, Point localPivot);
+    //store_.resetAtRandom 호출
+   
 }
 
 bool PracticeConsole::initGraphics(const std::filesystem::path& shaderDirectory) {
@@ -173,3 +93,4 @@ void PracticeConsole::onMouseButton(int button, int action, Point point) {
         store_.selectAt(point);
     }
 }
+

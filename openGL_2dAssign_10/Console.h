@@ -3,9 +3,7 @@
 #include "DiagramState.h"
 
 #include <cstdint>
-#include <filesystem>
 #include <limits>
-#include <vector>
 
 struct GLFWwindow;
 
@@ -25,7 +23,7 @@ public:
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window);
+    explicit PracticeConsole(GLFWwindow* window, DiagCaseTable dct);
     bool initGraphics(const std::filesystem::path& shaderDirectory);
     void shutdownGraphics();
     bool render() override;
