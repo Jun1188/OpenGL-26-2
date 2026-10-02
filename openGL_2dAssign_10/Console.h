@@ -17,10 +17,6 @@ public:
     virtual bool render() = 0;
 };
 
-
-
-
-
 class PracticeConsole : public Console {
 public:
     explicit PracticeConsole(GLFWwindow* window);
@@ -29,16 +25,19 @@ public:
     bool render() override;
     void onKey(int key, int action) override;
     void onMouseButton(int button, int action, Point point) override;
-
-    
-
+    void onCursorMove(Point point) override;
 
 private:
     bool handleQuit(int key, int action);
+    void cancelDrag();
+    void updateWindowSize();
+    void updateTitle();
+
     GLFWwindow* window_ = nullptr;
     DiagramStore store_;
     ShaderHandler shader_;
+    bool dragging_ = false;
+    Point dragOffset_{};
+    Point lastCursor_{};
     std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
 };
-
-
