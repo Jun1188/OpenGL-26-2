@@ -11,7 +11,7 @@
 
 namespace {
 
-constexpr const char* WINDOW_TITLE = "OpenGL Practice 7";
+constexpr const char* WINDOW_TITLE = "OpenGL Practice 10";
 
 
 
@@ -100,6 +100,9 @@ int main() {
         return -1;
     }
 
+    // 비율을 유지해 화면에서도 정사각형·정삼각형이 찌그러지지 않게 한다.
+    glfwSetWindowAspectRatio(window, WINDOW_WIDTH, WINDOW_HEIGHT);
+
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
@@ -126,6 +129,7 @@ int main() {
 
     std::unique_ptr<PracticeConsole> console = createConsole(window);
     if (!console->initGraphics(shaderDirectory)) {
+        console->shutdownGraphics();
         glfwDestroyWindow(window);
         glfwTerminate();
         return -1;
