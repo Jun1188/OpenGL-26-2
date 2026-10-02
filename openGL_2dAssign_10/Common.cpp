@@ -117,84 +117,88 @@ void GlColor::setRandom() {
         randomFloat(0.15f, 0.95f));
 }
 
-void VertexBounds::setUnfit() {
-    left = 1.0f;
-    right = -0.7f;
-    bottom = 1.0f;
-    top = -1.0f;
-}
-
-void VertexBounds::setFit() {
-    left = -0.7f;
-    right = -1.0f;
-    bottom = 1.0f;
-    top = -1.0f;
+int randomInt(int minimum, int maximum) {
+    std::uniform_int_distribution<int> distribution(minimum, maximum);
+    return distribution(randomEngine);
 }
 
 DiagCaseTable makeDCT() {
-    size_t diagCnt = MAX_DIAGRAMS;
     DiagCaseTable dct;
-    std::random_device rd;
-    std::default_random_engine dre{ rd() };
-    std::uniform_int_distribution<int> uid{ 1, diagCnt - 4 };
-    dct.NumOfEqual = uid(dre);
-    diagCnt -= dct.NumOfEqual;
-    if (diagCnt <= 4) {
-        dct.NumOfRight = 1;
-        dct.NumOfSpot = 1;
-        dct.NumOfRect = 1;
-        dct.NumOfLine = 1;
-        return dct;
-    }
-    uid.param(std::uniform_int_distribution<int>::param_type(uid.min(), diagCnt - 3));
-    dct.NumOfRight = uid(dre);
-    diagCnt -= dct.NumOfRight;
-    if (diagCnt <= 3) {
-        dct.NumOfSpot = 1;
-        dct.NumOfRect = 1;
-        dct.NumOfLine = 1;
-        return dct;
-    }
-    uid.param(std::uniform_int_distribution<int>::param_type(uid.min(), diagCnt - 2));
-    dct.NumOfSpot = uid(dre);
-    diagCnt -= dct.NumOfSpot;
-    if (diagCnt <= 2) {
-        dct.NumOfRect = 1;
-        dct.NumOfLine = 1;
-        return dct;
-    }
-    uid.param(std::uniform_int_distribution<int>::param_type(uid.min(), diagCnt - 1));
-    dct.NumOfRect = uid(dre);
-    diagCnt -= dct.NumOfRect;
-    if (diagCnt <= 1) {
-        dct.NumOfLine = 1;
-        return dct;
-    }
-    uid.param(std::uniform_int_distribution<int>::param_type(uid.min(), diagCnt - 1));
-    dct.NumOfLine = uid(dre);
-    diagCnt -= dct.NumOfLine;
+    dct.rectRows = randomInt(2, 3);
+    dct.rectColumns = randomInt(2, 3);
+    dct.NumOfEqual = 6; // 바람개비 4개 + 집 지붕 + 화살표 머리.
+    dct.NumOfRight = 2;
+    dct.NumOfRect = static_cast<std::size_t>(dct.rectRows * dct.rectColumns) + 2;
     return dct;
 }
 
-
-
-
 Diagram::Diagram(GLShape shape, const std::vector<Point>& localVertices,
                  GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
-    : glshape_(shape), localVertices_(localVertices), color_(color),
-    pivot_(pivot), localPivot_(localPivot), bounds{bounds} {
+    : glshape_(shape), bounds_(bounds), localVertices_(localVertices),
+      color_(color), pivot_(pivot), localPivot_(localPivot) {
 }
 
 Diagram::Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
-    GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
-    : glshape_(GLShape::Triangle), localVertices_(localVertices), color_(color),
-    pivot_(pivot), localPivot_(localPivot), bounds{ bounds }, tricase{tc} {
+                 GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
+    : glshape_(GLShape::Triangle), tricase_(tc), bounds_(bounds),
+      localVertices_(localVertices), color_(color), pivot_(pivot), localPivot_(localPivot) {
 }
 
+Diagram Diagram::makeUnfitCopy() const {
+    Diagram source = *this;
+    source.bounds_ = BoundsCase::Unfit;
+    source.pivot_ = {};
+    source.matched_ = false;
+    return source;
+}
 
+void Diagram::setIdentity(std::size_t pairId, std::size_t boardId) {
+    id_ = pairId;
+    boardId_ = boardId;
+}
 
+void Diagram::markMatched(GlColor color) {
+    if (bounds_ == BoundsCase::Fit) {
+        matched_ = true;
+        color_ = color; // 다른 ID도 허용하므로 놓은 조각의 색을 사용한다.
+        direction_ = {};
+        speed_ = 0.0f;
+    }
+}
+
+float Diagram::getDistanceByPivot(const Point& pivot) const {
+    const float dx = pivot.x - pivot_.x;
+    const float dy = pivot.y - pivot_.y;
+    return std::sqrt(dx * dx + dy * dy);
+}
+
+bool Diagram::hasSameShape(const Diagram& other) const {
+    constexpr float EPSILON = 0.0001f;
+    if (glshape_ != other.glshape_ || tricase_ != other.tricase_
+        || localVertices_.size() != other.localVertices_.size()
+        || std::abs(scale_.x - other.scale_.x) > EPSILON
+        || std::abs(scale_.y - other.scale_.y) > EPSILON
+        || std::abs(std::remainder(rotationDegrees_ - other.rotationDegrees_, 360.0f))
+           > EPSILON) {
+        return false;
+    }
+    // 월드 위치, ID, 색은 제외한다. 로컬 중심을 뺀 형상을 비교한다.
+    for (std::size_t i = 0; i < localVertices_.size(); ++i) {
+        const float dx = (localVertices_[i].x - localPivot_.x)
+                       - (other.localVertices_[i].x - other.localPivot_.x);
+        const float dy = (localVertices_[i].y - localPivot_.y)
+                       - (other.localVertices_[i].y - other.localPivot_.y);
+        if (std::abs(dx) > EPSILON || std::abs(dy) > EPSILON) {
+            return false;
+        }
+    }
+    return true;
+}
 
 bool Diagram::canTranslate(Point direction) const {
+    if (!isMovable()) {
+        return false;
+    }
     Diagram candidate = *this;
     candidate.pivot_.x += direction.x;
     candidate.pivot_.y += direction.y;
@@ -219,6 +223,9 @@ void Diagram::setDirection(Point direction, float speed) {
 }
 
 bool Diagram::setScale(Point scale) {
+    if (matched_) {
+        return false;
+    }
     Diagram candidate = *this;
     candidate.scale_ = scale;
     if (!candidate.fitsNdc()) {
@@ -229,6 +236,9 @@ bool Diagram::setScale(Point scale) {
 }
 
 bool Diagram::setRotation(float degrees) {
+    if (matched_) {
+        return false;
+    }
     Diagram candidate = *this;
     candidate.rotationDegrees_ = degrees;
     if (!candidate.fitsNdc()) {
@@ -241,6 +251,9 @@ bool Diagram::setRotation(float degrees) {
 
 
 bool Diagram::setPose(Point pivot, float rotationDegrees) {
+    if (matched_) {
+        return false;
+    }
     Diagram candidate = *this;
     candidate.pivot_ = pivot;
     candidate.rotationDegrees_ = rotationDegrees;
@@ -254,7 +267,7 @@ bool Diagram::setPose(Point pivot, float rotationDegrees) {
 }
 
 bool Diagram::advance(float deltaTime) {
-    if (deltaTime <= 0.0f || speed_ == 0.0f
+    if (!isMovable() || deltaTime <= 0.0f || speed_ == 0.0f
         || (direction_.x == 0.0f && direction_.y == 0.0f)) {
         return false;
     }
@@ -269,9 +282,11 @@ std::vector<Point> Diagram::worldVertices() const {
 std::vector<Point> Diagram::worldVerticesAt(//model space -> TRS -> world space
     Point pivot, float rotationDegrees
 ) const {
-    // Local point -> pivot-relative Scale -> Rotate -> world Translation.
+    // 로컬 중심 빼기 -> 크기 -> 회전 -> 화면 비율 보정 -> 월드 이동.
     glm::mat4 model(1.0f);
     model = glm::translate(model, glm::vec3(pivot.x, pivot.y, 0.0f));
+    // 화면 가로·세로 비율을 보정한다. 회전한 로컬 형상을 NDC로 옮긴다.
+    model = glm::scale(model, glm::vec3(LOCAL_TO_NDC_X, 1.0f, 1.0f));
     model = glm::rotate(model, glm::radians(rotationDegrees),
                         glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, glm::vec3(scale_.x, scale_.y, 1.0f));
