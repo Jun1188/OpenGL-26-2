@@ -396,6 +396,54 @@ void DiagramStore::setWindowSize(int width, int height) {
     }
 }
 
+int DiagramStore::findClosestSameShape_IndexAtCloseAndFit(const Diagram& diagram) const {
+    if (!diagram.isMovable()) {
+        return -1;
+    }
+    float bestSquared = SNAP_DISTANCE_PIXELS * SNAP_DISTANCE_PIXELS;
+    int bestIndex = -1;
+    for (std::size_t i = 0; i < diagrams_.size(); ++i) {
+        const Diagram& target = diagrams_[i];
+        if (target.getBoundCase() != BoundsCase::Fit || target.isMatched()
+            || !diagram.hasSameShape(target)) {
+            continue;
+        }
+        const float dx = (diagram.getPivot().x - target.getPivot().x) * windowWidth_ / 2.0f;
+        const float dy = (diagram.getPivot().y - target.getPivot().y) * windowHeight_ / 2.0f;
+        const float squared = dx * dx + dy * dy;
+        if (squared <= bestSquared && (bestIndex < 0 || squared < bestSquared)) {
+            bestSquared = squared;
+            bestIndex = static_cast<int>(i);
+        }
+    }
+    return bestIndex;
+}
+
+bool DiagramStore::mergeSelectedDiagram() {
+    if (!getSelectedPivot()) {
+        return false;
+    }
+    const std::size_t sourceIndex = *selectedIndex_;
+    const int found = findClosestSameShape_IndexAtCloseAndFit(diagrams_[sourceIndex]);
+    if (found < 0) {
+        return false;
+    }
+    const std::size_t targetIndex = static_cast<std::size_t>(found);
+    const std::size_t boardId = diagrams_[targetIndex].getBoardId();
+    if (boardId >= boards_.size()) {
+        return false;
+    }
+    // 삭제 전에 목표와 모양판을 갱신한다. 삭제 후 참조·인덱스를 재사용하지 않는다.
+    diagrams_[targetIndex].markMatched(diagrams_[sourceIndex].getColor());
+    ShapeBoard& board = boards_[boardId];
+    ++board.matchedSlots;
+    board.completed = board.matchedSlots == board.totalSlots;
+    diagrams_.erase(diagrams_.begin() + static_cast<std::ptrdiff_t>(sourceIndex));
+    selectedIndex_.reset();
+    ++revision_;
+    return true;
+}
+
 std::size_t DiagramStore::getCompletedBoardCount() const {
     std::size_t count = 0;
     for (const ShapeBoard& board : boards_) {
