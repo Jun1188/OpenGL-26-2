@@ -56,14 +56,11 @@ std::size_t requiredVertices(GLShape shape) {
     return 0;
 }
 
-GLenum drawMode(GLShape shape) {
-    switch (shape) {
-    case GLShape::Spot: return GL_TRIANGLES;
-    case GLShape::Line: return GL_LINES;
-    case GLShape::Triangle: return GL_TRIANGLES;
-    case GLShape::Rect: return GL_TRIANGLES;
+GLenum drawMode(const Diagram& diagram) {
+    if (diagram.getShape() == GLShape::Line) {
+        return GL_LINES;
     }
-    return GL_TRIANGLES;
+    return diagram.isOutline() ? GL_LINE_LOOP : GL_TRIANGLES;
 }
 
 float cross(Point a, Point b, Point c) {
@@ -395,7 +392,7 @@ bool ShaderHandler::initShader(const std::filesystem::path& vertexPath,
     useOverrideLocation_ = glGetUniformLocation(shaderProgramID_, "uUseOverrideColor");
     overrideColorLocation_ = glGetUniformLocation(shaderProgramID_, "uOverrideColor");
     if (useOverrideLocation_ < 0 || overrideColorLocation_ < 0) {
-        std::cerr << "Path position or selection color uniforms are missing.\n";
+        std::cerr << "Selection color uniforms are missing.\n";
         destroy();
         return false;
     }
@@ -410,7 +407,7 @@ bool ShaderHandler::initBuffer() {
     const GLint colorLocation = glGetAttribLocation(shaderProgramID_, "vColor");
 
     if (positionLocation < 0 || colorLocation < 0) {
-        std::cerr << "Shader attributes vPos, vColor, or vPathPos are missing.\n";
+        std::cerr << "Shader attributes vPos or vColor are missing.\n";
         return false;
     }
 
@@ -447,9 +444,6 @@ bool ShaderHandler::initBuffer() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),
                  indices, GL_STATIC_DRAW);
     glBindVertexArray(0); // The EBO binding remains part of this VAO.
-
-    
-    glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     return vao_ != 0 && vbo_[0] != 0 && vbo_[1] != 0 && ebo_ != 0;
 }
@@ -481,12 +475,13 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
     GLint first = 0;
     for (const Diagram& diagram : diagrams) {
         const std::vector<Point> world = diagram.worldVertices();
-        const GlColor& color = diagram.getColor();
+        const GlColor color = diagram.isOutline()
+            ? GlColor{ 0.7f, 0.7f, 0.7f } : diagram.getColor();
         for (const Point& point : world) {
             positions.insert(positions.end(), { point.x, point.y, 0.0f });
             colors.insert(colors.end(), { color.red, color.green, color.blue });
         }
-        ranges.push_back({ drawMode(diagram.getShape()), first,
+        ranges.push_back({ drawMode(diagram), first,
                            static_cast<GLsizei>(world.size()) });
         first += static_cast<GLint>(world.size());
 
@@ -522,9 +517,7 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
 
 void ShaderHandler::render() const {
     glUseProgram(shaderProgramID_);
-    
-    glUniform1i(useOverrideLocation_, GL_TRUE);
-    glUniform3f(overrideColorLocation_, 0.7f, 0.7f, 0.7f);
+
 
     glBindVertexArray(vao_);
     glUniform1i(useOverrideLocation_, GL_FALSE);
@@ -533,7 +526,9 @@ void ShaderHandler::render() const {
     for (const DrawRange& range : drawRanges_) {
         std::size_t firstIndex = LINE_FIRST;
         GLsizei indexCount = range.count;
-        if (range.mode == GL_TRIANGLES) {
+        if (range.mode == GL_LINE_LOOP) {
+            firstIndex = range.count == 4 ? QUAD_OUTLINE_FIRST : TRIANGLE_OUTLINE_FIRST;
+        } else if (range.mode == GL_TRIANGLES) {
             if (range.count == 4) {
                 firstIndex = QUAD_FILL_FIRST;
                 indexCount = 6;
