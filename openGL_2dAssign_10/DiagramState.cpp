@@ -122,7 +122,7 @@ Diagram DiagramStore::makeDiagram(GLShape shape, TriangleCase case_) {// 수정�
     const float half = randomFloat(0.08f, 0.17f);
 
     std::vector<Point> triPoint;
-    triPoint.reserve(sizeof(Point) * 3);
+    triPoint.reserve(3);
     triPoint = setRandomTriPointByCase(case_);
     
 
@@ -131,11 +131,11 @@ Diagram DiagramStore::makeDiagram(GLShape shape, TriangleCase case_) {// 수정�
         return Diagram(shape, std::vector<Point>{
             { -0.02f, -0.02f }, { 0.02f, -0.02f },
             { -0.02f, 0.02f }, { 0.02f, 0.02f }
-        }, color, pivot);
+        }, color, pivot, {}, BoundsCase::Unfit);
     case GLShape::Line:
         return Diagram(shape, std::vector<Point>{
             { -half, 0.0f }, { half, 0.0f }
-        }, color, pivot);
+        }, color, pivot, {}, BoundsCase::Unfit);
     case GLShape::Triangle:
         Point triPivot{};
         for (Point p : triPoint) {
@@ -144,17 +144,17 @@ Diagram DiagramStore::makeDiagram(GLShape shape, TriangleCase case_) {// 수정�
         }
         triPivot.x /= 3.0f;
         triPivot.y /= 3.0f;
-        return Diagram(shape, triPoint, color, triPivot);
+        return Diagram(case_, triPoint, color, pivot, triPivot, BoundsCase::Unfit);
 
     case GLShape::Rect:
         return Diagram(shape, std::vector<Point>{
             { -half, -half }, { half, -half },
             { -half, half }, { half, half }
-        }, color, pivot);
+        }, color, pivot, {}, BoundsCase::Unfit);
     }
     return Diagram(GLShape::Triangle, std::vector<Point>{
         { -half, -half }, { half, -half }, { 0.0f, half }
-    }, color, pivot);
+    }, color, pivot, {}, BoundsCase::Unfit);
 }
  // namespace
 

@@ -23,7 +23,7 @@ public:
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window, DiagCaseTable dct);
+    explicit PracticeConsole(GLFWwindow* window);
     bool initGraphics(const std::filesystem::path& shaderDirectory);
     void shutdownGraphics();
     bool render() override;

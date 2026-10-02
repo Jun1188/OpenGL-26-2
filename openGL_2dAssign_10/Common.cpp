@@ -179,13 +179,13 @@ DiagCaseTable makeDCT() {
 
 
 
-explicit Diagram::Diagram(GLShape shape, const std::vector<Point>& localVertices,
+Diagram::Diagram(GLShape shape, const std::vector<Point>& localVertices,
                  GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
     : glshape_(shape), localVertices_(localVertices), color_(color),
     pivot_(pivot), localPivot_(localPivot), bounds{bounds} {
 }
 
-explicit Diagram::Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
+Diagram::Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
     GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
     : glshape_(GLShape::Triangle), localVertices_(localVertices), color_(color),
     pivot_(pivot), localPivot_(localPivot), bounds{ bounds }, tricase{tc} {

@@ -76,10 +76,10 @@ DiagCaseTable makeDCT();
 
 class Diagram {
 public:
-    Diagram(GLShape shape, const std::vector<Point>& localVertices,
-            GlColor color, Point pivot, Point localPivot = {}, BoundsCase bounds);
-    Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
-        GlColor color, Point pivot, Point localPivot = {}, BoundsCase bounds);
+    explicit Diagram(GLShape shape, const std::vector<Point>& localVertices,
+            GlColor color, Point pivot, Point localPivot, BoundsCase bounds);
+    explicit Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
+        GlColor color, Point pivot, Point localPivot, BoundsCase bounds);
 
 
 

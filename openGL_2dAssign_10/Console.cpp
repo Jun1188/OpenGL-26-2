@@ -11,7 +11,7 @@ constexpr float DIAGONAL_STEP = 0.02828427f; // MOVE_STEP / sqrt(2)
 
 
 
-explicit PracticeConsole::PracticeConsole(GLFWwindow* window, DiagCaseTable dct) : window_(window), store_{dct} {
+PracticeConsole::PracticeConsole(GLFWwindow* window) : window_(window) {
     
     //store_.resetAtRandom 호출
    
