@@ -1,4 +1,7 @@
-﻿#include <glew.h> // GLEW must be included before GLFW.
+﻿#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <glew.h> // GLEW must be included before GLFW.
 #include <glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -7,6 +10,9 @@
 #include "Mesh.h"
 
 #include <cstddef>
+#include <algorithm>
+#include <cmath>
+#include <limits>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -26,6 +32,72 @@ constexpr char kVertexShaderPath[] = "shaders/basic.vert";
 constexpr char kFragmentShaderPath[] = "shaders/basic.frag";
 constexpr char kMeshPath[] = "data/cube.txt";
 
+struct RenderVertex {
+    glm::vec3 position;
+    glm::vec3 normal;
+};
+
+struct Bounds {
+    glm::vec3 minimum{std::numeric_limits<float>::max()};
+    glm::vec3 maximum{std::numeric_limits<float>::lowest()};
+};
+
+struct Camera {
+    glm::vec3 position{0.0f, 0.0f, 2.5f};
+    glm::vec3 forward{0.0f, 0.0f, -1.0f};
+    glm::vec3 up{0.0f, 1.0f, 0.0f};
+    float speed = 2.0f;
+    float radius = 0.15f;
+};
+
+Bounds transformBounds(const Bounds& local, const glm::mat4& model) {
+    Bounds world;
+    // Transform all eight corners to enclose the rotated object in world space.
+    for (int corner = 0; corner < 8; ++corner) {
+        const glm::vec3 point(
+            corner & 1 ? local.maximum.x : local.minimum.x,
+            corner & 2 ? local.maximum.y : local.minimum.y,
+            corner & 4 ? local.maximum.z : local.minimum.z);
+        const glm::vec3 transformed = glm::vec3(model * glm::vec4(point, 1.0f));
+        world.minimum = glm::min(world.minimum, transformed);
+        world.maximum = glm::max(world.maximum, transformed);
+    }
+    return world;
+}
+
+bool intersectsObject(const glm::vec3& position, float radius, const Bounds& bounds) {
+    const glm::vec3 closest = glm::clamp(position, bounds.minimum, bounds.maximum);
+    const glm::vec3 difference = position - closest;
+    return glm::dot(difference, difference) <= radius * radius;
+}
+
+void updateCamera(GLFWwindow* window, Camera& camera, const Bounds& bounds, float deltaTime) {
+    if (glfwGetWindowAttrib(window, GLFW_FOCUSED) != GLFW_TRUE) {
+        return;
+    }
+    const glm::vec3 right = glm::normalize(glm::cross(camera.forward, camera.up));
+    glm::vec3 direction(0.0f);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) direction += camera.forward;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) direction -= camera.forward;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) direction -= right;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) direction += right;
+    if (glm::dot(direction, direction) == 0.0f) {
+        return;
+    }
+    const glm::vec3 movement = glm::normalize(direction) * camera.speed * deltaTime;
+    // Small steps prevent a fast camera from jumping across a thin bounding box.
+    const int steps = std::max(1, static_cast<int>(std::ceil(
+        glm::length(movement) / (camera.radius * 0.5f))));
+    const glm::vec3 step = movement / static_cast<float>(steps);
+    for (int i = 0; i < steps; ++i) {
+        const glm::vec3 candidate = camera.position + step;
+        if (intersectsObject(candidate, camera.radius, bounds)) {
+            break;
+        }
+        camera.position = candidate;
+    }
+}
+
 void glfwErrorCallback(int errorCode, const char* description) {
     std::cerr << "[GLFW 오류 " << errorCode << "] " << description << '\n';
 }
@@ -44,6 +116,13 @@ bool readTextFile(const char* path, std::string& contents) {
     std::ostringstream buffer;
     buffer << file.rdbuf();
     contents = buffer.str();
+    // Files use UTF-8 BOM; GLSL source must start with #version after loading.
+    if (contents.size() >= 3 &&
+        static_cast<unsigned char>(contents[0]) == 0xEF &&
+        static_cast<unsigned char>(contents[1]) == 0xBB &&
+        static_cast<unsigned char>(contents[2]) == 0xBF) {
+        contents.erase(0, 3);
+    }
     return true;
 }
 
@@ -112,7 +191,7 @@ GLuint createShaderProgram(const char* vertexPath, const char* fragmentPath) {
     return 0;
 }
 
-bool loadMeshVertices(const char* path, std::vector<GLfloat>& vertices) {
+bool loadMeshVertices(const char* path, std::vector<RenderVertex>& vertices, Bounds& bounds) {
     std::ifstream input(path);
     if (!input) {
         std::cerr << "[파일 오류] 메시 파일을 열 수 없습니다: " << path << '\n';
@@ -138,31 +217,42 @@ bool loadMeshVertices(const char* path, std::vector<GLfloat>& vertices) {
         return false;
     }
 
-    constexpr std::size_t componentsPerVertex = 5;
     constexpr std::size_t verticesPerFace = 3;
     vertices.clear();
-    vertices.reserve(validated.faces.size() * verticesPerFace * componentsPerVertex);
+    vertices.reserve(validated.faces.size() * verticesPerFace);
+    bounds = Bounds{};
 
     for (const warmup::ResolvedFace& face : validated.faces) {
+        glm::dvec3 positions[3];
+        for (int corner = 0; corner < 3; ++corner) {
+            const warmup::Vertex& p = face.vertices[corner];
+            positions[corner] = glm::dvec3(p.x, p.y, p.z);
+        }
+        // TXT has no normals: derive one normal per triangle from its winding.
+        glm::dvec3 edgeA = positions[1] - positions[0];
+        glm::dvec3 edgeB = positions[2] - positions[0];
+        // Match the validator's support for very small valid triangles:
+        // scale edges before the cross product to avoid double underflow.
+        const glm::dvec3 absoluteA = glm::abs(edgeA);
+        const glm::dvec3 absoluteB = glm::abs(edgeB);
+        edgeA /= std::max({absoluteA.x, absoluteA.y, absoluteA.z});
+        edgeB /= std::max({absoluteB.x, absoluteB.y, absoluteB.z});
+        const glm::dvec3 faceNormal = glm::normalize(glm::cross(edgeA, edgeB));
         for (int corner = 0; corner < warmup::mesh_rules::triangleCorners; ++corner) {
-            const warmup::Vertex& position = face.vertices[corner];
-            vertices.push_back(static_cast<GLfloat>(position.x));
-            vertices.push_back(static_cast<GLfloat>(position.y));
-            vertices.push_back(static_cast<GLfloat>(position.z));
-
-            if (face.hasTextures) {
-                const warmup::Texture& texture = face.textures[corner];
-                vertices.push_back(static_cast<GLfloat>(texture.s));
-                vertices.push_back(static_cast<GLfloat>(texture.t));
-            } else {
-                vertices.push_back(0.0f);
-                vertices.push_back(0.0f);
-            }
+            const glm::vec3 position(positions[corner]);
+            vertices.push_back({position, glm::vec3(faceNormal)});
+            bounds.minimum = glm::min(bounds.minimum, position);
+            bounds.maximum = glm::max(bounds.maximum, position);
         }
     }
 
+    if (vertices.empty()) {
+        std::cerr << "[메시 오류] 렌더링할 삼각형이 없습니다.\n";
+        return false;
+    }
+
     std::cout << "메시 로드 완료: " << validated.faces.size()
-              << "개 삼각형, " << vertices.size() / componentsPerVertex
+              << "개 삼각형, " << vertices.size()
               << "개 렌더링 정점\n";
     return true;
 }
@@ -184,7 +274,7 @@ int main() {
     GLFWwindow* window = glfwCreateWindow(
         kWindowWidth,
         kWindowHeight,
-        "OpenGL 3D Brown Cube - Warm-up 2 Problem 6",
+        "OpenGL Model / View / Projection - Grayscale Lighting",
         nullptr,
         nullptr);
     if (window == nullptr) {
@@ -222,9 +312,10 @@ int main() {
         return -1;
     }
 
-    // Problem 6 mesh data becomes a non-indexed position/UV vertex stream.
-    std::vector<GLfloat> vertices;
-    if (!loadMeshVertices(kMeshPath, vertices)) {
+    // Validated TXT triangles become model-space position/normal data.
+    std::vector<RenderVertex> vertices;
+    Bounds localBounds;
+    if (!loadMeshVertices(kMeshPath, vertices, localBounds)) {
         glDeleteProgram(shaderProgram);
         glfwDestroyWindow(window);
         glfwTerminate();
@@ -240,29 +331,33 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(
         GL_ARRAY_BUFFER,
-        static_cast<GLsizeiptr>(vertices.size() * sizeof(GLfloat)),
+        static_cast<GLsizeiptr>(vertices.size() * sizeof(RenderVertex)),
         vertices.data(),
         GL_STATIC_DRAW);
 
-    constexpr GLsizei stride = 5 * sizeof(GLfloat);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, nullptr);
+    constexpr GLsizei stride = sizeof(RenderVertex);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride,
+        reinterpret_cast<const void*>(offsetof(RenderVertex, position)));
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(
         1,
-        2,
+        3,
         GL_FLOAT,
         GL_FALSE,
         stride,
-        reinterpret_cast<const void*>(3 * sizeof(GLfloat)));
+        reinterpret_cast<const void*>(offsetof(RenderVertex, normal)));
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    const GLint mvpLocation = glGetUniformLocation(shaderProgram, "uMVP");
-    const GLint textureLocation = glGetUniformLocation(shaderProgram, "uTexture");
-    if (mvpLocation == -1 || textureLocation == -1) {
-        std::cerr << "[셰이더 오류] uMVP 또는 uTexture uniform을 찾을 수 없습니다.\n";
+    const GLint modelLocation = glGetUniformLocation(shaderProgram, "uModel");
+    const GLint viewLocation = glGetUniformLocation(shaderProgram, "uView");
+    const GLint projectionLocation = glGetUniformLocation(shaderProgram, "uProjection");
+    const GLint lightLocation = glGetUniformLocation(shaderProgram, "uLightDirection");
+    if (modelLocation == -1 || viewLocation == -1 ||
+        projectionLocation == -1 || lightLocation == -1) {
+        std::cerr << "[셰이더 오류] 변환 또는 조명 uniform을 찾을 수 없습니다.\n";
         glDeleteBuffers(1, &vertexBuffer);
         glDeleteVertexArrays(1, &vertexArray);
         glDeleteProgram(shaderProgram);
@@ -271,80 +366,82 @@ int main() {
         return -1;
     }
 
-    constexpr GLubyte brownPixel[] = {139, 90, 43, 255};
-    GLuint brownTexture = 0;
-    glGenTextures(1, &brownTexture);
-    glBindTexture(GL_TEXTURE_2D, brownTexture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        GL_RGBA8,
-        1,
-        1,
-        0,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        brownPixel);
-
-    glUseProgram(shaderProgram);
-    glUniform1i(textureLocation, 0);
-    glUseProgram(0);
-
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_STENCIL_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
     std::cout << "OpenGL " << glGetString(GL_VERSION) << '\n'
+              << "W/S: 전진/후진, A/D: 좌우 이동 (시선 방향 고정)\n"
+              << "카메라 구와 오브젝트 AABB 충돌 시 이동 또는 회전을 멈춥니다.\n"
               << "Esc 키를 누르거나 창을 닫으면 종료됩니다.\n";
 
+    Camera camera;
+    double previousTime = glfwGetTime();
+    float modelAngle = 0.0f;
+    glm::mat4 model(1.0f);
+    Bounds worldBounds = transformBounds(localBounds, model);
+    const glm::vec3 lightDirection = glm::normalize(glm::vec3(-0.5f, -1.0f, -0.3f));
+
     while (glfwWindowShouldClose(window) == GLFW_FALSE) {
+        glfwPollEvents();
+        const double currentTime = glfwGetTime();
+        const float deltaTime = static_cast<float>(std::clamp(
+            currentTime - previousTime, 0.0, 0.05));
+        previousTime = currentTime;
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
         }
+        if (glfwWindowShouldClose(window) == GLFW_TRUE) break;
 
         glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
-        const float aspect = framebufferHeight > 0
-            ? static_cast<float>(framebufferWidth) / static_cast<float>(framebufferHeight)
-            : 1.0f;
+        if (framebufferWidth <= 0 || framebufferHeight <= 0) {
+            glfwWaitEventsTimeout(0.05);
+            previousTime = glfwGetTime();
+            continue;
+        }
+        const float aspect = static_cast<float>(framebufferWidth) / framebufferHeight;
 
-        const glm::mat4 model = glm::rotate(
+        updateCamera(window, camera, worldBounds, deltaTime);
+        const float candidateAngle = std::fmod(
+            modelAngle + deltaTime * glm::radians(35.0f), glm::radians(360.0f));
+        const glm::mat4 candidateModel = glm::rotate(
             glm::mat4(1.0f),
-            static_cast<float>(glfwGetTime()) * glm::radians(35.0f),
+            candidateAngle,
             glm::normalize(glm::vec3(0.6f, 1.0f, 0.2f)));
+        const Bounds candidateBounds = transformBounds(localBounds, candidateModel);
+        // Keep the rendered transform and collision bounds synchronized.
+        if (!intersectsObject(camera.position, camera.radius, candidateBounds)) {
+            modelAngle = candidateAngle;
+            model = candidateModel;
+            worldBounds = candidateBounds;
+        }
         const glm::mat4 view = glm::lookAt(
-            glm::vec3(0.0f, 0.0f, 2.5f),
-            glm::vec3(0.0f),
-            glm::vec3(0.0f, 1.0f, 0.0f));
+            camera.position, camera.position + camera.forward, camera.up);
         const glm::mat4 projection = glm::perspective(
             glm::radians(45.0f), aspect, 0.1f, 100.0f);
-        const glm::mat4 mvp = projection * view * model;
 
-        glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        glClearColor(0.08f, 0.08f, 0.08f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
-        glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(mvp));
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, brownTexture);
+        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform3fv(lightLocation, 1, glm::value_ptr(lightDirection));
         glBindVertexArray(vertexArray);
+        // GLSL outputs clip coordinates. OpenGL clips, divides by w,
+        // maps NDC to the viewport, and rasterizes triangles into fragments.
         glDrawArrays(
             GL_TRIANGLES,
             0,
-            static_cast<GLsizei>(vertices.size() / 5));
+            static_cast<GLsizei>(vertices.size()));
 
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
     glBindVertexArray(0);
     glUseProgram(0);
-    glDeleteTextures(1, &brownTexture);
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteVertexArrays(1, &vertexArray);
     glDeleteProgram(shaderProgram);
