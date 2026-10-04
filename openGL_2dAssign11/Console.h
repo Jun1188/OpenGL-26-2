@@ -36,6 +36,7 @@ public:
     void moveByStep();
     void advanceEffects();
     float getStepDuration() const;
+    void changeSpeed(float factor);
     std::vector<Diagram> getRenderItems() const;
     std::uint64_t getRevision() const { return revision_; }
 
@@ -51,6 +52,7 @@ private:
     const float squareX, squareY;
     float speedVertical = 5.0f;   // Cells per second.
     float speedHorizontal = 8.0f;
+    float speedMultiplier_ = 1.0f;
     std::size_t selectedIndex_ = 0;
     bool movingRight_ = true;
     DiagramStore store_;

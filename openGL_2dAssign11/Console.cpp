@@ -119,3 +119,67 @@ std::vector<Diagram> Grid::getRenderItems() const {
     items.push_back(diagrams[selectedIndex_]); // Last item is the active hero.
     return items;
 }
+
+bool Grid::getIsEndPos() const {
+    if (cells_.empty()) return true;
+    const Cell cell = cells_[selectedIndex_];
+    const std::size_t lastX = gridY % 2 == 0 ? 0 : gridX - 1;
+    return cell.y == gridY - 1 && cell.x == lastX;
+}
+
+bool Grid::moveTo(Cell cell, std::size_t idx) {
+    if (idx >= cells_.size() || cell.x >= gridX || cell.y >= gridY) return false;
+    Diagram moved = store_.getItems()[idx];
+    if (!moved.setPose(cellCenter(cell), 0.0f) || !store_.replaceAt(idx, moved)) return false;
+    cells_[idx] = cell;
+    ++revision_;
+    return true;
+}
+
+bool Grid::moveUp(std::size_t step, std::size_t idx) {
+    if (idx >= cells_.size() || step > cells_[idx].y) return false;
+    return moveTo({ cells_[idx].x, cells_[idx].y - step }, idx);
+}
+
+bool Grid::moveDown(std::size_t step, std::size_t idx) {
+    if (idx >= cells_.size() || step > gridY - 1 - cells_[idx].y) return false;
+    return moveTo({ cells_[idx].x, cells_[idx].y + step }, idx);
+}
+
+bool Grid::moveLeft(std::size_t step, std::size_t idx) {
+    if (idx >= cells_.size() || step > cells_[idx].x) return false;
+    return moveTo({ cells_[idx].x - step, cells_[idx].y }, idx);
+}
+
+bool Grid::moveRight(std::size_t step, std::size_t idx) {
+    if (idx >= cells_.size() || step > gridX - 1 - cells_[idx].x) return false;
+    return moveTo({ cells_[idx].x + step, cells_[idx].y }, idx);
+}
+
+void Grid::moveByStep() {
+    if (getIsEndPos()) return;
+    const Cell cell = cells_[selectedIndex_];
+    bool moved = false;
+    if (movingRight_ && cell.x < gridX - 1) {
+        moved = moveRight(1, selectedIndex_);
+    } else if (!movingRight_ && cell.x > 0) {
+        moved = moveLeft(1, selectedIndex_);
+    } else {
+        moved = moveDown(1, selectedIndex_);
+        if (moved) movingRight_ = !movingRight_;
+    }
+    if (moved) moveSelectedTo();
+}
+
+float Grid::getStepDuration() const {
+    if (cells_.empty()) return 1.0f;
+    const Cell cell = cells_[selectedIndex_];
+    const bool nextIsVertical = movingRight_ ? cell.x == gridX - 1 : cell.x == 0;
+    const float speed = nextIsVertical ? speedVertical : speedHorizontal;
+    return 1.0f / (speed * speedMultiplier_);
+}
+
+void Grid::changeSpeed(float factor) {
+    if (!std::isfinite(factor) || factor <= 0.0f) return;
+    speedMultiplier_ = std::clamp(speedMultiplier_ * factor, 0.25f, 4.0f);
+}
