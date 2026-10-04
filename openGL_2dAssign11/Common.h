@@ -10,7 +10,7 @@
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
-constexpr std::size_t MAX_DIAGRAMS = 50;
+constexpr std::size_t MAX_DIAGRAMS = 100;
 
 struct Point {
     float x = 0.0f;
@@ -29,8 +29,8 @@ struct GlColor {
 enum class GLShape { Spot, Line, Triangle, Rect };
 
 
-constexpr float boardTop = -1.0f;
-constexpr float boardBottom = 1.0f;
+constexpr float boardTop = 1.0f;
+constexpr float boardBottom = -1.0f;
 constexpr float boardLeft = -1.0f;
 constexpr float boardRight = 1.0f;
 
@@ -44,7 +44,6 @@ public:
     const GlColor& getColor() const { return color_; }
     std::size_t getVertexCount() const { return localVertices_.size(); }
     Point getPivot() const { return pivot_; }
-    const std::vector<Point>& getOldPivots() const { return oldPivots; };
     Point getScale() const { return scale_; }
 
     bool canTranslate(Point direction) const;
@@ -54,7 +53,11 @@ public:
     bool setRotation(float degrees);
     bool setPose(Point pivot, float rotationDegrees);
     bool advance(float deltaTime);
-    void saveOldPivots();
+    bool isFilled() const { return filled_; }
+    void setFilled(bool filled) { filled_ = filled; }
+    void setColor(GlColor color) { color_ = color; }
+    // Visual effects may expand beyond the board; the GPU clips them.
+    bool setEffectScale(Point scale);
     std::vector<Point> worldVertices() const;
     std::vector<Point> worldVerticesAt(Point pivot, float rotationDegrees) const;
     bool fitsNdc() const;
@@ -66,7 +69,7 @@ private:
     GlColor color_;
     Point pivot_;       // World position. Translation and direction move this point.
     Point localPivot_;  // Rotation and scale center in local coordinates.
-    std::vector<Point> oldPivots;
+    bool filled_ = true;
     Point scale_{ 1.0f, 1.0f };
     float rotationDegrees_ = 0.0f;
     Point direction_{};
@@ -100,21 +103,12 @@ private:
         GLint first = 0;
         GLsizei count = 0;
     };
-
-    static constexpr std::size_t MAX_VERTICES = MAX_DIAGRAMS * 4;
     GLuint shaderProgramID_ = 0;
     GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 }; // Position and color streams.
-    GLuint pathVao_ = 0;
-    GLuint pathVbo_ = 0;
-    GLsizeiptr pathBufferBytes_ = 0;
-    GLuint ebo_ = 0;          // Shared outline and fill indices for all shapes.
-    GLint usePathPositionLocation_ = -1;
+    GLuint vbo_[2] = { 0, 0 };
+    GLuint ebo_ = 0;
     GLint useOverrideLocation_ = -1;
     GLint overrideColorLocation_ = -1;
     std::vector<DrawRange> drawRanges_;
-    std::vector<DrawRange> pathRanges_;
     std::optional<std::size_t> selectedIndex_;
-    GLsizei selectedOutlineCount_ = 0;
-    GLenum selectedOutlineMode_ = GL_LINE_LOOP;
 };
