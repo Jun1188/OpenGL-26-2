@@ -197,8 +197,7 @@ void Grid::moveSelectedTo() {
         if (i == selectedIndex_ || cells_[i].x != hero.x || cells_[i].y != hero.y) continue;
         // Keep the old hero here as an obstacle. Choose the struck diagram as the
         // new hero. Shape, color, size, and outline state stay with each Diagram.
-        effects_.push_back(effectBy(diagrams[selectedIndex_]));
-        effectSteps_.push_back(0);
+        // Queue one effect for the future hero before changing the active index.
         effects_.push_back(effectBy(diagrams[i]));
         effectSteps_.push_back(0);
         selectedIndex_ = i;
