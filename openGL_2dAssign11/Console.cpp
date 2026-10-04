@@ -5,452 +5,117 @@
 
 #include <algorithm>
 #include <cmath>
-#include <optional>
-#include <vector>
+#include <limits>
+#include <stdexcept>
 
 namespace {
 
-constexpr float MOVE_STEP = 0.04f;
-constexpr float DIAGONAL_STEP = 0.02828427f; // MOVE_STEP / sqrt(2)
-constexpr float PI = 3.14159265358979323846f;
-constexpr float INNER_BOUND = 0.999f;
-
-struct VertexBounds {
-    float left = 1.0f;
-    float right = -1.0f;
-    float bottom = 1.0f;
-    float top = -1.0f;
-};
-
-VertexBounds boundsAt(const Diagram& diagram, Point pivot, float degrees) {
-    VertexBounds bounds;
-    for (Point vertex : diagram.worldVerticesAt(pivot, degrees)) {
-        bounds.left = std::min(bounds.left, vertex.x);
-        bounds.right = std::max(bounds.right, vertex.x);
-        bounds.bottom = std::min(bounds.bottom, vertex.y);
-        bounds.top = std::max(bounds.top, vertex.y);
+std::size_t checkedDimension(std::size_t value) {
+    if (value == 0 || value > static_cast<std::size_t>(std::numeric_limits<int>::max() / 8)) {
+        throw std::invalid_argument("Grid dimensions must be positive and fit the renderer.");
     }
-    return bounds;
+    return value;
 }
 
-Point clampPivot(const Diagram& diagram, Point pivot, float degrees) {
-    const VertexBounds bounds = boundsAt(diagram, pivot, degrees);
-    if (bounds.left < -INNER_BOUND) {
-        pivot.x += -INNER_BOUND - bounds.left;
-    }
-    else if (bounds.right > INNER_BOUND) {
-        pivot.x += INNER_BOUND - bounds.right;
-    }
-    if (bounds.bottom < -INNER_BOUND) {
-        pivot.y += -INNER_BOUND - bounds.bottom;
-    }
-    else if (bounds.top > INNER_BOUND) {
-        pivot.y += INNER_BOUND - bounds.top;
-    }
-    return pivot;
-}
-
-float headingDegrees(Point velocity) {
-    // The local triangle tip points upward before rotation.
-    return std::atan2(-velocity.x, velocity.y) * 180.0f / PI;
-}
-
-int practice8Quadrant(Point point) {
-    if (point.x > 0.0f && point.y > 0.0f) return 0;
-    if (point.x < 0.0f && point.y > 0.0f) return 1;
-    if (point.x < 0.0f && point.y < 0.0f) return 2;
-    if (point.x > 0.0f && point.y < 0.0f) return 3;
-    return -1;
-}
-
-float practice8MaxHalf(Point center) {
-    const float horizontalMargin =
-        std::min(std::abs(center.x), 1.0f - std::abs(center.x));
-    const float verticalMargin =
-        std::min(std::abs(center.y), 1.0f - std::abs(center.y));
-    return std::min(0.20f,
-        0.8f * std::min(horizontalMargin, verticalMargin));
-}
-
-bool practice8FitsBounds(const Diagram& triangle, int quadrant) {
-    if (!triangle.fitsNdc()) {
-        return false;
-    }
-    for (Point vertex : triangle.worldVertices()) {
-        if (practice8Quadrant(vertex) != quadrant) {
-            return false;
-        }
-    }
-    return true;
-}
-
-Point randomPractice8Center(int quadrant, std::optional<Point> previous) {
-    const float x = randomFloat(0.22f, 0.78f);
-    const float y = randomFloat(0.22f, 0.78f);
-    Point center;
-    switch (quadrant) {
-    case 0: center = { x, y }; break;
-    case 1: center = { -x, y }; break;
-    case 2: center = { -x, -y }; break;
-    default: center = { x, -y }; break;
-    }
-
-    if (previous
-        && std::abs(center.x - previous->x)
-         + std::abs(center.y - previous->y) < 0.05f) {
-        const float newX = std::abs(previous->x) < 0.5f ? 0.78f : 0.22f;
-        center.x = quadrant == 0 || quadrant == 3 ? newX : -newX;
-    }
-    return center;
-}
-
-std::optional<Diagram> makePractice8Triangle(Point center) {
-    const int quadrant = practice8Quadrant(center);
-    const float maximum = practice8MaxHalf(center);
-    if (quadrant < 0 || maximum <= 0.0f) {
-        return std::nullopt;
-    }
-
-    GlColor color;
-    color.setRandom();
-    Diagram triangle(
-        GLShape::Triangle,
-        std::vector<Point>{ { -1.0f, -1.0f },
-                            {  1.0f, -1.0f },
-                            {  0.0f,  1.0f } },
-        color, center, Point{ 0.0f, 0.0f }
-    );
-    const float minimum = std::min(0.04f, maximum * 0.5f);
-    const float half = randomFloat(minimum, maximum);
-    if (!triangle.setScale({ half, half })
-        || !practice8FitsBounds(triangle, quadrant)) {
-        return std::nullopt;
-    }
-    return triangle;
-}
-
-std::optional<Diagram> makePractice9Triangle(Point center) {
-    const float margin = std::min(
-        1.0f - std::abs(center.x), 1.0f - std::abs(center.y));
-    const float maximum = std::min(0.15f, 0.8f * margin);
-    if (maximum <= 0.0f) {
-        return std::nullopt;
-    }
-
-    GlColor color;
-    color.setRandom();
-    Diagram triangle(
-        GLShape::Triangle,
-        std::vector<Point>{ { -1.0f, -1.0f },
-                            {  1.0f, -1.0f },
-                            {  0.0f,  1.0f } },
-        color, center, Point{ 0.0f, 0.0f }
-    );
-    const float minimum = std::min(0.04f, maximum * 0.5f);
-    const float half = randomFloat(minimum, maximum);
-    if (!triangle.setScale({ half, half })) {
-        return std::nullopt;
-    }
-    return triangle;
-}
-
-Diagram makePractice7Diagram(GLShape shape) {
-    const Point pivot{
-        randomFloat(-0.75f, 0.75f),
-        randomFloat(-0.75f, 0.75f)
-    };
-    GlColor color;
-    color.setRandom();
-    const float half = randomFloat(0.08f, 0.17f);
-
-    switch (shape) {
-    case GLShape::Spot:
-        return Diagram(shape, std::vector<Point>{
-            { -0.02f, -0.02f }, { 0.02f, -0.02f },
-            { -0.02f, 0.02f }, { 0.02f, 0.02f }
-        }, color, pivot);
-    case GLShape::Line:
-        return Diagram(shape, std::vector<Point>{
-            { -half, 0.0f }, { half, 0.0f }
-        }, color, pivot);
-    case GLShape::Triangle:
-        return Diagram(shape, std::vector<Point>{
-            { -half, -half }, { half, -half }, { 0.0f, half }
-        }, color, pivot);
-    case GLShape::Rect:
-        return Diagram(shape, std::vector<Point>{
-            { -half, -half }, { half, -half },
-            { -half, half }, { half, half }
-        }, color, pivot);
-    }
-    return Diagram(GLShape::Triangle, std::vector<Point>{
-        { -half, -half }, { half, -half }, { 0.0f, half }
-    }, color, pivot);
-}
+constexpr float EFFECT_INTERVAL = 0.06f; // Five steps last about 0.3 seconds.
 
 } // namespace
 
-bool PracticeConsole::initGraphics(const std::filesystem::path& shaderDirectory) {
-    if (!shader_.initShader(shaderDirectory / "VertexShader.glsl",
-                            shaderDirectory / "FragmentShader.glsl")) {
-        return false;
+Grid::Grid(std::size_t columns, std::size_t rows)
+    : gridX(checkedDimension(columns)), gridY(checkedDimension(rows)),
+      squareX(2.0f / static_cast<float>(gridX)),
+      squareY(2.0f / static_cast<float>(gridY)) {
+    if (gridX > std::numeric_limits<std::size_t>::max() / gridY) {
+        throw std::invalid_argument("Grid cell count overflow.");
     }
-    if (!shader_.initBuffer()) {
-        shader_.destroy();
-        return false;
-    }
-    return true;
+    resetBoard();
 }
 
-void PracticeConsole::shutdownGraphics() {
-    shader_.destroy();
+Point Grid::cellCenter(Cell cell) const {
+    // Grid (0, 0) is top-left. OpenGL Y increases upward.
+    return { boardLeft + (static_cast<float>(cell.x) + 0.5f) * squareX,
+             boardTop - (static_cast<float>(cell.y) + 0.5f) * squareY };
 }
 
-bool PracticeConsole::handleQuit(int key, int action) {
-    if (action == GLFW_PRESS && (key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q)) {
-        glfwSetWindowShouldClose(window_, GLFW_TRUE);
-        return true;
-    }
-    return false;
-}
-
-bool PracticeConsole::render() {
-    glClearColor(0.12f, 0.12f, 0.16f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    if (uploadedRevision_ != store_.getRevision()) {
-        if (!shader_.upload(store_.getItems(), store_.getSelectedIndex())) {
-            return false;
-        }
-        uploadedRevision_ = store_.getRevision();
-    }
-    shader_.render();
-    return true;
-}
-
-Practice11Console::Practice11Console(GLFWwindow* window)
-    : PracticeConsole(window) {
-    reset();
-}
-
-void Practice11Console::reset() {
+void Grid::resetBoard() {
     store_.clear();
-    motions_.clear();
-    for (int i = 0; i < 4; ++i) {
-        const Point center{
-            randomFloat(-0.70f, 0.70f),
-            randomFloat(-0.70f, 0.70f)
-        };
-        const std::optional<Diagram> triangle = makePractice9Triangle(center);
-        if (triangle && store_.push(*triangle)) {
-            motions_.push_back({});
-            resetMotion(motions_.size() - 1);
-        }
+    cells_.clear();
+    boardLines_.clear();
+    effects_.clear();
+    effectSteps_.clear();
+    selectedIndex_ = 0;
+    movingRight_ = true;
+
+    const GlColor gridColor{ 0.3f, 0.3f, 0.35f };
+    for (std::size_t x = 0; x <= gridX; ++x) {
+        const float px = boardLeft + static_cast<float>(x) * squareX;
+        boardLines_.emplace_back(GLShape::Line,
+            std::vector<Point>{ { px, boardBottom }, { px, boardTop } }, gridColor, Point{});
     }
-}
-
-void Practice11Console::resetMotion(std::size_t triangleIndex) {
-    const std::vector<Diagram>& items = store_.getItems();
-    if (triangleIndex >= motions_.size() || triangleIndex >= items.size()) {
-        return;
-    }
-
-    Motion& motion = motions_[triangleIndex];
-    motion.anchor = items[triangleIndex].getPivot();
-    motion.speed = 0.26f + 0.02f * static_cast<float>(triangleIndex);
-
-    motion.angle = mode_ == Mode::HorizontalZigzag
-        ? 0.0f : static_cast<float>(triangleIndex) * PI * 0.5f;
-
-    motion.zigzagHorMov = true;
-    motion.zigSignY = 1.0f;
-    motion.stepYcnt = 0;
-    motion.angularSpeed = 1.5f + 0.04f * static_cast<float>(triangleIndex);
-    motion.radius = 0.0f;
-    motion.radialSpeed = 0.12f + 0.0005f * static_cast<float>(triangleIndex);
-    motion.radialDirection = 1.0f;
-
-    const std::size_t directionIndex = triangleIndex % 4;
-    const float xSign = directionIndex == 0 || directionIndex == 3
-        ? 1.0f : -1.0f;
-    const float ySign = directionIndex < 2 ? 1.0f : -1.0f;
-    if (mode_ == Mode::HorizontalZigzag) {
-        motion.velocity = { xSign * motion.speed, 0};
-    }
-    else if (mode_ == Mode::VerticalZigzag) {
-        motion.velocity = { xSign * 0.25f * motion.speed,
-                            ySign * 0.9682458f * motion.speed };
-    }
-    else {
-        motion.velocity = { xSign * 0.7071068f * motion.speed,
-                            ySign * 0.7071068f * motion.speed };
-    }
-}
-
-void Practice11Console::onKey(int key, int action) {
-    if (handleQuit(key, action) || action != GLFW_PRESS) {
-        return;
+    for (std::size_t y = 0; y <= gridY; ++y) {
+        const float py = boardTop - static_cast<float>(y) * squareY;
+        boardLines_.emplace_back(GLShape::Line,
+            std::vector<Point>{ { boardLeft, py }, { boardRight, py } }, gridColor, Point{});
     }
 
-}
+    Diagram hero(GLShape::Rect,
+        std::vector<Point>{ { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } },
+        GlColor{ 1.0f, 1.0f, 1.0f }, cellCenter({ 0, 0 }));
+    hero.setScale({ squareX * 0.36f, squareY * 0.36f });
+    hero.setFilled(false); // Original pseudo code: start with an outline rectangle.
+    if (store_.push(hero)) cells_.push_back({ 0, 0 });
 
-void Practice11Console::onMouseButton(int button, int action, Point point) {
-    if (action != GLFW_PRESS) {
-        return;
-    }
-    if (button == GLFW_MOUSE_BUTTON_LEFT) {
-        const std::optional<Diagram> triangle = makePractice9Triangle(point);
-        if (triangle && store_.push(*triangle)) {
-            motions_.push_back({});
-            resetMotion(motions_.size() - 1);
-        }
-    }
-    else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-        const std::vector<Diagram>& items = store_.getItems();
-        for (std::size_t i = items.size(); i > 0; --i) {
-            if (!items[i - 1].contains(point)) {
-                continue;
+    // Pick unique cells without a retry loop. Exclude the hero's starting cell.
+    const std::size_t obstacleCount = std::min<std::size_t>(80, gridX * gridY - 1);
+    for (std::size_t i = 0; i < obstacleCount; ++i) {
+        const std::size_t cellCount = gridX * gridY;
+        std::size_t choice = std::min(cellCount - 1,
+            static_cast<std::size_t>(randomFloat(1.0f, static_cast<float>(cellCount))));
+        Cell cell{ choice % gridX, choice / gridX };
+        bool occupied = true;
+        while (occupied) {
+            occupied = false;
+            for (const Cell& existing : cells_) {
+                if (existing.x == cell.x && existing.y == cell.y) {
+                    occupied = true;
+                    break;
+                }
             }
-            Diagram resized = items[i - 1];
-            const float current = resized.getScale().x;
-            const float next = std::clamp(current + resizeStep_, 0.02f, 0.20f);
-            if (next != current && resized.setScale({ next, next })
-                && store_.replaceAt(i - 1, resized)) {
-                resetMotion(i - 1);
-            }
-            break;
-        }
-    }
-}
-
-bool Practice11Console::render() {
-    glPolygonMode(GL_FRONT_AND_BACK, outline_ ? GL_LINE : GL_FILL);
-    const bool rendered = PracticeConsole::render();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    return rendered;
-}
-
-constexpr float HORIZON_STEP_DURATION = 10.0f;
-constexpr float HORIZON_STEP = 5.0f;
-
-void Practice11Console::advanceLinear(
-    std::size_t triangleIndex, float deltaTime
-) {
-    const std::size_t storeIndex = triangleIndex;
-    const Diagram current = store_.getItems()[storeIndex];
-    Motion& motion = motions_[triangleIndex];
-    const Point start = current.getPivot();
-
-    if (mode_ == Mode::HorizontalZigzag) {
-        Point nextPivot = start;
-        float rotation = headingDegrees({ motion.velocity.x, 0.0f });
-
-        if (motion.zigzagHorMov) {
-            nextPivot.x += motion.velocity.x * deltaTime;
-            const VertexBounds proposed = boundsAt(current, nextPivot, rotation);
-            if (proposed.left < -INNER_BOUND || proposed.right > INNER_BOUND) {
-                motion.velocity.x = -motion.velocity.x;
-                motion.zigzagHorMov = false;
-                motion.stepYcnt = 0;
-                nextPivot.x = start.x;
+            if (occupied) {
+                choice = (choice + 1) % cellCount;
+                cell = { choice % gridX, choice / gridX };
             }
         }
-
-        if (not motion.zigzagHorMov) {
-            motion.velocity.y = motion.zigSignY * HORIZON_STEP / HORIZON_STEP_DURATION;
-            nextPivot.y += motion.velocity.y * deltaTime;
-            rotation = headingDegrees({ 0.0f, motion.velocity.y });
-            const VertexBounds stepped = boundsAt(current, nextPivot, rotation);
-            if (stepped.top > INNER_BOUND || stepped.bottom < -INNER_BOUND) {
-                motion.zigSignY = -motion.zigSignY;
-                motion.velocity.y = motion.zigSignY * HORIZON_STEP / HORIZON_STEP_DURATION;
-                nextPivot.y = start.y + motion.velocity.y * 2 * deltaTime;
-                rotation = headingDegrees({ 0.0f, motion.velocity.y });
-            }
-
-            ++motion.stepYcnt;
-            if (motion.stepYcnt == HORIZON_STEP_DURATION) {
-                motion.zigzagHorMov = true;
-                motion.stepYcnt = 0;
-                motion.velocity.y = 0.0f;
-                rotation = headingDegrees({ motion.velocity.x, 0.0f });
-            }
-        }
-
-        nextPivot = clampPivot(current, nextPivot, rotation);
-        Diagram updated = current;
-        if (updated.setPose(nextPivot, rotation)) {
-            store_.replaceAt(storeIndex, updated);
-        }
-        return;
+        const int shape = static_cast<int>(i % 3); // All three shapes occur.
+        std::vector<Point> vertices;
+        if (shape == 0) vertices = { { -1, -1 }, { 1, -1 }, { 0, 1 } };
+        else if (shape == 1) vertices = { { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } };
+        else vertices = { { -1, 1 }, { 1, 1 }, { 0, -1 } };
+        GlColor color;
+        color.setRandom();
+        Diagram obstacle(shape == 1 ? GLShape::Rect : GLShape::Triangle,
+                         vertices, color, cellCenter(cell));
+        // Independently vary X and Y, but always stay inside one cell.
+        obstacle.setScale({ squareX * randomFloat(0.22f, 0.42f),
+                            squareY * randomFloat(0.22f, 0.42f) });
+        if (store_.push(obstacle)) cells_.push_back(cell);
     }
-
-    Point nextPivot{ start.x + motion.velocity.x * deltaTime,
-                     start.y + motion.velocity.y * deltaTime };
-    float rotation = headingDegrees(motion.velocity);
-    const VertexBounds proposed = boundsAt(current, nextPivot, rotation);
-    const bool hitX = proposed.left < -1.0f || proposed.right > 1.0f;
-    const bool hitY = proposed.bottom < -1.0f || proposed.top > 1.0f;
-    
-    if (mode_ == Mode::VerticalZigzag && (hitX || hitY)) {
-        if (hitY) {
-            const float inwardY = proposed.bottom < -1.0f ? 1.0f : -1.0f;
-            const float side = motion.velocity.x < 0.0f ? -1.0f : 1.0f;
-            const float angle = 15.0f * PI / 180.0f;//before: randomFloat(0.0f, 20.0f)
-            motion.velocity = { side * std::sin(angle) * motion.speed,
-                                inwardY * std::cos(angle) * motion.speed };
-        }
-        else {
-            
-            
-            const float inwardX = proposed.left < -1.0f ? 1.0f : -1.0f;
-            const float up = motion.velocity.y < 0.0f ? -1.0f : 1.0f;
-            
-            const float angle = randomFloat(65.0f, 80.0f) * PI / 180.0f;
-            motion.velocity = { inwardX * std::cos(angle) * motion.speed,
-                                 up * std::sin(angle) * motion.speed };
-        }
-    }
-    else {
-
-        if (hitX) {
-            
-            motion.velocity.x =  -motion.velocity.x;
-            motion.velocity.y =  motion.velocity.y;
-        }
-        if (hitY) {
-            motion.velocity.y = -motion.velocity.y;
-        }
-    }
-
-    if (hitX || hitY) {
-        nextPivot = {
-            start.x + motion.velocity.x * deltaTime,
-            start.y + motion.velocity.y * deltaTime
-        };
-    }
-
-    rotation = headingDegrees(motion.velocity);
-
-
-    nextPivot = clampPivot(current, nextPivot, rotation);
-    Diagram updated = current;
-    if (updated.setPose(nextPivot, rotation)) {
-        store_.replaceAt(storeIndex, updated);
-    }
+    ++revision_;
 }
 
-
-void Practice11Console::update(float deltaTime) {
-    if (deltaTime <= 0.0f || store_.getItems().size() != motions_.size()) {
-        return;
+std::vector<Diagram> Grid::getRenderItems() const {
+    std::vector<Diagram> items = boardLines_;
+    const std::vector<Diagram>& diagrams = store_.getItems();
+    if (diagrams.empty()) return items;
+    const Cell hero = cells_[selectedIndex_];
+    for (std::size_t i = 0; i < diagrams.size(); ++i) {
+        if (i == selectedIndex_) continue;
+        // During a swap, draw the new hero alone in the occupied cell.
+        // The old hero becomes visible there once the new hero leaves.
+        if (cells_[i].x == hero.x && cells_[i].y == hero.y) continue;
+        items.push_back(diagrams[i]);
     }
-    for (std::size_t i = 0; i < motions_.size(); ++i) {
-        if (mode_ == Mode::Spiral) {
-            advanceSpiral(i, deltaTime);
-        }
-        else {
-            advanceLinear(i, deltaTime);
-        }
-    }
+    items.insert(items.end(), effects_.begin(), effects_.end());
+    items.push_back(diagrams[selectedIndex_]); // Last item is the active hero.
+    return items;
 }

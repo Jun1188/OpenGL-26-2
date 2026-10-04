@@ -19,54 +19,53 @@ public:
     virtual bool render() = 0;
 };
 
+constexpr std::size_t EFFECT_STEP = 5;
 
-
-
-constexpr size_t EFFECT_STEP = 5;
-
-class Grid { // 격자판 관리 클래스
-    const size_t gridX, gridY;
-    const float squareX, squareY;
-    float speedVertical = 1.0f;
-    float speedHorizontal = 1.0f;
-    size_t selectedIndex_;
-    DiagramStore store_; // Diagrams들은 Grid class 레이어에서 grid에 fitting하게 하는 보정을 받는다
-    std::vector<Diagram> effects_{}; //effect가 되는 diagram들을 제어한다.
-
-    std::vector<size_t> effectSteps_{}; //effects_와 idx를 공유하며 동시에 관리(push, pop, reference)된다. effect timer step으로, 이후 deltaTime 등 수치와 곱해져 실질 effect 속도가 나온다.
-    
+class Grid { // Board owns diagrams, the active index, and collision effects.
 public:
-    explicit Grid(size_t gridX = 20, size_t gridY = 20) : gridX{ gridX }, gridY{ gridY },
-        squareX{ 2.0f / static_cast<float>(gridX) }, squareY{ 2.0f / static_cast<float>(gridY) } {
-    }
+    explicit Grid(std::size_t gridX = 20, std::size_t gridY = 20);
+    bool getIsEndPos() const;
+    bool stepEffect(std::size_t idx);
+    bool moveUp(std::size_t step, std::size_t idx);
+    bool moveDown(std::size_t step, std::size_t idx);
+    bool moveLeft(std::size_t step, std::size_t idx);
+    bool moveRight(std::size_t step, std::size_t idx);
+    Diagram effectBy(const Diagram& changed) const;
+    void resetBoard();
+    void moveSelectedTo();
+    void moveByStep();
+    void advanceEffects();
+    float getStepDuration() const;
+    std::vector<Diagram> getRenderItems() const;
+    std::uint64_t getRevision() const { return revision_; }
 
-    bool getIsEndPos() const { }// end pos면 movebystep에 따른 이동이 끝난다.
-    bool stepEffect(const size_t idx) { return (effectSteps_[idx] = (effectSteps_[idx] + 1) % EFFECT_STEP) ? true : false; }
-    //해당 idx에 맞는 effect들이 호출된다. 처음 호출 후 true 동안 effect를 하고, false가 되면 effect가 끝난다.
-    //effect 처리 자체는 console 레이어가 처리한다.
-    //effect는 line loop로 채워지지 않은 도형을 effects에 push하고 step마다 모션 블러 형태로 scale up하되, 자연스러운 모션을 위해 선형 보간보다는 루트(abs()) 바탕의 증가율이 둔화하는 보간을 한다.
+private:
+    struct Cell {
+        std::size_t x = 0;
+        std::size_t y = 0;
+    };
+    Point cellCenter(Cell cell) const;
+    bool moveTo(Cell cell, std::size_t idx);
 
-    bool moveUp(const size_t step, const size_t idx);
-    bool moveDown(const size_t step, const size_t idx);
-    bool moveLeft(const size_t step, const size_t idx);
-    bool moveRight(const size_t step, const size_t idx);
-    Diagram effectBy(const Diagram& changed); // chaged에 맞는 effect diagram을 반환한다. 해당 diagram은 발생후 일정 step만큼 effect를 발생한다. 
-
-    void resetBoard(); //reset 단계에서 clear 후, diagram들은 grid에 맞게 store에 push된다. selected는 (0, 0) grid 위치에 테두리 사각형으로 push된다.
-    
-    void moveSelectedTo();// diagrams[selectedIndex_]가 diagram이 있는 grid로 이동하면, selectedIndex가 해당 diagram의 index으로 옮겨간다.
-    //그러면 render에서 보이는 주인공의 색과 모양이 바뀌게 된다
-
-    void moveByStep(); // 1 step마다 diagrams[selectedIndex_]의 direction을 이동시킨다.
-
-    
+    const std::size_t gridX, gridY; // Constructor inputs, never hard-coded in movement.
+    const float squareX, squareY;
+    float speedVertical = 5.0f;   // Cells per second.
+    float speedHorizontal = 8.0f;
+    std::size_t selectedIndex_ = 0;
+    bool movingRight_ = true;
+    DiagramStore store_;
+    std::vector<Cell> cells_; // Same indices as store_.getItems().
+    std::vector<Diagram> boardLines_;
+    std::vector<Diagram> effects_;
+    std::vector<std::size_t> effectSteps_; // Same indices as effects_.
+    std::uint64_t revision_ = 0;
 };
-
-
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window) : window_(window) {}
+    explicit PracticeConsole(GLFWwindow* window, std::size_t gridX = 20,
+                             std::size_t gridY = 20)
+        : window_(window), grid_(gridX, gridY) {}
     bool initGraphics(const std::filesystem::path& shaderDirectory);
     void shutdownGraphics();
     bool render() override;
@@ -81,41 +80,15 @@ private:
     std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
 };
 
-
 class Practice11Console final : public PracticeConsole {
 public:
-    explicit Practice11Console(GLFWwindow* window);
+    explicit Practice11Console(GLFWwindow* window, std::size_t gridX = 20,
+                               std::size_t gridY = 20);
     void update(float deltaTime) override;
     void onKey(int key, int action) override;
-    void onMouseButton(int button, int action, Point point) override;
-    bool render() override;
+    void onMouseButton(int, int, Point) override {} // Practice 11 has no mouse command.
 
 private:
-    
-
-    struct Motion {
-        Point anchor{};
-        Point velocity{};
-
-        float speed = 0.0f;
-        float angle = 0.0f;
-        bool zigzagHorMov = true;
-        float zigSignY = 1.0f;
-
-        float angularSpeed = 0.0f;
-        float radius = 0.0f;
-        float radialSpeed = 0.0f;
-        float radialDirection = 1.0f;
-        size_t stepYcnt = 0;
-
-        
-    };
-
-    void reset();
-    void resetMotion(std::size_t triangleIndex);
-    void advanceLinear(std::size_t triangleIndex, float deltaTime);
-
-    std::vector<Motion> motions_;
-    bool outline_ = false;
-    float resizeStep_ = 0.02f;
+    float moveTime_ = 0.0f;
+    float effectTime_ = 0.0f;
 };
