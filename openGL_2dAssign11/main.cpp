@@ -1,6 +1,4 @@
-﻿#define PROB 9
-
-#include <glew.h> // GLEW must be included before GLFW.
+﻿#include <glew.h> // GLEW must be included before GLFW.
 #include <glfw3.h>
 
 #include "Console.h"
@@ -9,28 +7,15 @@
 #include <iostream>
 #include <memory>
 
-#if PROB != 7 && PROB != 8 && PROB != 9
-#error PROB must be 7, 8, or 9.
-#endif
-
 namespace {
 
-#if PROB == 7
-constexpr const char* WINDOW_TITLE = "OpenGL Practice 7";
-#elif PROB == 8
-constexpr const char* WINDOW_TITLE = "OpenGL Practice 8";
-#else
-constexpr const char* WINDOW_TITLE = "OpenGL Practice 9";
-#endif
+constexpr const char* WINDOW_TITLE = "OpenGL Practice 11";
+// Constructor inputs: change these values to choose a different board size.
+constexpr std::size_t GRID_COLUMNS = 20;
+constexpr std::size_t GRID_ROWS = 20;
 
 std::unique_ptr<PracticeConsole> createConsole(GLFWwindow* window) {
-#if PROB == 7
-    return std::make_unique<Practice7Console>(window);
-#elif PROB == 8
-    return std::make_unique<Practice8Console>(window);
-#else
-    return std::make_unique<Practice9Console>(window);
-#endif
+    return std::make_unique<Practice11Console>(window, GRID_COLUMNS, GRID_ROWS);
 }
 
 std::filesystem::path findShaderDirectory() {
@@ -48,46 +33,19 @@ std::filesystem::path findShaderDirectory() {
     return {};
 }
 
-Point screenToOpenGl(GLFWwindow* window, double mouseX, double mouseY) {
-    int width = 0;
-    int height = 0;
-    glfwGetWindowSize(window, &width, &height);
-    if (width <= 0 || height <= 0) {
-        return {};
-    }
-    return {
-        static_cast<float>(2.0 * mouseX / width - 1.0),
-        static_cast<float>(1.0 - 2.0 * mouseY / height)
-    };
-}
-
-void keyCallback(GLFWwindow* window, int key, int, int action, int) {
+void keyCallback(GLFWwindow* window, int key, int, int action, int mods) {
+    // On the main keyboard, '+' is Shift+'='. Plain '=' has no command.
+    if (key == GLFW_KEY_EQUAL && (mods & GLFW_MOD_SHIFT) == 0) return;
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
     if (console != nullptr) {
         console->onKey(key, action);
     }
 }
 
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int) {
-    Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
-    if (console == nullptr) {
-        return;
-    }
-    double mouseX = 0.0;
-    double mouseY = 0.0;
-    glfwGetCursorPos(window, &mouseX, &mouseY);
-    console->onMouseButton(button, action, screenToOpenGl(window, mouseX, mouseY));
-}
-
-void cursorPositionCallback(GLFWwindow* window, double mouseX, double mouseY) {
-    Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
-    if (console != nullptr) {
-        console->onCursorMove(screenToOpenGl(window, mouseX, mouseY));
-    }
-}
-
 void framebufferSizeCallback(GLFWwindow*, int width, int height) {
-    glViewport(0, 0, width, height);
+    // A square viewport keeps a square grid physically square on resize.
+    const int side = width < height ? width : height;
+    glViewport((width - side) / 2, (height - side) / 2, side, side);
 }
 
 } // namespace
@@ -134,8 +92,9 @@ int main() {
     int framebufferWidth = 0;
     int framebufferHeight = 0;
     glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
-    glViewport(0, 0, framebufferWidth, framebufferHeight);
+    framebufferSizeCallback(window, framebufferWidth, framebufferHeight);
 
+    std::cout << "Practice 11: automatic zigzag, +/- speed, R reset, Q/Esc quit.\n";
     std::unique_ptr<PracticeConsole> console = createConsole(window);
     if (!console->initGraphics(shaderDirectory)) {
         glfwDestroyWindow(window);
@@ -145,8 +104,6 @@ int main() {
 
     glfwSetWindowUserPointer(window, console.get());
     glfwSetKeyCallback(window, keyCallback);
-    glfwSetMouseButtonCallback(window, mouseButtonCallback);
-    glfwSetCursorPosCallback(window, cursorPositionCallback);
     glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
     int exitCode = 0;
