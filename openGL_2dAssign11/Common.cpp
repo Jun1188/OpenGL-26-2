@@ -63,16 +63,6 @@ std::size_t requiredVertices(GLShape shape) {
     return 0;
 }
 
-GLenum drawMode(GLShape shape) {
-    switch (shape) {
-    case GLShape::Spot: return GL_TRIANGLES;
-    case GLShape::Line: return GL_LINES;
-    case GLShape::Triangle: return GL_TRIANGLES;
-    case GLShape::Rect: return GL_TRIANGLES;
-    }
-    return GL_TRIANGLES;
-}
-
 float cross(Point a, Point b, Point c) {
     return (b.x - a.x) * (c.y - a.y)
          - (b.y - a.y) * (c.x - a.x);

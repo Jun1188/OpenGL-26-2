@@ -65,7 +65,7 @@ void Grid::resetBoard() {
     hero.setFilled(false); // Original pseudo code: start with an outline rectangle.
     if (store_.push(hero)) cells_.push_back({ 0, 0 });
 
-    // Pick unique cells without a retry loop. Exclude the hero's starting cell.
+    // Pick a random cell, then scan occupied cells. Exclude the starting cell.
     const std::size_t obstacleCount = std::min<std::size_t>(80, gridX * gridY - 1);
     for (std::size_t i = 0; i < obstacleCount; ++i) {
         const std::size_t cellCount = gridX * gridY;

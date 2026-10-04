@@ -43,9 +43,14 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int mods) {
 }
 
 void framebufferSizeCallback(GLFWwindow*, int width, int height) {
-    // A square viewport keeps a square grid physically square on resize.
-    const int side = width < height ? width : height;
-    glViewport((width - side) / 2, (height - side) / 2, side, side);
+    // Match board aspect to the constructor inputs, so each cell stays square.
+    const double aspect = static_cast<double>(GRID_COLUMNS) / GRID_ROWS;
+    int boardWidth = width;
+    int boardHeight = height;
+    if (width > height * aspect) boardWidth = static_cast<int>(height * aspect);
+    else boardHeight = static_cast<int>(width / aspect);
+    glViewport((width - boardWidth) / 2, (height - boardHeight) / 2,
+               boardWidth, boardHeight);
 }
 
 } // namespace
