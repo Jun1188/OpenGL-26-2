@@ -183,3 +183,59 @@ void Grid::changeSpeed(float factor) {
     if (!std::isfinite(factor) || factor <= 0.0f) return;
     speedMultiplier_ = std::clamp(speedMultiplier_ * factor, 0.25f, 4.0f);
 }
+
+Diagram Grid::effectBy(const Diagram& changed) const {
+    Diagram effect = changed;
+    effect.setFilled(false);
+    return effect;
+}
+
+void Grid::moveSelectedTo() {
+    const Cell hero = cells_[selectedIndex_];
+    const std::vector<Diagram>& diagrams = store_.getItems();
+    for (std::size_t i = 0; i < cells_.size(); ++i) {
+        if (i == selectedIndex_ || cells_[i].x != hero.x || cells_[i].y != hero.y) continue;
+        // Keep the old hero here as an obstacle. Choose the struck diagram as the
+        // new hero. Shape, color, size, and outline state stay with each Diagram.
+        effects_.push_back(effectBy(diagrams[selectedIndex_]));
+        effectSteps_.push_back(0);
+        effects_.push_back(effectBy(diagrams[i]));
+        effectSteps_.push_back(0);
+        selectedIndex_ = i;
+        ++revision_;
+        return; // At most one obstacle can occupy a cell before this collision.
+    }
+}
+
+bool Grid::stepEffect(std::size_t idx) {
+    if (idx >= effects_.size() || idx >= effectSteps_.size()) return false;
+    const std::size_t previousStep = effectSteps_[idx];
+    if (previousStep >= EFFECT_STEP) return false;
+    const std::size_t nextStep = ++effectSteps_[idx];
+    if (nextStep >= EFFECT_STEP) return false;
+
+    // sqrt(t): fast expansion first, then progressively smaller increments.
+    const float previousFactor = 1.0f + 1.2f * std::sqrt(
+        static_cast<float>(previousStep) / static_cast<float>(EFFECT_STEP - 1));
+    const float nextFactor = 1.0f + 1.2f * std::sqrt(
+        static_cast<float>(nextStep) / static_cast<float>(EFFECT_STEP - 1));
+    const float ratio = nextFactor / previousFactor;
+    const Point scale = effects_[idx].getScale();
+    effects_[idx].setEffectScale({ scale.x * ratio, scale.y * ratio });
+    GlColor color = effects_[idx].getColor();
+    color.set(color.red * 0.78f, color.green * 0.78f, color.blue * 0.78f);
+    effects_[idx].setColor(color);
+    return true;
+}
+
+void Grid::advanceEffects() {
+    if (effects_.empty()) return;
+    // Erase backward to keep the two vectors' shared indices valid.
+    for (std::size_t i = effects_.size(); i > 0; --i) {
+        if (!stepEffect(i - 1)) {
+            effects_.erase(effects_.begin() + (i - 1));
+            effectSteps_.erase(effectSteps_.begin() + (i - 1));
+        }
+    }
+    ++revision_;
+}
