@@ -1,4 +1,4 @@
-﻿#ifndef NOMINMAX
+#ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <glew.h> // GLEW must be included before GLFW.
@@ -19,10 +19,6 @@
 #include <string>
 #include <vector>
 
-#pragma comment(lib, "opengl32.lib")
-#pragma comment(lib, "glew32.lib")
-#pragma comment(lib, "freeglut.lib")
-#pragma comment(lib, "glfw3.lib")
 
 namespace {
 

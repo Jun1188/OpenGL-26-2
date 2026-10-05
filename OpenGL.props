@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OpenGLDependenciesDir Condition="'$(OpenGLDependenciesDir)'==''">$(MSBuildThisFileDirectory)dependencies\</OpenGLDependenciesDir>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)OpenGL.local.props" Condition="Exists('$(MSBuildThisFileDirectory)OpenGL.local.props')" />
+  <PropertyGroup>
+    <GlewRoot Condition="'$(GlewRoot)'==''">$(OpenGLDependenciesDir)glew-2.3.1\</GlewRoot>
+    <GlfwRoot Condition="'$(GlfwRoot)'==''">$(OpenGLDependenciesDir)glfw-3.4.bin.WIN64\</GlfwRoot>
+    <GlmRoot Condition="'$(GlmRoot)'==''">$(OpenGLDependenciesDir)glm\</GlmRoot>
+    <GlfwLibraryDir Condition="'$(GlfwLibraryDir)'==''">$(GlfwRoot)lib-vc2022\</GlfwLibraryDir>
+    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(GlewRoot)include;$(GlewRoot)include\GL;$(GlfwRoot)include;$(GlfwRoot)include\GLFW;$(GlmRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Release'">MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(GlewRoot)lib\Release\x64;$(GlfwLibraryDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Target Name="CheckOpenGLDependencies" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(Platform)'!='x64'" Text="OpenGL dependencies are configured for x64. Select Debug|x64 or Release|x64." />
+    <ItemGroup>
+      <OpenGLRequiredFile Include="$(GlewRoot)include\GL\glew.h;$(GlewRoot)lib\Release\x64\glew32.lib;$(GlewRoot)bin\Release\x64\glew32.dll;$(GlfwRoot)include\GLFW\glfw3.h;$(GlfwLibraryDir)glfw3dll.lib;$(GlfwLibraryDir)glfw3.dll;$(GlmRoot)glm\glm.hpp" />
+    </ItemGroup>
+    <Error Condition="!Exists('%(OpenGLRequiredFile.Identity)')" Text="Missing OpenGL dependency: %(OpenGLRequiredFile.Identity). See OPENGL_SETUP.md or configure OpenGL.local.props." />
+  </Target>
+  <Target Name="CopyOpenGLRuntimeDlls" AfterTargets="Build">
+    <ItemGroup>
+      <OpenGLRuntimeDll Include="$(GlewRoot)bin\Release\x64\glew32.dll;$(GlfwLibraryDir)glfw3.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(OpenGLRuntimeDll)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
