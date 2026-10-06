@@ -487,7 +487,7 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
 
     }
 
-    // A changed empty store also replaces the old GPU data with a zero sentinel.
+
     const GLfloat zero[3] = { 0.0f, 0.0f, 0.0f };
     const GLsizeiptr bytes = positions.empty()
         ? sizeof(zero)
@@ -536,7 +536,7 @@ void ShaderHandler::render() const {
                 firstIndex = TRIANGLE_FILL_FIRST;
             }
         }
-        // Base vertex locates this shape's vertices in the shared VBO.
+        
         glDrawElementsBaseVertex(range.mode, indexCount, GL_UNSIGNED_INT,
                                  indexByteOffset(firstIndex), range.first);
     }

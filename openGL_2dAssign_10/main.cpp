@@ -1,6 +1,6 @@
 ﻿
 
-#include <glew.h> // GLEW must be included before GLFW.
+#include <glew.h> 
 #include <glfw3.h>
 
 #include "Console.h"
@@ -100,7 +100,7 @@ int main() {
         return -1;
     }
 
-    // 비율을 유지해 화면에서도 정사각형·정삼각형이 찌그러지지 않게 한다.
+    // 비율을 유지해 화면에서도 정사각형 정삼각형이 찌그러지지 않게 한다.
     glfwSetWindowAspectRatio(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     glfwMakeContextCurrent(window);

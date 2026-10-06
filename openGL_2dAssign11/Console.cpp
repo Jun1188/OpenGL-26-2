@@ -32,7 +32,7 @@ Grid::Grid(std::size_t columns, std::size_t rows)
 }
 
 Point Grid::cellCenter(Cell cell) const {
-    // Grid (0, 0) is top-left. OpenGL Y increases upward.
+    // Grid (0, 0) is top-left. OpenGL Y increases upward
     return { boardLeft + (static_cast<float>(cell.x) + 0.5f) * squareX,
              boardTop - (static_cast<float>(cell.y) + 0.5f) * squareY };
 }
@@ -62,10 +62,10 @@ void Grid::resetBoard() {
         std::vector<Point>{ { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } },
         GlColor{ 1.0f, 1.0f, 1.0f }, cellCenter({ 0, 0 }));
     hero.setScale({ squareX * 0.36f, squareY * 0.36f });
-    hero.setFilled(false); // Original pseudo code: start with an outline rectangle.
+    hero.setFilled(false); 
     if (store_.push(hero)) cells_.push_back({ 0, 0 });
 
-    // Pick a random cell, then scan occupied cells. Exclude the starting cell.
+  
     const std::size_t obstacleCount = std::min<std::size_t>(80, gridX * gridY - 1);
     for (std::size_t i = 0; i < obstacleCount; ++i) {
         const std::size_t cellCount = gridX * gridY;
@@ -86,7 +86,7 @@ void Grid::resetBoard() {
                 cell = { choice % gridX, choice / gridX };
             }
         }
-        const int shape = static_cast<int>(i % 3); // All three shapes occur.
+        const int shape = static_cast<int>(i % 3); 
         std::vector<Point> vertices;
         if (shape == 0) vertices = { { -1, -1 }, { 1, -1 }, { 0, 1 } };
         else if (shape == 1) vertices = { { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } };
@@ -95,7 +95,7 @@ void Grid::resetBoard() {
         color.setRandom();
         Diagram obstacle(shape == 1 ? GLShape::Rect : GLShape::Triangle,
                          vertices, color, cellCenter(cell));
-        // Independently vary X and Y, but always stay inside one cell.
+
         obstacle.setScale({ squareX * randomFloat(0.22f, 0.42f),
                             squareY * randomFloat(0.22f, 0.42f) });
         if (store_.push(obstacle)) cells_.push_back(cell);
@@ -110,13 +110,12 @@ std::vector<Diagram> Grid::getRenderItems() const {
     const Cell hero = cells_[selectedIndex_];
     for (std::size_t i = 0; i < diagrams.size(); ++i) {
         if (i == selectedIndex_) continue;
-        // During a swap, draw the new hero alone in the occupied cell.
-        // The old hero becomes visible there once the new hero leaves.
+  
         if (cells_[i].x == hero.x && cells_[i].y == hero.y) continue;
         items.push_back(diagrams[i]);
     }
     items.insert(items.end(), effects_.begin(), effects_.end());
-    items.push_back(diagrams[selectedIndex_]); // Last item is the active hero.
+    items.push_back(diagrams[selectedIndex_]); 
     return items;
 }
 
@@ -195,14 +194,12 @@ void Grid::moveSelectedTo() {
     const std::vector<Diagram>& diagrams = store_.getItems();
     for (std::size_t i = 0; i < cells_.size(); ++i) {
         if (i == selectedIndex_ || cells_[i].x != hero.x || cells_[i].y != hero.y) continue;
-        // Keep the old hero here as an obstacle. Choose the struck diagram as the
-        // new hero. Shape, color, size, and outline state stay with each Diagram.
-        // Queue one effect for the future hero before changing the active index.
+
         effects_.push_back(effectBy(diagrams[i]));
         effectSteps_.push_back(0);
         selectedIndex_ = i;
         ++revision_;
-        return; // At most one obstacle can occupy a cell before this collision.
+        return; 
     }
 }
 
@@ -213,13 +210,16 @@ bool Grid::stepEffect(std::size_t idx) {
     const std::size_t nextStep = ++effectSteps_[idx];
     if (nextStep >= EFFECT_STEP) return false;
 
-    // sqrt(t): fast expansion first, then progressively smaller increments.
+    
     const float previousFactor = 1.0f + 1.2f * std::sqrt(
         static_cast<float>(previousStep) / static_cast<float>(EFFECT_STEP - 1));
+
     const float nextFactor = 1.0f + 1.2f * std::sqrt(
         static_cast<float>(nextStep) / static_cast<float>(EFFECT_STEP - 1));
+
     const float ratio = nextFactor / previousFactor;
     const Point scale = effects_[idx].getScale();
+
     effects_[idx].setEffectScale({ scale.x * ratio, scale.y * ratio });
     GlColor color = effects_[idx].getColor();
     color.set(color.red * 0.78f, color.green * 0.78f, color.blue * 0.78f);
@@ -229,7 +229,7 @@ bool Grid::stepEffect(std::size_t idx) {
 
 void Grid::advanceEffects() {
     if (effects_.empty()) return;
-    // Erase backward to keep the two vectors' shared indices valid.
+
     for (std::size_t i = effects_.size(); i > 0; --i) {
         if (!stepEffect(i - 1)) {
             effects_.erase(effects_.begin() + (i - 1));
@@ -266,7 +266,7 @@ bool PracticeConsole::render() {
     glClear(GL_COLOR_BUFFER_BIT);
     if (uploadedRevision_ != grid_.getRevision()) {
         const std::vector<Diagram> items = grid_.getRenderItems();
-        // Grid always puts the active hero last, after the board and effects.
+        
         const std::optional<std::size_t> selected = items.empty()
             ? std::nullopt : std::optional<std::size_t>(items.size() - 1);
         if (!shader_.upload(items, selected)) return false;
@@ -287,7 +287,7 @@ void Practice11Console::onKey(int key, int action) {
         grid_.resetBoard();
         moveTime_ = effectTime_ = 0.0f;
     } else if (key == GLFW_KEY_MINUS || key == GLFW_KEY_KP_SUBTRACT) {
-        // Preserve the fraction of the current cell's waiting time.
+        
         const float progress = moveTime_ / grid_.getStepDuration();
         grid_.changeSpeed(0.8f);
         moveTime_ = progress * grid_.getStepDuration();
@@ -300,7 +300,7 @@ void Practice11Console::onKey(int key, int action) {
 
 void Practice11Console::update(float deltaTime) {
     if (!std::isfinite(deltaTime) || deltaTime <= 0.0f) return;
-    // Effects keep finishing even after the hero reaches the final cell.
+   
     effectTime_ += deltaTime;
     while (effectTime_ >= EFFECT_INTERVAL) {
         effectTime_ -= EFFECT_INTERVAL;

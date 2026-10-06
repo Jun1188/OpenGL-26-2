@@ -48,18 +48,18 @@ private:
     Point cellCenter(Cell cell) const;
     bool moveTo(Cell cell, std::size_t idx);
 
-    const std::size_t gridX, gridY; // Constructor inputs, never hard-coded in movement.
+    const std::size_t gridX, gridY; // Constructor inputs, never hardcoded in movement
     const float squareX, squareY;
-    float speedVertical = 5.0f;   // Cells per second.
+    float speedVertical = 5.0f;   // Cells per secon
     float speedHorizontal = 8.0f;
     float speedMultiplier_ = 1.0f;
     std::size_t selectedIndex_ = 0;
     bool movingRight_ = true;
     DiagramStore store_;
-    std::vector<Cell> cells_; // Same indices as store_.getItems().
+    std::vector<Cell> cells_; // Same indices as store_.getItems()
     std::vector<Diagram> boardLines_;
     std::vector<Diagram> effects_;
-    std::vector<std::size_t> effectSteps_; // Same indices as effects_.
+    std::vector<std::size_t> effectSteps_; // Same indices as effects_
     std::uint64_t revision_ = 0;
 };
 
@@ -88,7 +88,7 @@ public:
                                std::size_t gridY = 20);
     void update(float deltaTime) override;
     void onKey(int key, int action) override;
-    void onMouseButton(int, int, Point) override {} // Practice 11 has no mouse command.
+    void onMouseButton(int, int, Point) override {} 
 
 private:
     float moveTime_ = 0.0f;

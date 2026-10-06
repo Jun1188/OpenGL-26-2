@@ -5,55 +5,14 @@
 
 #include <filesystem>
 #include <iostream>
-#include <limits>
 #include <memory>
-#include <sstream>
-#include <string>
 
 namespace {
 
-constexpr const char* WINDOW_TITLE = "OpenGL Practice 11";
-// Set once before creating the window; resize callbacks use the same values.
-std::size_t gridColumns = 20;
-std::size_t gridRows = 20;
+constexpr const char* WINDOW_TITLE = "OpenGL Practice 12";
 
-bool readGridSize(std::size_t& columns, std::size_t& rows) {
-    // Match Grid's dimension limit and cell-count overflow check.
-    constexpr long long MAX_DIMENSION = std::numeric_limits<int>::max() / 8;
-    while (true) {
-        std::cout << "Grid columns (x), rows (y): " << std::flush;
-        std::string line;
-        if (!std::getline(std::cin, line)) {
-            std::cerr << "Grid input ended.\n";
-            return false;
-        }
-
-        std::istringstream input(line);
-        long long x = 0;
-        long long y = 0;
-        std::string extra;
-        if (!(input >> x >> y) || (input >> extra)
-            || x <= 0 || y <= 0 || x > MAX_DIMENSION || y > MAX_DIMENSION) {
-            std::cout << "Enter two positive integers from 1 to "
-                      << MAX_DIMENSION << ".\n";
-            continue;
-        }
-        const std::size_t newColumns = static_cast<std::size_t>(x);
-        const std::size_t newRows = static_cast<std::size_t>(y);
-        if (newColumns > std::numeric_limits<std::size_t>::max() / newRows) {
-            std::cout << "Grid cell count is too large. Try again.\n";
-            continue;
-        }
-        // Accept both values together, after every check succeeds.
-        columns = newColumns;
-        rows = newRows;
-        return true;
-    }
-}
-
-std::unique_ptr<PracticeConsole> createConsole(GLFWwindow* window,
-                                              std::size_t columns, std::size_t rows) {
-    return std::make_unique<Practice11Console>(window, columns, rows);
+std::unique_ptr<PracticeConsole> createConsole(GLFWwindow* window) {
+    return std::make_unique<PracticeConsole>(window);
 }
 
 std::filesystem::path findShaderDirectory() {
@@ -71,9 +30,7 @@ std::filesystem::path findShaderDirectory() {
     return {};
 }
 
-void keyCallback(GLFWwindow* window, int key, int, int action, int mods) {
-    // On the main keyboard, '+' is Shift+'='. Plain '=' has no command.
-    if (key == GLFW_KEY_EQUAL && (mods & GLFW_MOD_SHIFT) == 0) return;
+void keyCallback(GLFWwindow* window, int key, int, int action, int) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
     if (console != nullptr) {
         console->onKey(key, action);
@@ -81,8 +38,8 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int mods) {
 }
 
 void framebufferSizeCallback(GLFWwindow*, int width, int height) {
-    // Match board aspect to the constructor inputs, so each cell stays square.
-    const double aspect = static_cast<double>(gridColumns) / gridRows;
+    // Preserve the initial layout aspect ratio when the window is resized.
+    const double aspect = static_cast<double>(WINDOW_WIDTH) / WINDOW_HEIGHT;
     int boardWidth = width;
     int boardHeight = height;
     if (width > height * aspect) boardWidth = static_cast<int>(height * aspect);
@@ -94,9 +51,6 @@ void framebufferSizeCallback(GLFWwindow*, int width, int height) {
 } // namespace
 
 int main() {
-    // Read dimensions in the CMD console before starting OpenGL.
-    if (!readGridSize(gridColumns, gridRows)) return -1;
-
     if (!glfwInit()) {
         std::cerr << "GLFW initialization failed.\n";
         return -1;
@@ -140,8 +94,8 @@ int main() {
     glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
     framebufferSizeCallback(window, framebufferWidth, framebufferHeight);
 
-    std::cout << "Practice 11: automatic zigzag, +/- speed, R reset, Q/Esc quit.\n";
-    std::unique_ptr<PracticeConsole> console = createConsole(window, gridColumns, gridRows);
+    std::cout << "Practice 12: Enter stack, R reset, Q/Esc quit.\n";
+    std::unique_ptr<PracticeConsole> console = createConsole(window);
     if (!console->initGraphics(shaderDirectory)) {
         glfwDestroyWindow(window);
         glfwTerminate();

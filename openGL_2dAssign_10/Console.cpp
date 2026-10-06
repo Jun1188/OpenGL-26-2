@@ -1,4 +1,4 @@
-﻿#include <glew.h> // GLEW must precede GLFW.
+﻿#include <glew.h> 
 #include <glfw3.h>
 
 #include "Console.h"

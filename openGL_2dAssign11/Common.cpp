@@ -55,7 +55,7 @@ GLuint compileShader(GLenum type, const std::filesystem::path& path) {
 
 std::size_t requiredVertices(GLShape shape) {
     switch (shape) {
-    case GLShape::Spot: return 4;     // A small square, not GL_POINTS.
+    case GLShape::Spot: return 4;     // A small square, not GL_POINTS
     case GLShape::Line: return 2;
     case GLShape::Triangle: return 3;
     case GLShape::Rect: return 4;

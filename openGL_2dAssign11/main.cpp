@@ -13,12 +13,12 @@
 namespace {
 
 constexpr const char* WINDOW_TITLE = "OpenGL Practice 11";
-// Set once before creating the window; resize callbacks use the same values.
+
 std::size_t gridColumns = 20;
 std::size_t gridRows = 20;
 
 bool readGridSize(std::size_t& columns, std::size_t& rows) {
-    // Match Grid's dimension limit and cell-count overflow check.
+
     constexpr long long MAX_DIMENSION = std::numeric_limits<int>::max() / 8;
     while (true) {
         std::cout << "Grid columns (x), rows (y): " << std::flush;
@@ -44,7 +44,7 @@ bool readGridSize(std::size_t& columns, std::size_t& rows) {
             std::cout << "Grid cell count is too large. Try again.\n";
             continue;
         }
-        // Accept both values together, after every check succeeds.
+      
         columns = newColumns;
         rows = newRows;
         return true;
@@ -81,7 +81,7 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int mods) {
 }
 
 void framebufferSizeCallback(GLFWwindow*, int width, int height) {
-    // Match board aspect to the constructor inputs, so each cell stays square.
+
     const double aspect = static_cast<double>(gridColumns) / gridRows;
     int boardWidth = width;
     int boardHeight = height;
@@ -94,7 +94,7 @@ void framebufferSizeCallback(GLFWwindow*, int width, int height) {
 } // namespace
 
 int main() {
-    // Read dimensions in the CMD console before starting OpenGL.
+   
     if (!readGridSize(gridColumns, gridRows)) return -1;
 
     if (!glfwInit()) {

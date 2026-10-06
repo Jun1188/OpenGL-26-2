@@ -56,7 +56,7 @@ public:
     bool isFilled() const { return filled_; }
     void setFilled(bool filled) { filled_ = filled; }
     void setColor(GlColor color) { color_ = color; }
-    // Visual effects may expand beyond the board; the GPU clips them.
+
     bool setEffectScale(Point scale);
     std::vector<Point> worldVertices() const;
     std::vector<Point> worldVerticesAt(Point pivot, float rotationDegrees) const;
@@ -67,8 +67,8 @@ private:
     GLShape shape_;
     std::vector<Point> localVertices_;
     GlColor color_;
-    Point pivot_;       // World position. Translation and direction move this point.
-    Point localPivot_;  // Rotation and scale center in local coordinates.
+    Point pivot_;       
+    Point localPivot_;  
     bool filled_ = true;
     Point scale_{ 1.0f, 1.0f };
     float rotationDegrees_ = 0.0f;
