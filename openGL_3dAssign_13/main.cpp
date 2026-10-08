@@ -1,26 +1,14 @@
-﻿#define PROB 9
-
-#include <glew.h> // GLEW must be included before GLFW.
+﻿#include <glew.h> // GLEW는 GLFW보다 먼저 포함한다.
 #include <glfw3.h>
 
 #include "Console.h"
 
 #include <filesystem>
 #include <iostream>
-#include <memory>
-
-
 
 namespace {
 
 constexpr const char* WINDOW_TITLE = "OpenGL Practice 13";
-
-
-std::unique_ptr<PracticeConsole> createConsole(GLFWwindow* window) {
-
-    return std::make_unique<Practice9Console>(window);
-
-}
 
 std::filesystem::path findShaderDirectory() {
     std::filesystem::path directory = std::filesystem::current_path();
@@ -28,6 +16,12 @@ std::filesystem::path findShaderDirectory() {
         if (std::filesystem::exists(directory / "VertexShader.glsl")
             && std::filesystem::exists(directory / "FragmentShader.glsl")) {
             return directory;
+        }
+        // 저장소 루트에서 실행할 때도 이 과제의 셰이더를 찾는다.
+        const std::filesystem::path project = directory / "openGL_3dAssign_13";
+        if (std::filesystem::exists(project / "VertexShader.glsl")
+            && std::filesystem::exists(project / "FragmentShader.glsl")) {
+            return project;
         }
         if (directory == directory.parent_path()) {
             break;
@@ -37,19 +31,6 @@ std::filesystem::path findShaderDirectory() {
     return {};
 }
 
-Point screenToOpenGl(GLFWwindow* window, double mouseX, double mouseY) {
-    int width = 0;
-    int height = 0;
-    glfwGetWindowSize(window, &width, &height);
-    if (width <= 0 || height <= 0) {
-        return {};
-    }
-    return {
-        static_cast<float>(2.0 * mouseX / width - 1.0),
-        static_cast<float>(1.0 - 2.0 * mouseY / height)
-    };
-}
-
 void keyCallback(GLFWwindow* window, int key, int, int action, int) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
     if (console != nullptr) {
@@ -57,26 +38,11 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int) {
     }
 }
 
-void mouseButtonCallback(GLFWwindow* window, int button, int action, int) {
-    Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
-    if (console == nullptr) {
-        return;
-    }
-    double mouseX = 0.0;
-    double mouseY = 0.0;
-    glfwGetCursorPos(window, &mouseX, &mouseY);
-    console->onMouseButton(button, action, screenToOpenGl(window, mouseX, mouseY));
-}
-
-void cursorPositionCallback(GLFWwindow* window, double mouseX, double mouseY) {
+void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
     if (console != nullptr) {
-        console->onCursorMove(screenToOpenGl(window, mouseX, mouseY));
+        console->resizeFramebuffer(width, height);
     }
-}
-
-void framebufferSizeCallback(GLFWwindow*, int width, int height) {
-    glViewport(0, 0, width, height);
 }
 
 } // namespace
@@ -91,16 +57,15 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
     GLFWwindow* window = glfwCreateWindow(
-        WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr
-    );
+        WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Window creation failed.\n";
         glfwTerminate();
         return -1;
     }
-
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
@@ -111,6 +76,8 @@ int main() {
         glfwTerminate();
         return -1;
     }
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
     const std::filesystem::path shaderDirectory = findShaderDirectory();
     if (shaderDirectory.empty()) {
@@ -120,45 +87,36 @@ int main() {
         return -1;
     }
 
-    int framebufferWidth = 0;
-    int framebufferHeight = 0;
-    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
-    glViewport(0, 0, framebufferWidth, framebufferHeight);
-
-    std::unique_ptr<PracticeConsole> console = createConsole(window);
-    if (!console->initGraphics(shaderDirectory)) {
+    Console console(window);
+    if (!console.initGraphics(shaderDirectory)) {
+        std::cerr << "Scene or graphics initialization failed.\n";
+        console.shutdownGraphics();
         glfwDestroyWindow(window);
         glfwTerminate();
         return -1;
     }
 
-    glfwSetWindowUserPointer(window, console.get());
+    glfwSetWindowUserPointer(window, &console);
     glfwSetKeyCallback(window, keyCallback);
-    glfwSetMouseButtonCallback(window, mouseButtonCallback);
-    glfwSetCursorPosCallback(window, cursorPositionCallback);
     glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
     int exitCode = 0;
-    double previousTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
-        const double currentTime = glfwGetTime();
-        float deltaTime = static_cast<float>(currentTime - previousTime);
-        previousTime = currentTime;
-        if (deltaTime > 0.05f) {
-            deltaTime = 0.05f;
+        glfwPollEvents();
+        if (glfwWindowShouldClose(window)) {
+            break;
         }
-
-        console->update(deltaTime);
-        if (!console->render()) {
+        if (!console.render()) {
+            std::cerr << "Scene rendering failed.\n";
             exitCode = -1;
             break;
         }
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
-    console->shutdownGraphics();
-    console.reset();
+    // GPU 자원은 GLFW 창과 OpenGL 컨텍스트보다 먼저 해제한다.
+    glfwSetWindowUserPointer(window, nullptr);
+    console.shutdownGraphics();
     glfwDestroyWindow(window);
     glfwTerminate();
     return exitCode;

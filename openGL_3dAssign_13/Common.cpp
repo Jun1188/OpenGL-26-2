@@ -192,6 +192,15 @@ glm::mat4 DiagramSystem::faceModelMatrix(
     return modelMatrix(face.independence ? face.transform : component.transform);
 }
 
+glm::mat4 CameraSystem::viewMatrix(const Camera& camera) {
+    return glm::lookAt(camera.position, camera.target, camera.up);
+}
+
+glm::mat4 CameraSystem::projectionMatrix(const Camera& camera, float aspect) {
+    return glm::perspective(glm::radians(camera.fieldOfViewDegrees), aspect,
+                            camera.nearPlane, camera.farPlane);
+}
+
 namespace {
 
 GLuint compileShader(GLenum type, const std::filesystem::path& path) {

@@ -90,6 +90,21 @@ public:
                                     const PlaneFigure& face);
 };
 
+struct Camera { // 렌더링할 형상이 없는 별도의 장면 객체.
+    glm::vec3 position{ 2.8f, 2.0f, 5.0f };
+    glm::vec3 target{ 0.0f };
+    glm::vec3 up{ 0.0f, 1.0f, 0.0f };
+    float fieldOfViewDegrees = 45.0f;
+    float nearPlane = 0.1f;
+    float farPlane = 100.0f;
+};
+
+class CameraSystem {
+public:
+    static glm::mat4 viewMatrix(const Camera& camera);
+    static glm::mat4 projectionMatrix(const Camera& camera, float aspect);
+};
+
 std::string readTextFile(const std::filesystem::path& path);
 
 class ShaderHandler {
