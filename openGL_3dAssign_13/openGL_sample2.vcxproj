@@ -140,12 +140,13 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

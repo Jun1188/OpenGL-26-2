@@ -401,7 +401,7 @@ std::string readTextFile(const std::filesystem::path& path) {
 }
 
 bool Renderer::initShader(const std::filesystem::path& vertexPath,
-                               const std::filesystem::path& fragmentPath) {
+                          const std::filesystem::path& fragmentPath) {
     destroy();
     const GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexPath);
     if (vertexShader == 0) {
@@ -547,8 +547,8 @@ bool Renderer::upload(const Scene& scene) {
     return true;
 }
 
-bool Renderer::render(const Scene& scene, const glm::mat4& view,
-                      const glm::mat4& projection) const {
+bool Renderer::draw(const Scene& scene, const glm::mat4& view,
+                    const glm::mat4& projection) const {
     if (shaderProgramID_ == 0 || vao_ == 0 || mvpLocation_ < 0) {
         return false;
     }
@@ -628,8 +628,8 @@ bool Renderer::render(const Scene& scene, const Camera& camera, int width, int h
     glClearColor(0.12f, 0.12f, 0.16f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     const float aspect = static_cast<float>(width) / static_cast<float>(height);
-    return render(scene, CameraSystem::viewMatrix(camera),
-                  CameraSystem::projectionMatrix(camera, aspect));
+    return draw(scene, CameraSystem::viewMatrix(camera),
+                CameraSystem::projectionMatrix(camera, aspect));
 }
 
 void Renderer::destroy() {

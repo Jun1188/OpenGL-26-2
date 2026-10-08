@@ -162,6 +162,13 @@ private:
     const Scene* uploadedScene_ = nullptr;
     std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
 
+    bool initShader(const std::filesystem::path& vertexPath,
+                    const std::filesystem::path& fragmentPath);
+    bool initBuffer();
+    bool upload(const Scene& scene);
+    bool draw(const Scene& scene, const glm::mat4& view,
+              const glm::mat4& projection) const;
+
 public:
     Renderer() = default;
     Renderer(const Renderer&) = delete;
@@ -173,14 +180,6 @@ public:
     // viewport/depth/clear/program/VAO를 설정한다. 컨텍스트와 윈도우는 소유하지 않는다.
     bool render(const Scene& scene, const Camera& camera, int width, int height);
     void destroy(); // 컨텍스트 종료 전에 호출한다. 여러 번 호출해도 된다.
-
-    // 기존 호출부의 이전을 위한 저수준 함수. 내부 구현 정리 단계에서 private로 이동.
-    bool initShader(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
-    bool initBuffer();
-    bool upload(const Scene& scene);
-    bool render(const Scene& scene, const glm::mat4& view,
-                const glm::mat4& projection) const;
 };
 
 } // namespace graphics

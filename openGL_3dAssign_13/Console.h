@@ -8,11 +8,10 @@
 struct GLFWwindow;
 
 class Console {
-public:
+private:
     using KeyHandler = void (*)(Console&, int key, int action, void* userData);
     using UpdateHandler = void (*)(Console&, float deltaTime, void* userData);
 
-private:
     GLFWwindow* window_ = nullptr;
     graphics::Scene scene_;
     graphics::Renderer renderer_;
