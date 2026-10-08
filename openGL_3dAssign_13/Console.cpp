@@ -1,29 +1,55 @@
-﻿#include <glew.h> // GLEW는 GLFW보다 먼저 포함한다.
+﻿#include <glew.h>
 #include <glfw3.h>
 
 #include "Console.h"
 
+#include <cmath>
 #include <utility>
 
 bool Console::initScene() {
-    Entity scene;
+    // 기본 입력 값. 길이·월드 위치·회전을 각각 변경할 수 있다.
+    const glm::vec3 cuboidSideLengths{ 1.0f, 1.0f, 1.0f };
+    const glm::vec3 cuboidWorldPosition{ -0.9f, 0.0f, 0.0f };
+    const glm::vec3 cuboidRotationDegrees{ 20.0f, -25.0f, 0.0f };
+    const glm::vec3 tetrahedronEdgeLengths{ 1.0f, 1.0f, 1.0f };
+    const glm::vec3 tetrahedronWorldPosition{ 0.9f, 0.0f, 0.0f };
+    const glm::vec3 tetrahedronRotationDegrees{ 0.0f, 55.0f, 0.0f };
 
-    Transform3D cubeTransform;
-    cubeTransform.basis = { -0.9f, 0.0f, 0.0f };
-    cubeTransform.rotationDegrees = { 20.0f, -25.0f, 0.0f };
-    if (!scene.push_entity(
-        DiagramSystem::makePolyhedron(GLShape::Cube), cubeTransform)) {
+    graphics::Scene scene;
+    const auto cuboid = scene.addCuboid(cuboidSideLengths, cuboidWorldPosition);
+    const auto tetrahedron = scene.addRightTetrahedron(
+        tetrahedronEdgeLengths, tetrahedronWorldPosition);
+    if (!cuboid || !tetrahedron) {
         return false;
     }
 
-    Transform3D tetraTransform;
-    tetraTransform.basis = { 0.9f, 0.0f, 0.0f };
-    tetraTransform.rotationDegrees = { 0.0f, 25.0f, 0.0f };
-    if (!scene.push_entity(
-        DiagramSystem::makePolyhedron(GLShape::Tetra), tetraTransform)) {
+    graphics::Transform3D cuboidTransform;
+    cuboidTransform.basis = cuboidWorldPosition;
+    cuboidTransform.rotationDegrees = cuboidRotationDegrees;
+    graphics::Transform3D tetrahedronTransform;
+    tetrahedronTransform.basis = tetrahedronWorldPosition;
+    tetrahedronTransform.rotationDegrees = tetrahedronRotationDegrees;
+    if (!scene.setTransform(*cuboid, cuboidTransform)
+        || !scene.setTransform(*tetrahedron, tetrahedronTransform)) {
         return false;
     }
-    entities_ = std::move(scene);
+
+    const glm::vec3 basisOrigin{ 0.0f };
+    const glm::mat3 basisVectors{ 1.0f };
+    const glm::vec3 worldAxisLengths{ 1.4f };
+    const glm::vec3 localAxisLengths{ 0.9f };
+    const glm::vec3 vectorOrigin{ 0.0f, -0.9f, 0.0f };
+    const glm::vec3 vectorValue{ 0.8f, 0.5f, 0.6f };
+    const graphics::GlColor vectorColor{ 1.0f, 0.85f, 0.2f };
+    if (!scene.addBasis(basisOrigin, basisVectors, worldAxisLengths)
+        || !scene.addBasis(basisOrigin, basisVectors, localAxisLengths, *cuboid)
+        || !scene.addBasis(basisOrigin, basisVectors, localAxisLengths, *tetrahedron)
+        || !scene.addVector(vectorOrigin, vectorValue, vectorColor)) {
+        return false;
+    }
+    scene_ = std::move(scene);
+    cuboidId_ = cuboid;
+    tetrahedronId_ = tetrahedron;
     return true;
 }
 
@@ -31,14 +57,10 @@ bool Console::initGraphics(const std::filesystem::path& shaderDirectory) {
     if (window_ == nullptr || !initScene()) {
         return false;
     }
-    if (!shader_.initShader(shaderDirectory / "VertexShader.glsl",
-                            shaderDirectory / "FragmentShader.glsl")
-        || !shader_.initBuffer()) {
-        shader_.destroy();
+    if (!renderer_.initialize(shaderDirectory / "VertexShader.glsl",
+                              shaderDirectory / "FragmentShader.glsl")) {
         return false;
     }
-    uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
-
     int width = 0;
     int height = 0;
     glfwGetFramebufferSize(window_, &width, &height);
@@ -47,40 +69,43 @@ bool Console::initGraphics(const std::filesystem::path& shaderDirectory) {
 }
 
 void Console::shutdownGraphics() {
-    shader_.destroy();
-    uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
+    renderer_.destroy();
+}
+
+void Console::setKeyHandler(KeyHandler handler, void* userData) {
+    keyHandler_ = handler;
+    keyUserData_ = userData;
+}
+
+void Console::setUpdateHandler(UpdateHandler handler, void* userData) {
+    updateHandler_ = handler;
+    updateUserData_ = userData;
 }
 
 void Console::onKey(int key, int action) {
     if (action == GLFW_PRESS && (key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q)) {
         glfwSetWindowShouldClose(window_, GLFW_TRUE);
     }
+    if (keyHandler_ != nullptr) {
+        keyHandler_(*this, key, action, keyUserData_);
+    }
+}
+
+void Console::update(float deltaTime) {
+    if (updateHandler_ != nullptr && std::isfinite(deltaTime) && deltaTime > 0.0f) {
+        updateHandler_(*this, deltaTime, updateUserData_);
+    }
 }
 
 void Console::resizeFramebuffer(int width, int height) {
     framebufferWidth_ = width;
     framebufferHeight_ = height;
-    glViewport(0, 0, width, height);
+}
+
+bool Console::hasFramebuffer() const {
+    return framebufferWidth_ > 0 && framebufferHeight_ > 0;
 }
 
 bool Console::render() {
-    if (framebufferWidth_ <= 0 || framebufferHeight_ <= 0) {
-        return true; // 최소화 중에는 화면 비율 계산과 렌더링을 건너뛴다.
-    }
-
-    glClearColor(0.12f, 0.12f, 0.16f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // 형상 등록·삭제 때만 버퍼 갱신. 변환 변경은 render의 uMVP로 전달한다.
-    if (uploadedRevision_ != entities_.getGeometryRevision()) {
-        if (!shader_.upload(entities_)) {
-            return false;
-        }
-        uploadedRevision_ = entities_.getGeometryRevision();
-    }
-    const float aspect = static_cast<float>(framebufferWidth_)
-        / static_cast<float>(framebufferHeight_);
-    const glm::mat4 view = CameraSystem::viewMatrix(camera_);
-    const glm::mat4 projection = CameraSystem::projectionMatrix(camera_, aspect);
-    return shader_.render(entities_, view, projection);
+    return renderer_.render(scene_, camera_, framebufferWidth_, framebufferHeight_);
 }
