@@ -2,11 +2,8 @@
 
 in vec3 outColor;
 out vec4 FragColor;
-uniform bool uUseOverrideColor;
-uniform vec3 uOverrideColor;
 
 void main()
 {
-    vec3 color = uUseOverrideColor ? uOverrideColor : outColor;
-    FragColor = vec4(color, 1.0);
+    FragColor = vec4(outColor, 1.0);
 }

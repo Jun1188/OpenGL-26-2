@@ -1,13 +1,13 @@
 ﻿#version 330 core
 
-in vec4 vPos;
-in vec3 vColor;
+layout(location = 0) in vec3 vPos;
+layout(location = 1) in vec3 vColor;
 
+uniform mat4 uMVP;
 out vec3 outColor;
-uniform vec4 uMVP;
 
 void main()
 {
-    gl_Position = uMVP * vPos;
+    gl_Position = uMVP * vec4(vPos, 1.0);
     outColor = vColor;
 }
