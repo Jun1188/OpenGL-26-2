@@ -11,12 +11,28 @@
 #include <utility>
 
 namespace graphics {
-
 namespace {
 
 bool finiteVector(const glm::vec3& value) {
     return std::isfinite(value.x) && std::isfinite(value.y)
         && std::isfinite(value.z);
+}
+
+bool positiveLengths(const glm::vec3& value) {
+    return finiteVector(value) && value.x > 0.0f
+        && value.y > 0.0f && value.z > 0.0f;
+}
+
+bool validColor(GlColor color) {
+    return std::isfinite(color.red) && std::isfinite(color.green)
+        && std::isfinite(color.blue);
+}
+
+std::uint64_t nextGeometryRevision() {
+    // 장면 복사·교체 시에도 다른 형상에 같은 revision을 부여하지 않는다.
+    // Scene과 Renderer는 한 렌더링 스레드에서 사용한다.
+    static std::uint64_t revision = 0;
+    return ++revision;
 }
 
 void appendFace(Polyhedron& polyhedron, GLFace shape,
@@ -38,6 +54,7 @@ Scene::Scene() {
     components_.reserve(MAX_ENTITIES);
     tetraFaceId_.reserve(MAX_ENTITIES * 4);
     cubeFaceId_.reserve(MAX_ENTITIES * 6);
+    lines_.reserve(MAX_LINES);
 }
 
 std::optional<EntityId> Scene::push_entity(
@@ -48,21 +65,75 @@ std::optional<EntityId> Scene::push_entity(
         || !DiagramSystem::validTransform(transform)) {
         return std::nullopt;
     }
-
+    glm::vec3 minimum = polyhedron.faces[0].localVertices[0];
+    glm::vec3 maximum = minimum;
+    for (const PlaneFigure& face : polyhedron.faces) {
+        for (const glm::vec3& vertex : face.localVertices) {
+            minimum = glm::min(minimum, vertex);
+            maximum = glm::max(maximum, vertex);
+        }
+    }
     const EntityId id = components_.size();
-    components_.push_back({ polyhedron, transform });
+    components_.push_back({ polyhedron, transform, maximum - minimum });
     polyId_.push_back(id);
     std::vector<FaceId>& faceIds = polyhedron.shape == GLShape::Cube
         ? cubeFaceId_ : tetraFaceId_;
     for (std::size_t i = 0; i < polyhedron.faces.size(); ++i) {
         faceIds.push_back({ id, i });
     }
-    ++geometryRevision_;
+    geometryRevision_ = nextGeometryRevision();
     return id;
+}
+
+std::optional<EntityId> Scene::addCuboid(
+    const glm::vec3& sideLengths, const glm::vec3& worldPosition
+) {
+    Transform3D transform;
+    transform.basis = worldPosition;
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Cube, sideLengths),
+                       transform);
+}
+
+std::optional<EntityId> Scene::addRightTetrahedron(
+    const glm::vec3& edgeLengths, const glm::vec3& worldPosition
+) {
+    Transform3D transform;
+    transform.basis = worldPosition;
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Tetra, edgeLengths),
+                       transform);
 }
 
 const Component_Poly* Scene::getComponent(EntityId id) const {
     return id < components_.size() ? &components_[id] : nullptr;
+}
+
+bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
+    if (id >= components_.size() || !finiteVector(worldPosition)) {
+        return false;
+    }
+    components_[id].transform.basis = worldPosition;
+    return true;
+}
+
+bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
+    if (id >= components_.size() || !positiveLengths(sideLengths)) {
+        return false;
+    }
+    Component_Poly& component = components_[id];
+    Polyhedron replacement = DiagramSystem::makePolyhedron(
+        component.polyhedron.shape, sideLengths);
+    if (!DiagramSystem::validPolyhedron(replacement)) {
+        return false;
+    }
+    for (std::size_t i = 0; i < replacement.faces.size(); ++i) {
+        replacement.faces[i].color = component.polyhedron.faces[i].color;
+        replacement.faces[i].independence = component.polyhedron.faces[i].independence;
+        replacement.faces[i].transform = component.polyhedron.faces[i].transform;
+    }
+    component.polyhedron = std::move(replacement);
+    component.sideLengths = sideLengths;
+    geometryRevision_ = nextGeometryRevision();
+    return true;
 }
 
 bool Scene::setTransform(EntityId id, const Transform3D& transform) {
@@ -70,7 +141,7 @@ bool Scene::setTransform(EntityId id, const Transform3D& transform) {
         return false;
     }
     components_[id].transform = transform;
-    return true; // 변환만 바뀌므로 로컬 정점 버퍼를 다시 올리지 않는다.
+    return true;
 }
 
 bool Scene::setFaceTransform(
@@ -88,15 +159,80 @@ bool Scene::setFaceTransform(
     return true;
 }
 
+std::optional<LineId> Scene::addLine(
+    const glm::vec3& start, const glm::vec3& end,
+    GlColor color, std::optional<EntityId> owner
+) {
+    if (lines_.size() >= MAX_LINES || !finiteVector(start) || !finiteVector(end)
+        || !validColor(color) || (owner && getComponent(*owner) == nullptr)) {
+        return std::nullopt;
+    }
+    const LineId id = lines_.size();
+    lines_.push_back({ start, end, color, owner });
+    geometryRevision_ = nextGeometryRevision();
+    return id;
+}
+
+std::optional<LineId> Scene::addVector(
+    const glm::vec3& origin, const glm::vec3& vector,
+    GlColor color, std::optional<EntityId> owner
+) {
+    return addLine(origin, origin + vector, color, owner);
+}
+
+std::optional<std::array<LineId, 3>> Scene::addBasis(
+    const glm::vec3& origin, const glm::mat3& basisVectors,
+    const glm::vec3& axisLengths, std::optional<EntityId> owner
+) {
+    if (lines_.size() > MAX_LINES - 3 || !finiteVector(origin)
+        || !positiveLengths(axisLengths)
+        || (owner && getComponent(*owner) == nullptr)) {
+        return std::nullopt;
+    }
+    for (int i = 0; i < 3; ++i) {
+        if (!finiteVector(basisVectors[i])
+            || glm::dot(basisVectors[i], basisVectors[i]) <= 0.0f
+            || !finiteVector(origin + basisVectors[i] * axisLengths[i])) {
+            return std::nullopt;
+        }
+    }
+    // 사전 검증 후 세 선을 함께 등록한다. 실패 입력은 장면을 변경하지 않는다.
+    const std::array<GlColor, 3> colors{
+        GlColor{ 1.0f, 0.2f, 0.2f },
+        GlColor{ 0.2f, 1.0f, 0.2f },
+        GlColor{ 0.2f, 0.4f, 1.0f }
+    };
+    std::array<LineId, 3> ids{};
+    for (int i = 0; i < 3; ++i) {
+        ids[i] = lines_.size();
+        lines_.push_back({
+            origin, origin + basisVectors[i] * axisLengths[i], colors[i], owner });
+    }
+    geometryRevision_ = nextGeometryRevision();
+    return ids;
+}
+
+bool Scene::setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector) {
+    if (id >= lines_.size() || !finiteVector(origin)
+        || !finiteVector(origin + vector)) {
+        return false;
+    }
+    lines_[id].start = origin;
+    lines_[id].end = origin + vector;
+    geometryRevision_ = nextGeometryRevision();
+    return true;
+}
+
 void Scene::clear() {
-    if (components_.empty()) {
+    if (components_.empty() && lines_.empty()) {
         return;
     }
     polyId_.clear();
     components_.clear();
     cubeFaceId_.clear();
     tetraFaceId_.clear();
-    ++geometryRevision_;
+    lines_.clear();
+    geometryRevision_ = nextGeometryRevision();
 }
 
 bool DiagramSystem::validTransform(const Transform3D& transform) {
@@ -106,19 +242,14 @@ bool DiagramSystem::validTransform(const Transform3D& transform) {
 
 bool DiagramSystem::validPolyhedron(const Polyhedron& polyhedron) {
     const bool cube = polyhedron.shape == GLShape::Cube;
-    if (!cube && polyhedron.shape != GLShape::Tetra) {
-        return false;
-    }
-    if (polyhedron.faces.size() != (cube ? 6u : 4u)) {
+    if ((!cube && polyhedron.shape != GLShape::Tetra)
+        || polyhedron.faces.size() != (cube ? 6u : 4u)) {
         return false;
     }
     for (const PlaneFigure& face : polyhedron.faces) {
         if (face.shape != (cube ? GLFace::Rect : GLFace::Triangle)
             || face.localVertices.size() != (cube ? 4u : 3u)
-            || !finiteVector(face.normal)
-            || !std::isfinite(face.color.red)
-            || !std::isfinite(face.color.green)
-            || !std::isfinite(face.color.blue)
+            || !finiteVector(face.normal) || !validColor(face.color)
             || !validTransform(face.transform)) {
             return false;
         }
@@ -131,51 +262,57 @@ bool DiagramSystem::validPolyhedron(const Polyhedron& polyhedron) {
     return true;
 }
 
-Polyhedron DiagramSystem::makePolyhedron(GLShape shape) {
+Polyhedron DiagramSystem::makePolyhedron(GLShape shape, const glm::vec3& sideLengths) {
     Polyhedron polyhedron;
+    if (!positiveLengths(sideLengths)) {
+        return polyhedron;
+    }
     polyhedron.shape = shape;
-
     if (shape == GLShape::Cube) {
+        const float x = sideLengths.x * 0.5f;
+        const float y = sideLengths.y * 0.5f;
+        const float z = sideLengths.z * 0.5f;
         polyhedron.faces.reserve(6);
-        // 각 면의 네 정점은 바깥에서 볼 때 반시계 방향이다.
         appendFace(polyhedron, GLFace::Rect,
-            { { -.5f, -.5f, .5f }, { .5f, -.5f, .5f },
-              { .5f, .5f, .5f }, { -.5f, .5f, .5f } }, { .9f, .3f, .3f });
+            { { -x, -y, z }, { x, -y, z }, { x, y, z }, { -x, y, z } },
+            { .9f, .3f, .3f });
         appendFace(polyhedron, GLFace::Rect,
-            { { .5f, -.5f, -.5f }, { -.5f, -.5f, -.5f },
-              { -.5f, .5f, -.5f }, { .5f, .5f, -.5f } }, { .3f, .8f, .4f });
+            { { x, -y, -z }, { -x, -y, -z }, { -x, y, -z }, { x, y, -z } },
+            { .3f, .8f, .4f });
         appendFace(polyhedron, GLFace::Rect,
-            { { -.5f, -.5f, -.5f }, { -.5f, -.5f, .5f },
-              { -.5f, .5f, .5f }, { -.5f, .5f, -.5f } }, { .3f, .5f, .9f });
+            { { -x, -y, -z }, { -x, -y, z }, { -x, y, z }, { -x, y, -z } },
+            { .3f, .5f, .9f });
         appendFace(polyhedron, GLFace::Rect,
-            { { .5f, -.5f, .5f }, { .5f, -.5f, -.5f },
-              { .5f, .5f, -.5f }, { .5f, .5f, .5f } }, { .9f, .8f, .3f });
+            { { x, -y, z }, { x, -y, -z }, { x, y, -z }, { x, y, z } },
+            { .9f, .8f, .3f });
         appendFace(polyhedron, GLFace::Rect,
-            { { -.5f, .5f, .5f }, { .5f, .5f, .5f },
-              { .5f, .5f, -.5f }, { -.5f, .5f, -.5f } }, { .3f, .8f, .9f });
+            { { -x, y, z }, { x, y, z }, { x, y, -z }, { -x, y, -z } },
+            { .3f, .8f, .9f });
         appendFace(polyhedron, GLFace::Rect,
-            { { -.5f, -.5f, -.5f }, { .5f, -.5f, -.5f },
-              { .5f, -.5f, .5f }, { -.5f, -.5f, .5f } }, { .8f, .3f, .9f });
+            { { -x, -y, -z }, { x, -y, -z }, { x, -y, z }, { -x, -y, z } },
+            { .8f, .3f, .9f });
     } else if (shape == GLShape::Tetra) {
-        const glm::vec3 top{ 0.0f, .65f, 0.0f };
-        const glm::vec3 left{ -.6f, -.35f, .45f };
-        const glm::vec3 right{ .6f, -.35f, .45f };
-        const glm::vec3 back{ 0.0f, -.35f, -.6f };
+        // 원점에서 직교하는 세 모서리를 만들고, 무게중심을 로컬 원점으로 옮긴다.
+        const glm::vec3 center = sideLengths * 0.25f;
+        const glm::vec3 origin = -center;
+        const glm::vec3 x = glm::vec3(sideLengths.x, 0.0f, 0.0f) - center;
+        const glm::vec3 y = glm::vec3(0.0f, sideLengths.y, 0.0f) - center;
+        const glm::vec3 z = glm::vec3(0.0f, 0.0f, sideLengths.z) - center;
         polyhedron.faces.reserve(4);
         appendFace(polyhedron, GLFace::Triangle,
-            { top, left, right }, { .9f, .4f, .3f });
+            { origin, y, x }, { .9f, .4f, .3f });
         appendFace(polyhedron, GLFace::Triangle,
-            { top, right, back }, { .3f, .8f, .4f });
+            { origin, x, z }, { .3f, .8f, .4f });
         appendFace(polyhedron, GLFace::Triangle,
-            { top, back, left }, { .3f, .5f, .9f });
+            { origin, z, y }, { .3f, .5f, .9f });
         appendFace(polyhedron, GLFace::Triangle,
-            { left, back, right }, { .9f, .8f, .3f });
+            { x, y, z }, { .9f, .8f, .3f });
     }
     return polyhedron;
 }
 
 glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
-    // 열벡터 기준: 기준점 이동 -> S -> Rz -> Ry -> Rx -> 월드 위치.
+    // 열벡터 기준: localBasis 이동 -> S -> Rz -> Ry -> Rx -> 월드 위치.
     glm::mat4 model = glm::translate(glm::mat4(1.0f), transform.basis);
     model = glm::rotate(model, glm::radians(transform.rotationDegrees.x),
                         glm::vec3(1.0f, 0.0f, 0.0f));
@@ -190,8 +327,20 @@ glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
 glm::mat4 DiagramSystem::faceModelMatrix(
     const Component_Poly& component, const PlaneFigure& face
 ) {
-    // 독립 면의 transform은 부모에 상대적인 값이 아닌 월드 변환이다.
     return modelMatrix(face.independence ? face.transform : component.transform);
+}
+
+bool CameraSystem::validCamera(const Camera& camera) {
+    const glm::vec3 direction = camera.target - camera.position;
+    const glm::vec3 right = glm::cross(direction, camera.up);
+    return finiteVector(camera.position) && finiteVector(camera.target)
+        && finiteVector(camera.up) && finiteVector(direction) && finiteVector(right)
+        && glm::dot(direction, direction) > 0.000001f
+        && glm::dot(right, right) > 0.000001f
+        && std::isfinite(camera.fieldOfViewDegrees)
+        && camera.fieldOfViewDegrees > 0.0f && camera.fieldOfViewDegrees < 180.0f
+        && std::isfinite(camera.nearPlane) && std::isfinite(camera.farPlane)
+        && camera.nearPlane > 0.0f && camera.farPlane > camera.nearPlane;
 }
 
 glm::mat4 CameraSystem::viewMatrix(const Camera& camera) {
@@ -330,25 +479,21 @@ bool Renderer::initBuffer() {
     return true;
 }
 
-bool Renderer::upload(const Scene& entities) {
+bool Renderer::upload(const Scene& scene) {
     if (vao_ == 0) {
         return false;
     }
-
     std::vector<GLfloat> positions;
     std::vector<GLfloat> colors;
     std::vector<GLuint> indices;
     std::vector<DrawRange> ranges;
-
-    for (EntityId id : entities.getIds()) {
-        const Component_Poly* component = entities.getComponent(id);
+    for (EntityId id : scene.getIds()) {
+        const Component_Poly* component = scene.getComponent(id);
         if (component == nullptr
             || !DiagramSystem::validPolyhedron(component->polyhedron)) {
-            std::cerr << "Invalid polyhedron data.\n";
             return false;
         }
-
-        const std::vector<PlaneFigure>& faces = component->polyhedron.faces;
+        const auto& faces = component->polyhedron.faces;
         for (std::size_t faceIndex = 0; faceIndex < faces.size(); ++faceIndex) {
             const PlaneFigure& face = faces[faceIndex];
             const GLuint firstVertex = static_cast<GLuint>(positions.size() / 3);
@@ -361,26 +506,37 @@ bool Renderer::upload(const Scene& entities) {
             indices.insert(indices.end(),
                 { firstVertex, firstVertex + 1, firstVertex + 2 });
             if (face.shape == GLFace::Rect) {
-                // 반시계 방향 사각형: (0,1,2), (0,2,3).
                 indices.insert(indices.end(),
                     { firstVertex, firstVertex + 2, firstVertex + 3 });
             }
-            ranges.push_back({ id, faceIndex, firstIndex,
-                static_cast<GLsizei>(indices.size() - firstIndex) });
+            ranges.push_back({ GL_TRIANGLES, id, faceIndex, std::nullopt,
+                firstIndex, static_cast<GLsizei>(indices.size() - firstIndex) });
         }
     }
-
+    const auto& lines = scene.getLines();
+    for (LineId id = 0; id < lines.size(); ++id) {
+        const Line3D& line = lines[id];
+        const GLuint firstVertex = static_cast<GLuint>(positions.size() / 3);
+        const std::size_t firstIndex = indices.size();
+        positions.insert(positions.end(),
+            { line.start.x, line.start.y, line.start.z,
+              line.end.x, line.end.y, line.end.z });
+        for (int i = 0; i < 2; ++i) {
+            colors.insert(colors.end(),
+                { line.color.red, line.color.green, line.color.blue });
+        }
+        indices.insert(indices.end(), { firstVertex, firstVertex + 1 });
+        ranges.push_back({ GL_LINES, 0, 0, id, firstIndex, 2 });
+    }
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[0]);
     glBufferData(GL_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(positions.size() * sizeof(GLfloat)),
         positions.empty() ? nullptr : positions.data(), GL_STATIC_DRAW);
-
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
     glBufferData(GL_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(colors.size() * sizeof(GLfloat)),
         colors.empty() ? nullptr : colors.data(), GL_STATIC_DRAW);
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(indices.size() * sizeof(GLuint)),
@@ -391,35 +547,89 @@ bool Renderer::upload(const Scene& entities) {
     return true;
 }
 
-bool Renderer::render(const Scene& entities, const glm::mat4& view,
-                           const glm::mat4& projection) const {
+bool Renderer::render(const Scene& scene, const glm::mat4& view,
+                      const glm::mat4& projection) const {
     if (shaderProgramID_ == 0 || vao_ == 0 || mvpLocation_ < 0) {
         return false;
     }
+    // 사용되는 ID를 먼저 검사한다. 잘못된 데이터로 일부만 그리지 않는다.
     for (const DrawRange& range : drawRanges_) {
-        const Component_Poly* component = entities.getComponent(range.entityId);
-        if (component == nullptr
-            || range.faceIndex >= component->polyhedron.faces.size()) {
-            return false;
+        if (range.lineId) {
+            if (*range.lineId >= scene.getLines().size()) {
+                return false;
+            }
+            const auto owner = scene.getLines()[*range.lineId].owner;
+            if (owner && scene.getComponent(*owner) == nullptr) {
+                return false;
+            }
+        } else {
+            const Component_Poly* component = scene.getComponent(range.entityId);
+            if (component == nullptr
+                || range.faceIndex >= component->polyhedron.faces.size()) {
+                return false;
+            }
         }
     }
-
     glUseProgram(shaderProgramID_);
     glBindVertexArray(vao_);
     for (const DrawRange& range : drawRanges_) {
-        const Component_Poly* component = entities.getComponent(range.entityId);
-        const PlaneFigure& face = component->polyhedron.faces[range.faceIndex];
-        const glm::mat4 model = DiagramSystem::faceModelMatrix(*component, face);
+        glm::mat4 model(1.0f);
+        if (range.lineId) {
+            const auto owner = scene.getLines()[*range.lineId].owner;
+            if (owner) {
+                model = DiagramSystem::modelMatrix(scene.getComponent(*owner)->transform);
+            }
+        } else {
+            const Component_Poly* component = scene.getComponent(range.entityId);
+            model = DiagramSystem::faceModelMatrix(
+                *component, component->polyhedron.faces[range.faceIndex]);
+        }
         const glm::mat4 mvp = projection * view * model;
         glUniformMatrix4fv(mvpLocation_, 1, GL_FALSE, glm::value_ptr(mvp));
-
         const void* offset = reinterpret_cast<const void*>(
             range.firstIndex * sizeof(GLuint));
-        glDrawElements(GL_TRIANGLES, range.count, GL_UNSIGNED_INT, offset);
+        glDrawElements(range.mode, range.count, GL_UNSIGNED_INT, offset);
     }
     glBindVertexArray(0);
     glUseProgram(0);
     return true;
+}
+
+bool Renderer::initialize(const std::filesystem::path& vertexPath,
+                          const std::filesystem::path& fragmentPath) {
+    if (!initShader(vertexPath, fragmentPath) || !initBuffer()) {
+        destroy();
+        return false;
+    }
+    return true;
+}
+
+bool Renderer::render(const Scene& scene, const Camera& camera, int width, int height) {
+    if (shaderProgramID_ == 0 || vao_ == 0) {
+        return false;
+    }
+    if (width <= 0 || height <= 0) {
+        return true; // 최소화 중에는 투영과 드로우를 건너뛴다.
+    }
+    if (!CameraSystem::validCamera(camera)) {
+        return false;
+    }
+    if (uploadedScene_ != &scene || uploadedRevision_ != scene.getGeometryRevision()) {
+        if (!upload(scene)) {
+            return false;
+        }
+        uploadedScene_ = &scene;
+        uploadedRevision_ = scene.getGeometryRevision();
+    }
+    glViewport(0, 0, width, height);
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LESS);
+    glClearColor(0.12f, 0.12f, 0.16f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    const float aspect = static_cast<float>(width) / static_cast<float>(height);
+    return render(scene, CameraSystem::viewMatrix(camera),
+                  CameraSystem::projectionMatrix(camera, aspect));
 }
 
 void Renderer::destroy() {
@@ -441,6 +651,8 @@ void Renderer::destroy() {
     }
     mvpLocation_ = -1;
     drawRanges_.clear();
+    uploadedScene_ = nullptr;
+    uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
 }
 
 } // namespace graphics

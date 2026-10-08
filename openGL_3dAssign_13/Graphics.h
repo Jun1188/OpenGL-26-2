@@ -3,9 +3,11 @@
 #include <glew.h>
 #include <glm/glm.hpp>
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
+#include <limits>
 #include <optional>
 #include <string>
 #include <vector>
@@ -15,8 +17,10 @@ namespace graphics {
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
 constexpr std::size_t MAX_ENTITIES = 50;
+constexpr std::size_t MAX_LINES = 500;
 
 using EntityId = std::size_t;
+using LineId = std::size_t;
 
 struct GlColor {
     float red = 0.0f;
@@ -24,33 +28,34 @@ struct GlColor {
     float blue = 0.0f;
 };
 
-enum class GLShape { None, Cube, Tetra };
+enum class GLShape { None, Cube, Tetra }; // Cube는 직육면체, Tetra는 직사면체.
 enum class GLFace { None, Rect, Triangle };
 
 struct Transform3D {
-    glm::vec3 basis{ 0.0f };          // 월드 공간에서 localBasis가 놓일 위치.
-    glm::vec3 localBasis{ 0.0f };     // 로컬 공간의 회전·크기 기준점.
+    glm::vec3 basis{ 0.0f }; // 월드 위치. 방향 기저는 addBasis의 mat3로 구분한다.
+    glm::vec3 localBasis{ 0.0f };
     glm::vec3 rotationDegrees{ 0.0f };
     glm::vec3 scale{ 1.0f };
 };
 
 struct PlaneFigure {
     GLFace shape = GLFace::None;
-    std::vector<glm::vec3> localVertices; // 정점은 CPU에서 월드 좌표로 바꾸지 않는다.
+    std::vector<glm::vec3> localVertices;
     GlColor color;
-    glm::vec3 normal{ 0.0f };             // 로컬 면 법선. 현재는 색상 렌더링만 사용한다.
+    glm::vec3 normal{ 0.0f }; // 로컬 법선 데이터. 조명은 현재 사용하지 않는다.
     bool independence = false;
-    Transform3D transform;                // 독립 면일 때 사용할 월드 변환.
+    Transform3D transform;   // 독립 면일 때의 월드 변환.
 };
 
 struct Polyhedron {
     GLShape shape = GLShape::None;
-    std::vector<PlaneFigure> faces; // 육면체: 사각형 6개, 사면체: 삼각형 4개.
+    std::vector<PlaneFigure> faces;
 };
 
-struct Component_Poly { // C: 상태만 보관한다. 계산은 DiagramSystem에 맡긴다.
+struct Component_Poly {
     Polyhedron polyhedron;
     Transform3D transform;
+    glm::vec3 sideLengths{ 1.0f }; // scale과 구분한 실제 로컬 모서리 길이.
 };
 
 struct FaceId {
@@ -58,32 +63,60 @@ struct FaceId {
     std::size_t faceIndex = 0;
 };
 
-class Scene { // E: ID를 등록하고 같은 인덱스의 컴포넌트에 연결한다.
+struct Line3D {
+    glm::vec3 start{ 0.0f };
+    glm::vec3 end{ 0.0f };
+    GlColor color;
+    std::optional<EntityId> owner; // 없으면 월드 좌표, 있으면 객체의 로컬 좌표.
+};
+
+class Scene {
+private:
     std::vector<EntityId> polyId_;
-    std::vector<Component_Poly> components_; // 입체와 면 데이터의 단일 소유자.
+    std::vector<Component_Poly> components_;
     std::vector<FaceId> cubeFaceId_;
     std::vector<FaceId> tetraFaceId_;
+    std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
+
 public:
     Scene();
     std::optional<EntityId> push_entity(const Polyhedron& polyhedron,
                                        const Transform3D& transform = {});
+    std::optional<EntityId> addCuboid(const glm::vec3& sideLengths,
+                                     const glm::vec3& worldPosition);
+    std::optional<EntityId> addRightTetrahedron(const glm::vec3& edgeLengths,
+                                               const glm::vec3& worldPosition);
+    bool setPosition(EntityId id, const glm::vec3& worldPosition);
+    bool setSideLengths(EntityId id, const glm::vec3& sideLengths);
     bool setTransform(EntityId id, const Transform3D& transform);
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
-    void clear();
+
+    std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end,
+                                 GlColor color, std::optional<EntityId> owner = {});
+    std::optional<LineId> addVector(const glm::vec3& origin, const glm::vec3& vector,
+                                   GlColor color, std::optional<EntityId> owner = {});
+    // mat3의 열이 X/Y/Z 기저 벡터다. 벡터를 정규화하지 않고 그대로 사용한다.
+    std::optional<std::array<LineId, 3>> addBasis(
+        const glm::vec3& origin, const glm::mat3& basisVectors = glm::mat3(1.0f),
+        const glm::vec3& axisLengths = glm::vec3(1.0f),
+        std::optional<EntityId> owner = {});
+    bool setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector);
+    void clear(); // ID는 clear 이후 재사용된다. 기존 ID를 계속 사용하지 않는다.
 
     const std::vector<EntityId>& getIds() const { return polyId_; }
     const Component_Poly* getComponent(EntityId id) const;
     const std::vector<FaceId>& getCubeFaceIds() const { return cubeFaceId_; }
     const std::vector<FaceId>& getTetraFaceIds() const { return tetraFaceId_; }
+    const std::vector<Line3D>& getLines() const { return lines_; }
     std::uint64_t getGeometryRevision() const { return geometryRevision_; }
-    
 };
 
-class DiagramSystem { // S: 형상 생성과 변환 계산. OpenGL 핸들은 다루지 않는다.
+class DiagramSystem {
 public:
-    static Polyhedron makePolyhedron(GLShape shape);
+    static Polyhedron makePolyhedron(GLShape shape,
+                                     const glm::vec3& sideLengths = glm::vec3(1.0f));
     static bool validPolyhedron(const Polyhedron& polyhedron);
     static bool validTransform(const Transform3D& transform);
     static glm::mat4 modelMatrix(const Transform3D& transform);
@@ -91,7 +124,7 @@ public:
                                     const PlaneFigure& face);
 };
 
-struct Camera { // 렌더링할 형상이 없는 별도의 장면 객체.
+struct Camera {
     glm::vec3 position{ 2.8f, 2.0f, 5.0f };
     glm::vec3 target{ 0.0f };
     glm::vec3 up{ 0.0f, 1.0f, 0.0f };
@@ -102,6 +135,7 @@ struct Camera { // 렌더링할 형상이 없는 별도의 장면 객체.
 
 class CameraSystem {
 public:
+    static bool validCamera(const Camera& camera);
     static glm::mat4 viewMatrix(const Camera& camera);
     static glm::mat4 projectionMatrix(const Camera& camera, float aspect);
 };
@@ -111,32 +145,42 @@ std::string readTextFile(const std::filesystem::path& path);
 class Renderer {
 private:
     struct DrawRange {
+        GLenum mode = GL_TRIANGLES;
         EntityId entityId = 0;
         std::size_t faceIndex = 0;
+        std::optional<LineId> lineId;
         std::size_t firstIndex = 0;
         GLsizei count = 0;
     };
 
     GLuint shaderProgramID_ = 0;
     GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 }; // 로컬 위치와 색상의 분리 스트림.
+    GLuint vbo_[2] = { 0, 0 };
     GLuint ebo_ = 0;
     GLint mvpLocation_ = -1;
     std::vector<DrawRange> drawRanges_;
+    const Scene* uploadedScene_ = nullptr;
+    std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
 
 public:
     Renderer() = default;
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
 
+    // 호출자가 유효한 OpenGL 3.3 컨텍스트를 current로 설정한 뒤 호출한다.
+    bool initialize(const std::filesystem::path& vertexPath,
+                    const std::filesystem::path& fragmentPath);
+    // viewport/depth/clear/program/VAO를 설정한다. 컨텍스트와 윈도우는 소유하지 않는다.
+    bool render(const Scene& scene, const Camera& camera, int width, int height);
+    void destroy(); // 컨텍스트 종료 전에 호출한다. 여러 번 호출해도 된다.
+
+    // 기존 호출부의 이전을 위한 저수준 함수. 내부 구현 정리 단계에서 private로 이동.
     bool initShader(const std::filesystem::path& vertexPath,
                     const std::filesystem::path& fragmentPath);
     bool initBuffer();
-    bool upload(const Scene& entities);
-    bool render(const Scene& entities, const glm::mat4& view,
+    bool upload(const Scene& scene);
+    bool render(const Scene& scene, const glm::mat4& view,
                 const glm::mat4& projection) const;
-    void destroy(); // OpenGL 컨텍스트가 살아 있을 때 호출한다.
-
 };
 
 } // namespace graphics
