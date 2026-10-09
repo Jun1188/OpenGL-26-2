@@ -140,20 +140,21 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="framework\src\Graphics.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="framework\include\Graphics.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FragmentShader.glsl" />
+    <None Include="framework\shaders\FragmentShader.glsl" />
     <None Include="packages.config" />
-    <None Include="VertexShader.glsl" />
+    <None Include="framework\shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="openGL_assign_789.rc" />
