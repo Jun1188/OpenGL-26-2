@@ -7,6 +7,7 @@
 #include <array>
 #include <filesystem>
 #include <iostream>
+#include <initializer_list>
 
 namespace {
 
@@ -21,13 +22,8 @@ struct Controls {
     std::array<bool, GLFW_KEY_LAST + 1> pressed{};
 };
 
-struct WindowState {
-    Console* console = nullptr;
-    Controls* controls = nullptr;
-};
-
 // 이 두 함수는 다른 .cpp로 옮겨도 같은 콜백 API로 등록할 수 있다.
-void onKey(Console&, int key, int action, void* userData) {
+void onKey(graphics::Application& app, int key, int action, void* userData) {
     Controls& controls = *static_cast<Controls*>(userData);
     if (key >= 0 && key <= GLFW_KEY_LAST) {
         if (action == GLFW_PRESS) {
@@ -38,6 +34,9 @@ void onKey(Console&, int key, int action, void* userData) {
     }
     if (action != GLFW_PRESS) {
         return;
+    }
+    if (key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q) {
+        app.requestClose();
     }
     switch (key) {
     case GLFW_KEY_1: controls.target = Controls::Target::Cuboid; break;
@@ -106,14 +105,13 @@ void onUpdate(Console& console, float deltaTime, void* userData) {
 std::filesystem::path findShaderDirectory() {
     std::filesystem::path directory = std::filesystem::current_path();
     for (int depth = 0; depth < 6; ++depth) {
-        if (std::filesystem::exists(directory / "VertexShader.glsl")
-            && std::filesystem::exists(directory / "FragmentShader.glsl")) {
-            return directory;
-        }
-        const auto project = directory / "openGL_3dAssign_13";
-        if (std::filesystem::exists(project / "VertexShader.glsl")
-            && std::filesystem::exists(project / "FragmentShader.glsl")) {
-            return project;
+        const auto local = directory / "framework" / "shaders";
+        const auto project = directory / "openGL_3dAssign_13" / "framework" / "shaders";
+        for (const auto& candidate : { local, project }) {
+            if (std::filesystem::exists(candidate / "VertexShader.glsl")
+                && std::filesystem::exists(candidate / "FragmentShader.glsl")) {
+                return candidate;
+            }
         }
         if (directory == directory.parent_path()) {
             break;
@@ -123,115 +121,37 @@ std::filesystem::path findShaderDirectory() {
     return {};
 }
 
-void keyCallback(GLFWwindow* window, int key, int, int action, int) {
-    WindowState* state = static_cast<WindowState*>(glfwGetWindowUserPointer(window));
-    if (state != nullptr && state->console != nullptr) {
-        state->console->onKey(key, action);
-    }
-}
-
-void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    WindowState* state = static_cast<WindowState*>(glfwGetWindowUserPointer(window));
-    if (state != nullptr && state->console != nullptr) {
-        state->console->resizeFramebuffer(width, height);
-    }
-}
-
-void focusCallback(GLFWwindow* window, int focused) {
-    WindowState* state = static_cast<WindowState*>(glfwGetWindowUserPointer(window));
-    if (state != nullptr && state->controls != nullptr && focused == GLFW_FALSE) {
-        state->controls->pressed.fill(false);
-    }
-}
-
 } // namespace
 
 int main() {
-    if (!glfwInit()) {
-        std::cerr << "GLFW initialization failed.\n";
-        return -1;
-    }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-
-    GLFWwindow* window = glfwCreateWindow(
-        graphics::WINDOW_WIDTH, graphics::WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr);
-    if (window == nullptr) {
-        std::cerr << "Window creation failed.\n";
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "GLEW initialization failed.\n";
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        return -1;
-    }
-
-    const auto shaderDirectory = findShaderDirectory();
-    if (shaderDirectory.empty()) {
-        std::cerr << "VertexShader.glsl and FragmentShader.glsl were not found.\n";
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        return -1;
-    }
-    Console console(window);
-    if (!console.initGraphics(shaderDirectory)) {
-        std::cerr << "Scene or graphics initialization failed.\n";
-        console.shutdownGraphics();
-        glfwDestroyWindow(window);
-        glfwTerminate();
-        return -1;
-    }
-
+    graphics::Application application;
+    Console example(application);
     Controls controls;
-    console.setKeyHandler(onKey, &controls);
-    console.setUpdateHandler(onUpdate, &controls);
-    WindowState windowState{ &console, &controls };
-    glfwSetWindowUserPointer(window, &windowState);
-    glfwSetKeyCallback(window, keyCallback);
-    glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
-    glfwSetWindowFocusCallback(window, focusCallback);
+    graphics::ApplicationConfig config;
+    config.title = WINDOW_TITLE;
+    config.shaderDirectory = findShaderDirectory();
+    if (config.shaderDirectory.empty()) {
+        std::cerr << "framework/shaders was not found.\n";
+        return -1;
+    }
+
+    // 장면과 키 명세는 사용자 코드에서 등록한다.
+    application.setInitHandler([&](graphics::Application&) {
+        return example.initScene();
+    });
+    application.setKeyHandler([&](graphics::Application& app, int key, int action) {
+        onKey(app, key, action, &controls);
+    });
+    application.setUpdateHandler([&](graphics::Application&, float deltaTime) {
+        onUpdate(example, deltaTime, &controls);
+    });
+    application.setFocusHandler([&](graphics::Application&, bool focused) {
+        if (!focused) {
+            controls.pressed.fill(false);
+        }
+    });
     std::cout << "1: cuboid, 2: right tetrahedron, 3: camera\n"
               << "Arrows: world X/Y, PageUp/PageDown: world Z\n"
               << "X/Y/Z: resize axis, +/-: resize, Esc/Q: quit\n";
-
-    int exitCode = 0;
-    double previousTime = glfwGetTime();
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-        if (glfwWindowShouldClose(window)) {
-            break;
-        }
-        if (!console.hasFramebuffer()) {
-            glfwWaitEvents();
-            previousTime = glfwGetTime();
-            continue;
-        }
-        const double currentTime = glfwGetTime();
-        const float deltaTime = static_cast<float>(
-            std::clamp(currentTime - previousTime, 0.0, 0.05));
-        previousTime = currentTime;
-        console.update(deltaTime);
-        if (!console.render()) {
-            std::cerr << "Scene rendering failed.\n";
-            exitCode = -1;
-            break;
-        }
-        glfwSwapBuffers(window);
-    }
-
-    glfwSetWindowUserPointer(window, nullptr);
-    console.setKeyHandler(nullptr);
-    console.setUpdateHandler(nullptr);
-    console.shutdownGraphics();
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    return exitCode;
+    return application.run(config);
 }

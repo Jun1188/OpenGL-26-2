@@ -21,6 +21,7 @@
     <ClCompile Include="framework\src\Graphics.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="framework\src\Application.cpp" />
     <ClCompile Include="Console.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -33,6 +34,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="framework\include\Graphics.h" />
+    <ClInclude Include="framework\include\Application.h" />
     <ClInclude Include="Common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

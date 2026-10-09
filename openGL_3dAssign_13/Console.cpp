@@ -1,9 +1,5 @@
-﻿#include <glew.h>
-#include <glfw3.h>
+﻿#include "Console.h"
 
-#include "Console.h"
-
-#include <cmath>
 #include <utility>
 
 bool Console::initScene() {
@@ -47,65 +43,8 @@ bool Console::initScene() {
         || !scene.addVector(vectorOrigin, vectorValue, vectorColor)) {
         return false;
     }
-    scene_ = std::move(scene);
+    application_.getScene() = std::move(scene);
     cuboidId_ = cuboid;
     tetrahedronId_ = tetrahedron;
     return true;
-}
-
-bool Console::initGraphics(const std::filesystem::path& shaderDirectory) {
-    if (window_ == nullptr || !initScene()) {
-        return false;
-    }
-    if (!renderer_.initialize(shaderDirectory / "VertexShader.glsl",
-                              shaderDirectory / "FragmentShader.glsl")) {
-        return false;
-    }
-    int width = 0;
-    int height = 0;
-    glfwGetFramebufferSize(window_, &width, &height);
-    resizeFramebuffer(width, height);
-    return true;
-}
-
-void Console::shutdownGraphics() {
-    renderer_.destroy();
-}
-
-void Console::setKeyHandler(KeyHandler handler, void* userData) {
-    keyHandler_ = handler;
-    keyUserData_ = userData;
-}
-
-void Console::setUpdateHandler(UpdateHandler handler, void* userData) {
-    updateHandler_ = handler;
-    updateUserData_ = userData;
-}
-
-void Console::onKey(int key, int action) {
-    if (action == GLFW_PRESS && (key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q)) {
-        glfwSetWindowShouldClose(window_, GLFW_TRUE);
-    }
-    if (keyHandler_ != nullptr) {
-        keyHandler_(*this, key, action, keyUserData_);
-    }
-}
-
-void Console::update(float deltaTime) {
-    if (updateHandler_ != nullptr && std::isfinite(deltaTime) && deltaTime > 0.0f) {
-        updateHandler_(*this, deltaTime, updateUserData_);
-    }
-}
-
-void Console::resizeFramebuffer(int width, int height) {
-    framebufferWidth_ = width;
-    framebufferHeight_ = height;
-}
-
-bool Console::hasFramebuffer() const {
-    return framebufferWidth_ > 0 && framebufferHeight_ > 0;
-}
-
-bool Console::render() {
-    return renderer_.render(scene_, camera_, framebufferWidth_, framebufferHeight_);
 }
