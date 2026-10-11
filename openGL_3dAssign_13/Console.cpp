@@ -1,50 +1,76 @@
 ﻿#include "Console.h"
-
-#include <utility>
+#include <glfw3.h>
+#include <iostream>
 
 bool Console::initScene() {
-    // 기본 입력 값. 길이·월드 위치·회전을 각각 변경할 수 있다.
-    const glm::vec3 cuboidSideLengths{ 1.0f, 1.0f, 1.0f };
-    const glm::vec3 cuboidWorldPosition{ -0.9f, 0.0f, 0.0f };
-    const glm::vec3 cuboidRotationDegrees{ 20.0f, -25.0f, 0.0f };
-    const glm::vec3 tetrahedronEdgeLengths{ 1.0f, 1.0f, 1.0f };
-    const glm::vec3 tetrahedronWorldPosition{ 0.9f, 0.0f, 0.0f };
-    const glm::vec3 tetrahedronRotationDegrees{ 0.0f, 55.0f, 0.0f };
-
-    graphics::Scene scene;
-    const auto cuboid = scene.addCuboid(cuboidSideLengths, cuboidWorldPosition);
-    const auto tetrahedron = scene.addRightTetrahedron(
-        tetrahedronEdgeLengths, tetrahedronWorldPosition);
-    if (!cuboid || !tetrahedron) {
+    graphics::Scene& scene = application_.getScene();
+    scene.clear();
+    const auto cube = scene.addCuboid(glm::vec3(0.8f), glm::vec3(0.0f));
+    const auto pyramid = scene.addPyramid(glm::vec3(0.8f), glm::vec3(0.0f));
+    if (!cube || !pyramid) {
         return false;
     }
-
-    graphics::Transform3D cuboidTransform;
-    cuboidTransform.basis = cuboidWorldPosition;
-    cuboidTransform.rotationDegrees = cuboidRotationDegrees;
-    graphics::Transform3D tetrahedronTransform;
-    tetrahedronTransform.basis = tetrahedronWorldPosition;
-    tetrahedronTransform.rotationDegrees = tetrahedronRotationDegrees;
-    if (!scene.setTransform(*cuboid, cuboidTransform)
-        || !scene.setTransform(*tetrahedron, tetrahedronTransform)) {
+    cuboidId_ = *cube;
+    pyramidId_ = *pyramid;
+    graphics::Transform3D initial;
+    initial.rotationDegrees = { 30.0f, 30.0f, 0.0f };
+    if (!scene.setTransform(cuboidId_, initial) || !scene.setTransform(pyramidId_, initial)) {
         return false;
     }
-
-    const glm::vec3 basisOrigin{ 0.0f };
-    const glm::mat3 basisVectors{ 1.0f };
-    const glm::vec3 worldAxisLengths{ 1.4f };
-    const glm::vec3 localAxisLengths{ 0.9f };
-    const glm::vec3 vectorOrigin{ 0.0f, -0.9f, 0.0f };
-    const glm::vec3 vectorValue{ 0.8f, 0.5f, 0.6f };
-    const graphics::GlColor vectorColor{ 1.0f, 0.85f, 0.2f };
-    if (!scene.addBasis(basisOrigin, basisVectors, worldAxisLengths)
-        || !scene.addBasis(basisOrigin, basisVectors, localAxisLengths, *cuboid)
-        || !scene.addBasis(basisOrigin, basisVectors, localAxisLengths, *tetrahedron)
-        || !scene.addVector(vectorOrigin, vectorValue, vectorColor)) {
+    // 축은 객체에 연결하지 않는다. 원점부터 양·음 방향으로 각각 1만큼 표시한다.
+    if (!scene.addLine({ -1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.2f, 0.2f })
+        || !scene.addLine({ 0.0f, -1.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.2f, 1.0f, 0.2f })
+        || !scene.addLine({ 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, { 0.2f, 0.4f, 1.0f })) {
         return false;
     }
-    application_.getScene() = std::move(scene);
-    cuboidId_ = cuboid;
-    tetrahedronId_ = tetrahedron;
+    auto& camera = application_.getCamera();
+    camera.position = { 1.8f, 1.2f, 3.0f };
+    camera.orthographic = true;
+    camera.orthographicHalfExtent = 1.0f;
+    selectFaces(cuboidId_, { 0, 1, 2, 3, 4, 5 });
+    std::cout << "Practice 13: each selection replaces the previous faces.\n"
+              << "1 front(red), 2 back(green), 3 left(blue), 4 right(yellow)\n"
+              << "5 top(cyan), 6 bottom(magenta)\n"
+              << "7/8/9/0 pyramid: front(red)/right(blue)/back(green)/left(yellow)\n"
+              << "C: two distinct cube faces, T: pyramid base + one side\n"
+              << "Axes: X red, Y green, Z blue. Esc: quit\n";
     return true;
+}
+
+void Console::selectFaces(graphics::EntityId id, std::initializer_list<std::size_t> faces) {
+    auto& scene = application_.getScene();
+    for (auto entity : scene.getIds()) {
+        const auto* component = scene.getComponent(entity);
+        for (std::size_t i = 0; i < component->polyhedron.faces.size(); ++i) {
+            scene.setFaceVisible(entity, i, false);
+        }
+    }
+    for (std::size_t face : faces) {
+        scene.setFaceVisible(id, face, true);
+    }
+}
+
+void Console::onKey(int key, int action) {
+    if (action != GLFW_PRESS) {
+        return; // 키 반복으로 무작위 선택을 여러 번 바꾸지 않는다.
+    }
+    if (key == GLFW_KEY_ESCAPE) {
+        application_.requestClose();
+    } else if (key >= GLFW_KEY_1 && key <= GLFW_KEY_6) {
+        selectFaces(cuboidId_, { static_cast<std::size_t>(key - GLFW_KEY_1) });
+    } else if (key >= GLFW_KEY_7 && key <= GLFW_KEY_9) {
+        selectFaces(pyramidId_, { static_cast<std::size_t>(key - GLFW_KEY_7) });
+    } else if (key == GLFW_KEY_0) {
+        selectFaces(pyramidId_, { 3 });
+    } else if (key == GLFW_KEY_C) {
+        const std::size_t first = std::uniform_int_distribution<int>(0, 5)(random_);
+        std::size_t second = std::uniform_int_distribution<int>(0, 4)(random_);
+        if (second >= first) {
+            ++second; // 첫 면을 제외한 다섯 면 중 하나다.
+        }
+        selectFaces(cuboidId_, { first, second });
+    } else if (key == GLFW_KEY_T) {
+        const std::size_t side = std::uniform_int_distribution<int>(0, 3)(random_);
+        selectFaces(pyramidId_, { 4, side });
+    }
 }
