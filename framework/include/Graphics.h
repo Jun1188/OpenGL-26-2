@@ -1,8 +1,7 @@
 ﻿#pragma once
 
-#include <glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include "Model.h"
+#include "../dependencies/glew-2.3.1/include/GL/glew.h"
 
 #include <array>
 #include <cstddef>
@@ -14,66 +13,6 @@
 #include <vector>
 
 namespace graphics {
-
-constexpr int WINDOW_WIDTH = 800;
-constexpr int WINDOW_HEIGHT = 600;
-constexpr std::size_t MAX_ENTITIES = 50;
-constexpr std::size_t MAX_LINES = 500;
-
-using EntityId = std::size_t;
-using LineId = std::size_t;
-
-struct GlColor {
-    float red = 0.0f;
-    float green = 0.0f;
-    float blue = 0.0f;
-};
-
-enum class GLShape { None, Cube, Tetra, Pyramid }; // Cube는 직육면체, Tetra는 직사면체.
-enum class GLFace { None, Rect, Triangle };
-
-struct Transform3D {
-    glm::vec3 basis{ 0.0f }; // 월드 위치. 방향 기저는 addBasis의 mat3로 구분한다.
-    glm::vec3 localBasis{ 0.0f };
-    glm::vec3 rotationDegrees{ 0.0f };
-    glm::vec3 scale{ 1.0f };
-    glm::quat orientation{ 1.0f, 0.0f, 0.0f, 0.0f }; // Euler 회전 다음에 적용한다.
-};
-
-struct PlaneFigure {
-    GLFace shape = GLFace::None;
-    std::vector<glm::vec3> localVertices;
-    GlColor color;
-    glm::vec3 normal{ 0.0f }; // 로컬 법선 데이터. 조명은 현재 사용하지 않는다.
-    bool independence = false;
-    Transform3D transform;   // 독립 면일 때의 월드 변환.
-    bool visible = true;
-    glm::mat4 localAnimationMatrix{ 1.0f };
-    std::vector<GlColor> vertexColors; // 비어 있으면 면의 단색을 사용한다.
-};
-
-struct Polyhedron {
-    GLShape shape = GLShape::None;
-    std::vector<PlaneFigure> faces;
-};
-
-struct Component_Poly {
-    Polyhedron polyhedron;
-    Transform3D transform;
-    glm::vec3 sideLengths{ 1.0f }; // scale과 구분한 실제 로컬 모서리 길이.
-};
-
-struct FaceId {
-    EntityId entityId = 0;
-    std::size_t faceIndex = 0;
-};
-
-struct Line3D {
-    glm::vec3 start{ 0.0f };
-    glm::vec3 end{ 0.0f };
-    GlColor color;
-    std::optional<EntityId> owner; // 없으면 월드 좌표, 있으면 객체의 로컬 좌표.
-};
 
 class Scene {
 private:

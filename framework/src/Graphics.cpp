@@ -1,7 +1,7 @@
 ﻿#include "../include/Graphics.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "../dependencies/glm/glm/gtc/matrix_transform.hpp"
+#include "../dependencies/glm/glm/gtc/type_ptr.hpp"
 
 #include <cmath>
 #include <fstream>
@@ -72,8 +72,7 @@ Scene::Scene() {
 std::optional<EntityId> Scene::push_entity(
     const Polyhedron& polyhedron, const Transform3D& transform
 ) {
-    if (components_.size() >= MAX_ENTITIES
-        || !DiagramSystem::validPolyhedron(polyhedron)
+    if (!DiagramSystem::validPolyhedron(polyhedron)
         || !DiagramSystem::validTransform(transform)) {
         return std::nullopt;
     }
@@ -88,12 +87,12 @@ std::optional<EntityId> Scene::push_entity(
     const EntityId id = components_.size();
     components_.push_back({ polyhedron, transform, maximum - minimum });
     polyId_.push_back(id);
-    std::vector<FaceId>& faceIds = polyhedron.shape == GLShape::Cube
-        ? cubeFaceId_ : (polyhedron.shape == GLShape::Pyramid
-            ? pyramidFaceId_ : tetraFaceId_);
-    for (std::size_t i = 0; i < polyhedron.faces.size(); ++i) {
-        faceIds.push_back({ id, i });
-    }
+    std::vector<FaceId>* faceIds = nullptr;
+    if (polyhedron.shape == GLShape::Cube) faceIds = &cubeFaceId_;
+    if (polyhedron.shape == GLShape::Tetra) faceIds = &tetraFaceId_;
+    if (polyhedron.shape == GLShape::Pyramid) faceIds = &pyramidFaceId_;
+    if (faceIds) for (std::size_t i = 0; i < polyhedron.faces.size(); ++i)
+        faceIds->push_back({id, i});
     geometryRevision_ = nextGeometryRevision();
     return id;
 }
@@ -229,7 +228,7 @@ std::optional<LineId> Scene::addLine(
     const glm::vec3& start, const glm::vec3& end,
     GlColor color, std::optional<EntityId> owner
 ) {
-    if (lines_.size() >= MAX_LINES || !finiteVector(start) || !finiteVector(end)
+    if (!finiteVector(start) || !finiteVector(end)
         || !validColor(color) || (owner && getComponent(*owner) == nullptr)) {
         return std::nullopt;
     }
@@ -250,7 +249,7 @@ std::optional<std::array<LineId, 3>> Scene::addBasis(
     const glm::vec3& origin, const glm::mat3& basisVectors,
     const glm::vec3& axisLengths, std::optional<EntityId> owner
 ) {
-    if (lines_.size() > MAX_LINES - 3 || !finiteVector(origin)
+    if (!finiteVector(origin)
         || !positiveLengths(axisLengths)
         || (owner && getComponent(*owner) == nullptr)) {
         return std::nullopt;
@@ -314,39 +313,9 @@ bool DiagramSystem::validTransform(const Transform3D& transform) {
 }
 
 bool DiagramSystem::validPolyhedron(const Polyhedron& polyhedron) {
-    std::size_t expectedFaces = 0;
-    switch (polyhedron.shape) {
-    case GLShape::Cube: expectedFaces = 6; break;
-    case GLShape::Tetra: expectedFaces = 4; break;
-    case GLShape::Pyramid: expectedFaces = 5; break;
-    default: return false;
-    }
-    if (polyhedron.faces.size() != expectedFaces) {
-        return false;
-    }
-    for (std::size_t i = 0; i < expectedFaces; ++i) {
-        const PlaneFigure& face = polyhedron.faces[i];
-        const bool rectangle = polyhedron.shape == GLShape::Cube
-            || (polyhedron.shape == GLShape::Pyramid && i == 4);
-        if (face.shape != (rectangle ? GLFace::Rect : GLFace::Triangle)
-            || face.localVertices.size() != (rectangle ? 4u : 3u)
-            || !finiteVector(face.normal) || !validColor(face.color)
-            || !validTransform(face.transform) || !finiteMatrix(face.localAnimationMatrix)
-            || (!face.vertexColors.empty()
-                && face.vertexColors.size() != face.localVertices.size())) {
-            return false;
-        }
-        for (const glm::vec3& vertex : face.localVertices) {
-            if (!finiteVector(vertex)) {
-                return false;
-            }
-        }
-        for (GlColor color : face.vertexColors) {
-            if (!validColor(color)) {
-                return false;
-            }
-        }
-    }
+    if (polyhedron.faces.empty()) return false;
+    for (const auto& face : polyhedron.faces)
+        if (!detail::validMesh(face) || !validTransform(face.transform)) return false;
     return true;
 }
 
@@ -421,25 +390,12 @@ Polyhedron DiagramSystem::makePolyhedron(GLShape shape, const glm::vec3& sideLen
 }
 
 glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
-    // 열벡터 기준: localBasis 이동 -> S -> Rz -> Ry -> Rx -> 월드 위치.
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), transform.basis);
-    model = glm::rotate(model, glm::radians(transform.rotationDegrees.x),
-                        glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(transform.rotationDegrees.y),
-                        glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(transform.rotationDegrees.z),
-                        glm::vec3(0.0f, 0.0f, 1.0f));
-    model *= glm::mat4_cast(glm::normalize(transform.orientation));
-    model = glm::scale(model, transform.scale);
-    return glm::translate(model, -transform.localBasis);
+    return detail::transformMatrix(transform);
 }
 
-glm::mat4 DiagramSystem::faceModelMatrix(
-    const Component_Poly& component, const PlaneFigure& face
-) {
-    // 기존 독립 면은 월드 transform만 사용한다. 일반 면은 객체를 따라간다.
-    return face.independence ? modelMatrix(face.transform)
-        : modelMatrix(component.transform) * face.localAnimationMatrix;
+glm::mat4 DiagramSystem::faceModelMatrix(const Component_Poly& component,
+                                         const PlaneFigure& face) {
+    return detail::faceMatrix(component, face);
 }
 
 bool CameraSystem::validCamera(const Camera& camera) {
