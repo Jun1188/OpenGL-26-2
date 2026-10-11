@@ -1,0 +1,33 @@
+﻿{
+  "type": "Static source inspection only. No compilation, linking or runtime tests.",
+  "parsed_cpp_files": 17,
+  "parse_diagnostics": [],
+  "transitive_quoted_include_files": 250,
+  "missing_quoted_includes": [],
+  "external_sdk_include_paths": [],
+  "embedded_shader_matches": {
+    "VertexShader.glsl": true,
+    "FragmentShader.glsl": true
+  },
+  "assimp_binaries": [
+    {
+      "file": "dependencies/assimp/bin/assimp-vc145-mt.dll",
+      "bytes": 8010240,
+      "sha256": "77d2ece8ab30adcd2fdca061e0abd3f8816e9bbde63eafa1d270170e798bc6cd",
+      "source": "C:\\Users\\변준영\\Documents\\GitHub\\assimp\\build\\bin\\assimp-vc145-mt.dll",
+      "identical_source": true
+    },
+    {
+      "file": "dependencies/assimp/lib/assimp-vc145-mt.lib",
+      "bytes": 596676,
+      "sha256": "a83484a41bd3502525d98268e4979d3011cb773252d5a7606ed71b2880acc9bc",
+      "source": "C:\\Users\\변준영\\Documents\\GitHub\\assimp\\build\\lib\\assimp-vc145-mt.lib",
+      "identical_source": true
+    }
+  ],
+  "text_files_without_BOM": [],
+  "invalid_or_replacement_text": [],
+  "source_commit": "a22a2006c2fe38ff4ef0fb380e4586d0306de621",
+  "framework_source_commit": "65358558aa9d9d7946ba679d59ba14e9c9379ca8",
+  "concurrent_repository_note": "Repository HEAD also contains an unrelated user task commit. Framework source is identified separately."
+}
