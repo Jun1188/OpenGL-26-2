@@ -22,7 +22,7 @@ Console.cpp, Common.h는 필요 없다. 미리 빌드된 .lib나 헤더만으로
    include와 LIB 경로를 지정한다. 저장소 루트의 OpenGL.props 또는
    컴퓨터별 OpenGL.local.props 설정은 필요하지 않다.
    기존 속성 시트를 대체하며 OpenGL.props와 중복해서 가져오지 않는다.
-   GLFW_DLL, GLFW_INCLUDE_NONE, /utf-8, Debug /MDd 및 Release /MD를 적용한다.
+   GLFW_DLL, GLFW_INCLUDE_NONE, /source-charset:utf-8, Debug /MDd 및 Release /MD를 적용한다.
    GLEW_STATIC은 정의하지 않는다. opengl32.lib, glew32.lib, glfw3dll.lib를 링크한다.
    빌드 후 glew32.dll과 glfw3.dll을 $(TargetDir)에 자동 복사한다.
    함께 제공한 배포본은 x64 전용이며 Win32를 선택하면 오류를 표시한다.
@@ -155,3 +155,5 @@ DEPENDENCIES.patch는 추가한 의존성 전체와 LIB/DLL의 Git binary patch�
 입력 → 장면 상태 → 면 행렬 → 객체 Model → View/Projection → uMVP → 화면.
 형상·색상 변경만 GPU 버퍼를 다시 올린다. 면 표시·변환은 draw 때 읽는다.
 빌드와 실행 테스트는 사용자에게 맡긴다. 정적 검토만으로 실행 성공을 보장하지 않는다.
+
+소스는 UTF-8 BOM으로 저장하며 /source-charset:utf-8로 읽는다. 일반 문자열의 실행 인코딩은 MSVC의 시스템 기본 문자 집합을 사용한다. 한국어 Windows의 기본 949 콘솔을 기준으로 하며, UTF-8로 강제 설정한 콘솔은 별도 인코딩 조건이다. 실행 중 코드 페이지 설정 함수는 호출하지 않는다.

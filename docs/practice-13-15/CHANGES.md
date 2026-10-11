@@ -6407,3 +6407,52 @@ def main():
 if __name__ == '__main__':
     main()
 ~~~
+
+## 후속 변경: 기본 콘솔의 한글 인코딩
+
+소스 UTF-8 BOM 및 셰이더 파일 인코딩은 유지한다. /utf-8은 소스·실행 문자열을 모두 UTF-8로 만들므로 기본 949 콘솔과 불일치할 수 있다. /source-charset:utf-8만 지정하여 실행 문자열은 시스템 기본 인코딩을 사용한다. 한국어 Windows의 기본 ACP/OEMCP 949 환경을 기준으로 한다. 실습 14의 임시 system(chcp) 호출을 제거한다. 빌드·실행·출력 확인은 사용자가 수행한다.
+
+### openGL_3dAssign_13/framework/Framework.props
+
+Before:
+~~~xml
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+After:
+~~~xml
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+### openGL_3dAssign_14/framework/Framework.props
+
+Before:
+~~~xml
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+After:
+~~~xml
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+### openGL_3dAssign_15/framework/Framework.props
+
+Before:
+~~~xml
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+After:
+~~~xml
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+~~~
+
+### openGL_3dAssign_14/main.cpp
+
+Before:
+~~~cpp
+    system("chcp 65001 > nul");
+~~~
+
+After: 호출 삭제.
