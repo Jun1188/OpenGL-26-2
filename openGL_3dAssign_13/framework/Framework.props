@@ -33,4 +33,10 @@
     </ItemGroup>
     <Copy SourceFiles="@(GraphicsFrameworkRuntimeDll)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
   </Target>
+  <Target Name="CopyGraphicsFrameworkShaders" AfterTargets="Build">
+    <ItemGroup>
+      <GraphicsFrameworkShader Include="$(GraphicsFrameworkDirectory)shaders\VertexShader.glsl;$(GraphicsFrameworkDirectory)shaders\FragmentShader.glsl" />
+    </ItemGroup>
+    <Copy SourceFiles="@(GraphicsFrameworkShader)" DestinationFolder="$(TargetDir)shaders\" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

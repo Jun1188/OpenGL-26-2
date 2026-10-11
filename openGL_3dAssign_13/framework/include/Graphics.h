@@ -2,6 +2,7 @@
 
 #include <glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <array>
 #include <cstddef>
@@ -28,7 +29,7 @@ struct GlColor {
     float blue = 0.0f;
 };
 
-enum class GLShape { None, Cube, Tetra }; // Cube는 직육면체, Tetra는 직사면체.
+enum class GLShape { None, Cube, Tetra, Pyramid }; // Cube는 직육면체, Tetra는 직사면체.
 enum class GLFace { None, Rect, Triangle };
 
 struct Transform3D {
@@ -36,6 +37,7 @@ struct Transform3D {
     glm::vec3 localBasis{ 0.0f };
     glm::vec3 rotationDegrees{ 0.0f };
     glm::vec3 scale{ 1.0f };
+    glm::quat orientation{ 1.0f, 0.0f, 0.0f, 0.0f }; // Euler 회전 다음에 적용한다.
 };
 
 struct PlaneFigure {
@@ -45,6 +47,9 @@ struct PlaneFigure {
     glm::vec3 normal{ 0.0f }; // 로컬 법선 데이터. 조명은 현재 사용하지 않는다.
     bool independence = false;
     Transform3D transform;   // 독립 면일 때의 월드 변환.
+    bool visible = true;
+    glm::mat4 localAnimationMatrix{ 1.0f };
+    std::vector<GlColor> vertexColors; // 비어 있으면 면의 단색을 사용한다.
 };
 
 struct Polyhedron {
@@ -76,6 +81,7 @@ private:
     std::vector<Component_Poly> components_;
     std::vector<FaceId> cubeFaceId_;
     std::vector<FaceId> tetraFaceId_;
+    std::vector<FaceId> pyramidFaceId_;
     std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
 
@@ -87,6 +93,12 @@ public:
                                      const glm::vec3& worldPosition);
     std::optional<EntityId> addRightTetrahedron(const glm::vec3& edgeLengths,
                                                const glm::vec3& worldPosition);
+    std::optional<EntityId> addPyramid(const glm::vec3& sideLengths,
+                                      const glm::vec3& worldPosition);
+    bool setFaceVisible(EntityId id, std::size_t faceIndex, bool visible);
+    bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix);
+    bool setFaceVertexColors(EntityId id, std::size_t faceIndex,
+                             const std::vector<GlColor>& colors);
     bool setPosition(EntityId id, const glm::vec3& worldPosition);
     bool setSideLengths(EntityId id, const glm::vec3& sideLengths);
     bool setTransform(EntityId id, const Transform3D& transform);
@@ -109,6 +121,7 @@ public:
     const Component_Poly* getComponent(EntityId id) const;
     const std::vector<FaceId>& getCubeFaceIds() const { return cubeFaceId_; }
     const std::vector<FaceId>& getTetraFaceIds() const { return tetraFaceId_; }
+    const std::vector<FaceId>& getPyramidFaceIds() const { return pyramidFaceId_; }
     const std::vector<Line3D>& getLines() const { return lines_; }
     std::uint64_t getGeometryRevision() const { return geometryRevision_; }
 };
@@ -131,6 +144,8 @@ struct Camera {
     float fieldOfViewDegrees = 45.0f;
     float nearPlane = 0.1f;
     float farPlane = 100.0f;
+    bool orthographic = false;
+    float orthographicHalfExtent = 1.0f; // 짧은 화면 축의 절반 길이.
 };
 
 class CameraSystem {
@@ -142,6 +157,11 @@ public:
 
 std::string readTextFile(const std::filesystem::path& path);
 
+struct RenderOptions {
+    bool depthTest = true;
+    bool wireframe = false;
+};
+
 class Renderer {
 private:
     struct DrawRange {
@@ -151,6 +171,8 @@ private:
         std::optional<LineId> lineId;
         std::size_t firstIndex = 0;
         GLsizei count = 0;
+        std::size_t outlineFirstIndex = 0;
+        GLsizei outlineCount = 0;
     };
 
     GLuint shaderProgramID_ = 0;
@@ -167,7 +189,7 @@ private:
     bool initBuffer();
     bool upload(const Scene& scene);
     bool draw(const Scene& scene, const glm::mat4& view,
-              const glm::mat4& projection) const;
+              const glm::mat4& projection, const RenderOptions& options) const;
 
 public:
     Renderer() = default;
@@ -178,7 +200,8 @@ public:
     bool initialize(const std::filesystem::path& vertexPath,
                     const std::filesystem::path& fragmentPath);
     // viewport/depth/clear/program/VAO를 설정한다. 컨텍스트와 윈도우는 소유하지 않는다.
-    bool render(const Scene& scene, const Camera& camera, int width, int height);
+    bool render(const Scene& scene, const Camera& camera, int width, int height,
+                const RenderOptions& options = {});
     void destroy(); // 컨텍스트 종료 전에 호출한다. 여러 번 호출해도 된다.
 };
 

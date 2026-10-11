@@ -18,6 +18,17 @@ bool finiteVector(const glm::vec3& value) {
         && std::isfinite(value.z);
 }
 
+bool finiteMatrix(const glm::mat4& matrix) {
+    for (int column = 0; column < 4; ++column) {
+        for (int row = 0; row < 4; ++row) {
+            if (!std::isfinite(matrix[column][row])) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 bool positiveLengths(const glm::vec3& value) {
     return finiteVector(value) && value.x > 0.0f
         && value.y > 0.0f && value.z > 0.0f;
@@ -54,6 +65,7 @@ Scene::Scene() {
     components_.reserve(MAX_ENTITIES);
     tetraFaceId_.reserve(MAX_ENTITIES * 4);
     cubeFaceId_.reserve(MAX_ENTITIES * 6);
+    pyramidFaceId_.reserve(MAX_ENTITIES * 5);
     lines_.reserve(MAX_LINES);
 }
 
@@ -77,7 +89,8 @@ std::optional<EntityId> Scene::push_entity(
     components_.push_back({ polyhedron, transform, maximum - minimum });
     polyId_.push_back(id);
     std::vector<FaceId>& faceIds = polyhedron.shape == GLShape::Cube
-        ? cubeFaceId_ : tetraFaceId_;
+        ? cubeFaceId_ : (polyhedron.shape == GLShape::Pyramid
+            ? pyramidFaceId_ : tetraFaceId_);
     for (std::size_t i = 0; i < polyhedron.faces.size(); ++i) {
         faceIds.push_back({ id, i });
     }
@@ -101,6 +114,55 @@ std::optional<EntityId> Scene::addRightTetrahedron(
     transform.basis = worldPosition;
     return push_entity(DiagramSystem::makePolyhedron(GLShape::Tetra, edgeLengths),
                        transform);
+}
+
+std::optional<EntityId> Scene::addPyramid(
+    const glm::vec3& sideLengths, const glm::vec3& worldPosition
+) {
+    Transform3D transform;
+    transform.basis = worldPosition;
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Pyramid, sideLengths),
+                       transform);
+}
+
+bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visible) {
+    if (id >= components_.size()
+        || faceIndex >= components_[id].polyhedron.faces.size()) {
+        return false;
+    }
+    components_[id].polyhedron.faces[faceIndex].visible = visible;
+    return true;
+}
+
+bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex,
+                               const glm::mat4& matrix) {
+    if (id >= components_.size()
+        || faceIndex >= components_[id].polyhedron.faces.size()
+        || !finiteMatrix(matrix)) {
+        return false;
+    }
+    components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
+    return true;
+}
+
+bool Scene::setFaceVertexColors(EntityId id, std::size_t faceIndex,
+                                const std::vector<GlColor>& colors) {
+    if (id >= components_.size()
+        || faceIndex >= components_[id].polyhedron.faces.size()) {
+        return false;
+    }
+    PlaneFigure& face = components_[id].polyhedron.faces[faceIndex];
+    if (!colors.empty() && colors.size() != face.localVertices.size()) {
+        return false;
+    }
+    for (GlColor color : colors) {
+        if (!validColor(color)) {
+            return false;
+        }
+    }
+    face.vertexColors = colors;
+    geometryRevision_ = nextGeometryRevision();
+    return true;
 }
 
 const Component_Poly* Scene::getComponent(EntityId id) const {
@@ -129,6 +191,10 @@ bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
         replacement.faces[i].color = component.polyhedron.faces[i].color;
         replacement.faces[i].independence = component.polyhedron.faces[i].independence;
         replacement.faces[i].transform = component.polyhedron.faces[i].transform;
+        replacement.faces[i].visible = component.polyhedron.faces[i].visible;
+        replacement.faces[i].localAnimationMatrix =
+            component.polyhedron.faces[i].localAnimationMatrix;
+        replacement.faces[i].vertexColors = component.polyhedron.faces[i].vertexColors;
     }
     component.polyhedron = std::move(replacement);
     component.sideLengths = sideLengths;
@@ -231,30 +297,52 @@ void Scene::clear() {
     components_.clear();
     cubeFaceId_.clear();
     tetraFaceId_.clear();
+    pyramidFaceId_.clear();
     lines_.clear();
     geometryRevision_ = nextGeometryRevision();
 }
 
 bool DiagramSystem::validTransform(const Transform3D& transform) {
     return finiteVector(transform.basis) && finiteVector(transform.localBasis)
-        && finiteVector(transform.rotationDegrees) && finiteVector(transform.scale);
+        && finiteVector(transform.rotationDegrees) && finiteVector(transform.scale)
+        && std::isfinite(transform.orientation.w)
+        && std::isfinite(transform.orientation.x)
+        && std::isfinite(transform.orientation.y)
+        && std::isfinite(transform.orientation.z)
+        && std::isfinite(glm::dot(transform.orientation, transform.orientation))
+        && glm::dot(transform.orientation, transform.orientation) > 0.000001f;
 }
 
 bool DiagramSystem::validPolyhedron(const Polyhedron& polyhedron) {
-    const bool cube = polyhedron.shape == GLShape::Cube;
-    if ((!cube && polyhedron.shape != GLShape::Tetra)
-        || polyhedron.faces.size() != (cube ? 6u : 4u)) {
+    std::size_t expectedFaces = 0;
+    switch (polyhedron.shape) {
+    case GLShape::Cube: expectedFaces = 6; break;
+    case GLShape::Tetra: expectedFaces = 4; break;
+    case GLShape::Pyramid: expectedFaces = 5; break;
+    default: return false;
+    }
+    if (polyhedron.faces.size() != expectedFaces) {
         return false;
     }
-    for (const PlaneFigure& face : polyhedron.faces) {
-        if (face.shape != (cube ? GLFace::Rect : GLFace::Triangle)
-            || face.localVertices.size() != (cube ? 4u : 3u)
+    for (std::size_t i = 0; i < expectedFaces; ++i) {
+        const PlaneFigure& face = polyhedron.faces[i];
+        const bool rectangle = polyhedron.shape == GLShape::Cube
+            || (polyhedron.shape == GLShape::Pyramid && i == 4);
+        if (face.shape != (rectangle ? GLFace::Rect : GLFace::Triangle)
+            || face.localVertices.size() != (rectangle ? 4u : 3u)
             || !finiteVector(face.normal) || !validColor(face.color)
-            || !validTransform(face.transform)) {
+            || !validTransform(face.transform) || !finiteMatrix(face.localAnimationMatrix)
+            || (!face.vertexColors.empty()
+                && face.vertexColors.size() != face.localVertices.size())) {
             return false;
         }
         for (const glm::vec3& vertex : face.localVertices) {
             if (!finiteVector(vertex)) {
+                return false;
+            }
+        }
+        for (GlColor color : face.vertexColors) {
+            if (!validColor(color)) {
                 return false;
             }
         }
@@ -291,6 +379,27 @@ Polyhedron DiagramSystem::makePolyhedron(GLShape shape, const glm::vec3& sideLen
         appendFace(polyhedron, GLFace::Rect,
             { { -x, -y, -z }, { x, -y, -z }, { x, -y, z }, { -x, -y, z } },
             { .8f, .3f, .9f });
+    } else if (shape == GLShape::Pyramid) {
+        const float x = sideLengths.x * 0.5f;
+        const float y = sideLengths.y * 0.5f;
+        const float z = sideLengths.z * 0.5f;
+        const glm::vec3 frontLeft{ -x, -y, z };
+        const glm::vec3 frontRight{ x, -y, z };
+        const glm::vec3 backRight{ x, -y, -z };
+        const glm::vec3 backLeft{ -x, -y, -z };
+        const glm::vec3 apex{ 0.0f, y, 0.0f };
+        polyhedron.faces.reserve(5);
+        // 앞, 오른쪽, 뒤, 왼쪽, 바닥. 삼각형과 사각형은 바깥쪽 winding이다.
+        appendFace(polyhedron, GLFace::Triangle,
+            { frontLeft, frontRight, apex }, { .9f, .3f, .3f });
+        appendFace(polyhedron, GLFace::Triangle,
+            { frontRight, backRight, apex }, { .3f, .5f, .9f });
+        appendFace(polyhedron, GLFace::Triangle,
+            { backRight, backLeft, apex }, { .3f, .8f, .4f });
+        appendFace(polyhedron, GLFace::Triangle,
+            { backLeft, frontLeft, apex }, { .9f, .8f, .3f });
+        appendFace(polyhedron, GLFace::Rect,
+            { backLeft, backRight, frontRight, frontLeft }, { .8f, .3f, .9f });
     } else if (shape == GLShape::Tetra) {
         // 원점에서 직교하는 세 모서리를 만들고, 무게중심을 로컬 원점으로 옮긴다.
         const glm::vec3 center = sideLengths * 0.25f;
@@ -320,6 +429,7 @@ glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
                         glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, glm::radians(transform.rotationDegrees.z),
                         glm::vec3(0.0f, 0.0f, 1.0f));
+    model *= glm::mat4_cast(glm::normalize(transform.orientation));
     model = glm::scale(model, transform.scale);
     return glm::translate(model, -transform.localBasis);
 }
@@ -327,7 +437,9 @@ glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
 glm::mat4 DiagramSystem::faceModelMatrix(
     const Component_Poly& component, const PlaneFigure& face
 ) {
-    return modelMatrix(face.independence ? face.transform : component.transform);
+    // 기존 독립 면은 월드 transform만 사용한다. 일반 면은 객체를 따라간다.
+    return face.independence ? modelMatrix(face.transform)
+        : modelMatrix(component.transform) * face.localAnimationMatrix;
 }
 
 bool CameraSystem::validCamera(const Camera& camera) {
@@ -340,7 +452,9 @@ bool CameraSystem::validCamera(const Camera& camera) {
         && std::isfinite(camera.fieldOfViewDegrees)
         && camera.fieldOfViewDegrees > 0.0f && camera.fieldOfViewDegrees < 180.0f
         && std::isfinite(camera.nearPlane) && std::isfinite(camera.farPlane)
-        && camera.nearPlane > 0.0f && camera.farPlane > camera.nearPlane;
+        && camera.nearPlane > 0.0f && camera.farPlane > camera.nearPlane
+        && std::isfinite(camera.orthographicHalfExtent)
+        && camera.orthographicHalfExtent > 0.0f;
 }
 
 glm::mat4 CameraSystem::viewMatrix(const Camera& camera) {
@@ -348,6 +462,12 @@ glm::mat4 CameraSystem::viewMatrix(const Camera& camera) {
 }
 
 glm::mat4 CameraSystem::projectionMatrix(const Camera& camera, float aspect) {
+    if (camera.orthographic) {
+        const float halfWidth = camera.orthographicHalfExtent * (aspect >= 1.0f ? aspect : 1.0f);
+        const float halfHeight = camera.orthographicHalfExtent / (aspect < 1.0f ? aspect : 1.0f);
+        return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight,
+                          camera.nearPlane, camera.farPlane);
+    }
     return glm::perspective(glm::radians(camera.fieldOfViewDegrees), aspect,
                             camera.nearPlane, camera.farPlane);
 }
@@ -498,10 +618,11 @@ bool Renderer::upload(const Scene& scene) {
             const PlaneFigure& face = faces[faceIndex];
             const GLuint firstVertex = static_cast<GLuint>(positions.size() / 3);
             const std::size_t firstIndex = indices.size();
-            for (const glm::vec3& vertex : face.localVertices) {
+            for (std::size_t i = 0; i < face.localVertices.size(); ++i) {
+                const glm::vec3& vertex = face.localVertices[i];
+                const GlColor color = face.vertexColors.empty() ? face.color : face.vertexColors[i];
                 positions.insert(positions.end(), { vertex.x, vertex.y, vertex.z });
-                colors.insert(colors.end(),
-                    { face.color.red, face.color.green, face.color.blue });
+                colors.insert(colors.end(), { color.red, color.green, color.blue });
             }
             indices.insert(indices.end(),
                 { firstVertex, firstVertex + 1, firstVertex + 2 });
@@ -509,8 +630,14 @@ bool Renderer::upload(const Scene& scene) {
                 indices.insert(indices.end(),
                     { firstVertex, firstVertex + 2, firstVertex + 3 });
             }
+            const GLsizei triangleCount = static_cast<GLsizei>(indices.size() - firstIndex);
+            const std::size_t outlineFirstIndex = indices.size();
+            for (std::size_t i = 0; i < face.localVertices.size(); ++i) {
+                indices.push_back(firstVertex + static_cast<GLuint>(i));
+            }
             ranges.push_back({ GL_TRIANGLES, id, faceIndex, std::nullopt,
-                firstIndex, static_cast<GLsizei>(indices.size() - firstIndex) });
+                firstIndex, triangleCount, outlineFirstIndex,
+                static_cast<GLsizei>(face.localVertices.size()) });
         }
     }
     const auto& lines = scene.getLines();
@@ -548,7 +675,7 @@ bool Renderer::upload(const Scene& scene) {
 }
 
 bool Renderer::draw(const Scene& scene, const glm::mat4& view,
-                    const glm::mat4& projection) const {
+                    const glm::mat4& projection, const RenderOptions& options) const {
     if (shaderProgramID_ == 0 || vao_ == 0 || mvpLocation_ < 0) {
         return false;
     }
@@ -581,14 +708,19 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view,
             }
         } else {
             const Component_Poly* component = scene.getComponent(range.entityId);
-            model = DiagramSystem::faceModelMatrix(
-                *component, component->polyhedron.faces[range.faceIndex]);
+            const PlaneFigure& face = component->polyhedron.faces[range.faceIndex];
+            if (!face.visible) {
+                continue;
+            }
+            model = DiagramSystem::faceModelMatrix(*component, face);
         }
         const glm::mat4 mvp = projection * view * model;
         glUniformMatrix4fv(mvpLocation_, 1, GL_FALSE, glm::value_ptr(mvp));
-        const void* offset = reinterpret_cast<const void*>(
-            range.firstIndex * sizeof(GLuint));
-        glDrawElements(range.mode, range.count, GL_UNSIGNED_INT, offset);
+        const bool outline = options.wireframe && !range.lineId.has_value();
+        const std::size_t firstIndex = outline ? range.outlineFirstIndex : range.firstIndex;
+        const void* offset = reinterpret_cast<const void*>(firstIndex * sizeof(GLuint));
+        glDrawElements(outline ? GL_LINE_LOOP : range.mode,
+                       outline ? range.outlineCount : range.count, GL_UNSIGNED_INT, offset);
     }
     glBindVertexArray(0);
     glUseProgram(0);
@@ -604,7 +736,8 @@ bool Renderer::initialize(const std::filesystem::path& vertexPath,
     return true;
 }
 
-bool Renderer::render(const Scene& scene, const Camera& camera, int width, int height) {
+bool Renderer::render(const Scene& scene, const Camera& camera, int width, int height,
+                      const RenderOptions& options) {
     if (shaderProgramID_ == 0 || vao_ == 0) {
         return false;
     }
@@ -622,14 +755,20 @@ bool Renderer::render(const Scene& scene, const Camera& camera, int width, int h
         uploadedRevision_ = scene.getGeometryRevision();
     }
     glViewport(0, 0, width, height);
-    glEnable(GL_DEPTH_TEST);
+    if (options.depthTest) {
+        glEnable(GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_DEPTH_TEST);
+    }
+    glDisable(GL_CULL_FACE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glDepthMask(GL_TRUE);
     glDepthFunc(GL_LESS);
     glClearColor(0.12f, 0.12f, 0.16f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     const float aspect = static_cast<float>(width) / static_cast<float>(height);
     return draw(scene, CameraSystem::viewMatrix(camera),
-                CameraSystem::projectionMatrix(camera, aspect));
+                CameraSystem::projectionMatrix(camera, aspect), options);
 }
 
 void Renderer::destroy() {

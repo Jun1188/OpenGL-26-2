@@ -30,7 +30,9 @@ Console.cpp, Common.h는 필요 없다. 미리 빌드된 .lib나 헤더만으로
    상대 경로는 프로세스의 현재 작업 폴더 기준이다. Visual Studio 디버깅 시
    Framework.props는 $(ProjectDir)를 작업 폴더로 지정한다.
    터미널에서 실행할 때도 프로젝트 폴더에서 시작하거나 셰이더 절대경로를 지정한다.
-   셰이더는 자동 복사하지 않으므로 framework/shaders 폴더를 함께 가져간다.
+   셰이더는 빌드 후 실행 파일 옆의 shaders 폴더에 자동 복사한다.
+   Application::findShaderDirectory()는 실행 파일 옆을 먼저 확인하고,
+   현재 작업 폴더와 상위 폴더의 framework/shaders를 확인한다.
 
 Renderer만 사용할 때는 Graphics.cpp만 컴파일해도 된다.
 이 경우 GLFW는 필수가 아니다. 호출자가 OpenGL 3.3 컨텍스트와 GLEW 초기화를
@@ -130,3 +132,26 @@ DEPENDENCIES.patch는 추가한 의존성 전체와 LIB/DLL의 Git binary patch�
 5. 프로젝트 속성에서 include/LIB 경로가 복사한 framework 내부를 가리키는지 확인한다.
 
 위 빌드 및 실행 테스트는 이 작업에서 수행하지 않았다.
+
+## 실습 13·14·15 공용 확장
+
+- addPyramid: 바닥 X폭, Y높이, 바닥 Z폭. 면 순서는 앞·오른쪽·뒤·왼쪽·바닥이다.
+- addCuboid: 기존 앞·뒤·왼쪽·오른쪽·위·아래 면 순서를 유지한다.
+- addRightTetrahedron: 기존 직사면체 API를 유지한다. 사각뿔과 별도 형상이다.
+- setFaceVisible: draw 단계에서 표시 여부를 읽으며 geometry revision은 바꾸지 않는다.
+- setFaceLocalMatrix: 일반 면의 Model은 객체 Model × localAnimationMatrix이다.
+  독립 면은 기존 월드 transform만 사용한다. 행렬은 유한한 값이어야 한다.
+- setFaceVertexColors: 로컬 꼭짓점 수와 같은 색상 배열을 지정한다.
+  빈 배열은 단색으로 복원한다. 색상 변경은 geometry revision을 갱신한다.
+- Transform3D::orientation: 정규화한 쿼터니언을 Euler 회전 다음, scale 전에 적용한다.
+  기본 단위 쿼터니언은 기존 Euler 코드의 결과를 유지한다.
+- Camera::orthographic: 짧은 화면 축의 범위는 ±orthographicHalfExtent이다.
+  긴 축은 aspect에 맞춰 넓혀 화면 비율을 유지한다. 기본값은 기존 원근 투영이다.
+- getRenderOptions(): depthTest와 wireframe을 설정한다. 기본은 깊이 켜짐·솔리드이다.
+  와이어는 GL_LINE_LOOP로 면 테두리를 그리며 삼각분할 대각선은 제외한다.
+- setModifiedKeyHandler: key/action/mods를 전달한다. 설정하면 기존 keyHandler를 대체한다.
+  GLFW_LOCK_KEY_MODS를 켜므로 Shift와 Caps Lock을 함께 판별할 수 있다.
+
+입력 → 장면 상태 → 면 행렬 → 객체 Model → View/Projection → uMVP → 화면.
+형상·색상 변경만 GPU 버퍼를 다시 올린다. 면 표시·변환은 draw 때 읽는다.
+빌드와 실행 테스트는 사용자에게 맡긴다. 정적 검토만으로 실행 성공을 보장하지 않는다.

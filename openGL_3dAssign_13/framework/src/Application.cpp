@@ -1,9 +1,15 @@
-﻿#include "../include/Application.h"
+﻿#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include "../include/Application.h"
 #include <glfw3.h>
 
 #include <algorithm>
 #include <iostream>
 #include <utility>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 namespace graphics {
 
@@ -21,6 +27,42 @@ void Application::setUpdateHandler(std::function<void(Application&, float)> hand
 
 void Application::setKeyHandler(std::function<void(Application&, int, int)> handler) {
     keyHandler_ = std::move(handler);
+}
+
+void Application::setModifiedKeyHandler(
+    std::function<void(Application&, int, int, int)> handler) {
+    modifiedKeyHandler_ = std::move(handler);
+}
+
+std::filesystem::path Application::findShaderDirectory() {
+    const auto containsShaders = [](const std::filesystem::path& path) {
+        return std::filesystem::is_regular_file(path / "VertexShader.glsl")
+            && std::filesystem::is_regular_file(path / "FragmentShader.glsl");
+    };
+#ifdef _WIN32
+    // 실행 파일 옆의 shaders를 우선한다. 작업 폴더와 프로젝트 이름에 의존하지 않는다.
+    std::wstring executable(32768, L'\0');
+    const DWORD length = GetModuleFileNameW(nullptr, executable.data(),
+                                           static_cast<DWORD>(executable.size()));
+    if (length > 0 && length < executable.size()) {
+        executable.resize(length);
+        const auto candidate = std::filesystem::path(executable).parent_path() / "shaders";
+        if (containsShaders(candidate)) {
+            return candidate;
+        }
+    }
+#endif
+    auto directory = std::filesystem::current_path();
+    for (;;) {
+        const auto candidate = directory / "framework" / "shaders";
+        if (containsShaders(candidate)) {
+            return candidate;
+        }
+        if (directory == directory.parent_path()) {
+            return {};
+        }
+        directory = directory.parent_path();
+    }
 }
 
 void Application::setFocusHandler(std::function<void(Application&, bool)> handler) {
@@ -57,10 +99,13 @@ bool Application::initialize(const ApplicationConfig& config) {
         return false;
     }
 
+    glfwSetInputMode(window_, GLFW_LOCK_KEY_MODS, GLFW_TRUE);
     glfwSetWindowUserPointer(window_, this);
-    glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int, int action, int) {
+    glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int, int action, int mods) {
         auto& app = *static_cast<Application*>(glfwGetWindowUserPointer(window));
-        if (app.keyHandler_) {
+        if (app.modifiedKeyHandler_) {
+            app.modifiedKeyHandler_(app, key, action, mods);
+        } else if (app.keyHandler_) {
             app.keyHandler_(app, key, action);
         }
     });
@@ -101,7 +146,7 @@ bool Application::renderScene() {
     int width = 0;
     int height = 0;
     glfwGetFramebufferSize(window_, &width, &height);
-    return renderer_.render(scene_, camera_, width, height);
+    return renderer_.render(scene_, camera_, width, height, renderOptions_);
 }
 
 int Application::run(const ApplicationConfig& config) {
