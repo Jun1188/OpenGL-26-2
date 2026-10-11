@@ -4,12 +4,12 @@
 #include <array>
 #include <random>
 
-// 실습 15: 전체 자전과 하나의 면 동작을 분리한다.
+// 실습 15: 각 면 모션의 상태를 독립적으로 관리하고 행렬을 합성한다.
 class Console {
 private:
-    enum class Motion { None, Top, Front, Side, Back, Hinge, Swap, OrbitY, OrbitX };
+    enum class Motion { None, Top, Front, Side, Back, Hinge, Swap, OrbitY, OrbitX, Count };
     struct FaceMotion {
-        Motion kind = Motion::None;
+        bool initialized = false;
         bool running = false;
         float progress = 0.0f; // 회전은 도, 열기·축소는 0~1이다.
         float direction = 1.0f;
@@ -23,7 +23,7 @@ private:
     bool pyramidSelected_ = false;
     bool spinning_ = false;
     float spinDegrees_ = 0.0f;
-    FaceMotion motion_;
+    std::array<FaceMotion, static_cast<std::size_t>(Motion::Count)> motions_{};
     std::mt19937 random_{ std::random_device{}() };
 
     void selectShape(bool pyramid);
