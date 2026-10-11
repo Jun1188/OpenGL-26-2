@@ -10,15 +10,27 @@ Console.cpp, Common.h는 필요 없다. 미리 빌드된 .lib나 헤더만으로
 2. include/Application.h 또는 include/Graphics.h를 include한다.
 3. src/Graphics.cpp와 src/Application.cpp를 프로젝트의 컴파일 항목에 추가한다.
    .cpp 파일 자체를 #include하지 않는다.
-4. C++17 이상, GLEW, GLFW, GLM과 OpenGL 링크 설정을 제공한다.
-   이 저장소에서는 OpenGL.props가 의존성을 설정한다.
-   현재 include 형태에 맞게 GLEW의 include/GL, GLFW의 include/GLFW,
-   GLM의 루트 폴더를 헤더 검색 경로에 넣는다.
-5. Windows 동적 라이브러리 설정에서는 GLFW_DLL, GLFW_INCLUDE_NONE을 정의하고
-   opengl32.lib, glew32.lib, glfw3dll.lib를 링크한다.
-   glew32.dll과 glfw3.dll이 실행 파일에서 검색되도록 배치한다.
+4. C++17 이상과 x64 구성을 선택한다. assign13의 기존 언어 표준은 유지한다.
+   dependencies에는 GLEW 2.3.1, GLFW 3.4, GLM 1.0.3과 라이선스가 포함된다.
+5. .vcxproj에서 Microsoft.Cpp.targets 직전에 Framework.props를 가져온다.
+   프로젝트 폴더 바로 아래에 framework를 복사한 경우 다음과 같이 작성한다.
+
+   <Import Project="framework\Framework.props" />
+   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+
+   Framework.props는 자신의 위치인 $(MSBuildThisFileDirectory)를 기준으로
+   include와 LIB 경로를 지정한다. 저장소 루트의 OpenGL.props 또는
+   컴퓨터별 OpenGL.local.props 설정은 필요하지 않다.
+   기존 속성 시트를 대체하며 OpenGL.props와 중복해서 가져오지 않는다.
+   GLFW_DLL, GLFW_INCLUDE_NONE, /utf-8, Debug /MDd 및 Release /MD를 적용한다.
+   GLEW_STATIC은 정의하지 않는다. opengl32.lib, glew32.lib, glfw3dll.lib를 링크한다.
+   빌드 후 glew32.dll과 glfw3.dll을 $(TargetDir)에 자동 복사한다.
+   함께 제공한 배포본은 x64 전용이며 Win32를 선택하면 오류를 표시한다.
 6. ApplicationConfig::shaderDirectory에 shaders 폴더 경로를 지정한다.
-   상대 경로는 실행 파일 위치가 아니라 프로세스의 현재 작업 폴더 기준이다.
+   상대 경로는 프로세스의 현재 작업 폴더 기준이다. Visual Studio 디버깅 시
+   Framework.props는 $(ProjectDir)를 작업 폴더로 지정한다.
+   터미널에서 실행할 때도 프로젝트 폴더에서 시작하거나 셰이더 절대경로를 지정한다.
+   셰이더는 자동 복사하지 않으므로 framework/shaders 폴더를 함께 가져간다.
 
 Renderer만 사용할 때는 Graphics.cpp만 컴파일해도 된다.
 이 경우 GLFW는 필수가 아니다. 호출자가 OpenGL 3.3 컨텍스트와 GLEW 초기화를
@@ -101,3 +113,20 @@ addBasis의 mat3 열이 기저 벡터이며, owner를 주면 객체 변환을 �
 
 전체 저장소의 graphify 그래프 생성/갱신은 이번 승인 범위에 포함되지 않아
 수행하지 않았다. 위 흐름은 소스 정적 확인에 따른 설명이다.
+
+## 의존성 포함 변경
+
+CHANGES-DEPENDENCIES.md는 이번 작업 시작 시점과 최종 설정·사용법을 모두 대조한다.
+DEPENDENCIES.patch는 추가한 의존성 전체와 LIB/DLL의 Git binary patch를 포함한다.
+제3자 텍스트는 UTF-8 BOM만 적용했으며 내용은 원본과 같다. 바이너리는 그대로 복사했다.
+
+## 상대경로와 DLL 확인은 사용자가 수행
+
+1. Visual Studio에서 openGL_assign_13.slnx를 열고 Debug|x64와 Release|x64를 빌드한다.
+2. 각 출력 폴더의 실행 파일 옆에 glew32.dll과 glfw3.dll이 있는지 확인한다.
+3. F5로 실행하고 도형·선·카메라 및 기존 입력 동작을 확인한다.
+4. framework 폴더를 다른 x64 프로젝트에 복사한다. 두 .cpp를 등록하고
+   Framework.props를 가져온 뒤 사용자 main으로 빌드·실행한다.
+5. 프로젝트 속성에서 include/LIB 경로가 복사한 framework 내부를 가리키는지 확인한다.
+
+위 빌드 및 실행 테스트는 이 작업에서 수행하지 않았다.
