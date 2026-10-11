@@ -33,9 +33,9 @@ def write_json(path, value):
     write_text(path, json.dumps(value, ensure_ascii=False, indent=2))
 
 
-def audit_practice15(extraction):
+def audit_practice(extraction, number):
     """Add source-checked qualified methods omitted by the C++ AST extractor."""
-    prefix = 'openGL_3dAssign_15/'
+    prefix = f'openGL_3dAssign_{number}/'
     files = {'console': prefix + 'Console.cpp', 'application': prefix + 'framework/src/Application.cpp',
              'graphics': prefix + 'framework/src/Graphics.cpp', 'main': prefix + 'main.cpp'}
     definitions = {}
@@ -45,7 +45,7 @@ def audit_practice15(extraction):
             matches = list(re.finditer(r'^int (main)\s*\(', text, re.M))
         else:
             matches = list(re.finditer(
-                r'^(?:bool|void|int|glm::mat4|std::optional<EntityId>|Polyhedron)\s+'
+                r'^(?:bool|void|int|glm::mat4|std::optional<(?:EntityId|LineId)>|Polyhedron)\s+'
                 r'((?:Console|Application|Scene|Renderer|DiagramSystem)::\w+)\s*\(', text, re.M))
         for index, match in enumerate(matches):
             symbol = match.group(1)
@@ -53,15 +53,25 @@ def audit_practice15(extraction):
             definitions[symbol] = {'area': area, 'file': filename, 'start': match.start(),
                                    'text': text, 'body': text[match.start():end],
                                    'line': text[:match.start()].count('\n') + 1}
-    selected = ['main', 'Console::initScene', 'Console::resetFaces', 'Console::selectShape',
-                'Console::resetAll', 'Console::applyObjectTransform', 'Console::beginMotion',
-                'Console::applyFaceMotion', 'Console::onKey', 'Console::onUpdate',
-                'Application::renderScene', 'Renderer::render', 'Renderer::upload', 'Renderer::draw',
+    selected = ['main', 'Console::initScene', 'Console::onKey',
+                'Application::run', 'Application::initialize', 'Application::shutdown',
+                'Application::renderScene', 'Renderer::initialize', 'Renderer::destroy',
+                'Renderer::render', 'Renderer::upload', 'Renderer::draw',
                 'Scene::push_entity', 'Scene::setFaceLocalMatrix', 'Scene::setFaceVisible',
-                'Scene::setTransform', 'DiagramSystem::makePolyhedron', 'DiagramSystem::faceModelMatrix']
+                'Scene::setTransform', 'Scene::addCuboid', 'Scene::addPyramid', 'Scene::addLine',
+                'DiagramSystem::makePolyhedron', 'DiagramSystem::faceModelMatrix']
+    if number == 13:
+        selected += ['Console::selectFaces']
+    elif number == 14:
+        selected += ['Console::selectShape', 'Console::resetMotion', 'Console::applyTransform',
+                     'Console::onUpdate', 'Console::onFocus']
+    else:
+        selected += ['Console::resetFaces', 'Console::selectShape', 'Console::resetAll',
+                     'Console::applyObjectTransform', 'Console::beginMotion',
+                     'Console::applyFaceMotion', 'Console::onUpdate']
     for symbol in selected:
         definition = definitions[symbol]
-        definition['id'] = 'audit_practice15_' + symbol.replace('::', '_').lower()
+        definition['id'] = f'audit_practice{number}_' + symbol.replace('::', '_').lower()
         extraction['nodes'].append({'id': definition['id'], 'label': symbol,
             'file_type': 'code', 'source_file': definition['file'],
             'source_location': 'L' + str(definition['line']), '_origin': 'source_review',
@@ -85,6 +95,33 @@ def audit_practice15(extraction):
         'Application::renderScene': ['Renderer::render'],
         'Renderer::render': ['Renderer::upload', 'Renderer::draw'],
         'Renderer::draw': ['DiagramSystem::faceModelMatrix']}
+    if number == 13:
+        calls = {
+            'main': ['Console::initScene', 'Console::onKey'],
+            'Console::initScene': ['Scene::addCuboid', 'Scene::addPyramid', 'Scene::setTransform',
+                                   'Scene::addLine', 'Console::selectFaces'],
+            'Console::selectFaces': ['Scene::setFaceVisible'],
+            'Console::onKey': ['Console::selectFaces']}
+    elif number == 14:
+        calls = {
+            'main': ['Console::initScene', 'Console::onKey', 'Console::onUpdate', 'Console::onFocus'],
+            'Console::initScene': ['DiagramSystem::makePolyhedron', 'Scene::push_entity',
+                                   'Scene::addLine', 'Console::resetMotion', 'Console::selectShape'],
+            'Console::selectShape': ['Scene::setFaceVisible', 'Console::applyTransform'],
+            'Console::resetMotion': ['Console::applyTransform'],
+            'Console::applyTransform': ['Scene::setTransform'],
+            'Console::onKey': ['Console::selectShape', 'Console::resetMotion'],
+            'Console::onUpdate': ['Console::applyTransform']}
+    calls.update({
+        'main': calls['main'] + ['Application::run'],
+        'Application::run': ['Application::initialize', 'Application::renderScene', 'Application::shutdown'],
+        'Application::initialize': ['Renderer::initialize'],
+        'Application::shutdown': ['Renderer::destroy'],
+        'Application::renderScene': ['Renderer::render'],
+        'Renderer::render': ['Renderer::upload', 'Renderer::draw'],
+        'Renderer::draw': ['DiagramSystem::faceModelMatrix'],
+        'Scene::addCuboid': ['Scene::push_entity', 'DiagramSystem::makePolyhedron'],
+        'Scene::addPyramid': ['Scene::push_entity', 'DiagramSystem::makePolyhedron']})
     for caller, targets in calls.items():
         source = definitions[caller]
         for callee in targets:
@@ -95,13 +132,15 @@ def audit_practice15(extraction):
             for match in found:
                 line = source['text'][:source['start'] + match.start()].count('\n') + 1
                 extraction['edges'].append({'source': source['id'], 'target': definitions[callee]['id'],
-                    'relation': 'callback_body_calls' if caller == 'main' else 'calls',
+                    'relation': 'callback_body_calls' if caller == 'main' and callee.startswith('Console::') else 'calls',
                     'confidence': 'EXTRACTED', '_origin': 'source_review', 'source_file': source['file'],
                     'source_location': 'L' + str(line),
-                    'context': 'registered lambda body; invoked later' if caller == 'main' else 'source-checked call'})
-    for caller, helper in [('Console::initScene', 'assignVertexColors'),
-                            ('Console::applyFaceMotion', 'rotateAround'),
-                            ('Console::applyFaceMotion', 'scaleAround')]:
+                    'context': 'registered lambda body; invoked later'
+                    if caller == 'main' and callee.startswith('Console::') else 'source-checked call'})
+    helpers = [] if number == 13 else [('Console::initScene', 'assignVertexColors')]
+    if number == 15:
+        helpers += [('Console::applyFaceMotion', 'rotateAround'), ('Console::applyFaceMotion', 'scaleAround')]
+    for caller, helper in helpers:
         source = definitions[caller]
         target = next(n for n in extraction['nodes'] if n.get('source_file') == files['console']
                       and n.get('label') == helper + '()')
@@ -129,8 +168,8 @@ def main():
     extraction = extract(files, cache_root=ROOT, root=ROOT)
     if not extraction.get('nodes'):
         raise RuntimeError('AST extraction produced no nodes')
-    audited = audit_practice15(extraction)
-    print(f'Source audit: {audited} practice 15 definition nodes added.', flush=True)
+    audited = sum(audit_practice(extraction, number) for number in (13, 14, 15))
+    print(f'Source audit: {audited} practice 13-15 definition nodes added.', flush=True)
     nodes = {n['id']: n for n in extraction['nodes']}
     cross = 0
     for edge in extraction['edges']:

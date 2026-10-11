@@ -174,9 +174,9 @@ B가 완전 축소되면 뒷면만 숨긴다. 복귀 입력 즉시 다른 모션
 
 ## 그래프의 확인 범위와 한계
 
-- AST 추출 실패 파일은 없다. 일부 C++ 함수 정의의 추출 누락은 실습 15의 소스 검토 노드 20개로 보완했다. _origin=source_review로 구분하며 컴파일·타입 검증 성공을 뜻하지 않는다.
+- AST 추출 실패 파일은 없다. 일부 C++ 함수 정의의 추출 누락은 실습 13~15의 소스 검토 노드 76개로 보완했다. _origin=source_review로 구분하며 컴파일·타입 검증 성공을 뜻하지 않는다.
 - 284개 간선은 끝점 정의가 그래프에 없다. 외부 참조나 이름 해석 한계를 포함한다.
-- 115개 관계는 DiGraph의 같은 끝점 간선으로 합쳐진다. 원시 관계는 관계 보존 파일에서 확인한다.
+- 134개 관계는 DiGraph의 같은 끝점 간선으로 합쳐진다. 원시 관계는 관계 보존 파일에서 확인한다.
 - 자기 참조는 없다. 서로 다른 실행 프로젝트의 호출 관계 1개는 AMBIGUOUS로 표시했다.
 - 자동 보고의 Surprising Connections는 후보 관계다. random/Cell 같은 이름을 실제 교차 호출로 단정하지 않는다.
 - 전처리 분기, 가상 호출과 std::function의 실제 대상은 이 문서에서 소스와 대조했다.
@@ -258,7 +258,7 @@ B가 완전 축소되면 뒷면만 숨긴다. 복귀 입력 즉시 다른 모션
 
 ### openGL_3dAssign_14/main.cpp
 
-- `main`: [main.cpp:4](../openGL_3dAssign_14/main.cpp)
+- `main`: [main.cpp:5](../openGL_3dAssign_14/main.cpp)
 
 ### openGL_3dAssign_14/Console.cpp
 
@@ -403,3 +403,9 @@ B가 완전 축소되면 뒷면만 숨긴다. 복귀 입력 즉시 다른 모션
 - `Renderer::initialize`: [Graphics.cpp:730](../openGL_3dAssign_15/framework/src/Graphics.cpp)
 - `Renderer::render`: [Graphics.cpp:739](../openGL_3dAssign_15/framework/src/Graphics.cpp)
 - `Renderer::destroy`: [Graphics.cpp:774](../openGL_3dAssign_15/framework/src/Graphics.cpp)
+
+## 전체 소스와 탑다운 학습
+
+[TOPDOWN_13_14_15.md](TOPDOWN_13_14_15.md)는 main부터 GL 저수준 호출과 셰이더까지 세 실습의 모든 과제 함수·공통 API를 설명하고 실제 코드 부록을 포함한다. 그래프에서 callback_body_calls는 등록한 람다 본문의 호출이며 main에서 즉시 실행했다는 뜻이 아니다. 런타임 조건은 Application.run 설명을 따른다.
+
+현재 한글 출력은 /source-charset:utf-8과 시스템 기본 실행 문자 집합을 사용한다. 실습14 main의 임시 system(chcp) 호출은 제거했다. 기본949 콘솔 확인은 사용자가 새로 빌드해 수행한다.

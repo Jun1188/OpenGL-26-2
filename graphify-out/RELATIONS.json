@@ -19025,7 +19025,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "openGL_3dAssign_14/main.cpp",
-      "source_location": "L4",
+      "source_location": "L5",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25009,6 +25009,486 @@
       "_origin": "ast"
     },
     {
+      "id": "audit_practice13_main",
+      "label": "main",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/main.cpp",
+      "source_location": "L4",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_console_initscene",
+      "label": "Console::initScene",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L5",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_console_onkey",
+      "label": "Console::onKey",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L53",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_application_run",
+      "label": "Application::run",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L152",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_application_initialize",
+      "label": "Application::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L76",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_application_shutdown",
+      "label": "Application::shutdown",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L121",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_application_renderscene",
+      "label": "Application::renderScene",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L141",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_renderer_initialize",
+      "label": "Renderer::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L730",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_renderer_destroy",
+      "label": "Renderer::destroy",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L774",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_renderer_render",
+      "label": "Renderer::render",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L739",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_renderer_upload",
+      "label": "Renderer::upload",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L602",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_renderer_draw",
+      "label": "Renderer::draw",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L677",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_push_entity",
+      "label": "Scene::push_entity",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L72",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_setfacelocalmatrix",
+      "label": "Scene::setFaceLocalMatrix",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L137",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_setfacevisible",
+      "label": "Scene::setFaceVisible",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L128",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_settransform",
+      "label": "Scene::setTransform",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L205",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_addcuboid",
+      "label": "Scene::addCuboid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L101",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_addpyramid",
+      "label": "Scene::addPyramid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L119",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_scene_addline",
+      "label": "Scene::addLine",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L228",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_diagramsystem_makepolyhedron",
+      "label": "DiagramSystem::makePolyhedron",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L353",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_diagramsystem_facemodelmatrix",
+      "label": "DiagramSystem::faceModelMatrix",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L437",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice13_console_selectfaces",
+      "label": "Console::selectFaces",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L40",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_main",
+      "label": "main",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L5",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_initscene",
+      "label": "Console::initScene",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L26",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_onkey",
+      "label": "Console::onKey",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L85",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_application_run",
+      "label": "Application::run",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L152",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_application_initialize",
+      "label": "Application::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L76",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_application_shutdown",
+      "label": "Application::shutdown",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L121",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_application_renderscene",
+      "label": "Application::renderScene",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L141",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_renderer_initialize",
+      "label": "Renderer::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L730",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_renderer_destroy",
+      "label": "Renderer::destroy",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L774",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_renderer_render",
+      "label": "Renderer::render",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L739",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_renderer_upload",
+      "label": "Renderer::upload",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L602",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_renderer_draw",
+      "label": "Renderer::draw",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L677",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_push_entity",
+      "label": "Scene::push_entity",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L72",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_setfacelocalmatrix",
+      "label": "Scene::setFaceLocalMatrix",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L137",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_setfacevisible",
+      "label": "Scene::setFaceVisible",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L128",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_settransform",
+      "label": "Scene::setTransform",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L205",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_addcuboid",
+      "label": "Scene::addCuboid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L101",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_addpyramid",
+      "label": "Scene::addPyramid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L119",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_scene_addline",
+      "label": "Scene::addLine",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L228",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_diagramsystem_makepolyhedron",
+      "label": "DiagramSystem::makePolyhedron",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L353",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_diagramsystem_facemodelmatrix",
+      "label": "DiagramSystem::faceModelMatrix",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L437",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_selectshape",
+      "label": "Console::selectShape",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L57",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_resetmotion",
+      "label": "Console::resetMotion",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L69",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_applytransform",
+      "label": "Console::applyTransform",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L78",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_onupdate",
+      "label": "Console::onUpdate",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L111",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice14_console_onfocus",
+      "label": "Console::onFocus",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L127",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
       "id": "audit_practice15_main",
       "label": "main",
       "file_type": "code",
@@ -25029,66 +25509,6 @@
       "audit_note": "Source-checked definition; AST may also contain header declarations."
     },
     {
-      "id": "audit_practice15_console_resetfaces",
-      "label": "Console::resetFaces",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L86",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
-      "id": "audit_practice15_console_selectshape",
-      "label": "Console::selectShape",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L97",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
-      "id": "audit_practice15_console_resetall",
-      "label": "Console::resetAll",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L104",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
-      "id": "audit_practice15_console_applyobjecttransform",
-      "label": "Console::applyObjectTransform",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L111",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
-      "id": "audit_practice15_console_beginmotion",
-      "label": "Console::beginMotion",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L119",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
-      "id": "audit_practice15_console_applyfacemotion",
-      "label": "Console::applyFaceMotion",
-      "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L152",
-      "_origin": "source_review",
-      "_callable": true,
-      "audit_note": "Source-checked definition; AST may also contain header declarations."
-    },
-    {
       "id": "audit_practice15_console_onkey",
       "label": "Console::onKey",
       "file_type": "code",
@@ -25099,11 +25519,31 @@
       "audit_note": "Source-checked definition; AST may also contain header declarations."
     },
     {
-      "id": "audit_practice15_console_onupdate",
-      "label": "Console::onUpdate",
+      "id": "audit_practice15_application_run",
+      "label": "Application::run",
       "file_type": "code",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L243",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L152",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_application_initialize",
+      "label": "Application::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L76",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_application_shutdown",
+      "label": "Application::shutdown",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L121",
       "_origin": "source_review",
       "_callable": true,
       "audit_note": "Source-checked definition; AST may also contain header declarations."
@@ -25114,6 +25554,26 @@
       "file_type": "code",
       "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
       "source_location": "L141",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_renderer_initialize",
+      "label": "Renderer::initialize",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L730",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_renderer_destroy",
+      "label": "Renderer::destroy",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L774",
       "_origin": "source_review",
       "_callable": true,
       "audit_note": "Source-checked definition; AST may also contain header declarations."
@@ -25189,6 +25649,36 @@
       "audit_note": "Source-checked definition; AST may also contain header declarations."
     },
     {
+      "id": "audit_practice15_scene_addcuboid",
+      "label": "Scene::addCuboid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L101",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_scene_addpyramid",
+      "label": "Scene::addPyramid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L119",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_scene_addline",
+      "label": "Scene::addLine",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L228",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
       "id": "audit_practice15_diagramsystem_makepolyhedron",
       "label": "DiagramSystem::makePolyhedron",
       "file_type": "code",
@@ -25204,6 +25694,76 @@
       "file_type": "code",
       "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
       "source_location": "L437",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_resetfaces",
+      "label": "Console::resetFaces",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L86",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_selectshape",
+      "label": "Console::selectShape",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L97",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_resetall",
+      "label": "Console::resetAll",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L104",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_applyobjecttransform",
+      "label": "Console::applyObjectTransform",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L111",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_beginmotion",
+      "label": "Console::beginMotion",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L119",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_applyfacemotion",
+      "label": "Console::applyFaceMotion",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L152",
+      "_origin": "source_review",
+      "_callable": true,
+      "audit_note": "Source-checked definition; AST may also contain header declarations."
+    },
+    {
+      "id": "audit_practice15_console_onupdate",
+      "label": "Console::onUpdate",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L243",
       "_origin": "source_review",
       "_callable": true,
       "audit_note": "Source-checked definition; AST may also contain header declarations."
@@ -65888,7 +66448,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_14/main.cpp",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -83228,6 +83788,1147 @@
       "_origin": "ast"
     },
     {
+      "source": "opengl_3dassign_13_main",
+      "target": "audit_practice13_main",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/main.cpp",
+      "source_location": "L4"
+    },
+    {
+      "source": "opengl_3dassign_13_console_cpp_opengl_3dassign_13_console",
+      "target": "audit_practice13_console_initscene",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L5"
+    },
+    {
+      "source": "opengl_3dassign_13_console_cpp_opengl_3dassign_13_console",
+      "target": "audit_practice13_console_onkey",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L53"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_application",
+      "target": "audit_practice13_application_run",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L152"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_application",
+      "target": "audit_practice13_application_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L76"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_application",
+      "target": "audit_practice13_application_shutdown",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L121"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_application",
+      "target": "audit_practice13_application_renderscene",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L141"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_renderer_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L730"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_renderer_destroy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L774"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_renderer_render",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L739"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_renderer_upload",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L602"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_renderer_draw",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L677"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_push_entity",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L72"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_setfacelocalmatrix",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L137"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_setfacevisible",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L128"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_settransform",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L205"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_addcuboid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L101"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_addpyramid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L119"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_scene_addline",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L228"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_diagramsystem_makepolyhedron",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L353"
+    },
+    {
+      "source": "opengl_3dassign_13_framework_src_graphics",
+      "target": "audit_practice13_diagramsystem_facemodelmatrix",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L437"
+    },
+    {
+      "source": "opengl_3dassign_13_console_cpp_opengl_3dassign_13_console",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L40"
+    },
+    {
+      "source": "audit_practice13_main",
+      "target": "audit_practice13_console_initscene",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/main.cpp",
+      "source_location": "L15",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice13_main",
+      "target": "audit_practice13_console_onkey",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/main.cpp",
+      "source_location": "L18",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice13_main",
+      "target": "audit_practice13_application_run",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/main.cpp",
+      "source_location": "L20",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_addcuboid",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L8",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_addpyramid",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L9",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_settransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L17",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_settransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L17",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L21",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L22",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L23",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_initscene",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L30",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_selectfaces",
+      "target": "audit_practice13_scene_setfacevisible",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L45",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_selectfaces",
+      "target": "audit_practice13_scene_setfacevisible",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L49",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_onkey",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L60",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_onkey",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L62",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_onkey",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L64",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_onkey",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L71",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_console_onkey",
+      "target": "audit_practice13_console_selectfaces",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/Console.cpp",
+      "source_location": "L74",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_run",
+      "target": "audit_practice13_application_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L159",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_run",
+      "target": "audit_practice13_application_renderscene",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L192",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_run",
+      "target": "audit_practice13_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L202",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_run",
+      "target": "audit_practice13_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L206",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_initialize",
+      "target": "audit_practice13_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L76",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_initialize",
+      "target": "audit_practice13_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L97",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_shutdown",
+      "target": "audit_practice13_renderer_destroy",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_application_renderscene",
+      "target": "audit_practice13_renderer_render",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Application.cpp",
+      "source_location": "L149",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_renderer_render",
+      "target": "audit_practice13_renderer_upload",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L751",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_renderer_render",
+      "target": "audit_practice13_renderer_draw",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L770",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_renderer_draw",
+      "target": "audit_practice13_diagramsystem_facemodelmatrix",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L715",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_scene_addcuboid",
+      "target": "audit_practice13_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_scene_addcuboid",
+      "target": "audit_practice13_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_scene_addpyramid",
+      "target": "audit_practice13_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice13_scene_addpyramid",
+      "target": "audit_practice13_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_13/framework/src/Graphics.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "opengl_3dassign_14_main",
+      "target": "audit_practice14_main",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L5"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_initscene",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L26"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_onkey",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L85"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_application",
+      "target": "audit_practice14_application_run",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L152"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_application",
+      "target": "audit_practice14_application_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L76"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_application",
+      "target": "audit_practice14_application_shutdown",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L121"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_application",
+      "target": "audit_practice14_application_renderscene",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L141"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_renderer_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L730"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_renderer_destroy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L774"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_renderer_render",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L739"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_renderer_upload",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L602"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_renderer_draw",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L677"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_push_entity",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L72"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_setfacelocalmatrix",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L137"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_setfacevisible",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L128"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_settransform",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L205"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_addcuboid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L101"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_addpyramid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L119"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_scene_addline",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L228"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_diagramsystem_makepolyhedron",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L353"
+    },
+    {
+      "source": "opengl_3dassign_14_framework_src_graphics",
+      "target": "audit_practice14_diagramsystem_facemodelmatrix",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L437"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_selectshape",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L57"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_resetmotion",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L69"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_applytransform",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L78"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_onupdate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L111"
+    },
+    {
+      "source": "opengl_3dassign_14_console_cpp_opengl_3dassign_14_console",
+      "target": "audit_practice14_console_onfocus",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L127"
+    },
+    {
+      "source": "audit_practice14_main",
+      "target": "audit_practice14_console_initscene",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L16",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice14_main",
+      "target": "audit_practice14_console_onkey",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L19",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice14_main",
+      "target": "audit_practice14_console_onupdate",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L22",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice14_main",
+      "target": "audit_practice14_console_onfocus",
+      "relation": "callback_body_calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L25",
+      "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice14_main",
+      "target": "audit_practice14_application_run",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/main.cpp",
+      "source_location": "L27",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L29",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L30",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L32",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L33",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L39",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L40",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_scene_addline",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L41",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_console_resetmotion",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L48",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "audit_practice14_console_selectshape",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L49",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_selectshape",
+      "target": "audit_practice14_scene_setfacevisible",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L63",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_selectshape",
+      "target": "audit_practice14_console_applytransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L66",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_resetmotion",
+      "target": "audit_practice14_console_applytransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L75",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_applytransform",
+      "target": "audit_practice14_scene_settransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L82",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_onkey",
+      "target": "audit_practice14_console_selectshape",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L100",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_onkey",
+      "target": "audit_practice14_console_selectshape",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L101",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_onkey",
+      "target": "audit_practice14_console_resetmotion",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_onupdate",
+      "target": "audit_practice14_console_applytransform",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_run",
+      "target": "audit_practice14_application_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L159",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_run",
+      "target": "audit_practice14_application_renderscene",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L192",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_run",
+      "target": "audit_practice14_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L202",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_run",
+      "target": "audit_practice14_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L206",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_initialize",
+      "target": "audit_practice14_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L76",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_initialize",
+      "target": "audit_practice14_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L97",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_shutdown",
+      "target": "audit_practice14_renderer_destroy",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_application_renderscene",
+      "target": "audit_practice14_renderer_render",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Application.cpp",
+      "source_location": "L149",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_renderer_render",
+      "target": "audit_practice14_renderer_upload",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L751",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_renderer_render",
+      "target": "audit_practice14_renderer_draw",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L770",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_renderer_draw",
+      "target": "audit_practice14_diagramsystem_facemodelmatrix",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L715",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_scene_addcuboid",
+      "target": "audit_practice14_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_scene_addcuboid",
+      "target": "audit_practice14_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_scene_addpyramid",
+      "target": "audit_practice14_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_scene_addpyramid",
+      "target": "audit_practice14_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/framework/src/Graphics.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice14_console_initscene",
+      "target": "opengl_3dassign_14_console_assignvertexcolors",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_14/Console.cpp",
+      "source_location": "L31"
+    },
+    {
       "source": "opengl_3dassign_15_main",
       "target": "audit_practice15_main",
       "relation": "defines",
@@ -83247,60 +84948,6 @@
     },
     {
       "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_resetfaces",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L86"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_selectshape",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L97"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_resetall",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L104"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_applyobjecttransform",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L111"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_beginmotion",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L119"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_applyfacemotion",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L152"
-    },
-    {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
       "target": "audit_practice15_console_onkey",
       "relation": "defines",
       "confidence": "EXTRACTED",
@@ -83309,13 +84956,31 @@
       "source_location": "L216"
     },
     {
-      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
-      "target": "audit_practice15_console_onupdate",
+      "source": "opengl_3dassign_15_framework_src_application",
+      "target": "audit_practice15_application_run",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "_origin": "source_review",
-      "source_file": "openGL_3dAssign_15/Console.cpp",
-      "source_location": "L243"
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L152"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_application",
+      "target": "audit_practice15_application_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L76"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_application",
+      "target": "audit_practice15_application_shutdown",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L121"
     },
     {
       "source": "opengl_3dassign_15_framework_src_application",
@@ -83325,6 +84990,24 @@
       "_origin": "source_review",
       "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
       "source_location": "L141"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_graphics",
+      "target": "audit_practice15_renderer_initialize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L730"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_graphics",
+      "target": "audit_practice15_renderer_destroy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L774"
     },
     {
       "source": "opengl_3dassign_15_framework_src_graphics",
@@ -83391,6 +85074,33 @@
     },
     {
       "source": "opengl_3dassign_15_framework_src_graphics",
+      "target": "audit_practice15_scene_addcuboid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L101"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_graphics",
+      "target": "audit_practice15_scene_addpyramid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L119"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_graphics",
+      "target": "audit_practice15_scene_addline",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L228"
+    },
+    {
+      "source": "opengl_3dassign_15_framework_src_graphics",
       "target": "audit_practice15_diagramsystem_makepolyhedron",
       "relation": "defines",
       "confidence": "EXTRACTED",
@@ -83406,6 +85116,69 @@
       "_origin": "source_review",
       "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
       "source_location": "L437"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_resetfaces",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L86"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_selectshape",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L97"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_resetall",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L104"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_applyobjecttransform",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L111"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_beginmotion",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L119"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_applyfacemotion",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L152"
+    },
+    {
+      "source": "opengl_3dassign_15_console_cpp_opengl_3dassign_15_console",
+      "target": "audit_practice15_console_onupdate",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/Console.cpp",
+      "source_location": "L243"
     },
     {
       "source": "audit_practice15_main",
@@ -83436,6 +85209,16 @@
       "source_file": "openGL_3dAssign_15/main.cpp",
       "source_location": "L21",
       "context": "registered lambda body; invoked later"
+    },
+    {
+      "source": "audit_practice15_main",
+      "target": "audit_practice15_application_run",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/main.cpp",
+      "source_location": "L23",
+      "context": "source-checked call"
     },
     {
       "source": "audit_practice15_console_initscene",
@@ -83735,6 +85518,116 @@
       "_origin": "source_review",
       "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
       "source_location": "L715",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_run",
+      "target": "audit_practice15_application_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L159",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_run",
+      "target": "audit_practice15_application_renderscene",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L192",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_run",
+      "target": "audit_practice15_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L202",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_run",
+      "target": "audit_practice15_application_shutdown",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L206",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_initialize",
+      "target": "audit_practice15_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L76",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_initialize",
+      "target": "audit_practice15_renderer_initialize",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L97",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_application_shutdown",
+      "target": "audit_practice15_renderer_destroy",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Application.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_scene_addcuboid",
+      "target": "audit_practice15_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_scene_addcuboid",
+      "target": "audit_practice15_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L106",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_scene_addpyramid",
+      "target": "audit_practice15_scene_push_entity",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L124",
+      "context": "source-checked call"
+    },
+    {
+      "source": "audit_practice15_scene_addpyramid",
+      "target": "audit_practice15_diagramsystem_makepolyhedron",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "_origin": "source_review",
+      "source_file": "openGL_3dAssign_15/framework/src/Graphics.cpp",
+      "source_location": "L124",
       "context": "source-checked call"
     },
     {
