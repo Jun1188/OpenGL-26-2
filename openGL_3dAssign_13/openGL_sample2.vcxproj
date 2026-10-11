@@ -156,12 +156,13 @@
   <ItemGroup>
     <None Include="framework\shaders\FragmentShader.glsl" />
     <None Include="packages.config" />
+    <None Include="framework\Framework.props" />
     <None Include="framework\shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="openGL_assign_789.rc" />
   </ItemGroup>
-  <Import Project="..\OpenGL.props" />
+  <Import Project="framework\Framework.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
