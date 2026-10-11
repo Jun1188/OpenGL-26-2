@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include "Geometry.h"
-#include "../dependencies/glew-2.3.1/include/GL/glew.h"
+#include "../detail/Native.h"
+#include <map>
 
 #include <array>
 #include <cstddef>
@@ -123,51 +124,48 @@ std::string readTextFile(const std::filesystem::path& path);
 struct RenderOptions {
     bool depthTest = true;
     bool wireframe = false;
+    bool textures = false; // Explicit opt-in; no texture GPU work when false.
+    bool lighting = false;
+    glm::vec3 lightDirection{1, 1, 1};
+    GlColor lightColor;
+    GlColor outlineColor{0.05f, 0.05f, 0.05f};
+    glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
 };
 
 class Renderer {
-private:
     struct DrawRange {
-        GLenum mode = GL_TRIANGLES;
         EntityId entityId = 0;
         std::size_t faceIndex = 0;
         std::optional<LineId> lineId;
-        std::size_t firstIndex = 0;
-        GLsizei count = 0;
-        std::size_t outlineFirstIndex = 0;
-        GLsizei outlineCount = 0;
+        std::size_t firstIndex = 0, outlineFirstIndex = 0;
+        GLsizei count = 0, outlineCount = 0;
     };
-
-    GLuint shaderProgramID_ = 0;
-    GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 };
-    GLuint ebo_ = 0;
-    GLint mvpLocation_ = -1;
+    GLuint shaderProgramID_ = 0, vao_ = 0, vbo_ = 0, ebo_ = 0;
+    GLint mvpLocation_ = -1, modelLocation_ = -1, normalLocation_ = -1;
+    GLint textureLocation_ = -1, hasTextureLocation_ = -1, lightingLocation_ = -1;
+    GLint lightDirectionLocation_ = -1, lightColorLocation_ = -1;
+    GLint overrideLocation_ = -1, outlineColorLocation_ = -1;
     std::vector<DrawRange> drawRanges_;
+    using TextureMap = std::map<std::shared_ptr<const TextureImage>, GLuint,
+                               std::owner_less<std::shared_ptr<const TextureImage>>>;
+    TextureMap textures_;
     const Scene* uploadedScene_ = nullptr;
     std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
-
-    bool initShader(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
-    bool initBuffer();
-    bool upload(const Scene& scene);
-    bool draw(const Scene& scene, const glm::mat4& view,
-              const glm::mat4& projection, const RenderOptions& options) const;
-
+    bool uploadedTextures_ = false;
+    bool initShader(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath);
+    bool upload(const Scene& scene, bool textures);
+    bool draw(const Scene& scene, const glm::mat4& view, const glm::mat4& projection,
+              const RenderOptions& options) const;
 public:
     Renderer() = default;
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
-
-    // 호출자가 유효한 OpenGL 3.3 컨텍스트를 current로 설정한 뒤 호출한다.
-    bool initialize(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
-    // viewport/depth/clear/program/VAO를 설정한다. 컨텍스트와 윈도우는 소유하지 않는다.
+    // Requires a current OpenGL 3.3 context. Empty paths select embedded shaders.
+    bool initialize(const std::filesystem::path& vertexPath = {}, const std::filesystem::path& fragmentPath = {});
     bool render(const Scene& scene, const Camera& camera, int width, int height,
                 const RenderOptions& options = {});
-    void destroy(); // 컨텍스트 종료 전에 호출한다. 여러 번 호출해도 된다.
+    void destroy(); // Call while the owning context is current, before it is destroyed.
 };
-
 } // namespace graphics
-
 #include "../detail/Scene.inl"
+#include "../detail/Renderer.inl"
