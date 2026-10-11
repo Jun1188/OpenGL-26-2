@@ -1,4 +1,4 @@
-# Prerequisites
+﻿# Prerequisites
 *.d
 
 # Compiled Object files
@@ -51,3 +51,11 @@ OpenGL.local.props
 !/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
 !/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
 !/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
+
+# Framework-local x64 dependency runtime and import libraries
+!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/lib/Release/x64/
+!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
+!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/bin/Release/x64/
+!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
+!/openGL_3dAssign_13/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
+!/openGL_3dAssign_13/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
