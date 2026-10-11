@@ -5340,3 +5340,142 @@ int main() {
 ````
 
 내용은 동일하며 저장 인코딩에 UTF-8 BOM을 추가했다.
+
+## 후속 변경: 사용하지 않는 Common.h 제거
+
+사용자 요청에 따라 실습 13·14·15의 호환 헤더와 프로젝트 등록을 제거했다. 빌드와 실행 테스트는 사용자가 수행한다.
+
+### openGL_3dAssign_13\Common.h
+Before:
+~~~cpp
+#pragma once
+
+// 기존 과제 코드의 include와 이름을 유지하는 호환 헤더.
+// 새 코드는 Graphics.h와 graphics 네임스페이스를 사용한다.
+#include "Graphics.h"
+
+using graphics::WINDOW_WIDTH;
+using graphics::WINDOW_HEIGHT;
+using graphics::MAX_ENTITIES;
+using graphics::EntityId;
+using graphics::GlColor;
+using graphics::GLShape;
+using graphics::GLFace;
+using graphics::Transform3D;
+using graphics::PlaneFigure;
+using graphics::Polyhedron;
+using graphics::Component_Poly;
+using graphics::FaceId;
+using graphics::DiagramSystem;
+using graphics::Camera;
+using graphics::CameraSystem;
+using graphics::readTextFile;
+using Entity = graphics::Scene;
+using ShaderHandler = graphics::Renderer;
+
+~~~
+After: 파일 삭제.
+
+openGL_3dAssign_13\openGL_sample2.vcxproj Before:
+~~~xml
+    <ClInclude Include="Common.h" />
+~~~
+After: 위 등록 블록 삭제.
+
+openGL_3dAssign_13\openGL_sample2.vcxproj.filters Before:
+~~~xml
+    <ClInclude Include="Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+~~~
+After: 위 등록 블록 삭제.
+
+### openGL_3dAssign_14\Common.h
+Before:
+~~~cpp
+#pragma once
+
+// 기존 과제 코드의 include와 이름을 유지하는 호환 헤더.
+// 새 코드는 Graphics.h와 graphics 네임스페이스를 사용한다.
+#include "Graphics.h"
+
+using graphics::WINDOW_WIDTH;
+using graphics::WINDOW_HEIGHT;
+using graphics::MAX_ENTITIES;
+using graphics::EntityId;
+using graphics::GlColor;
+using graphics::GLShape;
+using graphics::GLFace;
+using graphics::Transform3D;
+using graphics::PlaneFigure;
+using graphics::Polyhedron;
+using graphics::Component_Poly;
+using graphics::FaceId;
+using graphics::DiagramSystem;
+using graphics::Camera;
+using graphics::CameraSystem;
+using graphics::readTextFile;
+using Entity = graphics::Scene;
+using ShaderHandler = graphics::Renderer;
+
+~~~
+After: 파일 삭제.
+
+openGL_3dAssign_14\openGL_sample2.vcxproj Before:
+~~~xml
+    <ClInclude Include="Common.h" />
+~~~
+After: 위 등록 블록 삭제.
+
+openGL_3dAssign_14\openGL_sample2.vcxproj.filters Before:
+~~~xml
+    <ClInclude Include="Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+~~~
+After: 위 등록 블록 삭제.
+
+### openGL_3dAssign_15\Common.h
+Before:
+~~~cpp
+#pragma once
+
+// 기존 과제 코드의 include와 이름을 유지하는 호환 헤더.
+// 새 코드는 Graphics.h와 graphics 네임스페이스를 사용한다.
+#include "Graphics.h"
+
+using graphics::WINDOW_WIDTH;
+using graphics::WINDOW_HEIGHT;
+using graphics::MAX_ENTITIES;
+using graphics::EntityId;
+using graphics::GlColor;
+using graphics::GLShape;
+using graphics::GLFace;
+using graphics::Transform3D;
+using graphics::PlaneFigure;
+using graphics::Polyhedron;
+using graphics::Component_Poly;
+using graphics::FaceId;
+using graphics::DiagramSystem;
+using graphics::Camera;
+using graphics::CameraSystem;
+using graphics::readTextFile;
+using Entity = graphics::Scene;
+using ShaderHandler = graphics::Renderer;
+
+~~~
+After: 파일 삭제.
+
+openGL_3dAssign_15\openGL_sample2.vcxproj Before:
+~~~xml
+    <ClInclude Include="Common.h" />
+~~~
+After: 위 등록 블록 삭제.
+
+openGL_3dAssign_15\openGL_sample2.vcxproj.filters Before:
+~~~xml
+    <ClInclude Include="Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+~~~
+After: 위 등록 블록 삭제.
