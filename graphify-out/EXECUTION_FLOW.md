@@ -1,7 +1,7 @@
 ﻿# 실행 프로젝트와 렌더링 흐름
 
 이 문서는 실제 소스와 프로젝트의 ClCompile 항목을 대조한 정적 설명이다.
-코드 107개의 graphify AST 결과를 참고했다. 빌드·실행·테스트는 수행하지 않았다.
+최신 코드 목록과 SHA-256은 SOURCE_HASHES.json에 기록했다. graphify AST 결과를 참고했다. 빌드·실행·테스트는 수행하지 않았다.
 EXTRACTED는 소스에서 확인한 관계, AMBIGUOUS는 실행 대상이나 이름 해석이 불확실한 관계다.
 그래프가 함수 호출 시간이나 std::function의 대상을 완전히 증명하지는 않는다.
 
@@ -24,7 +24,7 @@ PROJECTS.json은 모든 프로젝트의 컴파일 파일과 물리적 진입점 
 | openGL_2dAssign12 | main.cpp의 main | PracticeConsole의 쌓기와 충돌 처리. |
 | openGL_3dAssign_13 | main.cpp의 main | 면 선택. 업데이트 콜백이 없다. |
 | openGL_3dAssign_14 | main.cpp의 main | 꼭짓점 색상, 이동·쿼터니언 자전. 수정키·업데이트·포커스 콜백. |
-| openGL_3dAssign_15 | main.cpp의 main | 전체 자전과 하나의 면 애니메이션. 키·업데이트 콜백. |
+| openGL_3dAssign_15 | main.cpp의 main | 전체 자전과 독립 상태의 중첩 면 애니메이션. 키·업데이트 콜백. |
 
 ### 워밍업 진입점
 
@@ -122,27 +122,40 @@ c/p는 보존한 상태를 새 도형에 적용한다. s는 초기 Rx(30)×Ry(30
 
 ### 실습 15
 
-Console::onKey → beginMotion → 이전 면 변형 초기화 → 동작 종류·진행량·선택 면 설정.
-같은 t/s/4/5는 실행 여부를 전환한다. 같은 f/b는 방향을 반전한다.
-같은 1/2는 새 무작위 쌍으로 다시 시작한다. 사각뿔에서 육면체 면 명령은 무시한다.
-y 전체 자전은 면 동작과 독립이다. p는 면 동작만 초기화하고 r은 전체 초기 상태를 복원한다.
+initScene → makePolyhedron(Cube/Pyramid) → assignVertexColors 각각 호출 → push_entity.
+양쪽 도형 모두 꼭짓점 색상이 보간된다. 도형 크기·면 순서·좌표축은 유지한다.
 
-onUpdate → 진행량 갱신 → applyFaceMotion → setFaceLocalMatrix/setFaceVisible.
-각 프레임의 면 행렬은 기준 형상에서 계산하므로 지난 프레임의 행렬을 다시 곱하지 않는다.
-회전은 T(pivot)×R×T(-pivot), 축소는 T(center)×S×T(-center)이다.
-1은 360도에서 단위행렬로, 2는 정확히 90도에서 멈춘다.
-f/b는 진행량을 [0,1]로 고정하고 끝에서 멈춘다. b는 1에서 숨기고 복원 중 다시 표시한다.
+Console::onKey → beginMotion → motions_[종류] 하나의 상태만 변경 → applyFaceMotion.
+T/S/1/2/4/5는 running 정지·재개, F/B는 direction 반전이다.
+처음 1/2를 시작할 때 독립적으로 인접 쌍을 선택하며 초기화 전까지 그 쌍을 유지한다.
+사각뿔에서는 육면체 면 명령을 무시한다. P는 모든 면 모션을 초기화하고 Y 자전은 유지한다.
+R은 육면체·초기 각도·깊이 켜짐·전체 모션 정지로 복원한다.
+
+onUpdate → Y 자전 진행 → 모든 running 면 모션의 진행량을 각각 갱신 → applyFaceMotion.
+F/B는 진행량을 [0,1]로 고정하고 자기 모션만 완료한다.
+1은 360도 모듈러 회전으로 반복한다. 2는 진행량 [0,180)에서 각도를 0→90→0으로 계산한다.
+45도/초 기준 1은 8초 주기, 2는 자리 교체 2초·복귀 2초인 4초 주기다.
+프레임 deltaTime은 Application에서 최대 0.05초로 제한한다.
+
+applyFaceMotion은 여섯 단위행렬에서 시작하여 T→F→S→B→1→2→4→5 순서로 합성한다.
+각 모션 행렬을 왼쪽에 곱하므로 이 순서는 열벡터에 실제로 적용되는 순서다.
+지난 프레임 행렬을 재사용하지 않으며, 정지한 모션의 현재 변형도 합성한다.
+일반 면 최종 Model = 객체 Model × OrbitX × OrbitY × Swap × Hinge × Back × Side × Front × Top.
+각 면에 해당하지 않는 항은 단위행렬이다. 전체 객체 Y 자전은 객체 Model에서 적용된다.
+모든 피벗과 축은 기준 형상의 객체 로컬 좌표로 정의한다. 중첩 시 뒤 모션이 앞 모션의 결과를 변환한다.
+따라서 단독 실행의 고정 중점·모서리가 추가 공전까지 적용된 뒤 월드에서 고정된다는 뜻은 아니다.
 
 면 표: 앞0, 뒤1, 왼쪽2, 오른쪽3, 위4, 아래5.
+S는 왼쪽2·오른쪽3에 각각 자기 중점 X축 회전을 적용한다.
 인접 쌍: (앞,오른쪽), (오른쪽,뒤), (뒤,왼쪽), (왼쪽,앞).
-2번은 첫 면 +90도, 둘째 면 -90도이다. 이 순서에서 중심이 서로 교체된다.
-1번 회전 중심은 선택한 쌍의 공통 수직 모서리다.
-4번은 옆면 네 개, 5번은 위·아래·앞·뒤 면에 같은 중앙 공전 행렬을 적용한다.
+1은 선택 쌍 공통 수직 모서리, 2는 중앙 Y축으로 +각도/-각도 회전한다.
+4는 옆면 네 개, 5는 위·아래·앞·뒤 면에 중앙 공전 행렬을 적용한다.
+B가 완전 축소되면 뒷면만 숨긴다. 복귀 입력 즉시 다른 모션을 유지하며 다시 표시한다.
 
 ## CPU → GPU
 
 1. DiagramSystem::makePolyhedron은 면의 로컬 꼭짓점·색·법선을 만든다.
-   육면체는 6개 사각형, 사각뿔은 4개 삼각형과 사각형 바닥이다. 직사면체는 별도 4개 삼각형이다.
+   육면체는 6개 사각형, 사각뿔은 4개 삼각형과 사각형 바닥이다. 직각 사면체(Tetra)는 별도 4개 삼각형이다.
 2. Scene은 Component_Poly와 Line3D를 소유한다. GPU 핸들은 Renderer가 소유한다.
 3. Renderer::upload는 position/color VBO와 삼각형/테두리/선 EBO를 만든다.
    VAO의 location 0은 위치, location 1은 색이다. EBO 바인딩은 VAO의 상태로 유지한다.
@@ -161,10 +174,10 @@ f/b는 진행량을 [0,1]로 고정하고 끝에서 멈춘다. b는 1에서 숨�
 
 ## 그래프의 확인 범위와 한계
 
-- AST 추출 실패 파일은 없다. 코드 실행이나 타입 검증 성공을 뜻하지 않는다.
-- 270개 간선은 끝점 정의가 그래프에 없다. 외부 참조나 이름 해석 한계를 포함한다.
-- 93개 관계는 DiGraph의 같은 끝점 간선으로 합쳐진다. 원시 관계는 관계 보존 파일에서 확인한다.
-- 3개 자기 참조가 있다. 서로 다른 실행 프로젝트의 기호 관계 16개는 AMBIGUOUS로 표시했다.
+- AST 추출 실패 파일은 없다. 일부 C++ 함수 정의의 추출 누락은 실습 15의 소스 검토 노드 20개로 보완했다. _origin=source_review로 구분하며 컴파일·타입 검증 성공을 뜻하지 않는다.
+- 284개 간선은 끝점 정의가 그래프에 없다. 외부 참조나 이름 해석 한계를 포함한다.
+- 115개 관계는 DiGraph의 같은 끝점 간선으로 합쳐진다. 원시 관계는 관계 보존 파일에서 확인한다.
+- 자기 참조는 없다. 서로 다른 실행 프로젝트의 호출 관계 1개는 AMBIGUOUS로 표시했다.
 - 자동 보고의 Surprising Connections는 후보 관계다. random/Cell 같은 이름을 실제 교차 호출로 단정하지 않는다.
 - 전처리 분기, 가상 호출과 std::function의 실제 대상은 이 문서에서 소스와 대조했다.
 - 사용자 확인이 필요한 빌드·화면·입력·종료 검증은 docs/practice-13-15/README.md에 정리했다.
@@ -182,9 +195,9 @@ f/b는 진행량을 [0,1]로 고정하고 끝에서 멈춘다. b는 1에서 숨�
 
 ### openGL_3dAssign_13/Console.cpp
 
-- `Console::initScene`: [Console.cpp:5](../openGL_3dAssign_13/Console.cpp)
-- `Console::selectFaces`: [Console.cpp:40](../openGL_3dAssign_13/Console.cpp)
-- `Console::onKey`: [Console.cpp:53](../openGL_3dAssign_13/Console.cpp)
+- Console::initScene: [Console.cpp:5](../openGL_3dAssign_13/Console.cpp)
+- Console::selectFaces: [Console.cpp:40](../openGL_3dAssign_13/Console.cpp)
+- Console::onKey: [Console.cpp:53](../openGL_3dAssign_13/Console.cpp)
 
 ### openGL_3dAssign_13/framework/src/Application.cpp
 
@@ -249,14 +262,14 @@ f/b는 진행량을 [0,1]로 고정하고 끝에서 멈춘다. b는 1에서 숨�
 
 ### openGL_3dAssign_14/Console.cpp
 
-- `assignVertexColors`: [Console.cpp:8](../openGL_3dAssign_14/Console.cpp)
-- `Console::initScene`: [Console.cpp:26](../openGL_3dAssign_14/Console.cpp)
-- `Console::selectShape`: [Console.cpp:58](../openGL_3dAssign_14/Console.cpp)
-- `Console::resetMotion`: [Console.cpp:70](../openGL_3dAssign_14/Console.cpp)
-- `Console::applyTransform`: [Console.cpp:79](../openGL_3dAssign_14/Console.cpp)
-- `Console::onKey`: [Console.cpp:86](../openGL_3dAssign_14/Console.cpp)
-- `Console::onUpdate`: [Console.cpp:112](../openGL_3dAssign_14/Console.cpp)
-- `Console::onFocus`: [Console.cpp:128](../openGL_3dAssign_14/Console.cpp)
+- assignVertexColors: [Console.cpp:8](../openGL_3dAssign_14/Console.cpp)
+- Console::initScene: [Console.cpp:26](../openGL_3dAssign_14/Console.cpp)
+- Console::selectShape: [Console.cpp:57](../openGL_3dAssign_14/Console.cpp)
+- Console::resetMotion: [Console.cpp:69](../openGL_3dAssign_14/Console.cpp)
+- Console::applyTransform: [Console.cpp:78](../openGL_3dAssign_14/Console.cpp)
+- Console::onKey: [Console.cpp:85](../openGL_3dAssign_14/Console.cpp)
+- Console::onUpdate: [Console.cpp:111](../openGL_3dAssign_14/Console.cpp)
+- Console::onFocus: [Console.cpp:127](../openGL_3dAssign_14/Console.cpp)
 
 ### openGL_3dAssign_14/framework/src/Application.cpp
 
@@ -321,17 +334,18 @@ f/b는 진행량을 [0,1]로 고정하고 끝에서 멈춘다. b는 1에서 숨�
 
 ### openGL_3dAssign_15/Console.cpp
 
-- `rotateAround`: [Console.cpp:17](../openGL_3dAssign_15/Console.cpp)
-- `scaleAround`: [Console.cpp:23](../openGL_3dAssign_15/Console.cpp)
-- `Console::initScene`: [Console.cpp:31](../openGL_3dAssign_15/Console.cpp)
-- `Console::resetFaces`: [Console.cpp:60](../openGL_3dAssign_15/Console.cpp)
-- `Console::selectShape`: [Console.cpp:71](../openGL_3dAssign_15/Console.cpp)
-- `Console::resetAll`: [Console.cpp:78](../openGL_3dAssign_15/Console.cpp)
-- `Console::applyObjectTransform`: [Console.cpp:85](../openGL_3dAssign_15/Console.cpp)
-- `Console::beginMotion`: [Console.cpp:93](../openGL_3dAssign_15/Console.cpp)
-- `Console::applyFaceMotion`: [Console.cpp:130](../openGL_3dAssign_15/Console.cpp)
-- `Console::onKey`: [Console.cpp:177](../openGL_3dAssign_15/Console.cpp)
-- `Console::onUpdate`: [Console.cpp:204](../openGL_3dAssign_15/Console.cpp)
+- assignVertexColors: [Console.cpp:20](../openGL_3dAssign_15/Console.cpp)
+- rotateAround: [Console.cpp:36](../openGL_3dAssign_15/Console.cpp)
+- scaleAround: [Console.cpp:42](../openGL_3dAssign_15/Console.cpp)
+- Console::initScene: [Console.cpp:50](../openGL_3dAssign_15/Console.cpp)
+- Console::resetFaces: [Console.cpp:86](../openGL_3dAssign_15/Console.cpp)
+- Console::selectShape: [Console.cpp:97](../openGL_3dAssign_15/Console.cpp)
+- Console::resetAll: [Console.cpp:104](../openGL_3dAssign_15/Console.cpp)
+- Console::applyObjectTransform: [Console.cpp:111](../openGL_3dAssign_15/Console.cpp)
+- Console::beginMotion: [Console.cpp:119](../openGL_3dAssign_15/Console.cpp)
+- Console::applyFaceMotion: [Console.cpp:152](../openGL_3dAssign_15/Console.cpp)
+- Console::onKey: [Console.cpp:216](../openGL_3dAssign_15/Console.cpp)
+- Console::onUpdate: [Console.cpp:243](../openGL_3dAssign_15/Console.cpp)
 
 ### openGL_3dAssign_15/framework/src/Application.cpp
 
