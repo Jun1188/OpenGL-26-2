@@ -146,6 +146,18 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
 }
 inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::mat4& projection,
                            const RenderOptions& options) const {
+    if(!detail::finiteMatrix(view)||!detail::finiteMatrix(projection))return false;
+    for(const auto& range:drawRanges_) {
+        glm::mat4 matrix(1);
+        if(range.lineId) {
+            const auto& line=scene.getLines()[*range.lineId];
+            if(line.owner) matrix=DiagramSystem::modelMatrix(scene.getComponent(*line.owner)->transform);
+        } else {
+            const auto* c=scene.getComponent(range.entityId);
+            matrix=DiagramSystem::faceModelMatrix(*c,c->polyhedron.faces[range.faceIndex]);
+        }
+        if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return false;
+    }
     auto& gl=detail::gl();gl.UseProgram(shaderProgramID_);gl.BindVertexArray(vao_);
     gl.ActiveTexture(GL_TEXTURE0);gl.Uniform1i(textureLocation_,0);
     gl.Uniform3f(lightDirectionLocation_,options.lightDirection.x,options.lightDirection.y,options.lightDirection.z);
@@ -186,7 +198,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);
         }
     }
-    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return true;
+    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return gl.GetError()==GL_NO_ERROR;
 }
 inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,int height,const RenderOptions& options) {
     if(!shaderProgramID_||!vao_)return false;if(width<=0||height<=0)return true;
@@ -199,7 +211,8 @@ inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,i
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;
     }
-    auto& gl=detail::gl();gl.Viewport(0,0,width,height);
+    auto& gl=detail::gl();while(gl.GetError()!=GL_NO_ERROR){}
+    gl.Viewport(0,0,width,height);gl.LineWidth(1);
     if(options.depthTest)gl.Enable(GL_DEPTH_TEST);else gl.Disable(GL_DEPTH_TEST);
     gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Disable(GL_SCISSOR_TEST);
     gl.PolygonMode(GL_FRONT_AND_BACK,GL_FILL);gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);

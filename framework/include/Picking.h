@@ -36,7 +36,7 @@ inline std::optional<Ray> screenRay(const Camera& camera,double x,double y,const
 }
 inline std::optional<PickResult> pick(const Scene& scene,const Ray& input) {
     if(!detail::finiteVector(input.origin)||!detail::finiteVector(input.direction)
-        ||glm::length(input.direction)<1e-12f||std::isnan(input.maxDistance)||input.maxDistance<0)return {};
+        ||!std::isfinite(glm::length(input.direction))||glm::length(input.direction)<1e-12f||std::isnan(input.maxDistance)||input.maxDistance<0)return {};
     const auto direction=glm::dvec3(glm::normalize(input.direction));
     const auto origin=glm::dvec3(input.origin);
     double nearest=input.maxDistance;std::optional<PickResult> result;

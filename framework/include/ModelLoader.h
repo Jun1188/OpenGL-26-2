@@ -35,13 +35,14 @@ struct TextureResult {
 namespace detail {
 struct AssimpApi {
     Module module;
+    bool ready = false;
     decltype(&::aiImportFile) importFile = nullptr;
     decltype(&::aiReleaseImport) releaseImport = nullptr;
     decltype(&::aiGetErrorString) getError = nullptr;
     decltype(&::aiGetMaterialColor) getColor = nullptr;
     decltype(&::aiGetMaterialTexture) getTexture = nullptr;
     void load(const std::filesystem::path& root) {
-        if(importFile) return;
+        if(ready) return;
         module.open((root.empty()?frameworkDirectory():std::filesystem::absolute(root))
                     / "dependencies/assimp/bin/assimp-vc145-mt.dll");
         importFile=module.symbol<decltype(importFile)>("aiImportFile");
@@ -49,6 +50,7 @@ struct AssimpApi {
         getError=module.symbol<decltype(getError)>("aiGetErrorString");
         getColor=module.symbol<decltype(getColor)>("aiGetMaterialColor");
         getTexture=module.symbol<decltype(getTexture)>("aiGetMaterialTexture");
+        ready=true;
     }
 };
 inline AssimpApi& assimp() { static AssimpApi api; return api; }

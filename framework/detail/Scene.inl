@@ -154,8 +154,9 @@ inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
     if (id >= components_.size() || !finiteVector(worldPosition)) {
         return false;
     }
-    components_[id].transform.basis = worldPosition;
-    return true;
+    auto candidate = components_[id].transform;
+    candidate.basis = worldPosition;
+    return setTransform(id, candidate);
 }
 
 inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
@@ -283,7 +284,8 @@ inline bool DiagramSystem::validTransform(const Transform3D& transform) {
         && std::isfinite(transform.orientation.y)
         && std::isfinite(transform.orientation.z)
         && std::isfinite(glm::dot(transform.orientation, transform.orientation))
-        && glm::dot(transform.orientation, transform.orientation) > 0.000001f;
+        && glm::dot(transform.orientation, transform.orientation) > 0.000001f
+        && finiteMatrix(detail::transformMatrix(transform));
 }
 
 inline bool DiagramSystem::validPolyhedron(const Polyhedron& polyhedron) {
@@ -377,6 +379,8 @@ inline bool CameraSystem::validCamera(const Camera& camera) {
     const glm::vec3 right = glm::cross(direction, camera.up);
     return finiteVector(camera.position) && finiteVector(camera.target)
         && finiteVector(camera.up) && finiteVector(direction) && finiteVector(right)
+        && std::isfinite(glm::dot(direction, direction))
+        && std::isfinite(glm::dot(right, right))
         && glm::dot(direction, direction) > 0.000001f
         && glm::dot(right, right) > 0.000001f
         && std::isfinite(camera.fieldOfViewDegrees)
