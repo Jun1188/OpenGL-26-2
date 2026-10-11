@@ -1,0 +1,62 @@
+﻿[
+  {
+    "original": "framework/graphify-out/ANALYSIS.json",
+    "archived": "archive/framework-graphify-out-a194f47/ANALYSIS.json",
+    "sha256": "ef79cb27ea3b2d37cdd4e32608da9c510a3726001011af23b5d6baaac0092a44",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/COMMUNITIES.json",
+    "archived": "archive/framework-graphify-out-a194f47/COMMUNITIES.json",
+    "sha256": "0b792766fd4f0e30f242833e7b0579d55156d85b89cb74f273244eed00a2b266",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/DETECTION.json",
+    "archived": "archive/framework-graphify-out-a194f47/DETECTION.json",
+    "sha256": "0732f214ec46473dc57dc5603b888edcb2500bb9c65da823c07ceef379f24d99",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/EXECUTION_FLOW.md",
+    "archived": "archive/framework-graphify-out-a194f47/EXECUTION_FLOW.md",
+    "sha256": "4fa8ed577809461f2318e491c27d34589c5dc1698b35e675ac82a95ceda808dc",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/EXTRACTION.json",
+    "archived": "archive/framework-graphify-out-a194f47/EXTRACTION.json",
+    "sha256": "7c85c1e8ab38969ccae8773fcff508bf3d5201b4a9269c3d790350916c5d0c9d",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/GRAPH_HEALTH.md",
+    "archived": "archive/framework-graphify-out-a194f47/GRAPH_HEALTH.md",
+    "sha256": "a090eaae56109f70996e13cc32c5d73e0f42265eef117ab3a604ddac983646f6",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/GRAPH_REPORT.md",
+    "archived": "archive/framework-graphify-out-a194f47/GRAPH_REPORT.md",
+    "sha256": "d383217612a157a571e2f9ace4c37e9c8fa699794104b2cb80f957d8be3e3e1b",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/PROJECTS.json",
+    "archived": "archive/framework-graphify-out-a194f47/PROJECTS.json",
+    "sha256": "ee8821f6e8e631751c2a5d88104ef87ca88b1ea1e7d39be7eb43f21544911367",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/graph.html",
+    "archived": "archive/framework-graphify-out-a194f47/graph.html",
+    "sha256": "d166611a6d9384bd3e6e1a89a34d703ec8fb7b26aa063cdf1c47a0e550806e33",
+    "matches_committed_text_after_newline_normalization": true
+  },
+  {
+    "original": "framework/graphify-out/graph.json",
+    "archived": "archive/framework-graphify-out-a194f47/graph.json",
+    "sha256": "fedfcac7c63a076fd291076621ee35e93be18b0859f0eb617ee8c656e32c18c9",
+    "matches_committed_text_after_newline_normalization": true
+  }
+]

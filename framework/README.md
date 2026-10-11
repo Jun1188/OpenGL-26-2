@@ -133,7 +133,7 @@ Renderer만 사용하면 호출자가 OpenGL 3.3 컨텍스트를 current로 유�
 - [전체 변경 전후](docs/CHANGES.md)
 - [정적 검토와 번들 출처](docs/STATIC_REVIEW.md)
 - [사용자가 수행할 빌드·실행 확인](docs/USER_CHECKS.md)
-- [코드 구조 분석](graphify-out/GRAPH_REPORT.md), [실행 흐름과 프로젝트 범위](graphify-out/EXECUTION_FLOW.md)
-- [인터랙티브 코드 그래프](graphify-out/graph.html)
+- [framework 전용 코드 구조 분석](../framework-analysis/graphify-out/GRAPH_REPORT.md), [framework 실행 흐름](../framework-analysis/graphify-out/FRAMEWORK_FLOW.md)
+- [인터랙티브 코드 그래프](../framework-analysis/graphify-out/graph.html)
 
 참고 자료: [ComputerGraphics](https://github.com/maru3172/ComputerGraphics)의 컴그_29번_텍스처매핑과 컴그_파이프라인1차. 정점·UV·법선 입력과 모델/뷰/투영·재질 흐름을 참고했다. 프레임워크의 자원 수명, 일반 인덱스 메시와 피킹은 별도 구현이다.

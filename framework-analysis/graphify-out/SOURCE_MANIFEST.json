@@ -1,0 +1,85 @@
+﻿{
+  "source_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework",
+  "output_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\graphify-out",
+  "source_commit": "a194f4705e1a3a080b22eaf5cd0f56655b8490b4",
+  "files": [
+    {
+      "path": "detail\\Application.inl",
+      "sha256": "49b865ddbe80a66affd340a6929cc52763b1e30eb53d6c34b6734d90fc173d76"
+    },
+    {
+      "path": "detail\\Native.h",
+      "sha256": "ca0d2ef76aaa5ffcd4146df053c16c186dfcb3c2ab5e00dd316515272b887621"
+    },
+    {
+      "path": "detail\\Renderer.inl",
+      "sha256": "f8d56451d4a08cf6bd36592e74992dc8be5d418d9bd561f49dc42b6bf5091962"
+    },
+    {
+      "path": "detail\\Scene.inl",
+      "sha256": "12c67b583d3820aff4743bb0f3d3702e81005ce856b26be0603f602609d72e14"
+    },
+    {
+      "path": "detail\\Shaders.h",
+      "sha256": "035734ecef02f09738b1f0847d795348ecefc54e37570d475441938edcc95d2d"
+    },
+    {
+      "path": "examples\\assets.cpp",
+      "sha256": "b07212faf9b30f787ef5c93f631c0d0578203bb07db7a1badefb935cf5276440"
+    },
+    {
+      "path": "examples\\basic.cpp",
+      "sha256": "6f5029af249546a49e441720f529e4fa54a5e408329adee28f1f968f2e8c1e14"
+    },
+    {
+      "path": "Framework.h",
+      "sha256": "a21aa6d5ebb3409d174d69b9883c0b76bf4645da22caa0baa591a4f8e81d8cd4"
+    },
+    {
+      "path": "include\\Application.h",
+      "sha256": "3c6a228682965b4d35e901277a12ece15cd86529deb858061e46a32dd31aa0aa"
+    },
+    {
+      "path": "include\\Geometry.h",
+      "sha256": "26e41d8fa2c1313149c379c5d5c232e33c5cea74781c4ea52fbfe6a9e4a84928"
+    },
+    {
+      "path": "include\\Graphics.h",
+      "sha256": "e324f441391caddaafee93474f6798f0995b5ae724118ca1a6722ae1df5a38b3"
+    },
+    {
+      "path": "include\\Model.h",
+      "sha256": "9e2a1fa05f2ab07cf5b7a53d5e0a3f3a1a4c47664a5ec953c7edfd98d10c3f78"
+    },
+    {
+      "path": "include\\ModelLoader.h",
+      "sha256": "367059e23bf659279ecbccf8a71cd3ab544b114fc4e9d27c7c0223c422b0c81e"
+    },
+    {
+      "path": "include\\Picking.h",
+      "sha256": "db81aad7fe59e8c28df6f3c57d819e2df9978c1f7ccf2447a53ce8b3d57b529d"
+    },
+    {
+      "path": "include\\Texture.h",
+      "sha256": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313"
+    },
+    {
+      "path": "src\\Application.cpp",
+      "sha256": "702f2cba587ff2b91d1be92c3827abdae4f682a46e2b6dc5250ddeb7b6710a51"
+    },
+    {
+      "path": "src\\Graphics.cpp",
+      "sha256": "085468247a05d32398590d5427e57a45533726c8e06d4c11ee90450755f20f23"
+    }
+  ],
+  "excluded": [
+    "dependencies/**",
+    "docs/**",
+    "*.md",
+    "*.patch",
+    "examples/data/**",
+    "shaders/*.glsl (embedded copies)",
+    "other projects"
+  ],
+  "extraction": "tree-sitter C++, .inl dispatch registered for this process only"
+}
