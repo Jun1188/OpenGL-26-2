@@ -5499,3 +5499,39 @@ After:
 ~~~cpp
     assignVertexColors(cube);
 ~~~
+
+## 후속 변경: 실습 15 꼭짓점 색상 호출 연결
+
+사용자가 미리 추가한 assignVertexColors 함수는 유지한다. 도형 데이터를 생성한 뒤 육면체와 사각뿔에 각각 색을 지정하고 Scene에 등록한다. 크기, 원점 위치, 면 번호, 애니메이션은 유지된다. 기존 사용자 변경과 이번 호출 연결은 아직 커밋하지 않았다. 함수 정의가 기존 미커밋 변경이므로 호출만 별도로 커밋하면 함수 정의가 없는 중간 상태가 된다.
+
+Console::initScene Before:
+~~~cpp
+    const auto cube = scene.addCuboid(glm::vec3(HALF_SIZE * 2.0f), glm::vec3(0.0f));
+    const auto pyramid = scene.addPyramid(glm::vec3(HALF_SIZE * 2.0f), glm::vec3(0.0f));
+    if (!cube || !pyramid) {
+        return false;
+    }
+
+    cuboidId_ = *cube;
+    pyramidId_ = *pyramid;
+~~~
+
+After:
+~~~cpp
+    auto cube = graphics::DiagramSystem::makePolyhedron(
+        graphics::GLShape::Cube, glm::vec3(HALF_SIZE * 2.0f));
+    auto pyramid = graphics::DiagramSystem::makePolyhedron(
+        graphics::GLShape::Pyramid, glm::vec3(HALF_SIZE * 2.0f));
+    assignVertexColors(cube);
+    assignVertexColors(pyramid);
+    const auto cubeId = scene.push_entity(cube);
+    const auto pyramidId = scene.push_entity(pyramid);
+    if (!cubeId || !pyramidId) {
+        return false;
+    }
+
+    cuboidId_ = *cubeId;
+    pyramidId_ = *pyramidId;
+~~~
+
+정적 검토: Polyhedron을 수정하고 push_entity로 등록하며 optional ID를 확인한다. cube/pyramid 색상 지정은 각 한 번 수행한다. 빌드·실행 테스트는 사용자 확인 필요. P 전환과 R 초기화 후 색상 보간, 면 애니메이션을 확인한다. 기존 graphify 산출물은 이번 생성·색상 호출 변경을 반영하지 않았다.

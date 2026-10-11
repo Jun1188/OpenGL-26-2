@@ -14,6 +14,25 @@ const glm::vec3 X_AXIS{ 1.0f, 0.0f, 0.0f };
 const glm::vec3 Y_AXIS{ 0.0f, 1.0f, 0.0f };
 const glm::vec3 Z_AXIS{ 0.0f, 0.0f, 1.0f };
 
+
+
+// 부호 조합은 육면체 8개 꼭짓점을 구분한다. 사각뿔은 바닥 4개와 꼭짓점 색이 다르다.
+void assignVertexColors(graphics::Polyhedron& shape) {
+    const std::array<graphics::GlColor, 8> palette{
+        graphics::GlColor{ 1.0f, 0.2f, 0.2f }, { 0.2f, 1.0f, 0.2f },
+        { 0.2f, 0.4f, 1.0f }, { 1.0f, 1.0f, 0.2f },
+        { 1.0f, 0.2f, 1.0f }, { 0.2f, 1.0f, 1.0f },
+        { 1.0f, 0.6f, 0.2f }, { 0.7f, 0.3f, 1.0f }
+    };
+    for (auto& face : shape.faces) {
+        for (const auto& vertex : face.localVertices) {
+            const int index = (vertex.x > 0.0f ? 1 : 0)
+                | (vertex.y > 0.0f ? 2 : 0) | (vertex.z > 0.0f ? 4 : 0);
+            face.vertexColors.push_back(palette[index]);
+        }
+    }
+}
+
 glm::mat4 rotateAround(const glm::vec3& pivot, const glm::vec3& axis, float degrees) {
     return glm::translate(glm::mat4(1.0f), pivot)
         * glm::rotate(glm::mat4(1.0f), glm::radians(degrees), axis)
@@ -31,13 +50,20 @@ glm::mat4 scaleAround(const glm::vec3& pivot, float scale) {
 bool Console::initScene() {
     auto& scene = application_.getScene();
     scene.clear();
-    const auto cube = scene.addCuboid(glm::vec3(HALF_SIZE * 2.0f), glm::vec3(0.0f));
-    const auto pyramid = scene.addPyramid(glm::vec3(HALF_SIZE * 2.0f), glm::vec3(0.0f));
-    if (!cube || !pyramid) {
+    auto cube = graphics::DiagramSystem::makePolyhedron(
+        graphics::GLShape::Cube, glm::vec3(HALF_SIZE * 2.0f));
+    auto pyramid = graphics::DiagramSystem::makePolyhedron(
+        graphics::GLShape::Pyramid, glm::vec3(HALF_SIZE * 2.0f));
+    assignVertexColors(cube);
+    assignVertexColors(pyramid);
+    const auto cubeId = scene.push_entity(cube);
+    const auto pyramidId = scene.push_entity(pyramid);
+    if (!cubeId || !pyramidId) {
         return false;
     }
-    cuboidId_ = *cube;
-    pyramidId_ = *pyramid;
+
+    cuboidId_ = *cubeId;
+    pyramidId_ = *pyramidId;
     if (!scene.addLine({ -1.0f, 0.0f, 0.0f }, { 1.0f, 0.0f, 0.0f }, { 1.0f, 0.2f, 0.2f })
         || !scene.addLine({ 0.0f, -1.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.2f, 1.0f, 0.2f })
         || !scene.addLine({ 0.0f, 0.0f, -1.0f }, { 0.0f, 0.0f, 1.0f }, { 0.2f, 0.4f, 1.0f })) {
@@ -48,11 +74,11 @@ bool Console::initScene() {
     camera.orthographic = true;
     camera.orthographicHalfExtent = 1.0f;
     resetAll();
-    std::cout << "Practice 15: H depth, P cube/pyramid, Y spin/pause, R reset, Q/Esc quit\n"
-              << "Cube only: T top Z rotation, F front open/close, S right-face normal rotation\n"
-              << "B back shrink/restore, 1 adjacent pair hinge 360, 2 adjacent pair swap 90\n"
-              << "4 four side faces orbit Y, 5 top/bottom/front/back orbit X\n"
-              << "Only one face motion is active. Object spin can run with it.\n"
+    std::cout << "Practice 15 키 조작: H==depth, P==cube/pyramid, Y==자전/pause, R reset, Q/Esc quit\n"
+              << "Cube only 모드: T == top Z rotation, F == front open/close, S == right-face normal rotation\n"
+              << "B == back face shrink/restore, 1- 같은 모서리 면 2개 y축회전 360, 2- 같은 모서리 면 2개 y축반대공전 90\n"
+              << "4 four side faces orbit공전 - Y축 기준, 5 top/bottom/front/back orbit공전 - X축 기준\n"
+              << "Only one face motion 활성가능. Object 호출.\n"
               << "T/S/4/5 repeat to pause/resume. F/B repeat to reverse.\n";
     return true;
 }

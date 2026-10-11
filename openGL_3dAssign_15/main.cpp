@@ -8,7 +8,7 @@ int main() {
     config.title = "OpenGL Practice 15";
     config.shaderDirectory = graphics::Application::findShaderDirectory();
     if (config.shaderDirectory.empty()) {
-        std::cerr << "Shaders were not found beside the executable or in framework/shaders.\n";
+        std::cerr << "Shaders 발견 불가 - the executable or in framework/shaders.\n";
         return -1;
     }
     application.setInitHandler([&](graphics::Application&) {

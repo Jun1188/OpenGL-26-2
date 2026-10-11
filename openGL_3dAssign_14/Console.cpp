@@ -47,10 +47,10 @@ bool Console::initScene() {
     camera.orthographicHalfExtent = 1.0f;
     resetMotion();
     selectShape(false);
-    std::cout << "Practice 14: C cube, P pyramid, H depth test\n"
-              << "w wireframe / W solid (Shift or Caps Lock)\n"
-              << "x/X: local X positive/negative, y/Y: local Y positive/negative\n"
-              << "Arrows: world X/Y translation, S: reset motion, Esc: quit\n";
+    std::cout << "실습 14 명령어: C== cube, P== pyramid, H== depth test\n"
+              << "w== wireframe / W== solid (Shift or Caps Lock)\n"
+              << "x/X: local X +/-, y/Y: local Y +/-\n"
+              << "이동: world X/Y translation, S: reset motion, Esc: quit\n";
     return true;
 }
 
