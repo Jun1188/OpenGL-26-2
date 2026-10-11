@@ -1,0 +1,1029 @@
+﻿{
+  "tracked_paths_to_remove": [
+    "Computer-Graphics_WarmmingUp2/Computer-Graphics_WarmmingUp2.vcxproj.user",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.Build.CppClean.log",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.exe.recipe",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.ilk",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.log",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.vcxproj.FileListAbsolute.txt",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/Cl.items.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/Computer-Graphics_WarmmingUp2.lastbuildstate",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.secondary.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.d.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.module.json",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/minwindef.h.obj.dt.module.json.command",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/vc145.idb",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/vc145.pdb",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.Build.CppClean.log",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.exe.recipe",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.iobj",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.ipdb",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.vcxproj.FileListAbsolute.txt",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/Cl.items.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/Computer-Graphics_WarmmingUp2.lastbuildstate",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.secondary.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/vc145.pdb",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.Build.CppClean.log",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.exe.recipe",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.ilk",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/Cl.items.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/WarmupTests.lastbuildstate",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.secondary.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.vcxproj.FileListAbsolute.txt",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/vc145.idb",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/vc145.pdb",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.exe.recipe",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.iobj",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.ipdb",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/Cl.items.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/WarmupTests.lastbuildstate",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.command.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.read.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.secondary.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.write.1.tlog",
+    "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/vc145.pdb",
+    "Computer-Graphics_WarmmingUp2/tests/x64/Debug/WarmupTests.pdb",
+    "Computer-Graphics_WarmmingUp2/tests/x64/Release/WarmupTests.pdb",
+    "Computer-Graphics_WarmmingUp2/verification-build/Computer-Graphics_WarmmingUp2.pdb",
+    "Computer-Graphics_WarmmingUp2/x64/Debug/Computer-Graphics_WarmmingUp2.ilk",
+    "Computer-Graphics_WarmmingUp2/x64/Debug/Computer-Graphics_WarmmingUp2.pdb",
+    "Computer-Graphics_WarmmingUp2/x64/Release/Computer-Graphics_WarmmingUp2.pdb",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.d.json",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.module.json",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.module.json.command",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.d.json",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.module.json",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.module.json.command",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.command.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.read.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.write.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/Cl.items.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/computer_graphics_warmUp1.lastbuildstate",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.command.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.read.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.secondary.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.write.1.tlog",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.exe.recipe",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.ilk",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.log",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/vc145.idb",
+    "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/vc145.pdb",
+    "computer_graphics_warmUp1/computer_graphics_warmUp1.vcxproj.user",
+    "computer_graphics_warmUp1/x64/Debug/computer_graphics_warmUp1.pdb",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_sample0/graphify-out/.graphify_python",
+    "openGL_sample0/graphify-out/.graphify_root",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/4bdfac114c71412bfb17be349471da251d4ba1235b19bc4824d1239539b9f109.json",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/643eb11d219a4f55526a2d2ff9521b4feae9cddf77c3800d4288e8fd5b31c098.json",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/7883c067c8fd6868886db64b746b07d5263a2c4985db62dc645f99a5041e16fc.json",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/878df1c816c5c669eacf99606283b55af25c24ce9ecb16165381e12cd0ef5114.json",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/a69644ea46540fdf49151394346461514ae5fd76f89803df70ba992905a2f1e6.json",
+    "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/a9a0bf64a0da17ea5aae922ccfd0ea65f90ce8bc7a380aae1282867efa772bf8.json",
+    "openGL_sample0/graphify-out/cache/stat-index.json",
+    "openGL_sample0/openGL_sample0.vcxproj.user",
+    "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.d.json",
+    "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.module.json",
+    "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.module.json.command",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.exe.recipe",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.ilk",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.log",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.command.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.read.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.write.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/Cl.items.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.command.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.read.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.secondary.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.write.1.tlog",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/openGL_sample0.lastbuildstate",
+    "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.vcxproj.FileListAbsolute.txt",
+    "openGL_sample0/openGL_sample0/x64/Debug/vc145.idb",
+    "openGL_sample0/openGL_sample0/x64/Debug/vc145.pdb",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+    "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+    "openGL_sample0/x64/Debug/data/cube.txt",
+    "openGL_sample0/x64/Debug/openGL_sample0.pdb",
+    "openGL_sample0/x64/Debug/shaders/basic.frag",
+    "openGL_sample0/x64/Debug/shaders/basic.vert"
+  ],
+  "existing_local_files": [
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer-Graphics_WarmmingUp2.vcxproj.user",
+      "sha256": "c06a75b13f855a94d46616796e024c52b499f8f92cf00ccb571ddbc6ff574676"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.d.json",
+      "sha256": "9d839dd6e2b17048e9e2facf7eeea194258ad9751a0311cfbf29f9d8d02daa78"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.module.json",
+      "sha256": "c877fec6040b0e775608e48d8adde573dbf253071915fdfb5ec7dbe5fff23112"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.cpp.obj.dt.module.json.command",
+      "sha256": "99e1481bef95fd5f014c49b86844a16caa234ca31b082e3f0dce22812948f58c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.d.json",
+      "sha256": "ab7182c5f7c55805eaf4b2c88d996b17bd21a5172df5b4af034453f48adce748"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.module.json",
+      "sha256": "ca1eab49fb36cdc40bb5915c8baf907c4e93dbfb6a5748e8cd8eb8b775f67388"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Application.h.obj.dt.module.json.command",
+      "sha256": "28fdf344c88d4b724730c6612ceb27f4dfecce3d2e6aee7520eba5564bf0dd8e"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.d.json",
+      "sha256": "b1d4c7f6472fa856005febb7b7471f90f715884a2abfb3e90615d1344abc3c5a"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.module.json",
+      "sha256": "409d236782e6deaf5147157d0927b21ab67ec01fd93d5c1f1de8c8ec4ae70d01"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Board.h.obj.dt.module.json.command",
+      "sha256": "c891396517e17f0ed8fd94607d6924f74313e1c1e531aec05459522bc9c46484"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.d.json",
+      "sha256": "649533e981baf6231dabb70c1b5903953e446456f3c51b0ef59559dde5f36b36"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.module.json",
+      "sha256": "cb07443e12ab89d1245afc2a1475288269c532df7ce4cc0973f3cb3bcbe852b5"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.cpp.obj.dt.module.json.command",
+      "sha256": "44a401c30e7bbb326d3b81fd08d83590f3d45c305b7e9a4d2362a23481eb8ec4"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.d.json",
+      "sha256": "d44e7e5ce39551a157e4ec5fcd75405144cc998e6e0fe2ce46b75e8bb65f7874"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.module.json",
+      "sha256": "ac8bf9dd43c03ae7ac04a214c9c2bf1921237db77bd0951651609f23d3c50fea"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardCommand.h.obj.dt.module.json.command",
+      "sha256": "f51f6d49edbf419097a9ac9ac8b2661bbafe9f843234e0905f31c166c638811d"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.d.json",
+      "sha256": "ef308cf4606f83d9721bb96b9a5b942e680744dd2aa9c7671c75594a189aa822"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.module.json",
+      "sha256": "0b107dcac271e5e8ddc3d4794abc48592e9c62211994d7f6e1ef009731a3c225"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.cpp.obj.dt.module.json.command",
+      "sha256": "705657beb715320052b44758b982334dad7e82becd3fb5b0dfb8d6b71fdccab4"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.d.json",
+      "sha256": "8e276372923bc43c68df7bcbe787626855ba7f697f315d9c9edddfc4922b01b5"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.module.json",
+      "sha256": "adafbe5f9252b73ddb4138afaf5ea32f047b9d7afe8cd144b7c61fb171af9263"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/BoardRenderer.h.obj.dt.module.json.command",
+      "sha256": "98a6e6a6075f91bd5bb051128bc9fc0a9c1212e2fe735abd1b00bf8774dca391"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.Build.CppClean.log",
+      "sha256": "8e7d45811c8b6021d0b481056dbfb1b5907df394b4ebfde7c3cc1c0ac572a7df"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.exe.recipe",
+      "sha256": "29a7d18becfa672a924ed7a786729ebb7c86ebc92de9df2f043a0bd2fe09cfb9"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.ilk",
+      "sha256": "67b15e7e10c2e053800bcde511fcbc9e26153efd108dbfa2d3df34a7fdd21ba3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.log",
+      "sha256": "b243a4086e170b75e50847b309f79d44e3b9bf78a7c442f9059d3ca15a703d7d"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer-Graphics_WarmmingUp2.vcxproj.FileListAbsolute.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.command.1.tlog",
+      "sha256": "b343afbbc88d6513e0e9fa60820908fee0b15e3d87e9d6977a9ba1ea700403e3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.read.1.tlog",
+      "sha256": "7c99535dee42904b637e3408b69c872174a0c89e79125f0a1e2aa6efc7d3f5ae"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/CL.write.1.tlog",
+      "sha256": "b6ef15d4dc5e4a9480f10a0822fe022673773ae709bf64e91b6defa8174cd687"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/Cl.items.tlog",
+      "sha256": "68007bafaaa9656d19e9083289393475fc3c52226b19612d651d97c7603656db"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/Computer-Graphics_WarmmingUp2.lastbuildstate",
+      "sha256": "af77b65e8a034ba4caf23499715ba809bfc6200172b0f03f6dab3df2281962ec"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.command.1.tlog",
+      "sha256": "0888185655d2132f993267979d6d476e0356e28d710c37f878190f2ef6808f0c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.read.1.tlog",
+      "sha256": "10e6abc9f9dce49b5e211c17c67d4dfdc13771fb6849d1b8fab3edbd050851f8"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.secondary.1.tlog",
+      "sha256": "447448e1f571dc1398538f24c02c8c11c9996db273c23264b9fcb09449472f6c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Computer.183c4421.tlog/link.write.1.tlog",
+      "sha256": "075c04c7aa68a519d3f2fcc6bf5e6ba30a0084589e74d0cc44c383030b04c3a7"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.d.json",
+      "sha256": "2556ba10d589285534217ecd0f5cf4eda646fd11466d1773e871fddd23fda20a"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.module.json",
+      "sha256": "e399791c76903c6eaf33aaeba3f67abf14e047970e70c4026730a736e90d4835"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Console.h.obj.dt.module.json.command",
+      "sha256": "1872f667ba55ae62dcb84a5c0b51071ea218b2929e019e72bd56c875d9b2e2f3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.d.json",
+      "sha256": "e457669cb9cf85352265cba1762355848cdf31cdda49622d6fc664c96229b3fb"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.module.json",
+      "sha256": "048ed7d44b94ffc64febd03f488795076c01711e81935dce72f69386eb167ed3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/FileName.cpp.obj.dt.module.json.command",
+      "sha256": "25894f1f675c1555d3721622275452567c1284589f4b24ad481d985f536770b3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.d.json",
+      "sha256": "0fefd7276360b75f34a712e56f64f7a03b745402f2e5fc53f76a46c13b5ea3b7"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.module.json",
+      "sha256": "c4de82e5aa4590b2feaf906d8060a6741cb473852786a842a7be6eab71a9a254"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Mesh.h.obj.dt.module.json.command",
+      "sha256": "d7f4dafd5a8963fe36eb4de887fecfda5688c4a1388f55ff9a1420d49747b7da"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.d.json",
+      "sha256": "17ca21077da631cb3da732382facb44f1e5853e15ae7b04e405312d33baa0884"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.module.json",
+      "sha256": "240360a548f3fbb5610c7c8b6e591ad02fec4f10413a3050e4249aedf6430bec"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshParser.cpp.obj.dt.module.json.command",
+      "sha256": "bc9c85a3b10c64aaefa181f35cfe141f12407445f22c97c46d78789bc9818b78"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.d.json",
+      "sha256": "ce08d054765f155ae23a7bce37bd7eb4797b9fe1ac0697e29a1b79f20ddd68ed"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.module.json",
+      "sha256": "e9cb614f85907f2909c4927c9b9ee0724cc0285561928453d2a98751aea815d1"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshReporter.cpp.obj.dt.module.json.command",
+      "sha256": "1930c152ec26b3f33dfdba1d521a69c81b3ad91630a5b853b1e14c8228145a09"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.d.json",
+      "sha256": "e07431b02b4560fb09d8dffdf2696f065be86a9b1608b2d6409d0b167fb9dd4b"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.module.json",
+      "sha256": "c905c72bb5b3928b451fa790425ac0bf3606d6d65f60f2e4eab21351a0fde772"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/MeshValidator.cpp.obj.dt.module.json.command",
+      "sha256": "a7920155f2fab7b0d059c533a2f4c3210628f4995e51e5ae56b3e40aea81d108"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.d.json",
+      "sha256": "ab2b095ae8d386578f291e88c57e6813cc8727388e9c153c4a3b5713e5d36962"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.module.json",
+      "sha256": "28a2c0ee535857cb6788cb0f7bef57d0d6b2f6ab1749095d8337c9eb3a1b95b4"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm.h.obj.dt.module.json.command",
+      "sha256": "f1b3401d2183dbf0b61f631b9df2edc2bd45bd9d6bc0259b8baf28923b8d6e67"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.d.json",
+      "sha256": "3a16f2d358c9ef2d96e7b187e69c96754171d99543fb1d66e3f9e7503a741676"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.module.json",
+      "sha256": "23419e1898c03696dc4e28671bb5b7d27760e782a485a67dda8bb2971c15d56c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/Warm2-1.cpp.obj.dt.module.json.command",
+      "sha256": "d53e583a948026a19a6f00e121e37d32ba1c600d66fa45fc919c58877b32f396"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.d.json",
+      "sha256": "c411dffd490fc2de0988ec3b451c9c8225ad22856d426a13c69fec35332ee544"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.module.json",
+      "sha256": "2dcf1fc0610df5fc299e8f224d138b891e7eb9a268a0a96c79ce5bacfe57d039"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/console.cpp.obj.dt.module.json.command",
+      "sha256": "217957c7695187fcb4e5fac0b048471300024fea13654803c53c7e8c85ba3ed1"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/minwindef.h.obj.dt.module.json.command",
+      "sha256": "e7e96f53069a4c026a6f57049faa1b1a25ffbddb0990045ff336f5983770eace"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/vc145.idb",
+      "sha256": "5736bac99aaf59f8a4411b49aad7e54d94f4eccd826bfcabe441c6302d1ba115"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Debug/vc145.pdb",
+      "sha256": "d4abab7062b70dc267c0a36ad0ac48e7324220be5af061801bb25b5687b4e3c0"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.Build.CppClean.log",
+      "sha256": "aef36b3ecce4f8e302beebd25ead65f737e58a2194e8eeddf1964f06da987aed"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.exe.recipe",
+      "sha256": "7585fd1531cf9ecf05d2647f58dc8c5c73f7a92de8b6d3eb2ee6ff54eaa66a00"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.iobj",
+      "sha256": "4c513af048cc51958e033d9b28a18731a4fb66c02bb262792c2cfd8c4553024c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.ipdb",
+      "sha256": "d58a831924c2f47a18f67bf56616c428c56838ec84e3310520cbdf6867315f9c"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer-Graphics_WarmmingUp2.vcxproj.FileListAbsolute.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.command.1.tlog",
+      "sha256": "143feccc4e8e40005a44452ead56b1db1e3dad7bde21e58348a746e3f38f0f51"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.read.1.tlog",
+      "sha256": "ae1da1682222b5505b67db04d1f41d65a9f15ff63a71b9acf9d2c98d0c078b27"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/CL.write.1.tlog",
+      "sha256": "308eba27d998b099a73c5399ffabaa429fa97686ea818a75a40bd468aeee8af0"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/Cl.items.tlog",
+      "sha256": "531c25a68915470e8bb549d9bac1bdb7d0868f54fcd41dc6531739f4cf6be36e"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/Computer-Graphics_WarmmingUp2.lastbuildstate",
+      "sha256": "e16c6287e48a7ab91b8693a683a54487cd6fe54795ab0dc39ba16f0755431463"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.command.1.tlog",
+      "sha256": "35e8b5cdcbdd6ca80e077232822689e4bb2a1d6edf1e1700cd384a32051fe51e"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.read.1.tlog",
+      "sha256": "c321f56ee97ae0c8b662d131e614705fa512d87468c935c96e4dd06850b091dc"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.secondary.1.tlog",
+      "sha256": "c10216424c2b18222be2cc6483a4cdf1ae53d9956f218820d82cc5b77cf80113"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/Computer.183c4421.tlog/link.write.1.tlog",
+      "sha256": "cb5d84f243766ba92bc6c8fe2aeaed91b948f35e05e82ccee3f474121f5c2d84"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/Computer.183c4421/x64/Release/vc145.pdb",
+      "sha256": "ef172190a1eb32ca952fcdd55de9fbb76c0fbc105e8e4b70166071db804a91df"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.Build.CppClean.log",
+      "sha256": "78e206bbf3de7388a8f027072be178122cccbfb7da31a0b5f879e29ea64d2e50"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.exe.recipe",
+      "sha256": "dd4fe088d29438be0db5995b89a0a81990f16a238d5c3f1b063e43799175fd13"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.ilk",
+      "sha256": "253efa330ddfbbc5400ac7cca74d657a629beff3d94e731ace812e894e4b9fa7"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.command.1.tlog",
+      "sha256": "df9a9e781aff28ed16c17767470ef6230f588ca356ba4dae1131165d0335d5ac"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.read.1.tlog",
+      "sha256": "bdf4ebea757f284aaaefa54ca2113c300d84ab7ba2b040da60daad8f5a316169"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/CL.write.1.tlog",
+      "sha256": "cdbb1090f56d0fd0577cce02e820553246276e8d8736e8ff17748a99040cdfc8"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/Cl.items.tlog",
+      "sha256": "12883c1b2f170d264171ae3b922cee604a85a8800b1f9db57b1b7856a8eae7c3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/WarmupTests.lastbuildstate",
+      "sha256": "65488b7dd4f02cfc014c861032ab714b44ae842ad7d5e36545f652696bca2d73"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.command.1.tlog",
+      "sha256": "56964631768e4fb6540f33041d7b4775e5b64a321f1d0f61a1efd4159734cce1"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.read.1.tlog",
+      "sha256": "a7ca26a111eae2723a32ff749f7c4e6c89fe8f9c0604fce5e1eab3dcab28af9e"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.secondary.1.tlog",
+      "sha256": "f0beb306fdea50ce693204d22e10004ee89d386059931cb7a60190fc93848a81"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.tlog/link.write.1.tlog",
+      "sha256": "65aefe678b268ff24cb196fccba5b0529fcf115ccda68f8524505844b5e5d927"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/WarmupTests.vcxproj.FileListAbsolute.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/vc145.idb",
+      "sha256": "ca4e2bbefd0aad33c39a762a6a909d472afff1ae96e76cd4d1655ca38ff029d0"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Debug/vc145.pdb",
+      "sha256": "cca31f5802d99533a4115711384a60b7826f41d3dd1c6a3d69c0ef82905c012d"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.exe.recipe",
+      "sha256": "d422dcc9d41d9048189750caab2a9873ca587a7883f03d9cd2ef0e3ca358e4df"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.iobj",
+      "sha256": "11d529180f8566093d561721597a7ecc592b67a476d537ca541035d795cf77ee"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.ipdb",
+      "sha256": "c7778f0e576f7be255613736596f212fef729824edaf12ff83e0f54c383b784d"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.command.1.tlog",
+      "sha256": "a2e3e330d3cdc31ef7c0e5bdcb300899536b5a5a02bed4d73c66cdd3b52325ee"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.read.1.tlog",
+      "sha256": "75aaa8122034de50b10da5eb5a7eccdb129f656d06b22739e048d61952acffeb"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/CL.write.1.tlog",
+      "sha256": "fb2b584fb19133a2bd47de07d4a7b8ae3d837c216ac65bfe61a02184d0a9ca38"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/Cl.items.tlog",
+      "sha256": "f6feb1acce41ffb7565230dec2c41d4864f3e37d379c981c40bccaa152954d2e"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/WarmupTests.lastbuildstate",
+      "sha256": "c6fd6ed1e910d4e791bae5846bade95f2b5437830dface53e8b7523329f107e3"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.command.1.tlog",
+      "sha256": "9ffaa4ea5e83d92c8ca723fc3beefbfb18d704e29af289775a15c24e1a9eba49"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.read.1.tlog",
+      "sha256": "47e23ecabff26d6180460c10f6fa80da718c4c7eb65846a9b832d72ad9b9b7c6"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.secondary.1.tlog",
+      "sha256": "adb2373eeab81196823bb44c6db359df77312af417c40c7d28ac24e7e59f9d2f"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/WarmupTests.tlog/link.write.1.tlog",
+      "sha256": "958b1850ba7f30b7d2a5fb3f40274303a4e847d1fabe487d80e7c2126624a30d"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/WarmupTests/x64/Release/vc145.pdb",
+      "sha256": "56da239d776f3fc346b845c9b5bb376cffba9aa9c68a6627555fe4f2fe5aa701"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/x64/Debug/WarmupTests.pdb",
+      "sha256": "4a89ce4b646dc846bd7b8fcc1fd58715021521130d00ba80940f47f7699366f1"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/tests/x64/Release/WarmupTests.pdb",
+      "sha256": "bff0c58fcb9b7262d468e02b9e3d931171b7f666e33453064efc39df0e3f71bc"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/verification-build/Computer-Graphics_WarmmingUp2.pdb",
+      "sha256": "5094bcaf40111771f6243dd7f01ef5c0c27ed87ca8ba940f19ebe776113c2938"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/x64/Debug/Computer-Graphics_WarmmingUp2.ilk",
+      "sha256": "c00d4f01851ed89f5a63b5c65e4323b6d0b002402315fc5d8811efae25f3cb53"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/x64/Debug/Computer-Graphics_WarmmingUp2.pdb",
+      "sha256": "fbe1fb5ea24d5203b977516346a6407cb7cfc91639fdd655916bb364935f10ec"
+    },
+    {
+      "path": "Computer-Graphics_WarmmingUp2/x64/Release/Computer-Graphics_WarmmingUp2.pdb",
+      "sha256": "080c946c9f75ce98429c7b709aa72ba743c600e44372ad500fc1ab3b76349603"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.d.json",
+      "sha256": "330d6f7fbae66e5caa2252d0f06b48e1bc7802e3d9eb690aa69e151a3fa356e8"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.module.json",
+      "sha256": "c8208047d205e81b96afe4904cac82376f14f12d6e5718dfca70c674af919de3"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/FileName.cpp.obj.dt.module.json.command",
+      "sha256": "09268af0e60057045a997a95cd292580932daafad21ddb28f67f6431d908fc8b"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.d.json",
+      "sha256": "c2f827e70d362d29af9f673a099307d37a4cf60f0ef48aefd8a8edb3c66b6445"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.module.json",
+      "sha256": "9f54e33526d9a1017cedfaea76c5634d4bb5fc161cc34136c24c18228e1e91e3"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/array.obj.dt.module.json.command",
+      "sha256": "423222443ab4b463a532a0dcc52027f6f4d518f636f86a622d8302056aea8964"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.command.1.tlog",
+      "sha256": "4517062295c814a6c83af72b5da15ff6d376358ee21cb73354090be54d48e8d3"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.read.1.tlog",
+      "sha256": "3d42ebffdecf0b84c0fa333dbff540e7649efc70961460b0edde933a6a393418"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/CL.write.1.tlog",
+      "sha256": "e081101c538727c54b84de47d730b64173d593e20ea17fbe16d0e7d34c32534a"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/Cl.items.tlog",
+      "sha256": "c3a8d703e493833bc7d4e69afa58842dbac08b8190f37157b4164c84d0719302"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/computer_graphics_warmUp1.lastbuildstate",
+      "sha256": "b3ed0bc82e2c212ab5f51ee7ff98abfac79b20f91485d7b131e22bbcf9d800d6"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.command.1.tlog",
+      "sha256": "35a3e24d024202bddab97765860c3dfa8c687a57adef909acb8d2cee91562b27"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.read.1.tlog",
+      "sha256": "1cf017f7b969e2ff1de0f6cc8884ba5e7b8fc40ff704db15fffdae247efa9692"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.secondary.1.tlog",
+      "sha256": "952e206268db7dbc1b64ed8ce122b4884a98d94c33d38c2c8fa47a90508528b4"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer.6e2ff3c4.tlog/link.write.1.tlog",
+      "sha256": "580dd9410de4954168042c523083d4a451907f66bed218b877353673dbc17bd2"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.exe.recipe",
+      "sha256": "73230dfe11dcd1b2f608c252050189722da421967a74b3df46a771625d0f2344"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.ilk",
+      "sha256": "a13b9b7aa7a2d58fed86c47743f6d862124c92a8c7275a2011e84dc1f7e2f0c2"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/computer_graphics_warmUp1.log",
+      "sha256": "8f188beb5a9a6cc816a17fe6474e3f19d76f19fa6913d541440b6da03addf058"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/vc145.idb",
+      "sha256": "1f09b8fb5e84c80e851db83047a992e849d2200e929feeb42bc04d55fb476b04"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer.6e2ff3c4/x64/Debug/vc145.pdb",
+      "sha256": "6b1dc1322be8cf7968ec781dc9d268ec112b42d1f005046d2f67e3251b2a9fdc"
+    },
+    {
+      "path": "computer_graphics_warmUp1/computer_graphics_warmUp1.vcxproj.user",
+      "sha256": "c06a75b13f855a94d46616796e024c52b499f8f92cf00ccb571ddbc6ff574676"
+    },
+    {
+      "path": "computer_graphics_warmUp1/x64/Debug/computer_graphics_warmUp1.pdb",
+      "sha256": "2caaf919e64d3f12badb0787a13939ecf76e03d6f3a37e04a996e3ca8eb298ab"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_2dAssign11/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_2dAssign12/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_2dAssign_10/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_2dAssign_789/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_assign123456/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0.vcxproj.user",
+      "sha256": "c06a75b13f855a94d46616796e024c52b499f8f92cf00ccb571ddbc6ff574676"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.d.json",
+      "sha256": "6bf72699cf448c2f4813c5af4d5112d4e39c9a13875f8c5b6a708048dc489006"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.module.json",
+      "sha256": "476a38f2d5fd897f4902a5a96a4c9a60005343b58f8935255e1fa6bb8a522f6c"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/main.cpp.obj.dt.module.json.command",
+      "sha256": "0d518ae89b0b4818d8e4154c94492ab0e1d369894892b5714cbe0149e9861c15"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.exe.recipe",
+      "sha256": "b3f70223813777d1245f4a50aebfdbc82bc1619b0e1ad769023d1dc316d69608"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.ilk",
+      "sha256": "618ff5cb86088fbe73d5388612eaab1a74f4e8dd317edf7e5dce0484afd6e07b"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.log",
+      "sha256": "9c86165d9ec0c9e23985fb6a86fdb1c024b37d338b5ac9e479e12484064402af"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.command.1.tlog",
+      "sha256": "7f1972b720a5a70c6b64fa48d1209741372f7b58feaa1a1e80c404ff40b7a085"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.read.1.tlog",
+      "sha256": "0435e66f1fa9a441e95f7e7f5a403846ce3071e98f41b629094c8fa83f4ff4e4"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/CL.write.1.tlog",
+      "sha256": "1dc6cb948d5ce4cc45456ff8f3233f2324952e855f70c17d370ec87d685213d2"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/Cl.items.tlog",
+      "sha256": "1803448f6f1610aeebae09e8434c1a54fadd67e9661dc2cd819e245d5762d120"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.command.1.tlog",
+      "sha256": "0e7e0e18ed8f8afd159fed7413bf9338dbc9f2de3dc16bf099b643f89d9de569"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.read.1.tlog",
+      "sha256": "83fdb6a9518cec5ae7d40fbe4e347489fe5d9fcf35fb2137edfb98f2d03e3121"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.secondary.1.tlog",
+      "sha256": "e0b615ef2bb486139eb151ab06817496c934fb03a7d60733433270259435e9c6"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/link.write.1.tlog",
+      "sha256": "fda1aa637f79dd6ad6b7dd3d99b6f7474a8cc4fe40782f0deb1574e3b2723d71"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.tlog/openGL_sample0.lastbuildstate",
+      "sha256": "e0abcf8cfee135db98940ba7dd738ad0c5a742edd111ec9a8296995e1606e21f"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/openGL_sample0.vcxproj.FileListAbsolute.txt",
+      "sha256": "ef7c0d5bc73e218ae0f6a79966cbecdec1e0ec7c7a4a73d4138ddcd828410a1e"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/vc145.idb",
+      "sha256": "5a136c49eac6734a0f806af58b088396ae95a241b9353ed67931f1381540f7a7"
+    },
+    {
+      "path": "openGL_sample0/openGL_sample0/x64/Debug/vc145.pdb",
+      "sha256": "3f64523bbeb08d9b75edd64953e2483ee87989b0aa620bda8fefa0e325c5177b"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/.signature.p7s",
+      "sha256": "d2aa6ea0df81f3f8f346e1951d58ef306f1f1d8ea291bdb7d9a1017fdb7e4b95"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/build/freeglut.3.0.0.v140.props",
+      "sha256": "4edc00902d5729a3e40696901ff1c11dceeaf02249eb64ba56f7f1952a069064"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/freeglut.3.0.0.v140.1.0.2.nupkg",
+      "sha256": "d6339d774164a14e2fbc37c4a40a32c90a8181cc6f2e42f0b8935d1a8a66ee7f"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut.h",
+      "sha256": "e5a823629d7b4ed8f3ec9497161ae2765bf5f13e32bb7928f6f1bf8eef2a3109"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_ext.h",
+      "sha256": "1f81e3e596013e16073f688d8a9d8a1f07595f9a14d0e63863b39c23a20606f5"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/freeglut_std.h",
+      "sha256": "4d19d4c491d8b36db0bb2d96d201ab5f29a938b3b014ad216755964ae3bd3d03"
+    },
+    {
+      "path": "openGL_sample0/packages/freeglut.3.0.0.v140.1.0.2/sources/GL/glut.h",
+      "sha256": "e3ffcfd1147cd45a9ddb49ab9791e8fc6269f52732f0c02f10f2daf9cc0e730b"
+    },
+    {
+      "path": "openGL_sample0/x64/Debug/data/cube.txt",
+      "sha256": "5133bc86cfc2cac93554c0dac04024546c318275286d151b73c03b01dcf85702"
+    },
+    {
+      "path": "openGL_sample0/x64/Debug/openGL_sample0.pdb",
+      "sha256": "5b41e2bb9163adebb13687cff20f806fd78464c36202238b6ec151b119409985"
+    },
+    {
+      "path": "openGL_sample0/x64/Debug/shaders/basic.frag",
+      "sha256": "3358e654398b8cf9fa9a90f5adfc521e1f23a1f28fd6f61a845425823e2aad4a"
+    },
+    {
+      "path": "openGL_sample0/x64/Debug/shaders/basic.vert",
+      "sha256": "b75b66dc872cec9ca817bee7ccfd04185bbdecf9fcbb1a132f5cd507e0fac79d"
+    }
+  ],
+  "operation": "Git index only; keep local files and restored NuGet packages",
+  "source_changes_excluded": [
+    "openGL_3dAssign_14/Console.cpp"
+  ]
+}

@@ -1,0 +1,84 @@
+﻿{
+  "date": "2026-10-11",
+  "integrated_graph": "graphify-out",
+  "framework_graph": "framework-analysis/graphify-out",
+  "archived_sample0": [
+    {
+      "original": "openGL_sample0/graphify-out/.graphify_labels.json",
+      "archived": "archive/openGL_sample0-2026-09-08/.graphify_labels.json",
+      "sha256": "403c1542f0e0747e9f20db634dc77543f9767e31a7e5ae2f5c2eb24184e7cae0"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/.graphify_python",
+      "archived": "archive/openGL_sample0-2026-09-08/.graphify_python",
+      "sha256": "192fc7fa68566bf5abf9b6ec1b47fa2a8dd12e9ba12996768daa0b126255ca00"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/.graphify_root",
+      "archived": "archive/openGL_sample0-2026-09-08/.graphify_root",
+      "sha256": "ba8254958cfa0bd8c50f9afba1828136e9adf88a651832797a5398d6b6fbb9d3"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/GRAPH_REPORT.md",
+      "archived": "archive/openGL_sample0-2026-09-08/GRAPH_REPORT.md",
+      "sha256": "89660f755eed114280a958067b1bc1684af32e6dd1572638e0b59cf5dfff94d0"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/4bdfac114c71412bfb17be349471da251d4ba1235b19bc4824d1239539b9f109.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/4bdfac114c71412bfb17be349471da251d4ba1235b19bc4824d1239539b9f109.json",
+      "sha256": "74c4a3c2c9cc1216567c36b77400ebe16a474d8b11a20b092860247288affe04"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/643eb11d219a4f55526a2d2ff9521b4feae9cddf77c3800d4288e8fd5b31c098.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/643eb11d219a4f55526a2d2ff9521b4feae9cddf77c3800d4288e8fd5b31c098.json",
+      "sha256": "43c75d5dad730794a7c362baf09a4dbb5c2aefa4e738d9aa534f8db9da0aeb15"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/7883c067c8fd6868886db64b746b07d5263a2c4985db62dc645f99a5041e16fc.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/7883c067c8fd6868886db64b746b07d5263a2c4985db62dc645f99a5041e16fc.json",
+      "sha256": "9fa02f172972dace1eb242934fdfa6088daba3d2aec44bc18db893462217c965"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/878df1c816c5c669eacf99606283b55af25c24ce9ecb16165381e12cd0ef5114.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/878df1c816c5c669eacf99606283b55af25c24ce9ecb16165381e12cd0ef5114.json",
+      "sha256": "24e5ae44911abbaae01324af4e96136e20b8a99175f946836dba4a1824ef5f19"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/a69644ea46540fdf49151394346461514ae5fd76f89803df70ba992905a2f1e6.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/a69644ea46540fdf49151394346461514ae5fd76f89803df70ba992905a2f1e6.json",
+      "sha256": "d768f255daa9d34a40f338394cb38754e44f7e55f53a1c2aac70e2d78ba7a341"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/ast/v0.9.53-s2/a9a0bf64a0da17ea5aae922ccfd0ea65f90ce8bc7a380aae1282867efa772bf8.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/ast/v0.9.53-s2/a9a0bf64a0da17ea5aae922ccfd0ea65f90ce8bc7a380aae1282867efa772bf8.json",
+      "sha256": "b79cd3d610ead08ce006366770b38bc57b078c08cdc084e1d853cdb765701143"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cache/stat-index.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cache/stat-index.json",
+      "sha256": "c077ffa7aecc6c42887098438533d3723b796400b43b44150b0d4808450f95a1"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/cost.json",
+      "archived": "archive/openGL_sample0-2026-09-08/cost.json",
+      "sha256": "cb4403d784e183965042f1c6b396549003c5be46dd6126a99cd932a7743599f4"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/graph.html",
+      "archived": "archive/openGL_sample0-2026-09-08/graph.html",
+      "sha256": "cb7c71135a66e9779868ee10d31c896a783aead2a6b43b3f2ddb77093eff1833"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/graph.json",
+      "archived": "archive/openGL_sample0-2026-09-08/graph.json",
+      "sha256": "16460d39773855fecea2b4a032c13d2b492506d9dda909c168f06fb3ea73f191"
+    },
+    {
+      "original": "openGL_sample0/graphify-out/manifest.json",
+      "archived": "archive/openGL_sample0-2026-09-08/manifest.json",
+      "sha256": "cb9c55f4d0cfc8c571b3836441c23671e8c4f201e14dd622d95a0964fade9748"
+    }
+  ],
+  "nested_cache_moved_to": "graphify-out/cache",
+  "graph_data_regenerated": false
+}

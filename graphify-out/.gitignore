@@ -1,6 +1,13 @@
-﻿# Local graphify caches and machine paths
-.*
-!.gitignore
+﻿# Graphify local caches and intermediate files only.
 cache/
-graphify-out/
-manifest.json
+.graphify_python
+.graphify_root
+.graphify_detect.json
+.graphify_ast.json
+.graphify_extract.json
+.graphify_semantic*.json
+.graphify_analysis.json
+.graphify_chunk_*.json
+.graphify_cached.json
+.graphify_uncached.txt
+.needs_update

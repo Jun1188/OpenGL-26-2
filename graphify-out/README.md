@@ -1,4 +1,4 @@
-﻿# 구조 그래프 사용법
+﻿# 통합 구조 그래프 사용법
 
 - graph.html: 서버 없이 브라우저에서 여는 대화형 그래프.
 - GRAPH_REPORT.md: graphify 구조 묶음, 주요 연결, 불확실한 관계와 한계.
@@ -26,3 +26,14 @@ data = json.loads(Path("graphify-out/graph.json").read_text(encoding="utf-8-sig"
 자기 참조 3개가 있으며 프로젝트 간 기호 관계 16개는 AMBIGUOUS이다.
 C++ 전처리 분기와 콜백의 실제 대상은 EXECUTION_FLOW.md에서 소스와 대조했다.
 빌드와 테스트 실행은 사용자에게 맡긴다.
+
+## 분석 폴더 구분
+
+통합 결과의 대표 위치는 저장소 루트 graphify-out 하나다. 기존 graphify-out/graphify-out의 중첩 캐시는 graphify-out/cache로 이동했다. 캐시와 컴퓨터별 실행 경로는 Git에 포함하지 않는다.
+
+- [통합 그래프](graph.html): 전체 실행 프로젝트 구조의 기존 스냅샷
+- [framework 전용 그래프](../framework-analysis/graphify-out/graph.html): 재사용 라이브러리 전용 분석
+- [이전 sample0 보고서](archive/openGL_sample0-2026-09-08/GRAPH_REPORT.md): 2026-09-08 보관본. 현재 통합 결과로 사용하지 않는다.
+- framework-analysis/archive는 이전 framework 분석 보관본이다.
+
+이번 정리는 그래프 내용을 재생성하거나 합치지 않았다. 다른 시점·범위의 그래프를 섞으면 함수 관계를 잘못 해석할 수 있으므로 기존 노드와 관계는 그대로 보존했다. 경로 이동 대조는 CLEANUP_MANIFEST.json에 있다. .graphify_labels.json과 manifest.json은 공유 가능한 분석 메타데이터로 추적하고, .graphify_python/.graphify_root와 cache는 제외한다.
