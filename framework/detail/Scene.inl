@@ -65,6 +65,7 @@ inline std::optional<EntityId> Scene::push_entity(
             maximum = glm::max(maximum, vertex);
         }
     }
+    if (!finiteVector(maximum - minimum)) return {};
     const EntityId id = components_.size();
     components_.push_back({ polyhedron, transform, maximum - minimum });
     polyId_.push_back(id);
@@ -158,28 +159,20 @@ inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
 }
 
 inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
-    if (id >= components_.size() || !positiveLengths(sideLengths)) {
-        return false;
+    if(id>=components_.size()||!positiveLengths(sideLengths))return false;
+    const auto& c=components_[id];
+    auto replacement=c.polyhedron;
+    const auto box=detail::bounds(replacement);const auto oldSize=box.second-box.first;
+    if(!positiveLengths(oldSize))return false;
+    const auto ratio=sideLengths/oldSize;
+    if(!finiteVector(ratio))return false;
+    // Preserve topology/materials. Resize mesh coordinates around the model pivot.
+    for(auto& face:replacement.faces) {
+        for(auto& vertex:face.localVertices)vertex=c.transform.localBasis+(vertex-c.transform.localBasis)*ratio;
+        face.transform.localBasis=c.transform.localBasis+(face.transform.localBasis-c.transform.localBasis)*ratio;
+        recalculateNormals(face);
     }
-    Component_Poly& component = components_[id];
-    Polyhedron replacement = DiagramSystem::makePolyhedron(
-        component.polyhedron.shape, sideLengths);
-    if (!DiagramSystem::validPolyhedron(replacement)) {
-        return false;
-    }
-    for (std::size_t i = 0; i < replacement.faces.size(); ++i) {
-        replacement.faces[i].color = component.polyhedron.faces[i].color;
-        replacement.faces[i].independence = component.polyhedron.faces[i].independence;
-        replacement.faces[i].transform = component.polyhedron.faces[i].transform;
-        replacement.faces[i].visible = component.polyhedron.faces[i].visible;
-        replacement.faces[i].localAnimationMatrix =
-            component.polyhedron.faces[i].localAnimationMatrix;
-        replacement.faces[i].vertexColors = component.polyhedron.faces[i].vertexColors;
-    }
-    component.polyhedron = std::move(replacement);
-    component.sideLengths = sideLengths;
-    geometryRevision_ = nextGeometryRevision();
-    return true;
+    return setModel(id,replacement);
 }
 
 inline bool Scene::setTransform(EntityId id, const Transform3D& transform) {

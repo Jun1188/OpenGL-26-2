@@ -76,7 +76,7 @@ public:
     std::optional<PickResult> pickAt(double windowX, double windowY) const;
     std::optional<PickResult> pickAtCursor() const;
     AssetLoader& getAssets(); // Available from initialization callback until run() ends.
-    int run(const ApplicationConfig& config = {});
+    int run(const ApplicationConfig& config = ApplicationConfig{});
     void requestClose();
     bool renderScene();
 

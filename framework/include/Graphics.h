@@ -29,7 +29,7 @@ private:
 public:
     Scene();
     std::optional<EntityId> push_entity(const Polyhedron& polyhedron,
-                                       const Transform3D& transform = {});
+                                       const Transform3D& transform = Transform3D{});
     std::optional<EntityId> addCuboid(const glm::vec3& sideLengths,
                                      const glm::vec3& worldPosition);
     std::optional<EntityId> addRightTetrahedron(const glm::vec3& edgeLengths,
@@ -46,7 +46,7 @@ public:
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
 
-    std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = {},
+    std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = Transform3D{},
                                      PivotMode pivot = PivotMode::BottomCenter,
                                      const glm::vec3& customPivot = glm::vec3(0));
     bool setModel(EntityId id, const Model& model);
@@ -63,21 +63,21 @@ public:
     bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm::vec3>& normals);
     bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material);
     bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode,
-                    const std::vector<std::uint32_t>& explicitEdges = {});
+                    const std::vector<std::uint32_t>& explicitEdges = std::vector<std::uint32_t>{});
     bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3& customPivot = glm::vec3(0));
     bool setVisible(EntityId id, bool visible);
     bool splitFace(EntityId id, std::size_t faceIndex);
     bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D& transform);
 
     std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end,
-                                 GlColor color, std::optional<EntityId> owner = {});
+                                 GlColor color, std::optional<EntityId> owner = std::nullopt);
     std::optional<LineId> addVector(const glm::vec3& origin, const glm::vec3& vector,
-                                   GlColor color, std::optional<EntityId> owner = {});
+                                   GlColor color, std::optional<EntityId> owner = std::nullopt);
     // mat3의 열이 X/Y/Z 기저 벡터다. 벡터를 정규화하지 않고 그대로 사용한다.
     std::optional<std::array<LineId, 3>> addBasis(
         const glm::vec3& origin, const glm::mat3& basisVectors = glm::mat3(1.0f),
         const glm::vec3& axisLengths = glm::vec3(1.0f),
-        std::optional<EntityId> owner = {});
+        std::optional<EntityId> owner = std::nullopt);
     bool setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector);
     void clear(); // ID는 clear 이후 재사용된다. 기존 ID를 계속 사용하지 않는다.
 
@@ -161,9 +161,9 @@ public:
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
     // Requires a current OpenGL 3.3 context. Empty paths select embedded shaders.
-    bool initialize(const std::filesystem::path& vertexPath = {}, const std::filesystem::path& fragmentPath = {});
+    bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{}, const std::filesystem::path& fragmentPath = std::filesystem::path{});
     bool render(const Scene& scene, const Camera& camera, int width, int height,
-                const RenderOptions& options = {});
+                const RenderOptions& options = RenderOptions{});
     void destroy(); // Call while the owning context is current, before it is destroyed.
 };
 } // namespace graphics

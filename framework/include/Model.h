@@ -13,6 +13,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <utility>
 
 namespace graphics {
 
@@ -144,6 +145,7 @@ inline bool validMesh(const Mesh& m) {
         || !std::isfinite(m.creaseAngleDegrees) || m.creaseAngleDegrees < 0
         || m.creaseAngleDegrees > 180) return false;
     const auto count = m.localVertices.size();
+    if (count > std::numeric_limits<std::uint32_t>::max()) return false;
     if ((!m.vertexColors.empty() && m.vertexColors.size() != count)
         || (!m.vertexNormals.empty() && m.vertexNormals.size() != count)
         || (!m.texcoords.empty() && m.texcoords.size() != count)
@@ -157,6 +159,14 @@ inline bool validMesh(const Mesh& m) {
     if (indices.empty() || indices.size() % 3 || m.outlineIndices.size() % 2) return false;
     for (auto i : indices) if (i >= count) return false;
     for (auto i : m.outlineIndices) if (i >= count) return false;
+    for (std::size_t i=0;i<indices.size();i+=3) {
+        const auto a=glm::dvec3(m.localVertices[indices[i]]);
+        const auto b=glm::dvec3(m.localVertices[indices[i+1]]);
+        const auto c=glm::dvec3(m.localVertices[indices[i+2]]);
+        const auto normal=glm::cross(b-a,c-a);
+        const double area=glm::dot(normal,normal);
+        if(!std::isfinite(area)||area<=0) return false;
+    }
     return true;
 }
 inline std::pair<glm::vec3, glm::vec3> bounds(const Model& model) {

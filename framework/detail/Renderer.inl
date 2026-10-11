@@ -94,7 +94,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
     auto cleanup=[&](){for(const auto& item:stagedTextures)gl.DeleteTextures(1,&item.second);};
     try {
         for(auto id:scene.getIds()) {
-            const auto* c=scene.getComponent(id);if(!c||!DiagramSystem::validPolyhedron(c->polyhedron))return false;
+            const auto* c=scene.getComponent(id);if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return false;}
             for(std::size_t faceIndex=0;faceIndex<c->polyhedron.faces.size();++faceIndex) {
                 const auto& face=c->polyhedron.faces[faceIndex];
                 if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return false;}
@@ -192,7 +192,9 @@ inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,i
     if(!shaderProgramID_||!vao_)return false;if(width<=0||height<=0)return true;
     if(!CameraSystem::validCamera(camera)||!detail::finiteVector(options.lightDirection)
         ||glm::length(options.lightDirection)<1e-12f||!detail::validColor(options.lightColor)
-        ||!detail::validColor(options.outlineColor))return false;
+        ||!detail::validColor(options.outlineColor)
+        ||!std::isfinite(options.background.r)||!std::isfinite(options.background.g)
+        ||!std::isfinite(options.background.b)||!std::isfinite(options.background.a))return false;
     if(uploadedScene_!=&scene||uploadedRevision_!=scene.getGeometryRevision()||uploadedTextures_!=options.textures) {
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;

@@ -107,14 +107,14 @@ class AssetLoader {
     }
 public:
     explicit AssetLoader(std::filesystem::path projectRoot=std::filesystem::current_path(),
-                         FeatureOptions features={},std::filesystem::path runtimeRoot={})
+                         FeatureOptions features=FeatureOptions{},std::filesystem::path runtimeRoot=std::filesystem::path{})
         : projectRoot_(std::filesystem::absolute(projectRoot)),runtimeRoot_(std::move(runtimeRoot)),features_(features) {}
     const FeatureOptions& features() const { return features_; }
     TextureResult loadTexture(const std::filesystem::path& relative,bool flipRows=true) const {
         try { return {texture(relative,flipRows),{}}; }
         catch(const std::exception& e) { return {nullptr,e.what()}; }
     }
-    ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options={}) const {
+    ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const {
         try {
             if(!options.texturePath.empty()&&!features_.textures)
                 throw std::runtime_error("Enable texture mode before specifying texturePath.");
@@ -177,7 +177,7 @@ public:
             return detail::finishLoad(std::move(model),options);
         } catch(const std::exception& e) {ModelResult result;result.error=e.what();return result;}
     }
-    ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options={}) const {
+    ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const {
         ModelResult result;
         if(!features_.models) {result.error="Assimp model mode is disabled.";return result;}
         if(!features_.textures&&!options.texturePath.empty()) {result.error="Texture mode is disabled.";return result;}

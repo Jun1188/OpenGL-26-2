@@ -88,7 +88,7 @@ struct GlfwApi {
     decltype(&::glfwPollEvents) PollEvents = nullptr;
     decltype(&::glfwWaitEvents) WaitEvents = nullptr;
     decltype(&::glfwSwapBuffers) SwapBuffers = nullptr;
-    void load(const std::filesystem::path& root = {}) {
+    void load(const std::filesystem::path& root = std::filesystem::path{}) {
         if (ready) return;
         module.open((root.empty() ? frameworkDirectory() : std::filesystem::absolute(root)) / "dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll");
         Init = module.symbol<decltype(Init)>("glfwInit");
