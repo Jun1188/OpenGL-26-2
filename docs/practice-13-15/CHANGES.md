@@ -5312,3 +5312,31 @@ int main() {
 | dependencies/glm/glm/vec4.hpp | openGL_3dAssign_14/framework/dependencies/glm/glm/vec4.hpp<br>openGL_3dAssign_15/framework/dependencies/glm/glm/vec4.hpp<br>framework/dependencies/glm/glm/vec4.hpp | 8ce1f9cd962932a8fefa61fa84a5972aebb9721cbd07e74106ab2349c4c83ba2 |
 | dependencies/glm/glm/vector_relational.hpp | openGL_3dAssign_14/framework/dependencies/glm/glm/vector_relational.hpp<br>openGL_3dAssign_15/framework/dependencies/glm/glm/vector_relational.hpp<br>framework/dependencies/glm/glm/vector_relational.hpp | 7faf05e55d5346c10189abc5af01a68b00c240824093742a7363f514360b880c |
 | DEPENDENCIES.patch | openGL_3dAssign_14/framework/DEPENDENCIES.patch<br>openGL_3dAssign_15/framework/DEPENDENCIES.patch<br>framework/DEPENDENCIES.patch | 9e0f7c1e58a28bf45432b462c872f35f5755e6ace92ddee8519375a263d8577a |
+
+## UTF-8 BOM 통일: 실습 13 솔루션
+
+### openGL_3dAssign_13/openGL_assign_13.slnx — before
+
+````xml
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="openGL_sample2.vcxproj" Id="3f7bde5d-cd40-4419-9023-66456a3a28eb" />
+</Solution>
+````
+
+### after
+
+````xml
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="openGL_sample2.vcxproj" Id="3f7bde5d-cd40-4419-9023-66456a3a28eb" />
+</Solution>
+````
+
+내용은 동일하며 저장 인코딩에 UTF-8 BOM을 추가했다.

@@ -1,0 +1,13 @@
+﻿{
+  "runs": [
+    {
+      "date": "2026-10-11T07:05:22.894816+00:00",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "files": 107,
+      "mode": "local structural AST"
+    }
+  ],
+  "total_input_tokens": 0,
+  "total_output_tokens": 0
+}

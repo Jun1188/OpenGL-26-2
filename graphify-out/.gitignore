@@ -1,0 +1,6 @@
+﻿# Local graphify caches and machine paths
+.*
+!.gitignore
+cache/
+graphify-out/
+manifest.json
