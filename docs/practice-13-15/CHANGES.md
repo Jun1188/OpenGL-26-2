@@ -5479,3 +5479,23 @@ openGL_3dAssign_15\openGL_sample2.vcxproj.filters Before:
     </ClInclude>
 ~~~
 After: 위 등록 블록 삭제.
+
+## 후속 변경: 실습 14 사각뿔의 면별 단색
+
+- 대상: openGL_3dAssign_14/Console.cpp, Console::initScene
+- 이유: 사각뿔의 꼭짓점별 색상 덮어쓰기를 제거하고 makePolyhedron의 기본 면 색상을 사용한다.
+- 앞/오른쪽/뒤/왼쪽/바닥은 각각 빨강/파랑/초록/노랑/보라 계열이다.
+- 육면체의 꼭짓점 색상과 사용자가 변경한 출력 안내는 유지한다.
+- 함수 및 호출 관계 변경: initScene에서 사각뿔에 대한 assignVertexColors 호출 하나 제거.
+- 빌드 및 실행 테스트는 사용자가 수행한다. P로 사각뿔 선택 후 각 면의 단색을 확인한다.
+
+Before:
+~~~cpp
+    assignVertexColors(cube);
+    assignVertexColors(pyramid);
+~~~
+
+After:
+~~~cpp
+    assignVertexColors(cube);
+~~~

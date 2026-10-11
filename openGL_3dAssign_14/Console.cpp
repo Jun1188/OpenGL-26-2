@@ -29,7 +29,6 @@ bool Console::initScene() {
     auto cube = graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube, glm::vec3(0.8f));
     auto pyramid = graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Pyramid, glm::vec3(0.8f));
     assignVertexColors(cube);
-    assignVertexColors(pyramid);
     const auto cubeId = scene.push_entity(cube);
     const auto pyramidId = scene.push_entity(pyramid);
     if (!cubeId || !pyramidId) {
