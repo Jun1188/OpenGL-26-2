@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Model.h"
+#include "Geometry.h"
 #include "../dependencies/glew-2.3.1/include/GL/glew.h"
 
 #include <array>
@@ -23,6 +23,7 @@ private:
     std::vector<FaceId> pyramidFaceId_;
     std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
+    void rebuildFaceIds();
 
 public:
     Scene();
@@ -43,6 +44,29 @@ public:
     bool setTransform(EntityId id, const Transform3D& transform);
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
+
+    std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = {},
+                                     PivotMode pivot = PivotMode::BottomCenter,
+                                     const glm::vec3& customPivot = glm::vec3(0));
+    bool setModel(EntityId id, const Model& model);
+    bool setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh);
+    const Mesh* getMesh(EntityId id, std::size_t meshIndex) const;
+    bool setMeshVertices(EntityId id, std::size_t meshIndex,
+                         const std::vector<Vertex>& vertices,
+                         const std::vector<std::uint32_t>& triangles);
+    bool setVertexPosition(EntityId id, std::size_t meshIndex,
+                           std::size_t vertexIndex, const glm::vec3& position);
+    bool setTriangleIndices(EntityId id, std::size_t meshIndex,
+                            const std::vector<std::uint32_t>& indices);
+    bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector<glm::vec2>& uvs);
+    bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm::vec3>& normals);
+    bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material);
+    bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode,
+                    const std::vector<std::uint32_t>& explicitEdges = {});
+    bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3& customPivot = glm::vec3(0));
+    bool setVisible(EntityId id, bool visible);
+    bool splitFace(EntityId id, std::size_t faceIndex);
+    bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D& transform);
 
     std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end,
                                  GlColor color, std::optional<EntityId> owner = {});
@@ -145,3 +169,5 @@ public:
 };
 
 } // namespace graphics
+
+#include "../detail/Scene.inl"
