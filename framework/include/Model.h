@@ -107,6 +107,7 @@ struct Polyhedron {
 using Model = Polyhedron;
 
 struct Component_Poly {
+    std::optional<EntityId> parent; // Local SRT is relative to this entity.
     Polyhedron polyhedron;
     Transform3D transform;
     glm::vec3 sideLengths{1.0f};

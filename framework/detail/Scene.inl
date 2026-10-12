@@ -151,6 +151,7 @@ inline const Component_Poly* Scene::getComponent(EntityId id) const {
 }
 
 inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
+    // For a parented entity this position is in parent coordinates.
     if (id >= components_.size() || !finiteVector(worldPosition)) {
         return false;
     }
@@ -174,6 +175,43 @@ inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
         recalculateNormals(face);
     }
     return setModel(id,replacement);
+}
+
+inline bool Scene::setParent(EntityId id, std::optional<EntityId> parent) {
+    if (id >= components_.size()) return false;
+    auto ancestor = parent;
+    std::size_t remaining = components_.size();
+    while (ancestor) {
+        if (*ancestor >= components_.size() || *ancestor == id || remaining-- == 0) return false;
+        ancestor = components_[*ancestor].parent;
+    }
+    components_[id].parent = parent;
+    return true;
+}
+inline std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
+    if (id >= components_.size()) return {};
+    glm::mat4 result(1);
+    std::optional<EntityId> current = id;
+    std::size_t remaining = components_.size();
+    while (current) {
+        if (*current >= components_.size() || remaining-- == 0) return {};
+        const auto& component = components_[*current];
+        result = detail::transformMatrix(component.transform) * result;
+        if (!detail::finiteMatrix(result)) return {};
+        current = component.parent;
+    }
+    return result;
+}
+inline std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceIndex) const {
+    if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) return {};
+    const auto& component = components_[id];
+    auto result = DiagramSystem::faceModelMatrix(component, component.polyhedron.faces[faceIndex]);
+    if (component.parent) {
+        const auto parent = worldMatrix(*component.parent);
+        if (!parent) return {};
+        result = *parent * result;
+    }
+    return detail::finiteMatrix(result) ? std::optional<glm::mat4>(result) : std::nullopt;
 }
 
 inline bool Scene::setTransform(EntityId id, const Transform3D& transform) {

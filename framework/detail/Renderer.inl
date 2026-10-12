@@ -151,10 +151,10 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         glm::mat4 matrix(1);
         if(range.lineId) {
             const auto& line=scene.getLines()[*range.lineId];
-            if(line.owner) matrix=DiagramSystem::modelMatrix(scene.getComponent(*line.owner)->transform);
+            if(line.owner) {const auto world=scene.worldMatrix(*line.owner);if(!world)return false;matrix=*world;}
         } else {
             const auto* c=scene.getComponent(range.entityId);
-            matrix=DiagramSystem::faceModelMatrix(*c,c->polyhedron.faces[range.faceIndex]);
+            const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;matrix=*world;
         }
         if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return false;
     }
@@ -167,11 +167,11 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         glm::mat4 model(1);const Mesh* face=nullptr;
         if(range.lineId) {
             const auto& line=scene.getLines()[*range.lineId];
-            if(line.owner){const auto* owner=scene.getComponent(*line.owner);if(!owner||!owner->visible)continue;model=DiagramSystem::modelMatrix(owner->transform);}
+            if(line.owner){const auto* owner=scene.getComponent(*line.owner);if(!owner||!owner->visible)continue;const auto world=scene.worldMatrix(*line.owner);if(!world)return false;model=*world;}
         } else {
             const auto* c=scene.getComponent(range.entityId);if(!c||!c->visible)continue;
             face=&c->polyhedron.faces[range.faceIndex];if(!face->visible)continue;
-            model=DiagramSystem::faceModelMatrix(*c,*face);
+            const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;model=*world;
         }
         const auto mvp=projection*view*model;
         const float determinant=glm::determinant(glm::mat3(model));

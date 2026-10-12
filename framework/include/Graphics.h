@@ -43,6 +43,9 @@ public:
     bool setPosition(EntityId id, const glm::vec3& worldPosition);
     bool setSideLengths(EntityId id, const glm::vec3& sideLengths);
     bool setTransform(EntityId id, const Transform3D& transform);
+    bool setParent(EntityId id, std::optional<EntityId> parent);
+    std::optional<glm::mat4> worldMatrix(EntityId id) const;
+    std::optional<glm::mat4> faceWorldMatrix(EntityId id, std::size_t faceIndex) const;
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
 

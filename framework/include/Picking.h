@@ -44,7 +44,8 @@ inline std::optional<PickResult> pick(const Scene& scene,const Ray& input) {
         const auto* component=scene.getComponent(id);if(!component||!component->visible)continue;
         for(std::size_t f=0;f<component->polyhedron.faces.size();++f) {
             const auto& face=component->polyhedron.faces[f];if(!face.visible)continue;
-            const auto matrix=DiagramSystem::faceModelMatrix(*component,face);
+            const auto world=scene.faceWorldMatrix(id,f);if(!world)continue;
+            const auto matrix=*world;
             const auto indices=detail::triangles(face);
             for(std::size_t t=0;t<indices.size();t+=3) {
                 const auto ia=indices[t],ib=indices[t+1],ic=indices[t+2];
