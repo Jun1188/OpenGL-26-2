@@ -62,6 +62,9 @@ public:
                            std::size_t vertexIndex, const glm::vec3& position);
     bool setTriangleIndices(EntityId id, std::size_t meshIndex,
                             const std::vector<std::uint32_t>& indices);
+    bool generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& options = UVOptions{});
+    bool transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& scale,
+                            const glm::vec2& offset, float rotationDegrees = 0);
     bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector<glm::vec2>& uvs);
     bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm::vec3>& normals);
     bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material);

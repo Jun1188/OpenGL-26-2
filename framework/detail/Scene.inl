@@ -514,6 +514,17 @@ inline bool Scene::setTriangleIndices(EntityId id,std::size_t meshIndex,
     if(!detail::validMesh(replacement))return false;
     recalculateNormals(replacement);return setMesh(id,meshIndex,replacement);
 }
+inline bool Scene::generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& options) {
+    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return false;
+    auto replacement=*mesh;
+    return graphics::generateTexcoords(replacement,options) && setMesh(id,meshIndex,replacement);
+}
+inline bool Scene::transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& scale,
+                                     const glm::vec2& offset, float rotationDegrees) {
+    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return false;
+    auto replacement=*mesh;
+    return graphics::transformTexcoords(replacement,scale,offset,rotationDegrees) && setMesh(id,meshIndex,replacement);
+}
 inline bool Scene::setTexcoords(EntityId id,std::size_t meshIndex,const std::vector<glm::vec2>& uvs) {
     const auto* mesh=getMesh(id,meshIndex);if(!mesh)return false;
     auto replacement=*mesh;replacement.texcoords=uvs;return setMesh(id,meshIndex,replacement);
