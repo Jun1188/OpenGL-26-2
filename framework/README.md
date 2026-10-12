@@ -137,3 +137,32 @@ Renderer만 사용하면 호출자가 OpenGL 3.3 컨텍스트를 current로 유�
 - [인터랙티브 코드 그래프](../framework-analysis/graphify-out/graph.html)
 
 참고 자료: [ComputerGraphics](https://github.com/maru3172/ComputerGraphics)의 컴그_29번_텍스처매핑과 컴그_파이프라인1차. 정점·UV·법선 입력과 모델/뷰/투영·재질 흐름을 참고했다. 프레임워크의 자원 수명, 일반 인덱스 메시와 피킹은 별도 구현이다.
+
+## 엔티티 계층 SRT
+
+`Scene::setParent(child, parent)`로 계층을 연결하고 `setParent(child, std::nullopt)`로 해제한다. ID 오류·자기 연결·순환 연결은 false를 반환하며 기존 연결을 유지한다. 부모 연결·해제 시 local SRT를 유지하므로 월드 위치는 바뀔 수 있다.
+
+`worldMatrix(id)`는 부모 world × 자식 local 행렬을 반환한다. `faceWorldMatrix(id, meshIndex)`는 면 변환까지 포함한다. `setTransform`과 `setPosition`은 부모가 있는 경우 부모 좌표의 값을 설정한다. 부모가 없으면 기존 월드 기준 동작이다. 부모 회전·비균일 크기·피벗은 자식에게 전달된다. 연속된 회전과 비균일 크기는 월드 공간에서 전단을 만들 수 있으므로 행렬을 SRT로 다시 분해하지 않는다.
+
+입력 local 정점 → 조상 SRT 누적 → 물체·면 변환 → view/projection → 화면이다. 렌더링, 법선 변환, 피킹, owner가 지정된 선·축은 같은 계층 행렬을 사용한다. 부모 visible=false는 부모 자체만 숨긴다. 자식의 표시 상태는 독립적이다. 변환만 변경하면 GPU 정점 버퍼를 다시 업로드하지 않는다.
+
+## UV 자동 생성과 조정
+
+`Scene::generateTexcoords(id, meshIndex, options)`와 독립 메시용 `graphics::generateTexcoords(mesh, options)`를 제공한다. 기존 UV를 교체하는 명시적 작업이다. 재질을 활성화하기 전에 호출한다.
+
+- Planar: axis=0/1/2에 해당하는 축을 버리고 메시 경계 범위를 0~1로 정규화한다. 기본 axis=2는 XY 투영이다.
+- Box: 삼각형 법선의 가장 큰 축을 버리고 투영한다. 면 방향마다 정점을 분리한다. 텍스처 아틀라스 배치는 제공하지 않는다.
+- Cylindrical: Y축 둘레 atan2로 U, 높이로 V를 계산한다. 원통 측면용이다. 뚜껑은 별도 메시에서 Planar로 매핑한다.
+- Spherical: 메시 경계 상자의 중심을 기준으로 경도 atan2와 위도 asin을 계산한다. 구면에 적합하며 임의 모델을 왜곡 없이 펼치는 알고리즘은 아니다.
+
+원통·구면의 U 경계는 정점을 분리하며 일부 U가 1을 넘을 수 있다. `Material::repeatTexture=true`를 사용한다. Box·Cylindrical·Spherical은 삼각형별 정점으로 바꾸므로 정점 번호와 삼각형 번호를 별도로 저장한 호출부는 다시 조회한다. 색상·법선·재질·면 SRT·명시적 외곽선 위치는 유지한다.
+
+`UVOptions::scale`, `offset`, `rotationDegrees`는 원점 기준으로 UV 크기 → 회전 → 이동을 적용한다. 기존 UV만 조정하려면 `Scene::transformTexcoords` 또는 `graphics::transformTexcoords`를 사용한다. 기본 도형은 자동으로 UV를 갖지 않는다. `generateTexcoords` → `setMaterial` → textures 렌더 옵션 순서로 연결한다.
+
+[examples/hierarchy.cpp](examples/hierarchy.cpp)는 기존 직육면체를 태양·지구·달의 자리로 사용한다. 태양 회전은 지구 공전을, 지구 회전은 달 공전을 만든다. 실제 천체 크기나 독립 자전·공전 구조의 구현은 아니다. 메모리 체크무늬 이미지는 추가 파일 없이 UV 반복을 보여준다. 파일 이미지는 기존 `AssetLoader::loadTexture` 결과를 material.texture에 지정한다.
+
+## 로더 구현 분리
+
+공개 진입점은 `include/ModelLoader.h`의 AssetLoader다. 기본 도형·OBJ 부분집합 파서는 `detail/PrimitiveLoader.inl`, 일반 정적 모델·재질·이미지 로딩은 `detail/AssimpLoader.inl`에 있다. 사용자는 .inl을 직접 포함하지 않는다. loadPrimitive와 loadModel의 활성화 조건·오류·경로 제한은 유지한다. 일반 모델의 지원 형식은 포함된 Assimp DLL의 지원 범위에 따른다. 가져온 노드 변환은 정점에 반영되며 노드 계층·뼈대 애니메이션은 보존하지 않는다.
+
+참고: [Khronos sampler](https://wikis.khronos.org/opengl/Sampler_%28GLSL%29), [Khronos sampler wrap](https://wikis.khronos.org/opengl/Sampler_Object). 기존 UV를 보간해 샘플링하는 경로는 유지하고, CPU에서 사용할 투영 UV 생성 기능을 추가했다.

@@ -60,3 +60,12 @@ after:
 이전 캐시 경로를 제거했다. 새 framework-analysis/.gitignore는 해당 분석 폴더의 로컬 경로·캐시만 제외한다. 새 문서·분석 파일의 before는 없음이며 전체 내용은 각 파일에 있다. 보관된 옛 그래프는 내용 변경 없이 이동했다.
 
 framework 실행 코드와 다른 프로젝트의 framework는 변경하지 않았다. graphify 설치 파일도 변경하지 않았다. 빌드·테스트는 수행하지 않았다.
+
+## 2026-10-12 개선 반영
+
+- 입력 17 → 20 파일: PrimitiveLoader.inl, AssimpLoader.inl, hierarchy.cpp 추가.
+- 계층 SRT와 UV 생성·조정 API, 렌더·피킹·owner 선의 월드 행렬 연결 반영.
+- 노드 613 → 643, 방향 관계 964 → 1013, 커뮤니티 23 → 26.
+- 끝점 미해석 48 → 49, 방향 관계 병합 77 → 82.
+- GPU와 DLL 내부는 분석하지 않음. 빌드·실행·테스트·벤치마크 미실행.
+- 이전 archive는 유지. 코드 전체 before/after는 framework/docs/FULL_CODE_BEFORE_AFTER.md 참조.

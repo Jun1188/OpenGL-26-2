@@ -1,13 +1,7 @@
 ﻿{
-  "runs": [
-    {
-      "date": "2026-10-11T08:03:21.611198+00:00",
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "files": 17,
-      "mode": "AST only"
-    }
-  ],
-  "total_input_tokens": 0,
-  "total_output_tokens": 0
+  "run": "2026-10-12",
+  "mode": "AST only",
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "external_api_calls": 0
 }

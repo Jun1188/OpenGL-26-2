@@ -1,35 +1,4 @@
 ﻿{
-  "corpus_tokens": 10621,
-  "corpus_words": 7966,
-  "nodes": 613,
-  "edges": 964,
-  "avg_query_tokens": 3066,
-  "reduction_ratio": 3.5,
-  "per_question": [
-    {
-      "question": "Scene",
-      "query_tokens": 1692,
-      "reduction": 6.3
-    },
-    {
-      "question": "Renderer",
-      "query_tokens": 2277,
-      "reduction": 4.7
-    },
-    {
-      "question": "Application",
-      "query_tokens": 5119,
-      "reduction": 2.1
-    },
-    {
-      "question": "Picking",
-      "query_tokens": 4986,
-      "reduction": 2.1
-    },
-    {
-      "question": "AssetLoader",
-      "query_tokens": 1258,
-      "reduction": 8.4
-    }
-  ]
+  "status": "not_run",
+  "reason": "User delegates tests and benchmarks; previous estimate is obsolete."
 }

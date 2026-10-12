@@ -3503,3 +3503,12 @@ addBasis의 mat3 열이 기저 벡터이며, owner를 주면 객체 변환을 �
 전체 저장소의 graphify 그래프 생성/갱신은 이번 승인 범위에 포함되지 않아
 수행하지 않았다. 위 흐름은 소스 정적 확인에 따른 설명이다.
 ````
+
+## 2026-10-12 개선
+
+1. 엔티티 계층 SRT와 렌더·피킹·owner 선 연결.
+2. 평면·박스·원통·구면 UV 생성 및 UV 조정.
+3. 기본 도형 파서와 Assimp 로더 구현 분리.
+4. 예제·설명·framework-analysis 갱신.
+
+빌드·테스트 미실행. 전체 변경 블록은 docs/HIERARCHY_BEFORE_AFTER.md, UV_BEFORE_AFTER.md, LOADERS_BEFORE_AFTER.md, IMPROVEMENTS_BEFORE_AFTER.md에 기록한다.

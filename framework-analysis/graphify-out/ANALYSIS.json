@@ -83,75 +83,6 @@
       "wglgetproc"
     ],
     "1": [
-      "aimatrix4x4",
-      "include_geometry",
-      "include_geometry_appendmesh",
-      "include_geometry_h_mesh",
-      "include_geometry_h_model",
-      "include_geometry_h_uint32_t",
-      "include_geometry_h_vec3",
-      "include_geometry_h_vector",
-      "include_geometry_mergecoplanar",
-      "include_geometry_meshoutline",
-      "include_geometry_recalculatenormals",
-      "include_geometry_shareedge",
-      "include_geometry_triangulate",
-      "include_modelloader",
-      "include_modelloader_assetloader",
-      "include_modelloader_assetloader_assetloader",
-      "include_modelloader_assetloader_features",
-      "include_modelloader_assetloader_imagecache",
-      "include_modelloader_assetloader_loadmodel",
-      "include_modelloader_assetloader_loadprimitive",
-      "include_modelloader_assetloader_loadtexture",
-      "include_modelloader_assetloader_projectroot",
-      "include_modelloader_assetloader_resolve",
-      "include_modelloader_assetloader_runtimeroot",
-      "include_modelloader_assetloader_texture",
-      "include_modelloader_assimpapi",
-      "include_modelloader_assimpapi_getcolor",
-      "include_modelloader_assimpapi_geterror",
-      "include_modelloader_assimpapi_gettexture",
-      "include_modelloader_assimpapi_importfile",
-      "include_modelloader_assimpapi_load",
-      "include_modelloader_assimpapi_module",
-      "include_modelloader_assimpapi_ready",
-      "include_modelloader_assimpapi_releaseimport",
-      "include_modelloader_assimpmatrix",
-      "include_modelloader_featureoptions",
-      "include_modelloader_featureoptions_models",
-      "include_modelloader_featureoptions_textures",
-      "include_modelloader_finishload",
-      "include_modelloader_h_mat4",
-      "include_modelloader_h_model",
-      "include_modelloader_h_optional",
-      "include_modelloader_h_outlinemode",
-      "include_modelloader_h_path",
-      "include_modelloader_h_pivotmode",
-      "include_modelloader_h_shared_ptr",
-      "include_modelloader_h_size_t",
-      "include_modelloader_h_string",
-      "include_modelloader_h_vec3",
-      "include_modelloader_loadoptions",
-      "include_modelloader_loadoptions_custompivot",
-      "include_modelloader_loadoptions_fliptexturerows",
-      "include_modelloader_loadoptions_mergecoplanarfaces",
-      "include_modelloader_loadoptions_outline",
-      "include_modelloader_loadoptions_pivot",
-      "include_modelloader_loadoptions_texturepath",
-      "include_modelloader_modelresult",
-      "include_modelloader_modelresult_error",
-      "include_modelloader_modelresult_localbasis",
-      "include_modelloader_modelresult_model",
-      "include_modelloader_modelresult_pivotmode",
-      "include_modelloader_objindex",
-      "include_modelloader_textureresult",
-      "include_modelloader_textureresult_error",
-      "include_modelloader_textureresult_image",
-      "map",
-      "weak_ptr"
-    ],
-    "2": [
       "detail_scene",
       "detail_scene_appendface",
       "detail_scene_camerasystem_projectionmatrix",
@@ -185,6 +116,8 @@
       "detail_scene_scene_addrighttetrahedron",
       "detail_scene_scene_addvector",
       "detail_scene_scene_clear",
+      "detail_scene_scene_faceworldmatrix",
+      "detail_scene_scene_generatetexcoords",
       "detail_scene_scene_getcomponent",
       "detail_scene_scene_getmesh",
       "detail_scene_scene_push_entity",
@@ -201,6 +134,7 @@
       "detail_scene_scene_setmeshvertices",
       "detail_scene_scene_setmodel",
       "detail_scene_scene_setoutline",
+      "detail_scene_scene_setparent",
       "detail_scene_scene_setposition",
       "detail_scene_scene_setsidelengths",
       "detail_scene_scene_settexcoords",
@@ -211,68 +145,25 @@
       "detail_scene_scene_setvertexposition",
       "detail_scene_scene_setvisible",
       "detail_scene_scene_splitface",
+      "detail_scene_scene_transformtexcoords",
+      "detail_scene_scene_worldmatrix",
       "include_graphics_diagramsystem",
+      "include_graphics_diagramsystem_facemodelmatrix",
       "include_graphics_diagramsystem_makepolyhedron",
+      "include_graphics_diagramsystem_modelmatrix",
       "include_graphics_diagramsystem_validpolyhedron",
       "include_graphics_diagramsystem_validtransform",
       "initializer_list",
       "mat3"
     ],
-    "3": [
+    "2": [
       "array",
-      "detail_renderer_inl_mat4",
-      "detail_renderer_renderer_draw",
-      "detail_renderer_renderer_render",
-      "detail_scene_camerasystem_validcamera",
-      "include_application_h_optional",
-      "include_graphics",
-      "include_graphics_camera",
-      "include_graphics_camera_farplane",
-      "include_graphics_camera_fieldofviewdegrees",
-      "include_graphics_camera_nearplane",
-      "include_graphics_camera_orthographic",
-      "include_graphics_camera_orthographichalfextent",
-      "include_graphics_camera_position",
-      "include_graphics_camera_target",
-      "include_graphics_camera_up",
-      "include_graphics_camerasystem",
-      "include_graphics_camerasystem_projectionmatrix",
-      "include_graphics_camerasystem_validcamera",
-      "include_graphics_camerasystem_viewmatrix",
-      "include_graphics_diagramsystem_facemodelmatrix",
-      "include_graphics_diagramsystem_modelmatrix",
-      "include_graphics_h_vec3",
-      "include_graphics_renderoptions",
-      "include_graphics_renderoptions_background",
-      "include_graphics_renderoptions_depthtest",
-      "include_graphics_renderoptions_lightcolor",
-      "include_graphics_renderoptions_lightdirection",
-      "include_graphics_renderoptions_lighting",
-      "include_graphics_renderoptions_outlinecolor",
-      "include_graphics_renderoptions_textures",
-      "include_graphics_renderoptions_wireframe",
-      "include_picking",
-      "include_picking_h_optional",
-      "include_picking_h_vec3",
-      "include_picking_pick",
-      "include_picking_pickviewport",
-      "include_picking_pickviewport_height",
-      "include_picking_pickviewport_width",
-      "include_picking_pickviewport_x",
-      "include_picking_pickviewport_y",
-      "include_picking_ray",
-      "include_picking_ray_direction",
-      "include_picking_ray_maxdistance",
-      "include_picking_ray_origin",
-      "include_picking_screenray",
-      "src_graphics",
-      "vec4"
-    ],
-    "4": [
       "examples_assets",
       "examples_assets_main",
       "examples_basic",
       "examples_basic_main",
+      "examples_hierarchy",
+      "examples_hierarchy_main",
       "exception_ptr",
       "framework",
       "handler",
@@ -318,53 +209,110 @@
       "include_application_h_function",
       "src_application"
     ],
-    "5": [
-      "detail_application",
-      "detail_application_application_application",
-      "detail_application_application_findshaderdirectory",
-      "detail_application_application_initialize",
-      "detail_application_application_pickat",
-      "detail_application_application_pickatcursor",
-      "detail_application_application_renderscene",
-      "detail_application_application_requestclose",
-      "detail_application_application_run",
-      "detail_application_application_setcursorhandler",
-      "detail_application_application_setfocushandler",
-      "detail_application_application_setinithandler",
-      "detail_application_application_setkeyhandler",
-      "detail_application_application_setmodifiedkeyhandler",
-      "detail_application_application_setmousehandler",
-      "detail_application_application_setrenderhandler",
-      "detail_application_application_setupdatehandler",
-      "detail_application_application_shutdown",
-      "detail_application_inl_function",
-      "detail_application_inl_optional",
-      "detail_application_inl_path",
-      "include_application_applicationconfig",
-      "include_application_applicationconfig_features",
-      "include_application_applicationconfig_height",
-      "include_application_applicationconfig_projectroot",
-      "include_application_applicationconfig_runtimedirectory",
-      "include_application_applicationconfig_shaderdirectory",
-      "include_application_applicationconfig_title",
-      "include_application_applicationconfig_verticalsync",
-      "include_application_applicationconfig_width",
-      "include_application_h_path",
-      "include_picking_h_entityid",
-      "include_picking_h_size_t",
-      "include_picking_h_vec2",
-      "include_picking_pickresult",
-      "include_picking_pickresult_barycentric",
-      "include_picking_pickresult_distance",
-      "include_picking_pickresult_entityid",
-      "include_picking_pickresult_faceindex",
-      "include_picking_pickresult_hasuv",
-      "include_picking_pickresult_localpoint",
-      "include_picking_pickresult_triangleindex",
-      "include_picking_pickresult_uv",
-      "include_picking_pickresult_worldpoint"
+    "3": [
+      "detail_primitiveloader",
+      "detail_primitiveloader_assetloader_loadprimitive",
+      "detail_primitiveloader_inl_path",
+      "detail_primitiveloader_inl_size_t",
+      "detail_primitiveloader_inl_string",
+      "detail_primitiveloader_objindex",
+      "include_model_h_uint8_t",
+      "include_model_textureimage",
+      "include_model_textureimage_height",
+      "include_model_textureimage_rgba",
+      "include_model_textureimage_width",
+      "include_modelloader",
+      "include_modelloader_assetloader",
+      "include_modelloader_assetloader_assetloader",
+      "include_modelloader_assetloader_features",
+      "include_modelloader_assetloader_imagecache",
+      "include_modelloader_assetloader_loadmodel",
+      "include_modelloader_assetloader_loadprimitive",
+      "include_modelloader_assetloader_loadtexture",
+      "include_modelloader_assetloader_projectroot",
+      "include_modelloader_assetloader_resolve",
+      "include_modelloader_assetloader_runtimeroot",
+      "include_modelloader_assetloader_texture",
+      "include_modelloader_featureoptions",
+      "include_modelloader_featureoptions_models",
+      "include_modelloader_featureoptions_textures",
+      "include_modelloader_finishload",
+      "include_modelloader_h_model",
+      "include_modelloader_h_optional",
+      "include_modelloader_h_outlinemode",
+      "include_modelloader_h_path",
+      "include_modelloader_h_pivotmode",
+      "include_modelloader_h_shared_ptr",
+      "include_modelloader_h_string",
+      "include_modelloader_h_vec3",
+      "include_modelloader_loadoptions",
+      "include_modelloader_loadoptions_custompivot",
+      "include_modelloader_loadoptions_fliptexturerows",
+      "include_modelloader_loadoptions_mergecoplanarfaces",
+      "include_modelloader_loadoptions_outline",
+      "include_modelloader_loadoptions_pivot",
+      "include_modelloader_loadoptions_texturepath",
+      "include_modelloader_modelresult",
+      "include_modelloader_modelresult_error",
+      "include_modelloader_modelresult_localbasis",
+      "include_modelloader_modelresult_model",
+      "include_modelloader_modelresult_pivotmode",
+      "include_modelloader_textureresult",
+      "include_modelloader_textureresult_error",
+      "include_modelloader_textureresult_image",
+      "weak_ptr"
     ],
-    "6": [
+    "4": [
+      "include_graphics_h_uint64_t",
+      "include_graphics_scene",
+      "include_graphics_scene_addbasis",
+      "include_graphics_scene_addcuboid",
+      "include_graphics_scene_addline",
+      "include_graphics_scene_addmodel",
+      "include_graphics_scene_addpyramid",
+      "include_graphics_scene_addrighttetrahedron",
+      "include_graphics_scene_addvector",
+      "include_graphics_scene_clear",
+      "include_graphics_scene_components",
+      "include_graphics_scene_cubefaceid",
+      "include_graphics_scene_faceworldmatrix",
+      "include_graphics_scene_generatetexcoords",
+      "include_graphics_scene_geometryrevision",
+      "include_graphics_scene_getcomponent",
+      "include_graphics_scene_getgeometryrevision",
+      "include_graphics_scene_getmesh",
+      "include_graphics_scene_lines",
+      "include_graphics_scene_polyid",
+      "include_graphics_scene_push_entity",
+      "include_graphics_scene_pyramidfaceid",
+      "include_graphics_scene_rebuildfaceids",
+      "include_graphics_scene_setfacelocalmatrix",
+      "include_graphics_scene_setfacesrt",
+      "include_graphics_scene_setfacetransform",
+      "include_graphics_scene_setfacevertexcolors",
+      "include_graphics_scene_setfacevisible",
+      "include_graphics_scene_setlocalbasis",
+      "include_graphics_scene_setmaterial",
+      "include_graphics_scene_setmesh",
+      "include_graphics_scene_setmeshvertices",
+      "include_graphics_scene_setmodel",
+      "include_graphics_scene_setoutline",
+      "include_graphics_scene_setparent",
+      "include_graphics_scene_setposition",
+      "include_graphics_scene_setsidelengths",
+      "include_graphics_scene_settexcoords",
+      "include_graphics_scene_settransform",
+      "include_graphics_scene_settriangleindices",
+      "include_graphics_scene_setvector",
+      "include_graphics_scene_setvertexnormals",
+      "include_graphics_scene_setvertexposition",
+      "include_graphics_scene_setvisible",
+      "include_graphics_scene_splitface",
+      "include_graphics_scene_tetrafaceid",
+      "include_graphics_scene_transformtexcoords",
+      "include_graphics_scene_worldmatrix"
+    ],
+    "5": [
       "glint",
       "include_graphics_drawrange",
       "include_graphics_drawrange_count",
@@ -409,52 +357,7 @@
       "include_graphics_renderer_vbo",
       "texturemap"
     ],
-    "7": [
-      "include_graphics_h_uint64_t",
-      "include_graphics_scene",
-      "include_graphics_scene_addbasis",
-      "include_graphics_scene_addcuboid",
-      "include_graphics_scene_addline",
-      "include_graphics_scene_addmodel",
-      "include_graphics_scene_addpyramid",
-      "include_graphics_scene_addrighttetrahedron",
-      "include_graphics_scene_addvector",
-      "include_graphics_scene_clear",
-      "include_graphics_scene_components",
-      "include_graphics_scene_cubefaceid",
-      "include_graphics_scene_geometryrevision",
-      "include_graphics_scene_getcomponent",
-      "include_graphics_scene_getgeometryrevision",
-      "include_graphics_scene_getmesh",
-      "include_graphics_scene_lines",
-      "include_graphics_scene_polyid",
-      "include_graphics_scene_push_entity",
-      "include_graphics_scene_pyramidfaceid",
-      "include_graphics_scene_rebuildfaceids",
-      "include_graphics_scene_setfacelocalmatrix",
-      "include_graphics_scene_setfacesrt",
-      "include_graphics_scene_setfacetransform",
-      "include_graphics_scene_setfacevertexcolors",
-      "include_graphics_scene_setfacevisible",
-      "include_graphics_scene_setlocalbasis",
-      "include_graphics_scene_setmaterial",
-      "include_graphics_scene_setmesh",
-      "include_graphics_scene_setmeshvertices",
-      "include_graphics_scene_setmodel",
-      "include_graphics_scene_setoutline",
-      "include_graphics_scene_setposition",
-      "include_graphics_scene_setsidelengths",
-      "include_graphics_scene_settexcoords",
-      "include_graphics_scene_settransform",
-      "include_graphics_scene_settriangleindices",
-      "include_graphics_scene_setvector",
-      "include_graphics_scene_setvertexnormals",
-      "include_graphics_scene_setvertexposition",
-      "include_graphics_scene_setvisible",
-      "include_graphics_scene_splitface",
-      "include_graphics_scene_tetrafaceid"
-    ],
-    "8": [
+    "6": [
       "detail_native",
       "detail_native_executabledirectory",
       "detail_native_frameworkdirectory",
@@ -497,12 +400,76 @@
       "hmodule",
       "include_application_h_string"
     ],
+    "7": [
+      "detail_application",
+      "detail_application_application_application",
+      "detail_application_application_findshaderdirectory",
+      "detail_application_application_initialize",
+      "detail_application_application_pickat",
+      "detail_application_application_pickatcursor",
+      "detail_application_application_renderscene",
+      "detail_application_application_requestclose",
+      "detail_application_application_run",
+      "detail_application_application_setcursorhandler",
+      "detail_application_application_setfocushandler",
+      "detail_application_application_setinithandler",
+      "detail_application_application_setkeyhandler",
+      "detail_application_application_setmodifiedkeyhandler",
+      "detail_application_application_setmousehandler",
+      "detail_application_application_setrenderhandler",
+      "detail_application_application_setupdatehandler",
+      "detail_application_application_shutdown",
+      "detail_application_inl_function",
+      "detail_application_inl_optional",
+      "detail_application_inl_path",
+      "include_application_applicationconfig",
+      "include_application_applicationconfig_features",
+      "include_application_applicationconfig_height",
+      "include_application_applicationconfig_projectroot",
+      "include_application_applicationconfig_runtimedirectory",
+      "include_application_applicationconfig_shaderdirectory",
+      "include_application_applicationconfig_title",
+      "include_application_applicationconfig_verticalsync",
+      "include_application_applicationconfig_width",
+      "include_application_h_path"
+    ],
+    "8": [
+      "include_application_h_optional",
+      "include_geometry",
+      "include_geometry_appendmesh",
+      "include_geometry_generatetexcoords",
+      "include_geometry_h_mesh",
+      "include_geometry_h_model",
+      "include_geometry_h_uint32_t",
+      "include_geometry_h_vec2",
+      "include_geometry_h_vec3",
+      "include_geometry_h_vector",
+      "include_geometry_mergecoplanar",
+      "include_geometry_meshoutline",
+      "include_geometry_recalculatenormals",
+      "include_geometry_shareedge",
+      "include_geometry_transformtexcoords",
+      "include_geometry_triangulate",
+      "include_geometry_uvoptions",
+      "include_geometry_uvoptions_axis",
+      "include_geometry_uvoptions_mapping",
+      "include_geometry_uvoptions_offset",
+      "include_geometry_uvoptions_rotationdegrees",
+      "include_geometry_uvoptions_scale",
+      "include_graphics",
+      "map",
+      "src_graphics",
+      "uvmapping"
+    ],
     "9": [
       "include_model_h_glface",
       "include_model_h_outlinemode",
+      "include_model_h_uint32_t",
+      "include_model_h_vector",
       "include_model_planefigure",
       "include_model_planefigure_color",
       "include_model_planefigure_creaseangledegrees",
+      "include_model_planefigure_fromvertices",
       "include_model_planefigure_independence",
       "include_model_planefigure_localanimationmatrix",
       "include_model_planefigure_localvertices",
@@ -520,6 +487,28 @@
       "include_model_planefigure_visible"
     ],
     "10": [
+      "include_model_component_poly",
+      "include_model_component_poly_parent",
+      "include_model_component_poly_pivotmode",
+      "include_model_component_poly_polyhedron",
+      "include_model_component_poly_sidelengths",
+      "include_model_component_poly_transform",
+      "include_model_component_poly_visible",
+      "include_model_faceid",
+      "include_model_faceid_entityid",
+      "include_model_faceid_faceindex",
+      "include_model_h_entityid",
+      "include_model_h_optional",
+      "include_model_h_pivotmode",
+      "include_model_h_size_t",
+      "include_model_line3d",
+      "include_model_line3d_color",
+      "include_model_line3d_end",
+      "include_model_line3d_owner",
+      "include_model_line3d_start",
+      "include_model_textureimage_valid"
+    ],
+    "11": [
       "detail_renderer",
       "detail_renderer_compileshader",
       "detail_renderer_gpuvertex",
@@ -540,7 +529,24 @@
       "glenum",
       "glsizei"
     ],
-    "11": [
+    "12": [
+      "aimatrix4x4",
+      "detail_assimploader",
+      "detail_assimploader_assetloader_loadmodel",
+      "detail_assimploader_assimpapi",
+      "detail_assimploader_assimpapi_getcolor",
+      "detail_assimploader_assimpapi_geterror",
+      "detail_assimploader_assimpapi_gettexture",
+      "detail_assimploader_assimpapi_importfile",
+      "detail_assimploader_assimpapi_load",
+      "detail_assimploader_assimpapi_module",
+      "detail_assimploader_assimpapi_ready",
+      "detail_assimploader_assimpapi_releaseimport",
+      "detail_assimploader_assimpmatrix",
+      "detail_assimploader_inl_mat4",
+      "detail_assimploader_inl_path"
+    ],
+    "13": [
       "hresult",
       "include_texture",
       "include_texture_checkcom",
@@ -556,7 +562,53 @@
       "include_texture_h_uint8_t",
       "include_texture_h_vector"
     ],
-    "12": [
+    "14": [
+      "include_picking",
+      "include_picking_h_optional",
+      "include_picking_h_vec3",
+      "include_picking_pick",
+      "include_picking_pickviewport",
+      "include_picking_pickviewport_height",
+      "include_picking_pickviewport_width",
+      "include_picking_pickviewport_x",
+      "include_picking_pickviewport_y",
+      "include_picking_ray",
+      "include_picking_ray_direction",
+      "include_picking_ray_maxdistance",
+      "include_picking_ray_origin",
+      "include_picking_screenray"
+    ],
+    "15": [
+      "detail_renderer_inl_mat4",
+      "detail_renderer_renderer_draw",
+      "include_graphics_h_vec3",
+      "include_graphics_renderoptions",
+      "include_graphics_renderoptions_background",
+      "include_graphics_renderoptions_depthtest",
+      "include_graphics_renderoptions_lightcolor",
+      "include_graphics_renderoptions_lightdirection",
+      "include_graphics_renderoptions_lighting",
+      "include_graphics_renderoptions_outlinecolor",
+      "include_graphics_renderoptions_textures",
+      "include_graphics_renderoptions_wireframe",
+      "vec4"
+    ],
+    "16": [
+      "include_picking_h_entityid",
+      "include_picking_h_size_t",
+      "include_picking_h_vec2",
+      "include_picking_pickresult",
+      "include_picking_pickresult_barycentric",
+      "include_picking_pickresult_distance",
+      "include_picking_pickresult_entityid",
+      "include_picking_pickresult_faceindex",
+      "include_picking_pickresult_hasuv",
+      "include_picking_pickresult_localpoint",
+      "include_picking_pickresult_triangleindex",
+      "include_picking_pickresult_uv",
+      "include_picking_pickresult_worldpoint"
+    ],
+    "17": [
       "include_model",
       "include_model_facematrix",
       "include_model_finitematrix",
@@ -569,19 +621,31 @@
       "include_model_validcolor",
       "include_model_validmesh"
     ],
-    "13": [
+    "18": [
+      "detail_scene_camerasystem_validcamera",
+      "include_graphics_camera",
+      "include_graphics_camera_farplane",
+      "include_graphics_camera_fieldofviewdegrees",
+      "include_graphics_camera_nearplane",
+      "include_graphics_camera_orthographic",
+      "include_graphics_camera_orthographichalfextent",
+      "include_graphics_camera_position",
+      "include_graphics_camera_target",
+      "include_graphics_camera_up"
+    ],
+    "19": [
       "include_model_glcolor",
       "include_model_glcolor_blue",
       "include_model_glcolor_green",
       "include_model_glcolor_red",
-      "include_model_h_optional",
-      "include_model_line3d",
-      "include_model_line3d_color",
-      "include_model_line3d_end",
-      "include_model_line3d_owner",
-      "include_model_line3d_start"
+      "include_model_h_shared_ptr",
+      "include_model_material",
+      "include_model_material_color",
+      "include_model_material_repeattexture",
+      "include_model_material_texture",
+      "include_model_material_usetexture"
     ],
-    "14": [
+    "20": [
       "include_application_mouseevent",
       "include_application_mouseevent_action",
       "include_application_mouseevent_button",
@@ -591,17 +655,7 @@
       "include_application_mouseevent_windowx",
       "include_application_mouseevent_windowy"
     ],
-    "15": [
-      "include_model_h_uint32_t",
-      "include_model_h_uint8_t",
-      "include_model_h_vector",
-      "include_model_planefigure_fromvertices",
-      "include_model_textureimage",
-      "include_model_textureimage_height",
-      "include_model_textureimage_rgba",
-      "include_model_textureimage_width"
-    ],
-    "16": [
+    "21": [
       "detail_scene_diagramsystem_validpolyhedron",
       "include_model_h_glshape",
       "include_model_h_string",
@@ -610,7 +664,7 @@
       "include_model_polyhedron_name",
       "include_model_polyhedron_shape"
     ],
-    "17": [
+    "22": [
       "detail_scene_diagramsystem_validtransform",
       "include_model_transform3d",
       "include_model_transform3d_basis",
@@ -619,32 +673,7 @@
       "include_model_transform3d_rotationdegrees",
       "quat"
     ],
-    "18": [
-      "include_model_component_poly",
-      "include_model_component_poly_pivotmode",
-      "include_model_component_poly_polyhedron",
-      "include_model_component_poly_sidelengths",
-      "include_model_component_poly_transform",
-      "include_model_component_poly_visible",
-      "include_model_h_pivotmode"
-    ],
-    "19": [
-      "include_model_faceid",
-      "include_model_faceid_entityid",
-      "include_model_faceid_faceindex",
-      "include_model_h_entityid",
-      "include_model_h_size_t",
-      "include_model_textureimage_valid"
-    ],
-    "20": [
-      "include_model_h_shared_ptr",
-      "include_model_material",
-      "include_model_material_color",
-      "include_model_material_repeattexture",
-      "include_model_material_texture",
-      "include_model_material_usetexture"
-    ],
-    "21": [
+    "23": [
       "include_model_h_vec2",
       "include_model_vertex",
       "include_model_vertex_color",
@@ -652,7 +681,14 @@
       "include_model_vertex_position",
       "include_model_vertex_uv"
     ],
-    "22": [
+    "24": [
+      "detail_renderer_renderer_render",
+      "include_graphics_camerasystem",
+      "include_graphics_camerasystem_projectionmatrix",
+      "include_graphics_camerasystem_validcamera",
+      "include_graphics_camerasystem_viewmatrix"
+    ],
+    "25": [
       "include_model_bottomcenter",
       "include_model_bounds",
       "include_model_h_model",
@@ -662,30 +698,33 @@
   },
   "cohesion": {
     "0": 0.025,
-    "1": 0.05201266395296246,
-    "2": 0.08028846153846154,
-    "3": 0.05851063829787234,
-    "4": 0.057624113475177305,
-    "5": 0.056025369978858354,
-    "6": 0.047619047619047616,
-    "7": 0.047619047619047616,
-    "8": 0.05731707317073171,
-    "9": 0.1,
-    "10": 0.18128654970760233,
-    "11": 0.18681318681318682,
-    "12": 0.34545454545454546,
-    "13": 0.2,
-    "14": 0.25,
-    "15": 0.2857142857142857,
-    "16": 0.2857142857142857,
-    "17": 0.2857142857142857,
-    "18": 0.2857142857142857,
-    "19": 0.3333333333333333,
-    "20": 0.3333333333333333,
-    "21": 0.3333333333333333,
-    "22": 0.6
+    "1": 0.07394366197183098,
+    "2": 0.0596078431372549,
+    "3": 0.054901960784313725,
+    "4": 0.0425531914893617,
+    "5": 0.047619047619047616,
+    "6": 0.05731707317073171,
+    "7": 0.08387096774193549,
+    "8": 0.13230769230769232,
+    "9": 0.09881422924901186,
+    "10": 0.10526315789473684,
+    "11": 0.18128654970760233,
+    "12": 0.20952380952380953,
+    "13": 0.18681318681318682,
+    "14": 0.23076923076923078,
+    "15": 0.15384615384615385,
+    "16": 0.15384615384615385,
+    "17": 0.34545454545454546,
+    "18": 0.2,
+    "19": 0.2,
+    "20": 0.25,
+    "21": 0.2857142857142857,
+    "22": 0.2857142857142857,
+    "23": 0.3333333333333333,
+    "24": 0.6,
+    "25": 0.6
   },
-  "god_nodes": [
+  "gods": [
     {
       "id": "detail_native_glapi",
       "label": "GlApi",
@@ -694,12 +733,12 @@
     {
       "id": "include_graphics_scene",
       "label": "Scene",
-      "degree": 54
+      "degree": 59
     },
     {
       "id": "include_application_application",
       "label": "Application",
-      "degree": 48
+      "degree": 49
     },
     {
       "id": "include_graphics_renderer",
@@ -727,17 +766,17 @@
       "degree": 17
     },
     {
-      "id": "include_modelloader_assetloader",
-      "label": "AssetLoader",
+      "id": "include_model_component_poly",
+      "label": "Component_Poly",
       "degree": 17
     },
     {
-      "id": "include_picking_pickresult",
-      "label": "PickResult",
+      "id": "include_modelloader_assetloader",
+      "label": "AssetLoader",
       "degree": 17
     }
   ],
-  "surprising_connections": [
+  "surprises": [
     {
       "source": "Application::initialize()",
       "target": "ApplicationConfig",
@@ -761,337 +800,74 @@
       "why": "crosses file types (doc ↔ code); connects across different repos/directories; peripheral node `Application::run()` unexpectedly reaches hub `ApplicationConfig`"
     },
     {
-      "source": "uploadTexture()",
-      "target": "TextureImage",
+      "source": "Application::pickAt()",
+      "target": "PickResult",
       "source_files": [
-        "detail/Renderer.inl",
-        "include/Model.h"
+        "detail/Application.inl",
+        "include/Picking.h"
       ],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (doc ↔ code); connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "Renderer::upload()",
-      "target": "validPolyhedron",
+      "source": "Application::pickAtCursor()",
+      "target": "PickResult",
       "source_files": [
-        "detail/Renderer.inl",
-        "include/Graphics.h"
+        "detail/Application.inl",
+        "include/Picking.h"
       ],
       "confidence": "EXTRACTED",
-      "relation": "calls",
+      "relation": "references",
       "why": "crosses file types (doc ↔ code); connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "Renderer::upload()",
-      "target": "Scene",
+      "source": "AssetLoader::loadModel()",
+      "target": "LoadOptions",
       "source_files": [
-        "detail/Renderer.inl",
-        "include/Graphics.h"
+        "detail/AssimpLoader.inl",
+        "include/ModelLoader.h"
       ],
       "confidence": "EXTRACTED",
       "relation": "references",
       "why": "crosses file types (doc ↔ code); connects across different repos/directories; bridges separate communities"
     }
   ],
-  "health": {
-    "schema_version": 1,
-    "summary": {
-      "node_count": 613,
-      "unverified_node_count": 0,
-      "raw_edge_count": 1148,
-      "non_object_edges": 0,
-      "missing_endpoint_edges": 0,
-      "dangling_endpoint_edges": 48,
-      "self_loop_edges": 0,
-      "valid_candidate_edges": 1100,
-      "exact_duplicate_edges": 16,
-      "directed_unique_endpoint_pairs": 1023,
-      "directed_same_endpoint_collapsed_edges": 77,
-      "undirected_unique_endpoint_pairs": 1018,
-      "undirected_same_endpoint_collapsed_edges": 82,
-      "same_endpoint_group_count": 52,
-      "relation_variant_groups": 7,
-      "source_file_variant_groups": 0,
-      "source_location_variant_groups": 24,
-      "context_variant_groups": 9,
-      "post_build_graph_type": "DiGraph",
-      "post_build_node_count": 613,
-      "post_build_edge_count": 964,
-      "post_build_error": ""
-    },
-    "examples": [
-      {
-        "source": "include_application_application",
-        "target": "include_application_h_function",
-        "edge_count": 8,
-        "relations": [
-          "references"
-        ],
-        "source_files": [
-          "include/Application.h"
-        ],
-        "source_locations": [
-          "L42",
-          "L43",
-          "L48",
-          "L49",
-          "L50",
-          "L51",
-          "L52",
-          "L53"
-        ],
-        "contexts": [
-          "field"
-        ]
-      },
-      {
-        "source": "include_graphics_scene",
-        "target": "include_graphics_h_vector",
-        "edge_count": 6,
-        "relations": [
-          "references"
-        ],
-        "source_files": [
-          "include/Graphics.h"
-        ],
-        "source_locations": [
-          "L20",
-          "L21",
-          "L22",
-          "L23",
-          "L24",
-          "L25"
-        ],
-        "contexts": [
-          "field"
-        ]
-      },
-      {
-        "source": "include_model_planefigure",
-        "target": "include_model_h_vector",
-        "edge_count": 6,
-        "relations": [
-          "references"
-        ],
-        "source_files": [
-          "include/Model.h"
-        ],
-        "source_locations": [
-          "L68",
-          "L76",
-          "L77",
-          "L78",
-          "L79",
-          "L80"
-        ],
-        "contexts": [
-          "field"
-        ]
-      },
-      {
-        "source": "include_graphics_renderer",
-        "target": "glint",
-        "edge_count": 4,
-        "relations": [
-          "references"
-        ],
-        "source_files": [
-          "include/Graphics.h"
-        ],
-        "source_locations": [
-          "L144",
-          "L145",
-          "L146",
-          "L147"
-        ],
-        "contexts": [
-          "field"
-        ]
-      },
-      {
-        "source": "include_model_transform3d",
-        "target": "include_model_h_vec3",
-        "edge_count": 4,
-        "relations": [
-          "references"
-        ],
-        "source_files": [
-          "include/Model.h"
-        ],
-        "source_locations": [
-          "L35",
-          "L36",
-          "L37",
-          "L38"
-        ],
-        "contexts": [
-          "field"
-        ]
-      }
-    ],
-    "producer_suppression": {
-      "path": "C:\\Users\\변준영\\AppData\\Roaming\\uv\\tools\\graphifyy\\Lib\\site-packages\\graphify\\extract.py",
-      "total_sites": 12,
-      "sites": [
-        {
-          "line": 1204,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids = {n[\"id\"] for n in nodes}"
-        },
-        {
-          "line": 1520,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids = {n[\"id\"] for n in nodes}"
-        },
-        {
-          "line": 1522,
-          "name": "seen_doc_refs",
-          "tuple_arity": 0,
-          "sample": "seen_doc_refs: set[str] = set()"
-        },
-        {
-          "line": 1885,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids: set[str] = {n[\"id\"] for n in nodes}"
-        },
-        {
-          "line": 2032,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids = {n.get(\"id\") for n in nodes}"
-        },
-        {
-          "line": 2670,
-          "name": "seen_keys",
-          "tuple_arity": 0,
-          "sample": "seen_keys: set[tuple] = set()"
-        },
-        {
-          "line": 2839,
-          "name": "seen_keys",
-          "tuple_arity": 0,
-          "sample": "seen_keys: set[tuple] = set()"
-        },
-        {
-          "line": 4436,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids: set[str] = set()"
-        },
-        {
-          "line": 4544,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids: set[str] = set()"
-        },
-        {
-          "line": 4623,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids: set[str] = set()"
-        },
-        {
-          "line": 5138,
-          "name": "seen_ids",
-          "tuple_arity": 0,
-          "sample": "seen_ids: set[str] = set()"
-        },
-        {
-          "line": 5139,
-          "name": "seen_edges",
-          "tuple_arity": 4,
-          "sample": "seen_edges: set[tuple[str, str, str, str | None]] = set()"
-        }
-      ],
-      "error": ""
-    },
-    "notes": [
-      "Diagnostics are read-only.",
-      "A normal graph.json is already post-build and cannot recover raw producer edges.",
-      "Producer suppression sites are heuristic source-code evidence."
-    ]
-  },
-  "community_labels": {
-    "0": "OpenGL 함수 연결",
-    "1": "모델 로딩과 기하 계산",
-    "2": "도형 생성과 좌표 변환",
-    "3": "카메라와 피킹·렌더 설정",
-    "4": "공개 API와 사용 예제",
-    "5": "앱 실행과 입력 처리",
-    "6": "GPU 드로우 범위",
-    "7": "장면 편집과 갱신",
-    "8": "윈도우와 DLL 로딩",
-    "9": "면 메시와 외곽선",
-    "10": "GPU 버퍼와 셰이더",
-    "11": "텍스처 이미지 디코딩",
-    "12": "모델 행렬과 검증",
-    "13": "색상과 보조 선",
-    "14": "마우스 좌표 데이터",
-    "15": "이미지와 정점 변환",
-    "16": "모델과 면 목록",
-    "17": "SRT와 로컬 기준점",
-    "18": "객체 표시와 기준점 모드",
-    "19": "면 식별과 검증",
-    "20": "재질과 텍스처",
-    "21": "일반 정점 데이터",
-    "22": "하단 중점 계산"
-  },
-  "suggested_questions": [
-    {
-      "question": "클릭한 면의 피킹과 렌더링은 같은 부모·면 변환을 어디에서 공유하는가?",
-      "why": "Picking.h와 Renderer.inl에서 faceModelMatrix 호출을 대조한다."
-    },
-    {
-      "question": "Scene 메시 수정은 어떤 경로로 다음 프레임의 GPU 버퍼 갱신에 반영되는가?",
-      "why": "Scene setter, geometryRevision, Renderer::render/upload를 추적한다."
-    },
-    {
-      "question": "모델과 텍스처 모드가 꺼져 있으면 로더와 DLL 연결은 어디에서 중단되는가?",
-      "why": "FeatureOptions, AssetLoader 분기와 AssimpApi::load를 추적한다."
-    }
-  ],
-  "automatic_questions": [
+  "questions": [
     {
       "type": "bridge_node",
-      "question": "Why does `Scene` connect `장면 편집과 갱신` to `객체 표시와 기준점 모드`, `면 식별과 검증`, `색상과 보조 선`, `GPU 드로우 범위`?",
+      "question": "Why does `Scene` connect `장면 공개 API` to `모델과 재질 데이터`, `장면 공개 API`?",
       "why": "High betweenness centrality (0.005) - this node is a cross-community bridge."
     },
     {
       "type": "bridge_node",
-      "question": "Why does `Application` connect `공개 API와 사용 예제` to `모델 로딩과 기하 계산`, `카메라와 피킹·렌더 설정`, `GPU 드로우 범위`, `장면 편집과 갱신`?",
-      "why": "High betweenness centrality (0.004) - this node is a cross-community bridge."
+      "question": "Why does `Application` connect `Application.h 구조` to `ModelLoader.h 구조`, `장면 공개 API`, `장면 공개 API`, `UV와 기하 계산`, `장면 공개 API`, `장면 공개 API`?",
+      "why": "High betweenness centrality (0.005) - this node is a cross-community bridge."
     },
     {
       "type": "bridge_node",
-      "question": "Why does `PlaneFigure` connect `면 메시와 외곽선` to `모델 행렬과 검증`, `색상과 보조 선`, `이미지와 정점 변환`, `모델과 면 목록`, `SRT와 로컬 기준점`, `재질과 텍스처`, `일반 정점 데이터`, `하단 중점 계산`?",
+      "question": "Why does `PlaneFigure` connect `모델과 재질 데이터` to `모델과 재질 데이터`, `모델과 재질 데이터`, `모델과 재질 데이터`, `모델과 재질 데이터`, `모델과 재질 데이터`, ` 구조`?",
       "why": "High betweenness centrality (0.003) - this node is a cross-community bridge."
     },
     {
       "type": "isolated_nodes",
-      "question": "What connects `handle_`, `module`, `ready` to the rest of the system?",
-      "why": "295 weakly-connected nodes found - possible documentation gaps or missing edges."
+      "question": "What connects `module`, `ready`, `releaseImport` to the rest of the system?",
+      "why": "308 weakly-connected nodes found - possible documentation gaps or missing edges."
     },
     {
       "type": "low_cohesion",
-      "question": "Should `OpenGL 함수 연결` be split into smaller, more focused modules?",
+      "question": "Should `네이티브 함수 연결` be split into smaller, more focused modules?",
       "why": "Cohesion score 0.025 - nodes in this community are weakly interconnected."
     },
     {
       "type": "low_cohesion",
-      "question": "Should `모델 로딩과 기하 계산` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05201266395296246 - nodes in this community are weakly interconnected."
+      "question": "Should `장면과 계층 변환` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07394366197183098 - nodes in this community are weakly interconnected."
     },
     {
       "type": "low_cohesion",
-      "question": "Should `도형 생성과 좌표 변환` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.08028846153846154 - nodes in this community are weakly interconnected."
+      "question": "Should `Application.h 구조` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.0596078431372549 - nodes in this community are weakly interconnected."
     }
-  ],
-  "source_commit": "a194f4705e1a3a080b22eaf5cd0f56655b8490b4",
-  "scope": "framework code only",
-  "directed": true
+  ]
 }

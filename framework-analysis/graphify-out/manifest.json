@@ -1,103 +1,121 @@
 ﻿{
   "detail/Application.inl": {
     "mtime": 1791704153.4717684,
-    "seen": 1791705801.4221025,
+    "seen": 1791792213.2360213,
     "ast_hash": "ce4c2a8cddacf12cad3cb9fc21ed1f35",
+    "semantic_hash": ""
+  },
+  "detail/AssimpLoader.inl": {
+    "mtime": 1791791776.1636074,
+    "seen": 1791792213.2360275,
+    "ast_hash": "d44a01a2b5568edbceef0b70b51e3e86",
     "semantic_hash": ""
   },
   "detail/Native.h": {
     "mtime": 1791704367.508199,
-    "seen": 1791705801.4221082,
+    "seen": 1791792213.2360299,
     "ast_hash": "7d0ddbf877b5aad3dc4f2e16375448a4",
     "semantic_hash": ""
   },
+  "detail/PrimitiveLoader.inl": {
+    "mtime": 1791791776.1615949,
+    "seen": 1791792213.2360313,
+    "ast_hash": "93fa765540b3280504e594d1c3cfcc34",
+    "semantic_hash": ""
+  },
   "detail/Renderer.inl": {
-    "mtime": 1791704663.1862223,
-    "seen": 1791705801.4221106,
-    "ast_hash": "7194ca799475d3e4ddcedc2b5d56f3a0",
+    "mtime": 1791791576.1314728,
+    "seen": 1791792213.2360325,
+    "ast_hash": "547cd751c8fd55056778828adff65252",
     "semantic_hash": ""
   },
   "detail/Scene.inl": {
-    "mtime": 1791704663.1862223,
-    "seen": 1791705801.4221117,
-    "ast_hash": "22df4cda6b5194fb0e5ca8b17fa5f6e1",
+    "mtime": 1791791712.070866,
+    "seen": 1791792213.2360344,
+    "ast_hash": "6036fdca5ea83948aa1cb6a94f33db0b",
     "semantic_hash": ""
   },
   "detail/Shaders.h": {
     "mtime": 1791704007.7188253,
-    "seen": 1791705801.4221127,
+    "seen": 1791792213.2360356,
     "ast_hash": "bb43c1dd09464f24907724313116d784",
     "semantic_hash": ""
   },
   "examples/assets.cpp": {
     "mtime": 1791704599.0796528,
-    "seen": 1791705801.422114,
+    "seen": 1791792213.2360365,
     "ast_hash": "3cc868e961d290e563508e4937fc0718",
     "semantic_hash": ""
   },
   "examples/basic.cpp": {
     "mtime": 1791704598.676608,
-    "seen": 1791705801.422115,
+    "seen": 1791792213.2360377,
     "ast_hash": "4be67ff81706e3aac49459e69f1ae102",
+    "semantic_hash": ""
+  },
+  "examples/hierarchy.cpp": {
+    "mtime": 1791792040.9268231,
+    "seen": 1791792213.236039,
+    "ast_hash": "1005ca660f632c6d772991a6df6675bc",
     "semantic_hash": ""
   },
   "Framework.h": {
     "mtime": 1791704153.4717684,
-    "seen": 1791705801.422116,
+    "seen": 1791792213.2360399,
     "ast_hash": "5649dd92cb543401bb3644d6b3d8848d",
     "semantic_hash": ""
   },
   "include/Application.h": {
     "mtime": 1791704367.5048392,
-    "seen": 1791705801.4221168,
+    "seen": 1791792213.2360418,
     "ast_hash": "18d3afc102d0a1d076e26f5fabcffcb5",
     "semantic_hash": ""
   },
   "include/Geometry.h": {
-    "mtime": 1791703652.9482455,
-    "seen": 1791705801.422118,
-    "ast_hash": "df74ce97b2e9bd1bb4510500bb6fa05a",
+    "mtime": 1791791712.0385394,
+    "seen": 1791792213.236043,
+    "ast_hash": "4574e80bcc65fa7593ee144fcbd07a25",
     "semantic_hash": ""
   },
   "include/Graphics.h": {
-    "mtime": 1791704367.503753,
-    "seen": 1791705801.422119,
-    "ast_hash": "72fb5489176ac7b94442c4f2295c8fa7",
+    "mtime": 1791791712.0642385,
+    "seen": 1791792213.236044,
+    "ast_hash": "17f5f5db73baadacc1b839b7a3e509cf",
     "semantic_hash": ""
   },
   "include/Model.h": {
-    "mtime": 1791704268.233677,
-    "seen": 1791705801.4221199,
-    "ast_hash": "b54ada8d3acfb205b7cc4e2745e3a206",
+    "mtime": 1791792040.9268231,
+    "seen": 1791792213.2360451,
+    "ast_hash": "c168fa518df6fae6ac2b4a8a5fb6d564",
     "semantic_hash": ""
   },
   "include/ModelLoader.h": {
-    "mtime": 1791704663.189067,
-    "seen": 1791705801.422121,
-    "ast_hash": "d7953fd6748267e5113b6ddf35c94ce3",
+    "mtime": 1791791776.159845,
+    "seen": 1791792213.236046,
+    "ast_hash": "834d1d006704c2f1785471d0628b4f7e",
     "semantic_hash": ""
   },
   "include/Picking.h": {
-    "mtime": 1791704663.1862223,
-    "seen": 1791705801.422122,
-    "ast_hash": "50c2db824d7243270651818cbed1f400",
+    "mtime": 1791791576.1334863,
+    "seen": 1791792213.236047,
+    "ast_hash": "30580bd92c9c92d1a13bf392774d5074",
     "semantic_hash": ""
   },
   "include/Texture.h": {
     "mtime": 1791703653.3888266,
-    "seen": 1791705801.422123,
+    "seen": 1791792213.236049,
     "ast_hash": "5441fb7bc85cbf84e4a4456dab7584bb",
     "semantic_hash": ""
   },
   "src/Application.cpp": {
     "mtime": 1791704153.4717684,
-    "seen": 1791705801.4221237,
+    "seen": 1791792213.2360501,
     "ast_hash": "b62328f66d70e8773d4de369f73bfbfc",
     "semantic_hash": ""
   },
   "src/Graphics.cpp": {
     "mtime": 1791704007.7188253,
-    "seen": 1791705801.4221249,
+    "seen": 1791792213.236051,
     "ast_hash": "62af72e8de31408ea16dfdec56dbf41a",
     "semantic_hash": ""
   }

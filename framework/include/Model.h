@@ -107,12 +107,12 @@ struct Polyhedron {
 using Model = Polyhedron;
 
 struct Component_Poly {
-    std::optional<EntityId> parent; // Local SRT is relative to this entity.
     Polyhedron polyhedron;
     Transform3D transform;
     glm::vec3 sideLengths{1.0f};
     bool visible = true;
     PivotMode pivotMode = PivotMode::Preserve;
+    std::optional<EntityId> parent; // Local SRT is relative to this entity.
 };
 struct FaceId { EntityId entityId = 0; std::size_t faceIndex = 0; };
 struct Line3D {

@@ -1,85 +1,88 @@
 ﻿{
   "source_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework",
   "output_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\graphify-out",
-  "source_commit": "a194f4705e1a3a080b22eaf5cd0f56655b8490b4",
+  "source_commit": "e232b549cc0f2dd76490ce7f6e4171309073c521",
+  "includes_uncommitted_step4": true,
   "files": [
     {
-      "path": "detail\\Application.inl",
+      "path": "detail/Application.inl",
       "sha256": "49b865ddbe80a66affd340a6929cc52763b1e30eb53d6c34b6734d90fc173d76"
     },
     {
-      "path": "detail\\Native.h",
+      "path": "detail/AssimpLoader.inl",
+      "sha256": "b4317b8fee7e9101e1774a8146cd4df8e397aca90284e9d969b01e7239281e24"
+    },
+    {
+      "path": "detail/Native.h",
       "sha256": "ca0d2ef76aaa5ffcd4146df053c16c186dfcb3c2ab5e00dd316515272b887621"
     },
     {
-      "path": "detail\\Renderer.inl",
-      "sha256": "f8d56451d4a08cf6bd36592e74992dc8be5d418d9bd561f49dc42b6bf5091962"
+      "path": "detail/PrimitiveLoader.inl",
+      "sha256": "25ce148d7fd85b3ea7a95c3101b207f32da24eec0f0b0d6d702cf8a55f925cac"
     },
     {
-      "path": "detail\\Scene.inl",
-      "sha256": "12c67b583d3820aff4743bb0f3d3702e81005ce856b26be0603f602609d72e14"
+      "path": "detail/Renderer.inl",
+      "sha256": "684cbe74c9a9861bba01c4f485cc32a808fe2e9e1412013f6f04f43e3d5240f8"
     },
     {
-      "path": "detail\\Shaders.h",
+      "path": "detail/Scene.inl",
+      "sha256": "6687a5f1065fcdee73d4518a5084aac735d428329d534161775b9c73f2a3f0c4"
+    },
+    {
+      "path": "detail/Shaders.h",
       "sha256": "035734ecef02f09738b1f0847d795348ecefc54e37570d475441938edcc95d2d"
     },
     {
-      "path": "examples\\assets.cpp",
+      "path": "examples/assets.cpp",
       "sha256": "b07212faf9b30f787ef5c93f631c0d0578203bb07db7a1badefb935cf5276440"
     },
     {
-      "path": "examples\\basic.cpp",
+      "path": "examples/basic.cpp",
       "sha256": "6f5029af249546a49e441720f529e4fa54a5e408329adee28f1f968f2e8c1e14"
+    },
+    {
+      "path": "examples/hierarchy.cpp",
+      "sha256": "25be2d59acb07b9eb16b604a905de4ce759f7dc389149bc1d1193117c337a419"
     },
     {
       "path": "Framework.h",
       "sha256": "a21aa6d5ebb3409d174d69b9883c0b76bf4645da22caa0baa591a4f8e81d8cd4"
     },
     {
-      "path": "include\\Application.h",
+      "path": "include/Application.h",
       "sha256": "3c6a228682965b4d35e901277a12ece15cd86529deb858061e46a32dd31aa0aa"
     },
     {
-      "path": "include\\Geometry.h",
-      "sha256": "26e41d8fa2c1313149c379c5d5c232e33c5cea74781c4ea52fbfe6a9e4a84928"
+      "path": "include/Geometry.h",
+      "sha256": "71fb269d8aab0db531e7a71921e23cab3c7b9e12d4e3963f62762394aa68bfe1"
     },
     {
-      "path": "include\\Graphics.h",
-      "sha256": "e324f441391caddaafee93474f6798f0995b5ae724118ca1a6722ae1df5a38b3"
+      "path": "include/Graphics.h",
+      "sha256": "f826fbdea27151b321f555c902c937d9b07e3af80ccc545ca330e8f1776254f6"
     },
     {
-      "path": "include\\Model.h",
-      "sha256": "9e2a1fa05f2ab07cf5b7a53d5e0a3f3a1a4c47664a5ec953c7edfd98d10c3f78"
+      "path": "include/Model.h",
+      "sha256": "06fcd5a0562f33b4734c2037d5aba67a1a7109146cf1c335b21ed519ca063ae5"
     },
     {
-      "path": "include\\ModelLoader.h",
-      "sha256": "367059e23bf659279ecbccf8a71cd3ab544b114fc4e9d27c7c0223c422b0c81e"
+      "path": "include/ModelLoader.h",
+      "sha256": "56de896e847bbd1b6543d6f2fa909cc3a4d321f1934a6a070d9630f2a2b44632"
     },
     {
-      "path": "include\\Picking.h",
-      "sha256": "db81aad7fe59e8c28df6f3c57d819e2df9978c1f7ccf2447a53ce8b3d57b529d"
+      "path": "include/Picking.h",
+      "sha256": "aa00ca98c4ec95004e140f3c532853ad9daf1ab8386b2c01d39997340c4ee6ff"
     },
     {
-      "path": "include\\Texture.h",
+      "path": "include/Texture.h",
       "sha256": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313"
     },
     {
-      "path": "src\\Application.cpp",
+      "path": "src/Application.cpp",
       "sha256": "702f2cba587ff2b91d1be92c3827abdae4f682a46e2b6dc5250ddeb7b6710a51"
     },
     {
-      "path": "src\\Graphics.cpp",
+      "path": "src/Graphics.cpp",
       "sha256": "085468247a05d32398590d5427e57a45533726c8e06d4c11ee90450755f20f23"
     }
-  ],
-  "excluded": [
-    "dependencies/**",
-    "docs/**",
-    "*.md",
-    "*.patch",
-    "examples/data/**",
-    "shaders/*.glsl (embedded copies)",
-    "other projects"
-  ],
-  "extraction": "tree-sitter C++, .inl dispatch registered for this process only"
+  ]
 }
