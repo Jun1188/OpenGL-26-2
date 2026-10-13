@@ -4,10 +4,10 @@
 
 namespace {
 
-constexpr float AREA_BOTTOM = -0.85f;
-constexpr float AREA_TOP = 0.85f;
-constexpr float RECT_HALF_WIDTH = 0.085f;
-constexpr float RECT_HALF_HEIGHT = 0.045f;
+constexpr float AREA_BOTTOM = -0.95f;
+constexpr float AREA_TOP = 0.95f;
+constexpr float RECT_HALF_WIDTH = 0.075f;
+constexpr float RECT_HALF_HEIGHT = 0.085f;
 constexpr float STACK_X = 0.75f;
 constexpr float STACK_SPACING = 0.10f;
 constexpr std::size_t STACK_CAPACITY = 16;
@@ -53,9 +53,9 @@ DiagramStore::DiagramStore()
                       RECT_HALF_WIDTH, RECT_HALF_HEIGHT, {}, true),
         makeRectangle(-RECT_HALF_WIDTH, -RECT_HALF_HEIGHT,
                       RECT_HALF_WIDTH, RECT_HALF_HEIGHT, {}, true),
-        makeRectangle(-0.85f, AREA_BOTTOM, -0.55f, AREA_TOP,
+        makeRectangle(-0.95f, AREA_BOTTOM, -0.35f, AREA_TOP,
                       {0.65f, 0.75f, 0.9f}, false),
-        makeRectangle(-0.30f, AREA_BOTTOM, 0.0f, AREA_TOP,
+        makeRectangle(-0.30f, AREA_BOTTOM, 0.2f, AREA_TOP,
                       {0.65f, 0.75f, 0.9f}, false),
         makeRectangle(hitX_Left, hitY_Min, hitX_Right, hitY_Max,
                       {0.9f, 0.9f, 0.9f}, false)

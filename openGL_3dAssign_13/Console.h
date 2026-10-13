@@ -6,7 +6,6 @@
 
 // 실습 13: 표시할 면과 난수 상태만 관리한다.
 class Console {
-private:
     graphics::Application& application_;
     graphics::EntityId cuboidId_ = 0;
     graphics::EntityId pyramidId_ = 0;

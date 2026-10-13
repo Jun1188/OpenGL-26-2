@@ -28,11 +28,11 @@ bool Console::initScene() {
     camera.orthographic = true;
     camera.orthographicHalfExtent = 1.0f;
     selectFaces(cuboidId_, { 0, 1, 2, 3, 4, 5 });
-    std::cout << "Practice 13: each selection replaces the previous faces.\n"
-              << "1 front(red), 2 back(green), 3 left(blue), 4 right(yellow)\n"
+    std::cout << "실습 13: 키 설명==면(색)\n"
+              << "1==front(red), 2==back(green), 3==left(blue), 4==right(yellow)\n"
               << "5 top(cyan), 6 bottom(magenta)\n"
-              << "7/8/9/0 pyramid: front(red)/right(blue)/back(green)/left(yellow)\n"
-              << "C: two distinct cube faces, T: pyramid base + one side\n"
+              << "7/8/9/0는 pyramid == front(red)/right(blue)/back(green)/left(yellow)\n"
+              << "C: 랜덤한 cube 2개 faces, T: pyramid 밑변 + 랜덤한 1개 변\n"
               << "Axes: X red, Y green, Z blue. Esc: quit\n";
     return true;
 }

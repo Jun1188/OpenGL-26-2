@@ -10,8 +10,8 @@
 
 constexpr float hitX_Left = -0.9f;
 constexpr float hitX_Right = 0.3f;
-constexpr float hitY_Min = -0.2f;
-constexpr float hitY_Max = 0.1f;
+constexpr float hitY_Min = -0.4f;
+constexpr float hitY_Max = 0.4f;
 constexpr std::size_t max_step = 10;
 
 enum class RectState { None, Moving, HitAnimated, Fixed };

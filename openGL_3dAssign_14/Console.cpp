@@ -68,8 +68,9 @@ void Console::selectShape(bool pyramid) {
 
 void Console::resetMotion() {
     position_ = glm::vec3(0.0f);
-    orientation_ = glm::angleAxis(glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f))
-        * glm::angleAxis(glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+    orientation_ = glm::angleAxis(glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        //* glm::angleAxis(glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     angularDirection_ = glm::vec2(0.0f);
     pressed_.fill(false);
     applyTransform();

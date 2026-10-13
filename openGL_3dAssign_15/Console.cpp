@@ -78,8 +78,8 @@ bool Console::initScene() {
               << "Cube only 모드: T == top Z rotation, F == front open/close, S == left/right face normal rotation\n"
               << "B == back face shrink/restore, 1- 같은 모서리 면 2개 y축회전 360, 2- 같은 모서리 면 2개 y축반대공전 90\n"
               << "4 four side faces orbit공전 - Y축 기준, 5 top/bottom/front/back orbit공전 - X축 기준\n"
-              << "All face motions can overlap with object spin.\n"
-              << "T/S/1/2/4/5 repeat to pause/resume. F/B repeat to reverse. 2 swaps and returns.\n";
+              << "All face motions can overlap with object spin(중복 모션 가능).\n"
+              << "T/S/1/2/4/5 repeat to pause/resume(한번 더 누르면 정지). F/B repeat to reverse. 2 swaps and returns.\n";
     return true;
 }
 
@@ -110,7 +110,7 @@ void Console::resetAll() {
 
 void Console::applyObjectTransform() {
     graphics::Transform3D transform;
-    transform.rotationDegrees = { 30.0f, 30.0f, 0.0f };
+    transform.rotationDegrees = { 30.0f, 0.0f, 0.0f };
     // 초기 기울기 다음에 로컬 Y축 자전을 적용한다.
     transform.orientation = glm::angleAxis(glm::radians(spinDegrees_), Y_AXIS);
     application_.getScene().setTransform(pyramidSelected_ ? pyramidId_ : cuboidId_, transform);
@@ -142,7 +142,7 @@ void Console::beginMotion(Motion kind) {
             const int index = std::uniform_int_distribution<int>(0, 3)(random_);
             motion.pair = pairs[index];
             motion.hinge = corners[index];
-            std::cout << "Selected cube faces (1-based): " << motion.pair[0] + 1
+            std::cout << "선택면들 -Selected cube faces (1-based 면): " << motion.pair[0] + 1
                       << ", " << motion.pair[1] + 1 << '\n';
         }
     }

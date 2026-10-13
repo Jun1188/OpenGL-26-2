@@ -660,10 +660,12 @@ bool Renderer::upload(const Scene& scene) {
     glBufferData(GL_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(positions.size() * sizeof(GLfloat)),
         positions.empty() ? nullptr : positions.data(), GL_STATIC_DRAW);
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
     glBufferData(GL_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(colors.size() * sizeof(GLfloat)),
         colors.empty() ? nullptr : colors.data(), GL_STATIC_DRAW);
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
         static_cast<GLsizeiptr>(indices.size() * sizeof(GLuint)),

@@ -1,6 +1,7 @@
 ﻿#include "Console.h"
 #include <iostream>
 
+
 int main() {
     graphics::Application application;
     Console practice(application);

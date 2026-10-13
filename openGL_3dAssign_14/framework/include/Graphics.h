@@ -141,7 +141,8 @@ struct Camera {
     glm::vec3 position{ 2.8f, 2.0f, 5.0f };
     glm::vec3 target{ 0.0f };
     glm::vec3 up{ 0.0f, 1.0f, 0.0f };
-    float fieldOfViewDegrees = 45.0f;
+    float fieldOfViewDegrees = 45.0f;//카메라가 이미 회전한 상태다 - 45 degrees
+
     float nearPlane = 0.1f;
     float farPlane = 100.0f;
     bool orthographic = false;
