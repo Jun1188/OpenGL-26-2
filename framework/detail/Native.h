@@ -16,8 +16,6 @@
 #include <stdexcept>
 #include <vector>
 
-#define GRAPHICS_WIDEN_IMPL(x) L##x
-#define GRAPHICS_WIDEN(x) GRAPHICS_WIDEN_IMPL(x)
 namespace graphics::detail {
 static_assert(sizeof(void*) == 8, "Bundled DLLs require x64.");
 inline std::filesystem::path executableDirectory() {
@@ -27,22 +25,19 @@ inline std::filesystem::path executableDirectory() {
     path.resize(size);
     return std::filesystem::path(path).parent_path();
 }
+inline std::filesystem::path relativePathInside(const std::filesystem::path& root,
+                                                const std::filesystem::path& relative) {
+    if(relative.empty()||relative.is_absolute()||relative.has_root_name()||relative.has_root_directory())
+        throw std::runtime_error("Use a relative path inside the project.");
+    const auto base=std::filesystem::weakly_canonical(root);
+    const auto full=std::filesystem::weakly_canonical(base/relative);
+    auto a=base.begin(),b=full.begin();
+    for(;a!=base.end();++a,++b)if(b==full.end()||*a!=*b)
+        throw std::runtime_error("Path leaves the project directory.");
+    return full;
+}
 inline std::filesystem::path frameworkDirectory() {
-    std::error_code error;
-    const auto source = std::filesystem::path(GRAPHICS_WIDEN(__FILE__)).parent_path().parent_path();
-    std::vector<std::filesystem::path> starts{executableDirectory(), std::filesystem::current_path(error)};
-    for (auto directory : starts) {
-        while (!directory.empty()) {
-            const auto candidate = directory / "framework";
-            if (std::filesystem::is_regular_file(candidate / "include/Model.h", error)) return candidate;
-            const auto parent = directory.parent_path();
-            if (parent == directory) break;
-            directory = parent;
-        }
-    }
-    if (std::filesystem::is_regular_file(source / "include/Model.h", error))
-        return std::filesystem::absolute(source);
-    throw std::runtime_error("Cannot locate bundled framework. Place framework beside the executable or set runtimeDirectory.");
+    return executableDirectory()/"framework";
 }
 class Module {
     HMODULE handle_ = nullptr;
@@ -235,5 +230,3 @@ struct GlApi {
 };
 inline GlApi& gl() { static GlApi api; return api; }
 } // namespace graphics::detail
-#undef GRAPHICS_WIDEN
-#undef GRAPHICS_WIDEN_IMPL

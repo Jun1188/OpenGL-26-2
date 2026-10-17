@@ -15,8 +15,8 @@ struct ApplicationConfig {
     int height = WINDOW_HEIGHT;
     std::string title = "OpenGL";
     std::filesystem::path shaderDirectory; // Empty selects embedded shaders.
-    std::filesystem::path projectRoot = std::filesystem::current_path();
-    std::filesystem::path runtimeDirectory; // Optional bundled framework directory override.
+    std::filesystem::path projectRoot = "."; // Relative to the executable.
+    std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
     FeatureOptions features;
     bool verticalSync = true;
 };
@@ -67,7 +67,6 @@ public:
     // 등록된 경우 기존 keyHandler 대신 key/action/mods를 전달한다.
     void setModifiedKeyHandler(
         std::function<void(Application&, int key, int action, int mods)> handler);
-    static std::filesystem::path findShaderDirectory();
     void setFocusHandler(std::function<void(Application&, bool focused)> handler);
     // 없으면 renderScene()을 호출한다. 사용자 콜백은 필요할 때 직접 renderScene()을 호출한다.
     void setRenderHandler(std::function<bool(Application&)> handler);

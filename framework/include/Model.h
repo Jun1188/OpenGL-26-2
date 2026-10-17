@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "../dependencies/glm/glm/glm.hpp"
-#include "../dependencies/glm/glm/gtc/quaternion.hpp"
 #include "../dependencies/glm/glm/gtc/matrix_transform.hpp"
 #include <array>
 #include <cmath>
@@ -34,9 +33,8 @@ enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
 struct Transform3D {
     glm::vec3 basis{0.0f};
     glm::vec3 localBasis{0.0f};
-    glm::vec3 rotationDegrees{0.0f};
+    glm::mat3 rotation{1.0f};
     glm::vec3 scale{1.0f};
-    glm::quat orientation{1.0f, 0.0f, 0.0f, 0.0f};
 };
 
 struct TextureImage {
@@ -113,6 +111,8 @@ struct Component_Poly {
     bool visible = true;
     PivotMode pivotMode = PivotMode::Preserve;
     std::optional<EntityId> parent; // Local SRT is relative to this entity.
+    GlColor tint; // Per-entity multiplier; does not propagate to children.
+    bool transformOnly = false;
 };
 struct FaceId { EntityId entityId = 0; std::size_t faceIndex = 0; };
 struct Line3D {
@@ -184,10 +184,7 @@ inline glm::vec3 bottomCenter(const Model& model) {
 }
 inline glm::mat4 transformMatrix(const Transform3D& t) {
     glm::mat4 m = glm::translate(glm::mat4(1), t.basis);
-    m = glm::rotate(m, glm::radians(t.rotationDegrees.x), {1, 0, 0});
-    m = glm::rotate(m, glm::radians(t.rotationDegrees.y), {0, 1, 0});
-    m = glm::rotate(m, glm::radians(t.rotationDegrees.z), {0, 0, 1});
-    m *= glm::mat4_cast(glm::normalize(t.orientation));
+    m *= glm::mat4(t.rotation);
     return glm::translate(glm::scale(m, t.scale), -t.localBasis);
 }
 inline glm::mat4 faceMatrix(const Component_Poly& c, const Mesh& face) {

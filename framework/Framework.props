@@ -1,18 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- Optional convenience sheet. Framework.h does not require this import. -->
   <PropertyGroup>
     <GraphicsFrameworkDirectory>$(MSBuildThisFileDirectory)</GraphicsFrameworkDirectory>
-    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(GraphicsFrameworkDirectory)include;$(GraphicsFrameworkDirectory)dependencies\glm;$(GraphicsFrameworkDirectory)dependencies\glew-2.3.1\include\GL;$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\include\GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <Target Name="CheckGraphicsFrameworkPlatform" BeforeTargets="PrepareForBuild">
     <Error Condition="'$(Platform)'!='x64'" Text="Bundled framework runtime DLLs require x64." />
+    <Error Condition="!Exists('$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll')" Text="Copy the complete framework dependencies." />
+  </Target>
+  <Target Name="DeployGraphicsRuntime" AfterTargets="Build">
+    <ItemGroup>
+      <GraphicsRuntime Include="$(GraphicsFrameworkDirectory)dependencies\**\*.dll;$(GraphicsFrameworkDirectory)dependencies\**\LICENSE*;$(GraphicsFrameworkDirectory)dependencies\**\COPYING*" />
+      <GraphicsShader Include="$(GraphicsFrameworkDirectory)shaders\*.glsl" />
+      <GraphicsAsset Include="$(ProjectDir)data\**\*"><AssetFolder>data</AssetFolder></GraphicsAsset>
+      <GraphicsAsset Include="$(ProjectDir)models\**\*"><AssetFolder>models</AssetFolder></GraphicsAsset>
+      <GraphicsAsset Include="$(ProjectDir)textures\**\*"><AssetFolder>textures</AssetFolder></GraphicsAsset>
+    </ItemGroup>
+    <Copy SourceFiles="@(GraphicsRuntime)" DestinationFiles="@(GraphicsRuntime->'$(TargetDir)framework\dependencies\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GraphicsShader)" DestinationFolder="$(TargetDir)framework\shaders\" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GraphicsAsset)" DestinationFiles="@(GraphicsAsset->'$(TargetDir)%(AssetFolder)\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'@(GraphicsAsset)'!=''" SkipUnchangedFiles="true" />
   </Target>
 </Project>

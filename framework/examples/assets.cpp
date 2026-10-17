@@ -13,7 +13,7 @@ int main(int argc,char** argv) {
     const auto path=std::filesystem::u8path(argv[2]);
     const auto texturePath=argc>3?std::filesystem::u8path(argv[3]):std::filesystem::path{};
     graphics::ApplicationConfig config;
-    config.projectRoot=std::filesystem::current_path();
+    config.projectRoot=".";
     config.features.models=mode=="model";
     config.features.textures=!texturePath.empty();
     // To load model-referenced/embedded textures without an override, opt in here:

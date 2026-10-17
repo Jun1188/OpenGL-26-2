@@ -28,37 +28,6 @@ inline void Application::setModifiedKeyHandler(
     modifiedKeyHandler_ = std::move(handler);
 }
 
-inline std::filesystem::path Application::findShaderDirectory() {
-    const auto containsShaders = [](const std::filesystem::path& path) {
-        return std::filesystem::is_regular_file(path / "VertexShader.glsl")
-            && std::filesystem::is_regular_file(path / "FragmentShader.glsl");
-    };
-#ifdef _WIN32
-    // 실행 파일 옆의 shaders를 우선한다. 작업 폴더와 프로젝트 이름에 의존하지 않는다.
-    std::wstring executable(32768, L'\0');
-    const DWORD length = GetModuleFileNameW(nullptr, executable.data(),
-                                           static_cast<DWORD>(executable.size()));
-    if (length > 0 && length < executable.size()) {
-        executable.resize(length);
-        const auto candidate = std::filesystem::path(executable).parent_path() / "shaders";
-        if (containsShaders(candidate)) {
-            return candidate;
-        }
-    }
-#endif
-    auto directory = std::filesystem::current_path();
-    for (;;) {
-        const auto candidate = directory / "framework" / "shaders";
-        if (containsShaders(candidate)) {
-            return candidate;
-        }
-        if (directory == directory.parent_path()) {
-            return {};
-        }
-        directory = directory.parent_path();
-    }
-}
-
 inline void Application::setFocusHandler(std::function<void(Application&, bool)> handler) {
     focusHandler_ = std::move(handler);
 }
@@ -68,7 +37,9 @@ inline void Application::setRenderHandler(std::function<bool(Application&)> hand
 }
 
 inline bool Application::initialize(const ApplicationConfig& config) {
-    detail::glfw().load(config.runtimeDirectory);
+    const auto root=detail::relativePathInside(detail::executableDirectory(),config.projectRoot);
+    const auto runtime=detail::relativePathInside(root,config.runtimeDirectory);
+    detail::glfw().load(runtime);
     if (config.width <= 0 || config.height <= 0 || !detail::glfw().Init()) {
         return false;
     }
@@ -85,10 +56,10 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     }
     detail::glfw().MakeContextCurrent(window_);
     detail::glfw().SwapInterval(config.verticalSync ? 1 : 0);
-    const auto vertexPath=config.shaderDirectory.empty()?std::filesystem::path{}:config.shaderDirectory/"VertexShader.glsl";
-    const auto fragmentPath=config.shaderDirectory.empty()?std::filesystem::path{}:config.shaderDirectory/"FragmentShader.glsl";
+    const auto vertexPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"VertexShader.glsl";
+    const auto fragmentPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"FragmentShader.glsl";
     if(!renderer_.initialize(vertexPath,fragmentPath)) return false;
-    assets_.emplace(config.projectRoot,config.features,config.runtimeDirectory);
+    assets_.emplace(root,config.features,runtime);
     renderOptions_.textures=config.features.textures;
 
     detail::glfw().SetInputMode(window_, GLFW_LOCK_KEY_MODS, GLFW_TRUE);

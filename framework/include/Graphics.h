@@ -28,6 +28,12 @@ private:
 
 public:
     Scene();
+    std::optional<EntityId> addGroup(const Transform3D& transform = Transform3D{});
+    std::optional<EntityId> addSphere(float radius, const glm::vec3& position,
+                                      unsigned slices = 32, unsigned stacks = 16);
+    std::optional<EntityId> addCone(float radius, float height, const glm::vec3& position,
+                                    unsigned slices = 32);
+    bool setTint(EntityId id, GlColor color);
     std::optional<EntityId> push_entity(const Polyhedron& polyhedron,
                                        const Transform3D& transform = Transform3D{});
     std::optional<EntityId> addCuboid(const glm::vec3& sideLengths,
@@ -100,6 +106,8 @@ class DiagramSystem {
 public:
     static Polyhedron makePolyhedron(GLShape shape,
                                      const glm::vec3& sideLengths = glm::vec3(1.0f));
+    static Model makeSphere(float radius, unsigned slices = 32, unsigned stacks = 16);
+    static Model makeCone(float radius, float height, unsigned slices = 32);
     static bool validPolyhedron(const Polyhedron& polyhedron);
     static bool validTransform(const Transform3D& transform);
     static glm::mat4 modelMatrix(const Transform3D& transform);
@@ -150,7 +158,7 @@ class Renderer {
     GLint mvpLocation_ = -1, modelLocation_ = -1, normalLocation_ = -1;
     GLint textureLocation_ = -1, hasTextureLocation_ = -1, lightingLocation_ = -1;
     GLint lightDirectionLocation_ = -1, lightColorLocation_ = -1;
-    GLint overrideLocation_ = -1, outlineColorLocation_ = -1;
+    GLint overrideLocation_ = -1, outlineColorLocation_ = -1, tintLocation_ = -1;
     std::vector<DrawRange> drawRanges_;
     using TextureMap = std::map<std::shared_ptr<const TextureImage>, GLuint,
                                std::owner_less<std::shared_ptr<const TextureImage>>>;

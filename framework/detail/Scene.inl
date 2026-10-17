@@ -50,6 +50,27 @@ inline Scene::Scene() {
     lines_.reserve(MAX_LINES);
 }
 
+inline std::optional<EntityId> Scene::addGroup(const Transform3D& transform) {
+    if(!DiagramSystem::validTransform(transform))return {};
+    const auto id=components_.size();
+    Component_Poly group;group.polyhedron.shape=GLShape::None;
+    group.transform=transform;group.sideLengths=glm::vec3(0);group.transformOnly=true;
+    components_.push_back(group);polyId_.push_back(id);
+    geometryRevision_=nextGeometryRevision();return id;
+}
+inline bool Scene::setTint(EntityId id, GlColor color) {
+    if(id>=components_.size() || !validColor(color))return false;
+    components_[id].tint=color;return true;
+}
+inline std::optional<EntityId> Scene::addSphere(float radius,const glm::vec3& position,unsigned slices,unsigned stacks) {
+    Transform3D transform;transform.basis=position;
+    return push_entity(DiagramSystem::makeSphere(radius,slices,stacks),transform);
+}
+inline std::optional<EntityId> Scene::addCone(float radius,float height,const glm::vec3& position,unsigned slices) {
+    Transform3D transform;transform.basis=position;
+    return push_entity(DiagramSystem::makeCone(radius,height,slices),transform);
+}
+
 inline std::optional<EntityId> Scene::push_entity(
     const Polyhedron& polyhedron, const Transform3D& transform
 ) {
@@ -163,6 +184,7 @@ inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
 inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
     if(id>=components_.size()||!positiveLengths(sideLengths))return false;
     const auto& c=components_[id];
+    if(c.transformOnly)return false;
     auto replacement=c.polyhedron;
     const auto box=detail::bounds(replacement);const auto oldSize=box.second-box.first;
     if(!positiveLengths(oldSize))return false;
@@ -316,13 +338,13 @@ inline void Scene::clear() {
 
 inline bool DiagramSystem::validTransform(const Transform3D& transform) {
     return finiteVector(transform.basis) && finiteVector(transform.localBasis)
-        && finiteVector(transform.rotationDegrees) && finiteVector(transform.scale)
-        && std::isfinite(transform.orientation.w)
-        && std::isfinite(transform.orientation.x)
-        && std::isfinite(transform.orientation.y)
-        && std::isfinite(transform.orientation.z)
-        && std::isfinite(glm::dot(transform.orientation, transform.orientation))
-        && glm::dot(transform.orientation, transform.orientation) > 0.000001f
+        && finiteVector(transform.scale)
+        && finiteVector(transform.rotation[0]) && finiteVector(transform.rotation[1])
+        && finiteVector(transform.rotation[2])
+        && std::abs(glm::determinant(transform.rotation) - 1.0f) < 0.01f
+        && glm::length(glm::transpose(transform.rotation) * transform.rotation[0] - glm::vec3(1,0,0)) < 0.01f
+        && glm::length(glm::transpose(transform.rotation) * transform.rotation[1] - glm::vec3(0,1,0)) < 0.01f
+        && glm::length(glm::transpose(transform.rotation) * transform.rotation[2] - glm::vec3(0,0,1)) < 0.01f
         && finiteMatrix(detail::transformMatrix(transform));
 }
 
@@ -403,6 +425,57 @@ inline Polyhedron DiagramSystem::makePolyhedron(GLShape shape, const glm::vec3& 
     return polyhedron;
 }
 
+inline Model DiagramSystem::makeSphere(float radius,unsigned slices,unsigned stacks) {
+    Model model;
+    if(!std::isfinite(radius)||radius<=0||slices<3||slices>512||stacks<2||stacks>256)return model;
+    Mesh mesh;mesh.localVertices.push_back({0,radius,0});
+    constexpr double pi=3.14159265358979323846;
+    for(unsigned row=1;row<stacks;++row) {
+        const double latitude=pi*row/stacks;
+        for(unsigned col=0;col<slices;++col) {
+            const double longitude=2*pi*col/slices;
+            mesh.localVertices.push_back(radius*glm::vec3(std::sin(latitude)*std::cos(longitude),
+                std::cos(latitude),std::sin(latitude)*std::sin(longitude)));
+        }
+    }
+    const auto bottom=std::uint32_t(mesh.localVertices.size());
+    mesh.localVertices.push_back({0,-radius,0});
+    for(unsigned col=0;col<slices;++col) {
+        const auto next=(col+1)%slices;
+        mesh.triangleIndices.insert(mesh.triangleIndices.end(),{0,1+next,1+col});
+        for(unsigned row=0;row+2<stacks;++row) {
+            const auto a=1+row*slices+col,b=1+row*slices+next,c=a+slices,d=b+slices;
+            mesh.triangleIndices.insert(mesh.triangleIndices.end(),{a,b,c,b,d,c});
+        }
+        const auto a=1+(stacks-2)*slices+col,b=1+(stacks-2)*slices+next;
+        mesh.triangleIndices.insert(mesh.triangleIndices.end(),{a,b,bottom});
+    }
+    for(const auto& p:mesh.localVertices)mesh.vertexNormals.push_back(glm::normalize(p));
+    model.faces.push_back(std::move(mesh));
+    return validPolyhedron(model)?model:Model{};
+}
+inline Model DiagramSystem::makeCone(float radius,float height,unsigned slices) {
+    Model model;
+    if(!std::isfinite(radius)||!std::isfinite(height)||radius<=0||height<=0||slices<3||slices>512)return model;
+    constexpr double pi=3.14159265358979323846;
+    // Separate sides/base keep the bottom rim sharp for normals and outlines.
+    Mesh sides,base;sides.localVertices.push_back({0,height*.5f,0});
+    base.localVertices.push_back({0,-height*.5f,0});
+    for(unsigned i=0;i<slices;++i) {
+        const double a=2*pi*i/slices;
+        const glm::vec3 p{radius*float(std::cos(a)),-height*.5f,radius*float(std::sin(a))};
+        sides.localVertices.push_back(p);base.localVertices.push_back(p);
+    }
+    for(unsigned i=0;i<slices;++i) {
+        const auto a=1+i,b=1+(i+1)%slices;
+        sides.triangleIndices.insert(sides.triangleIndices.end(),{0,b,a});
+        base.triangleIndices.insert(base.triangleIndices.end(),{0,a,b});
+    }
+    recalculateNormals(sides);recalculateNormals(base);
+    model.faces={std::move(sides),std::move(base)};
+    return validPolyhedron(model)?model:Model{};
+}
+
 inline glm::mat4 DiagramSystem::modelMatrix(const Transform3D& transform) {
     return detail::transformMatrix(transform);
 }
@@ -470,7 +543,7 @@ inline bool Scene::setModel(EntityId id, const Model& model) {
     const auto box=detail::bounds(model);
     if(!detail::finiteVector(box.second-box.first)) return false;
     auto replacement=components_[id];
-    replacement.polyhedron=model;replacement.sideLengths=box.second-box.first;
+    replacement.polyhedron=model;replacement.sideLengths=box.second-box.first;replacement.transformOnly=false;
     if(replacement.pivotMode==PivotMode::BottomCenter)
         replacement.transform.localBasis=detail::bottomCenter(model);
     components_[id]=std::move(replacement);
@@ -546,6 +619,7 @@ inline bool Scene::setOutline(EntityId id,std::size_t meshIndex,OutlineMode mode
 inline bool Scene::setLocalBasis(EntityId id,PivotMode mode,const glm::vec3& customPivot) {
     if(id>=components_.size()||!detail::finiteVector(customPivot))return false;
     auto& c=components_[id];
+    if(c.transformOnly && mode==PivotMode::BottomCenter)return false;
     if(mode==PivotMode::BottomCenter)c.transform.localBasis=detail::bottomCenter(c.polyhedron);
     else if(mode==PivotMode::Custom)c.transform.localBasis=customPivot;
     c.pivotMode=mode;return true;

@@ -8,7 +8,7 @@ int main() {
         const auto id=scene.addCuboid({1,1,1},{0,0,0});
         if(!id)return false;
         graphics::Transform3D parent;
-        parent.rotationDegrees={15,25,0};parent.scale={1.2f,.8f,1};
+        parent.rotation=glm::mat3(glm::rotate(glm::rotate(glm::mat4(1),glm::radians(15.0f),{1,0,0}),glm::radians(25.0f),{0,1,0}));parent.scale={1.2f,.8f,1};
         if(!scene.setTransform(*id,parent))return false;
         for(std::size_t face=0;face<6;++face)
             if(!scene.setOutline(*id,face,graphics::OutlineMode::FeatureEdges))return false;
@@ -22,7 +22,7 @@ int main() {
         graphics::Transform3D child;
         for(const auto& vertex:face->localVertices)child.localBasis+=vertex;
         child.localBasis/=float(face->localVertices.size());
-        child.basis=face->normal*.25f;child.rotationDegrees.z=20;
+        child.basis=face->normal*.25f;child.rotation=glm::mat3(glm::rotate(glm::mat4(1),glm::radians(20.0f),{0,0,1}));
         scene.splitFace(hit->entityId,hit->faceIndex);
         scene.setFaceSRT(hit->entityId,hit->faceIndex,child);
         std::cout<<"entity="<<hit->entityId<<" face="<<hit->faceIndex<<'\n';

@@ -67,7 +67,7 @@ class AssetLoader {
         return image;
     }
 public:
-    explicit AssetLoader(std::filesystem::path projectRoot=std::filesystem::current_path(),
+    explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(),
                          FeatureOptions features=FeatureOptions{},std::filesystem::path runtimeRoot=std::filesystem::path{})
         : projectRoot_(std::filesystem::absolute(projectRoot)),runtimeRoot_(std::move(runtimeRoot)),features_(features) {}
     const FeatureOptions& features() const { return features_; }

@@ -71,6 +71,7 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     lightColorLocation_=gl.GetUniformLocation(shaderProgramID_,"uLightColor");
     overrideLocation_=gl.GetUniformLocation(shaderProgramID_,"uOverrideColor");
     outlineColorLocation_=gl.GetUniformLocation(shaderProgramID_,"uOutlineColor");
+    tintLocation_=gl.GetUniformLocation(shaderProgramID_,"uTint");
     return mvpLocation_>=0;
 }
 inline bool Renderer::initialize(const std::filesystem::path& vertexPath,const std::filesystem::path& fragmentPath) {
@@ -94,7 +95,8 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
     auto cleanup=[&](){for(const auto& item:stagedTextures)gl.DeleteTextures(1,&item.second);};
     try {
         for(auto id:scene.getIds()) {
-            const auto* c=scene.getComponent(id);if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return false;}
+            const auto* c=scene.getComponent(id);if(c&&c->transformOnly)continue;
+            if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return false;}
             for(std::size_t faceIndex=0;faceIndex<c->polyhedron.faces.size();++faceIndex) {
                 const auto& face=c->polyhedron.faces[faceIndex];
                 if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return false;}
@@ -164,13 +166,13 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
     gl.Uniform3f(lightColorLocation_,options.lightColor.red,options.lightColor.green,options.lightColor.blue);
     gl.Uniform3f(outlineColorLocation_,options.outlineColor.red,options.outlineColor.green,options.outlineColor.blue);
     for(const auto& range:drawRanges_) {
-        glm::mat4 model(1);const Mesh* face=nullptr;
+        glm::mat4 model(1);const Mesh* face=nullptr;GlColor tint;
         if(range.lineId) {
             const auto& line=scene.getLines()[*range.lineId];
             if(line.owner){const auto* owner=scene.getComponent(*line.owner);if(!owner||!owner->visible)continue;const auto world=scene.worldMatrix(*line.owner);if(!world)return false;model=*world;}
         } else {
             const auto* c=scene.getComponent(range.entityId);if(!c||!c->visible)continue;
-            face=&c->polyhedron.faces[range.faceIndex];if(!face->visible)continue;
+            face=&c->polyhedron.faces[range.faceIndex];if(!face->visible)continue;tint=c->tint;
             const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;model=*world;
         }
         const auto mvp=projection*view*model;
@@ -180,6 +182,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         gl.UniformMatrix4fv(mvpLocation_,1,GL_FALSE,glm::value_ptr(mvp));
         gl.UniformMatrix4fv(modelLocation_,1,GL_FALSE,glm::value_ptr(model));
         gl.UniformMatrix3fv(normalLocation_,1,GL_FALSE,glm::value_ptr(normalMatrix));
+        gl.Uniform3f(tintLocation_,tint.red,tint.green,tint.blue);
         gl.Uniform1i(lightingLocation_,face&&options.lighting);gl.Uniform1i(overrideLocation_,0);
         const bool textured=face&&options.textures&&face->material.useTexture;
         gl.Uniform1i(hasTextureLocation_,textured);
