@@ -6,11 +6,6 @@ int main() {
     Console practice(application);
     graphics::ApplicationConfig config;
     config.title = "OpenGL Practice 13";
-    config.shaderDirectory = graphics::Application::findShaderDirectory();
-    if (config.shaderDirectory.empty()) {
-        std::cerr << "Shaders were not found beside the executable or in framework/shaders.\n";
-        return -1;
-    }
     application.setInitHandler([&](graphics::Application&) {
         return practice.initScene();
     });

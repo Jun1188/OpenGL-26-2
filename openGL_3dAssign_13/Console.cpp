@@ -13,7 +13,7 @@ bool Console::initScene() {
     cuboidId_ = *cube;
     pyramidId_ = *pyramid;
     graphics::Transform3D initial;
-    initial.rotationDegrees = { 30.0f, 30.0f, 0.0f };
+    initial.rotation = glm::mat3(glm::rotate(glm::rotate(glm::mat4(1), glm::radians(30.0f), {1,0,0}), glm::radians(30.0f), {0,1,0}));
     if (!scene.setTransform(cuboidId_, initial) || !scene.setTransform(pyramidId_, initial)) {
         return false;
     }

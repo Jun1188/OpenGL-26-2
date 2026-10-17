@@ -1,5 +1,4 @@
 ﻿#include "Console.h"
-#include <glm/gtc/quaternion.hpp>
 #include <iostream>
 
 namespace {
@@ -42,7 +41,12 @@ bool Console::initScene() {
         return false;
     }
     auto& camera = application_.getCamera();
-    camera.position = { 1.8f, 1.2f, 3.0f };
+    const auto inverseView = glm::transpose(glm::mat3(glm::rotate(
+        glm::rotate(glm::mat4(1), glm::radians(30.0f), {1,0,0}),
+        glm::radians(30.0f), {0,1,0})));
+    camera.position = inverseView * glm::vec3(0,0,4);
+    camera.up = inverseView * glm::vec3(0,1,0);
+    camera.target = glm::vec3(0);
     camera.orthographic = true;
     camera.orthographicHalfExtent = 1.0f;
     resetMotion();
@@ -69,8 +73,7 @@ void Console::selectShape(bool pyramid) {
 void Console::resetMotion() {
     position_ = glm::vec3(0.0f);
 
-    orientation_ = glm::angleAxis(glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        //* glm::angleAxis(glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    rotation_ = glm::mat3(1);
     angularDirection_ = glm::vec2(0.0f);
     pressed_.fill(false);
     applyTransform();
@@ -79,7 +82,7 @@ void Console::resetMotion() {
 void Console::applyTransform() {
     graphics::Transform3D transform;
     transform.basis = position_;
-    transform.orientation = orientation_;
+    transform.rotation = rotation_;
     application_.getScene().setTransform(pyramidSelected_ ? pyramidId_ : cuboidId_, transform);
 }
 
@@ -119,9 +122,11 @@ void Console::onUpdate(float deltaTime) {
     }
     // 오른쪽 곱은 현재 객체의 로컬 축 회전이다. 위치는 별도로 보존한다.
     const float angle = glm::radians(45.0f * deltaTime);
-    orientation_ = glm::normalize(orientation_
-        * glm::angleAxis(angle * angularDirection_.x, glm::vec3(1.0f, 0.0f, 0.0f))
-        * glm::angleAxis(angle * angularDirection_.y, glm::vec3(0.0f, 1.0f, 0.0f)));
+    rotation_ = glm::mat3(glm::rotate(glm::rotate(glm::mat4(rotation_),
+        angle * angularDirection_.x, {1,0,0}), angle * angularDirection_.y, {0,1,0}));
+    const auto x = glm::normalize(rotation_[0]);
+    const auto z = glm::normalize(glm::cross(x, rotation_[1]));
+    rotation_ = glm::mat3(x, glm::cross(z,x), z);
     applyTransform();
 }
 

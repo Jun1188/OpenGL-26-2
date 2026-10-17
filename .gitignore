@@ -44,41 +44,10 @@ OpenGL.local.props
 /opengl_libs/
 /opengl_libs.zip
 
-# Vendored OpenGL x64 runtime and import libraries (source dependencies)
-!/dependencies/glew-2.3.1/lib/Release/x64/
-!/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
-!/dependencies/glew-2.3.1/bin/Release/x64/
-!/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
-!/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
-!/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
-
-# Framework-local x64 dependency runtime and import libraries
-!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/lib/Release/x64/
-!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
-!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/bin/Release/x64/
-!/openGL_3dAssign_13/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
-!/openGL_3dAssign_13/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
-!/openGL_3dAssign_13/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
-
-# Independent practice and reusable framework binary dependencies
-!/framework/dependencies/glew-2.3.1/lib/Release/x64/
-!/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
-!/framework/dependencies/glew-2.3.1/bin/Release/x64/
-!/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
-!/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
-!/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
-!/openGL_3dAssign_14/framework/dependencies/glew-2.3.1/lib/Release/x64/
-!/openGL_3dAssign_14/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
-!/openGL_3dAssign_14/framework/dependencies/glew-2.3.1/bin/Release/x64/
-!/openGL_3dAssign_14/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
-!/openGL_3dAssign_14/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
-!/openGL_3dAssign_14/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
-!/openGL_3dAssign_15/framework/dependencies/glew-2.3.1/lib/Release/x64/
-!/openGL_3dAssign_15/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib
-!/openGL_3dAssign_15/framework/dependencies/glew-2.3.1/bin/Release/x64/
-!/openGL_3dAssign_15/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll
-!/openGL_3dAssign_15/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib
-!/openGL_3dAssign_15/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll
+# Vendored framework dependencies are source inputs, including x64 binaries.
+!**/framework/dependencies/**/
+!**/framework/dependencies/**/*.dll
+!**/framework/dependencies/**/*.lib
 
 # Generated MSVC state, NuGet cache, and graphify local state
 *.pdb

@@ -4,7 +4,7 @@
 #include <glfw3.h>
 #include <array>
 
-// 실습 14: 도형 선택, 연속 입력, 위치와 쿼터니언 회전을 관리한다.
+// 실습 14: 도형 선택, 연속 입력, 위치와 로컬 회전행렬을 관리한다.
 class Console {
 private:
     graphics::Application& application_;
@@ -13,7 +13,7 @@ private:
     bool pyramidSelected_ = false;
     std::array<bool, GLFW_KEY_LAST + 1> pressed_{};
     glm::vec3 position_{ 0.0f };
-    glm::quat orientation_{ 1.0f, 0.0f, 0.0f, 0.0f };
+    glm::mat3 rotation_{ 1.0f };
     glm::vec2 angularDirection_{ 0.0f };
 
     void selectShape(bool pyramid);

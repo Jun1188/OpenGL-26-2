@@ -2,41 +2,28 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <GraphicsFrameworkDirectory>$(MSBuildThisFileDirectory)</GraphicsFrameworkDirectory>
-    <GraphicsFrameworkGlewRoot>$(GraphicsFrameworkDirectory)dependencies\glew-2.3.1\</GraphicsFrameworkGlewRoot>
-    <GraphicsFrameworkGlfwRoot>$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\</GraphicsFrameworkGlfwRoot>
-    <GraphicsFrameworkGlmRoot>$(GraphicsFrameworkDirectory)dependencies\glm\</GraphicsFrameworkGlmRoot>
-    <LocalDebuggerWorkingDirectory>$(ProjectDir)</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>$(TargetDir)</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(GraphicsFrameworkDirectory)include;$(GraphicsFrameworkGlewRoot)include;$(GraphicsFrameworkGlewRoot)include\GL;$(GraphicsFrameworkGlfwRoot)include;$(GraphicsFrameworkGlfwRoot)include\GLFW;$(GraphicsFrameworkGlmRoot);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLFW_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebugDLL</RuntimeLibrary>
-      <RuntimeLibrary Condition="'$(Configuration)'=='Release'">MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(GraphicsFrameworkDirectory)include;$(GraphicsFrameworkDirectory)dependencies\glm;$(GraphicsFrameworkDirectory)dependencies\glew-2.3.1\include\GL;$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\include\GLFW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>$(GraphicsFrameworkGlewRoot)lib\Release\x64;$(GraphicsFrameworkGlfwRoot)lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
-  <Target Name="CheckGraphicsFrameworkDependencies" BeforeTargets="PrepareForBuild">
-    <Error Condition="'$(Platform)'!='x64'" Text="The bundled framework libraries support x64. Select Debug|x64 or Release|x64." />
-    <ItemGroup>
-      <GraphicsFrameworkRequiredFile Include="$(GraphicsFrameworkGlewRoot)include\GL\glew.h;$(GraphicsFrameworkGlewRoot)lib\Release\x64\glew32.lib;$(GraphicsFrameworkGlewRoot)bin\Release\x64\glew32.dll;$(GraphicsFrameworkGlfwRoot)include\GLFW\glfw3.h;$(GraphicsFrameworkGlfwRoot)lib-vc2022\glfw3dll.lib;$(GraphicsFrameworkGlfwRoot)lib-vc2022\glfw3.dll;$(GraphicsFrameworkGlmRoot)glm\glm.hpp" />
-    </ItemGroup>
-    <Error Condition="!Exists('%(GraphicsFrameworkRequiredFile.Identity)')" Text="Missing framework dependency: %(GraphicsFrameworkRequiredFile.Identity). Copy the complete framework folder including dependencies." />
+  <Target Name="CheckGraphicsFrameworkPlatform" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(Platform)'!='x64'" Text="Bundled framework runtime DLLs require x64." />
+    <Error Condition="!Exists('$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll')" Text="Copy the complete framework dependencies." />
   </Target>
-  <Target Name="CopyGraphicsFrameworkRuntimeDlls" AfterTargets="Build">
+  <Target Name="DeployGraphicsRuntime" AfterTargets="Build">
     <ItemGroup>
-      <GraphicsFrameworkRuntimeDll Include="$(GraphicsFrameworkGlewRoot)bin\Release\x64\glew32.dll;$(GraphicsFrameworkGlfwRoot)lib-vc2022\glfw3.dll" />
+      <GraphicsRuntime Include="$(GraphicsFrameworkDirectory)dependencies\**\*.dll;$(GraphicsFrameworkDirectory)dependencies\**\LICENSE*;$(GraphicsFrameworkDirectory)dependencies\**\COPYING*" />
+      <GraphicsShader Include="$(GraphicsFrameworkDirectory)shaders\*.glsl" />
+      <GraphicsAsset Include="$(ProjectDir)data\**\*"><AssetFolder>data</AssetFolder></GraphicsAsset>
+      <GraphicsAsset Include="$(ProjectDir)models\**\*"><AssetFolder>models</AssetFolder></GraphicsAsset>
+      <GraphicsAsset Include="$(ProjectDir)textures\**\*"><AssetFolder>textures</AssetFolder></GraphicsAsset>
     </ItemGroup>
-    <Copy SourceFiles="@(GraphicsFrameworkRuntimeDll)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
-  </Target>
-  <Target Name="CopyGraphicsFrameworkShaders" AfterTargets="Build">
-    <ItemGroup>
-      <GraphicsFrameworkShader Include="$(GraphicsFrameworkDirectory)shaders\VertexShader.glsl;$(GraphicsFrameworkDirectory)shaders\FragmentShader.glsl" />
-    </ItemGroup>
-    <Copy SourceFiles="@(GraphicsFrameworkShader)" DestinationFolder="$(TargetDir)shaders\" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GraphicsRuntime)" DestinationFiles="@(GraphicsRuntime->'$(TargetDir)framework\dependencies\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GraphicsShader)" DestinationFolder="$(TargetDir)framework\shaders\" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(GraphicsAsset)" DestinationFiles="@(GraphicsAsset->'$(TargetDir)%(AssetFolder)\%(RecursiveDir)%(Filename)%(Extension)')" Condition="'@(GraphicsAsset)'!=''" SkipUnchangedFiles="true" />
   </Target>
 </Project>

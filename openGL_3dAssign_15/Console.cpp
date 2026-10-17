@@ -1,7 +1,6 @@
 ﻿#include "Console.h"
 #include <glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/quaternion.hpp>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -70,7 +69,12 @@ bool Console::initScene() {
         return false;
     }
     auto& camera = application_.getCamera();
-    camera.position = { 1.8f, 1.2f, 3.0f };
+    const auto inverseView = glm::transpose(glm::mat3(glm::rotate(
+        glm::rotate(glm::mat4(1), glm::radians(30.0f), {1,0,0}),
+        glm::radians(30.0f), {0,1,0})));
+    camera.position = inverseView * glm::vec3(0,0,4);
+    camera.up = inverseView * glm::vec3(0,1,0);
+    camera.target = glm::vec3(0);
     camera.orthographic = true;
     camera.orthographicHalfExtent = 1.0f;
     resetAll();
@@ -110,9 +114,7 @@ void Console::resetAll() {
 
 void Console::applyObjectTransform() {
     graphics::Transform3D transform;
-    transform.rotationDegrees = { 30.0f, 0.0f, 0.0f };
-    // 초기 기울기 다음에 로컬 Y축 자전을 적용한다.
-    transform.orientation = glm::angleAxis(glm::radians(spinDegrees_), Y_AXIS);
+    transform.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(spinDegrees_), Y_AXIS));
     application_.getScene().setTransform(pyramidSelected_ ? pyramidId_ : cuboidId_, transform);
 }
 

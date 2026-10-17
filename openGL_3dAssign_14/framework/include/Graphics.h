@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include "Geometry.h"
+#include "../detail/Native.h"
+#include <map>
 
 #include <array>
 #include <cstddef>
@@ -15,66 +15,6 @@
 
 namespace graphics {
 
-constexpr int WINDOW_WIDTH = 800;
-constexpr int WINDOW_HEIGHT = 600;
-constexpr std::size_t MAX_ENTITIES = 50;
-constexpr std::size_t MAX_LINES = 500;
-
-using EntityId = std::size_t;
-using LineId = std::size_t;
-
-struct GlColor {
-    float red = 0.0f;
-    float green = 0.0f;
-    float blue = 0.0f;
-};
-
-enum class GLShape { None, Cube, Tetra, Pyramid }; // Cube는 직육면체, Tetra는 직사면체.
-enum class GLFace { None, Rect, Triangle };
-
-struct Transform3D {
-    glm::vec3 basis{ 0.0f }; // 월드 위치. 방향 기저는 addBasis의 mat3로 구분한다.
-    glm::vec3 localBasis{ 0.0f };
-    glm::vec3 rotationDegrees{ 0.0f };
-    glm::vec3 scale{ 1.0f };
-    glm::quat orientation{ 1.0f, 0.0f, 0.0f, 0.0f }; // Euler 회전 다음에 적용한다.
-};
-
-struct PlaneFigure {
-    GLFace shape = GLFace::None;
-    std::vector<glm::vec3> localVertices;
-    GlColor color;
-    glm::vec3 normal{ 0.0f }; // 로컬 법선 데이터. 조명은 현재 사용하지 않는다.
-    bool independence = false;
-    Transform3D transform;   // 독립 면일 때의 월드 변환.
-    bool visible = true;
-    glm::mat4 localAnimationMatrix{ 1.0f };
-    std::vector<GlColor> vertexColors; // 비어 있으면 면의 단색을 사용한다.
-};
-
-struct Polyhedron {
-    GLShape shape = GLShape::None;
-    std::vector<PlaneFigure> faces;
-};
-
-struct Component_Poly {
-    Polyhedron polyhedron;
-    Transform3D transform;
-    glm::vec3 sideLengths{ 1.0f }; // scale과 구분한 실제 로컬 모서리 길이.
-};
-
-struct FaceId {
-    EntityId entityId = 0;
-    std::size_t faceIndex = 0;
-};
-
-struct Line3D {
-    glm::vec3 start{ 0.0f };
-    glm::vec3 end{ 0.0f };
-    GlColor color;
-    std::optional<EntityId> owner; // 없으면 월드 좌표, 있으면 객체의 로컬 좌표.
-};
-
 class Scene {
 private:
     std::vector<EntityId> polyId_;
@@ -84,11 +24,18 @@ private:
     std::vector<FaceId> pyramidFaceId_;
     std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
+    void rebuildFaceIds();
 
 public:
     Scene();
+    std::optional<EntityId> addGroup(const Transform3D& transform = Transform3D{});
+    std::optional<EntityId> addSphere(float radius, const glm::vec3& position,
+                                      unsigned slices = 32, unsigned stacks = 16);
+    std::optional<EntityId> addCone(float radius, float height, const glm::vec3& position,
+                                    unsigned slices = 32);
+    bool setTint(EntityId id, GlColor color);
     std::optional<EntityId> push_entity(const Polyhedron& polyhedron,
-                                       const Transform3D& transform = {});
+                                       const Transform3D& transform = Transform3D{});
     std::optional<EntityId> addCuboid(const glm::vec3& sideLengths,
                                      const glm::vec3& worldPosition);
     std::optional<EntityId> addRightTetrahedron(const glm::vec3& edgeLengths,
@@ -102,18 +49,47 @@ public:
     bool setPosition(EntityId id, const glm::vec3& worldPosition);
     bool setSideLengths(EntityId id, const glm::vec3& sideLengths);
     bool setTransform(EntityId id, const Transform3D& transform);
+    bool setParent(EntityId id, std::optional<EntityId> parent);
+    std::optional<glm::mat4> worldMatrix(EntityId id) const;
+    std::optional<glm::mat4> faceWorldMatrix(EntityId id, std::size_t faceIndex) const;
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
 
+    std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = Transform3D{},
+                                     PivotMode pivot = PivotMode::BottomCenter,
+                                     const glm::vec3& customPivot = glm::vec3(0));
+    bool setModel(EntityId id, const Model& model);
+    bool setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh);
+    const Mesh* getMesh(EntityId id, std::size_t meshIndex) const;
+    bool setMeshVertices(EntityId id, std::size_t meshIndex,
+                         const std::vector<Vertex>& vertices,
+                         const std::vector<std::uint32_t>& triangles);
+    bool setVertexPosition(EntityId id, std::size_t meshIndex,
+                           std::size_t vertexIndex, const glm::vec3& position);
+    bool setTriangleIndices(EntityId id, std::size_t meshIndex,
+                            const std::vector<std::uint32_t>& indices);
+    bool generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& options = UVOptions{});
+    bool transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& scale,
+                            const glm::vec2& offset, float rotationDegrees = 0);
+    bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector<glm::vec2>& uvs);
+    bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm::vec3>& normals);
+    bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material);
+    bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode,
+                    const std::vector<std::uint32_t>& explicitEdges = std::vector<std::uint32_t>{});
+    bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3& customPivot = glm::vec3(0));
+    bool setVisible(EntityId id, bool visible);
+    bool splitFace(EntityId id, std::size_t faceIndex);
+    bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D& transform);
+
     std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end,
-                                 GlColor color, std::optional<EntityId> owner = {});
+                                 GlColor color, std::optional<EntityId> owner = std::nullopt);
     std::optional<LineId> addVector(const glm::vec3& origin, const glm::vec3& vector,
-                                   GlColor color, std::optional<EntityId> owner = {});
+                                   GlColor color, std::optional<EntityId> owner = std::nullopt);
     // mat3의 열이 X/Y/Z 기저 벡터다. 벡터를 정규화하지 않고 그대로 사용한다.
     std::optional<std::array<LineId, 3>> addBasis(
         const glm::vec3& origin, const glm::mat3& basisVectors = glm::mat3(1.0f),
         const glm::vec3& axisLengths = glm::vec3(1.0f),
-        std::optional<EntityId> owner = {});
+        std::optional<EntityId> owner = std::nullopt);
     bool setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector);
     void clear(); // ID는 clear 이후 재사용된다. 기존 ID를 계속 사용하지 않는다.
 
@@ -130,6 +106,8 @@ class DiagramSystem {
 public:
     static Polyhedron makePolyhedron(GLShape shape,
                                      const glm::vec3& sideLengths = glm::vec3(1.0f));
+    static Model makeSphere(float radius, unsigned slices = 32, unsigned stacks = 16);
+    static Model makeCone(float radius, float height, unsigned slices = 32);
     static bool validPolyhedron(const Polyhedron& polyhedron);
     static bool validTransform(const Transform3D& transform);
     static glm::mat4 modelMatrix(const Transform3D& transform);
@@ -141,8 +119,7 @@ struct Camera {
     glm::vec3 position{ 2.8f, 2.0f, 5.0f };
     glm::vec3 target{ 0.0f };
     glm::vec3 up{ 0.0f, 1.0f, 0.0f };
-    float fieldOfViewDegrees = 45.0f;//카메라가 이미 회전한 상태다 - 45 degrees
-
+    float fieldOfViewDegrees = 45.0f;
     float nearPlane = 0.1f;
     float farPlane = 100.0f;
     bool orthographic = false;
@@ -161,49 +138,48 @@ std::string readTextFile(const std::filesystem::path& path);
 struct RenderOptions {
     bool depthTest = true;
     bool wireframe = false;
+    bool textures = false; // Explicit opt-in; no texture GPU work when false.
+    bool lighting = false;
+    glm::vec3 lightDirection{1, 1, 1};
+    GlColor lightColor;
+    GlColor outlineColor{0.05f, 0.05f, 0.05f};
+    glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
 };
 
 class Renderer {
-private:
     struct DrawRange {
-        GLenum mode = GL_TRIANGLES;
         EntityId entityId = 0;
         std::size_t faceIndex = 0;
         std::optional<LineId> lineId;
-        std::size_t firstIndex = 0;
-        GLsizei count = 0;
-        std::size_t outlineFirstIndex = 0;
-        GLsizei outlineCount = 0;
+        std::size_t firstIndex = 0, outlineFirstIndex = 0;
+        GLsizei count = 0, outlineCount = 0;
     };
-
-    GLuint shaderProgramID_ = 0;
-    GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 };
-    GLuint ebo_ = 0;
-    GLint mvpLocation_ = -1;
+    GLuint shaderProgramID_ = 0, vao_ = 0, vbo_ = 0, ebo_ = 0;
+    GLint mvpLocation_ = -1, modelLocation_ = -1, normalLocation_ = -1;
+    GLint textureLocation_ = -1, hasTextureLocation_ = -1, lightingLocation_ = -1;
+    GLint lightDirectionLocation_ = -1, lightColorLocation_ = -1;
+    GLint overrideLocation_ = -1, outlineColorLocation_ = -1, tintLocation_ = -1;
     std::vector<DrawRange> drawRanges_;
+    using TextureMap = std::map<std::shared_ptr<const TextureImage>, GLuint,
+                               std::owner_less<std::shared_ptr<const TextureImage>>>;
+    TextureMap textures_;
     const Scene* uploadedScene_ = nullptr;
     std::uint64_t uploadedRevision_ = std::numeric_limits<std::uint64_t>::max();
-
-    bool initShader(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
-    bool initBuffer();
-    bool upload(const Scene& scene);
-    bool draw(const Scene& scene, const glm::mat4& view,
-              const glm::mat4& projection, const RenderOptions& options) const;
-
+    bool uploadedTextures_ = false;
+    bool initShader(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath);
+    bool upload(const Scene& scene, bool textures);
+    bool draw(const Scene& scene, const glm::mat4& view, const glm::mat4& projection,
+              const RenderOptions& options) const;
 public:
     Renderer() = default;
     Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
-
-    // 호출자가 유효한 OpenGL 3.3 컨텍스트를 current로 설정한 뒤 호출한다.
-    bool initialize(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
-    // viewport/depth/clear/program/VAO를 설정한다. 컨텍스트와 윈도우는 소유하지 않는다.
+    // Requires a current OpenGL 3.3 context. Empty paths select embedded shaders.
+    bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{}, const std::filesystem::path& fragmentPath = std::filesystem::path{});
     bool render(const Scene& scene, const Camera& camera, int width, int height,
-                const RenderOptions& options = {});
-    void destroy(); // 컨텍스트 종료 전에 호출한다. 여러 번 호출해도 된다.
+                const RenderOptions& options = RenderOptions{});
+    void destroy(); // Call while the owning context is current, before it is destroyed.
 };
-
 } // namespace graphics
+#include "../detail/Scene.inl"
+#include "../detail/Renderer.inl"
