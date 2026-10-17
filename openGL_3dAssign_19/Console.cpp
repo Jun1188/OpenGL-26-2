@@ -124,8 +124,11 @@ void Console::onUpdate(float dt) {
     auto camera=app_.getCamera();const glm::vec3 delta{cameraX_*2*dt,0,cameraZ_*2*dt};
     camera.position+=delta;camera.target+=delta;
     if(cameraYaw_!=0) {
-        const auto rotation=turn(cameraYaw_*35*dt,glm::normalize(camera.up));
-        camera.target=camera.position+rotation*(camera.target-camera.position);camera.up=rotation*camera.up;
+        const auto forward=glm::normalize(camera.target-camera.position);
+        const auto right=glm::normalize(glm::cross(forward,camera.up));
+        const auto localUp=glm::normalize(glm::cross(right,forward));
+        const auto rotation=turn(cameraYaw_*35*dt,localUp);
+        camera.target=camera.position+rotation*(camera.target-camera.position);camera.up=rotation*localUp;
     }
     if(cameraOrbit_!=0) {
         const auto rotation=turn(cameraOrbit_*25*dt,{0,1,0});

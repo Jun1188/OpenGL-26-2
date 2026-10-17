@@ -1,7 +1,13 @@
-﻿from pathlib import Path
-import json
+﻿"""Code-only graphify extraction. No builds, tests, benchmarks, or semantic API calls."""
+from pathlib import Path
+import argparse
+import collections
+import datetime
 import hashlib
+import json
+import re
 import subprocess
+import xml.etree.ElementTree as ET
 import graphify.extract as extraction_api
 from graphify.detect import detect, save_manifest
 from graphify.build import build_from_json
@@ -11,76 +17,147 @@ from graphify.report import generate
 from graphify.export import to_json, to_html
 from graphify.diagnostics import diagnose_extraction, format_diagnostic_report
 
-base = Path(__file__).resolve().parent
-root = base.parent / 'framework'
-output = base / 'graphify-out'
-extraction_api._DISPATCH['.inl'] = extraction_api.extract_cpp
-files = sorted(p for p in root.rglob('*') if p.is_file()
-               and p.suffix in {'.h', '.cpp', '.inl'} and 'dependencies' not in p.parts)
-detection = detect(root, extra_excludes=['dependencies/**', 'docs/**', '*.md', 'shaders/**'], cache_root=base)
-detection['files'] = {'code': [str(p) for p in files], 'document': [], 'paper': [], 'image': [], 'video': []}
-detection['total_files'] = len(files)
-detection['total_words'] = sum(len(p.read_text(encoding='utf-8-sig').split()) for p in files)
-extraction = extraction_api.extract(files, cache_root=base, root=root)
-graph = build_from_json(extraction, root=str(root), directed=True)
-old = json.loads((output / 'graph.json').read_text(encoding='utf-8-sig'))
-if not graph.number_of_nodes() or graph.number_of_nodes() < len(old['nodes']):
-    raise RuntimeError('Empty or smaller graph: existing graph preserved')
-communities = cluster(graph)
-cohesion = score_all(graph, communities)
-names = {'Native.h': '네이티브 함수 연결', 'Geometry.h': 'UV와 기하 계산',
-         'Scene.inl': '장면과 계층 변환', 'Renderer.inl': 'GPU 렌더링',
-         'Picking.h': '교점과 UV 피킹', 'PrimitiveLoader.inl': '기본 도형 파서',
-         'AssimpLoader.inl': '일반 모델 로딩', 'Application.inl': '앱 실행과 입력',
-         'Model.h': '모델과 재질 데이터', 'Graphics.h': '장면 공개 API',
-         'Texture.h': '이미지 디코딩', 'Shaders.h': '내장 셰이더'}
-labels = {}
-for cid, members in communities.items():
-    counts = {}
-    for node in members:
-        source = Path(graph.nodes[node].get('source_file', '')).name
-        counts[source] = counts.get(source, 0) + 1
-    source = max(counts, key=counts.get) if counts else 'Framework'
-    labels[cid] = names.get(source, source + ' 구조')
-gods = god_nodes(graph)
-surprises = surprising_connections(graph, communities)
-questions = suggest_questions(graph, communities, labels)
-staged = output / 'graph.generated.json'
-if not to_json(graph, communities, str(staged), force=True, community_labels=labels):
-    raise RuntimeError('Graph export failed')
-staged.write_text(staged.read_text(encoding='utf-8-sig'), encoding='utf-8-sig')
-staged.replace(output / 'graph.json')
+REPOSITORY = Path(__file__).resolve().parent.parent
 
-def dump(name, value):
-    (output / name).write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8-sig')
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(value.rstrip()+'\n', encoding='utf-8-sig')
 
-dump('EXTRACTION.json', extraction)
-dump('DETECTION.json', detection)
-dump('COMMUNITIES.json', {str(k): v for k, v in labels.items()})
-dump('ANALYSIS.json', {'communities': {str(k): v for k, v in communities.items()},
-                     'cohesion': {str(k): v for k, v in cohesion.items()},
-                     'gods': gods, 'surprises': surprises, 'questions': questions})
-report = generate(graph, communities, cohesion, labels, gods, surprises, detection,
-                  {'input': 0, 'output': 0}, str(root), suggested_questions=questions)
-(output / 'GRAPH_REPORT.md').write_text(report, encoding='utf-8-sig')
-health = diagnose_extraction(extraction, directed=True, root=str(root))
-(output / 'GRAPH_HEALTH.md').write_text(format_diagnostic_report(health), encoding='utf-8-sig')
-if not to_html(graph, communities, str(output / 'graph.html'), community_labels=labels):
-    raise RuntimeError('HTML export incomplete')
-html = output / 'graph.html'
-html.write_text(html.read_text(encoding='utf-8-sig'), encoding='utf-8-sig')
-save_manifest({'code': [str(p) for p in files]}, str(output / 'manifest.json'),
-              kind='ast', root=root, scan_corpus=[str(p) for p in files])
-manifest = output / 'manifest.json'
-manifest.write_text(manifest.read_text(encoding='utf-8-sig'), encoding='utf-8-sig')
-commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=base, text=True).strip()
-dump('SOURCE_MANIFEST.json', {'source_root': str(root), 'output_root': str(output),
-                            'source_commit': commit, 'includes_uncommitted_step4': True,
-                            'files': [{'path': p.relative_to(root).as_posix(),
-                                       'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in files]})
-dump('BENCHMARK.json', {'status': 'not_run', 'reason': 'User delegates tests and benchmarks; previous estimate is obsolete.'})
-dump('cost.json', {'run': '2026-10-12', 'mode': 'AST only', 'input_tokens': 0,
-                   'output_tokens': 0, 'external_api_calls': 0})
-print(json.dumps({'files': len(files), 'nodes': graph.number_of_nodes(),
-                  'edges': graph.number_of_edges(), 'communities': len(communities)}))
-print(format_diagnostic_report(health))
+def dump(path, value):
+    write(path, json.dumps(value, ensure_ascii=False, indent=2))
+
+def project_inventory():
+    ns={'m':'http://schemas.microsoft.com/developer/msbuild/2003'}
+    projects=[]
+    for p in sorted(REPOSITORY.rglob('*.vcxproj')):
+        if any(x in p.parts for x in ['dependencies','packages','.vs','x64','Debug','Release']):continue
+        sources=[];entries=[]
+        for e in ET.parse(p).findall('.//m:ClCompile',ns):
+            include=e.get('Include')
+            if not include:continue
+            source=(p.parent/include.replace('\\','/')).resolve()
+            if not source.is_file():continue
+            relative=source.relative_to(REPOSITORY).as_posix();sources.append(relative)
+            text=source.read_text(encoding='utf-8-sig')
+            for m in re.finditer(r'\b(?:int|void)\s+(main|wmain)\s*\(',text):
+                line=text[:m.start()].count('\n')+1
+                item={'file':relative,'line':line,'name':m.group(1)}
+                if 'computer_graphics_warmUp1/' in relative:
+                    problem=1 if line<550 else 2 if line<765 else 3 if line<876 else 4
+                    item.update(condition=f'PROB == {problem}',active_by_source_default=problem==2)
+                entries.append(item)
+        projects.append({'project':p.relative_to(REPOSITORY).as_posix(),'sources':sources,'entrypoints':entries})
+    for name in ['basic','assets']:
+        projects.append({'project':None,'standalone_example':True,'sources':[f'framework/examples/{name}.cpp'],
+                         'entrypoints':[{'file':f'framework/examples/{name}.cpp','name':'main'}]})
+    return projects
+
+def add_source_anchors(extraction, files, root):
+    """Anchor qualified inline definitions and project-specific callback registrations."""
+    anchors={}
+    for p in files:
+        rel=p.relative_to(root).as_posix();text=p.read_text(encoding='utf-8-sig')
+        file_id='review_file_'+hashlib.sha256(rel.encode()).hexdigest()[:20]
+        extraction['nodes'].append({'id':file_id,'label':rel,'source_file':rel,
+                                    'source_location':'L1','file_type':'code','_origin':'source_definition_review'})
+        for m in re.finditer(r'^(?:inline\s+)?[\w:<>,*& ]+\s+((?:\w+::)+\w+|main|wmain)\s*\([^;]*?\)\s*(?:const\s*)?\{',text,re.M):
+            symbol=m.group(1);line=text[:m.start()].count('\n')+1
+            ident='source_'+hashlib.sha256(f'{rel}:{line}:{symbol}'.encode()).hexdigest()[:20]
+            node={'id':ident,'label':symbol,'source_file':rel,'source_location':f'L{line}',
+                  'file_type':'code','_callable':True,'_origin':'source_definition_review'}
+            extraction['nodes'].append(node);anchors[(rel,symbol)]=node
+            extraction['edges'].append({'source':file_id,'target':ident,'relation':'defines',
+                'confidence':'EXTRACTED','source_file':rel,'source_location':f'L{line}'})
+    for number in range(13,20):
+        rel=f'openGL_3dAssign_{number}/main.cpp'
+        if (rel,'main') not in anchors:continue
+        text=(root/rel).read_text(encoding='utf-8-sig')
+        for match in re.finditer(r'practice\.(initScene|onKey|onUpdate|onFocus)\s*\(',text):
+            target=anchors.get((f'openGL_3dAssign_{number}/Console.cpp','Console::'+match.group(1)))
+            if not target:continue
+            extraction['edges'].append({'source':anchors[(rel,'main')]['id'],'target':target['id'],
+                'relation':'registered_callback_body_calls','confidence':'EXTRACTED','source_file':rel,
+                'source_location':'L'+str(text[:match.start()].count('\n')+1),
+                'context':f'practice {number}: lambda executes later through Application callbacks'})
+    return len(anchors)
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--scope',choices=['framework','repository'],default='framework')
+    args=parser.parse_args();framework=args.scope=='framework'
+    root=REPOSITORY/'framework' if framework else REPOSITORY
+    out=REPOSITORY/'framework-analysis/graphify-out' if framework else REPOSITORY/'graphify-out'
+    cache=out/'cache';out.mkdir(parents=True,exist_ok=True)
+    excluded={'dependencies','packages','.vs','x64','Debug','Release','archive','graphify-out','framework-analysis','.agents','docs'}
+    files=[]
+    for p in root.rglob('*'):
+        relative=p.relative_to(root)
+        if not p.is_file() or p.suffix.lower() not in {'.cpp','.h','.hpp','.inl'}:continue
+        if any(part in excluded for part in relative.parts):continue
+        if not framework and len(relative.parts)>1 and relative.parts[0].startswith('openGL') and 'framework' in relative.parts:continue
+        files.append(p)
+    files.sort()
+    detection=detect(root,extra_excludes=['**/dependencies/**','**/packages/**','**/x64/**','**/archive/**','**/.vs/**'],cache_root=cache)
+    detection['files']={'code':[str(p) for p in files],'document':[],'paper':[],'image':[],'video':[]}
+    detection['total_files']=len(files)
+    detection['total_words']=sum(len(p.read_text(encoding='utf-8-sig').split()) for p in files)
+    print(f'Corpus: {len(files)} code files, {detection["total_words"]} words; SDKs and duplicate distributions excluded.',flush=True)
+    if not files or len(files)>500 or detection['total_words']>2000000:raise RuntimeError('Unexpected corpus size; preserve existing outputs.')
+    if detection.get('skipped_sensitive'):print('Detection skipped sensitive names:',detection['skipped_sensitive'],flush=True)
+    extraction_api._DISPATCH['.inl']=extraction_api.extract_cpp
+    ordinary=[p for p in files if p.suffix.lower()!='.inl']
+    extraction=extraction_api.extract(ordinary,cache_root=cache,root=root)
+    # Worker processes do not inherit the process-local .inl dispatcher.
+    for inline in (p for p in files if p.suffix.lower()=='.inl'):
+        part=extraction_api.extract([inline],cache_root=cache,root=root)
+        if not part.get('nodes'):raise RuntimeError('Inline extraction failed: '+str(inline))
+        extraction['nodes'].extend(part['nodes']);extraction['edges'].extend(part['edges'])
+    if not extraction.get('nodes'):raise RuntimeError('Empty AST extraction; preserve existing graph.')
+    anchors=add_source_anchors(extraction,files,root)
+    nodes={n['id']:n for n in extraction['nodes']};ambiguous=0
+    for e in extraction['edges']:
+        a=nodes.get(e.get('source'),{}).get('source_file','').replace('\\','/').split('/')[0]
+        b=nodes.get(e.get('target'),{}).get('source_file','').replace('\\','/').split('/')[0]
+        if not framework and a!=b and a and b and b!='framework' and e.get('relation')=='calls':
+            e['confidence']='AMBIGUOUS';e['audit_note']='Same symbol across independent programs; not a confirmed runtime call.';ambiguous+=1
+    graph=build_from_json(extraction,root=str(root),directed=True)
+    if not graph.number_of_nodes():raise RuntimeError('Empty graph; preserve existing outputs.')
+    # A smaller graph is valid when obsolete source files have been removed.
+    communities=cluster(graph);scores=score_all(graph,communities)
+    labels={}
+    for cid,members in communities.items():
+        counts=collections.Counter(graph.nodes[n].get('source_file','').replace('\\','/').split('/')[0] for n in members)
+        labels[cid]=(counts.most_common(1)[0][0] if counts else '공통')+' 코드 구조'
+    gods=god_nodes(graph);surprises=surprising_connections(graph,communities);questions=suggest_questions(graph,communities,labels)
+    commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=REPOSITORY,text=True).strip()
+    staged=out/'graph.generated.json'
+    if not to_json(graph,communities,str(staged),force=True,built_at_commit=commit,community_labels=labels):raise RuntimeError('Graph export failed.')
+    write(staged,staged.read_text(encoding='utf-8-sig'));staged.replace(out/'graph.json')
+    report=generate(graph,communities,scores,labels,gods,surprises,detection,{'input':0,'output':0},str(root),suggested_questions=questions,built_at_commit=commit)
+    report+='\n## 해석 범위\n\n코드 AST와 소스 정의·콜백 등록 위치를 분석했다. 빌드·테스트·실행은 하지 않았다. SDK와 과제별 프레임워크 복사본은 제외했다. 프로젝트별 실제 컴파일은 동일한 배포본을 사용한다. 동적 디스패치와 같은 이름의 메서드 연결은 소스와 대조해야 한다.\n'
+    write(out/'GRAPH_REPORT.md',report)
+    health=diagnose_extraction(extraction,directed=True,root=str(root))
+    write(out/'GRAPH_HEALTH.md',format_diagnostic_report(health)+f'\nCross-program calls marked AMBIGUOUS: {ambiguous}. Source anchors: {anchors}.\n')
+    if graph.number_of_nodes()>5000:print('Warning: HTML graph exceeds 5000 nodes.',flush=True)
+    if not to_html(graph,communities,str(out/'graph.html'),community_labels=labels):raise RuntimeError('HTML export failed.')
+    write(out/'graph.html',(out/'graph.html').read_text(encoding='utf-8-sig'))
+    dump(out/'EXTRACTION.json',extraction);dump(out/'RELATIONS.json',extraction);dump(out/'DETECTION.json',detection)
+    dump(out/'COMMUNITIES.json',labels);dump(out/'ANALYSIS.json',{'gods':gods,'surprises':surprises,'questions':questions,'cohesion':scores})
+    dump(out/'PROJECTS.json',project_inventory())
+    hashes={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    dump(out/'SOURCE_HASHES.json',hashes)
+    dump(out/'SOURCE_MANIFEST.json',{'source_root':'.' if not framework else 'framework','scope':args.scope,
+         'source_commit':commit,'includes_uncommitted_step8':True,'files':hashes})
+    temporary=out/'manifest.generated.json'
+    save_manifest({'code':[str(p) for p in files]},str(temporary),kind='ast',root=root,scan_corpus=[str(p) for p in files])
+    write(out/'manifest.json',temporary.read_text(encoding='utf-8-sig'));temporary.unlink()
+    dump(out/'cost.json',{'date':datetime.datetime.now(datetime.timezone.utc).isoformat(),'mode':'AST + source anchors',
+        'input_tokens':0,'output_tokens':0,'external_api_calls':0,'files':len(files)})
+    dump(out/'BENCHMARK.json',{'status':'not_run','reason':'Builds, tests and benchmarks are delegated to the user.'})
+    # Artifact encoding checks are part of graph generation, not executable tests.
+    for name in ['graph.json','graph.html','GRAPH_REPORT.md','EXTRACTION.json','PROJECTS.json']:
+        value=(out/name).read_text(encoding='utf-8-sig')
+        if '\ufffd' in value:raise RuntimeError('Unicode replacement character in '+name)
+    print(f'Graph complete: {graph.number_of_nodes()} nodes, {graph.number_of_edges()} edges, {len(communities)} communities.',flush=True)
+    print(format_diagnostic_report(health),flush=True)
+
+if __name__=='__main__':main()

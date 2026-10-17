@@ -165,6 +165,21 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
     gl.Uniform3f(lightDirectionLocation_,options.lightDirection.x,options.lightDirection.y,options.lightDirection.z);
     gl.Uniform3f(lightColorLocation_,options.lightColor.red,options.lightColor.green,options.lightColor.blue);
     gl.Uniform3f(outlineColorLocation_,options.outlineColor.red,options.outlineColor.green,options.outlineColor.blue);
+    if(options.wireframe && options.depthTest) {
+        // All surfaces write depth first, so a later object's front face hides earlier back edges.
+        gl.ColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+        for(const auto& range:drawRanges_) {
+            if(range.lineId)continue;
+            const auto* c=scene.getComponent(range.entityId);
+            const auto& face=c->polyhedron.faces[range.faceIndex];
+            if(!c->visible||!face.visible)continue;
+            const auto matrix=projection*view*(*scene.faceWorldMatrix(range.entityId,range.faceIndex));
+            gl.UniformMatrix4fv(mvpLocation_,1,GL_FALSE,glm::value_ptr(matrix));
+            gl.DrawElements(GL_TRIANGLES,range.count,GL_UNSIGNED_INT,
+                reinterpret_cast<const void*>(range.firstIndex*sizeof(GLuint)));
+        }
+        gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+    }
     for(const auto& range:drawRanges_) {
         glm::mat4 model(1);const Mesh* face=nullptr;GlColor tint;
         if(range.lineId) {
@@ -194,7 +209,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             gl.DrawElements(face?GL_TRIANGLES:GL_LINES,range.count,GL_UNSIGNED_INT,
                 reinterpret_cast<const void*>(range.firstIndex*sizeof(GLuint)));
         if(face&&(options.wireframe||face->outline!=OutlineMode::None)) {
-            gl.Uniform1i(hasTextureLocation_,0);gl.Uniform1i(lightingLocation_,0);gl.Uniform1i(overrideLocation_,1);
+            gl.Uniform1i(hasTextureLocation_,0);gl.Uniform1i(lightingLocation_,0);gl.Uniform1i(overrideLocation_,options.wireframe?0:1);
             gl.DepthFunc(GL_LEQUAL);gl.DepthMask(GL_FALSE);
             gl.DrawElements(GL_LINES,range.outlineCount,GL_UNSIGNED_INT,
                 reinterpret_cast<const void*>(range.outlineFirstIndex*sizeof(GLuint)));
@@ -218,7 +233,7 @@ inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,i
     gl.Viewport(0,0,width,height);gl.LineWidth(1);
     if(options.depthTest)gl.Enable(GL_DEPTH_TEST);else gl.Disable(GL_DEPTH_TEST);
     gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Disable(GL_SCISSOR_TEST);
-    gl.PolygonMode(GL_FRONT_AND_BACK,GL_FILL);gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);
+    gl.PolygonMode(GL_FRONT_AND_BACK,GL_FILL);gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
     gl.ClearColor(options.background.r,options.background.g,options.background.b,options.background.a);
     gl.Clear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     return draw(scene,CameraSystem::viewMatrix(camera),CameraSystem::projectionMatrix(camera,float(width)/height),options);

@@ -72,6 +72,13 @@ void Console::onKey(int key,int action,int mods) {
     if(key==GLFW_KEY_T){begin(Motion::Straight);return;}
     if(key==GLFW_KEY_U){begin(Motion::Bypass);return;}
     if(key==GLFW_KEY_V){begin(Motion::Combined);return;}
+    if(key==GLFW_KEY_C) {
+        for(auto& o:objects_) {
+            o.shape=(o.shape+1)%3;
+            if(!app_.getScene().setModel(o.body,model(o.shape)))throw std::runtime_error("Cannot replace model.");
+        }
+        apply();return;
+    }
     for(std::size_t i=0;i<2;++i) {
         if(selected_!=3&&selected_!=int(i+1))continue;
         auto& o=objects_[i];
@@ -84,9 +91,6 @@ void Console::onKey(int key,int action,int mods) {
             const float old=o.scale;o.scale=std::clamp(old*(upper?1/1.1f:1.1f),.15f,3.0f);
             o.position*=o.scale/old;break;
         }
-        case GLFW_KEY_C:o.shape=(o.shape+1)%3;
-            if(!app_.getScene().setModel(o.body,model(o.shape)))throw std::runtime_error("Cannot replace model.");
-            break;
         default:break;
         }
     }

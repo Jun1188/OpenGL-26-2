@@ -1,0 +1,19 @@
+﻿{
+  "detail/Application.inl": "24aaacfd99fe480d543212710934a1bb9d42c2909ad0df967ebf56f122af2257",
+  "detail/AssimpLoader.inl": "b4317b8fee7e9101e1774a8146cd4df8e397aca90284e9d969b01e7239281e24",
+  "detail/Native.h": "b52fdaf0a6d817ed5832f1598d553fc483d1cb8f302d15a2808e38b46fa47e85",
+  "detail/PrimitiveLoader.inl": "25ce148d7fd85b3ea7a95c3101b207f32da24eec0f0b0d6d702cf8a55f925cac",
+  "detail/Renderer.inl": "32bc076d654349bf35a3f98c8ac492fb7f35ebadae1c54ec6a8391b173dbc62a",
+  "detail/Scene.inl": "a7777d6f837676676429798a81c6695ae106efcf6071b5e81b94b3eb496b63ee",
+  "detail/Shaders.h": "c5c3efd43b1b581a0daaaf1fff75f8159518a601a9c4acd395e9453e0d2f2789",
+  "examples/assets.cpp": "47846e15cef104872a4715b6dae7b58c438303ef0ee588d5aa58d29b12c1974f",
+  "examples/basic.cpp": "058714da90df2d75f157fc9b2f534049c84c6acfd247c679b67dcaa916fc7f0c",
+  "Framework.h": "a21aa6d5ebb3409d174d69b9883c0b76bf4645da22caa0baa591a4f8e81d8cd4",
+  "include/Application.h": "d6124585e37e3eab5b6c0069dee0f30fd0ae299b4b1a332d5ba0649e61983326",
+  "include/Geometry.h": "71fb269d8aab0db531e7a71921e23cab3c7b9e12d4e3963f62762394aa68bfe1",
+  "include/Graphics.h": "277575cdcd82eb60a66b7535560f4effbcf7fc6d014e4e390a177ff8673a745b",
+  "include/Model.h": "ae4602d68f58362c7ac8b800062643c8ef7095daa12d02694954f64f02b635fc",
+  "include/ModelLoader.h": "da8103ecd58ead65a7d70f2e369905eb6d6851cf8ffb87e5241193286bc79624",
+  "include/Picking.h": "aa00ca98c4ec95004e140f3c532853ad9daf1ab8386b2c01d39997340c4ee6ff",
+  "include/Texture.h": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313"
+}

@@ -1,4 +1,6 @@
-﻿# 실습 15: 입력과 중첩 모션
+﻿> 이전 버전 기록이다. 현재 좌표·프레임워크·실행 흐름은 EXECUTION_FLOW.md를 따른다.
+
+# 실습 15: 입력과 중첩 모션
 
 최신 구현의 소스 검토 결과다. 빌드·실행 테스트는 사용자 확인 필요다.
 소스: ../openGL_3dAssign_15/Console.h, ../openGL_3dAssign_15/Console.cpp.

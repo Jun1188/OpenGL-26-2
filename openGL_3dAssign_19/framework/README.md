@@ -22,6 +22,8 @@ Transform3D는 basis(부모 좌표의 위치), localBasis(로컬 피벗), rotati
 
 AssetLoader::loadPrimitive는 도형 텍스트·OBJ 부분집합, loadModel은 Assimp 정적 모델을 읽는다. models/textures는 ApplicationConfig.features에서 명시적으로 켠다. 뼈대 애니메이션은 제공하지 않는다. UV는 Planar/Box/Cylindrical/Spherical 투영을 지원한다.
 
+와이어는 정점 색상과 tint를 유지한다. depthTest가 켜지면 전체 면 깊이를 먼저 기록하여 가려진 와이어를 제거한다. 솔리드 경계선은 outlineColor를 사용한다.
+
 ## 상대경로와 배포
 
 ApplicationConfig.projectRoot 기본값 `.`은 실행 파일 폴더다. runtimeDirectory 기본값 `framework`와 선택적 shaderDirectory는 projectRoot 내부 상대경로다. 자산 인자는 projectRoot 내부 상대경로여야 한다. 절대경로·루트 이탈은 거부한다. 기본 셰이더는 내장되어 있다.

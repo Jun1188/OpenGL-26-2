@@ -1,4 +1,6 @@
-﻿# 실습 13·14·15: main에서 GPU까지
+﻿> 이전 버전 기록이다. 현재 좌표·프레임워크·실행 흐름은 EXECUTION_FLOW.md를 따른다.
+
+# 실습 13·14·15: main에서 GPU까지
 
 세 프로그램은 **입력 → Console의 CPU 상태 → Scene의 도형·변환 → Renderer의 OpenGL 호출 → 셰이더 → 화면** 순서로 작동한다. 실습별 main과 Console은 다르며, 각 프로젝트는 자기 framework의 Application.cpp와 Graphics.cpp를 컴파일한다. 루트 framework는 별도로 개편된 라이브러리이므로 이 세 실행 파일의 호출 흐름과 섞지 않는다.
 

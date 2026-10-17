@@ -1,4 +1,4 @@
 ﻿{
   "status": "not_run",
-  "reason": "User delegates tests and benchmarks; previous estimate is obsolete."
+  "reason": "Builds, tests and benchmarks are delegated to the user."
 }

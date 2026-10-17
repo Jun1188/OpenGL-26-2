@@ -1,7 +1,8 @@
 ﻿{
-  "run": "2026-10-12",
-  "mode": "AST only",
+  "date": "2026-10-17T09:16:02.571766+00:00",
+  "mode": "AST + source anchors",
   "input_tokens": 0,
   "output_tokens": 0,
-  "external_api_calls": 0
+  "external_api_calls": 0,
+  "files": 17
 }

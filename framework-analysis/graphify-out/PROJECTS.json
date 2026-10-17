@@ -1,0 +1,299 @@
+﻿[
+  {
+    "project": "Computer-Graphics_WarmmingUp2/Computer-Graphics_WarmmingUp2.vcxproj",
+    "sources": [
+      "Computer-Graphics_WarmmingUp2/FileName.cpp",
+      "Computer-Graphics_WarmmingUp2/Application.cpp",
+      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
+      "Computer-Graphics_WarmmingUp2/console.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "Computer-Graphics_WarmmingUp2/FileName.cpp",
+        "line": 43,
+        "name": "wmain"
+      }
+    ]
+  },
+  {
+    "project": "Computer-Graphics_WarmmingUp2/tests/WarmupTests.vcxproj",
+    "sources": [
+      "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
+      "Computer-Graphics_WarmmingUp2/Application.cpp",
+      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
+      "Computer-Graphics_WarmmingUp2/console.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
+        "line": 199,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "computer_graphics_warmUp1/computer_graphics_warmUp1.vcxproj",
+    "sources": [
+      "computer_graphics_warmUp1/FileName.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 534,
+        "name": "main",
+        "condition": "PROB == 1",
+        "active_by_source_default": false
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 755,
+        "name": "main",
+        "condition": "PROB == 2",
+        "active_by_source_default": true
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 873,
+        "name": "main",
+        "condition": "PROB == 3",
+        "active_by_source_default": false
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 998,
+        "name": "main",
+        "condition": "PROB == 4",
+        "active_by_source_default": false
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign11/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_2dAssign11/Common.cpp",
+      "openGL_2dAssign11/Console.cpp",
+      "openGL_2dAssign11/main.cpp",
+      "openGL_2dAssign11/DiagramState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign11/main.cpp",
+        "line": 96,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign12/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_2dAssign12/Common.cpp",
+      "openGL_2dAssign12/Console.cpp",
+      "openGL_2dAssign12/main.cpp",
+      "openGL_2dAssign12/DiagramState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign12/main.cpp",
+        "line": 53,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign_10/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_2dAssign_10/Common.cpp",
+      "openGL_2dAssign_10/Console.cpp",
+      "openGL_2dAssign_10/main.cpp",
+      "openGL_2dAssign_10/DiagramState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign_10/main.cpp",
+        "line": 83,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign_789/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_2dAssign_789/Common.cpp",
+      "openGL_2dAssign_789/Console.cpp",
+      "openGL_2dAssign_789/main.cpp",
+      "openGL_2dAssign_789/DiagramState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign_789/main.cpp",
+        "line": 95,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_13/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_3dAssign_13/Console.cpp",
+      "openGL_3dAssign_13/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_13/main.cpp",
+        "line": 4,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_14/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_3dAssign_14/Console.cpp",
+      "openGL_3dAssign_14/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_14/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_15/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_3dAssign_15/Console.cpp",
+      "openGL_3dAssign_15/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_15/main.cpp",
+        "line": 4,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_16/openGL_assign_16.vcxproj",
+    "sources": [
+      "openGL_3dAssign_16/main.cpp",
+      "openGL_3dAssign_16/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_16/main.cpp",
+        "line": 4,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_17/openGL_assign_17.vcxproj",
+    "sources": [
+      "openGL_3dAssign_17/main.cpp",
+      "openGL_3dAssign_17/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_17/main.cpp",
+        "line": 2,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_18/openGL_assign_18.vcxproj",
+    "sources": [
+      "openGL_3dAssign_18/main.cpp",
+      "openGL_3dAssign_18/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_18/main.cpp",
+        "line": 2,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_19/openGL_assign_19.vcxproj",
+    "sources": [
+      "openGL_3dAssign_19/main.cpp",
+      "openGL_3dAssign_19/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_19/main.cpp",
+        "line": 2,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_assign123456/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_assign123456/Common.cpp",
+      "openGL_assign123456/Console.cpp",
+      "openGL_assign123456/main.cpp",
+      "openGL_assign123456/RectState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_assign123456/main.cpp",
+        "line": 75,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_sample0/openGL_sample0.vcxproj",
+    "sources": [
+      "openGL_sample0/main.cpp",
+      "openGL_sample0/MeshParser.cpp",
+      "openGL_sample0/MeshValidator.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_sample0/main.cpp",
+        "line": 258,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/basic.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/basic.cpp",
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/assets.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/assets.cpp",
+        "name": "main"
+      }
+    ]
+  }
+]

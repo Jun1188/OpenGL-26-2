@@ -21,7 +21,7 @@ static_assert(sizeof(void*) == 8, "Bundled DLLs require x64.");
 inline std::filesystem::path executableDirectory() {
     std::wstring path(32768, L'\0');
     const DWORD size = GetModuleFileNameW(nullptr, path.data(), DWORD(path.size()));
-    if (!size || size >= path.size()) return {};
+    if (!size || size >= path.size()) throw std::runtime_error("Cannot locate the executable directory.");
     path.resize(size);
     return std::filesystem::path(path).parent_path();
 }
@@ -123,6 +123,7 @@ struct GlApi {
     decltype(&::glEnable) Enable = nullptr;
     decltype(&::glDisable) Disable = nullptr;
     decltype(&::glDepthMask) DepthMask = nullptr;
+    decltype(&::glColorMask) ColorMask = nullptr;
     decltype(&::glDepthFunc) DepthFunc = nullptr;
     decltype(&::glViewport) Viewport = nullptr;
     decltype(&::glPolygonMode) PolygonMode = nullptr;
@@ -184,6 +185,7 @@ struct GlApi {
         Enable = resolve<decltype(Enable)>("glEnable");
         Disable = resolve<decltype(Disable)>("glDisable");
         DepthMask = resolve<decltype(DepthMask)>("glDepthMask");
+        ColorMask = resolve<decltype(ColorMask)>("glColorMask");
         DepthFunc = resolve<decltype(DepthFunc)>("glDepthFunc");
         Viewport = resolve<decltype(Viewport)>("glViewport");
         PolygonMode = resolve<decltype(PolygonMode)>("glPolygonMode");

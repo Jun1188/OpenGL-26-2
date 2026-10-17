@@ -1,39 +1,35 @@
-﻿# framework 전용 실행 흐름
+﻿## 공통 3D 실행 순서
 
-분석 범위는 루트 framework의 C++ 20개 파일이다. 의존성 SDK·다른 과제·문서·GLSL 내부는 제외한다. 아래 호출 관계는 실제 소스에서 읽었다. AST의 EXTRACTED·INFERRED 관계는 graph.json의 confidence로 구분한다. 빌드·실행·테스트는 하지 않았다.
+Framework.h → Application.h → Graphics.h/ModelLoader.h/Picking.h → detail inline 구현을 포함한다. src 호환용 cpp는 제거했다.
 
-## 별도 진입점
+Application::run → initialize → 실행 파일 기준 상대 projectRoot/runtimeDirectory 해석 → 번들 GLFW DLL → 창·OpenGL 3.3 core 컨텍스트 → Renderer::initialize → 내장/선택 셰이더 컴파일·링크 → VAO/VBO/EBO → AssetLoader → GLFW C 콜백 등록 → initHandler.
 
-프레임워크 자체에는 main이 없다. Framework.h → Application.h → Graphics.h/ModelLoader.h/Picking.h와 inline 구현을 포함한다. src의 두 cpp는 호환 include 래퍼다.
+PollEvents가 키·포커스·마우스 콜백을 실행한다. dispatch는 C 콜백의 예외를 보관한다. run은 프레임버퍼가 양수일 때 dt를 0~0.05초로 제한하여 updateHandler → renderHandler 또는 renderScene → SwapBuffers를 호출한다. 최소화 상태에서는 WaitEvents를 사용한다. 콜백 등록 순서와 본문 실행 조건을 혼동하지 않는다.
 
-- basic.cpp: Application 생성 → init/mouse/key 콜백 등록 → run. init은 addCuboid/setTransform/setOutline, 클릭은 pickAt/getMesh/splitFace/setFaceSRT를 호출한다.
-- assets.cpp: 모델·이미지 상대경로와 모드 입력 → config.features → init의 loadPrimitive 또는 loadModel → addModel → run 루프.
-- hierarchy.cpp: init/update/mouse/key 등록 → run. init은 세 addCuboid → setParent(지구,태양)/setParent(달,지구) → generateTexcoords → setMaterial. update는 태양·지구 local 회전을 변경한다. 클릭은 pickAt으로 ID와 UV를 출력한다.
+정상 종료/예외 → shutdown → AssetLoader 해제 → 컨텍스트 current → Renderer::destroy(텍스처·버퍼·프로그램) → 창 해제 → GLFW 종료. 사용자 예외는 정리 후 다시 전달한다.
 
-각 main은 별도 실행 프로그램이다. 한 실행 프로젝트에 세 main을 동시에 넣지 않는다. 콜백 등록과 본문 실행은 별개다. Application::run은 initialize 후 initHandler를 한 번 호출한다. initialize는 GLFW DLL·창·current GL 컨텍스트·Renderer·입력 콜백을 설정한다. 프레임 루프는 updateHandler → renderHandler 또는 renderScene → SwapBuffers를 수행하며 GLFW 이벤트 처리가 입력 콜백을 실행한다. C 콜백 예외는 dispatch가 보관한다.
+## 실습별 콜백 내부
 
-## 모델과 UV 입력
+- 13: initScene이 두 도형·축을 생성하고 onKey/selectFaces가 표시할 면을 정한다.
+- 14: initScene의 항등 회전·카메라 시점 → onKey의 대상·방향 → onUpdate의 로컬 회전 오른쪽 곱·월드 이동 → applyTransform → setTransform. onFocus는 이동 키를 해제한다.
+- 15: initScene/resetAll → beginMotion의 모션별 실행·진행률 → onUpdate → applyFaceMotion의 T/F/S/B/1/2/4/5 행렬 합성 → setFaceLocalMatrix. applyObjectTransform은 별도 Y 자전만 적용한다.
+- 16: 육면체 흐름은 15를 유지한다. beginPyramid/updatePyramid/applyPyramid가 사각뿔 모드 하나의 진행률을 하단 모서리·위 꼭짓점의 피벗 행렬로 바꾼다.
+- 17: reset이 공전 그룹·모델을 생성 → onKey가 대상·방향·교환 모드를 설정 → onUpdate가 월드 위치·모션 계산 → apply가 공전 부모와 시각 모델의 로컬 변환을 설정한다. c는 두 모델을 모두 교체하며 변환을 유지한다.
+- 18: initScene이 전체 루트·중심 구·행성 위치·궤도 선·달 방향을 생성 → onUpdate의 각도·반지름·입력 → apply가 같은 평면·반지름으로 궤도 선과 천체 위치를 설정한다.
+- 19: reset/box가 부품 계층 생성 → onKey의 모션 상태 → onUpdate의 이동 한계·카메라 포즈 → apply의 접지 높이·중앙 회전·상부 교환·포신/깃대 피벗. 카메라 Y축은 현재 시선과 오른쪽 벡터로 계산한다.
 
-ModelLoader.h는 AssetLoader의 공개 선언, 프로젝트 내부 경로 제한, 이미지 캐시, finishLoad를 유지한다. PrimitiveLoader.inl의 loadPrimitive는 v/vt/vn/f·음수 인덱스·평면 다각형 삼각분할·공면 병합을 처리한다. AssimpLoader.inl의 loadModel은 models 분기 → AssimpApi::load → aiImportFile → 노드 순회 → 프레임워크 Model/Mesh 복사 → aiReleaseImport 순서다. 노드 변환은 정점에 반영한다. 노드 계층과 뼈대 애니메이션은 보존하지 않는다. DLL 내부는 AST 범위 밖이다.
+## 좌표와 GPU 데이터
 
-Geometry.h의 generateTexcoords는 메시 복사 → 경계 상자 → 투영 방식 → 필요 시 삼각형 정점 분리 → UV scale/rotation/offset → 유효 메시 반영 순서다. Planar는 지정 축, Box는 삼각형 법선 주축, Cylindrical/Spherical은 Y축 둘레 경도를 사용한다. U 경계의 좌표는 반복 샘플링을 위해 1을 넘을 수 있다. Scene의 UV setter는 setMesh를 통해 geometryRevision을 갱신한다. 외곽선 위치·법선·색상은 유지하지만 정점 번호는 바뀔 수 있다.
+로컬 정점 → T(-localBasis) → S → rotation(mat3) → T(basis) → 조상 행렬 → 면 추가 변환 → view → projection → clip/NDC → viewport → 래스터화 → 셰이더·깊이 → 화면.
 
-Texture.h의 WIC 이미지 디코딩 → TextureImage RGBA → Material.texture → Renderer::upload의 GPU 이미지 업로드 → UV 보간 → sampler2D 샘플링 순서다. textures 옵션이 꺼지면 GPU 텍스처 경로는 생략한다. 이미지 경로는 loadTexture 또는 LoadOptions.texturePath로 지정한다. UV가 없는 파일에 텍스처를 지정한 로딩은 기존처럼 오류를 반환한다. 자동 매핑은 비텍스처 상태로 로딩한 뒤 명시적으로 수행한다.
+worldMatrix와 faceWorldMatrix가 부모·면 변환을 계산한다. 그룹은 메시 없는 전용 노드이며 upload는 그룹 자체를 건너뛴다. 부모 visibility는 자식에게 상속하지 않는다.
 
-## 계층 좌표와 GPU
+형상/revision/textures 변경 → Renderer::upload → GpuVertex(position/color/UV/normal) → VBO/EBO/VAO. draw는 faceWorldMatrix 또는 선 owner의 worldMatrix → uMVP/uNormalMatrix/uTint → DrawElements를 수행한다. 변환·부모 연결·색상 배율만 바뀌면 정점을 재업로드하지 않는다. FeatureEdges는 공면 내부 대각선을 제외한다. 와이어+깊이 테스트는 전체 삼각형의 깊이 전처리 후 물체 색상의 선을 그린다.
 
-Transform3D의 basis·Euler 회전·quaternion orientation·scale·localBasis → detail::transformMatrix. SRT가 정점에 적용되는 순서는 피벗 이동 → 크기 → 회전 → 위치이며 열벡터 행렬로 합성한다.
+screenRay는 카메라 역변환으로 광선을 만들고 pick은 같은 faceWorldMatrix로 가장 가까운 표시 삼각형의 교점을 계산한다. pickAt은 창 좌표를 프레임버퍼 픽셀로 변환한다. 선과 투명 텍스처 픽셀은 별도 피킹하지 않는다.
 
-Scene::setParent는 ID와 부모 사슬을 읽어 자기 연결·순환을 거부한다. worldMatrix는 현재 물체부터 조상을 순회하며 부모 local × 누적 local을 계산한다. faceWorldMatrix는 부모 world × 물체 및 면 행렬을 계산한다. parent는 Component_Poly 마지막 필드이므로 기존 중괄호 초기화 순서를 유지한다. 연결·해제는 local 값을 유지하며 world 값을 유지하지 않는다.
+loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 병합이다. loadModel은 기능 확인 → 번들 Assimp → 노드 변환을 정점에 반영 → Model/Mesh다. loadTexture는 Windows WIC → RGBA8 → Material → 선택적 GPU 텍스처다. DLL/COM/GPU 드라이버 내부는 분석 범위 밖이다.
 
-Renderer::draw와 Picking.h의 pick은 Scene::faceWorldMatrix를 호출한다. owner가 있는 선은 Scene::worldMatrix를 사용한다. 따라서 물체·면·선·교점이 같은 계층 변환을 사용하는 것은 소스에서 확인한 관계다. 부모 visibility는 자식에게 상속하지 않는다.
+## 한계
 
-CPU Scene 형상 → Renderer::render의 scene/revision/textures 비교 → 필요한 경우 upload → GpuVertex 위치/색/UV/법선 → VBO/EBO/VAO → draw 범위별 world 행렬 → uMVP=projection×view×world → 셰이더 → 래스터화·텍스처·선택적 조명·깊이 처리 → 프레임버퍼. 법선 행렬은 누적 world의 inverse-transpose다. 변환과 부모 연결만 바뀌면 형상 버퍼를 다시 올리지 않는다.
-
-Application::pickAt은 창 좌표를 프레임버퍼 좌표로 바꾸고 screenRay는 카메라 view/projection의 역변환을 사용한다. pick은 표시된 삼각형의 월드 교점을 비교하고 가까운 ID·면·삼각형·로컬 좌표·무게중심·UV를 반환한다. 선과 텍스처 투명 픽셀은 판정하지 않는다.
-
-## 종료와 분석 한계
-
-run 종료·예외 → shutdown → AssetLoader 해제 → current 컨텍스트에서 Renderer::destroy → 창 해제 → GLFW 종료. COM/WIC·DLL export·GPU 드라이버 내부는 그래프 범위 밖이다.
-
-현재 그래프: 643 노드, 1013 방향 관계, 26 커뮤니티. 원시 추출에 해석되지 않은 끝점 관계 49개, 같은 끝점 방향 관계 병합 82개가 있다. GRAPH_HEALTH.md와 EXTRACTION.json에 기록한다. 그래프 관계 수를 모든 실제 호출 횟수로 해석하지 않는다. 실행 정확성은 사용자 테스트가 필요하다. 벤치마크는 실행하지 않았다.
+같은 이름 메서드·오버로드·간접 호출은 AST가 완전히 해석하지 못한다. 콜백 본문은 소스 앵커로 보강했다. GRAPH_HEALTH.md의 미해결 관계를 숨기지 않는다. 구조 관계 수는 실행 호출 횟수가 아니다. 빌드·화면·입력·종료 테스트와 벤치마크는 사용자 확인이 필요하다.

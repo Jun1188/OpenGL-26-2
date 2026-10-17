@@ -1,7 +1,7 @@
 ﻿#include "../Framework.h"
 #include <iostream>
 
-// Usage, with the project root as working directory:
+// Usage, with assets deployed relative to the executable:
 // assets.exe primitive framework/examples/data/cube.txt
 // assets.exe primitive framework/examples/data/cube.txt textures/example.png
 // assets.exe model models/example.obj

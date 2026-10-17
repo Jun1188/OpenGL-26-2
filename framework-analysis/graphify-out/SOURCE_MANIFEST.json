@@ -1,88 +1,25 @@
 ﻿{
-  "source_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework",
-  "output_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\graphify-out",
-  "source_commit": "e232b549cc0f2dd76490ce7f6e4171309073c521",
-  "includes_uncommitted_step4": true,
-  "files": [
-    {
-      "path": "detail/Application.inl",
-      "sha256": "49b865ddbe80a66affd340a6929cc52763b1e30eb53d6c34b6734d90fc173d76"
-    },
-    {
-      "path": "detail/AssimpLoader.inl",
-      "sha256": "b4317b8fee7e9101e1774a8146cd4df8e397aca90284e9d969b01e7239281e24"
-    },
-    {
-      "path": "detail/Native.h",
-      "sha256": "ca0d2ef76aaa5ffcd4146df053c16c186dfcb3c2ab5e00dd316515272b887621"
-    },
-    {
-      "path": "detail/PrimitiveLoader.inl",
-      "sha256": "25ce148d7fd85b3ea7a95c3101b207f32da24eec0f0b0d6d702cf8a55f925cac"
-    },
-    {
-      "path": "detail/Renderer.inl",
-      "sha256": "684cbe74c9a9861bba01c4f485cc32a808fe2e9e1412013f6f04f43e3d5240f8"
-    },
-    {
-      "path": "detail/Scene.inl",
-      "sha256": "6687a5f1065fcdee73d4518a5084aac735d428329d534161775b9c73f2a3f0c4"
-    },
-    {
-      "path": "detail/Shaders.h",
-      "sha256": "035734ecef02f09738b1f0847d795348ecefc54e37570d475441938edcc95d2d"
-    },
-    {
-      "path": "examples/assets.cpp",
-      "sha256": "b07212faf9b30f787ef5c93f631c0d0578203bb07db7a1badefb935cf5276440"
-    },
-    {
-      "path": "examples/basic.cpp",
-      "sha256": "6f5029af249546a49e441720f529e4fa54a5e408329adee28f1f968f2e8c1e14"
-    },
-    {
-      "path": "examples/hierarchy.cpp",
-      "sha256": "25be2d59acb07b9eb16b604a905de4ce759f7dc389149bc1d1193117c337a419"
-    },
-    {
-      "path": "Framework.h",
-      "sha256": "a21aa6d5ebb3409d174d69b9883c0b76bf4645da22caa0baa591a4f8e81d8cd4"
-    },
-    {
-      "path": "include/Application.h",
-      "sha256": "3c6a228682965b4d35e901277a12ece15cd86529deb858061e46a32dd31aa0aa"
-    },
-    {
-      "path": "include/Geometry.h",
-      "sha256": "71fb269d8aab0db531e7a71921e23cab3c7b9e12d4e3963f62762394aa68bfe1"
-    },
-    {
-      "path": "include/Graphics.h",
-      "sha256": "f826fbdea27151b321f555c902c937d9b07e3af80ccc545ca330e8f1776254f6"
-    },
-    {
-      "path": "include/Model.h",
-      "sha256": "06fcd5a0562f33b4734c2037d5aba67a1a7109146cf1c335b21ed519ca063ae5"
-    },
-    {
-      "path": "include/ModelLoader.h",
-      "sha256": "56de896e847bbd1b6543d6f2fa909cc3a4d321f1934a6a070d9630f2a2b44632"
-    },
-    {
-      "path": "include/Picking.h",
-      "sha256": "aa00ca98c4ec95004e140f3c532853ad9daf1ab8386b2c01d39997340c4ee6ff"
-    },
-    {
-      "path": "include/Texture.h",
-      "sha256": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313"
-    },
-    {
-      "path": "src/Application.cpp",
-      "sha256": "702f2cba587ff2b91d1be92c3827abdae4f682a46e2b6dc5250ddeb7b6710a51"
-    },
-    {
-      "path": "src/Graphics.cpp",
-      "sha256": "085468247a05d32398590d5427e57a45533726c8e06d4c11ee90450755f20f23"
-    }
-  ]
+  "source_root": "framework",
+  "scope": "framework",
+  "source_commit": "46c07957312f9d1fa973f620b609f9322d499ed7",
+  "includes_uncommitted_step8": true,
+  "files": {
+    "detail/Application.inl": "24aaacfd99fe480d543212710934a1bb9d42c2909ad0df967ebf56f122af2257",
+    "detail/AssimpLoader.inl": "b4317b8fee7e9101e1774a8146cd4df8e397aca90284e9d969b01e7239281e24",
+    "detail/Native.h": "b52fdaf0a6d817ed5832f1598d553fc483d1cb8f302d15a2808e38b46fa47e85",
+    "detail/PrimitiveLoader.inl": "25ce148d7fd85b3ea7a95c3101b207f32da24eec0f0b0d6d702cf8a55f925cac",
+    "detail/Renderer.inl": "32bc076d654349bf35a3f98c8ac492fb7f35ebadae1c54ec6a8391b173dbc62a",
+    "detail/Scene.inl": "a7777d6f837676676429798a81c6695ae106efcf6071b5e81b94b3eb496b63ee",
+    "detail/Shaders.h": "c5c3efd43b1b581a0daaaf1fff75f8159518a601a9c4acd395e9453e0d2f2789",
+    "examples/assets.cpp": "47846e15cef104872a4715b6dae7b58c438303ef0ee588d5aa58d29b12c1974f",
+    "examples/basic.cpp": "058714da90df2d75f157fc9b2f534049c84c6acfd247c679b67dcaa916fc7f0c",
+    "Framework.h": "a21aa6d5ebb3409d174d69b9883c0b76bf4645da22caa0baa591a4f8e81d8cd4",
+    "include/Application.h": "d6124585e37e3eab5b6c0069dee0f30fd0ae299b4b1a332d5ba0649e61983326",
+    "include/Geometry.h": "71fb269d8aab0db531e7a71921e23cab3c7b9e12d4e3963f62762394aa68bfe1",
+    "include/Graphics.h": "277575cdcd82eb60a66b7535560f4effbcf7fc6d014e4e390a177ff8673a745b",
+    "include/Model.h": "ae4602d68f58362c7ac8b800062643c8ef7095daa12d02694954f64f02b635fc",
+    "include/ModelLoader.h": "da8103ecd58ead65a7d70f2e369905eb6d6851cf8ffb87e5241193286bc79624",
+    "include/Picking.h": "aa00ca98c4ec95004e140f3c532853ad9daf1ab8386b2c01d39997340c4ee6ff",
+    "include/Texture.h": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313"
+  }
 }
