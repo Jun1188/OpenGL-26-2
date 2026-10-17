@@ -154,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="framework\shaders\FragmentShader.glsl" />
-    <None Include="packages.config" />
     <None Include="framework\Framework.props" />
     <None Include="framework\shaders\VertexShader.glsl" />
   </ItemGroup>
