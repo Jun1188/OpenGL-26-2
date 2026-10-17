@@ -63,7 +63,7 @@ struct GlfwApi {
     decltype(&::glfwInit) Init = nullptr;
     decltype(&::glfwTerminate) Terminate = nullptr;
     decltype(&::glfwWindowHint) WindowHint = nullptr;
-    decltype(&::glfwCreateWindow) CreateWindow = nullptr;
+    decltype(&::glfwCreateWindow) createWindow = nullptr;
     decltype(&::glfwDestroyWindow) DestroyWindow = nullptr;
     decltype(&::glfwMakeContextCurrent) MakeContextCurrent = nullptr;
     decltype(&::glfwSwapInterval) SwapInterval = nullptr;
@@ -89,7 +89,7 @@ struct GlfwApi {
         Init = module.symbol<decltype(Init)>("glfwInit");
         Terminate = module.symbol<decltype(Terminate)>("glfwTerminate");
         WindowHint = module.symbol<decltype(WindowHint)>("glfwWindowHint");
-        CreateWindow = module.symbol<decltype(CreateWindow)>("glfwCreateWindow");
+        createWindow = module.symbol<decltype(createWindow)>("glfwCreateWindow");
         DestroyWindow = module.symbol<decltype(DestroyWindow)>("glfwDestroyWindow");
         MakeContextCurrent = module.symbol<decltype(MakeContextCurrent)>("glfwMakeContextCurrent");
         SwapInterval = module.symbol<decltype(SwapInterval)>("glfwSwapInterval");

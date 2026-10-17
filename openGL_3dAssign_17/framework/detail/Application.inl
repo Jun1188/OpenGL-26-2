@@ -49,7 +49,7 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     detail::glfw().WindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     detail::glfw().WindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     detail::glfw().WindowHint(GLFW_DEPTH_BITS, 24);
-    window_ = detail::glfw().CreateWindow(config.width, config.height,
+    window_ = detail::glfw().createWindow(config.width, config.height,
                               config.title.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
         return false;

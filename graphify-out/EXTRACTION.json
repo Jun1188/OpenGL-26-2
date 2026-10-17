@@ -3184,7 +3184,7 @@
     },
     {
       "id": "framework_detail_native_glfwapi_createwindow",
-      "label": "CreateWindow",
+      "label": "createWindow",
       "file_type": "code",
       "source_file": "framework/detail/Native.h",
       "source_location": "L66",

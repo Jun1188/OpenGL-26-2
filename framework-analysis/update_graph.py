@@ -146,7 +146,7 @@ def main():
     hashes={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
     dump(out/'SOURCE_HASHES.json',hashes)
     dump(out/'SOURCE_MANIFEST.json',{'source_root':'.' if not framework else 'framework','scope':args.scope,
-         'source_commit':commit,'includes_uncommitted_step8':True,'files':hashes})
+         'source_commit':commit,'includes_uncommitted_changes':True,'files':hashes})
     temporary=out/'manifest.generated.json'
     save_manifest({'code':[str(p) for p in files]},str(temporary),kind='ast',root=root,scan_corpus=[str(p) for p in files])
     write(out/'manifest.json',temporary.read_text(encoding='utf-8-sig'));temporary.unlink()

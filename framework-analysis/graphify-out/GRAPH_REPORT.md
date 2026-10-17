@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `46c07957`
+- Built from commit: `ac6110db`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -118,7 +118,7 @@ Nodes (40): Camera, farPlane, fieldOfViewDegrees, nearPlane, orthographic, ortho
 
 ### Community 8 - "detail 코드 구조"
 Cohesion: 0.08
-Nodes (26): GlfwApi, CreateWindow, DestroyWindow, GetCursorPos, GetFramebufferSize, GetTime, GetWindowSize, GetWindowUserPointer (+18 more)
+Nodes (26): GlfwApi, createWindow, DestroyWindow, GetCursorPos, GetFramebufferSize, GetTime, GetWindowSize, GetWindowUserPointer (+18 more)
 
 ### Community 9 - "include 코드 구조"
 Cohesion: 0.16

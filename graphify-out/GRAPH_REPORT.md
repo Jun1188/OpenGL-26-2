@@ -1,7 +1,7 @@
 ﻿# Graph Report - OpenGL-26-2  (2026-10-17)
 
 ## Corpus Check
-- Large corpus: 278 files · ~1,796,738 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
+- Large corpus: 279 files · ~1,797,451 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
 
 ## Summary
 - 3098 nodes · 4912 edges · 220 communities (140 shown, 20 thin omitted)
@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `46c07957`
+- Built from commit: `ac6110db`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -282,7 +282,7 @@ Nodes (32): Application, Application::Application(), boardRenderer_, commandPars
 
 ### Community 19 - "framework 코드 구조"
 Cohesion: 0.06
-Nodes (33): executableDirectory(), frameworkDirectory(), GlfwApi, CreateWindow, DestroyWindow, GetCursorPos, GetFramebufferSize, GetTime (+25 more)
+Nodes (33): executableDirectory(), frameworkDirectory(), GlfwApi, createWindow, DestroyWindow, GetCursorPos, GetFramebufferSize, GetTime (+25 more)
 
 ### Community 20 - "Computer-Graphics_WarmmingUp2 코드 구조"
 Cohesion: 0.11

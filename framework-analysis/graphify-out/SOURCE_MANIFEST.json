@@ -1,12 +1,12 @@
 ﻿{
   "source_root": "framework",
   "scope": "framework",
-  "source_commit": "46c07957312f9d1fa973f620b609f9322d499ed7",
-  "includes_uncommitted_step8": true,
+  "source_commit": "ac6110db7aab88b576b85b99c5866f653e93fc8b",
+  "includes_uncommitted_changes": true,
   "files": {
-    "detail/Application.inl": "24aaacfd99fe480d543212710934a1bb9d42c2909ad0df967ebf56f122af2257",
+    "detail/Application.inl": "061aaf74a5545fee633b598950f2d7652ba7f22df7a3a5c2a7753e4f43059eb2",
     "detail/AssimpLoader.inl": "b4317b8fee7e9101e1774a8146cd4df8e397aca90284e9d969b01e7239281e24",
-    "detail/Native.h": "b52fdaf0a6d817ed5832f1598d553fc483d1cb8f302d15a2808e38b46fa47e85",
+    "detail/Native.h": "e4dd267391bed263918735f6cb5f687a93c86921ea3755790aa5636fc7711877",
     "detail/PrimitiveLoader.inl": "25ce148d7fd85b3ea7a95c3101b207f32da24eec0f0b0d6d702cf8a55f925cac",
     "detail/Renderer.inl": "32bc076d654349bf35a3f98c8ac492fb7f35ebadae1c54ec6a8391b173dbc62a",
     "detail/Scene.inl": "a7777d6f837676676429798a81c6695ae106efcf6071b5e81b94b3eb496b63ee",

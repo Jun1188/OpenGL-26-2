@@ -72,3 +72,7 @@ z/Z·x/X는 카메라 Z/X 양·음 이동이다. 누르는 동안 position과 ta
 빌드와 테스트는 실행하지 않았다. [확인 절차](USER_CHECKS.md)를 사용자가 수행한다. 소스·프로젝트 경로와 콜백 흐름을 읽은 결과는 컴파일·화면·입력·GPU 자원 해제 성공을 증명하지 않는다.
 
 [프레임워크 응용 패턴](../../framework/docs/APPLICATION_PATTERNS.md), [전체 실행 흐름](../../graphify-out/EXECUTION_FLOW.md), [변경 전후](BEFORE_AFTER.md).
+
+## 후속 수정
+
+[Windows CreateWindow 매크로 충돌 수정과 전체 변경 전후](FIX_CREATE_WINDOW.md): 루트와 실습 13~19의 창 생성 함수 포인터를 createWindow로 통일했다. 빌드·실행 확인은 사용자에게 맡긴다.

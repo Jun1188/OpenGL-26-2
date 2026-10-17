@@ -20313,7 +20313,7 @@
     },
     {
       "id": "framework_detail_native_glfwapi_createwindow",
-      "label": "CreateWindow",
+      "label": "createWindow",
       "_origin": "ast",
       "community": 19,
       "community_name": "framework \ucf54\ub4dc \uad6c\uc870",
@@ -92503,5 +92503,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "46c07957312f9d1fa973f620b609f9322d499ed7"
+  "built_at_commit": "ac6110db7aab88b576b85b99c5866f653e93fc8b"
 }
