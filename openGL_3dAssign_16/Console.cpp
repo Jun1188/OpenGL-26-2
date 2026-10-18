@@ -290,7 +290,7 @@ void Console::applyPyramid() {
     for(std::size_t i=0;i<4;++i) {
         glm::mat4 matrix(1);
         if(pyramidMotion_==PyramidMotion::All)
-            matrix=rotateAround(hinges[i],axes[i],-2*inward*pyramidProgress_);
+            matrix=rotateAround(hinges[i],axes[i],(360.0f-2*inward)*pyramidProgress_);
         else if(pyramidMotion_==PyramidMotion::Sequence && i==active)
             matrix=rotateAround(hinges[i],axes[i],(180-inward)*(phase<=1?phase:2-phase));
         else if(pyramidMotion_==PyramidMotion::Swap && (i==0||i==2))
