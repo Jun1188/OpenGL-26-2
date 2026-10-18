@@ -76,3 +76,5 @@ z/Z·x/X는 카메라 Z/X 양·음 이동이다. 누르는 동안 position과 ta
 ## 후속 수정
 
 [Windows CreateWindow 매크로 충돌 수정과 전체 변경 전후](FIX_CREATE_WINDOW.md): 루트와 실습 13~19의 창 생성 함수 포인터를 createWindow로 통일했다. 빌드·실행 확인은 사용자에게 맡긴다.
+
+[디버거 작업 폴더 상속 복구와 전체 변경 전후](FIX_DEBUGGER_PROPERTIES.md): 아직 정해지지 않은 TargetDir로 작업 폴더를 덮어쓰던 설정을 제거했다. 루트와 실습 13~19에 반영했으며, 디버거 실행 확인은 사용자에게 맡긴다.
