@@ -132,6 +132,8 @@ inline int Application::run(const ApplicationConfig& config) {
         return -1; // 콜백에서 run()을 재귀 호출하지 않는다.
     }
     if(detail::applicationActive()) return -1;
+    // /utf-8 encodes narrow strings; the Windows console must decode them as UTF-8.
+    SetConsoleOutputCP(CP_UTF8);
     detail::applicationActive()=true;
     callbackError_=nullptr;
     running_ = true;
