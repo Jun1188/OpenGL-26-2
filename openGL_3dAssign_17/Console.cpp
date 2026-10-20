@@ -9,7 +9,12 @@ glm::mat3 turn(float degrees,glm::vec3 axis) {
 }
 }
 graphics::Model Console::model(int shape) const {
-    if(shape==0)return graphics::DiagramSystem::makeCone(.5f,1.0f);
+    if(shape==0) {
+        auto cone=graphics::DiagramSystem::makeCone(.5f,1.0f);
+        for(auto& face:cone.faces)
+            face.outline=graphics::OutlineMode::AllTriangleEdges;
+        return cone;
+    }
     if(shape==1)return graphics::DiagramSystem::makeSphere(.5f);
     return graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube);
 }
@@ -39,13 +44,18 @@ void Console::reset() {
     const auto inverseView=glm::transpose(turn(30,{1,0,0})*turn(30,{0,1,0}));
     camera.position=inverseView*glm::vec3(0,0,6);camera.up=inverseView*glm::vec3(0,1,0);
     camera.orthographic=true;camera.orthographicHalfExtent=2.4f;
-    app_.getRenderOptions()=graphics::RenderOptions{};apply();
+    app_.getRenderOptions()=graphics::RenderOptions{};
+    app_.getRenderOptions().wireframe=true;
+    apply();
 }
 void Console::apply() {
     auto& scene=app_.getScene();
     for(std::size_t i=0;i<2;++i) {
         const auto& o=objects_[i];graphics::Transform3D orbit,body;
-        orbit.rotation=orbitRotation(i);body.basis=o.position;body.rotation=o.rotation;body.scale=glm::vec3(o.scale);
+        orbit.rotation=orbitRotation(i);body.basis=o.position;body.rotation=o.rotation;
+        if (o.shape == 0)
+            body.rotation *= turn(-90.0f, { 0,0,1});
+        body.scale=glm::vec3(o.scale);
         if(!scene.setTransform(o.orbit,orbit)||!scene.setTransform(o.body,body))
             throw std::runtime_error("Invalid model transform.");
     }
