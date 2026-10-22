@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Geometry.h"
+#include "Motion.h"
 #include "../detail/Native.h"
 #include <map>
 
@@ -24,6 +25,8 @@ private:
     std::vector<FaceId> pyramidFaceId_;
     std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
+    MotionSystem motions_;
+    std::map<EntityId, LayerId> entityLayers_;
     void rebuildFaceIds();
 
 public:
@@ -52,6 +55,13 @@ public:
     bool setParent(EntityId id, std::optional<EntityId> parent);
     std::optional<glm::mat4> worldMatrix(EntityId id) const;
     std::optional<glm::mat4> faceWorldMatrix(EntityId id, std::size_t faceIndex) const;
+    std::optional<glm::mat4> lineWorldMatrix(LineId id) const;
+    MotionSystem& getMotions() { return motions_; }
+    const MotionSystem& getMotions() const { return motions_; }
+    bool bindEntity(EntityId id, LayerId layer);
+    bool unbindEntity(EntityId id);
+    std::optional<LayerId> getEntityLayer(EntityId id) const;
+    bool updateMotions(double deltaSeconds) { return motions_.update(deltaSeconds); }
     bool setFaceTransform(EntityId id, std::size_t faceIndex,
                           const Transform3D& transform, bool independence);
 

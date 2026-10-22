@@ -4,7 +4,8 @@
 
 namespace graphics {
 using MotionId = std::uint64_t;
-enum class TransformSpace { Parent, Local };
+using LayerId = std::uint64_t;
+enum class TransformSpace { World, Local };
 enum class Playback { Once, Loop, PingPong };
 
 struct MotionSample {
@@ -25,12 +26,12 @@ struct PathMotion {
     double phase = 0;
     Playback playback = Playback::Loop;
     bool relativeToStart = false;
-    TransformSpace space = TransformSpace::Parent;
+    TransformSpace space = TransformSpace::World;
 };
 struct MotionStep {
     // The callback receives seconds since this step started, not frame delta time.
     std::function<glm::mat4(double)> transform;
-    TransformSpace space = TransformSpace::Parent;
+    TransformSpace space = TransformSpace::World;
     double startSeconds = 0;
     std::optional<double> durationSeconds;
     bool enabled = true;
@@ -48,7 +49,7 @@ public:
     const std::vector<MotionStep>& getSteps() const { return steps_; }
     std::optional<MotionSample> sample(double seconds) const;
     static MotionStep fixed(const glm::mat4& matrix,
-                            TransformSpace space = TransformSpace::Parent);
+                            TransformSpace space = TransformSpace::World);
     static MotionStep rotation(const RotationMotion& config);
     static MotionStep followPath(const PathMotion& config);
 };
@@ -61,10 +62,26 @@ struct MotionState {
     MotionSample sampled;
 };
 
+struct LayerConfig {
+    glm::mat4 transform{1.0f};
+    TransformSpace space = TransformSpace::World;
+    std::optional<MotionId> motion;
+    bool enabled = true;
+};
+struct LayerState {
+    LayerConfig config;
+    std::optional<LayerId> parent;
+    std::vector<LayerId> children;
+};
+
 class MotionSystem {
     std::map<MotionId, MotionState> motions_;
     MotionId nextMotion_ = 1;
+    std::map<LayerId, LayerState> layers_{{0, LayerState{}}};
+    LayerId nextLayer_ = 1;
+    bool validLayer(const LayerConfig& config) const;
 public:
+    static constexpr LayerId rootLayer() { return 0; }
     std::optional<MotionId> createMotion(const Motion& motion);
     bool setMotion(MotionId id, const Motion& motion);
     const MotionState* getMotion(MotionId id) const;
@@ -74,6 +91,15 @@ public:
     bool removeMotion(MotionId id);
     bool update(double deltaSeconds);
     void clear(); // Identifiers are never reused by this system, including after clear.
+    std::optional<LayerId> pushLayer(LayerId parent, const LayerConfig& config = LayerConfig{});
+    std::optional<LayerId> insertLayer(LayerId child, const LayerConfig& config = LayerConfig{});
+    std::optional<LayerId> popLayer(LayerId top); // Only removes a leaf; returns its parent.
+    bool removeLayer(LayerId id); // Promotes children in place; root cannot be removed.
+    bool reparentLayer(LayerId id, LayerId parent);
+    bool setLayer(LayerId id, const LayerConfig& config);
+    const LayerState* getLayer(LayerId id) const;
+    bool bindMotion(LayerId layer, std::optional<MotionId> motion);
+    std::optional<MotionSample> layerMatrices(LayerId leaf) const;
     std::optional<MotionId> createSpin(RotationMotion config);
     std::optional<MotionId> createOrbit(RotationMotion config);
     std::optional<MotionId> createOrbitAndSpin(RotationMotion orbit, RotationMotion spin);

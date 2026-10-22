@@ -212,28 +212,63 @@ inline bool Scene::setParent(EntityId id, std::optional<EntityId> parent) {
 }
 inline std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
     if (id >= components_.size()) return {};
-    glm::mat4 result(1);
+    std::vector<EntityId> chain;
     std::optional<EntityId> current = id;
-    std::size_t remaining = components_.size();
     while (current) {
-        if (*current >= components_.size() || remaining-- == 0) return {};
-        const auto& component = components_[*current];
-        result = detail::transformMatrix(component.transform) * result;
-        if (!detail::finiteMatrix(result)) return {};
-        current = component.parent;
+        if (*current >= components_.size() || chain.size() >= components_.size()) return {};
+        chain.push_back(*current);
+        current = components_[*current].parent;
     }
-    return result;
+    std::reverse(chain.begin(), chain.end());
+    LayerId layer = MotionSystem::rootLayer();
+    std::size_t anchor = chain.size() - 1;
+    for (std::size_t i = chain.size(); i > 0; --i) {
+        const auto binding = getEntityLayer(chain[i - 1]);
+        if (binding) { layer = *binding; anchor = i - 1; break; }
+    }
+    const auto motion = motions_.layerMatrices(layer);
+    if (!motion) return {};
+    glm::mat4 prefix(1), suffix(1);
+    for (std::size_t i = 0; i < chain.size(); ++i) {
+        auto& matrix = i <= anchor ? prefix : suffix;
+        matrix *= detail::transformMatrix(components_[chain[i]].transform);
+    }
+    const auto result = motion->parent * prefix * motion->local * suffix;
+    return detail::finiteMatrix(result) ? std::optional<glm::mat4>(result) : std::nullopt;
 }
 inline std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceIndex) const {
     if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) return {};
-    const auto& component = components_[id];
-    auto result = DiagramSystem::faceModelMatrix(component, component.polyhedron.faces[faceIndex]);
-    if (component.parent) {
-        const auto parent = worldMatrix(*component.parent);
-        if (!parent) return {};
-        result = *parent * result;
-    }
+    const auto world = worldMatrix(id);
+    if (!world) return {};
+    const auto& face = components_[id].polyhedron.faces[faceIndex];
+    glm::mat4 child(1);
+    if (face.independence)
+        child = glm::translate(glm::mat4(1), face.transform.localBasis)
+              * detail::transformMatrix(face.transform);
+    const auto result = *world * child * face.localAnimationMatrix;
     return detail::finiteMatrix(result) ? std::optional<glm::mat4>(result) : std::nullopt;
+}
+inline std::optional<glm::mat4> Scene::lineWorldMatrix(LineId id) const {
+    if (id >= lines_.size()) return {};
+    if (lines_[id].owner) return worldMatrix(*lines_[id].owner);
+    const auto global = motions_.layerMatrices(MotionSystem::rootLayer());
+    return global ? std::optional<glm::mat4>(global->parent * global->local) : std::nullopt;
+}
+inline bool Scene::bindEntity(EntityId id, LayerId layer) {
+    if (id >= components_.size() || !motions_.getLayer(layer)) return false;
+    entityLayers_[id] = layer;
+    return true;
+}
+inline bool Scene::unbindEntity(EntityId id) {
+    if (id >= components_.size()) return false;
+    entityLayers_.erase(id);
+    return true;
+}
+inline std::optional<LayerId> Scene::getEntityLayer(EntityId id) const {
+    if (id >= components_.size()) return {};
+    const auto found = entityLayers_.find(id);
+    if (found == entityLayers_.end() || !motions_.getLayer(found->second)) return {};
+    return found->second;
 }
 
 inline bool Scene::setTransform(EntityId id, const Transform3D& transform) {
@@ -324,6 +359,8 @@ inline bool Scene::setVector(LineId id, const glm::vec3& origin, const glm::vec3
 }
 
 inline void Scene::clear() {
+    motions_.clear();
+    entityLayers_.clear();
     if (components_.empty() && lines_.empty()) {
         return;
     }

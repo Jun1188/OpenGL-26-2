@@ -43,7 +43,7 @@ inline std::optional<MotionSample> Motion::sample(double seconds) const {
         if (step.durationSeconds) time = std::min(time, *step.durationSeconds);
         const auto matrix = step.transform(time);
         if (!TransformSystem::validAffine(matrix)) return {};
-        auto& target = step.space == TransformSpace::Parent ? result.parent : result.local;
+        auto& target = step.space == TransformSpace::World ? result.parent : result.local;
         target = matrix * target; // Within each space, API order is application order.
         if (!TransformSystem::validAffine(target)) return {};
     }
@@ -148,7 +148,12 @@ inline bool MotionSystem::seekMotion(MotionId id, double seconds) {
     found->second.sampled = *sample;
     return true;
 }
-inline bool MotionSystem::removeMotion(MotionId id) { return motions_.erase(id) != 0; }
+inline bool MotionSystem::removeMotion(MotionId id) {
+    if (!motions_.erase(id)) return false;
+    for (auto& layer : layers_)
+        if (layer.second.config.motion == id) layer.second.config.motion.reset();
+    return true;
+}
 inline bool MotionSystem::update(double deltaSeconds) {
     if (!std::isfinite(deltaSeconds) || deltaSeconds < 0) return false;
     struct Pending { MotionId id; double time; MotionSample sample; };
@@ -169,7 +174,131 @@ inline bool MotionSystem::update(double deltaSeconds) {
     }
     return true;
 }
-inline void MotionSystem::clear() { motions_.clear(); }
+inline void MotionSystem::clear() {
+    std::map<LayerId, LayerState> emptyLayers{{rootLayer(), LayerState{}}};
+    motions_.clear();
+    layers_.swap(emptyLayers);
+}
+inline bool MotionSystem::validLayer(const LayerConfig& config) const {
+    return TransformSystem::validAffine(config.transform)
+        && (!config.motion || getMotion(*config.motion));
+}
+inline const LayerState* MotionSystem::getLayer(LayerId id) const {
+    const auto found = layers_.find(id);
+    return found == layers_.end() ? nullptr : &found->second;
+}
+inline std::optional<LayerId> MotionSystem::pushLayer(LayerId parent, const LayerConfig& config) {
+    if (!getLayer(parent) || !validLayer(config)
+        || nextLayer_ == std::numeric_limits<LayerId>::max()) return {};
+    auto staged = layers_;
+    const auto id = nextLayer_;
+    staged.emplace(id, LayerState{config, parent, {}});
+    staged.at(parent).children.push_back(id);
+    layers_.swap(staged);
+    ++nextLayer_;
+    return id;
+}
+inline std::optional<LayerId> MotionSystem::insertLayer(LayerId child, const LayerConfig& config) {
+    const auto current = getLayer(child);
+    if (!current || !current->parent || !validLayer(config)
+        || nextLayer_ == std::numeric_limits<LayerId>::max()) return {};
+    const auto parent = *current->parent;
+    const auto id = nextLayer_;
+    auto staged = layers_;
+    staged.emplace(id, LayerState{config, parent, {child}});
+    auto& siblings = staged.at(parent).children;
+    std::replace(siblings.begin(), siblings.end(), child, id);
+    staged.at(child).parent = id;
+    layers_.swap(staged);
+    ++nextLayer_;
+    return id;
+}
+inline bool MotionSystem::removeLayer(LayerId id) {
+    const auto current = getLayer(id);
+    if (!current || !current->parent) return false;
+    auto staged = layers_;
+    const auto parent = *current->parent;
+    auto& siblings = staged.at(parent).children;
+    const auto position = std::find(siblings.begin(), siblings.end(), id);
+    const auto index = std::size_t(position - siblings.begin());
+    siblings.erase(position);
+    siblings.insert(siblings.begin() + index, current->children.begin(), current->children.end());
+    for (auto child : current->children) staged.at(child).parent = parent;
+    staged.erase(id);
+    layers_.swap(staged);
+    return true;
+}
+inline std::optional<LayerId> MotionSystem::popLayer(LayerId top) {
+    const auto current = getLayer(top);
+    if (!current || !current->parent || !current->children.empty()) return {};
+    const auto parent = *current->parent;
+    if (!removeLayer(top)) return {};
+    return parent;
+}
+inline bool MotionSystem::reparentLayer(LayerId id, LayerId parent) {
+    const auto current = getLayer(id);
+    if (!current || !current->parent || !getLayer(parent)) return false;
+    if (current->parent == parent) return true;
+    auto ancestor = std::optional<LayerId>(parent);
+    while (ancestor) {
+        if (*ancestor == id) return false;
+        ancestor = layers_.at(*ancestor).parent;
+    }
+    auto staged = layers_;
+    auto& old = staged.at(*current->parent).children;
+    old.erase(std::find(old.begin(), old.end(), id));
+    staged.at(parent).children.push_back(id);
+    staged.at(id).parent = parent;
+    layers_.swap(staged);
+    return true;
+}
+inline bool MotionSystem::setLayer(LayerId id, const LayerConfig& config) {
+    const auto found = layers_.find(id);
+    if (found == layers_.end() || !validLayer(config)) return false;
+    found->second.config = config;
+    return true;
+}
+inline bool MotionSystem::bindMotion(LayerId layer, std::optional<MotionId> motion) {
+    const auto current = getLayer(layer);
+    if (!current || (motion && !getMotion(*motion))) return false;
+    auto config = current->config;
+    config.motion = motion;
+    return setLayer(layer, config);
+}
+inline std::optional<MotionSample> MotionSystem::layerMatrices(LayerId leaf) const {
+    std::vector<LayerId> chain;
+    auto current = std::optional<LayerId>(leaf);
+    while (current) {
+        const auto layer = getLayer(*current);
+        if (!layer || chain.size() >= layers_.size()) return {};
+        chain.push_back(*current);
+        current = layer->parent;
+    }
+    MotionSample result;
+    for (auto i = chain.rbegin(); i != chain.rend(); ++i) {
+        const auto& config = layers_.at(*i).config;
+        if (!config.enabled) continue;
+        MotionSample own;
+        if (config.space == TransformSpace::World) own.parent = config.transform;
+        else own.local = config.transform;
+        if (config.motion) {
+            const auto state = getMotion(*config.motion);
+            if (!state) return {};
+            if (state->enabled) {
+                own.parent = state->sampled.parent * own.parent;
+                own.local = state->sampled.local * own.local;
+            }
+        }
+        if (*i == rootLayer()) result.parent = own.parent * own.local;
+        else {
+            result.parent *= own.parent;
+            result.local *= own.local;
+        }
+        if (!TransformSystem::validAffine(result.parent)
+            || !TransformSystem::validAffine(result.local)) return {};
+    }
+    return result;
+}
 inline std::optional<MotionId> MotionSystem::createSpin(RotationMotion config) {
     config.space = TransformSpace::Local;
     Motion motion;
@@ -177,14 +306,14 @@ inline std::optional<MotionId> MotionSystem::createSpin(RotationMotion config) {
     return createMotion(motion);
 }
 inline std::optional<MotionId> MotionSystem::createOrbit(RotationMotion config) {
-    config.space = TransformSpace::Parent;
+    config.space = TransformSpace::World;
     Motion motion;
     if (!motion.append(Motion::rotation(config))) return {};
     return createMotion(motion);
 }
 inline std::optional<MotionId> MotionSystem::createOrbitAndSpin(RotationMotion orbit,
                                                             RotationMotion spin) {
-    orbit.space = TransformSpace::Parent;
+    orbit.space = TransformSpace::World;
     spin.space = TransformSpace::Local;
     Motion motion;
     if (!motion.append(Motion::rotation(orbit)) || !motion.append(Motion::rotation(spin))) return {};

@@ -172,6 +172,11 @@ inline int Application::run(const ApplicationConfig& config) {
                 if (detail::glfw().WindowShouldClose(window_)) {
                     break;
                 }
+                if (!scene_.updateMotions(deltaTime)) {
+                    std::cerr << "Motion update failed.\n";
+                    exitCode = -1;
+                    break;
+                }
                 detail::glfw().MakeContextCurrent(window_);
                 const bool rendered = renderHandler_
                     ? renderHandler_(*this) : renderScene();

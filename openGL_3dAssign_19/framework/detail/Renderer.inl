@@ -152,8 +152,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
     for(const auto& range:drawRanges_) {
         glm::mat4 matrix(1);
         if(range.lineId) {
-            const auto& line=scene.getLines()[*range.lineId];
-            if(line.owner) {const auto world=scene.worldMatrix(*line.owner);if(!world)return false;matrix=*world;}
+            const auto world=scene.lineWorldMatrix(*range.lineId);if(!world)return false;matrix=*world;
         } else {
             const auto* c=scene.getComponent(range.entityId);
             const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;matrix=*world;
@@ -184,7 +183,8 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         glm::mat4 model(1);const Mesh* face=nullptr;GlColor tint;
         if(range.lineId) {
             const auto& line=scene.getLines()[*range.lineId];
-            if(line.owner){const auto* owner=scene.getComponent(*line.owner);if(!owner||!owner->visible)continue;const auto world=scene.worldMatrix(*line.owner);if(!world)return false;model=*world;}
+            if(line.owner){const auto* owner=scene.getComponent(*line.owner);if(!owner||!owner->visible)continue;}
+            const auto world=scene.lineWorldMatrix(*range.lineId);if(!world)return false;model=*world;
         } else {
             const auto* c=scene.getComponent(range.entityId);if(!c||!c->visible)continue;
             face=&c->polyhedron.faces[range.faceIndex];if(!face->visible)continue;tint=c->tint;

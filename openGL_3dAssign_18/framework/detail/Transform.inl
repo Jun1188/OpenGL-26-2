@@ -111,6 +111,8 @@ inline PathFunction PathSystem::polygon(std::vector<glm::vec3> points) {
 inline PathFunction PathSystem::rectangle(const glm::vec3& center, const glm::vec3& u,
                                          const glm::vec3& v) {
     if (!detail::finiteVector(center) || !detail::motionPlane(u, v)) return {};
+    const auto a = detail::motionUnitVector(u), b = detail::motionUnitVector(v);
+    if (std::abs(glm::dot(*a, *b)) > 1e-5f) return {};
     return polygon({center - u - v, center + u - v, center + u + v, center - u + v});
 }
 inline double PathSystem::linear(double progress) { return progress; }
