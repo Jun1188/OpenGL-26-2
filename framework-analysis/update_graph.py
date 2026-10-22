@@ -47,7 +47,7 @@ def project_inventory():
                     item.update(condition=f'PROB == {problem}',active_by_source_default=problem==2)
                 entries.append(item)
         projects.append({'project':p.relative_to(REPOSITORY).as_posix(),'sources':sources,'entrypoints':entries})
-    for name in ['basic','assets']:
+    for name in ['basic','assets','motion']:
         projects.append({'project':None,'standalone_example':True,'sources':[f'framework/examples/{name}.cpp'],
                          'entrypoints':[{'file':f'framework/examples/{name}.cpp','name':'main'}]})
     return projects

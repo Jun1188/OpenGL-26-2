@@ -48,3 +48,11 @@ loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 
 ## 한계
 
 같은 이름 메서드·오버로드·간접 호출은 AST가 완전히 해석하지 못한다. 콜백 본문은 소스 앵커로 보강했다. GRAPH_HEALTH.md의 미해결 관계를 숨기지 않는다. 구조 관계 수는 실행 호출 횟수가 아니다. 빌드·화면·입력·종료 테스트와 벤치마크는 사용자 확인이 필요하다.
+
+## 독립 Motion 예제 추가 (2026-10-22)
+
+framework/examples/motion.cpp의 main은 기본·자산 예제 및 각 실습의 main과 별도 진입점이다. 프로젝트에 자동 등록하지 않는다. PROJECTS.json의 standalone_example 항목으로 구분한다.
+
+main -> Application 생성 -> 콜백 등록 -> run -> init 콜백에서 Scene 객체·공유 path/spin/global Motion과 두 레이어 가지 생성 -> PollEvents에서 키/클릭 콜백 -> 사용자 update(있을 때) -> Scene::updateMotions -> 렌더 -> 종료와 shutdown. 1~6키는 경로 설정 교체·seek, Space는 시계 정지, S/G는 기여 전환, M은 독립 반사 행렬, I는 레이어 삽입·삭제다. 클릭은 같은 faceWorldMatrix를 사용한 pickAt으로 연결된다.
+
+공통 Application::run에 새 Motion 갱신이 추가되었지만 기존 실습들의 Console 상태 계산과 입력 정책은 유지한다. 구체적 CPU-GPU 흐름과 World/Local 합성은 ../framework-analysis/graphify-out/FRAMEWORK_FLOW.md의 추가 절을 참고한다. AST는 구조 분석이며 실제 콜백 실행·화면을 검증하지 않는다.

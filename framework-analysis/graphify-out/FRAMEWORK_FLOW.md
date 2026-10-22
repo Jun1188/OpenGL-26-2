@@ -33,3 +33,18 @@ loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 
 ## 한계
 
 같은 이름 메서드·오버로드·간접 호출은 AST가 완전히 해석하지 못한다. 콜백 본문은 소스 앵커로 보강했다. GRAPH_HEALTH.md의 미해결 관계를 숨기지 않는다. 구조 관계 수는 실행 호출 횟수가 아니다. 빌드·화면·입력·종료 테스트와 벤치마크는 사용자 확인이 필요하다.
+
+## Motion·레이어 경로 추가 (2026-10-22)
+
+이 절은 새 소스와 AST 산출물을 대조한 정적 설명이다. 빌드·실행 결과가 아니다.
+
+1. main은 Application과 상태를 만든 뒤 setInitHandler/setKeyHandler/setMouseHandler 등으로 콜백을 등록한다. 등록 시 본문을 실행하지 않는다.
+2. Application::run 초기화 후 init 콜백에서 Scene::getMotions -> createMotion/createSpin/createOrbit, pushLayer/bindMotion, Scene::bindEntity를 호출한다. 사용자 함수는 createMotion/setMotion/seekMotion의 샘플 평가에서도 실행될 수 있다.
+3. 프레임은 PollEvents -> 입력 콜백 -> 사용자 update -> 종료 확인 -> Scene::updateMotions -> MotionSystem::update -> Motion::sample -> 각 MotionStep.transform으로 진행한다.
+4. 회전 Step은 TransformSystem::rotation을, 경로 Step은 시간의 clamp/순환/왕복 -> interpolation -> path -> TransformSystem::translation을 사용한다. 콜백 이름의 연결은 런타임 std::function을 통해 이루어지며 일반 AST 간선만으로 특정 람다를 확정하지 않는다.
+5. Renderer::draw와 pick은 Scene::faceWorldMatrix -> Scene::worldMatrix -> MotionSystem::layerMatrices를 공유한다. worldMatrix는 가까운 유효 객체 바인딩을 찾아 P*A*L*D를 합성한다. root의 변환은 바깥쪽에서 한 번만 적용된다.
+6. 선은 Renderer::draw -> Scene::lineWorldMatrix를 사용한다. owner가 있으면 worldMatrix, 없으면 root의 전역 행렬만 받는다.
+7. CPU의 최종 model은 기존 VAO/VBO/EBO의 메시와 함께 uModel, projection*view*model의 uMVP, 역전치 uNormalMatrix로 전달된다. 반사는 메시 정점을 다시 업로드하지 않는다. Renderer의 컬링 해제와 pick의 양면 검사를 유지한다.
+8. run 종료/예외는 기존 shutdown 순서로 자산·GPU·창·GLFW를 정리한다. Scene은 CPU Motion 및 레이어 데이터를 소유한다.
+
+새 예제의 main은 기존 실습 13~19의 main과 별도다. examples/motion.cpp 하나만 프로젝트에 등록한다. 새 API를 사용하는 실습 이식은 하지 않았다. Scene::worldMatrix는 객체 깊이와 레이어 깊이만큼 순회하고 임시 벡터를 만든다. Motion 콜백은 시간 갱신에서 한 번 평가하며 행렬 조회에서 재호출하지 않는다. 성능·화면·입력은 사용자가 확인한다.
