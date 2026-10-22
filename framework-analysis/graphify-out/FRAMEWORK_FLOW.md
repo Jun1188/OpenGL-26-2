@@ -10,8 +10,6 @@ PollEvents가 키·포커스·마우스 콜백을 실행한다. dispatch는 C �
 
 ## 실습별 콜백 내부
 
-- 13: initScene이 두 도형·축을 생성하고 onKey/selectFaces가 표시할 면을 정한다.
-- 14: initScene의 항등 회전·카메라 시점 → onKey의 대상·방향 → onUpdate의 로컬 회전 오른쪽 곱·월드 이동 → applyTransform → setTransform. onFocus는 이동 키를 해제한다.
 - 15: initScene/resetAll → beginMotion의 모션별 실행·진행률 → onUpdate → applyFaceMotion의 T/F/S/B/1/2/4/5 행렬 합성 → setFaceLocalMatrix. applyObjectTransform은 별도 Y 자전만 적용한다.
 - 16: 육면체 흐름은 15를 유지한다. beginPyramid/updatePyramid/applyPyramid가 사각뿔 모드 하나의 진행률을 하단 모서리·위 꼭짓점의 피벗 행렬로 바꾼다.
 - 17: reset이 공전 그룹·모델을 생성 → onKey가 대상·방향·교환 모드를 설정 → onUpdate가 월드 위치·모션 계산 → apply가 공전 부모와 시각 모델의 로컬 변환을 설정한다. c는 두 모델을 모두 교체하며 변환을 유지한다.
@@ -28,7 +26,7 @@ worldMatrix와 faceWorldMatrix가 부모·면 변환을 계산한다. 그룹은 
 
 screenRay는 카메라 역변환으로 광선을 만들고 pick은 같은 faceWorldMatrix로 가장 가까운 표시 삼각형의 교점을 계산한다. pickAt은 창 좌표를 프레임버퍼 픽셀로 변환한다. 선과 투명 텍스처 픽셀은 별도 피킹하지 않는다.
 
-loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 병합이다. loadModel은 기능 확인 → 번들 Assimp → 노드 변환을 정점에 반영 → Model/Mesh다. loadTexture는 Windows WIC → RGBA8 → Material → 선택적 GPU 텍스처다. DLL/COM/GPU 드라이버 내부는 분석 범위 밖이다.
+loadObj는 내부 상대경로 → OBJ 텍스트 읽기 → 표준 parseObj → 파싱 실패 시 호환 parseObj → 삼각분할·공면 병합 → Model/Mesh다. loadPrimitive와 loadModel도 이 경로를 호출한다. Assimp는 제거했다. loadTexture는 Windows WIC → RGBA8 → Material → 선택적 GPU 텍스처다. DLL/COM/GPU 드라이버 내부는 분석 범위 밖이다.
 
 ## 한계
 
@@ -48,3 +46,7 @@ loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 
 8. run 종료/예외는 기존 shutdown 순서로 자산·GPU·창·GLFW를 정리한다. Scene은 CPU Motion 및 레이어 데이터를 소유한다.
 
 새 예제의 main은 기존 실습 13~19의 main과 별도다. examples/motion.cpp 하나만 프로젝트에 등록한다. 새 API를 사용하는 실습 이식은 하지 않았다. Scene::worldMatrix는 객체 깊이와 레이어 깊이만큼 순회하고 임시 벡터를 만든다. Motion 콜백은 시간 갱신에서 한 번 평가하며 행렬 조회에서 재호출하지 않는다. 성능·화면·입력은 사용자가 확인한다.
+
+## OBJ 변경 범위와 현재 진입점
+
+현재 실행 프로젝트와 OBJ 로드의 정확한 정의·호출 위치는 [OBJ 구조 요약](../../docs/obj-loader/ARCHITECTURE.md)을 따른다. 과거 기록의 실습 13·14와 워밍업 프로젝트는 현재 작업 트리에서 확인되지 않는다.

@@ -30,7 +30,7 @@ def project_inventory():
     ns={'m':'http://schemas.microsoft.com/developer/msbuild/2003'}
     projects=[]
     for p in sorted(REPOSITORY.rglob('*.vcxproj')):
-        if any(x in p.parts for x in ['dependencies','packages','.vs','x64','Debug','Release']):continue
+        if any(x in p.parts for x in ['dependencies','packages','.vs','x64','Debug','Release','.obj-work','dist']):continue
         sources=[];entries=[]
         for e in ET.parse(p).findall('.//m:ClCompile',ns):
             include=e.get('Include')
@@ -68,7 +68,7 @@ def add_source_anchors(extraction, files, root):
             extraction['nodes'].append(node);anchors[(rel,symbol)]=node
             extraction['edges'].append({'source':file_id,'target':ident,'relation':'defines',
                 'confidence':'EXTRACTED','source_file':rel,'source_location':f'L{line}'})
-    callback_projects=[(f'openGL_3dAssign_{number}','practice') for number in range(13,20)]
+    callback_projects=[(f'openGL_3dAssign_{number}','practice') for number in range(13,21)]
     callback_projects.append(('standard','sample'))
     for directory,receiver in callback_projects:
         rel=f'{directory}/main.cpp'
@@ -89,7 +89,7 @@ def main():
     root=REPOSITORY/'framework' if framework else REPOSITORY
     out=REPOSITORY/'framework-analysis/graphify-out' if framework else REPOSITORY/'graphify-out'
     cache=out/'cache';out.mkdir(parents=True,exist_ok=True)
-    excluded={'dependencies','packages','.vs','x64','Debug','Release','archive','graphify-out','framework-analysis','.agents','docs'}
+    excluded={'dependencies','packages','.vs','x64','Debug','Release','archive','graphify-out','framework-analysis','.agents','docs','.obj-work','dist'}
     files=[]
     for p in root.rglob('*'):
         relative=p.relative_to(root)
@@ -98,7 +98,7 @@ def main():
         if not framework and 'framework' in relative.parts and relative.parts[0]!='framework':continue
         files.append(p)
     files.sort()
-    detection=detect(root,extra_excludes=['**/dependencies/**','**/packages/**','**/x64/**','**/archive/**','**/.vs/**'],cache_root=cache)
+    detection=detect(root,extra_excludes=['**/dependencies/**','**/packages/**','**/x64/**','**/archive/**','**/.vs/**','**/.obj-work/**','**/dist/**'],cache_root=cache)
     detection['files']={'code':[str(p) for p in files],'document':[],'paper':[],'image':[],'video':[]}
     detection['total_files']=len(files)
     detection['total_words']=sum(len(p.read_text(encoding='utf-8-sig').split()) for p in files)

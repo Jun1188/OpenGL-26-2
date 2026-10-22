@@ -4,14 +4,12 @@
 
 ## 독립 진입점
 
-- computer_graphics_warmUp1/FileName.cpp: PROB=2가 소스 기본값이다. PROB=1/2/3/4의 main은 조건부 대안이다. 입력 → 문제별 컨테이너/메뉴 → 종료 흐름이다.
-- Computer-Graphics_WarmmingUp2/FileName.cpp의 wmain: 콘솔 생성 → UTF-8 인자 변환 → warmup::Application::run → 명령·보드·메시 처리 → 예외 출력/반환. tests/Tests.cpp는 별도 테스트 프로젝트의 main이며 실행하지 않았다.
-- openGL_sample0/main.cpp: GLFW/GLEW 초기화 → 셰이더·VAO/VBO → 메시 읽기·검증 → 입력·카메라·프레임 루프 → 자원·창 해제.
-- openGL_assign123456/main.cpp와 네 2D 실습의 각 main: 기존 GLFW/GLEW 초기화 → Console/RectState 또는 DiagramState → 입력·업데이트·렌더 → 해제. 각각 별도 프로그램이며 새 3D API로 이식하지 않았다.
-- openGL_3dAssign_13~19/main.cpp: 각각 Console 생성 → Application 콜백 등록 → run. main의 람다는 등록 시점에 실행되지 않는다.
-- framework/examples/basic.cpp와 assets.cpp: 각각 독립 예제 main이다. 프레임워크 자체에는 main이 없다. 두 예제를 한 실행 프로젝트에 동시에 등록하지 않는다.
+현재 작업 트리에는 standard, openGL_sample0, 실습 15~20의 8개 실행 프로젝트가 있다. 각 main은 별도 실행 파일이다. framework/examples/{basic,assets,motion}.cpp는 별도로 프로젝트에 등록하는 독립 예제다. 현재 소스의 main에는 조건부 대체 진입점이 없다. PROJECTS.json은 실제 vcxproj 컴파일 소스와 진입점을 기록한다. 과거 문서의 워밍업·2D·실습 13·14 프로젝트는 현재 작업 트리에서 확인되지 않는다.
 
-PROJECTS.json은 각 프로젝트의 실제 컴파일 소스와 main/wmain 위치를 기록한다. 워밍업은 PROB 조건과 소스 기본 활성 여부를 구분한다. 다른 매크로 설정을 사용하면 활성 분기는 달라질 수 있다.
+- standard/main.cpp: Console 상태 생성 → init/key/mouse 콜백 등록 → Application::run. initScene은 Motion·레이어와 객체를 구성하고 onKey/onMouse가 입력·선택을 처리한다.
+- openGL_sample0/main.cpp: GLFW/GLEW 초기화 → 셰이더·VAO/VBO → 메시 읽기·검증 → 입력·카메라·프레임 루프 → 자원·창 해제. 이 프로젝트는 자체 MeshParser/MeshValidator를 사용한다.
+- openGL_3dAssign_15~20/main.cpp: 각각 Console 생성 → Application 콜백 등록 → run. 콜백 람다는 등록할 때 실행되지 않는다.
+- framework/examples/basic.cpp, assets.cpp, motion.cpp: 각각 별도 main이다. assets는 loadObj를 호출하는 예제이며 다른 예제의 main과 함께 링크하지 않는다.
 
 ## 공통 3D 실행 순서
 
@@ -25,8 +23,6 @@ PollEvents가 키·포커스·마우스 콜백을 실행한다. dispatch는 C �
 
 ## 실습별 콜백 내부
 
-- 13: initScene이 두 도형·축을 생성하고 onKey/selectFaces가 표시할 면을 정한다.
-- 14: initScene의 항등 회전·카메라 시점 → onKey의 대상·방향 → onUpdate의 로컬 회전 오른쪽 곱·월드 이동 → applyTransform → setTransform. onFocus는 이동 키를 해제한다.
 - 15: initScene/resetAll → beginMotion의 모션별 실행·진행률 → onUpdate → applyFaceMotion의 T/F/S/B/1/2/4/5 행렬 합성 → setFaceLocalMatrix. applyObjectTransform은 별도 Y 자전만 적용한다.
 - 16: 육면체 흐름은 15를 유지한다. beginPyramid/updatePyramid/applyPyramid가 사각뿔 모드 하나의 진행률을 하단 모서리·위 꼭짓점의 피벗 행렬로 바꾼다.
 - 17: reset이 공전 그룹·모델을 생성 → onKey가 대상·방향·교환 모드를 설정 → onUpdate가 월드 위치·모션 계산 → apply가 공전 부모와 시각 모델의 로컬 변환을 설정한다. c는 두 모델을 모두 교체하며 변환을 유지한다.
@@ -43,7 +39,7 @@ worldMatrix와 faceWorldMatrix가 부모·면 변환을 계산한다. 그룹은 
 
 screenRay는 카메라 역변환으로 광선을 만들고 pick은 같은 faceWorldMatrix로 가장 가까운 표시 삼각형의 교점을 계산한다. pickAt은 창 좌표를 프레임버퍼 픽셀로 변환한다. 선과 투명 텍스처 픽셀은 별도 피킹하지 않는다.
 
-loadPrimitive는 내부 상대경로 → OBJ 부분집합·삼각분할·공면 병합이다. loadModel은 기능 확인 → 번들 Assimp → 노드 변환을 정점에 반영 → Model/Mesh다. loadTexture는 Windows WIC → RGBA8 → Material → 선택적 GPU 텍스처다. DLL/COM/GPU 드라이버 내부는 분석 범위 밖이다.
+loadObj는 내부 상대경로 → OBJ 텍스트 → 표준/호환 파싱 → 삼각분할·공면 병합 → Model/Mesh다. loadPrimitive/loadModel도 같은 경로다. Assimp는 제거했다. loadTexture는 Windows WIC → RGBA8 → Material → 선택적 GPU 텍스처다. DLL/COM/GPU 드라이버 내부는 분석 범위 밖이다.
 
 ## 한계
 
@@ -69,3 +65,5 @@ standard/standard.slnx는 standard/standard.vcxproj 하나를 연다. 컴파일 
 6. 종료·예외는 기존 Application 자원 정리로 이어지고 run이 끝날 때 Console·Application 수명이 끝난다.
 
 분석에서는 root framework만 추출하고 standard/framework는 중복 제외한다. 코드 113개 파일을 graphify AST와 정의 앵커로 분석했다. 표준 프로젝트의 등록 콜백 간선은 standard/main.cpp와 Console.cpp의 소스 위치에 연결했다. 그래프 3368노드·5348간선은 구조 수치이며 실행·컴파일·피킹 성공의 증거가 아니다. 미해결 끝점과 동적 연결의 한계는 GRAPH_HEALTH.md에 남긴다.
+
+OBJ 정의·호출·CPU→GPU 경계는 [현재 OBJ 구조 요약](../docs/obj-loader/ARCHITECTURE.md)을 따른다.

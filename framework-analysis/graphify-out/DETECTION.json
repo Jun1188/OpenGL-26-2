@@ -2,9 +2,9 @@
   "files": {
     "code": [
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Application.inl",
-      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\AssimpLoader.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Motion.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Native.h",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\ObjLoader.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\PrimitiveLoader.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Renderer.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Scene.inl",
@@ -30,31 +30,35 @@
     "video": []
   },
   "total_files": 22,
-  "total_words": 12353,
+  "total_words": 12980,
   "needs_graph": false,
-  "warning": "Corpus is ~15,187 words - fits in a single context window. You may not need a graph.",
+  "warning": "Corpus is ~18,069 words - fits in a single context window. You may not need a graph.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\Framework.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\LegacyOpenGL.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Application.inl",
-    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\AssimpLoader.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Motion.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\ObjLoader.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\PrimitiveLoader.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Renderer.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Scene.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Transform.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\examples\\data\\corner_formats.obj",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\examples\\data\\cube.obj",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\examples\\data\\forward_closed.obj",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\examples\\data\\pyramid.obj",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\examples\\data\\tetrahedron.obj",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\shaders\\FragmentShader.glsl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\shaders\\VertexShader.glsl"
   ],
   "walk_errors": [],
   "ignored": [
-    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\dependencies\\assimp\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\dependencies\\glew-2.3.1\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\dependencies\\glfw-3.4.bin.WIN64\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\dependencies\\glm\\"
   ],
   "pruned_noise_dirs": [],
-  "graphifyignore_patterns": 58,
+  "graphifyignore_patterns": 63,
   "scan_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework"
 }

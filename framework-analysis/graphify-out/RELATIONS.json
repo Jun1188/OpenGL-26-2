@@ -1004,7 +1004,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "examples/assets.cpp",
-      "source_location": "L9",
+      "source_location": "L7",
       "_callable": true,
       "_origin": "ast"
     },
@@ -3650,14 +3650,6 @@
       "_origin": "ast"
     },
     {
-      "id": "include_modelloader_featureoptions_models",
-      "label": "models",
-      "file_type": "code",
-      "source_file": "include/ModelLoader.h",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
       "id": "include_modelloader_featureoptions_textures",
       "label": "textures",
       "file_type": "code",
@@ -3748,11 +3740,19 @@
       "_origin": "ast"
     },
     {
+      "id": "include_modelloader_loadoptions_allowobjfallback",
+      "label": "allowObjFallback",
+      "file_type": "code",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
       "id": "include_modelloader_modelresult",
       "label": "ModelResult",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L15",
+      "source_location": "L16",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -3778,7 +3778,7 @@
       "label": "model",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -3786,7 +3786,7 @@
       "label": "localBasis",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -3794,7 +3794,7 @@
       "label": "pivotMode",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
@@ -3810,7 +3810,31 @@
       "label": "error",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L19",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "include_modelloader_h_vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "include_modelloader_modelresult_warnings",
+      "label": "warnings",
+      "file_type": "code",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "include_modelloader_modelresult_usedfallback",
+      "label": "usedFallback",
+      "file_type": "code",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -3818,7 +3842,7 @@
       "label": "TextureResult",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L22",
+      "source_location": "L25",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -3836,7 +3860,7 @@
       "label": "image",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L23",
+      "source_location": "L26",
       "_origin": "ast"
     },
     {
@@ -3844,7 +3868,7 @@
       "label": "error",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L24",
+      "source_location": "L27",
       "_origin": "ast"
     },
     {
@@ -3852,7 +3876,7 @@
       "label": "finishLoad()",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L29",
+      "source_location": "L32",
       "_callable": true,
       "_origin": "ast"
     },
@@ -3861,7 +3885,7 @@
       "label": "AssetLoader",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L45",
+      "source_location": "L48",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -3871,15 +3895,7 @@
       "label": "projectRoot_",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L46",
-      "_origin": "ast"
-    },
-    {
-      "id": "include_modelloader_assetloader_runtimeroot",
-      "label": "runtimeRoot_",
-      "file_type": "code",
-      "source_file": "include/ModelLoader.h",
-      "source_location": "L46",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -3887,7 +3903,7 @@
       "label": "features_",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L47",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -3911,7 +3927,7 @@
       "label": "imageCache_",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -3919,7 +3935,7 @@
       "label": ".resolve()",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L49",
+      "source_location": "L52",
       "_callable": true,
       "_origin": "ast"
     },
@@ -3928,7 +3944,7 @@
       "label": ".texture()",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L59",
+      "source_location": "L62",
       "_callable": true,
       "_origin": "ast"
     },
@@ -3937,7 +3953,7 @@
       "label": ".AssetLoader()",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L70",
+      "source_location": "L73",
       "_callable": true,
       "_origin": "ast"
     },
@@ -3946,8 +3962,16 @@
       "label": ".loadTexture()",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L74",
+      "source_location": "L77",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "include_modelloader_assetloader_loadobj",
+      "label": "loadObj",
+      "file_type": "code",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L81",
       "_origin": "ast"
     },
     {
@@ -3955,7 +3979,7 @@
       "label": "loadPrimitive",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L78",
+      "source_location": "L82",
       "_origin": "ast"
     },
     {
@@ -3963,7 +3987,8 @@
       "label": "loadModel",
       "file_type": "code",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L79",
+      "source_location": "L83",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -5408,155 +5433,6 @@
       "_origin": "ast"
     },
     {
-      "id": "detail_assimploader",
-      "label": "AssimpLoader.inl",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi",
-      "label": "AssimpApi",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L8",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "module",
-      "label": "Module",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_module",
-      "label": "module",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L9",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_ready",
-      "label": "ready",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_importfile",
-      "label": "importFile",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L11",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_releaseimport",
-      "label": "releaseImport",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_geterror",
-      "label": "getError",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L13",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_getcolor",
-      "label": "getColor",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L14",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_gettexture",
-      "label": "getTexture",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L15",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpapi_load",
-      "label": ".load()",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L16",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "path",
-      "label": "path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assimpmatrix",
-      "label": "assimpMatrix()",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L29",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "mat4",
-      "label": "mat4",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "aimatrix4x4",
-      "label": "aiMatrix4x4",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "detail_assimploader_assetloader_loadmodel",
-      "label": "AssetLoader::loadModel()",
-      "file_type": "code",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "modelresult",
-      "label": "ModelResult",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "loadoptions",
-      "label": "LoadOptions",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
       "id": "detail_motion",
       "label": "Motion.inl",
       "file_type": "code",
@@ -5974,20 +5850,98 @@
       "_origin": "ast"
     },
     {
-      "id": "detail_primitiveloader",
-      "label": "PrimitiveLoader.inl",
+      "id": "detail_objloader",
+      "label": "ObjLoader.inl",
       "file_type": "code",
-      "source_file": "detail/PrimitiveLoader.inl",
+      "source_file": "detail/ObjLoader.inl",
       "source_location": "L1",
       "_origin": "ast"
     },
     {
-      "id": "detail_primitiveloader_objindex",
-      "label": "objIndex()",
+      "id": "detail_objloader_objparseerror",
+      "label": "ObjParseError",
       "file_type": "code",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L7",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L8",
       "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "runtime_error",
+      "label": "runtime_error",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objcorner",
+      "label": "ObjCorner",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L9",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objcorner_position",
+      "label": "position",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objcorner_uv",
+      "label": "uv",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objcorner_normal",
+      "label": "normal",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objcorner_operator",
+      "label": ".operator==()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface",
+      "label": "ObjFace",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L15",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface_corners",
+      "label": "corners",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -5999,6 +5953,46 @@
       "_origin": "ast"
     },
     {
+      "id": "detail_objloader_objface_positions",
+      "label": "positions",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface_uvs",
+      "label": "uvs",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface_normals",
+      "label": "normals",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface_line",
+      "label": "line",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objface_batch",
+      "label": "batch",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
       "id": "string",
       "label": "string",
       "file_type": "code",
@@ -6007,11 +6001,130 @@
       "_origin": "ast"
     },
     {
+      "id": "detail_objloader_objface_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objwarning",
+      "label": "objWarning()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L20",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objinteger",
+      "label": "objInteger()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L23",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objresolve",
+      "label": "objResolve()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objnumbers",
+      "label": "objNumbers()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L60",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "istringstream",
+      "label": "istringstream",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_objtext",
+      "label": "objText()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_parseobj",
+      "label": "parseObj()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "model",
+      "label": "Model",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "loadoptions",
+      "label": "LoadOptions",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_objloader_assetloader_loadobj",
+      "label": "AssetLoader::loadObj()",
+      "file_type": "code",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "modelresult",
+      "label": "ModelResult",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "path",
+      "label": "path",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "detail_primitiveloader",
+      "label": "PrimitiveLoader.inl",
+      "file_type": "code",
+      "source_file": "detail/PrimitiveLoader.inl",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "detail_primitiveloader_assetloader_loadprimitive",
       "label": "AssetLoader::loadPrimitive()",
       "file_type": "code",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7420,23 +7533,6 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "review_file_cbe451f33a683c7409f1",
-      "label": "detail/AssimpLoader.inl",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L1",
-      "file_type": "code",
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_4a5ebb529760b5c9eab7",
-      "label": "AssetLoader::loadModel",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
       "id": "review_file_f501735136473830733f",
       "label": "detail/Motion.inl",
       "source_file": "detail/Motion.inl",
@@ -7750,6 +7846,23 @@
       "_origin": "source_definition_review"
     },
     {
+      "id": "review_file_55e7c4ffe12802093c2b",
+      "label": "detail/ObjLoader.inl",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L1",
+      "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_1cbff5a46d336ff09804",
+      "label": "AssetLoader::loadObj",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
       "id": "review_file_6ccef88ae42789457ff8",
       "label": "detail/PrimitiveLoader.inl",
       "source_file": "detail/PrimitiveLoader.inl",
@@ -7758,10 +7871,10 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_db58b4e884a425357f61",
+      "id": "source_6a31c6ecf15f38c82e02",
       "label": "AssetLoader::loadPrimitive",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -8518,10 +8631,10 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_a24c2f30d1ea14ae2735",
+      "id": "source_7ff6cda7b0c5ecea7b8a",
       "label": "main",
       "source_file": "examples/assets.cpp",
-      "source_location": "L9",
+      "source_location": "L7",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -8606,6 +8719,15 @@
       "source_file": "include/ModelLoader.h",
       "source_location": "L1",
       "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_b0c6ca1b92b22b4fab38",
+      "label": "AssetLoader::loadModel",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90",
+      "file_type": "code",
+      "_callable": true,
       "_origin": "source_definition_review"
     },
     {
@@ -10218,7 +10340,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "examples/assets.cpp",
-      "source_location": "L9",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -15639,17 +15761,6 @@
     },
     {
       "source": "include_modelloader_featureoptions",
-      "target": "include_modelloader_featureoptions_models",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "include/ModelLoader.h",
-      "source_location": "L6",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "include_modelloader_featureoptions",
       "target": "include_modelloader_featureoptions_textures",
       "relation": "defines",
       "confidence": "EXTRACTED",
@@ -15780,12 +15891,23 @@
       "_origin": "ast"
     },
     {
+      "source": "include_modelloader_loadoptions",
+      "target": "include_modelloader_loadoptions_allowobjfallback",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
       "source": "include_modelloader",
       "target": "include_modelloader_modelresult",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -15795,7 +15917,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15806,7 +15928,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -15817,7 +15939,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15828,7 +15950,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15839,7 +15961,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15850,7 +15972,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15861,7 +15983,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15872,7 +15994,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15883,7 +16005,51 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L19",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_modelresult",
+      "target": "include_modelloader_h_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_modelresult",
+      "target": "include_modelloader_h_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_modelresult",
+      "target": "include_modelloader_modelresult_warnings",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_modelresult",
+      "target": "include_modelloader_modelresult_usedfallback",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L22",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15894,7 +16060,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L22",
+      "source_location": "L25",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -15904,7 +16070,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L23",
+      "source_location": "L26",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15915,7 +16081,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L23",
+      "source_location": "L26",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -15926,7 +16092,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L23",
+      "source_location": "L26",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15937,7 +16103,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L24",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15948,7 +16114,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L24",
+      "source_location": "L27",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -15959,7 +16125,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -15969,7 +16135,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -15980,7 +16146,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -15991,7 +16157,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -16002,7 +16168,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L45",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16012,7 +16178,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16023,18 +16189,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L46",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "include_modelloader_assetloader",
-      "target": "include_modelloader_assetloader_runtimeroot",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "include/ModelLoader.h",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16045,7 +16200,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L47",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16056,7 +16211,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L47",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16067,7 +16222,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16078,7 +16233,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -16089,7 +16244,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -16100,7 +16255,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -16111,7 +16266,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16122,7 +16277,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L49",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16132,7 +16287,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L49",
+      "source_location": "L52",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -16143,7 +16298,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L49",
+      "source_location": "L52",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -16154,7 +16309,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L59",
+      "source_location": "L62",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16164,7 +16319,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L59",
+      "source_location": "L62",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -16175,7 +16330,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L59",
+      "source_location": "L62",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -16186,7 +16341,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L59",
+      "source_location": "L62",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -16197,7 +16352,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L70",
+      "source_location": "L73",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16207,7 +16362,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L74",
+      "source_location": "L77",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16217,7 +16372,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L74",
+      "source_location": "L77",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -16228,9 +16383,20 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L74",
+      "source_location": "L77",
       "weight": 1.0,
       "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_assetloader",
+      "target": "include_modelloader_assetloader_loadobj",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L81",
+      "weight": 1.0,
+      "context": "field",
       "_origin": "ast"
     },
     {
@@ -16239,7 +16405,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L78",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16250,7 +16416,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L79",
+      "source_location": "L83",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -16262,19 +16428,62 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L83",
+      "source_location": "L87",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
       "source": "include_modelloader",
-      "target": "detail_assimploader",
+      "target": "detail_objloader",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L84",
+      "source_location": "L88",
       "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader",
+      "target": "include_modelloader_assetloader_loadmodel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_assetloader_loadmodel",
+      "target": "include_modelloader_modelresult",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_assetloader_loadmodel",
+      "target": "include_motion_pathmotion_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_assetloader_loadmodel",
+      "target": "include_modelloader_loadoptions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "parameter_type",
       "_origin": "ast"
     },
     {
@@ -16284,7 +16493,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L61",
+      "source_location": "L64",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -16295,7 +16504,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "include/ModelLoader.h",
-      "source_location": "L75",
+      "source_location": "L78",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "include_modelloader_assetloader_loadmodel",
+      "target": "include_modelloader_assetloader_loadobj",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18601,7 +18821,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "include/ModelLoader.h",
-      "source_location": "L33",
+      "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18613,7 +18833,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "include/ModelLoader.h",
-      "source_location": "L36",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18625,7 +18845,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "include/ModelLoader.h",
-      "source_location": "L38",
+      "source_location": "L41",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18637,7 +18857,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L22",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18649,7 +18869,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L26",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18661,7 +18881,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L32",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18673,7 +18893,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L34",
+      "source_location": "L29",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18685,7 +18905,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L37",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18697,7 +18917,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L38",
+      "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -18709,7 +18929,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "examples/assets.cpp",
-      "source_location": "L40",
+      "source_location": "L35",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -19370,332 +19590,6 @@
       "source_location": "L216",
       "weight": 1.0,
       "context": "generic_arg",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "dependencies_assimp_include_assimp_cimport",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "dependencies_assimp_include_assimp_scene",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "dependencies_assimp_include_assimp_postprocess",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "functional",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "detail_assimploader_assimpapi",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "module",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_module",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_ready",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_importfile",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L11",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_releaseimport",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L12",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_geterror",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L13",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_getcolor",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_gettexture",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi",
-      "target": "detail_assimploader_assimpapi_load",
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L16",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpapi_load",
-      "target": "path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L16",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "detail_assimploader_assimpmatrix",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L29",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpmatrix",
-      "target": "mat4",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L29",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpmatrix",
-      "target": "aimatrix4x4",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L29",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader",
-      "target": "detail_assimploader_assetloader_loadmodel",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "modelresult",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "loadoptions",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assimpmatrix",
-      "target": "mat4",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L30",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpapi_load",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpapi_importfile",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L41",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpapi_geterror",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L43",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpapi_getcolor",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L51",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpapi_gettexture",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L59",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "detail_assimploader_assimpmatrix",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L90",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_assimploader_assetloader_loadmodel",
-      "target": "mat4",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L123",
-      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -20799,79 +20693,771 @@
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader",
+      "source": "detail_objloader",
       "target": "fstream",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
+      "source_file": "detail/ObjLoader.inl",
       "source_location": "L2",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader",
+      "source": "detail_objloader",
       "target": "sstream",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
+      "source_file": "detail/ObjLoader.inl",
       "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader",
+      "source": "detail_objloader",
       "target": "locale",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
+      "source_file": "detail/ObjLoader.inl",
       "source_location": "L4",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader",
-      "target": "detail_primitiveloader_objindex",
-      "relation": "contains",
+      "source": "detail_objloader",
+      "target": "iterator",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L7",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader_objindex",
+      "source": "detail_objloader",
+      "target": "detail_objloader_objparseerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objparseerror",
+      "target": "runtime_error",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objcorner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objcorner_position",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objcorner_uv",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objcorner_normal",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objcorner_operator",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner_operator",
+      "target": "detail_objloader_objcorner",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objcorner",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_corners",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
       "target": "size_t",
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L7",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_positions",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_uvs",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_normals",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_line",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_batch",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objface",
+      "target": "detail_objloader_objface_name",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objwarning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objwarning",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objwarning",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objwarning",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objinteger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objinteger",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objcorner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objresolve",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objresolve",
+      "target": "size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader_objindex",
-      "target": "string",
+      "source": "detail_objloader_objresolve",
+      "target": "size_t",
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L7",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
     },
     {
-      "source": "detail_primitiveloader_objindex",
+      "source": "detail_objloader_objresolve",
       "target": "size_t",
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L7",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objnumbers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objnumbers",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objnumbers",
+      "target": "istringstream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L60",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_objtext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_parseobj",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "model",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "loadoptions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L109",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
+      "target": "detail_objloader_assetloader_loadobj",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "modelresult",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "loadoptions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objinteger",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objcorner",
+      "target": "detail_objloader_objinteger",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objresolve",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objresolve",
+      "target": "size_t",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objnumbers",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_objtext",
+      "target": "detail_objloader_objwarning",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "detail_objloader_objnumbers",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "detail_objloader_objparseerror",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "detail_objloader_objwarning",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_parseobj",
+      "target": "detail_objloader_objresolve",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L197",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "runtime_error",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L286",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "detail_objloader_parseobj",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L292",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "string",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L298",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader_assetloader_loadobj",
+      "target": "detail_objloader_objwarning",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L301",
+      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -20880,7 +21466,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20890,7 +21476,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -20901,7 +21487,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -20912,31 +21498,9 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17",
+      "source_location": "L3",
       "weight": 1.0,
       "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_primitiveloader_objindex",
-      "target": "size_t",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L14",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "detail_primitiveloader_assetloader_loadprimitive",
-      "target": "detail_primitiveloader_objindex",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L48",
-      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -25303,14 +25867,6 @@
       "source_location": "L220"
     },
     {
-      "source": "review_file_cbe451f33a683c7409f1",
-      "target": "source_4a5ebb529760b5c9eab7",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "detail/AssimpLoader.inl",
-      "source_location": "L34"
-    },
-    {
       "source": "review_file_f501735136473830733f",
       "target": "source_67b66cf5ac3b13dd1c29",
       "relation": "defines",
@@ -25575,12 +26131,20 @@
       "source_location": "L322"
     },
     {
+      "source": "review_file_55e7c4ffe12802093c2b",
+      "target": "source_1cbff5a46d336ff09804",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L280"
+    },
+    {
       "source": "review_file_6ccef88ae42789457ff8",
-      "target": "source_db58b4e884a425357f61",
+      "target": "source_6a31c6ecf15f38c82e02",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/PrimitiveLoader.inl",
-      "source_location": "L17"
+      "source_location": "L3"
     },
     {
       "source": "review_file_9c3777fa9389af71eebc",
@@ -26216,11 +26780,11 @@
     },
     {
       "source": "review_file_7f4d716fae9ddf4ac4d1",
-      "target": "source_a24c2f30d1ea14ae2735",
+      "target": "source_7ff6cda7b0c5ecea7b8a",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "examples/assets.cpp",
-      "source_location": "L9"
+      "source_location": "L7"
     },
     {
       "source": "review_file_e0afdb0ec9e29bfd7fae",
@@ -26237,6 +26801,14 @@
       "confidence": "EXTRACTED",
       "source_file": "examples/motion.cpp",
       "source_location": "L4"
+    },
+    {
+      "source": "review_file_6fdbb96bd3c170ec1e69",
+      "target": "source_b0c6ca1b92b22b4fab38",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "include/ModelLoader.h",
+      "source_location": "L90"
     }
   ],
   "input_tokens": 0,
