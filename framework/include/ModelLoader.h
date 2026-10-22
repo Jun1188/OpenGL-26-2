@@ -3,7 +3,7 @@
 #include "Texture.h"
 
 namespace graphics {
-struct FeatureOptions { bool models = false; bool textures = false; };
+struct FeatureOptions { bool textures = false; };
 struct LoadOptions {
     PivotMode pivot = PivotMode::BottomCenter;
     glm::vec3 customPivot{0};
@@ -46,7 +46,7 @@ inline ModelResult finishLoad(Model model,const LoadOptions& options) {
 } // namespace detail
 
 class AssetLoader {
-    std::filesystem::path projectRoot_,runtimeRoot_;
+    std::filesystem::path projectRoot_;
     FeatureOptions features_;
     mutable std::map<std::filesystem::path,std::weak_ptr<const TextureImage>> imageCache_;
     std::filesystem::path resolve(const std::filesystem::path& relative) const {
@@ -71,8 +71,8 @@ class AssetLoader {
     }
 public:
     explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(),
-                         FeatureOptions features=FeatureOptions{},std::filesystem::path runtimeRoot=std::filesystem::path{})
-        : projectRoot_(std::filesystem::absolute(projectRoot)),runtimeRoot_(std::move(runtimeRoot)),features_(features) {}
+                         FeatureOptions features=FeatureOptions{})
+        : projectRoot_(std::filesystem::absolute(projectRoot)),features_(features) {}
     const FeatureOptions& features() const { return features_; }
     TextureResult loadTexture(const std::filesystem::path& relative,bool flipRows=true) const {
         try { return {texture(relative,flipRows),{}}; }
@@ -86,4 +86,8 @@ public:
 
 #include "../detail/PrimitiveLoader.inl"
 #include "../detail/ObjLoader.inl"
-#include "../detail/AssimpLoader.inl"
+namespace graphics {
+inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative,const LoadOptions& options) const {
+    return loadObj(relative,options);
+}
+} // namespace graphics

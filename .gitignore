@@ -73,3 +73,8 @@ packages/
 **/graphify-out/.graphify_cached.json
 **/graphify-out/.graphify_uncached.txt
 **/graphify-out/.needs_update
+
+# OBJ model text is source data, not compiler output.
+!**/framework/examples/data/*.obj
+/dist/
+/.obj-work/
