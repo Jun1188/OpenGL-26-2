@@ -67,7 +67,12 @@ void Console::apply() {
         graphics::Transform3D low;low.basis={sign*.8f,height*.5f,0};low.scale={1,factor,1};
         graphics::Transform3D upper;const float a=3.14159265f*swapProgress_;
         upper.basis={sign*.65f*std::cos(a),.25f,sign*.65f*std::sin(a)};
-        graphics::Transform3D gun;gun.basis={0,.25f,.4f};gun.rotation=turn(sign*gunAngle_,{0,1,0});
+        const glm::vec3 bodyCenter{0, .3f, 0};
+        const glm::vec3 gunOffset{0, .25f, .4f};
+        graphics::Transform3D gun;
+        gun.rotation = turn(sign * gunAngle_, {0, 1, 0});
+        gun.basis = bodyCenter
+                  + gun.rotation * (gunOffset - bodyCenter);
         graphics::Transform3D pole;pole.basis={0,.6f,0};pole.rotation=turn(sign*60*std::sin(poleTime_),{1,0,0});
         if(!scene.setTransform(lower_[i],low)||!scene.setTransform(upper_[i],upper)
             ||!scene.setTransform(guns_[i],gun)||!scene.setTransform(poles_[i],pole))
