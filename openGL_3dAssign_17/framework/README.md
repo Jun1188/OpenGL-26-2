@@ -20,7 +20,7 @@ Transform3D는 basis(부모 좌표의 위치), localBasis(로컬 피벗), rotati
 - addLine/addBasis: 그룹을 owner로 지정하면 선도 계층 변환을 따른다.
 - addGroup은 보이지 않는 변환 노드다. 일반 addModel/push_entity는 빈 모델을 거부한다. setModel로 그룹에 유효한 모델을 지정하면 일반 엔티티가 된다. 그룹은 BottomCenter 피벗을 사용할 수 없다.
 
-AssetLoader::loadPrimitive는 도형 텍스트·OBJ 부분집합, loadModel은 Assimp 정적 모델을 읽는다. models/textures는 ApplicationConfig.features에서 명시적으로 켠다. 뼈대 애니메이션은 제공하지 않는다. UV는 Planar/Box/Cylindrical/Spherical 투영을 지원한다.
+AssetLoader::loadObj는 OBJ 텍스트를 읽고 loadPrimitive/loadModel은 같은 로더의 호환 함수다. 텍스처만 ApplicationConfig.features.textures로 켠다. 뼈대 애니메이션은 제공하지 않는다. UV는 Planar/Box/Cylindrical/Spherical 투영을 지원한다.
 
 와이어는 정점 색상과 tint를 유지한다. depthTest가 켜지면 전체 면 깊이를 먼저 기록하여 가려진 와이어를 제거한다. 솔리드 경계선은 outlineColor를 사용한다.
 
@@ -227,3 +227,7 @@ M_face = M_entity * 면의 기존 추가 SRT * localAnimationMatrix
 
 실행 확인 절차는 [USER_CHECKS.md](docs/USER_CHECKS.md)의 Motion 절, 조립 예시는 [APPLICATION_PATTERNS.md](docs/APPLICATION_PATTERNS.md)의 추가 절을 참고한다.
 
+
+## OBJ 로더 변경 (2026-10-22)
+
+Assimp 의존성을 제거했다. loadObj(path, options)를 사용하며 loadPrimitive/loadModel도 같은 OBJ 텍스트 로더를 호출한다. [표기·호환 재시도·제한·직접 확인](docs/OBJ_LOADING.md)을 참고한다.

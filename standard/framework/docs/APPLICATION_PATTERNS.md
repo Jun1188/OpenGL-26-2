@@ -395,8 +395,8 @@ up      = R×localUp
 
 ### 자산 로드
 
-1. run 전에 config.features.models/textures를 필요한 만큼 켠다.
-2. 초기화 콜백에서 app.getAssets().loadPrimitive 또는 loadModel을 호출한다.
+1. run 전에 config.features.textures를 텍스처가 필요할 때 켠다.
+2. 초기화 콜백에서 app.getAssets().loadObj (호환 이름 loadPrimitive/loadModel)을 호출한다.
 3. 결과의 성공과 error를 확인한다.
 4. 반환된 pivotMode/localBasis와 함께 addModel로 등록한다.
 5. UV가 필요하면 generateTexcoords 또는 setTexcoords로 준비한 뒤 Material을 설정한다.
@@ -468,3 +468,5 @@ root (전체 Y 공전; 초기 기여 비활성)
 
 **사용자 확인.** 경로·반사·자전을 각각 켜고 끈 뒤 합성한다. Space는 마지막 자세에서 시간을 정지·재개하고, S는 자전 기여 자체를 제거·복구한다. 두 기능의 결과가 다름을 확인한다. 새 예제는 독립 main이며 기존 실습 13~19의 키 기능을 바꾸지 않는다.
 
+
+OBJ 표기·재시도 진단과 지원 제한은 [OBJ_LOADING.md](OBJ_LOADING.md)를 따른다.

@@ -281,18 +281,17 @@ addBasis의 mat3는 각 열이 X/Y/Z 기저다. 정규화하지 않고 사용하
 
 ### 사용할 기능을 명시
 
-FeatureOptions.models와 textures의 기본값은 false다. models는 Assimp를 사용하는 loadModel, textures는 이미지 읽기와 텍스처 사용에 관여한다. loadPrimitive로 기본 형상을 읽는 데 models=true는 필요 없다. Application 초기화 때 config.features.textures를 RenderOptions.textures에 반영한다.
+OBJ 로드는 항상 사용할 수 있다. FeatureOptions.textures의 기본값은 false이며 이미지 읽기와 텍스처 사용에 관여한다. Application 초기화 때 config.features.textures를 RenderOptions.textures에 반영한다.
 
 ```cpp
 // run 전에 설정한다.
 graphics::ApplicationConfig config;
-config.features.models = true;
 config.features.textures = true;
 
 // 아래는 setInitHandler 본문의 코드 조각이다. app은 콜백 인자다.
 graphics::LoadOptions options;
 options.pivot = graphics::PivotMode::Preserve;
-const auto loaded = app.getAssets().loadModel("models/example.obj", options);
+const auto loaded = app.getAssets().loadObj("models/example.obj", options);
 if (!loaded) {
     std::cerr << loaded.error << '\n'; // 이 코드는 <iostream>도 포함해야 한다.
     return false;
@@ -303,8 +302,8 @@ return app.getScene().addModel(*loaded.model, graphics::Transform3D{},
 
 설정과 초기화의 역할을 보여주는 코드 조각이다. 하나의 함수로 그대로 붙이는 예제는 아니다. 전체 예제는 [examples/assets.cpp](examples/assets.cpp)를 읽는다.
 
-- loadPrimitive: 도형 텍스트와 OBJ 부분집합. v/vt/vn/f, 음수 인덱스, 다각형 삼각형 분할 등을 처리한다.
-- loadModel: 동봉 Assimp로 정적 모델을 읽는다. 스켈레톤 애니메이션 재생 API는 제공하지 않는다.
+- loadObj: OBJ 텍스트 API. 표기 변형·음수 인덱스·평면 다각형과 실패 시 호환 재시도를 처리한다. loadPrimitive는 같은 API의 호환 함수다.
+- loadModel: loadObj의 호환 함수다. OBJ 이외 형식은 지원하지 않는다.
 - LoadOptions.texturePath: 모델의 이미지를 지정한 상대 경로 이미지로 덮어쓸 때 사용한다.
 - loadTexture: TextureResult.image로 이미지를 얻는다. Material.texture와 useTexture를 설정할 때 UV도 준비한다.
 - 실패하면 ModelResult.error 또는 TextureResult.error를 읽는다. getAssets는 run의 초기화 콜백부터 run 종료 전까지 사용할 수 있다.
@@ -573,3 +572,7 @@ M_face = M_entity * 면의 기존 추가 SRT * localAnimationMatrix
 
 실행 확인 절차는 [USER_CHECKS.md](docs/USER_CHECKS.md)의 Motion 절, 조립 예시는 [APPLICATION_PATTERNS.md](docs/APPLICATION_PATTERNS.md)의 추가 절을 참고한다.
 
+
+## OBJ 로더 변경 (2026-10-22)
+
+Assimp 의존성을 제거했다. loadObj(path, options)를 사용하며 loadPrimitive/loadModel도 같은 OBJ 텍스트 로더를 호출한다. [표기·호환 재시도·제한·직접 확인](docs/OBJ_LOADING.md)을 참고한다.

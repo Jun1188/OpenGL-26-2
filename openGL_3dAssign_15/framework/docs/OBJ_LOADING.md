@@ -1,0 +1,75 @@
+﻿# OBJ 텍스트 로드 API
+
+Assimp와 DLL·헤더 종속성을 제거했다. C++17, Windows x64 API다. `loadObj`는 확장자가 `.obj` 또는 `.txt`인 OBJ 텍스트를 같은 방식으로 읽는다. 경로는 실행 파일 디렉터리를 기준으로 한 `projectRoot` 내부 상대경로다. 외부 경로는 거부한다.
+
+```cpp
+// Application 초기화 콜백 안에서 사용한다.
+graphics::LoadOptions options;
+options.pivot = graphics::PivotMode::Preserve;
+options.outline = graphics::OutlineMode::FeatureEdges;
+const auto result = app.getAssets().loadObj("data/cube.txt", options);
+if (!result) {
+    std::cerr << result.error << '\n';
+    return false;
+}
+for (const auto& warning : result.warnings) std::cerr << warning << '\n';
+return app.getScene().addModel(*result.model, graphics::Transform3D{},
+    result.pivotMode, result.localBasis).has_value();
+```
+
+`<iostream>`를 포함한다. 파일 읽기는 OpenGL 컨텍스트 없이 `graphics::AssetLoader assets("."); assets.loadObj("data/cube.txt");`로도 호출할 수 있다. 이때 루트는 생성자에 전달한 경로다. `loadPrimitive`와 `loadModel`은 `loadObj`의 호환 함수다. `FeatureOptions.models`와 AssetLoader 생성자의 세 번째 런타임 경로 인자는 제거했다. OBJ 읽기는 항상 가능하며 텍스처만 `config.features.textures=true`로 켠다.
+
+## 입력 → 메시 → 표시
+
+1. 텍스트의 `v/vt/vn` 배열과 `f`의 각 코너를 읽는다. 위치·UV·법선 인덱스는 서로 독립적이다.
+2. `f`를 삼각형으로 분할하고 원래 좌표를 보존한다. UV 경계와 법선 경계를 가진 코너를 별도 정점으로 유지한다. 누락된 법선만 면 안에서 계산한다.
+3. `ModelResult`의 model·pivotMode·localBasis를 `Scene::addModel`로 전달한다.
+4. Renderer가 기존 VAO/VBO/EBO 경로로 업로드한다. 로더는 GPU 자원을 만들지 않는다.
+
+| 처리 | 지원 범위 |
+|---|---|
+| 면 표기 | `v`, `v/vt`, `v//vn`, `v/vt/vn`; 양수 1기반·음수 상대 인덱스 |
+| 정점 | xyz, xyzw(w로 나눔), xyz rgb 확장 |
+| UV | u, uv, uv0; 텍스처 표시가 꺼져도 보존 |
+| 텍스트 | UTF-8 BOM 유무, LF/CRLF/CR, 주석, 탭·공백, 역슬래시 줄 연결 |
+| 면 | 삼각형, 평면 단순 볼록·오목 다각형. 원래 winding 보존 |
+| 그룹 | o/g 이름 보존; o/g/usemtl/s 경계 밖으로 면을 병합하지 않음 |
+| 일부 속성 누락 | 법선은 누락 코너만 생성; UV가 일부만 있으면 누락 코너를 (0,0)으로 채우고 경고 |
+| 공면 병합 | 기본 true. 정점 색이 있으면 색 보존을 위해 병합을 생략하고 경고 |
+
+## 실패 시 다른 읽기 경로
+
+표준 읽기가 `ObjParseError`로 실패하면 파일 전체를 호환 읽기로 다시 파싱한다. 부분 모델은 반환하지 않는다. `allowObjFallback=false`로 재시도를 끌 수 있다.
+
+- UTF-16 LE/BE BOM 텍스트를 UTF-8로 디코딩한다. 잘못된 surrogate·잘린 텍스트는 거부한다.
+- 양수 인덱스는 파일 전체의 배열로 해석해 뒤에서 정의된 정점·UV·법선을 허용한다. 음수 인덱스는 해당 면을 만났을 때의 배열 길이를 유지한다.
+- 연속 중복 코너와 첫 코너를 끝에 다시 쓴 표기를 제거한다. 위치·UV·법선 인덱스가 모두 같은 코너만 제거한다.
+
+성공하면 `usedFallback=true`와 `warnings`에 재시도 원인·보정 내용을 담는다. 두 읽기가 실패하면 `error`에 파일 경로, 행 번호, 두 실패 원인을 담는다. 파일 열기·텍스처 오류는 기하 파싱을 재시도하지 않는다.
+
+0·범위 밖 인덱스, 비정상 숫자, 퇴화면, 자기 교차, 비평면 다각형은 임의 삼각형 fan이나 면 누락으로 숨기지 않고 오류로 반환한다. 비평면 면은 내보내기 도구에서 먼저 삼각형으로 나눈다. 아주 얇은 면은 부동소수점 허용오차로 거부될 수 있다.
+
+## 재질과 형식의 제한
+
+MTL 파일 자동 읽기, `usemtl` 재질 적용, smoothing group 보간, 선·점·곡면, glTF·FBX·스켈레톤은 지원하지 않는다. `mtllib/usemtl`은 경계를 유지하고 경고한다. `s`는 경계를 유지하며 off/0 이외에는 미보간 경고를 반환한다. 선·점·곡면 등 지원하지 않는 레코드는 파일 전체를 실패시킨다.
+
+텍스처는 `LoadOptions.texturePath` 또는 Scene 재질 API로 명시한다. texturePath가 있으면 텍스처 기능을 켜야 하며 모든 면에 UV가 있어야 한다. 이 제한은 결과 경고를 확인해 판단한다. OBJ 지원은 모든 OBJ 확장 기능 지원을 뜻하지 않는다.
+
+## 사용자가 실행할 확인
+
+빌드·실행·테스트는 에이전트가 수행하지 않았다. Visual Studio C++17·x64에서 `examples/assets.cpp`를 유일한 main으로 등록하고 Framework.props를 적용한다. 실행 파일 아래 `framework/examples/data`에 동봉 데이터를 복사한다.
+
+| 입력 또는 조작 | 예상 결과 |
+|---|---|
+| `assets.exe obj framework/examples/data/cube.obj` | 큐브, 기본 공면 병합 시 6개 면·12개 삼각형 |
+| pyramid.obj / tetrahedron.obj | 원본 data와 같은 형상 |
+| corner_formats.obj | 네 표기 모두 로드; `mergeCoplanarFaces=false`면 4개 면·4개 삼각형 |
+| forward_closed.obj | 1개 삼각형, usedFallback=true, 보정 경고 |
+| 위 파일을 UTF-16 LE/BE BOM으로 저장한 사용자 사본 | UTF-16 디코딩 경고, 같은 기하 |
+| allowObjFallback=false + forward_closed.obj | 실패하며 model 없음 |
+| 코너 인덱스를 0 또는 999로 수정한 사용자 사본 | 실패하며 행 번호·원인 표시, 부분 모델 없음 |
+| 정점 세 개를 일직선으로 만든 사용자 사본 | 퇴화면 오류 |
+| 오목한 5각형 / 자기 교차 다각형 | 오목한 평면은 분할, 자기 교차는 오류 |
+| 텍스처·클릭·이동·회전 | UV 표시, 기존 피킹·변환이 메시와 일치 |
+
+회상 질문: UV 경계에서는 위치 인덱스가 같아도 왜 서로 다른 렌더링 정점이 필요한가?

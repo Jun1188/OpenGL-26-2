@@ -59,7 +59,7 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     const auto vertexPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"VertexShader.glsl";
     const auto fragmentPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"FragmentShader.glsl";
     if(!renderer_.initialize(vertexPath,fragmentPath)) return false;
-    assets_.emplace(root,config.features,runtime);
+    assets_.emplace(root,config.features);
     renderOptions_.textures=config.features.textures;
 
     detail::glfw().SetInputMode(window_, GLFW_LOCK_KEY_MODS, GLFW_TRUE);

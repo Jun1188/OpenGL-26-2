@@ -3,9 +3,9 @@
 에이전트는 빌드와 테스트를 실행하지 않았다.
 
 1. Visual Studio에서 Debug/Release x64를 빌드한다. C++17 이상과 /utf-8을 사용한다.
-2. 실행 폴더의 framework/dependencies에 GLFW/Assimp DLL이 배치되는지 확인한다. 별도 SDK·NuGet 복원이 없어야 한다.
+2. 실행 폴더의 framework/dependencies에 GLFW DLL이 배치되는지 확인한다. 별도 SDK·NuGet 복원이 없어야 한다.
 3. 실습 폴더 전체를 다른 위치로 복사해 다시 빌드한다. 실행 파일은 작업 폴더를 바꾸어 실행한다.
-4. 그룹 계층, 구/원뿔, 면 힌지, 색상 배율과 피킹을 확인한다. 모델/텍스처 기능을 켜고 내부 상대경로 자산 로드와 외부 경로 거부를 확인한다.
+4. 그룹 계층, 구/원뿔, 면 힌지, 색상 배율과 피킹을 확인한다. 필요하면 텍스처 기능을 켜고 내부 상대경로 자산 로드와 외부 경로 거부를 확인한다.
 5. 창 크기 변경·최소화·포커스 이탈·종료를 확인한다.
 
 기존 API 변경: Transform3D.rotationDegrees/orientation 대신 rotation(mat3)을 사용한다. findShaderDirectory는 제거되었다. 기본 내장 셰이더를 사용하거나 상대 shaderDirectory를 지정한다.
@@ -41,3 +41,5 @@ API 확인용으로 별도 Scene을 만들고 다음 조건도 사용자가 확�
 9. 둘째 Motion의 사용자 콜백이 NaN 행렬을 반환하면 update는 false이고 모든 Motion 시각은 이전 상태다. 콜백이 예외를 던지면 시각은 유지되고 예외가 전파된다. 콜백 외부의 부작용은 되돌리지 않는다.
 10. 새 API를 사용하지 않는 기존 실습 13~19도 직접 빌드·입력·화면 확인한다. 정적 문서·행렬 설명·Git 커밋은 이 결과를 보증하지 않는다.
 
+
+OBJ 로드와 재시도는 [OBJ_LOADING.md](OBJ_LOADING.md)의 사용자 확인 표를 따른다.

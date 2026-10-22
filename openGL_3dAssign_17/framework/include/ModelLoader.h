@@ -3,20 +3,23 @@
 #include "Texture.h"
 
 namespace graphics {
-struct FeatureOptions { bool models = false; bool textures = false; };
+struct FeatureOptions { bool textures = false; };
 struct LoadOptions {
     PivotMode pivot = PivotMode::BottomCenter;
     glm::vec3 customPivot{0};
     OutlineMode outline = OutlineMode::None;
-    bool mergeCoplanarFaces = true; // primitive text only
+    bool mergeCoplanarFaces = true; // within each OBJ object/group/material/smoothing segment
     bool flipTextureRows = true;
     std::filesystem::path texturePath; // project-relative explicit override
+    bool allowObjFallback = true;
 };
 struct ModelResult {
     std::optional<Model> model;
     glm::vec3 localBasis{0};
     PivotMode pivotMode = PivotMode::Preserve;
     std::string error;
+    std::vector<std::string> warnings;
+    bool usedFallback = false;
     explicit operator bool() const { return model.has_value(); }
 };
 struct TextureResult {
@@ -43,7 +46,7 @@ inline ModelResult finishLoad(Model model,const LoadOptions& options) {
 } // namespace detail
 
 class AssetLoader {
-    std::filesystem::path projectRoot_,runtimeRoot_;
+    std::filesystem::path projectRoot_;
     FeatureOptions features_;
     mutable std::map<std::filesystem::path,std::weak_ptr<const TextureImage>> imageCache_;
     std::filesystem::path resolve(const std::filesystem::path& relative) const {
@@ -68,17 +71,23 @@ class AssetLoader {
     }
 public:
     explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(),
-                         FeatureOptions features=FeatureOptions{},std::filesystem::path runtimeRoot=std::filesystem::path{})
-        : projectRoot_(std::filesystem::absolute(projectRoot)),runtimeRoot_(std::move(runtimeRoot)),features_(features) {}
+                         FeatureOptions features=FeatureOptions{})
+        : projectRoot_(std::filesystem::absolute(projectRoot)),features_(features) {}
     const FeatureOptions& features() const { return features_; }
     TextureResult loadTexture(const std::filesystem::path& relative,bool flipRows=true) const {
         try { return {texture(relative,flipRows),{}}; }
         catch(const std::exception& e) { return {nullptr,e.what()}; }
     }
+    ModelResult loadObj(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
     ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
     ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
 };
 } // namespace graphics
 
 #include "../detail/PrimitiveLoader.inl"
-#include "../detail/AssimpLoader.inl"
+#include "../detail/ObjLoader.inl"
+namespace graphics {
+inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative,const LoadOptions& options) const {
+    return loadObj(relative,options);
+}
+} // namespace graphics
