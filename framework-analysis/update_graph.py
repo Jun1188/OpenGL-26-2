@@ -68,17 +68,19 @@ def add_source_anchors(extraction, files, root):
             extraction['nodes'].append(node);anchors[(rel,symbol)]=node
             extraction['edges'].append({'source':file_id,'target':ident,'relation':'defines',
                 'confidence':'EXTRACTED','source_file':rel,'source_location':f'L{line}'})
-    for number in range(13,20):
-        rel=f'openGL_3dAssign_{number}/main.cpp'
+    callback_projects=[(f'openGL_3dAssign_{number}','practice') for number in range(13,20)]
+    callback_projects.append(('standard','sample'))
+    for directory,receiver in callback_projects:
+        rel=f'{directory}/main.cpp'
         if (rel,'main') not in anchors:continue
         text=(root/rel).read_text(encoding='utf-8-sig')
-        for match in re.finditer(r'practice\.(initScene|onKey|onUpdate|onFocus)\s*\(',text):
-            target=anchors.get((f'openGL_3dAssign_{number}/Console.cpp','Console::'+match.group(1)))
+        for match in re.finditer(rf'{receiver}\.(initScene|onKey|onUpdate|onFocus|onMouse)\s*\(',text):
+            target=anchors.get((f'{directory}/Console.cpp','Console::'+match.group(1)))
             if not target:continue
             extraction['edges'].append({'source':anchors[(rel,'main')]['id'],'target':target['id'],
                 'relation':'registered_callback_body_calls','confidence':'EXTRACTED','source_file':rel,
                 'source_location':'L'+str(text[:match.start()].count('\n')+1),
-                'context':f'practice {number}: lambda executes later through Application callbacks'})
+                'context':f'{directory}: lambda executes later through Application callbacks'})
     return len(anchors)
 
 def main():
@@ -93,7 +95,7 @@ def main():
         relative=p.relative_to(root)
         if not p.is_file() or p.suffix.lower() not in {'.cpp','.h','.hpp','.inl'}:continue
         if any(part in excluded for part in relative.parts):continue
-        if not framework and len(relative.parts)>1 and relative.parts[0].startswith('openGL') and 'framework' in relative.parts:continue
+        if not framework and 'framework' in relative.parts and relative.parts[0]!='framework':continue
         files.append(p)
     files.sort()
     detection=detect(root,extra_excludes=['**/dependencies/**','**/packages/**','**/x64/**','**/archive/**','**/.vs/**'],cache_root=cache)

@@ -1,7 +1,7 @@
 ﻿{
   "source_root": ".",
   "scope": "repository",
-  "source_commit": "04942027fcfde1347a1e3c7123a739f29e93e54c",
+  "source_commit": "39e3dd0478870be557410fcc9af90b502c10e80a",
   "includes_uncommitted_changes": true,
   "files": {
     "Computer-Graphics_WarmmingUp2/Application.cpp": "d33885f85554d86b70ad3fd2b5fbd2e4d19d8ad729ac708c02ab5797a48a5541",
@@ -113,6 +113,9 @@
     "openGL_sample0/main.cpp": "0a41507cccd1bfdd7c9d67b0b9aaa9b27a4b9ecf9a476826006ccacb8d3dd6f5",
     "openGL_sample0/Mesh.h": "af44974a360f2ef065f94d7574ebc3d44a21346c6b40ef131b1059a77b078114",
     "openGL_sample0/MeshParser.cpp": "2f410a637b8c10965281bfa501e6805db2dd0928289b390d67708ca4d3d26d02",
-    "openGL_sample0/MeshValidator.cpp": "56c594cf5358d0031d647c129f486ad7390c25380211c02052066651ac4f55c9"
+    "openGL_sample0/MeshValidator.cpp": "56c594cf5358d0031d647c129f486ad7390c25380211c02052066651ac4f55c9",
+    "standard/Console.cpp": "5be4490684c0f38d40b42a4a4564e3d56063d648ad773f37f6a47f48175742f4",
+    "standard/Console.h": "d70ae945a5d99a5457d0bd5307f9ba1808ca3bad249f5182f605d0b044bc3cdc",
+    "standard/main.cpp": "62e7b6f83644d0746ee015098850806a5972a4b6bc7aa4e865be0604684a64e6"
   }
 }

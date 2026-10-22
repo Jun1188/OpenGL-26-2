@@ -7,3 +7,5 @@ update_graph.py는 --scope framework(기본) 또는 repository를 받는다. 전
 저장된 graphify Python으로 실행하고 프로세스별 PYTHONUTF8/PYTHONIOENCODING=utf-8을 설정한다. 산출물은 UTF-8 BOM이다. 외부 의미 분석 API·빌드·테스트·벤치마크는 실행하지 않았다. archive는 과거 산출물과 배포본 밖으로 옮긴 변경 보고다. 현재 변경 보고는 ../docs/practice-14-19에 있다.
 
 Motion·Transform 헤더/구현과 독립 motion 예제를 포함했다. 소스·배포본·문서 변경 전후의 전체 코드 블록은 MOTION_BEFORE_AFTER.md에 있다. PROJECTS.json은 독립 예제 3개를 구분한다. 그래프의 동적 콜백 연결·미해결 끝점 등 한계는 GRAPH_HEALTH.md와 소스 대조를 함께 읽는다. 빌드·테스트·벤치마크는 사용자에게 맡긴다.
+
+standard는 standard/main.cpp와 Console.cpp를 갖는 독립 실행 프로젝트다. 실습 1~19는 보존하고 표준 샘플만 추가했다. 공통 소스는 변경하지 않아 프레임워크 전용 그래프는 재생성하지 않았으며 PROJECTS.json만 새 프로젝트 색인에 맞췄다. 저장소 전체 그래프와 EXECUTION_FLOW.md에는 새 진입점을 반영했다. 샘플의 전체 신규 코드·설정·프레임워크 사본 대응은 ../standard/BEFORE_AFTER.md에 있다.

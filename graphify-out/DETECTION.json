@@ -110,17 +110,20 @@
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\main.cpp",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\Mesh.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\MeshParser.cpp",
-      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\MeshValidator.cpp"
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\MeshValidator.cpp",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\Console.cpp",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\Console.h",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\main.cpp"
     ],
     "document": [],
     "paper": [],
     "image": [],
     "video": []
   },
-  "total_files": 110,
-  "total_words": 56101,
+  "total_files": 113,
+  "total_words": 57126,
   "needs_graph": true,
-  "warning": "Large corpus: 306 files · ~1,836,022 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
+  "warning": "Large corpus: 332 files · ~1,890,057 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.gitattributes",
@@ -262,7 +265,20 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\openGL_sample0.vcxproj",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\openGL_sample0.vcxproj.filters",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\shaders\\basic.frag",
-    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\shaders\\basic.vert"
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\shaders\\basic.vert",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\Framework.props",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\LegacyOpenGL.props",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Application.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\AssimpLoader.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Motion.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\PrimitiveLoader.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Renderer.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Scene.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Transform.inl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\shaders\\FragmentShader.glsl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\shaders\\VertexShader.glsl",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\standard.vcxproj",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\standard.vcxproj.filters"
   ],
   "walk_errors": [],
   "ignored": [
@@ -369,7 +385,11 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\openGL_sample0.vcxproj.user",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\openGL_sample0\\x64\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\packages\\",
-    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\x64\\"
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\x64\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\dependencies\\assimp\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\dependencies\\glew-2.3.1\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\dependencies\\glfw-3.4.bin.WIN64\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\dependencies\\glm\\"
   ],
   "pruned_noise_dirs": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.git\\",

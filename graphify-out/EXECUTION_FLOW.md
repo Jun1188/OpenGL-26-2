@@ -56,3 +56,16 @@ framework/examples/motion.cpp의 main은 기본·자산 예제 및 각 실습의
 main -> Application 생성 -> 콜백 등록 -> run -> init 콜백에서 Scene 객체·공유 path/spin/global Motion과 두 레이어 가지 생성 -> PollEvents에서 키/클릭 콜백 -> 사용자 update(있을 때) -> Scene::updateMotions -> 렌더 -> 종료와 shutdown. 1~6키는 경로 설정 교체·seek, Space는 시계 정지, S/G는 기여 전환, M은 독립 반사 행렬, I는 레이어 삽입·삭제다. 클릭은 같은 faceWorldMatrix를 사용한 pickAt으로 연결된다.
 
 공통 Application::run에 새 Motion 갱신이 추가되었지만 기존 실습들의 Console 상태 계산과 입력 정책은 유지한다. 구체적 CPU-GPU 흐름과 World/Local 합성은 ../framework-analysis/graphify-out/FRAMEWORK_FLOW.md의 추가 절을 참고한다. AST는 구조 분석이며 실제 콜백 실행·화면을 검증하지 않는다.
+
+## standard 독립 프로젝트 (2026-10-22)
+
+standard/standard.slnx는 standard/standard.vcxproj 하나를 연다. 컴파일 소스는 main.cpp와 Console.cpp이고 진입점은 standard/main.cpp의 main이다. 기존 실습 1~19 및 framework/examples/motion.cpp의 main과 실행을 합치지 않는다.
+
+1. main: Application 생성 -> Console sample(app) 생성 -> init/key/mouse 콜백 등록 -> run.
+2. run 초기화 뒤 init 람다 -> sample.initScene. 객체 2개, 부착 기저·기준선, 공유 path/spin Motion, root 공전, 일반 가지·반사 가지를 만든다. 초기 보기 각도는 카메라에만 지정한다.
+3. PollEvents의 key 콜백 -> sample.onKey -> choosePath/changeReflection/toggleInsertedLayer 또는 시계·기여 전환. mouse 콜백 -> sample.onMouse -> Application::pickAt. 등록 지점에서 본문이 실행되는 것이 아니다.
+4. 공통 run -> Scene::updateMotions(dt) -> MotionSystem::update -> Motion::sample -> Renderer::render. 샘플은 중복 시간 갱신을 하지 않는다.
+5. Renderer와 pick은 동봉 Scene::faceWorldMatrix의 결과를 공유한다. GPU의 VAO/VBO/EBO와 uModel/uMVP/uNormalMatrix 경로는 공통 프레임워크와 같다. 원본 root framework 코드가 아니라 standard/framework의 동일한 배포 코드를 컴파일한다.
+6. 종료·예외는 기존 Application 자원 정리로 이어지고 run이 끝날 때 Console·Application 수명이 끝난다.
+
+분석에서는 root framework만 추출하고 standard/framework는 중복 제외한다. 코드 113개 파일을 graphify AST와 정의 앵커로 분석했다. 표준 프로젝트의 등록 콜백 간선은 standard/main.cpp와 Console.cpp의 소스 위치에 연결했다. 그래프 3368노드·5348간선은 구조 수치이며 실행·컴파일·피킹 성공의 증거가 아니다. 미해결 끝점과 동적 연결의 한계는 GRAPH_HEALTH.md에 남긴다.

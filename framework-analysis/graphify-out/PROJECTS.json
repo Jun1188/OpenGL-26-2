@@ -271,6 +271,20 @@
     ]
   },
   {
+    "project": "standard/standard.vcxproj",
+    "sources": [
+      "standard/main.cpp",
+      "standard/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "standard/main.cpp",
+        "line": 3,
+        "name": "main"
+      }
+    ]
+  },
+  {
     "project": null,
     "standalone_example": true,
     "sources": [
