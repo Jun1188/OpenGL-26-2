@@ -8,15 +8,18 @@ struct LoadOptions {
     PivotMode pivot = PivotMode::BottomCenter;
     glm::vec3 customPivot{0};
     OutlineMode outline = OutlineMode::None;
-    bool mergeCoplanarFaces = true; // primitive text only
+    bool mergeCoplanarFaces = true; // within each OBJ object/group/material/smoothing segment
     bool flipTextureRows = true;
     std::filesystem::path texturePath; // project-relative explicit override
+    bool allowObjFallback = true;
 };
 struct ModelResult {
     std::optional<Model> model;
     glm::vec3 localBasis{0};
     PivotMode pivotMode = PivotMode::Preserve;
     std::string error;
+    std::vector<std::string> warnings;
+    bool usedFallback = false;
     explicit operator bool() const { return model.has_value(); }
 };
 struct TextureResult {
