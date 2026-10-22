@@ -5862,7 +5862,7 @@
       "label": "ObjParseError",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8",
+      "source_location": "L9",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -5880,7 +5880,7 @@
       "label": "ObjCorner",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L9",
+      "source_location": "L10",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -5890,7 +5890,7 @@
       "label": "position",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -5898,7 +5898,7 @@
       "label": "uv",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -5906,7 +5906,7 @@
       "label": "normal",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -5914,7 +5914,7 @@
       "label": ".operator==()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11",
+      "source_location": "L12",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5923,7 +5923,7 @@
       "label": "ObjFace",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L15",
+      "source_location": "L16",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -5941,7 +5941,7 @@
       "label": "corners",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -5957,7 +5957,7 @@
       "label": "positions",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -5965,7 +5965,7 @@
       "label": "uvs",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -5973,7 +5973,7 @@
       "label": "normals",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -5981,7 +5981,7 @@
       "label": "line",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -5989,7 +5989,7 @@
       "label": "batch",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -6005,7 +6005,7 @@
       "label": "name",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
@@ -6013,7 +6013,7 @@
       "label": "objWarning()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6022,7 +6022,7 @@
       "label": "objInteger()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23",
+      "source_location": "L24",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6031,7 +6031,7 @@
       "label": "objResolve()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6040,7 +6040,7 @@
       "label": "objNumbers()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6057,7 +6057,7 @@
       "label": "objText()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6066,7 +6066,7 @@
       "label": "parseObj()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6091,7 +6091,7 @@
       "label": "AssetLoader::loadObj()",
       "file_type": "code",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7854,10 +7854,10 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_1cbff5a46d336ff09804",
+      "id": "source_0b23145e5aebe0fc17d7",
       "label": "AssetLoader::loadObj",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -20738,11 +20738,22 @@
     },
     {
       "source": "detail_objloader",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "detail/ObjLoader.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "detail_objloader",
       "target": "detail_objloader_objparseerror",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20752,7 +20763,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20762,7 +20773,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20772,7 +20783,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20783,7 +20794,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20794,7 +20805,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20805,7 +20816,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20815,7 +20826,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -20826,7 +20837,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20836,7 +20847,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20847,7 +20858,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20858,7 +20869,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20869,7 +20880,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20880,7 +20891,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20891,7 +20902,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20902,7 +20913,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20913,7 +20924,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20924,7 +20935,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20935,7 +20946,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20946,7 +20957,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20957,7 +20968,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20967,7 +20978,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -20978,7 +20989,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20989,7 +21000,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21000,7 +21011,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21010,7 +21021,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21021,7 +21032,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21031,7 +21042,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21042,7 +21053,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21052,7 +21063,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -21063,7 +21074,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21074,7 +21085,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21085,7 +21096,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21095,7 +21106,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -21106,7 +21117,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21117,7 +21128,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21127,7 +21138,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -21138,7 +21149,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21149,7 +21160,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21160,7 +21171,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -21171,7 +21182,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21181,7 +21192,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -21192,7 +21203,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21203,7 +21214,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21214,7 +21225,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21225,7 +21236,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21236,7 +21247,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -21247,7 +21258,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21257,7 +21268,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -21268,7 +21279,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21279,7 +21290,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -21291,7 +21302,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21302,7 +21313,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21313,7 +21324,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21324,7 +21335,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L53",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21335,7 +21346,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21346,7 +21357,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L68",
+      "source_location": "L69",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21357,7 +21368,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21368,7 +21379,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L98",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21379,7 +21390,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L131",
+      "source_location": "L132",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21390,7 +21401,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L133",
+      "source_location": "L134",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21401,7 +21412,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L166",
+      "source_location": "L167",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21412,7 +21423,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L197",
+      "source_location": "L198",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21423,7 +21434,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L286",
+      "source_location": "L287",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21434,7 +21445,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L292",
+      "source_location": "L293",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21445,7 +21456,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L298",
+      "source_location": "L299",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -21456,7 +21467,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L301",
+      "source_location": "L302",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -26132,11 +26143,11 @@
     },
     {
       "source": "review_file_55e7c4ffe12802093c2b",
-      "target": "source_1cbff5a46d336ff09804",
+      "target": "source_0b23145e5aebe0fc17d7",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280"
+      "source_location": "L281"
     },
     {
       "source": "review_file_6ccef88ae42789457ff8",

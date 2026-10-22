@@ -4,10 +4,10 @@ input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>
 nodes: 1512
 unverified_code_nodes: 0
-raw_edges: 2535
+raw_edges: 2536
 valid_candidate_edges: 2434
 missing_endpoint_edges: 0
-dangling_endpoint_edges: 101
+dangling_endpoint_edges: 102
 self_loop_edges: 0
 exact_duplicate_edges: 25
 directed_unique_endpoint_pairs: 2343
@@ -32,9 +32,9 @@ producer_suppression_examples:
   - L2839 seen_keys arity=unknown
   - L4436 seen_ids arity=unknown
 examples:
-  - framework_detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L50', 'L54'] contexts=['call', 'parameter_type', 'return_type']
-  - framework_detail_objloader_objtext -> string edges=3 relations=['references'] locations=['L73'] contexts=['generic_arg', 'parameter_type', 'return_type']
-  - framework_detail_objloader_parseobj -> string edges=3 relations=['references'] locations=['L109'] contexts=['generic_arg', 'parameter_type']
+  - framework_detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L51', 'L55'] contexts=['call', 'parameter_type', 'return_type']
+  - framework_detail_objloader_objtext -> string edges=3 relations=['references'] locations=['L74'] contexts=['generic_arg', 'parameter_type', 'return_type']
+  - framework_detail_objloader_parseobj -> string edges=3 relations=['references'] locations=['L110'] contexts=['generic_arg', 'parameter_type']
   - framework_detail_transform_motionunitvector -> vec3 edges=3 relations=['calls', 'references'] locations=['L10', 'L6'] contexts=['call', 'generic_arg', 'parameter_type']
   - framework_detail_transform_motionaround -> mat4 edges=3 relations=['calls', 'references'] locations=['L12', 'L15'] contexts=['call', 'generic_arg', 'parameter_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.

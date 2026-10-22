@@ -3,6 +3,7 @@
 #include <sstream>
 #include <locale>
 #include <iterator>
+#include <iostream>
 
 namespace graphics::detail {
 struct ObjParseError : std::runtime_error { using std::runtime_error::runtime_error; };
@@ -310,6 +311,23 @@ inline ModelResult AssetLoader::loadObj(const std::filesystem::path& relative,co
         auto finished=detail::finishLoad(std::move(model),options);
         finished.warnings=std::move(result.warnings); finished.usedFallback=result.usedFallback;
         return finished;
-    } catch(const std::exception& e) { result.error=name+": "+e.what(); return result; }
+    } catch(const std::exception& e) {
+        result.error=name+": "+e.what();
+        std::cerr << "[OBJ load failed] " << result.error << '\n'
+            << "Check the file path and the reported cause first, including texture settings.\n"
+            << "Supported OBJ text format (.obj or .txt), one record per line:\n"
+            << "  v x y z       : vertex position\n"
+            << "  vt u [v]      : optional texture coordinate\n"
+            << "  vn x y z      : optional nonzero normal\n"
+            << "  f 1 2 3       : face using 1-based vertex indices\n"
+            << "  Corner forms: v, v/vt, v//vn, v/vt/vn; negative relative indices are allowed.\n"
+            << "Minimal triangle example:\n"
+            << "  v 0 0 0\n  v 1 0 0\n  v 0 1 0\n  f 1 2 3\n"
+            << "If parsing still fails, inspect the model's source format and write a parser for it.\n"
+            << "Fill graphics::Mesh.localVertices and triangleIndices, then call\n"
+            << "graphics::recalculateNormals(mesh), add the mesh to graphics::Model.faces,\n"
+            << "and pass that model to Scene::addModel. See framework/docs/OBJ_LOADING.md.\n";
+        return result;
+    }
 }
 } // namespace graphics

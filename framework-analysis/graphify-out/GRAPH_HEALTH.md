@@ -4,10 +4,10 @@ input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>
 nodes: 1013
 unverified_code_nodes: 0
-raw_edges: 1698
+raw_edges: 1699
 valid_candidate_edges: 1649
 missing_endpoint_edges: 0
-dangling_endpoint_edges: 49
+dangling_endpoint_edges: 50
 self_loop_edges: 0
 exact_duplicate_edges: 31
 directed_unique_endpoint_pairs: 1526
@@ -36,6 +36,6 @@ examples:
   - include_graphics_scene -> include_graphics_h_vector edges=6 relations=['references'] locations=['L21', 'L22', 'L23', 'L24', 'L25', 'L26'] contexts=['field']
   - include_model_planefigure -> include_model_h_vector edges=6 relations=['references'] locations=['L66', 'L74', 'L75', 'L76', 'L77', 'L78'] contexts=['field']
   - include_graphics_renderer -> glint edges=4 relations=['references'] locations=['L168', 'L169', 'L170', 'L171'] contexts=['field']
-  - detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L50', 'L54'] contexts=['call', 'parameter_type', 'return_type']
+  - detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L51', 'L55'] contexts=['call', 'parameter_type', 'return_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
 Cross-program calls marked AMBIGUOUS: 0. Source anchors: 134.

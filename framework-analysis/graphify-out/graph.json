@@ -495,7 +495,7 @@
       "file_type": "code",
       "norm_label": "objcorner",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L9"
+      "source_location": "L10"
     },
     {
       "id": "detail_objloader_objface",
@@ -508,7 +508,7 @@
       "file_type": "code",
       "norm_label": "objface",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L15"
+      "source_location": "L16"
     },
     {
       "id": "detail_objloader_objparseerror",
@@ -521,7 +521,7 @@
       "file_type": "code",
       "norm_label": "objparseerror",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8"
+      "source_location": "L9"
     },
     {
       "id": "detail_renderer_gpuvertex",
@@ -2308,7 +2308,7 @@
       "file_type": "code",
       "norm_label": "assetloader::loadobj()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280"
+      "source_location": "L281"
     },
     {
       "id": "detail_objloader_objcorner_operator",
@@ -2320,7 +2320,7 @@
       "file_type": "code",
       "norm_label": ".operator==()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11"
+      "source_location": "L12"
     },
     {
       "id": "detail_objloader_objinteger",
@@ -2332,7 +2332,7 @@
       "file_type": "code",
       "norm_label": "objinteger()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "detail_objloader_objnumbers",
@@ -2344,7 +2344,7 @@
       "file_type": "code",
       "norm_label": "objnumbers()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60"
+      "source_location": "L61"
     },
     {
       "id": "detail_objloader_objresolve",
@@ -2356,7 +2356,7 @@
       "file_type": "code",
       "norm_label": "objresolve()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50"
+      "source_location": "L51"
     },
     {
       "id": "detail_objloader_objtext",
@@ -2368,7 +2368,7 @@
       "file_type": "code",
       "norm_label": "objtext()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73"
+      "source_location": "L74"
     },
     {
       "id": "detail_objloader_objwarning",
@@ -2380,7 +2380,7 @@
       "file_type": "code",
       "norm_label": "objwarning()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "detail_objloader_parseobj",
@@ -2392,7 +2392,7 @@
       "file_type": "code",
       "norm_label": "parseobj()",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109"
+      "source_location": "L110"
     },
     {
       "id": "detail_primitiveloader_assetloader_loadprimitive",
@@ -4159,7 +4159,7 @@
       "source_location": "L34"
     },
     {
-      "id": "source_1cbff5a46d336ff09804",
+      "id": "source_0b23145e5aebe0fc17d7",
       "label": "AssetLoader::loadObj",
       "_callable": true,
       "_origin": "source_definition_review",
@@ -4168,7 +4168,7 @@
       "file_type": "code",
       "norm_label": "assetloader::loadobj",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280"
+      "source_location": "L281"
     },
     {
       "id": "source_6a31c6ecf15f38c82e02",
@@ -9398,7 +9398,7 @@
       "file_type": "code",
       "norm_label": "normal",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10"
+      "source_location": "L11"
     },
     {
       "id": "detail_objloader_objcorner_position",
@@ -9409,7 +9409,7 @@
       "file_type": "code",
       "norm_label": "position",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10"
+      "source_location": "L11"
     },
     {
       "id": "detail_objloader_objcorner_uv",
@@ -9420,7 +9420,7 @@
       "file_type": "code",
       "norm_label": "uv",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10"
+      "source_location": "L11"
     },
     {
       "id": "detail_objloader_objface_batch",
@@ -9431,7 +9431,7 @@
       "file_type": "code",
       "norm_label": "batch",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "detail_objloader_objface_corners",
@@ -9442,7 +9442,7 @@
       "file_type": "code",
       "norm_label": "corners",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "detail_objloader_objface_line",
@@ -9453,7 +9453,7 @@
       "file_type": "code",
       "norm_label": "line",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "detail_objloader_objface_name",
@@ -9464,7 +9464,7 @@
       "file_type": "code",
       "norm_label": "name",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18"
+      "source_location": "L19"
     },
     {
       "id": "detail_objloader_objface_normals",
@@ -9475,7 +9475,7 @@
       "file_type": "code",
       "norm_label": "normals",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "detail_objloader_objface_positions",
@@ -9486,7 +9486,7 @@
       "file_type": "code",
       "norm_label": "positions",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "detail_objloader_objface_uvs",
@@ -9497,7 +9497,7 @@
       "file_type": "code",
       "norm_label": "uvs",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
       "id": "detail_primitiveloader",
@@ -11604,7 +11604,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L286",
+      "source_location": "L287",
       "weight": 1.0
     },
     {
@@ -11616,7 +11616,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L292",
+      "source_location": "L293",
       "weight": 1.0
     },
     {
@@ -11628,7 +11628,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L298",
+      "source_location": "L299",
       "weight": 1.0
     },
     {
@@ -11640,7 +11640,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L301",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -11652,7 +11652,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -11664,7 +11664,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -11676,7 +11676,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -11688,7 +11688,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L68",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -11700,7 +11700,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L53",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -11712,7 +11712,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -11724,7 +11724,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -11736,7 +11736,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L98",
+      "source_location": "L99",
       "weight": 1.0
     },
     {
@@ -11748,7 +11748,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L131",
+      "source_location": "L132",
       "weight": 1.0
     },
     {
@@ -11760,7 +11760,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L133",
+      "source_location": "L134",
       "weight": 1.0
     },
     {
@@ -11772,7 +11772,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L166",
+      "source_location": "L167",
       "weight": 1.0
     },
     {
@@ -11784,7 +11784,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L197",
+      "source_location": "L198",
       "weight": 1.0
     },
     {
@@ -13788,7 +13788,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -13800,7 +13800,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -13812,7 +13812,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -13824,7 +13824,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -13836,7 +13836,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13848,7 +13848,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13860,7 +13860,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13872,7 +13872,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13884,7 +13884,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13896,7 +13896,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -18468,7 +18468,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -18480,7 +18480,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -18492,7 +18492,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -19860,7 +19860,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -19872,7 +19872,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -19884,7 +19884,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -21804,7 +21804,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0
     },
     {
@@ -21816,7 +21816,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0
     },
     {
@@ -21828,7 +21828,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -21840,7 +21840,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -21852,7 +21852,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -21864,7 +21864,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -21876,7 +21876,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -21888,7 +21888,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -21900,7 +21900,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -21912,7 +21912,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -21924,7 +21924,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -24300,7 +24300,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0
     },
     {
@@ -24312,7 +24312,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -24324,7 +24324,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -25610,7 +25610,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L109",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -25621,7 +25621,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -25632,7 +25632,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -25643,7 +25643,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -25654,7 +25654,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1.0
     },
     {
@@ -25665,7 +25665,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -25676,7 +25676,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -25687,7 +25687,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -25698,7 +25698,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -25709,7 +25709,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -27469,7 +27469,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -27524,7 +27524,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -28094,12 +28094,12 @@
     },
     {
       "source": "review_file_55e7c4ffe12802093c2b",
-      "target": "source_1cbff5a46d336ff09804",
+      "target": "source_0b23145e5aebe0fc17d7",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "detail/ObjLoader.inl",
-      "source_location": "L280"
+      "source_location": "L281"
     },
     {
       "source": "review_file_6ccef88ae42789457ff8",
@@ -29183,5 +29183,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8933b861f2a4e8077455267b5a14f683f582e225"
+  "built_at_commit": "9b5ec9e0e950b30af1c4b0f86f9c62b46c3e969a"
 }

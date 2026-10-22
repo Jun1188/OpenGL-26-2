@@ -19,7 +19,7 @@ int main(int argc,char** argv) {
         options.outline=graphics::OutlineMode::FeatureEdges;
         options.texturePath=texturePath;
         const auto loaded=app.getAssets().loadObj(path,options);
-        if(!loaded){std::cerr<<loaded.error<<'\n';return false;}
+        if(!loaded) return false; // loadObj already printed the error and format guidance.
         for(const auto& warning:loaded.warnings) std::cerr<<warning<<'\n';
         return app.getScene().addModel(*loaded.model,graphics::Transform3D{},
                                       loaded.pivotMode,loaded.localBasis).has_value();

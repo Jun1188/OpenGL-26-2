@@ -9,8 +9,7 @@ options.pivot = graphics::PivotMode::Preserve;
 options.outline = graphics::OutlineMode::FeatureEdges;
 const auto result = app.getAssets().loadObj("data/cube.txt", options);
 if (!result) {
-    std::cerr << result.error << '\n';
-    return false;
+    return false; // loadObj가 오류 원인과 서식 안내를 이미 출력했다.
 }
 for (const auto& warning : result.warnings) std::cerr << warning << '\n';
 return app.getScene().addModel(*result.model, graphics::Transform3D{},
@@ -73,3 +72,13 @@ MTL 파일 자동 읽기, `usemtl` 재질 적용, smoothing group 보간, 선·�
 | 텍스처·클릭·이동·회전 | UV 표시, 기존 피킹·변환이 메시와 일치 |
 
 회상 질문: UV 경계에서는 위치 인덱스가 같아도 왜 서로 다른 렌더링 정점이 필요한가?
+
+## 최종 실패 시 콘솔 안내
+
+표준 읽기와 허용된 호환 읽기가 모두 실패하면 loadObj가 std::cerr에 파일 경로·오류 원인, 지원하는 v/vt/vn/f 서식·코너 표기·인덱스 규칙, 최소 삼각형 예제를 출력한다. allowObjFallback=false이면 표준 읽기의 최종 실패에서 같은 안내를 출력한다. loadPrimitive/loadModel도 공통 경로를 사용한다. 호환 읽기로 성공한 경우에는 이 실패 안내를 출력하지 않는다.
+
+파일 열기·경로·텍스처 오류도 최종 로드 실패이므로 원인을 먼저 확인하라고 출력한다. 이 경우에는 파서부터 수정하지 않는다. 그래도 서식이 맞지 않으면 원본 텍스트를 확인하고 해당 서식의 파서를 직접 작성한다. 파서는 graphics::Mesh.localVertices와 triangleIndices를 채우고 graphics::recalculateNormals(mesh)를 호출한 뒤 graphics::Model.faces에 넣는다. Scene::addModel로 모델을 등록한다. UV·재질이 필요하면 같은 정점 개수에 맞춰 추가한다. 이 안내는 파서를 대신 실행하지 않는다.
+
+ModelResult.error 반환은 유지한다. 콘솔 출력이 필요하므로 이제 로더에 실패 시 출력 부작용이 있다. 호출자는 같은 error를 다시 출력하면 중복된다. 동봉 assets 예제는 중복 출력을 제거했다. 정상 로드와 성공한 호환 읽기의 warnings 반환은 기존과 같다.
+
+사용자가 직접 확인: 없는 경로 또는 f 0 2 3인 사본을 로드하면 최종 실패 안내 한 묶음과 model 없음이 예상된다. forward_closed.obj는 재시도로 성공하므로 최종 실패 안내가 없어야 한다. allowObjFallback=false로 같은 파일을 읽으면 실패 안내가 예상된다. assets 예제에서 오류 원인이 두 번 출력되지 않는지 확인한다. 빌드·실행·테스트는 에이전트가 수행하지 않았다.

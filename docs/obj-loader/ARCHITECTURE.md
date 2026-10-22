@@ -39,10 +39,10 @@ Renderer::draw는 faceWorldMatrix/worldMatrix 및 MotionSystem::layerMatrices를
 | 역할 | 소스 위치 |
 |---|---|
 | OBJ API 선언 | `framework/include/ModelLoader.h:81` |
-| OBJ API 본문 | `framework/detail/ObjLoader.inl:280` |
-| OBJ 파싱 | `framework/detail/ObjLoader.inl:109` |
-| 문자 인코딩 | `framework/detail/ObjLoader.inl:73` |
-| 음수/전방 참조 | `framework/detail/ObjLoader.inl:50` |
+| OBJ API 본문 | `framework/detail/ObjLoader.inl:281` |
+| OBJ 파싱 | `framework/detail/ObjLoader.inl:110` |
+| 문자 인코딩 | `framework/detail/ObjLoader.inl:74` |
+| 음수/전방 참조 | `framework/detail/ObjLoader.inl:51` |
 | 기존 primitive 호출 | `framework/detail/PrimitiveLoader.inl:3` |
 | 기존 model 호출 | `framework/include/ModelLoader.h:90` |
 | 소비 예제 | `framework/examples/assets.cpp:21` |
@@ -53,4 +53,6 @@ Renderer::draw는 faceWorldMatrix/worldMatrix 및 MotionSystem::layerMatrices를
 
 프레임워크 그래프는 22개 소스, 1,010개 노드·1,524개 간선이다. 전체 그래프는 49개 소스, 1,510개 노드·2,341개 간선이다. SDK·중복 프레임워크·빌드 산출물·임시 백업·배포 ZIP은 제외했다. framework-analysis/graphify-out와 graphify-out에 JSON·HTML·보고서·소스 해시를 갱신했다.
 
-AST의 오버로드·외부 타입·std::function·GLFW 동적 심벌 해석은 완전하지 않다. 프레임워크에는 endpoint 미해결 간선 49개, 전체에는 101개가 있으며 GRAPH_HEALTH.md에 남겼다. 다른 프로그램의 같은 함수 이름으로 연결된 간선은 확정 호출로 보지 않는다. 위의 직접 호출·등록 위치는 소스와 대조했고, 드라이버·DLL 내부와 실제 호출 시점의 실행 결과는 확인하지 않았다.
+AST의 오버로드·외부 타입·std::function·GLFW 동적 심벌 해석은 완전하지 않다. 프레임워크에는 endpoint 미해결 간선 50개, 전체에는 102개가 있으며 GRAPH_HEALTH.md에 남겼다. 다른 프로그램의 같은 함수 이름으로 연결된 간선은 확정 호출로 보지 않는다. 위의 직접 호출·등록 위치는 소스와 대조했고, 드라이버·DLL 내부와 실제 호출 시점의 실행 결과는 확인하지 않았다.
+
+최종 OBJ 로드 실패는 loadObj의 공통 catch 경계에서 std::cerr로 경로·원인·서식·최소 예제·직접 파싱 방법을 출력한다. 성공한 호환 읽기는 실패 안내를 출력하지 않는다. ModelResult.error 반환은 유지하고 assets 예제는 중복 출력을 생략한다.

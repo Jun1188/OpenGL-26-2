@@ -1,0 +1,142 @@
+﻿{
+  "baseline": "9b5ec9e0e950b30af1c4b0f86f9c62b46c3e969a",
+  "source_changes": [
+    {
+      "path": "standard/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "standard/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "standard/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_20/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_20/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_20/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_19/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_19/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_19/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_18/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_18/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_18/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_17/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_17/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_17/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_16/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_16/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_16/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "openGL_3dAssign_15/framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "openGL_3dAssign_15/framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "openGL_3dAssign_15/framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "framework/detail/ObjLoader.inl",
+      "before_sha256": "4aeb3bd4ff527940065a759ce78acd00a32da1b56b3d63ff93b565b840c416f4",
+      "after_sha256": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877"
+    },
+    {
+      "path": "framework/docs/OBJ_LOADING.md",
+      "before_sha256": "da109c9d1649594942cf5e99078fe8e70e8b3c59f4b791e90112ad6d4f476de7",
+      "after_sha256": "4128b5976d675508fd559ba227fececccba62bc7f6ede2db227f17cae515252b"
+    },
+    {
+      "path": "framework/examples/assets.cpp",
+      "before_sha256": "87a8156391568067ee495d4fb072d3b537de97ec4d19e7254abf53899c988692",
+      "after_sha256": "cbee2d91c3d5bcb1eee068890884109d28cf36074e2028abaac714695a54892a"
+    },
+    {
+      "path": "docs/obj-loader/ARCHITECTURE.md",
+      "before_sha256": "cfc221f4a25865d6734a4c24356e94f9f95921ad590bc63710b3859daa501858",
+      "after_sha256": "e12dcfd004c758f58b6de8d21959f713a2f96d19584ec7f716957aa671d05f8a"
+    }
+  ],
+  "build_and_runtime_tests": "not_run",
+  "distribution": {
+    "archive": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\dist\\framework-samples-obj-console.zip",
+    "zip_bytes": 9559981,
+    "decimal_MB": 9.56,
+    "MiB": 9.117,
+    "limit_bytes": 30000000,
+    "source_files": 3925,
+    "uncompressed_source_bytes": 48132549,
+    "sha256": "0c6b69aae80254b7d66432938a5b37d9d449c89e985b16670be2f99cb7e2f484",
+    "build_and_runtime_tests": "not_run"
+  }
+}
