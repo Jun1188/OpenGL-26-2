@@ -75,10 +75,12 @@ public:
         try { return {texture(relative,flipRows),{}}; }
         catch(const std::exception& e) { return {nullptr,e.what()}; }
     }
+    ModelResult loadObj(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
     ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
     ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
 };
 } // namespace graphics
 
 #include "../detail/PrimitiveLoader.inl"
+#include "../detail/ObjLoader.inl"
 #include "../detail/AssimpLoader.inl"
