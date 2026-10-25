@@ -83,7 +83,10 @@ void Console::resetFaces() {
 void Console::selectShape(bool pyramid) {
     pyramidSelected_ = pyramid;
     motions_ = {};
-    pyramidMotion_=PyramidMotion::None;pyramidRunning_=false;pyramidProgress_=0;pyramidDirection_=1;
+    pyramidMotion_=PyramidMotion::None;
+    pyramidRunning_=false;
+    pyramidProgress_=0;
+    pyramidDirection_=1;
     resetFaces();
     applyObjectTransform();
 }
@@ -127,7 +130,7 @@ void Console::beginMotion(Motion kind) {
             const int index = std::uniform_int_distribution<int>(0, 3)(random_);
             motion.pair = pairs[index];
             motion.hinge = corners[index];
-            std::cout << "선택면들 -Selected cube faces (1-based 면): " << motion.pair[0] + 1
+            std::cout << "선택면들 : " << motion.pair[0] + 1
                       << ", " << motion.pair[1] + 1 << '\n';
         }
     }
@@ -170,7 +173,8 @@ void Console::applyFaceMotion() {
                 compose(face, rotateAround(motion.hinge, Y_AXIS, progress));
             }
             break;
-        case Motion::Swap: {
+        case Motion::Swap:
+            {
             // 0 -> 90 -> 0 왕복: 두 면이 교체된 뒤 복귀하며 같은 동작을 반복한다.
             const float angle = progress <= 90.0f ? progress : 180.0f - progress;
             compose(motion.pair[0], rotateAround(glm::vec3(0.0f), Y_AXIS, angle));
@@ -187,7 +191,8 @@ void Console::applyFaceMotion() {
                 compose(face, rotateAround(glm::vec3(0.0f), X_AXIS, progress));
             }
             break;
-        default: break;
+        default:
+            break;
         }
     }
     const auto& back = motions_[static_cast<std::size_t>(Motion::Back)];
@@ -204,28 +209,62 @@ void Console::onKey(int key, int action) {
     }
     switch (key) {
     case GLFW_KEY_Q:
-    case GLFW_KEY_ESCAPE: application_.requestClose(); break;
-    case GLFW_KEY_H: {
+    case GLFW_KEY_ESCAPE:
+        application_.requestClose();
+        break;
+    case GLFW_KEY_H:
+        {
         auto& options = application_.getRenderOptions();
         options.depthTest = !options.depthTest;
         break;
     }
-    case GLFW_KEY_P: selectShape(!pyramidSelected_); break;
-    case GLFW_KEY_Y: spinning_ = !spinning_; break;
-    case GLFW_KEY_R: resetAll(); break;
-    case GLFW_KEY_T: beginMotion(Motion::Top); break;
-    case GLFW_KEY_F: beginMotion(Motion::Front); break;
-    case GLFW_KEY_S: beginMotion(Motion::Side); break;
-    case GLFW_KEY_B: beginMotion(Motion::Back); break;
-    case GLFW_KEY_1: beginMotion(Motion::Hinge); break;
-    case GLFW_KEY_2: beginMotion(Motion::Swap); break;
-    case GLFW_KEY_4: beginMotion(Motion::OrbitY); break;
-    case GLFW_KEY_5: beginMotion(Motion::OrbitX); break;
-    case GLFW_KEY_6: beginPyramid(PyramidMotion::All); break;
-    case GLFW_KEY_7: beginPyramid(PyramidMotion::Sequence); break;
-    case GLFW_KEY_8: beginPyramid(PyramidMotion::Swap); break;
-    case GLFW_KEY_9: beginPyramid(PyramidMotion::Apex); break;
-    default: break;
+    case GLFW_KEY_P:
+        selectShape(!pyramidSelected_);
+        break;
+    case GLFW_KEY_Y:
+        spinning_ = !spinning_;
+        break;
+    case GLFW_KEY_R:
+        resetAll();
+        break;
+    case GLFW_KEY_T:
+        beginMotion(Motion::Top);
+        break;
+    case GLFW_KEY_F:
+        beginMotion(Motion::Front);
+        break;
+    case GLFW_KEY_S:
+        beginMotion(Motion::Side);
+        break;
+    case GLFW_KEY_B:
+        beginMotion(Motion::Back);
+        break;
+    case GLFW_KEY_1:
+        beginMotion(Motion::Hinge);
+        break;
+    case GLFW_KEY_2:
+        beginMotion(Motion::Swap);
+        break;
+    case GLFW_KEY_4:
+        beginMotion(Motion::OrbitY);
+        break;
+    case GLFW_KEY_5:
+        beginMotion(Motion::OrbitX);
+        break;
+    case GLFW_KEY_6:
+        beginPyramid(PyramidMotion::All);
+        break;
+    case GLFW_KEY_7:
+        beginPyramid(PyramidMotion::Sequence);
+        break;
+    case GLFW_KEY_8:
+        beginPyramid(PyramidMotion::Swap);
+        break;
+    case GLFW_KEY_9:
+        beginPyramid(PyramidMotion::Apex);
+        break;
+    default:
+        break;
     }
 }
 
@@ -260,13 +299,20 @@ void Console::onUpdate(float deltaTime) {
 void Console::beginPyramid(PyramidMotion motion) {
     if(!pyramidSelected_)selectShape(true);
     if(pyramidMotion_!=motion) {
-        pyramidMotion_=motion;pyramidProgress_=0;pyramidDirection_=1;pyramidRunning_=true;
+        pyramidMotion_=motion;
+        pyramidProgress_=0;
+        pyramidDirection_=1;
+        pyramidRunning_=true;
+
     } else if(motion==PyramidMotion::All||motion==PyramidMotion::Apex) {
-        pyramidDirection_=-pyramidDirection_;pyramidRunning_=true;
+        pyramidDirection_=-pyramidDirection_;
+        pyramidRunning_=true;
     } else if(motion==PyramidMotion::Swap && !pyramidRunning_
               && (pyramidProgress_==0 || pyramidProgress_==1)) {
-        pyramidDirection_=-pyramidDirection_;pyramidRunning_=true;
+        pyramidDirection_=-pyramidDirection_;
+        pyramidRunning_=true;
     } else pyramidRunning_=!pyramidRunning_;
+
     applyPyramid();
 }
 void Console::updatePyramid(float dt) {
@@ -282,21 +328,29 @@ void Console::updatePyramid(float dt) {
 void Console::applyPyramid() {
     auto& scene=application_.getScene();
     const float b=HALF_SIZE,h=2*HALF_SIZE;
+
     const float inward=glm::degrees(std::atan2(h,b));
+
     const std::array<glm::vec3,4> hinges{glm::vec3{0,-b,b},{b,-b,0},{0,-b,-b},{-b,-b,0}};
     const std::array<glm::vec3,4> axes{X_AXIS,-Z_AXIS,-X_AXIS,Z_AXIS};
+
     const auto active=std::size_t(pyramidProgress_/2.0f)%4;
     const float phase=std::fmod(pyramidProgress_,2.0f);
+
     for(std::size_t i=0;i<4;++i) {
         glm::mat4 matrix(1);
         if(pyramidMotion_==PyramidMotion::All)
             matrix=rotateAround(hinges[i],axes[i],(360.0f-2*inward)*pyramidProgress_);
+
         else if(pyramidMotion_==PyramidMotion::Sequence && i==active)
             matrix=rotateAround(hinges[i],axes[i],(180-inward)*(phase<=1?phase:2-phase));
+
         else if(pyramidMotion_==PyramidMotion::Swap && (i==0||i==2))
             matrix=rotateAround({0,b,0},Y_AXIS,(i==0?180.0f:-180.0f)*pyramidProgress_);
+
         else if(pyramidMotion_==PyramidMotion::Apex)
             matrix=rotateAround({0,b,0},axes[i],-45.0f*pyramidProgress_);
+
         scene.setFaceLocalMatrix(pyramidId_,i,matrix);
     }
     scene.setFaceLocalMatrix(pyramidId_,4,glm::mat4(1));
