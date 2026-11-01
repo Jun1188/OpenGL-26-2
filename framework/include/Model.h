@@ -30,6 +30,7 @@ enum class GLShape { None, Cube, Tetra, Pyramid, Custom, Imported };
 enum class GLFace { None, Rect, Triangle, Mesh };
 enum class PivotMode { Preserve, BottomCenter, Custom };
 enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
+enum class CullMode { Inherit, None, Back, Front };
 
 struct Transform3D {
     glm::vec3 basis{0.0f};
@@ -81,6 +82,7 @@ struct PlaneFigure {
     OutlineMode outline = OutlineMode::None;
     float creaseAngleDegrees = 1.0f;
     std::string name;
+    CullMode cull = CullMode::Inherit;
     static PlaneFigure fromVertices(const std::vector<Vertex>& vertices,
                                    const std::vector<std::uint32_t>& triangles) {
         PlaneFigure mesh;
