@@ -53,7 +53,7 @@ public:
         if (!handle_) {
             const DWORD error=GetLastError();
             const auto message = "DLL=" + path.u8string() + "; Win32 error=" + std::to_string(error);
-            Diagnostics::fail(PipelineStage::Runtime, "Module::open", message,
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Module::open", message,
                 "Keep the complete x64 framework/dependencies folder beside the executable; check DLL architecture and dependent runtimes.");
             throw std::runtime_error(message);
         }
@@ -61,7 +61,7 @@ public:
     template<class T> T symbol(const char* name) const {
         const auto address = ::GetProcAddress(handle_, name);
         if (!address) {
-            Diagnostics::fail(PipelineStage::Runtime, "Module::symbol", std::string("Missing runtime export: ") + name,
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Module::symbol", std::string("Missing runtime export: ") + name,
                 "Use the bundled DLL version. For OpenGL functions, check that an OpenGL 3.3 context is current.");
             throw std::runtime_error(std::string("Missing runtime export: ") + name);
         }
@@ -78,6 +78,7 @@ struct GlfwApi {
     decltype(&::glfwCreateWindow) createWindow = nullptr;
     decltype(&::glfwDestroyWindow) DestroyWindow = nullptr;
     decltype(&::glfwMakeContextCurrent) MakeContextCurrent = nullptr;
+    decltype(&::glfwGetCurrentContext) GetCurrentContext = nullptr;
     decltype(&::glfwSwapInterval) SwapInterval = nullptr;
     decltype(&::glfwSetInputMode) SetInputMode = nullptr;
     decltype(&::glfwSetWindowUserPointer) SetWindowUserPointer = nullptr;
@@ -105,6 +106,7 @@ struct GlfwApi {
         createWindow = module.symbol<decltype(createWindow)>("glfwCreateWindow");
         DestroyWindow = module.symbol<decltype(DestroyWindow)>("glfwDestroyWindow");
         MakeContextCurrent = module.symbol<decltype(MakeContextCurrent)>("glfwMakeContextCurrent");
+        GetCurrentContext = module.symbol<decltype(GetCurrentContext)>("glfwGetCurrentContext");
         SwapInterval = module.symbol<decltype(SwapInterval)>("glfwSwapInterval");
         SetInputMode = module.symbol<decltype(SetInputMode)>("glfwSetInputMode");
         SetWindowUserPointer = module.symbol<decltype(SetWindowUserPointer)>("glfwSetWindowUserPointer");
@@ -250,7 +252,7 @@ struct GlApi {
     }
 };
 inline GlApi& gl() { static GlApi api; return api; }
-inline bool checkGl(PipelineStage stage, const char* api) {
+inline bool checkGlAt(const char* file,int line,PipelineStage stage, const char* api) {
     bool success = true;
     for (GLenum code = gl().GetError(); code != GL_NO_ERROR; code = gl().GetError()) {
         const char* cause = code == GL_INVALID_ENUM ? "GL_INVALID_ENUM: unsupported enum"
@@ -259,7 +261,7 @@ inline bool checkGl(PipelineStage stage, const char* api) {
             : code == GL_OUT_OF_MEMORY ? "GL_OUT_OF_MEMORY: GPU allocation failed"
             : code == GL_INVALID_FRAMEBUFFER_OPERATION ? "GL_INVALID_FRAMEBUFFER_OPERATION: incomplete framebuffer"
             : "OpenGL error";
-        Diagnostics::fail(stage, api, std::string(cause) + " (" + std::to_string(code) + ")",
+        Diagnostics::failAt(file,line,stage, api, std::string(cause) + " (" + std::to_string(code) + ")",
             "Inspect this stage's bindings, buffer sizes, vertex layout, shader log and current context. A GL error does not identify a single root cause.");
         success = false;
     }

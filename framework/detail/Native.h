@@ -252,7 +252,7 @@ struct GlApi {
     }
 };
 inline GlApi& gl() { static GlApi api; return api; }
-inline bool checkGl(PipelineStage stage, const char* api) {
+inline bool checkGlAt(const char* file,int line,PipelineStage stage, const char* api) {
     bool success = true;
     for (GLenum code = gl().GetError(); code != GL_NO_ERROR; code = gl().GetError()) {
         const char* cause = code == GL_INVALID_ENUM ? "GL_INVALID_ENUM: unsupported enum"
@@ -261,7 +261,7 @@ inline bool checkGl(PipelineStage stage, const char* api) {
             : code == GL_OUT_OF_MEMORY ? "GL_OUT_OF_MEMORY: GPU allocation failed"
             : code == GL_INVALID_FRAMEBUFFER_OPERATION ? "GL_INVALID_FRAMEBUFFER_OPERATION: incomplete framebuffer"
             : "OpenGL error";
-        Diagnostics::failAt(__FILE__,__LINE__,stage, api, std::string(cause) + " (" + std::to_string(code) + ")",
+        Diagnostics::failAt(file,line,stage, api, std::string(cause) + " (" + std::to_string(code) + ")",
             "Inspect this stage's bindings, buffer sizes, vertex layout, shader log and current context. A GL error does not identify a single root cause.");
         success = false;
     }

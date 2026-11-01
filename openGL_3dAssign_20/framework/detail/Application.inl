@@ -4,6 +4,7 @@
 #include <utility>
 namespace graphics::detail {
 inline bool& applicationActive() { static bool active=false;return active; }
+inline unsigned& contextErrorSerial() { static unsigned value=0;return value; }
 }
 namespace graphics {
 
@@ -36,19 +37,42 @@ inline void Application::setRenderHandler(std::function<bool(Application&)> hand
     renderHandler_ = std::move(handler);
 }
 
+inline bool Application::ensureContext(const char* operation,const char* file,int line) {
+    Diagnostics::locate(file,line,operation);
+    if(contextFailed_) return false;
+    if(!window_ || GetCurrentThreadId()!=contextThread_) {
+        contextFailed_=true;
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::ensureContext","Missing window or context used from a different thread.","Keep window creation, rendering and shutdown on the owning thread; inspect Application::run and the custom render handler.");
+    }
+    using CurrentProc=void* (WINAPI*)();
+    const auto module=GetModuleHandleW(L"opengl32.dll");
+    const auto current=module?reinterpret_cast<CurrentProc>(::GetProcAddress(module,"wglGetCurrentContext")):nullptr;
+    if(nativeContext_ && detail::glfw().GetCurrentContext()==window_ && current && current()==nativeContext_) return true;
+    const auto serial=detail::contextErrorSerial();
+    detail::glfw().MakeContextCurrent(window_);
+    if(serial!=detail::contextErrorSerial() || detail::glfw().GetCurrentContext()!=window_ || !current || !current()) {
+        contextFailed_=true;
+        return Diagnostics::fail(PipelineStage::Runtime,"glfwMakeContextCurrent","WGL did not attach the requested context; rendering stopped before GL commands.","Source is the failed bind call below. Check window lifetime, render-thread ownership and external handlers that detach/destroy the context. If those are valid, inspect the GPU driver/session; this log alone cannot prove a driver cause.");
+    }
+    nativeContext_=current();
+    return true;
+}
+
 inline bool Application::initialize(const ApplicationConfig& config) {
+    contextThread_=GetCurrentThreadId();contextFailed_=false;nativeContext_=nullptr;
     Diagnostics::trace(PipelineStage::Runtime, "Application::initialize");
     const auto root=detail::relativePathInside(detail::executableDirectory(),config.projectRoot);
     const auto runtime=detail::relativePathInside(root,config.runtimeDirectory);
     detail::glfw().load(runtime);
     detail::glfw().SetErrorCallback([](int code, const char* message) {
-        Diagnostics::fail(PipelineStage::Runtime, "GLFW", std::to_string(code) + ": " + (message ? message : "unknown error"),
-            "Check the graphics driver, OpenGL 3.3 support, window dimensions and the bundled GLFW DLL.");
+        ++detail::contextErrorSerial();
+        Diagnostics::fail(PipelineStage::Runtime, "GLFW/WGL", std::to_string(code) + ": " + (message ? message : "unknown error"),
+            "Context binding failed at Source/Operation. Inspect Application context lifetime/thread first; the OS/driver reason is in the original message. Render passes do not need separate WGL contexts.");
     });
     if (config.width <= 0 || config.height <= 0)
-        return Diagnostics::fail(PipelineStage::Runtime, "Application::initialize", "Window width and height must be positive.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::initialize", "Window width and height must be positive.");
     if (!detail::glfw().Init())
-        return Diagnostics::fail(PipelineStage::Runtime, "glfwInit", "GLFW initialization failed; see the GLFW error above.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwInit", "GLFW initialization failed; see the GLFW error above.");
     glfwInitialized_ = true;
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -58,9 +82,9 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     window_ = detail::glfw().createWindow(config.width, config.height,
                               config.title.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
-        return Diagnostics::fail(PipelineStage::Runtime, "glfwCreateWindow", "Could not create an OpenGL 3.3 core window.", "Check the GLFW error above and update the graphics driver.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwCreateWindow", "Could not create an OpenGL 3.3 core window.", "Check the GLFW error above and update the graphics driver.");
     }
-    detail::glfw().MakeContextCurrent(window_);
+    if(!ensureContext("initialize -> attach new window",__FILE__,__LINE__)) return false;
     detail::glfw().SwapInterval(config.verticalSync ? 1 : 0);
     const auto vertexPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"VertexShader.glsl";
     const auto fragmentPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"FragmentShader.glsl";
@@ -104,8 +128,8 @@ inline bool Application::initialize(const ApplicationConfig& config) {
 inline void Application::shutdown() {
     assets_.reset();
     if (window_ != nullptr) {
-        detail::glfw().MakeContextCurrent(window_);
-        renderer_.destroy();
+        if(!contextFailed_ && ensureContext("shutdown -> GPU cleanup",__FILE__,__LINE__)) renderer_.destroy();
+        else renderer_.abandon();
         detail::glfw().SetWindowUserPointer(window_, nullptr);
         detail::glfw().DestroyWindow(window_);
         window_ = nullptr;
@@ -124,9 +148,9 @@ inline void Application::requestClose() {
 
 inline bool Application::renderScene() {
     if (window_ == nullptr) {
-        return Diagnostics::fail(PipelineStage::Framebuffer,"Application::renderScene","No active window/context.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderScene","No active window/context.");
     }
-    detail::glfw().MakeContextCurrent(window_);
+    if(!ensureContext("renderScene -> single pass",__FILE__,__LINE__)) return false;
     int width = 0;
     int height = 0;
     detail::glfw().GetFramebufferSize(window_, &width, &height);
@@ -139,8 +163,8 @@ inline std::array<int,2> Application::getFramebufferSize() const {
     return size;
 }
 inline bool Application::renderViews(const std::vector<RenderPass>& passes) {
-    if(!window_) return Diagnostics::fail(PipelineStage::Framebuffer,"Application::renderViews","No active window/context.");
-    detail::glfw().MakeContextCurrent(window_);
+    if(!window_) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderViews","No active window/context.");
+    if(!ensureContext("renderViews -> shared context for all viewports",__FILE__,__LINE__)) return false;
     const auto size=getFramebufferSize();
     return renderer_.renderViews(scene_,passes,size[0],size[1]);
 }
@@ -149,10 +173,10 @@ inline int Application::run(const ApplicationConfig& config) {
     Diagnostics::configure(config.diagnostics);
     Diagnostics::clear();
     if (running_) {
-        Diagnostics::fail(PipelineStage::Runtime,"Application::run","Recursive run() is not allowed.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","Recursive run() is not allowed.");
         return -1; // 콜백에서 run()을 재귀 호출하지 않는다.
     }
-    if(detail::applicationActive()) {Diagnostics::fail(PipelineStage::Runtime,"Application::run","Only one active Application is supported.");return -1;}
+    if(detail::applicationActive()) {Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","Only one active Application is supported.");return -1;}
     // /utf-8 encodes narrow strings; the Windows console must decode them as UTF-8.
     SetConsoleOutputCP(CP_UTF8);
     detail::applicationActive()=true;
@@ -164,12 +188,13 @@ inline int Application::run(const ApplicationConfig& config) {
             std::cerr << "Application initialization failed.\n";
             exitCode = -1;
         } else if (initHandler_ && !initHandler_(*this)) {
-            Diagnostics::fail(PipelineStage::Scene,"Application::initHandler","User initialization returned false.","Read the preceding API error; inspect the scene creation callback.");
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"Application::initHandler","User initialization returned false.","Read the preceding API error; inspect the scene creation callback.");
             std::cerr << "User scene initialization failed.\n";
             exitCode = -1;
         } else {
             double previousTime = detail::glfw().GetTime();
             while (!detail::glfw().WindowShouldClose(window_)) {
+                Diagnostics::locate(__FILE__,__LINE__,"run -> glfwPollEvents/input callbacks");
                 detail::glfw().PollEvents();
                 if(callbackError_)std::rethrow_exception(callbackError_);
                 if (detail::glfw().WindowShouldClose(window_)) {
@@ -200,7 +225,7 @@ inline int Application::run(const ApplicationConfig& config) {
                     exitCode = -1;
                     break;
                 }
-                detail::glfw().MakeContextCurrent(window_);
+                if(!ensureContext("run -> render callback",__FILE__,__LINE__)) {exitCode=-1;break;}
                 const bool rendered = renderHandler_
                     ? renderHandler_(*this) : renderScene();
                 if (!rendered) {
@@ -208,17 +233,20 @@ inline int Application::run(const ApplicationConfig& config) {
                     exitCode = -1;
                     break;
                 }
+                Diagnostics::locate(__FILE__,__LINE__,"run -> glfwSwapBuffers");
+                const auto swapSerial=detail::contextErrorSerial();
                 detail::glfw().SwapBuffers(window_);
+                if(swapSerial!=detail::contextErrorSerial()) {contextFailed_=true;exitCode=-1;break;}
             }
         }
     } catch (const std::exception& error) {
-        Diagnostics::fail(PipelineStage::Runtime, "Application::run", error.what(), "Read the preceding stage/API error; user callback exceptions are rethrown after cleanup.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", error.what(), "Read the preceding stage/API error; user callback exceptions are rethrown after cleanup.");
         shutdown();
         running_ = false;
         detail::applicationActive()=false;
         throw;
     } catch (...) {
-        Diagnostics::fail(PipelineStage::Runtime, "Application::run", "Non-standard exception in a callback or runtime operation.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", "Non-standard exception in a callback or runtime operation.");
         shutdown();
         running_ = false;
         detail::applicationActive()=false;

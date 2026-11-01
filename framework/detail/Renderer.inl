@@ -15,7 +15,7 @@ inline std::string readTextFile(const std::filesystem::path& path) {
     return text;
 }
 namespace detail {
-inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
+inline GLuint compileShader(GLenum kind,const std::string& sourceText,const std::filesystem::path& sourcePath) {
     Diagnostics::trace(PipelineStage::Shader, "compileShader");
     auto& api=gl();const auto shader=api.CreateShader(kind);
     if(!shader) { Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "glCreateShader", "Shader allocation failed."); return 0; }
@@ -24,7 +24,7 @@ inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
     if(!success) {
         GLint length=0;api.GetShaderiv(shader,GL_INFO_LOG_LENGTH,&length);
         std::string log(std::max(length,1), '\0');api.GetShaderInfoLog(shader,GLsizei(log.size()),nullptr,log.data());
-        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, kind==GL_VERTEX_SHADER?"vertex shader":"fragment shader", log,
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, kind==GL_VERTEX_SHADER?"vertex shader":"fragment shader", "GLSL file="+sourcePath.u8string()+"\n"+log,
             "Read the compiler line number; check GLSL version, declarations and shader inputs/outputs.");
         api.DeleteShader(shader);return 0;
     }
@@ -43,7 +43,7 @@ inline GLuint uploadTexture(const TextureImage& image,bool repeat) {
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,repeat?GL_REPEAT:GL_CLAMP_TO_EDGE);
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,repeat?GL_REPEAT:GL_CLAMP_TO_EDGE);
-    if(!checkGl(PipelineStage::Asset, "uploadTexture")) {api.DeleteTextures(1,&id);return 0;}
+    if(!checkGlAt(__FILE__,__LINE__,PipelineStage::Asset, "uploadTexture")) {api.DeleteTextures(1,&id);return 0;}
     return id;
 }
 } // namespace detail
@@ -55,8 +55,8 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     if(vertexText.empty()||fragmentText.empty()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "Renderer::initShader",
         "Shader source is empty or unreadable: vertex=" + vertexPath.u8string() + "; fragment=" + fragmentPath.u8string(),
         "Use embedded shaders (empty shaderDirectory), or copy both GLSL files to the configured project-relative directory.");
-    const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText);if(!vertex)return false;
-    const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText);
+    const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText,vertexPath.empty()?std::filesystem::path(__FILE__).parent_path()/"Shaders.h":vertexPath);if(!vertex)return false;
+    const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText,fragmentPath.empty()?std::filesystem::path(__FILE__).parent_path()/"Shaders.h":fragmentPath);
     if(!fragment){gl.DeleteShader(vertex);return false;}
     shaderProgramID_=gl.CreateProgram();
     if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader,"glCreateProgram","Program allocation failed.");}
@@ -93,7 +93,7 @@ inline bool Renderer::initialize(const std::filesystem::path& vertexPath,const s
     gl.VertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,uv)));
     gl.VertexAttribPointer(3,3,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,normal)));
     for(GLuint i=0;i<4;++i)gl.EnableVertexAttribArray(i);
-    gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);return detail::checkGl(PipelineStage::VertexInput, "Renderer::initialize vertex layout");
+    gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);return detail::checkGlAt(__FILE__,__LINE__,PipelineStage::VertexInput, "Renderer::initialize vertex layout");
 }
 inline bool Renderer::upload(const Scene& scene,bool textureMode) {
     Diagnostics::trace(PipelineStage::VertexInput, "Renderer::upload");
@@ -126,7 +126,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
                 for(auto index:outline)indices.push_back(first+index);
                 ranges.push_back(range);
                 if(textureMode&&face.material.useTexture&&stagedTextures.find(face.material.texture)==stagedTextures.end()) {
-                    if(!detail::checkGl(PipelineStage::Asset, "before uploadTexture")){cleanup();return false;}
+                    if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Asset, "before uploadTexture")){cleanup();return false;}
                     const auto texture=detail::uploadTexture(*face.material.texture,face.material.repeatTexture);
                     if(!texture){cleanup();return false;}
                     try{stagedTextures.emplace(face.material.texture,texture);}catch(...){gl.DeleteTextures(1,&texture);throw;}
@@ -143,13 +143,13 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
         }
         if(vertices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(detail::GpuVertex)
             ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::upload","Buffer byte size exceeds GLsizeiptr range.");}
-        if(!detail::checkGl(PipelineStage::VertexInput, "before buffer upload")){cleanup();return false;}
+        if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::VertexInput, "before buffer upload")){cleanup();return false;}
         gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);
         gl.BufferData(GL_ARRAY_BUFFER,GLsizeiptr(vertices.size()*sizeof(detail::GpuVertex)),vertices.empty()?nullptr:vertices.data(),GL_STATIC_DRAW);
         gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo_);
         gl.BufferData(GL_ELEMENT_ARRAY_BUFFER,GLsizeiptr(indices.size()*sizeof(GLuint)),indices.empty()?nullptr:indices.data(),GL_STATIC_DRAW);
         gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);
-        if(!detail::checkGl(PipelineStage::VertexInput, "glBufferData")){cleanup();return false;}
+        if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::VertexInput, "glBufferData")){cleanup();return false;}
         for(const auto& item:textures_)gl.DeleteTextures(1,&item.second);
         textures_=std::move(stagedTextures);drawRanges_=std::move(ranges);return true;
     } catch(...) {cleanup();throw;}
@@ -227,7 +227,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         {
             gl.DrawElements(face?GL_TRIANGLES:GL_LINES,range.count,GL_UNSIGNED_INT,
                 reinterpret_cast<const void*>(range.firstIndex*sizeof(GLuint)));
-            if(!detail::checkGl(PipelineStage::Raster, "glDrawElements")) {
+            if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Raster, "glDrawElements")) {
                 gl.BindVertexArray(0);gl.UseProgram(0);return false;
             }
         }
@@ -239,7 +239,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);
         }
     }
-    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return detail::checkGl(PipelineStage::Raster, "Renderer::draw outlines and cleanup");
+    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Raster, "Renderer::draw outlines and cleanup");
 }
 inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int width,int height) {
     Diagnostics::trace(PipelineStage::Framebuffer,"Renderer::renderPass");
@@ -261,7 +261,7 @@ inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int w
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;
     }
-    auto& gl=detail::gl();if(!detail::checkGl(PipelineStage::Framebuffer, "before Renderer::render"))return false;
+    auto& gl=detail::gl();if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Framebuffer, "before Renderer::render"))return false;
     gl.Viewport(viewport.x,viewport.y,viewport.width,viewport.height);gl.LineWidth(1);
     if(options.depthTest)gl.Enable(GL_DEPTH_TEST);else gl.Disable(GL_DEPTH_TEST);
     gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Enable(GL_SCISSOR_TEST);
@@ -270,7 +270,7 @@ inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int w
     gl.ClearColor(options.background.r,options.background.g,options.background.b,options.background.a);
     const GLbitfield mask=(pass.clearColor?GL_COLOR_BUFFER_BIT:0)|(pass.clearDepth?GL_DEPTH_BUFFER_BIT:0);
     if(mask) gl.Clear(mask);
-    if(!detail::checkGl(PipelineStage::Framebuffer,"viewport/scissor/clear")) {gl.Disable(GL_SCISSOR_TEST);return false;}
+    if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"viewport/scissor/clear")) {gl.Disable(GL_SCISSOR_TEST);return false;}
     const bool success=draw(scene,CameraSystem::viewMatrix(camera),CameraSystem::projectionMatrix(camera,float(viewport.width)/viewport.height),options);
     gl.Disable(GL_SCISSOR_TEST);gl.Disable(GL_CULL_FACE);gl.FrontFace(GL_CCW);
     return success;
@@ -286,7 +286,7 @@ inline bool Renderer::renderViews(const Scene& scene,const std::vector<RenderPas
     auto& gl=detail::gl();
     gl.Disable(GL_SCISSOR_TEST);gl.Viewport(0,0,width,height);gl.DepthMask(GL_TRUE);gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
     gl.ClearColor(.08f,.08f,.1f,1);gl.Clear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    if(!detail::checkGl(PipelineStage::Framebuffer,"Renderer::renderViews full-frame clear")) return false;
+    if(!detail::checkGlAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Renderer::renderViews full-frame clear")) return false;
     for(const auto& pass:passes) if(!renderPass(scene,pass,width,height)) return false;
     return true;
 }

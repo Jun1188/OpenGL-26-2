@@ -34,6 +34,10 @@ private:
     GLFWwindow* window_ = nullptr;
     bool glfwInitialized_ = false;
     bool running_ = false;
+    DWORD contextThread_=0;
+    bool contextFailed_=false;
+    void* nativeContext_=nullptr;
+    bool ensureContext(const char* operation,const char* file,int line);
     Scene scene_;
     Camera camera_;
     Renderer renderer_;

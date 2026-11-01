@@ -51,7 +51,7 @@ inline Scene::Scene() {
 }
 
 inline std::optional<EntityId> Scene::addGroup(const Transform3D& transform) {
-    if(!DiagramSystem::validTransform(transform))return (Diagnostics::fail(PipelineStage::Scene, "Scene::addGroup", "Rejected condition: !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+    if(!DiagramSystem::validTransform(transform))return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::addGroup", "Rejected condition: !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     const auto id=components_.size();
     Component_Poly group;group.polyhedron.shape=GLShape::None;
     group.transform=transform;group.sideLengths=glm::vec3(0);group.transformOnly=true;
@@ -59,7 +59,7 @@ inline std::optional<EntityId> Scene::addGroup(const Transform3D& transform) {
     geometryRevision_=nextGeometryRevision();return id;
 }
 inline bool Scene::setTint(EntityId id, GlColor color) {
-    if(id>=components_.size() || !validColor(color))return Diagnostics::fail(PipelineStage::Scene, "Scene::setTint", "Rejected condition: id>=components_.size() || !validColor(color)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(id>=components_.size() || !validColor(color))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setTint", "Rejected condition: id>=components_.size() || !validColor(color)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     components_[id].tint=color;return true;
 }
 inline std::optional<EntityId> Scene::addSphere(float radius,const glm::vec3& position,unsigned slices,unsigned stacks) {
@@ -76,7 +76,7 @@ inline std::optional<EntityId> Scene::push_entity(
 ) {
     if (!DiagramSystem::validPolyhedron(polyhedron)
         || !DiagramSystem::validTransform(transform)) {
-        return (Diagnostics::fail(PipelineStage::Scene, "Scene::push_entity", "Rejected condition: !DiagramSystem::validPolyhedron(polyhedron) || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+        return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::push_entity", "Rejected condition: !DiagramSystem::validPolyhedron(polyhedron) || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     }
     glm::vec3 minimum = polyhedron.faces[0].localVertices[0];
     glm::vec3 maximum = minimum;
@@ -86,7 +86,7 @@ inline std::optional<EntityId> Scene::push_entity(
             maximum = glm::max(maximum, vertex);
         }
     }
-    if (!finiteVector(maximum - minimum)) return (Diagnostics::fail(PipelineStage::Scene, "Scene::push_entity", "Rejected condition: !finiteVector(maximum - minimum)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+    if (!finiteVector(maximum - minimum)) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::push_entity", "Rejected condition: !finiteVector(maximum - minimum)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     const EntityId id = components_.size();
     components_.push_back({ polyhedron, transform, maximum - minimum });
     polyId_.push_back(id);
@@ -130,7 +130,7 @@ inline std::optional<EntityId> Scene::addPyramid(
 inline bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visible) {
     if (id >= components_.size()
         || faceIndex >= components_[id].polyhedron.faces.size()) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceVisible", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceVisible", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     components_[id].polyhedron.faces[faceIndex].visible = visible;
     return true;
@@ -139,7 +139,7 @@ inline bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visib
 inline bool Scene::setFaceCullMode(EntityId id,std::size_t faceIndex,CullMode mode) {
     if(id>=components_.size() || faceIndex>=components_[id].polyhedron.faces.size()
         || (mode!=CullMode::Inherit && mode!=CullMode::None && mode!=CullMode::Back && mode!=CullMode::Front))
-        return Diagnostics::fail(PipelineStage::Raster,"Scene::setFaceCullMode","Invalid entity, face index or culling mode.","Check the model's face list and CullMode enum.",id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Raster,"Scene::setFaceCullMode","Invalid entity, face index or culling mode.","Check the model's face list and CullMode enum.",id);
     components_[id].polyhedron.faces[faceIndex].cull=mode;
     return true;
 }
@@ -148,7 +148,7 @@ inline bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex,
     if (id >= components_.size()
         || faceIndex >= components_[id].polyhedron.faces.size()
         || !finiteMatrix(matrix)) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceLocalMatrix", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceLocalMatrix", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
     return true;
@@ -158,15 +158,15 @@ inline bool Scene::setFaceVertexColors(EntityId id, std::size_t faceIndex,
                                 const std::vector<GlColor>& colors) {
     if (id >= components_.size()
         || faceIndex >= components_[id].polyhedron.faces.size()) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     PlaneFigure& face = components_[id].polyhedron.faces[faceIndex];
     if (!colors.empty() && colors.size() != face.localVertices.size()) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: !colors.empty() && colors.size() != face.localVertices.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: !colors.empty() && colors.size() != face.localVertices.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     for (GlColor color : colors) {
         if (!validColor(color)) {
-            return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: !validColor(color)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+            return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceVertexColors", "Rejected condition: !validColor(color)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
         }
     }
     face.vertexColors = colors;
@@ -181,7 +181,7 @@ inline const Component_Poly* Scene::getComponent(EntityId id) const {
 inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
     // For a parented entity this position is in parent coordinates.
     if (id >= components_.size() || !finiteVector(worldPosition)) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setPosition", "Rejected condition: id >= components_.size() || !finiteVector(worldPosition)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setPosition", "Rejected condition: id >= components_.size() || !finiteVector(worldPosition)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     auto candidate = components_[id].transform;
     candidate.basis = worldPosition;
@@ -189,14 +189,14 @@ inline bool Scene::setPosition(EntityId id, const glm::vec3& worldPosition) {
 }
 
 inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
-    if(id>=components_.size()||!positiveLengths(sideLengths))return Diagnostics::fail(PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: id>=components_.size()||!positiveLengths(sideLengths)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(id>=components_.size()||!positiveLengths(sideLengths))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: id>=components_.size()||!positiveLengths(sideLengths)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     const auto& c=components_[id];
-    if(c.transformOnly)return Diagnostics::fail(PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: c.transformOnly", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(c.transformOnly)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: c.transformOnly", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=c.polyhedron;
     const auto box=detail::bounds(replacement);const auto oldSize=box.second-box.first;
-    if(!positiveLengths(oldSize))return Diagnostics::fail(PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: !positiveLengths(oldSize)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!positiveLengths(oldSize))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: !positiveLengths(oldSize)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     const auto ratio=sideLengths/oldSize;
-    if(!finiteVector(ratio))return Diagnostics::fail(PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: !finiteVector(ratio)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!finiteVector(ratio))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setSideLengths", "Rejected condition: !finiteVector(ratio)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     // Preserve topology/materials. Resize mesh coordinates around the model pivot.
     for(auto& face:replacement.faces) {
         for(auto& vertex:face.localVertices)vertex=c.transform.localBasis+(vertex-c.transform.localBasis)*ratio;
@@ -207,22 +207,22 @@ inline bool Scene::setSideLengths(EntityId id, const glm::vec3& sideLengths) {
 }
 
 inline bool Scene::setParent(EntityId id, std::optional<EntityId> parent) {
-    if (id >= components_.size()) return Diagnostics::fail(PipelineStage::Scene, "Scene::setParent", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if (id >= components_.size()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setParent", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto ancestor = parent;
     std::size_t remaining = components_.size();
     while (ancestor) {
-        if (*ancestor >= components_.size() || *ancestor == id || remaining-- == 0) return Diagnostics::fail(PipelineStage::Scene, "Scene::setParent", "Rejected condition: *ancestor >= components_.size() || *ancestor == id || remaining-- == 0", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        if (*ancestor >= components_.size() || *ancestor == id || remaining-- == 0) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setParent", "Rejected condition: *ancestor >= components_.size() || *ancestor == id || remaining-- == 0", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
         ancestor = components_[*ancestor].parent;
     }
     components_[id].parent = parent;
     return true;
 }
 inline std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
-    if (id >= components_.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+    if (id >= components_.size()) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
     std::vector<EntityId> chain;
     std::optional<EntityId> current = id;
     while (current) {
-        if (*current >= components_.size() || chain.size() >= components_.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: *current >= components_.size() || chain.size() >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+        if (*current >= components_.size() || chain.size() >= components_.size()) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: *current >= components_.size() || chain.size() >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
         chain.push_back(*current);
         current = components_[*current].parent;
     }
@@ -234,42 +234,42 @@ inline std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
         if (binding) { layer = *binding; anchor = i - 1; break; }
     }
     const auto motion = motions_.layerMatrices(layer);
-    if (!motion) return (Diagnostics::fail(PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: !motion", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+    if (!motion) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::worldMatrix", "Rejected condition: !motion", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
     glm::mat4 prefix(1), suffix(1);
     for (std::size_t i = 0; i < chain.size(); ++i) {
         auto& matrix = i <= anchor ? prefix : suffix;
         matrix *= detail::transformMatrix(components_[chain[i]].transform);
     }
     const auto result = motion->parent * prefix * motion->local * suffix;
-    if(!detail::finiteMatrix(result)) {Diagnostics::fail(PipelineStage::Transform,"Scene::worldMatrix","World transform overflow after parent and motion composition.","Reduce coordinate/scale magnitudes and inspect the parent/layer chain.",id);return {};}
+    if(!detail::finiteMatrix(result)) {Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"Scene::worldMatrix","World transform overflow after parent and motion composition.","Reduce coordinate/scale magnitudes and inspect the parent/layer chain.",id);return {};}
     return result;
 }
 inline std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceIndex) const {
-    if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::faceWorldMatrix", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+    if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::faceWorldMatrix", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
     const auto world = worldMatrix(id);
-    if (!world) return (Diagnostics::fail(PipelineStage::Scene, "Scene::faceWorldMatrix", "Rejected condition: !world", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+    if (!world) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::faceWorldMatrix", "Rejected condition: !world", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
     const auto& face = components_[id].polyhedron.faces[faceIndex];
     glm::mat4 child(1);
     if (face.independence)
         child = glm::translate(glm::mat4(1), face.transform.localBasis)
               * detail::transformMatrix(face.transform);
     const auto result = *world * child * face.localAnimationMatrix;
-    if(!detail::finiteMatrix(result)) {Diagnostics::fail(PipelineStage::Transform,"Scene::faceWorldMatrix","Face world transform overflow.","Inspect local face animation and entity transforms.",id);return {};}
+    if(!detail::finiteMatrix(result)) {Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"Scene::faceWorldMatrix","Face world transform overflow.","Inspect local face animation and entity transforms.",id);return {};}
     return result;
 }
 inline std::optional<glm::mat4> Scene::lineWorldMatrix(LineId id) const {
-    if (id >= lines_.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::lineWorldMatrix", "Rejected condition: id >= lines_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
+    if (id >= lines_.size()) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::lineWorldMatrix", "Rejected condition: id >= lines_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
     if (lines_[id].owner) return worldMatrix(*lines_[id].owner);
     const auto global = motions_.layerMatrices(MotionSystem::rootLayer());
     return global ? std::optional<glm::mat4>(global->parent * global->local) : std::nullopt;
 }
 inline bool Scene::bindEntity(EntityId id, LayerId layer) {
-    if (id >= components_.size() || !motions_.getLayer(layer)) return Diagnostics::fail(PipelineStage::Scene, "Scene::bindEntity", "Rejected condition: id >= components_.size() || !motions_.getLayer(layer)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if (id >= components_.size() || !motions_.getLayer(layer)) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::bindEntity", "Rejected condition: id >= components_.size() || !motions_.getLayer(layer)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     entityLayers_[id] = layer;
     return true;
 }
 inline bool Scene::unbindEntity(EntityId id) {
-    if (id >= components_.size()) return Diagnostics::fail(PipelineStage::Scene, "Scene::unbindEntity", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if (id >= components_.size()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::unbindEntity", "Rejected condition: id >= components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     entityLayers_.erase(id);
     return true;
 }
@@ -282,7 +282,7 @@ inline std::optional<LayerId> Scene::getEntityLayer(EntityId id) const {
 
 inline bool Scene::setTransform(EntityId id, const Transform3D& transform) {
     if (id >= components_.size() || !DiagramSystem::validTransform(transform)) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setTransform", "Rejected condition: id >= components_.size() || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setTransform", "Rejected condition: id >= components_.size() || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     components_[id].transform = transform;
     return true;
@@ -295,7 +295,7 @@ inline bool Scene::setFaceTransform(
     if (id >= components_.size()
         || faceIndex >= components_[id].polyhedron.faces.size()
         || !DiagramSystem::validTransform(transform)) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setFaceTransform", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setFaceTransform", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !DiagramSystem::validTransform(transform)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     PlaneFigure& face = components_[id].polyhedron.faces[faceIndex];
     face.transform = transform;
@@ -309,7 +309,7 @@ inline std::optional<LineId> Scene::addLine(
 ) {
     if (!finiteVector(start) || !finiteVector(end)
         || !validColor(color) || (owner && getComponent(*owner) == nullptr)) {
-        return (Diagnostics::fail(PipelineStage::Scene, "Scene::addLine", "Rejected condition: !finiteVector(start) || !finiteVector(end) || !validColor(color) || (owner && getComponent(*owner) == nullptr)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+        return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::addLine", "Rejected condition: !finiteVector(start) || !finiteVector(end) || !validColor(color) || (owner && getComponent(*owner) == nullptr)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     }
     const LineId id = lines_.size();
     lines_.push_back({ start, end, color, owner });
@@ -331,13 +331,13 @@ inline std::optional<std::array<LineId, 3>> Scene::addBasis(
     if (!finiteVector(origin)
         || !positiveLengths(axisLengths)
         || (owner && getComponent(*owner) == nullptr)) {
-        return (Diagnostics::fail(PipelineStage::Scene, "Scene::addBasis", "Rejected condition: !finiteVector(origin) || !positiveLengths(axisLengths) || (owner && getComponent(*owner) == nullptr)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+        return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::addBasis", "Rejected condition: !finiteVector(origin) || !positiveLengths(axisLengths) || (owner && getComponent(*owner) == nullptr)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     }
     for (int i = 0; i < 3; ++i) {
         if (!finiteVector(basisVectors[i])
             || glm::dot(basisVectors[i], basisVectors[i]) <= 0.0f
             || !finiteVector(origin + basisVectors[i] * axisLengths[i])) {
-            return (Diagnostics::fail(PipelineStage::Scene, "Scene::addBasis", "Rejected condition: !finiteVector(basisVectors[i]) || glm::dot(basisVectors[i], basisVectors[i]) <= 0.0f || !finiteVector(origin + basisVectors[i] * axisLengths[i])", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+            return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::addBasis", "Rejected condition: !finiteVector(basisVectors[i]) || glm::dot(basisVectors[i], basisVectors[i]) <= 0.0f || !finiteVector(origin + basisVectors[i] * axisLengths[i])", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
         }
     }
     // 사전 검증 후 세 선을 함께 등록한다. 실패 입력은 장면을 변경하지 않는다.
@@ -359,7 +359,7 @@ inline std::optional<std::array<LineId, 3>> Scene::addBasis(
 inline bool Scene::setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector) {
     if (id >= lines_.size() || !finiteVector(origin)
         || !finiteVector(origin + vector)) {
-        return Diagnostics::fail(PipelineStage::Scene, "Scene::setVector", "Rejected condition: id >= lines_.size() || !finiteVector(origin) || !finiteVector(origin + vector)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setVector", "Rejected condition: id >= lines_.size() || !finiteVector(origin) || !finiteVector(origin + vector)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     lines_[id].start = origin;
     lines_[id].end = origin + vector;
@@ -576,7 +576,7 @@ inline void Scene::rebuildFaceIds() {
 }
 inline std::optional<EntityId> Scene::addModel(const Model& model, const Transform3D& transform,
                                              PivotMode pivot, const glm::vec3& customPivot) {
-    if(!DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot)) return (Diagnostics::fail(PipelineStage::Scene, "Scene::addModel", "Rejected condition: !DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
+    if(!DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot)) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::addModel", "Rejected condition: !DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
     auto initial=transform;
     if(pivot==PivotMode::BottomCenter) initial.localBasis=detail::bottomCenter(model);
     else if(pivot==PivotMode::Custom) initial.localBasis=customPivot;
@@ -585,9 +585,9 @@ inline std::optional<EntityId> Scene::addModel(const Model& model, const Transfo
     return id;
 }
 inline bool Scene::setModel(EntityId id, const Model& model) {
-    if(id>=components_.size() || !DiagramSystem::validPolyhedron(model)) return Diagnostics::fail(PipelineStage::Scene, "Scene::setModel", "Rejected condition: id>=components_.size() || !DiagramSystem::validPolyhedron(model)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(id>=components_.size() || !DiagramSystem::validPolyhedron(model)) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setModel", "Rejected condition: id>=components_.size() || !DiagramSystem::validPolyhedron(model)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     const auto box=detail::bounds(model);
-    if(!detail::finiteVector(box.second-box.first)) return Diagnostics::fail(PipelineStage::Scene, "Scene::setModel", "Rejected condition: !detail::finiteVector(box.second-box.first)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!detail::finiteVector(box.second-box.first)) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setModel", "Rejected condition: !detail::finiteVector(box.second-box.first)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=components_[id];
     replacement.polyhedron=model;replacement.sideLengths=box.second-box.first;replacement.transformOnly=false;
     if(replacement.pivotMode==PivotMode::BottomCenter)
@@ -600,7 +600,7 @@ inline const Mesh* Scene::getMesh(EntityId id, std::size_t meshIndex) const {
     return c && meshIndex<c->polyhedron.faces.size()?&c->polyhedron.faces[meshIndex]:nullptr;
 }
 inline bool Scene::setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh) {
-    if(!getMesh(id,meshIndex)) return Diagnostics::fail(PipelineStage::Scene, "Scene::setMesh", "Rejected condition: !getMesh(id,meshIndex)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!getMesh(id,meshIndex)) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setMesh", "Rejected condition: !getMesh(id,meshIndex)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     Model replacement=components_[id].polyhedron;
     replacement.faces[meshIndex]=mesh;
     return setModel(id,replacement);
@@ -608,7 +608,7 @@ inline bool Scene::setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh)
 inline bool Scene::setMeshVertices(EntityId id,std::size_t meshIndex,
                                    const std::vector<Vertex>& vertices,
                                    const std::vector<std::uint32_t>& triangles) {
-    const auto* original=getMesh(id,meshIndex);if(!original)return Diagnostics::fail(PipelineStage::Scene, "Scene::setMeshVertices", "Rejected condition: !original", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* original=getMesh(id,meshIndex);if(!original)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setMeshVertices", "Rejected condition: !original", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*original;
     const auto geometry=Mesh::fromVertices(vertices,triangles);
     replacement.localVertices=geometry.localVertices;replacement.vertexNormals=geometry.vertexNormals;
@@ -621,61 +621,61 @@ inline bool Scene::setMeshVertices(EntityId id,std::size_t meshIndex,
 inline bool Scene::setVertexPosition(EntityId id,std::size_t meshIndex,std::size_t vertexIndex,
                                      const glm::vec3& position) {
     const auto* mesh=getMesh(id,meshIndex);
-    if(!mesh||vertexIndex>=mesh->localVertices.size()||!detail::finiteVector(position))return Diagnostics::fail(PipelineStage::Scene, "Scene::setVertexPosition", "Rejected condition: !mesh||vertexIndex>=mesh->localVertices.size()||!detail::finiteVector(position)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!mesh||vertexIndex>=mesh->localVertices.size()||!detail::finiteVector(position))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setVertexPosition", "Rejected condition: !mesh||vertexIndex>=mesh->localVertices.size()||!detail::finiteVector(position)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.localVertices[vertexIndex]=position;
     recalculateNormals(replacement);
     return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setTriangleIndices(EntityId id,std::size_t meshIndex,
                                       const std::vector<std::uint32_t>& indices) {
-    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::setTriangleIndices", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setTriangleIndices", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.shape=GLFace::Mesh;replacement.triangleIndices=indices;
-    if(!detail::validMesh(replacement))return Diagnostics::fail(PipelineStage::Scene, "Scene::setTriangleIndices", "Rejected condition: !detail::validMesh(replacement)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!detail::validMesh(replacement))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setTriangleIndices", "Rejected condition: !detail::validMesh(replacement)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     recalculateNormals(replacement);return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& options) {
-    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::generateTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::generateTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;
     return graphics::generateTexcoords(replacement,options) && setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& scale,
                                      const glm::vec2& offset, float rotationDegrees) {
-    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::transformTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex); if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::transformTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;
     return graphics::transformTexcoords(replacement,scale,offset,rotationDegrees) && setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setTexcoords(EntityId id,std::size_t meshIndex,const std::vector<glm::vec2>& uvs) {
-    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::setTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setTexcoords", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.texcoords=uvs;return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setVertexNormals(EntityId id,std::size_t meshIndex,const std::vector<glm::vec3>& normals) {
-    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::setVertexNormals", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setVertexNormals", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.vertexNormals=normals;return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setMaterial(EntityId id,std::size_t meshIndex,const Material& material) {
-    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::setMaterial", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setMaterial", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.material=material;return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setOutline(EntityId id,std::size_t meshIndex,OutlineMode mode,
                               const std::vector<std::uint32_t>& explicitEdges) {
-    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::fail(PipelineStage::Scene, "Scene::setOutline", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    const auto* mesh=getMesh(id,meshIndex);if(!mesh)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setOutline", "Rejected condition: !mesh", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto replacement=*mesh;replacement.outline=mode;replacement.outlineIndices=explicitEdges;
     return setMesh(id,meshIndex,replacement);
 }
 inline bool Scene::setLocalBasis(EntityId id,PivotMode mode,const glm::vec3& customPivot) {
-    if(id>=components_.size()||!detail::finiteVector(customPivot))return Diagnostics::fail(PipelineStage::Scene, "Scene::setLocalBasis", "Rejected condition: id>=components_.size()||!detail::finiteVector(customPivot)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(id>=components_.size()||!detail::finiteVector(customPivot))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setLocalBasis", "Rejected condition: id>=components_.size()||!detail::finiteVector(customPivot)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     auto& c=components_[id];
-    if(c.transformOnly && mode==PivotMode::BottomCenter)return Diagnostics::fail(PipelineStage::Scene, "Scene::setLocalBasis", "Rejected condition: c.transformOnly && mode==PivotMode::BottomCenter", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(c.transformOnly && mode==PivotMode::BottomCenter)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setLocalBasis", "Rejected condition: c.transformOnly && mode==PivotMode::BottomCenter", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     if(mode==PivotMode::BottomCenter)c.transform.localBasis=detail::bottomCenter(c.polyhedron);
     else if(mode==PivotMode::Custom)c.transform.localBasis=customPivot;
     c.pivotMode=mode;return true;
 }
 inline bool Scene::setVisible(EntityId id,bool visible) {
-    if(id>=components_.size())return Diagnostics::fail(PipelineStage::Scene, "Scene::setVisible", "Rejected condition: id>=components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(id>=components_.size())return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::setVisible", "Rejected condition: id>=components_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     components_[id].visible=visible;return true;
 }
 inline bool Scene::splitFace(EntityId id,std::size_t faceIndex) {
-    if(!getMesh(id,faceIndex))return Diagnostics::fail(PipelineStage::Scene, "Scene::splitFace", "Rejected condition: !getMesh(id,faceIndex)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
+    if(!getMesh(id,faceIndex))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene, "Scene::splitFace", "Rejected condition: !getMesh(id,faceIndex)", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     // The same face remains under its parent; vertices and indices are already face-local storage.
     auto& face=components_[id].polyhedron.faces[faceIndex];
     if(!face.independence) {face.transform=Transform3D{};face.independence=true;}

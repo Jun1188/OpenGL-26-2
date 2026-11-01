@@ -60,6 +60,7 @@ struct JointRig {
 };
 class PatternSystem {
 public:
+    static std::optional<PathPose> conveyorCornerPose(double distance,const glm::vec3& start,const glm::vec3& pivot,float radius,float endZ);
     static std::optional<EntityId> addBox(Scene& scene,const glm::vec3& size,const glm::vec3& position,
                                          GlColor color,std::optional<EntityId> parent=std::nullopt);
     static std::optional<EntityId> addPolygon(Scene& scene,const std::vector<glm::vec3>& points,

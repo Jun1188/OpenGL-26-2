@@ -17,29 +17,29 @@ struct GridLayout {
     std::optional<glm::vec3> position(const glm::vec3& ratio) const {
         if (!valid() || !detail::finiteVector(ratio)
             || ratio.x<0 || ratio.y<0 || ratio.z<0 || ratio.x>1 || ratio.y>1 || ratio.z>1) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::position","Need a valid grid and ratios in [0,1].");
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::position","Need a valid grid and ratios in [0,1].");
             return {};
         }
         const auto result=glm::vec3(frame*glm::vec4(origin+extent*ratio,1));
         if (!detail::finiteVector(result)) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::position","Grid transformation overflow.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::position","Grid transformation overflow.");return {};
         }
         return result;
     }
     std::optional<glm::vec3> cellCenter(const glm::ivec3& index) const {
         if (!valid() || index.x<0 || index.y<0 || index.z<0
             || index.x>=cells.x || index.y>=cells.y || index.z>=cells.z) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::cellCenter","Cell index is outside the grid.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::cellCenter","Cell index is outside the grid.");return {};
         }
         return position((glm::vec3(index)+glm::vec3(.5f))/glm::vec3(cells));
     }
     std::optional<glm::vec3> relativeSize(const glm::vec3& ratio) const {
         if (!valid() || !detail::finiteVector(ratio) || ratio.x<=0 || ratio.y<=0 || ratio.z<=0) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::relativeSize","Need positive finite size ratios.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::relativeSize","Need positive finite size ratios.");return {};
         }
         const auto result=extent*ratio;
         if (!detail::finiteVector(result)) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::relativeSize","Size overflow.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::relativeSize","Size overflow.");return {};
         }
         return result; // Local dimensions. frame orientation is kept separate.
     }
@@ -47,15 +47,15 @@ struct GridLayout {
         const auto world=position(ratio);
         const float determinant=glm::determinant(glm::mat3(parentWorld));
         if (!world || !TransformSystem::validAffine(parentWorld) || !std::isfinite(determinant) || std::abs(determinant)<1e-8f) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::positionInParent","Parent transform must be finite, affine and invertible.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::positionInParent","Parent transform must be finite, affine and invertible.");return {};
         }
         const auto result=glm::vec3(glm::inverse(parentWorld)*glm::vec4(*world,1));
-        if (!detail::finiteVector(result)) { Diagnostics::fail(PipelineStage::Transform,"GridLayout::positionInParent","Parent inverse overflow.");return {}; }
+        if (!detail::finiteVector(result)) { Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::positionInParent","Parent inverse overflow.");return {}; }
         return result;
     }
     std::optional<glm::ivec3> cellAt(const glm::vec3& world) const {
         if (!valid() || !detail::finiteVector(world)) {
-            Diagnostics::fail(PipelineStage::Transform,"GridLayout::cellAt","Invalid grid or world point.");return {};
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"GridLayout::cellAt","Invalid grid or world point.");return {};
         }
         const auto local=glm::vec3(glm::inverse(frame)*glm::vec4(world,1));
         const auto ratio=(local-origin)/extent;

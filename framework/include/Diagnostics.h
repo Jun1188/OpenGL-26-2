@@ -24,6 +24,7 @@ public:
                        const std::string& action="Inspect the source location and this API's input contract.",
                        std::optional<std::uint64_t> object=std::nullopt) {
         const auto saved=context();locate(file,line,api);
+        if(!saved.operation.empty()) context().operation=saved.operation+" -> "+api;
         const bool result=fail(stage,api,cause,action,object);context()=saved;return result;
     }
     static const char* stageName(PipelineStage stage) {

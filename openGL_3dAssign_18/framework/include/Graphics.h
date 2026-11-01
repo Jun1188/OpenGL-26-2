@@ -147,7 +147,6 @@ public:
 std::string readTextFile(const std::filesystem::path& path);
 
 struct RenderOptions {
-    CullMode cull = CullMode::None;
     bool depthTest = true;
     bool wireframe = false;
     bool textures = false; // Explicit opt-in; no texture GPU work when false.
@@ -156,6 +155,7 @@ struct RenderOptions {
     GlColor lightColor;
     GlColor outlineColor{0.05f, 0.05f, 0.05f};
     glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
+    CullMode cull = CullMode::None; // Append to preserve existing aggregate initializers.
 };
 
 struct Viewport { int x=0, y=0, width=0, height=0; }; // Bottom-left framebuffer pixels.
@@ -201,6 +201,7 @@ public:
     bool renderPass(const Scene& scene,const RenderPass& pass,int framebufferWidth,int framebufferHeight);
     bool renderViews(const Scene& scene,const std::vector<RenderPass>& passes,int width,int height);
     void destroy(); // Call while the owning context is current, before it is destroyed.
+    void abandon() { shaderProgramID_=vao_=vbo_=ebo_=0;textures_.clear();drawRanges_.clear();uploadedScene_=nullptr;uploadedRevision_=std::numeric_limits<std::uint64_t>::max(); }
 };
 } // namespace graphics
 #include "../detail/Scene.inl"
