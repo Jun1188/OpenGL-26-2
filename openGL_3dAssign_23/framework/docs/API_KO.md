@@ -400,7 +400,7 @@ static void locate(const char* file,int line,const char* operation);
 ### Diagnostics::failAt
 
 ```cpp
-static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action="소스 위치와 해당 API의 입력 조건을 확인하세요.", std::optional<std::uint64_t> 객체=std::nullopt);
+static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action="소스 위치와 해당 API의 입력 조건을 확인하세요.", std::optional<std::uint64_t> object=std::nullopt);
 ```
 
 주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.

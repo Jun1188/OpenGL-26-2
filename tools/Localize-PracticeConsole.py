@@ -1,6 +1,7 @@
 ﻿"""승인된 실습 안내와 공통 실행 진단 문구를 한글로 저장한다."""
 from pathlib import Path
 import os
+import re
 ROOT=Path(__file__).resolve().parent.parent
 TRANSLATIONS={
 'Practice 22: same Scene, perspective / XZ top / XY front':'실습 22: 같은 장면을 원근 / XZ 평면도 / XY 정면도로 표시',
@@ -66,10 +67,18 @@ TRANSLATIONS={
 '\\n  Operation: ':'\\n  호출 경로: ',
 }
 FILES=['openGL_3dAssign_22/Console.cpp','openGL_3dAssign_22/main.cpp','openGL_3dAssign_23/Console.cpp','openGL_3dAssign_23/main.cpp','framework/detail/Application.inl','framework/include/Diagnostics.h']
+# 주석·문자 리터럴은 건너뛰고 일반 C++ 문자열 리터럴만 번역한다.
+TOKENS=re.compile(r'(?:u8|u|U|L)?R"(?P<delimiter>[^ ()\\\t\r\n]{0,16})\([\s\S]*?\)(?P=delimiter)"|//[^\n]*|/\*[\s\S]*?\*/|(?:u8|u|U|L)?\'(?:\\.|[^\'\\])*\'|(?P<string>(?:u8|u|U|L)?"(?:\\.|[^"\\])*")')
+def localize(source):
+    def replace(match):
+        literal=match.group('string')
+        if literal is None:return match[0]
+        for old,new in TRANSLATIONS.items():literal=literal.replace(old,new)
+        return literal
+    return TOKENS.sub(replace,source)
 if __name__=='__main__':
     for file in FILES:
-        p=ROOT/file;s=p.read_text(encoding='utf-8-sig')
-        for old,new in TRANSLATIONS.items():s=s.replace(old,new)
+        p=ROOT/file;s=localize(p.read_text(encoding='utf-8-sig'))
         if s!=p.read_text(encoding='utf-8-sig'):
             temp=p.with_name(p.name+'.localize.tmp')
             temp.write_text(s,encoding='utf-8-sig',newline='\n');os.replace(temp,p)
