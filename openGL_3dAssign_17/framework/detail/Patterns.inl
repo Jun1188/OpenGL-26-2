@@ -289,9 +289,9 @@ inline std::optional<std::size_t> PatternSystem::cameraFacingWall(const Scene& s
         if(vertices.size()<3) return {};
         const auto n=glm::normalize(normals*glm::cross(vertices[1]-vertices[0],vertices[2]-vertices[0]));
         const float score=glm::dot(n,view);
-        if(score<best-1e-6f) {best=score;selected=i;}
+        if(score>best+1e-6f) {best=score;selected=i;}
     }
-    return selected; // A vertical view has no opposing side wall; normal query miss.
+    return selected; // Select the far interior wall visible along the viewing direction.
 }
 inline bool PatternSystem::openRoomWall(Scene& scene,EntityId room,std::size_t face,float progress) {
     const auto* mesh=scene.getMesh(room,face);

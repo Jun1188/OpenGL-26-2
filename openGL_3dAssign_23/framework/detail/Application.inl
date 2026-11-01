@@ -42,7 +42,7 @@ inline bool Application::ensureContext(const char* operation,const char* file,in
     if(contextFailed_) return false;
     if(!window_ || GetCurrentThreadId()!=contextThread_) {
         contextFailed_=true;
-        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::ensureContext","Missing window or context used from a different thread.","Keep window creation, rendering and shutdown on the owning thread; inspect Application::run and the custom render handler.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::ensureContext","창이 없거나 컨텍스트를 생성한 스레드와 다른 스레드에서 사용했습니다.","창 생성·렌더링·종료를 같은 스레드에서 수행하세요. Application::run과 사용자 렌더 콜백을 확인하세요.");
     }
     using CurrentProc=void* (WINAPI*)();
     const auto module=GetModuleHandleW(L"opengl32.dll");
@@ -52,7 +52,7 @@ inline bool Application::ensureContext(const char* operation,const char* file,in
     detail::glfw().MakeContextCurrent(window_);
     if(serial!=detail::contextErrorSerial() || detail::glfw().GetCurrentContext()!=window_ || !current || !current()) {
         contextFailed_=true;
-        return Diagnostics::fail(PipelineStage::Runtime,"glfwMakeContextCurrent","WGL did not attach the requested context; rendering stopped before GL commands.","Source is the failed bind call below. Check window lifetime, render-thread ownership and external handlers that detach/destroy the context. If those are valid, inspect the GPU driver/session; this log alone cannot prove a driver cause.");
+        return Diagnostics::fail(PipelineStage::Runtime,"glfwMakeContextCurrent","WGL이 요청한 컨텍스트를 연결하지 못하여 GL 명령 전에 렌더링을 중단했습니다.","소스 위치는 연결 실패 호출입니다. 창 수명·렌더 스레드·컨텍스트를 해제/파괴하는 외부 콜백을 먼저 확인하세요. 이상이 없으면 GPU 드라이버·세션을 확인하세요. 이 로그만으로 드라이버 원인을 확정할 수 없습니다.");
     }
     nativeContext_=current();
     return true;
@@ -66,13 +66,13 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     detail::glfw().load(runtime);
     detail::glfw().SetErrorCallback([](int code, const char* message) {
         ++detail::contextErrorSerial();
-        Diagnostics::fail(PipelineStage::Runtime, "GLFW/WGL", std::to_string(code) + ": " + (message ? message : "unknown error"),
-            "Context binding failed at Source/Operation. Inspect Application context lifetime/thread first; the OS/driver reason is in the original message. Render passes do not need separate WGL contexts.");
+        Diagnostics::fail(PipelineStage::Runtime, "GLFW/WGL", std::to_string(code) + ": " + (message ? message : "알 수 없는 오류"),
+            "표시된 소스 위치·호출 경로에서 컨텍스트 연결이 실패했습니다. Application의 창 수명과 스레드를 먼저 확인하세요. OS/드라이버 원문도 함께 보세요. 렌더 패스마다 별도 WGL 컨텍스트를 만들 필요는 없습니다.");
     });
     if (config.width <= 0 || config.height <= 0)
-        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::initialize", "Window width and height must be positive.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::initialize", "창 너비와 높이는 양수여야 합니다.");
     if (!detail::glfw().Init())
-        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwInit", "GLFW initialization failed; see the GLFW error above.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwInit", "GLFW 초기화 실패: 앞선 GLFW 오류를 확인하세요.");
     glfwInitialized_ = true;
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -82,7 +82,7 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     window_ = detail::glfw().createWindow(config.width, config.height,
                               config.title.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
-        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwCreateWindow", "Could not create an OpenGL 3.3 core window.", "Check the GLFW error above and update the graphics driver.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "glfwCreateWindow", "OpenGL 3.3 코어 창 생성 실패.", "앞선 GLFW 오류와 그래픽 드라이버의 OpenGL 지원을 확인하세요.");
     }
     if(!ensureContext("initialize -> attach new window",__FILE__,__LINE__)) return false;
     detail::glfw().SwapInterval(config.verticalSync ? 1 : 0);
@@ -149,7 +149,7 @@ inline void Application::requestClose() {
 
 inline bool Application::renderScene() {
     if (window_ == nullptr) {
-        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderScene","No active window/context.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderScene","활성 창 또는 컨텍스트가 없습니다.");
     }
     if(!ensureContext("renderScene -> single pass",__FILE__,__LINE__)) return false;
     int width = 0;
@@ -164,7 +164,7 @@ inline std::array<int,2> Application::getFramebufferSize() const {
     return size;
 }
 inline bool Application::renderViews(const std::vector<RenderPass>& passes) {
-    if(!window_) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderViews","No active window/context.");
+    if(!window_) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Application::renderViews","활성 창 또는 컨텍스트가 없습니다.");
     if(!ensureContext("renderViews -> shared context for all viewports",__FILE__,__LINE__)) return false;
     const auto size=getFramebufferSize();
     return renderer_.renderViews(scene_,passes,size[0],size[1]);
@@ -174,10 +174,10 @@ inline int Application::run(const ApplicationConfig& config) {
     Diagnostics::configure(config.diagnostics);
     Diagnostics::clear();
     if (running_) {
-        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","Recursive run() is not allowed.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","run() 재귀 호출은 허용하지 않습니다.");
         return -1; // 콜백에서 run()을 재귀 호출하지 않는다.
     }
-    if(detail::applicationActive()) {Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","Only one active Application is supported.");return -1;}
+    if(detail::applicationActive()) {Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime,"Application::run","동시에 실행 중인 Application은 하나만 지원합니다.");return -1;}
     // /utf-8 encodes narrow strings; the Windows console must decode them as UTF-8.
     SetConsoleOutputCP(CP_UTF8);
     detail::applicationActive()=true;
@@ -186,11 +186,11 @@ inline int Application::run(const ApplicationConfig& config) {
     int exitCode = 0;
     try {
         if (!initialize(config)) {
-            std::cerr << "Application initialization failed.\n";
+            std::cerr << "애플리케이션 초기화 실패.\n";
             exitCode = -1;
         } else if (initHandler_ && !initHandler_(*this)) {
-            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"Application::initHandler","User initialization returned false.","Read the preceding API error; inspect the scene creation callback.");
-            std::cerr << "User scene initialization failed.\n";
+            Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"Application::initHandler","사용자 초기화 콜백이 false를 반환했습니다.","앞선 API 오류와 장면 생성 콜백을 확인하세요.");
+            std::cerr << "사용자 장면 초기화 실패.\n";
             exitCode = -1;
         } else {
             double previousTime = detail::glfw().GetTime();
@@ -222,7 +222,7 @@ inline int Application::run(const ApplicationConfig& config) {
                     break;
                 }
                 if (!scene_.updateMotions(deltaTime)) {
-                    std::cerr << "Motion update failed.\n";
+                    std::cerr << "모션 갱신 실패.\n";
                     exitCode = -1;
                     break;
                 }
@@ -230,7 +230,7 @@ inline int Application::run(const ApplicationConfig& config) {
                 const bool rendered = renderHandler_
                     ? renderHandler_(*this) : renderScene();
                 if (!rendered) {
-                    std::cerr << "Rendering failed.\n";
+                    std::cerr << "렌더링 실패.\n";
                     exitCode = -1;
                     break;
                 }
@@ -241,13 +241,13 @@ inline int Application::run(const ApplicationConfig& config) {
             }
         }
     } catch (const std::exception& error) {
-        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", error.what(), "Read the preceding stage/API error; user callback exceptions are rethrown after cleanup.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", error.what(), "앞선 파이프라인 단계/API 오류를 확인하세요. 사용자 콜백 예외는 자원 정리 후 다시 전달됩니다.");
         shutdown();
         running_ = false;
         detail::applicationActive()=false;
         throw;
     } catch (...) {
-        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", "Non-standard exception in a callback or runtime operation.");
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Runtime, "Application::run", "콜백 또는 실행 처리에서 표준 예외가 아닌 예외가 발생했습니다.");
         shutdown();
         running_ = false;
         detail::applicationActive()=false;
@@ -277,7 +277,7 @@ inline std::optional<PickResult> Application::pickAtCursor() const {
     double x=0,y=0;detail::glfw().GetCursorPos(window_,&x,&y);return pickAt(x,y);
 }
 inline AssetLoader& Application::getAssets() {
-    if(!assets_)throw std::logic_error("AssetLoader is available during run callbacks only.");
+    if(!assets_)throw std::logic_error("AssetLoader는 run 실행 중 콜백에서만 사용할 수 있습니다.");
     return *assets_;
 }
 } // namespace graphics

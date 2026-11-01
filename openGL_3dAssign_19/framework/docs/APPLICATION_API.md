@@ -118,7 +118,9 @@ RenderOptions::cull은 패스 기본 정책, Mesh::cull 또는 Scene::setFaceCul
 | 22 | 기존 탱크 Scene + threeViews/renderViews |
 | 23 준비 | GridLayout/JointRig/CharacterBody/jump/stepCharacter/randomFreeBox/openFace |
 
-키·상태 전환·게임 종료·완료 판정은 앱이 소유한다. 옛 실습 전체의 소스 이식과 실습 23 구현은 하지 않았다. 기존 APPLICATION_PATTERNS.md는 유지한다.
+키·상태 전환·게임 종료·완료 판정은 앱이 소유한다. 실습 20~23은 각각 공통 API를 이용한 독립 프로젝트로 구현했다. 기존 APPLICATION_PATTERNS.md는 유지한다.
+
+전체 공개 함수는 [API_KO.md](API_KO.md), 요구별 호출 순서는 [시험 API 호출 안내](../../docs/code-guide/api.html)를 참조한다. 실습23의 O는 시선과 바깥 법선의 양의 내적이 최대인 맞은편 벽을 고른다. 다음 O는 같은 벽을 복원하며 복원이 끝난 뒤 다음 벽을 선택한다. addRoom의 frontOpen 기본값은 true이므로 네 옆벽을 모두 만들려면 false를 명시한다.
 
 ## 사용자 확인
 

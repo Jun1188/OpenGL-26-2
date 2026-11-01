@@ -20,11 +20,13 @@ struct ModelResult {
     std::string error;
     std::vector<std::string> warnings;
     bool usedFallback = false;
+    /// [API] 모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.
     explicit operator bool() const { return model.has_value(); }
 };
 struct TextureResult {
     std::shared_ptr<const TextureImage> image;
     std::string error;
+    /// [API] 모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.
     explicit operator bool() const { return bool(image); }
 };
 
@@ -70,16 +72,22 @@ class AssetLoader {
         return image;
     }
 public:
+    /// [API] 프로젝트 루트와 기능 옵션을 보관하고 상대경로 자산 로딩을 준비한다.
     explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(),
                          FeatureOptions features=FeatureOptions{})
         : projectRoot_(std::filesystem::absolute(projectRoot)),features_(features) {}
+    /// [API] 로더의 텍스처 등 기능 사용 옵션을 읽기 전용 참조로 반환한다.
     const FeatureOptions& features() const { return features_; }
+    /// [API] 프로젝트 상대경로의 이미지를 읽어 TextureResult로 반환한다. 실패 원인은 error에 담는다.
     TextureResult loadTexture(const std::filesystem::path& relative,bool flipRows=true) const {
         try { return {texture(relative,flipRows),{}}; }
         catch(const std::exception& e) { return {nullptr,e.what()}; }
     }
+    /// [API] 프로젝트 상대경로의 OBJ를 직접 파싱하여 모델·피벗·경고·오류 결과를 반환한다.
     ModelResult loadObj(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
+    /// [API] 기본 도형 OBJ를 읽는 호환 진입점이다. OBJ 로더로 처리를 위임한다.
     ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
+    /// [API] 모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
     ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const;
 };
 } // namespace graphics
@@ -87,6 +95,7 @@ public:
 #include "../detail/PrimitiveLoader.inl"
 #include "../detail/ObjLoader.inl"
 namespace graphics {
+/// [API] 모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
 inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative,const LoadOptions& options) const {
     return loadObj(relative,options);
 }
