@@ -17,10 +17,10 @@
       "path": "docs/practice-20-23/CLEANUP_CANDIDATES.md",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "da7a33f9e8984b3819be0b09837e8057efb452393e8561e4fa80e9aa11d49a00",
+      "after_sha256": "e948bd7c43d1d061dcd04eccb443facae3fdf0b8f20c51bb8aaea4dcd6dc3522",
       "before_bytes": null,
-      "after_bytes": 1095,
-      "full_source_pair": "pair-a07bd83ba3f6f3",
+      "after_bytes": 1278,
+      "full_source_pair": "pair-685219cac6f926",
       "generated_graph_artifact": false
     },
     {
@@ -57,10 +57,10 @@
       "path": "docs/practice-20-23/STEP19-20.md",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "93d10b5e195239476c3386640fae8b0213e2fe0f842e2f2f9a86fcb9ceea9452",
+      "after_sha256": "86ecc63dcb6f63da16f4d9f5d38742f61ca9282e2af7f84000b061af9a8580c2",
       "before_bytes": null,
-      "after_bytes": 1518,
-      "full_source_pair": "pair-674a8709e238a5",
+      "after_bytes": 1521,
+      "full_source_pair": "pair-65108bd59bab47",
       "generated_graph_artifact": false
     },
     {

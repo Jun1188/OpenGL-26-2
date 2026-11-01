@@ -35,7 +35,7 @@ before는 코드 작성 직전 실제 작업 폴더의 스냅샷이다. 사용�
 재개 전 원본: C:\Users\변준영\바탕 화면\college\OpenGL\OpenGL-26-2\.obj-work\resume-20261101-before.zip (270890865 bytes). 사용자 변경 복구용이므로 보존한다. 이번 재개에서는 ZIP 배포물을 생성하지 않았다.
 ```
 
-<a id="pair-a07bd83ba3f6f3"></a>
+<a id="pair-685219cac6f926"></a>
 
 ## docs/practice-20-23/CLEANUP_CANDIDATES.md
 
@@ -54,10 +54,11 @@ before는 코드 작성 직전 실제 작업 폴더의 스냅샷이다. 사용�
 ```text
 # 임시 생성물 보존 목록
 
-삭제는 수행하지 않았다. 아래 파일은 문서 생성기의 Python import 캐시이며 소스·실행 프로젝트의 필수 파일이 아니다. 별도 삭제 범위 승인 전에는 보존한다.
+삭제는 수행하지 않았다. 아래 파일은 문서 생성·용량 계산의 Python import 캐시이며 프로젝트의 필수 파일이 아니다. 별도 삭제 범위 승인 전에는 보존한다.
 
 | 정확한 경로 | 바이트 | 보존 사유 |
 |---|---:|---|
+| `C:\Users\변준영\바탕 화면\college\OpenGL\OpenGL-26-2\tools\__pycache__\Package-Framework.cpython-314.pyc` | 8810 | 승인 없는 삭제 방지. 원본 스크립트는 tools에 유지. |
 | `C:\Users\변준영\바탕 화면\college\OpenGL\OpenGL-26-2\tools\__pycache__\Write-ApiKo.cpython-313.pyc` | 32330 | 승인 없는 삭제 방지. 원본 스크립트는 tools에 유지. |
 | `C:\Users\변준영\바탕 화면\college\OpenGL\OpenGL-26-2\tools\__pycache__\Write-CodeGuide.cpython-313.pyc` | 82621 | 승인 없는 삭제 방지. 원본 스크립트는 tools에 유지. |
 | `C:\Users\변준영\바탕 화면\college\OpenGL\OpenGL-26-2\tools\__pycache__\Write-CodeGuide.cpython-314.pyc` | 86466 | 승인 없는 삭제 방지. 원본 스크립트는 tools에 유지. |
@@ -210,7 +211,7 @@ framework/include의 공개 함수 선언 219개(오버로드·삭제된 복사 
 코드 전체 before/after는 BEFORE_AFTER.md에, 단계별 커밋은 COMMITS.md에 기록한다.
 ```
 
-<a id="pair-674a8709e238a5"></a>
+<a id="pair-65108bd59bab47"></a>
 
 ## docs/practice-20-23/STEP19-20.md
 
