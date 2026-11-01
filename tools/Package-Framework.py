@@ -1,4 +1,4 @@
-﻿"""Create a source distribution without building or running the applications."""
+﻿"""Create independent source ZIPs below 3,000,000 bytes; never build or run projects."""
 from pathlib import Path
 import argparse
 import hashlib
@@ -6,103 +6,84 @@ import json
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-LIMIT = 30_000_000  # Decimal MB: stricter than 30 MiB.
-PROJECTS = ["standard", "openGL_sample0"] + [f"openGL_3dAssign_{n}" for n in range(15, 21)]
+LIMIT = 3_000_000
+PROJECTS = ["standard"] + [f"openGL_3dAssign_{n}" for n in range(15, 23)]
 EXCLUDED_DIRS = {".git", ".vs", "__pycache__", "x64", "Debug", "Release", "packages",
                  "graphify-out", "framework-analysis", ".obj-work", "dist"}
 BUILD_SUFFIXES = {".exe", ".pdb", ".idb", ".ipdb", ".iobj", ".ilk", ".tlog", ".pch",
-                  ".sdf", ".opensdf", ".db", ".log", ".lastbuildstate", ".recipe"}
-NOTICE = """# Framework and samples source package
-
-Includes the root framework, standard, openGL_sample0 and practices 15-20 present in
-the workspace. Each practice retains its own complete framework. Open the desired
-.slnx file in Visual Studio and select x64, Debug or Release. C++17 and the Windows
-SDK / Visual C++ toolset are prerequisites. No NuGet restore or Assimp is required.
-
-The package contains current workspace source, including existing user edits.
-Executables, compiler intermediates, IDE state, NuGet caches and analysis reports
-are excluded. All remaining framework SDK files, DLLs, link libraries, headers,
-licenses, model data and shaders are retained. Build and runtime tests were not
-performed by the agent. openGL_sample0 uses ../OpenGL.props and the root framework;
-keep these together. Practices and standard retain independent bundled frameworks.
-
-See framework/docs/OBJ_LOADING.md for the OBJ API, supported syntax, fallback
-diagnostics, explicit texture setup and user-run checks. MTL, glTF and FBX are not
-supported. See DISTRIBUTION_MANIFEST.json for exact source-byte hashes.
-
-To recreate the package from this folder:
-    python tools/Package-Framework.py
-The script requires only Python's standard library. It refuses to replace an
-existing archive; pass --output with a new destination when needed.
-"""
-
+                  ".sdf", ".opensdf", ".db", ".log", ".lastbuildstate", ".recipe", ".partial"}
 
 def include(path, base):
-    rel = path.relative_to(base)
-    if path.is_symlink() or not path.resolve().is_relative_to(ROOT):
-        raise RuntimeError(f"Unexpected link outside distribution: {path}")
-    # Keep complete SDKs, including their Release/x64 DLL and LIB directories.
-    if "dependencies" in rel.parts:
-        sdk_index = rel.parts.index("dependencies")
-        if any(part in EXCLUDED_DIRS for part in rel.parts[:sdk_index]):
-            return False
-        return "assimp" not in rel.parts
-    if any(part in EXCLUDED_DIRS for part in rel.parts):
-        return False
-    if path.name.endswith(".vcxproj.user") or path.suffix.lower() in BUILD_SUFFIXES:
-        return False
-    # Never filter OBJ model text by suffix. Compiler .obj files live in x64/Debug/Release.
-    return True
+    relative = path.relative_to(base)
+    if path.is_symlink() or not path.resolve().is_relative_to(base.resolve()):
+        raise RuntimeError(f"Unexpected link outside project: {path}")
+    if "dependencies" in relative.parts:
+        index = relative.parts.index("dependencies")
+        return not any(p in EXCLUDED_DIRS for p in relative.parts[:index]) and "assimp" not in relative.parts
+    return not (any(p in EXCLUDED_DIRS for p in relative.parts)
+                or path.name.endswith(".vcxproj.user") or path.suffix.lower() in BUILD_SUFFIXES)
 
-
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, default=ROOT / "dist/framework-samples.zip")
-    args = parser.parse_args()
-    output = args.output.resolve()
-    if output.exists():
-        raise SystemExit(f"Archive already exists; choose a new --output: {output}")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    temporary = output.with_name(output.name + ".partial")
-    if temporary.exists():
-        raise SystemExit(f"Previous partial archive exists: {temporary}")
-    roots = [ROOT / "framework"] + [ROOT / name for name in PROJECTS if (ROOT / name).is_dir()]
-    files = set()
-    for base in roots:
-        for path in base.rglob("*"):
-            if path.is_file() and include(path, base):
-                files.add(path)
-    for name in ["OpenGL.props", "OPENGL_SETUP.md", "tools/Package-Framework.py",
-                 "docs/obj-loader/PACKAGING.md"]:
-        path = ROOT / name
-        if path.is_file():
-            files.add(path)
+def package(project, destination):
+    base = ROOT / project
+    if not base.is_dir():
+        raise RuntimeError(f"Project is absent: {base}")
+    destination.mkdir(parents=True, exist_ok=True)
+    output = destination / f"{project}.zip"
+    temporary = output.with_suffix(".zip.partial")
+    if output.exists() or temporary.exists():
+        raise RuntimeError(f"Preserve existing output; choose another --output-dir: {output}")
     records = []
-    with zipfile.ZipFile(temporary, "x", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for path in sorted(files):
+    with zipfile.ZipFile(temporary, "x", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+        for path in sorted(base.rglob("*")):
+            if not path.is_file() or not include(path, base):
+                continue
             data = path.read_bytes()
             name = path.relative_to(ROOT).as_posix()
             archive.writestr(name, data)
             records.append({"path": name, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest()})
-        archive.writestr("README_PACKAGE.md", NOTICE.encode("utf-8-sig"))
-        manifest = {"kind": "source-distribution", "build_and_runtime_tests": "not_run",
+        manifest = {"kind": "independent-source-project", "project": project,
                     "size_limit_bytes": LIMIT, "source_files": records,
-                    "excluded": sorted(EXCLUDED_DIRS), "sdk_files": "preserved except removed Assimp"}
-        archive.writestr("DISTRIBUTION_MANIFEST.json",
+                    "build_execution_tests_validators": "not_run; delegated to user",
+                    "dependencies": "bundled SDKs and licenses; Windows, GPU driver, Visual C++ tools and Windows SDK required",
+                    "practice_23": "deferred for joint development"}
+        archive.writestr(f"{project}/DISTRIBUTION_MANIFEST.json",
                          json.dumps(manifest, ensure_ascii=False, indent=2).encode("utf-8-sig"))
+        notice = f"""# {project} source distribution
+
+Extract the complete folder. Open .sln when provided, otherwise .vcxproj.
+Use x64 Debug/Release. Keep framework and its SDKs, DLLs and licenses together.
+No external SDK download or package restore is needed. The receiving PC needs
+Visual C++ build tools, a Windows SDK, Windows x64 and an OpenGL 3.3 capable driver.
+standard and practices 20-22 select an installed toolset rather than fixing v145.
+Older practices retain their original project toolset; retarget to v143 for VS 2022.
+Read framework/docs/APPLICATION_API.md and the project's README/USER_CHECKS.
+Source includes existing workspace documentation. IDE state and compiler output
+are excluded. This is source, not a prebuilt application. Builds, execution,
+tests and validators were not run by the agent. Practice 23 is deferred.
+"""
+        archive.writestr(f"{project}/README_PACKAGE.md", notice.encode("utf-8-sig"))
     size = temporary.stat().st_size
     if size >= LIMIT:
-        raise SystemExit(f"Archive exceeds the limit ({size:,} >= {LIMIT:,} bytes). "
-                         f"Kept the partial artifact for inspection: {temporary}")
+        raise RuntimeError(f"ZIP too large: {size:,} >= {LIMIT:,}; retained {temporary}")
     temporary.rename(output)
-    result = {"archive": str(output), "zip_bytes": size, "decimal_MB": round(size / 1_000_000, 3),
-              "MiB": round(size / 1_048_576, 3), "limit_bytes": LIMIT, "source_files": len(records),
-              "uncompressed_source_bytes": sum(item["bytes"] for item in records),
-              "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "build_and_runtime_tests": "not_run"}
-    output.with_suffix(".manifest.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
-                                                  encoding="utf-8-sig")
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return {"project": project, "archive": str(output.relative_to(ROOT)) if output.is_relative_to(ROOT) else str(output),
+            "zip_bytes": size, "limit_bytes": LIMIT, "source_files": len(records),
+            "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "build_execution_tests_validators": "not_run"}
 
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--project", choices=PROJECTS, action="append", help="Repeat for a subset; default is all present projects.")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "dist/portable-20261101")
+    args = parser.parse_args()
+    destination = args.output_dir.resolve()
+    summary = destination / "PACKAGES.json"
+    if summary.exists():
+        raise SystemExit(f"Preserve existing package inventory: {summary}")
+    selected = args.project or [p for p in PROJECTS if (ROOT / p).is_dir()]
+    results = [package(p, destination) for p in dict.fromkeys(selected)]
+    summary.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8-sig")
+    for result in results:
+        print(f"{result['project']}: {result['zip_bytes']:,} bytes (< {LIMIT:,}); {result['archive']}")
 
 if __name__ == "__main__":
     main()

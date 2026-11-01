@@ -51,7 +51,8 @@ public:
         if (handle_) return;
         handle_ = LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
         if (!handle_) {
-            const auto message = "DLL=" + path.u8string() + "; Win32 error=" + std::to_string(GetLastError());
+            const DWORD error=GetLastError();
+            const auto message = "DLL=" + path.u8string() + "; Win32 error=" + std::to_string(error);
             Diagnostics::fail(PipelineStage::Runtime, "Module::open", message,
                 "Keep the complete x64 framework/dependencies folder beside the executable; check DLL architecture and dependent runtimes.");
             throw std::runtime_error(message);

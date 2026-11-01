@@ -241,7 +241,8 @@ inline std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
         matrix *= detail::transformMatrix(components_[chain[i]].transform);
     }
     const auto result = motion->parent * prefix * motion->local * suffix;
-    return detail::finiteMatrix(result) ? std::optional<glm::mat4>(result) : std::nullopt;
+    if(!detail::finiteMatrix(result)) {Diagnostics::fail(PipelineStage::Transform,"Scene::worldMatrix","World transform overflow after parent and motion composition.","Reduce coordinate/scale magnitudes and inspect the parent/layer chain.",id);return {};}
+    return result;
 }
 inline std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceIndex) const {
     if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::faceWorldMatrix", "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);
@@ -253,7 +254,8 @@ inline std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t 
         child = glm::translate(glm::mat4(1), face.transform.localBasis)
               * detail::transformMatrix(face.transform);
     const auto result = *world * child * face.localAnimationMatrix;
-    return detail::finiteMatrix(result) ? std::optional<glm::mat4>(result) : std::nullopt;
+    if(!detail::finiteMatrix(result)) {Diagnostics::fail(PipelineStage::Transform,"Scene::faceWorldMatrix","Face world transform overflow.","Inspect local face animation and entity transforms.",id);return {};}
+    return result;
 }
 inline std::optional<glm::mat4> Scene::lineWorldMatrix(LineId id) const {
     if (id >= lines_.size()) return (Diagnostics::fail(PipelineStage::Scene, "Scene::lineWorldMatrix", "Rejected condition: id >= lines_.size()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id), std::nullopt);

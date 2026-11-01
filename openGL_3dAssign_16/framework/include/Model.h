@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "Diagnostics.h"
 #include "../dependencies/glm/glm/glm.hpp"
 #include "../dependencies/glm/glm/gtc/matrix_transform.hpp"
 #include <array>
@@ -29,6 +30,7 @@ enum class GLShape { None, Cube, Tetra, Pyramid, Custom, Imported };
 enum class GLFace { None, Rect, Triangle, Mesh };
 enum class PivotMode { Preserve, BottomCenter, Custom };
 enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
+enum class CullMode { Inherit, None, Back, Front };
 
 struct Transform3D {
     glm::vec3 basis{0.0f};
@@ -80,6 +82,7 @@ struct PlaneFigure {
     OutlineMode outline = OutlineMode::None;
     float creaseAngleDegrees = 1.0f;
     std::string name;
+    CullMode cull = CullMode::Inherit;
     static PlaneFigure fromVertices(const std::vector<Vertex>& vertices,
                                    const std::vector<std::uint32_t>& triangles) {
         PlaneFigure mesh;
@@ -140,6 +143,7 @@ inline std::vector<std::uint32_t> triangles(const Mesh& mesh) {
     return {};
 }
 inline bool validMesh(const Mesh& m) {
+    if(m.cull!=CullMode::Inherit && m.cull!=CullMode::None && m.cull!=CullMode::Back && m.cull!=CullMode::Front) return false;
     if (m.localVertices.size() < 3 || !validColor(m.color)
         || !validColor(m.material.color) || !finiteVector(m.normal)
         || !finiteMatrix(m.localAnimationMatrix)

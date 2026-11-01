@@ -1,0 +1,396 @@
+﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>주요 구현 패턴</title><style>
+:root{--ink:#182b3b;--accent:#006b6b;--line:#d8e1e6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:#f1f5f7;color:var(--ink);font:16px/1.8 "Segoe UI","Malgun Gothic",sans-serif}a{color:var(--accent);text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #db8c22;outline-offset:4px}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:265px minmax(0,1fr);gap:32px;padding:32px}aside{position:sticky;top:24px;align-self:start;max-height:92vh;overflow:auto;padding:22px;background:white;border:1px solid var(--line);border-radius:12px}aside ol{padding-left:22px}aside li{margin:8px 0}main{min-width:0;background:white;border:1px solid var(--line);border-radius:12px;padding:40px}h1{font-size:2.2rem;line-height:1.3;margin:8px 0 20px}h2{font-size:1.5rem;margin:0 0 16px}header{border-bottom:3px solid var(--accent);padding-bottom:24px;margin-bottom:32px}.label{color:var(--accent);letter-spacing:.1em;font-size:.8rem;font-weight:700}.meta{color:#536776;font-size:.9rem}section{padding:16px 0 32px;border-bottom:1px solid var(--line);margin-bottom:24px}.note{background:#edf6f5;border-left:4px solid var(--accent);padding:12px 18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.94rem}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#edf2f4}td:first-child{min-width:180px}code{font-family:Consolas,monospace;font-size:.9em;overflow-wrap:anywhere}pre{background:#152b3a;color:#eff6fa;border-radius:8px;padding:20px;overflow:auto;line-height:1.6;tab-size:4}pre code{white-space:pre;overflow-wrap:normal}summary{cursor:pointer;font-weight:600;padding:12px;background:#f0f4f6;border-radius:6px}details{margin:16px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.card{border:1px solid var(--line);padding:18px;border-radius:8px}.card strong{display:block;color:var(--accent)}.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:8px;background:white;padding:10px;z-index:2}footer{font-size:.9rem;color:#536776;margin-top:32px}@media(max-width:950px){.layout{display:block;padding:12px}aside{position:static;max-height:none;margin-bottom:16px}main{padding:24px}h1{font-size:1.8rem}}@media print{body{background:white;font-size:10pt}.layout{display:block;padding:0}aside{position:static;max-height:none;break-after:page}main{border:0;padding:0}pre{background:#f3f5f6;color:black}pre code{white-space:pre-wrap}a{color:black}}
+</style></head><body><a class="skip" href="#content">본문으로 이동</a><div class="layout"><aside aria-label="문서 목차"><strong>목차</strong><ol><li><a href="#map">01. 패턴 선택과 책임</a></li><li><a href="#skeleton">02. Application과 Console 연결</a></li><li><a href="#spin">03. 한 객체의 자전과 공전</a></li><li><a href="#path">04. 경로 전환과 왕복</a></li><li><a href="#sequence">05. 순차 동작과 끝 자세 유지</a></li><li><a href="#mirror">06. Motion 공유와 대칭 분기</a></li><li><a href="#playback">07. 정지와 변환 끄기</a></li><li><a href="#insert">08. 바인딩을 유지하는 레이어 삽입</a></li><li><a href="#hierarchy">09. 부품 계층과 소유자 기저선</a></li><li><a href="#face">10. 면 힌지와 추가 로컬 행렬</a></li><li><a href="#picking">11. 화면 위치로 객체 선택</a></li><li><a href="#mesh">12. 메시 편집과 GPU 반영</a></li><li><a href="#obj">13. 선택적 OBJ와 텍스처</a></li><li><a href="#sample">14. standard 실제 전체 구현</a></li><li><a href="#delivery">15. 공유와 사용자 확인</a></li></ol><hr><a href="API_REFERENCE.html">다른 문서 열기 →</a></aside><main id="content"><header><div class="label">OPENGL / FRAMEWORK + STANDARD</div><h1>주요 구현 패턴</h1><p>입력 → 상태와 변환 → 출력 흐름으로 최신 Motion·레이어 API와 실제 구현을 연결합니다.</p><p class="meta">2026-10-26 로컬 소스 기준 · Windows x64 · C++17 · OpenGL 3.3 Core<br>소스 대조로 작성. 빌드·실행·브라우저 테스트는 수행하지 않음.</p></header><section id="map"><h2>01. 패턴 선택과 책임</h2><div class="table-wrap"><table><thead><tr><th scope="col">상황</th><th scope="col">절</th><th scope="col">API / 원칙</th></tr></thead><tbody><tr><td>창과 콜백</td><td>02</td><td>Application + Console. 응용 상태 수명 유지.</td></tr><tr><td>자전·공전·경로</td><td>03~05</td><td>시간=Motion, 순서=레이어, 초기 자세=Transform3D.</td></tr><tr><td>대칭·재생 제어</td><td>06~07</td><td>공유 MotionId, playing과 enabled 구분.</td></tr><tr><td>계층·부품·면</td><td>08~10</td><td>insertLayer/removeLayer, setParent, 면 SRT.</td></tr><tr><td>선택·편집·자산</td><td>11~13</td><td>pickAt, Scene setter, 상대경로 OBJ.</td></tr><tr><td>전체 구현·공유</td><td>14~15</td><td>standard 실제 소스와 사용자 실행 절차.</td></tr></tbody></table></div><p>단편은 표시한 함수·콜백 내부에 사용한다. 예제의 컴파일·실행은 미확인이다. 전체 연결은 14절을 따른다.</p></section><section id="skeleton"><h2>02. Application과 Console 연결</h2><p><strong>목적.</strong> 프레임워크 루프를 유지하고 응용 정책을 Console에 둔다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> main 객체 생성 → 콜백이 Console 호출 → run 이벤트와 렌더 진행.</p><pre><code>#include &quot;Console.h&quot;
+
+int main() {
+    graphics::Application app;
+    Console sample(app);
+
+    app.setInitHandler([&amp;](graphics::Application&amp;) {
+        return sample.initScene();
+    });
+    app.setKeyHandler([&amp;](graphics::Application&amp;, int key, int action) {
+        sample.onKey(key, action);
+    });
+    app.setMouseHandler([&amp;](graphics::Application&amp;, const graphics::MouseEvent&amp; event) {
+        sample.onMouse(event);
+    });
+
+    graphics::ApplicationConfig config;
+    config.title = &quot;standard - Motion and layers&quot;;
+    return app.run(config);
+}</code></pre><p><strong>주의.</strong> 등록 시 Console 함수가 실행되는 것은 아니다. examples의 다른 main을 프로젝트에 추가하지 않는다.</p><p><strong>사용자 확인.</strong> initScene true이면 루프 진입, Esc로 종료 요청.</p></section><section id="spin"><h2>03. 한 객체의 자전과 공전</h2><p><strong>목적.</strong> 같은 시계에 공전과 자전을 합성한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 위치 (2,0,0) → World 공전 + Local 자전 → 궤도와 물체 회전.</p><pre><code>// init 콜백 내부. current는 Application&amp;.
+auto&amp; scene = current.getScene();
+auto&amp; motions = scene.getMotions();
+const auto object = scene.addCuboid({.4f,.6f,.3f}, {2,0,0});
+graphics::RotationMotion orbit, spin;
+orbit.degreesPerSecond = 20;
+spin.degreesPerSecond = 90;
+const auto motion = motions.createOrbitAndSpin(orbit, spin);
+const auto layer = motions.pushLayer(graphics::MotionSystem::rootLayer());
+if (!object || !motion || !layer) return false;
+return motions.bindMotion(*layer, *motion) &amp;&amp; scene.bindEntity(*object, *layer);</code></pre><p><strong>주의.</strong> createOrbitAndSpin은 World/Local을 강제한다. 축 point는 해당 공간 기준. Application의 자동 updateMotions와 중복 갱신하지 않는다.</p><p><strong>사용자 확인.</strong> 비대칭 직육면체 중심의 공전과 자체 회전을 구분한다.</p></section><section id="path"><h2>04. 경로 전환과 왕복</h2><p><strong>목적.</strong> 자전 시각을 유지하고 경로만 교체한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 키 → PathFunction·Playback → setMotion·seekMotion → 새 경로 0초.</p><pre><code>// Console의 bool 함수 내부. pathId_는 기존 시계.
+graphics::PathMotion path;
+path.path = graphics::PathSystem::polyline({{1,-.5f,0},{2.4f,-.5f,0},{2,.6f,0}});
+path.durationSeconds = 6;
+path.playback = graphics::Playback::PingPong;
+graphics::Motion motion;
+auto&amp; motions = app_.getScene().getMotions();
+if (!pathId_ || !motion.append(graphics::Motion::followPath(path))) return false;
+return motions.setMotion(*pathId_, motion) &amp;&amp; motions.seekMotion(*pathId_, 0);</code></pre><p><strong>주의.</strong> setMotion은 시각을 초기화하지 않는다. 열린 경로 Loop는 끝에서 시작으로 점프. PingPong은 같은 선을 되돌아간다.</p><p><strong>사용자 확인.</strong> 6번 경로의 왕복을 확인한다. 곡선의 매개변수 속도와 공간 이동 속도를 구분한다.</p></section><section id="sequence"><h2>05. 순차 동작과 끝 자세 유지</h2><p><strong>목적.</strong> 유한 동작 뒤에 다음 단계를 연결한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 2초 이동 → then으로 1초 회전 → 앞 단계는 끝 자세 유지.</p><pre><code>// bool 응용 함수 내부
+graphics::Motion sequence;
+graphics::MotionStep move;
+move.durationSeconds = 2.0;
+move.transform = [](double seconds) {
+    return glm::translate(glm::mat4(1), glm::vec3(float(seconds),0,0));
+};
+graphics::RotationMotion spin;
+spin.degreesPerSecond = 90;
+auto turn = graphics::Motion::rotation(spin);
+turn.durationSeconds = 1.0;
+if (!sequence.append(move) || !sequence.then(turn)) return false;
+const auto id = app_.getScene().getMotions().createMotion(sequence);
+return id.has_value(); // 화면 적용에는 레이어 바인딩도 필요.</code></pre><p><strong>주의.</strong> 무한 단계 뒤 then은 실패. sample은 끝난 단계도 종료 시각으로 계속 평가한다. 콜백 인자는 단계 경과초다.</p><p><strong>사용자 확인.</strong> 1초에는 이동 x=1, 3초에는 이동 x=2와 90도 Local 회전이 유지되는지 확인한다.</p></section><section id="mirror"><h2>06. Motion 공유와 대칭 분기</h2><p>두 객체가 pathId와 spinId를 공유한다. 각 시계는 레이어 수와 관계없이 한 번 갱신된다. 반사를 경로 바깥에 두어 경로와 형상을 함께 반사한다.</p><pre><code>root (globalId: World 전체 공전, 초기 disabled)
+├─ normalPath (pathId) → normalSpin (spinId) → 첫 객체
+└─ mirror (반사 행렬) → mirroredPath (같은 pathId)
+                       → mirroredSpin (같은 spinId) → 둘째 객체</code></pre><pre><code>// initScene 연결 요약. 실제 실패 처리는 14절 참조.
+motions.bindMotion(*normalPath, *pathId_);
+motions.bindMotion(*mirroredPath, *pathId_);
+motions.bindMotion(*normalSpinLayer_, *spinId_);
+motions.bindMotion(*mirroredSpin, *spinId_);</code></pre><p><strong>주의.</strong> YZ평면 normal=(1,0,0), Y축 직선대칭은 기본 AxisLine. 3D 직선대칭과 평면반사는 다르다. 실제 구현의 반환값 처리를 유지한다.</p><p><strong>사용자 확인.</strong> 4번 경로에서 M으로 대칭을 바꾼다. z 좌표가 있는 경로에서 차이를 본다. 반사 없음이면 객체가 겹친다.</p></section><section id="playback"><h2>07. 정지와 변환 끄기</h2><div class="table-wrap"><table><thead><tr><th scope="col">입력</th><th scope="col">API</th><th scope="col">결과</th></tr></thead><tbody><tr><td>Space</td><td>setMotionPlaying(id,false)</td><td>시각·자세 유지, 같은 시각에서 재개.</td></tr><tr><td>S</td><td>setMotionEnabled(spinId,false)</td><td>자전 기여 제거. playing=true이면 시각 진행.</td></tr><tr><td>G</td><td>setMotionEnabled(globalId,true)</td><td>루트 공전 활성. 소유자 없는 선도 적용.</td></tr></tbody></table></div><p>응용 플래그는 API 성공 뒤 변경한다. 여러 시계의 명령 전체가 자동 롤백되는 것은 아니다. standard는 실패 시 오류와 종료 요청으로 처리한다.</p><p><strong>사용자 확인.</strong> Space 재개는 같은 위상, S 재활성화는 현재 시각의 자전인지 구분한다.</p></section><section id="insert"><h2>08. 바인딩을 유지하는 레이어 삽입</h2><p><strong>목적.</strong> 말단을 다시 만들지 않고 첫 객체 크기만 바꾼다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> I → 기존 말단 위 Local 크기 레이어 → 다시 I로 삭제.</p><pre><code>// Console의 bool 함수 내부
+auto&amp; motions = app_.getScene().getMotions();
+if (insertedLayer_) {
+    if (!motions.removeLayer(*insertedLayer_)) return false;
+    insertedLayer_.reset();
+    return true;
+}
+const auto scale = graphics::TransformSystem::scaling(glm::vec3(1.5f));
+if (!normalSpinLayer_ || !scale) return false;
+graphics::LayerConfig config;
+config.space = graphics::TransformSpace::Local;
+config.transform = *scale;
+insertedLayer_ = motions.insertLayer(*normalSpinLayer_, config);
+return insertedLayer_.has_value();</code></pre><p><strong>주의.</strong> removeLayer는 자식 승격. 자식 있는 노드에 popLayer는 실패. 삭제 노드 자체에 객체를 묶었다면 재바인딩을 별도 설계한다.</p><p><strong>사용자 확인.</strong> 첫 객체·부착 기저만 확대, 경로와 둘째 객체는 유지되는지 확인한다.</p></section><section id="hierarchy"><h2>09. 부품 계층과 소유자 기저선</h2><p><strong>목적.</strong> 전체 자세와 부품 자세를 분리한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 부모 그룹 → 자식 로컬 SRT → 부품과 기저선 출력.</p><pre><code>// init 콜백 내부
+auto&amp; scene = current.getScene();
+const auto parent = scene.addGroup();
+const auto part = scene.addCuboid({.6f,.2f,.3f}, {0,.4f,0});
+if (!parent || !part || !scene.setParent(*part, *parent)) return false;
+if (!scene.addBasis({0,0,0}, glm::mat3(1), {.5f,.5f,.5f}, *part)) return false;
+graphics::Transform3D pose;
+pose.basis = {1,0,0};
+return scene.setTransform(*parent, pose);</code></pre><p><strong>주의.</strong> setParent는 월드 자세를 자동 보존하지 않는다. 부착 선 좌표는 소유자 기준. tint는 자식에 전파되지 않는다.</p><p><strong>사용자 확인.</strong> 부모 이동 시 부품과 기저선이 함께 움직이는지 확인한다.</p></section><section id="face"><h2>10. 면 힌지와 추가 로컬 행렬</h2><p><strong>목적.</strong> 객체를 유지하면서 특정 면을 회전한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 면·힌지 → T(pivot) R T(-pivot) → 부모 상속 면 회전.</p><pre><code>// bool 함수 내부. id는 크기 1인 정육면체 ID.
+auto&amp; scene = app_.getScene();
+graphics::AxisLine hinge;
+hinge.point = {0,.5f,0};
+hinge.direction = {1,0,0};
+const auto matrix = graphics::TransformSystem::rotation(hinge, 45);
+if (!matrix) return false;
+return scene.setFaceLocalMatrix(id, 0, *matrix);</code></pre><p><strong>주의.</strong> 피벗은 예제 크기 전용. splitFace는 별도 엔티티를 만들지 않는다. 외부 모델의 면 번호를 가정하지 않는다.</p><p><strong>사용자 확인.</strong> 부모를 옮겨도 열린 면이 부모를 따라가는지 확인한다.</p></section><section id="picking"><h2>11. 화면 위치로 객체 선택</h2><p><strong>목적.</strong> 움직임·반사와 일치하는 물체를 선택한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 왼쪽 PRESS 창 좌표 → DPI 환산 → 최종 행렬 삼각형 충돌.</p><pre><code>app.setMouseHandler([](graphics::Application&amp; current, const graphics::MouseEvent&amp; event) {
+    if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) return;
+    const auto hit = current.pickAt(event.windowX, event.windowY);
+    if (!hit) return;
+    // hit-&gt;entityId, hit-&gt;faceIndex로 응용 선택 상태를 갱신한다.
+});</code></pre><p><strong>주의.</strong> pickAt에 framebufferX/Y를 주면 환산 중복 가능. graphics::pick은 자유 함수이고 Scene의 멤버가 아니다.</p><p><strong>사용자 확인.</strong> 창 크기·DPI를 바꾸고 반사·공전 중 객체 위치와 선택 ID를 확인한다.</p></section><section id="mesh"><h2>12. 메시 편집과 GPU 반영</h2><p><strong>목적.</strong> CPU 편집을 다음 렌더 업로드로 연결한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 조회 → 수정 값 계산 → Scene setter → revision 경로.</p><pre><code>// bool 함수 내부. id는 유효한 모델 ID.
+auto&amp; scene = app_.getScene();
+const auto* mesh = scene.getMesh(id, 0);
+if (!mesh || mesh-&gt;localVertices.empty()) return false;
+const glm::vec3 position = mesh-&gt;localVertices[0] + glm::vec3(0,.1f,0);
+return scene.setVertexPosition(id, 0, 0, position);</code></pre><p><strong>주의.</strong> const를 제거해 내부 벡터를 직접 변경하지 않는다. UV 생성도 정점·인덱스를 바꿀 수 있으므로 이전 인덱스와 포인터를 재검토한다.</p><p><strong>사용자 확인.</strong> 다음 프레임의 형상과 피킹이 함께 바뀌는지 확인한다.</p></section><section id="obj"><h2>13. 선택적 OBJ와 텍스처</h2><p><strong>목적.</strong> 기본 도형과 외부 자산 기능을 분리한다.</p><p><strong>입력 → 상태/변환 → 출력.</strong> 텍스처 허용 → init에서 파일 읽기 → 피벗 보존 등록.</p><pre><code>// main 내부. app은 Application 객체.
+app.getRenderOptions().textures = true;
+app.setInitHandler([](graphics::Application&amp; current) {
+    graphics::LoadOptions options;
+    options.texturePath = &quot;textures/override.png&quot;;
+    options.outline = graphics::OutlineMode::FeatureEdges;
+    const auto loaded = current.getAssets().loadObj(&quot;models/example.obj&quot;, options);
+    if (!loaded) return false;
+    return current.getScene().addModel(*loaded.model, graphics::Transform3D{},
+                                     loaded.pivotMode, loaded.localBasis).has_value();
+});
+graphics::ApplicationConfig config;
+config.features.textures = true;
+return app.run(config);</code></pre><p><strong>주의.</strong> 파일 경로는 예제이며 해당 이름의 자산을 ZIP에 제공한다는 뜻이 아니다. 실제 파일 필요. 텍스처를 안 쓰면 texturePath와 두 텍스처 설정을 끈다.</p><p><strong>사용자 확인.</strong> 잘못된 경로의 오류와 올바른 자산·UV의 표시를 사용자가 확인한다.</p></section><section id="sample"><h2>14. standard 실제 전체 구현</h2><p>현재 standard의 전체 소스 스냅샷이다. framework 단독 배포에서도 아래 소스를 읽을 수 있다. 실제 파일로 옮기면 include 경로와 main 중복을 확인한다.</p><details><summary>standard/main.cpp · 소스 원문</summary><pre><code>#include &quot;Console.h&quot;
+
+int main() {
+    graphics::Application app;
+    Console sample(app);
+
+    app.setInitHandler([&amp;](graphics::Application&amp;) {
+        return sample.initScene();
+    });
+    app.setKeyHandler([&amp;](graphics::Application&amp;, int key, int action) {
+        sample.onKey(key, action);
+    });
+    app.setMouseHandler([&amp;](graphics::Application&amp;, const graphics::MouseEvent&amp; event) {
+        sample.onMouse(event);
+    });
+
+    graphics::ApplicationConfig config;
+    config.title = &quot;standard - Motion and layers&quot;;
+    return app.run(config);
+}</code></pre></details><details><summary>standard/Console.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;framework/Framework.h&quot;
+
+class Console {
+    graphics::Application&amp; app_;
+    std::optional&lt;graphics::MotionId&gt; pathId_;
+    std::optional&lt;graphics::MotionId&gt; spinId_;
+    std::optional&lt;graphics::MotionId&gt; globalId_;
+    std::optional&lt;graphics::LayerId&gt; mirrorLayer_;
+    std::optional&lt;graphics::LayerId&gt; normalSpinLayer_;
+    std::optional&lt;graphics::LayerId&gt; insertedLayer_;
+    bool paused_ = false;
+    bool spinEnabled_ = true;
+    bool globalEnabled_ = false;
+    int reflection_ = 1;
+
+    bool choosePath(int kind);
+    bool changeReflection();
+    bool toggleInsertedLayer();
+    void printHelp() const;
+
+public:
+    explicit Console(graphics::Application&amp; app) : app_(app) {}
+    bool initScene();
+    void onKey(int key, int action);
+    void onMouse(const graphics::MouseEvent&amp; event);
+};</code></pre></details><details><summary>standard/Console.cpp · 소스 원문</summary><pre><code>#include &quot;Console.h&quot;
+#include &lt;iostream&gt;
+
+bool Console::choosePath(int kind) {
+    graphics::PathMotion path;
+    path.durationSeconds = 6;
+    const glm::vec3 center(1.7f, 0, 0);
+
+    if (kind == 1) {
+        path.path = graphics::PathSystem::ellipse(center, {.8f, 0, 0}, {0, .5f, 0});
+    } else if (kind == 2) {
+        path.path = graphics::PathSystem::rectangle(center, {.8f, 0, 0}, {0, .5f, 0});
+    } else if (kind == 3) {
+        path.path = graphics::PathSystem::polygon({
+            {1, -.5f, 0},
+            {2.4f, -.4f, 0},
+            {2.1f, .6f, 0},
+            {1.4f, .8f, 0},
+            {.9f, .2f, 0}
+        });
+    } else if (kind == 4) {
+        path.path = [center](double u) {
+            const double angle = u * 6.283185307179586;
+            return center + glm::vec3(
+                float(.7 * std::sin(2 * angle)),
+                float(.6 * std::sin(angle)),
+                float(.3 * std::cos(angle)));
+        };
+        path.interpolation = graphics::PathSystem::smoothStep;
+    } else if (kind == 5) {
+        path.path = graphics::PathSystem::circle(center, .65f, {0, 0, 1});
+    } else if (kind == 6) {
+        path.path = graphics::PathSystem::polyline({
+            {1, -.5f, 0},
+            {2.4f, -.5f, 0},
+            {2, .6f, 0}
+        });
+        path.playback = graphics::Playback::PingPong;
+    } else {
+        return false;
+    }
+
+    graphics::Motion motion;
+    auto&amp; motions = app_.getScene().getMotions();
+    if (!pathId_ || !motion.append(graphics::Motion::followPath(path))) {
+        return false;
+    }
+    if (!motions.setMotion(*pathId_, motion) || !motions.seekMotion(*pathId_, 0)) {
+        return false;
+    }
+    std::cout &lt;&lt; &quot;경로 &quot; &lt;&lt; kind &lt;&lt; &quot;: 시작 시각 0초로 변경\n&quot;;
+    return true;
+}
+
+bool Console::initScene() {
+    auto&amp; scene = app_.getScene();
+    scene.clear();
+    paused_ = false;
+    spinEnabled_ = true;
+    globalEnabled_ = false;
+    reflection_ = 1;
+    insertedLayer_.reset();
+
+    const auto first = scene.addCuboid({.4f, .6f, .3f}, {0, 0, 0});
+    const auto second = scene.addCuboid({.4f, .6f, .3f}, {0, 0, 0});
+    if (!first || !second) {
+        return false;
+    }
+    if (!scene.setTint(*first, {1, .35f, .2f})
+        || !scene.setTint(*second, {.2f, .7f, 1})) {
+        return false;
+    }
+
+    auto&amp; motions = scene.getMotions();
+    pathId_ = motions.createMotion(graphics::Motion{});
+    graphics::RotationMotion spin;
+    spin.degreesPerSecond = 90;
+    spinId_ = motions.createSpin(spin);
+    graphics::RotationMotion global;
+    global.degreesPerSecond = 15;
+    globalId_ = motions.createOrbit(global);
+    if (!pathId_ || !spinId_ || !globalId_ || !choosePath(1)) {
+        return false;
+    }
+    if (!motions.setMotionEnabled(*globalId_, false)
+        || !motions.bindMotion(graphics::MotionSystem::rootLayer(), *globalId_)) {
+        return false;
+    }
+
+    const auto normalPath = motions.pushLayer(graphics::MotionSystem::rootLayer());
+    const auto reflection = graphics::TransformSystem::reflectPlane({0, 0, 0}, {1, 0, 0});
+    if (!normalPath || !reflection) {
+        return false;
+    }
+    graphics::LayerConfig mirror;
+    mirror.transform = *reflection;
+    mirrorLayer_ = motions.pushLayer(graphics::MotionSystem::rootLayer(), mirror);
+    if (!mirrorLayer_) {
+        return false;
+    }
+    const auto mirroredPath = motions.pushLayer(*mirrorLayer_);
+    normalSpinLayer_ = motions.pushLayer(*normalPath);
+    if (!mirroredPath || !normalSpinLayer_) {
+        return false;
+    }
+    const auto mirroredSpin = motions.pushLayer(*mirroredPath);
+    if (!mirroredSpin
+        || !motions.bindMotion(*normalPath, *pathId_)
+        || !motions.bindMotion(*mirroredPath, *pathId_)
+        || !motions.bindMotion(*normalSpinLayer_, *spinId_)
+        || !motions.bindMotion(*mirroredSpin, *spinId_)
+        || !scene.bindEntity(*first, *normalSpinLayer_)
+        || !scene.bindEntity(*second, *mirroredSpin)) {
+        return false;
+    }
+    if (!scene.addBasis({0, 0, 0}, glm::mat3(1), {.55f, .55f, .55f}, *first)
+        || !scene.addBasis({0, 0, 0}, glm::mat3(1), {.55f, .55f, .55f}, *second)
+        || !scene.addLine({0, -1.4f, 0}, {0, 1.4f, 0}, {.5f, .5f, .5f})) {
+        return false;
+    }
+
+    auto&amp; camera = app_.getCamera();
+    camera.position = {5, 3, 8};
+    camera.target = {0, 0, 0};
+    camera.up = {0, 1, 0};
+    printHelp();
+    return true;
+}
+
+bool Console::changeReflection() {
+    const int next = (reflection_ + 1) % 4;
+    std::optional&lt;glm::mat4&gt; matrix = glm::mat4(1);
+    if (next == 1) {
+        matrix = graphics::TransformSystem::reflectPlane({0, 0, 0}, {1, 0, 0});
+    } else if (next == 2) {
+        matrix = graphics::TransformSystem::reflectPoint({0, 0, 0});
+    } else if (next == 3) {
+        matrix = graphics::TransformSystem::reflectLine(graphics::AxisLine{});
+    }
+    if (!mirrorLayer_ || !matrix) {
+        return false;
+    }
+    graphics::LayerConfig config;
+    config.transform = *matrix;
+    if (!app_.getScene().getMotions().setLayer(*mirrorLayer_, config)) {
+        return false;
+    }
+    reflection_ = next;
+    const char* names[] = {&quot;없음&quot;, &quot;YZ평면 반사&quot;, &quot;원점 점대칭&quot;, &quot;Y축 직선대칭&quot;};
+    std::cout &lt;&lt; &quot;반사: &quot; &lt;&lt; names[reflection_] &lt;&lt; &#x27;\n&#x27;;
+    return true;
+}
+
+bool Console::toggleInsertedLayer() {
+    auto&amp; motions = app_.getScene().getMotions();
+    if (insertedLayer_) {
+        if (!motions.removeLayer(*insertedLayer_)) {
+            return false;
+        }
+        insertedLayer_.reset();
+        std::cout &lt;&lt; &quot;추가 크기 레이어 삭제\n&quot;;
+        return true;
+    }
+    const auto scale = graphics::TransformSystem::scaling(glm::vec3(1.5f));
+    if (!normalSpinLayer_ || !scale) {
+        return false;
+    }
+    graphics::LayerConfig config;
+    config.space = graphics::TransformSpace::Local;
+    config.transform = *scale;
+    insertedLayer_ = motions.insertLayer(*normalSpinLayer_, config);
+    if (!insertedLayer_) {
+        return false;
+    }
+    std::cout &lt;&lt; &quot;첫 객체에 1.5배 Local 크기 레이어 삽입\n&quot;;
+    return true;
+}
+
+void Console::onKey(int key, int action) {
+    if (action != GLFW_PRESS) {
+        return;
+    }
+    auto&amp; motions = app_.getScene().getMotions();
+    bool ok = true;
+    if (key == GLFW_KEY_ESCAPE) {
+        app_.requestClose();
+    } else if (key &gt;= GLFW_KEY_1 &amp;&amp; key &lt;= GLFW_KEY_6) {
+        ok = choosePath(key - GLFW_KEY_1 + 1);
+    } else if (key == GLFW_KEY_SPACE) {
+        const bool playing = paused_;
+        ok = pathId_ &amp;&amp; spinId_ &amp;&amp; globalId_
+            &amp;&amp; motions.setMotionPlaying(*pathId_, playing)
+            &amp;&amp; motions.setMotionPlaying(*spinId_, playing)
+            &amp;&amp; motions.setMotionPlaying(*globalId_, playing);
+        if (ok) {
+            paused_ = !paused_;
+            std::cout &lt;&lt; (paused_ ? &quot;시간 정지\n&quot; : &quot;시간 재개\n&quot;);
+        }
+    } else if (key == GLFW_KEY_S) {
+        ok = spinId_ &amp;&amp; motions.setMotionEnabled(*spinId_, !spinEnabled_);
+        if (ok) {
+            spinEnabled_ = !spinEnabled_;
+            std::cout &lt;&lt; &quot;자전 기여: &quot; &lt;&lt; spinEnabled_ &lt;&lt; &#x27;\n&#x27;;
+        }
+    } else if (key == GLFW_KEY_G) {
+        ok = globalId_ &amp;&amp; motions.setMotionEnabled(*globalId_, !globalEnabled_);
+        if (ok) {
+            globalEnabled_ = !globalEnabled_;
+            std::cout &lt;&lt; &quot;전체 공전 기여: &quot; &lt;&lt; globalEnabled_ &lt;&lt; &#x27;\n&#x27;;
+        }
+    } else if (key == GLFW_KEY_M) {
+        ok = changeReflection();
+    } else if (key == GLFW_KEY_I) {
+        ok = toggleInsertedLayer();
+    } else if (key == GLFW_KEY_H) {
+        printHelp();
+    }
+    if (!ok) {
+        std::cerr &lt;&lt; &quot;샘플 명령 적용 실패. 장면을 종료합니다.\n&quot;;
+        app_.requestClose();
+    }
+}
+
+void Console::onMouse(const graphics::MouseEvent&amp; event) {
+    if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) {
+        return;
+    }
+    const auto hit = app_.pickAt(event.windowX, event.windowY);
+    if (hit) {
+        std::cout &lt;&lt; &quot;entity=&quot; &lt;&lt; hit-&gt;entityId &lt;&lt; &quot; face=&quot; &lt;&lt; hit-&gt;faceIndex &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+
+void Console::printHelp() const {
+    std::cout &lt;&lt; &quot;standard: 프레임워크 Motion·반사·레이어 샘플\n&quot;
+              &lt;&lt; &quot;1 타원 / 2 사각형 / 3 다각형 / 4 사용자 3D 경로+보간 / 5 원 / 6 왕복 꺾은선\n&quot;
+              &lt;&lt; &quot;Space 시간 정지·재개 / S 자전 기여 / G 전체 공전 기여\n&quot;
+              &lt;&lt; &quot;M 반사 변경 / I 크기 레이어 삽입·삭제 / H 도움말 / Esc 종료\n&quot;
+              &lt;&lt; &quot;초기 반사: YZ평면. M은 점대칭 -&gt; Y축 직선대칭 -&gt; 없음 -&gt; YZ평면 순환\n&quot;
+              &lt;&lt; &quot;왼쪽 클릭: 물체의 entity/face ID 출력\n&quot;;
+}</code></pre></details></section><section id="delivery"><h2>15. 공유와 사용자 확인</h2><p>framework ZIP은 라이브러리, standard ZIP은 실행 프로젝트와 자체 framework를 포함한다. 각 docs에서 HTML 두 개를 연다. 스타일·목차·소스 원문은 문서 내부에 있어 인터넷 없이 읽을 수 있다.</p><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>보존</td><td>Framework.h, include, detail, shaders, dependencies, props, 라이선스</td><td>standard는 main·Console·slnx·vcxproj·내부 framework도 포함.</td></tr><tr><td>불필요한 로컬 파일</td><td>.vs, x64 빌드 출력, vcxproj.user</td><td>이번 원본은 용량 정리를 위한 삭제가 필요 없음. dependencies DLL/LIB와 모델 OBJ는 보존.</td></tr><tr><td>도구</td><td>Windows x64, C++17, Visual Studio v145, Windows SDK 10.0</td><td>다른 PC 설치 여부 미확인. Framework.props 연결.</td></tr><tr><td>실행 배포</td><td>props는 자기 경로 기준 dependencies 탐색</td><td>빌드 후 DLL·라이선스·셰이더를 EXE 옆 framework로 복사. EXE 단독 공유 불충분.</td></tr></tbody></table></div><ol><li>사용자가 ZIP을 원래 저장소 밖에 푼다. framework는 새 x64 프로젝트에 연결, standard는 standard.slnx를 연다.</li><li>사용자가 Debug/Release x64를 빌드한다. 실행 프로젝트의 main은 하나만 포함한다.</li><li>사용자가 창·한글·객체·기저선을 확인한다. 1~6, Space, S, G, M, I, H, Esc와 왼쪽 클릭을 확인한다.</li><li>최소화·복구·창 크기 변경과 저장소 밖 DLL 로딩을 확인한다.</li><li>브라우저에서 HTML 목차·문서 간 링크·소스 펼치기·좁은 화면·인쇄를 확인한다.</li></ol><p>기존 설명: <a href="../README.md">framework README</a>. 이 HTML의 핵심 내용은 다른 실습 폴더 링크를 필요로 하지 않는다.</p><p class="note">에이전트는 빌드·실행·테스트·브라우저 검증을 하지 않았다. 파일 생성·소스 대조·ZIP 용량 확인은 실행 성공과 별개다.</p></section><footer>목차와 소스 원문은 인터넷 없이 사용할 수 있습니다. 예제 단편은 표시한 함수 안에서 사용하며, 컴파일 성공을 의미하지 않습니다. <a href="#content">맨 위로</a></footer></main></div></body></html>

@@ -1,0 +1,1096 @@
+﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>주요 함수 명세서</title><style>
+:root{--ink:#182b3b;--accent:#006b6b;--line:#d8e1e6}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:#f1f5f7;color:var(--ink);font:16px/1.8 "Segoe UI","Malgun Gothic",sans-serif}a{color:var(--accent);text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #db8c22;outline-offset:4px}.layout{max-width:1500px;margin:auto;display:grid;grid-template-columns:265px minmax(0,1fr);gap:32px;padding:32px}aside{position:sticky;top:24px;align-self:start;max-height:92vh;overflow:auto;padding:22px;background:white;border:1px solid var(--line);border-radius:12px}aside ol{padding-left:22px}aside li{margin:8px 0}main{min-width:0;background:white;border:1px solid var(--line);border-radius:12px;padding:40px}h1{font-size:2.2rem;line-height:1.3;margin:8px 0 20px}h2{font-size:1.5rem;margin:0 0 16px}header{border-bottom:3px solid var(--accent);padding-bottom:24px;margin-bottom:32px}.label{color:var(--accent);letter-spacing:.1em;font-size:.8rem;font-weight:700}.meta{color:#536776;font-size:.9rem}section{padding:16px 0 32px;border-bottom:1px solid var(--line);margin-bottom:24px}.note{background:#edf6f5;border-left:4px solid var(--accent);padding:12px 18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.94rem}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#edf2f4}td:first-child{min-width:180px}code{font-family:Consolas,monospace;font-size:.9em;overflow-wrap:anywhere}pre{background:#152b3a;color:#eff6fa;border-radius:8px;padding:20px;overflow:auto;line-height:1.6;tab-size:4}pre code{white-space:pre;overflow-wrap:normal}summary{cursor:pointer;font-weight:600;padding:12px;background:#f0f4f6;border-radius:6px}details{margin:16px 0}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.card{border:1px solid var(--line);padding:18px;border-radius:8px}.card strong{display:block;color:var(--accent)}.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:8px;background:white;padding:10px;z-index:2}footer{font-size:.9rem;color:#536776;margin-top:32px}@media(max-width:950px){.layout{display:block;padding:12px}aside{position:static;max-height:none;margin-bottom:16px}main{padding:24px}h1{font-size:1.8rem}}@media print{body{background:white;font-size:10pt}.layout{display:block;padding:0}aside{position:static;max-height:none;break-after:page}main{border:0;padding:0}pre{background:#f3f5f6;color:black}pre code{white-space:pre-wrap}a{color:black}}
+</style></head><body><a class="skip" href="#content">본문으로 이동</a><div class="layout"><aside aria-label="문서 목차"><strong>목차</strong><ol><li><a href="#start">01. 읽는 순서와 공통 계약</a></li><li><a href="#application">02. Application: 수명과 콜백</a></li><li><a href="#scene">03. Scene: 생성과 장면 상태</a></li><li><a href="#transforms">04. SRT·부모 계층·면 변환</a></li><li><a href="#paths">05. TransformSystem과 PathSystem</a></li><li><a href="#motion">06. Motion: 시간과 재생</a></li><li><a href="#layers">07. MotionSystem: 레이어 계층</a></li><li><a href="#mesh">08. 메시·UV·재질·선 편집</a></li><li><a href="#render">09. Camera·Renderer·피킹</a></li><li><a href="#assets">10. AssetLoader: OBJ·텍스처</a></li><li><a href="#standard">11. standard: 응용 함수와 조작</a></li><li><a href="#headers">12. 정확한 선언과 기본값: 헤더 원문</a></li></ol><hr><a href="IMPLEMENTATION_PATTERNS.html">다른 문서 열기 →</a></aside><main id="content"><header><div class="label">OPENGL / FRAMEWORK + STANDARD</div><h1>주요 함수 명세서</h1><p>framework 공개 API와 standard 주요 응용 함수를 모은 소스 기반 문서입니다.</p><p class="meta">2026-10-26 로컬 소스 기준 · Windows x64 · C++17 · OpenGL 3.3 Core<br>소스 대조로 작성. 빌드·실행·브라우저 테스트는 수행하지 않음.</p></header><section id="start"><h2>01. 읽는 순서와 공통 계약</h2><div class="cards"><div class="card"><strong>framework</strong>창, 장면, 변환, Motion, 렌더링과 선택을 제공하는 헤더 기반 라이브러리.</div><div class="card"><strong>standard</strong>자체 framework 사본을 가진 실행 프로젝트. Console이 응용 정책을 담당.</div></div><p>공개 진입점은 Framework.h다. 아래 표는 주요 API의 입력·반환·실패 조건을 정리한다. 정확한 선언과 기본 인자는 12절의 헤더 원문에서 찾는다. detail 함수는 내부 구현이다.</p><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>optional&lt;T&gt;</td><td>값 존재 확인 후 *value 사용</td><td>생성·조회 실패는 nullopt. 빈 값을 역참조하지 않는다.</td></tr><tr><td>bool / 포인터</td><td>설정 성공 여부 / 읽기 전용 조회</td><td>false / nullptr 처리. 예외가 모두 bool로 변환되는 것은 아니다.</td></tr><tr><td>EntityId / LineId</td><td>Scene의 객체·선 식별자</td><td>clear 이후 재사용되므로 이전 ID 폐기.</td></tr><tr><td>MotionId / LayerId</td><td>한 MotionSystem의 시계·계층 식별자</td><td>clear 이후 새 ID는 재사용하지 않는다. rootLayer()=0.</td></tr><tr><td>조회 포인터</td><td>getComponent, getMesh, getMotion, getLayer</td><td>구조 변경·재배치·삭제 뒤 ID로 다시 조회한다.</td></tr><tr><td>Model / Mesh</td><td>Model=Polyhedron, Mesh=PlaneFigure</td><td>faceIndex는 모델 안의 메시 번호. triangleIndex와 구분.</td></tr></tbody></table></div></section><section id="application"><h2>02. Application: 수명과 콜백</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>run(config={})</td><td>창·GL·Renderer·AssetLoader 초기화, 이벤트 루프</td><td>정상 0. 초기화/init/Motion/렌더 실패 및 중복 실행 거부 -1. 예외는 정리 후 다시 던짐.</td></tr><tr><td>setInitHandler(handler)</td><td>bool(Application&amp;). 초기화 뒤 한 번 장면 생성</td><td>false면 프레임 루프에 진입하지 않음.</td></tr><tr><td>setUpdateHandler(handler)</td><td>void(Application&amp;,float dt). 초 단위, dt 0~0.05</td><td>사용자 update 다음에 Scene Motion 자동 갱신.</td></tr><tr><td>setKeyHandler / setModifiedKeyHandler</td><td>key,action / key,action,mods</td><td>modified 등록 시 일반 key 대신 호출.</td></tr><tr><td>setFocusHandler / setCursorHandler</td><td>focused / 창 좌표 x,y</td><td>포커스 상실 시 응용의 지속 입력 상태 해제.</td></tr><tr><td>setMouseHandler(handler)</td><td>MouseEvent: button/action/mods, windowX/Y, framebufferX/Y</td><td>pickAt에는 windowX/Y 전달. 픽셀 좌표와 혼용 금지.</td></tr><tr><td>setRenderHandler(handler)</td><td>bool(Application&amp;). 기본 렌더링 대체</td><td>기본 Scene도 필요하면 직접 renderScene 호출. false면 실패 종료.</td></tr><tr><td>renderScene() / requestClose()</td><td>장면 렌더링 / 창 종료 플래그 설정</td><td>renderScene은 창 없으면 false. 종료 요청은 C++ 함수에서 즉시 return하지 않음.</td></tr><tr><td>getScene / getCamera / getRenderOptions</td><td>객체에 대한 수정 가능한 참조</td><td>getAssets는 run 콜백 수명 안에서만 유효. 밖에서는 logic_error.</td></tr><tr><td>pickAt(x,y) / pickAtCursor()</td><td>창 좌표의 DPI 환산 후 선택</td><td>optional&lt;PickResult&gt;. 창·유효 크기·충돌 없으면 빈 값.</td></tr></tbody></table></div><p class="note">콜백 등록은 실행과 다르다. 캡처한 Console과 상태는 run 종료까지 살아 있어야 한다. 한 스레드에서 Application 하나만 실행한다.</p><pre><code>main → 콜백 등록 → run(config)
+초기화 → init 콜백
+반복: PollEvents → 종료 확인 → 프레임버퍼 크기 확인
+      → dt 계산 → 사용자 update → 종료 확인
+      → scene.updateMotions(dt) → render → SwapBuffers
+종료: AssetLoader → Renderer → 창 → GLFW 정리</code></pre></section><section id="scene"><h2>03. Scene: 생성과 장면 상태</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>addCuboid(size,position)</td><td>전체 변 길이와 위치로 직육면체 생성</td><td>optional&lt;EntityId&gt;. 잘못된 크기·변환·모델은 빈 값.</td></tr><tr><td>addPyramid(size,position)</td><td>사각뿔. size.y는 전체 높이</td><td>optional&lt;EntityId&gt;.</td></tr><tr><td>addRightTetrahedron(edges,position)</td><td>직교하는 세 변을 갖는 사면체</td><td>정사면체 전용 함수가 아님.</td></tr><tr><td>addSphere(radius,position,slices=32,stacks=16)</td><td>구. slices 3~512, stacks 2~256</td><td>optional&lt;EntityId&gt;. 유한 양의 반지름 필요.</td></tr><tr><td>addCone(radius,height,position,slices=32)</td><td>Y축 원뿔. slices 3~512</td><td>optional&lt;EntityId&gt;. 유한 양의 반지름·높이 필요.</td></tr><tr><td>addGroup(transform={})</td><td>그리지 않는 변환 노드</td><td>optional&lt;EntityId&gt;. 유효한 transform 필요.</td></tr><tr><td>push_entity(model,transform={})</td><td>편집한 유효 모델을 지정 변환으로 등록</td><td>optional&lt;EntityId&gt;. 피벗 정책은 별도 선택하지 않음.</td></tr><tr><td>addModel(model,transform,pivot,customPivot)</td><td>기본 BottomCenter 피벗으로 모델 등록</td><td>로드 결과의 pivotMode/localBasis 전달 가능.</td></tr><tr><td>setTransform / setPosition / setSideLengths</td><td>기본 SRT / 위치 / 지원 도형 크기 변경</td><td>bool. ID·값·형상별 지원 조건 확인.</td></tr><tr><td>setVisible / setFaceVisible / setTint</td><td>객체 / 면 표시, 객체 색 배수</td><td>bool. tint는 자식 객체에 전파되지 않음.</td></tr><tr><td>getIds / getComponent / getMesh</td><td>ID 목록 / 컴포넌트 / 메시 조회</td><td>const 참조 / 포인터. 조회 실패 nullptr.</td></tr><tr><td>clear / getGeometryRevision</td><td>장면·선·Motion·바인딩 초기화 / 기하 변경 번호</td><td>기존 Scene ID 폐기. 기하 편집은 setter로 GPU 재업로드 경로 유지.</td></tr></tbody></table></div><p>등록 전 편집에는 DiagramSystem::makePolyhedron/makeSphere/makeCone을 사용한다. 잘못된 인자는 빈 Model을 만들 수 있다. validPolyhedron으로 검사한다.</p></section><section id="transforms"><h2>04. SRT·부모 계층·면 변환</h2><pre><code>M_local = T(basis) * R(rotation) * S(scale) * T(-localBasis)
+Motion이 없는 계층: M_world = M_parent * M_local
+레이어 일반식: M_world = motion.parent * prefix * motion.local * suffix
+clipPosition = Projection * View * FaceWorld * localPosition</code></pre><p>basis는 부모 좌표의 피벗 위치, localBasis는 모델 안의 피벗이다. 열벡터에는 오른쪽 행렬부터 적용한다. prefix는 루트 엔티티부터 가장 가까운 레이어 바인딩 엔티티까지의 SRT, suffix는 그 아래 자손의 SRT다.</p><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>setParent(id,parent)</td><td>부모 변경. nullopt로 해제</td><td>bool. 자기 자신·잘못된 부모·순환 거부. 월드 자세 자동 보존 아님.</td></tr><tr><td>worldMatrix / faceWorldMatrix / lineWorldMatrix</td><td>객체 / 면 / 선의 실제 월드 행렬</td><td>optional&lt;mat4&gt;. 렌더링·피킹이 최종 Scene 행렬 경로 사용.</td></tr><tr><td>splitFace(id,faceIndex)</td><td>같은 객체의 면에 자식 로컬 SRT 활성화</td><td>bool. 새 EntityId를 만들거나 부모에서 분리하지 않음.</td></tr><tr><td>setFaceSRT(id,faceIndex,transform)</td><td>setFaceTransform(...,true)의 단축 함수</td><td>bool. 부모 변환을 상속하는 면 SRT.</td></tr><tr><td>setFaceTransform(...,independence)</td><td>면 SRT와 활성 플래그 지정</td><td>true여도 월드 독립을 뜻하지 않음.</td></tr><tr><td>setFaceLocalMatrix(id,faceIndex,matrix)</td><td>면의 추가 로컬 애니메이션 행렬</td><td>bool. 최종 면 행렬 마지막에 곱해짐.</td></tr><tr><td>setLocalBasis(id,mode,customPivot)</td><td>Preserve / BottomCenter / Custom</td><td>bool. 변환 전용 그룹에는 BottomCenter 불가.</td></tr><tr><td>DiagramSystem::modelMatrix / faceModelMatrix</td><td>기본 SRT / 단일 컴포넌트 면 행렬</td><td>Scene 전체 부모·Motion 조회는 Scene::faceWorldMatrix 사용.</td></tr></tbody></table></div><p>직육면체 면: 0 앞(+Z), 1 뒤(-Z), 2 왼쪽(-X), 3 오른쪽(+X), 4 위(+Y), 5 아래(-Y). 사각뿔은 0~3 측면, 4 바닥. 외부 OBJ에는 이 규칙을 적용하지 않는다.</p></section><section id="paths"><h2>05. TransformSystem과 PathSystem</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>translation(offset)</td><td>유한 vec3 이동</td><td>optional&lt;mat4&gt;.</td></tr><tr><td>scaling(factors,center={0})</td><td>중심 주위 배율. 유한 음수·0도 허용</td><td>optional&lt;mat4&gt;. 0배는 형상을 납작하게 만들어 선택에 영향.</td></tr><tr><td>rotation(AxisLine,degrees)</td><td>축 위 점, 0이 아닌 방향, 각도(도)</td><td>optional&lt;mat4&gt;. 방향 내부 정규화.</td></tr><tr><td>reflectPoint / reflectLine / reflectPlane</td><td>점 / 직선 / 평면 대칭</td><td>optional&lt;mat4&gt;. 유효한 축·법선 필요. 3D 직선대칭과 평면반사는 다름.</td></tr><tr><td>validAffine(matrix)</td><td>유한 행렬, 마지막 행 정확히 (0,0,0,1)</td><td>bool. 원근 행렬을 Motion 변환에 전달하지 않음.</td></tr><tr><td>ellipse(center,axisU,axisV)</td><td>center + axisU*cos(2πu) + axisV*sin(2πu)</td><td>PathFunction. 두 축 평행·0이면 빈 함수. 축은 반지름 포함.</td></tr><tr><td>circle(center,radius,normal={0,1,0})</td><td>법선에 수직인 평면 위 원</td><td>PathFunction. 양의 반지름, 0 아닌 법선.</td></tr><tr><td>polyline(points,closed=false) / polygon(points)</td><td>선분 길이 비율의 경로 / 닫힌 경로</td><td>PathFunction. 점 2개 이상. 폐합 뒤 점 4개 이상. 0 길이 구간 거부.</td></tr><tr><td>rectangle(center,halfU,halfV)</td><td>수직인 반변 벡터로 사각형 생성</td><td>PathFunction. 비직교·평행·0 벡터 거부.</td></tr><tr><td>linear(u) / smoothStep(u)</td><td>u / u*u*(3-2*u)</td><td>double. 자체 clamp 없음. 사용자 함수도 유한 결과 필요.</td></tr></tbody></table></div><p>빈 경로 함수는 호출 전 if (!path)로 확인한다. 타원·곡선은 매개변수가 일정한 속도로 변해도 공간 이동 속도가 일정하지 않을 수 있다. 경로는 객체 방향을 접선에 자동 정렬하지 않는다.</p></section><section id="motion"><h2>06. Motion: 시간과 재생</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>append / insert / replace / erase</td><td>MotionStep 추가·교체·삭제</td><td>bool. 범위, 함수 존재, 시작 시각 ≥0, 유한 지속 시간 ≥0 검사.</td></tr><tr><td>then(step)</td><td>기존 마지막 종료 시각 뒤에 추가</td><td>bool. 이전 무한 지속 단계가 있으면 실패. step의 시작 오프셋도 더함.</td></tr><tr><td>sample(seconds)</td><td>시작 전 건너뛰기, 각 단계 행렬 평가</td><td>optional&lt;MotionSample&gt;. 끝난 단계도 끝 자세 유지. 콜백 예외 전파 가능.</td></tr><tr><td>Motion::fixed(matrix,space=World)</td><td>고정 행렬. 지속 시간 0</td><td>MotionStep. 잘못된 행렬은 무효 단계.</td></tr><tr><td>Motion::rotation(config)</td><td>initialDegrees + degreesPerSecond * 경과초</td><td>MotionStep. 기본 space=Local, 속도=45도/초.</td></tr><tr><td>Motion::followPath(config)</td><td>초 → 재생 진행률 → 보간 → 위치 → 이동 행렬</td><td>MotionStep. duration&gt;0, rate≠0, phase 0~1. 무효 설정 거부.</td></tr><tr><td>createMotion(motion) / setMotion(id,motion)</td><td>새 시계 / 기존 동작 교체</td><td>optional&lt;MotionId&gt; / bool. 생성 0초 평가. 교체는 기존 시각 유지.</td></tr><tr><td>setMotionPlaying(id,bool)</td><td>시간 진행 여부 변경</td><td>false면 시각과 현재 sampled 유지. 재개 시 같은 시각부터 진행.</td></tr><tr><td>setMotionEnabled(id,bool)</td><td>변환 기여 여부 변경</td><td>false여도 playing=true이면 시간 진행. 다시 켜면 현재 시각의 자세.</td></tr><tr><td>seekMotion(id,seconds)</td><td>지정 시각 평가 후 상태 변경</td><td>bool. 음수·비유한 시각·평가 실패 거부.</td></tr><tr><td>createSpin / createOrbit</td><td>자전 / 공전 생성</td><td>optional&lt;MotionId&gt;. Local / World 강제.</td></tr><tr><td>createOrbitAndSpin / createPathAndSpin</td><td>동일 시계의 공전+자전 / 경로+자전</td><td>optional&lt;MotionId&gt;. 자전 Local. path는 설정 space 유지.</td></tr><tr><td>update(dt) / removeMotion(id)</td><td>시간 진행 / 삭제 및 레이어 참조 해제</td><td>bool. 유한 dt≥0. Application에서 중복 update 금지.</td></tr><tr><td>getMotion(id) / clear()</td><td>상태 조회 / Motion과 레이어 초기화</td><td>const MotionState* / void. 기존 ID 폐기.</td></tr></tbody></table></div><p class="note">MotionStep 콜백 인자는 프레임 dt가 아니라 해당 단계 시작 뒤의 초다. 같은 공간에서 target=matrix*target으로 누적하므로 등록 순서가 적용 순서다. World와 Local은 별도 누적한다.</p><div class="table-wrap"><table><thead><tr><th scope="col">PathMotion 필드</th><th scope="col">설명</th></tr></thead><tbody><tr><td>durationSeconds / rate / phase</td><td>기본 1초 / 1 / 0. 진행률=phase+seconds/durationSeconds*rate. 음수 rate 역방향.</td></tr><tr><td>playback</td><td>Loop 기본. Once는 끝 자세 유지. PingPong은 0→1→0.</td></tr><tr><td>relativeToStart</td><td>false 기본. true면 path(interpolation(phase))를 빼 시작 기준 변위 사용.</td></tr><tr><td>space / interpolation</td><td>World / PathSystem::linear 기본.</td></tr></tbody></table></div></section><section id="layers"><h2>07. MotionSystem: 레이어 계층</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>rootLayer()</td><td>항상 0인 공통 루트</td><td>전체 공전 등 공통 변환 기준.</td></tr><tr><td>pushLayer(parent,config={})</td><td>부모 밑에 새 말단 생성</td><td>optional&lt;LayerId&gt;. 부모·Motion 참조·아핀 행렬 검사.</td></tr><tr><td>insertLayer(child,config={})</td><td>기존 child 바로 위에 새 부모 삽입</td><td>optional&lt;LayerId&gt;. child ID 유지. 루트 위 삽입 불가.</td></tr><tr><td>popLayer(top)</td><td>자식 없는 레이어 삭제 후 부모 반환</td><td>optional&lt;LayerId&gt;. 자식이 있거나 루트면 실패.</td></tr><tr><td>removeLayer(id)</td><td>삭제 후 자식을 기존 부모로 승격</td><td>bool. 순서 유지, 루트 삭제 불가. 삭제 노드의 엔티티 자동 재바인딩 없음.</td></tr><tr><td>reparentLayer(id,parent)</td><td>부모 변경</td><td>bool. 순환·자기 자신·무효 ID·루트 이동 거부.</td></tr><tr><td>setLayer(id,config)</td><td>LayerConfig 전체 교체</td><td>bool. motion/space/enabled 보존 여부를 명시적으로 결정.</td></tr><tr><td>bindMotion(layer,optional&lt;MotionId&gt;)</td><td>시계 연결 / nullopt로 해제</td><td>bool. 동일 MotionId를 여러 레이어에서 공유 가능.</td></tr><tr><td>layerMatrices(leaf)</td><td>루트→말단 경로의 parent/local 누적</td><td>optional&lt;MotionSample&gt;. disabled 레이어는 자기 기여만 생략, 자손 유지.</td></tr><tr><td>Scene::bindEntity / unbindEntity / getEntityLayer</td><td>객체와 레이어 연결 / 해제 / 조회</td><td>bool / bool / optional&lt;LayerId&gt;. 객체부터 부모 방향으로 가장 가까운 유효 바인딩 사용.</td></tr></tbody></table></div><p>LayerConfig 기본은 transform=항등행렬, space=World, motion=없음, enabled=true. 루트의 Local도 전역 parent로 합쳐진다. 소유자 없는 선도 루트 변환을 받는다. 엔티티 계층과 레이어 계층을 자동으로 중복 합산한다고 가정하지 않는다.</p></section><section id="mesh"><h2>08. 메시·UV·재질·선 편집</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>setModel / setMesh</td><td>전체 모델 / 특정 메시 교체</td><td>bool. 유효성 검사 뒤 기하 변경 번호 갱신.</td></tr><tr><td>setMeshVertices(id,mesh,vertices,triangles)</td><td>Vertex 배열과 삼각형 인덱스 교체</td><td>bool. 정점·속성·인덱스 일관성 유지.</td></tr><tr><td>setVertexPosition / setTriangleIndices</td><td>정점 하나 / 삼각형 인덱스 변경</td><td>bool. 인덱스 범위·퇴화 등 실패 처리.</td></tr><tr><td>setFaceVertexColors / setVertexNormals / setTexcoords</td><td>정점별 색 / 법선 / UV 설정</td><td>bool. 배열 수를 메시 정점 수에 맞춤.</td></tr><tr><td>generateTexcoords(id,mesh,options={})</td><td>Planar / Box / Cylindrical / Spherical</td><td>bool. 기본 Planar, axis=2. seam 처리로 정점·인덱스를 재구성할 수 있음.</td></tr><tr><td>transformTexcoords(id,mesh,scale,offset,degrees=0)</td><td>UV 배율 → 원점 회전 → 이동</td><td>bool. UV 없거나 개수가 다르면 실패.</td></tr><tr><td>setMaterial / setOutline</td><td>재질 / None·FeatureEdges·AllTriangleEdges·Explicit</td><td>bool. Explicit는 메시 로컬 인덱스 선분 쌍.</td></tr><tr><td>generateTexcoords(Mesh&amp;,...) / transformTexcoords(Mesh&amp;,...)</td><td>등록 전 직접 메시 가공하는 자유 함수</td><td>bool. 등록 후에는 Scene setter 사용.</td></tr><tr><td>recalculateNormals(Mesh&amp;)</td><td>메시 법선 재계산</td><td>반환·기본 인자는 헤더 원문 참조.</td></tr><tr><td>addLine / addVector / addBasis</td><td>끝점 쌍 / 시작+벡터 / 기저 생성</td><td>optional&lt;LineId&gt; / optional&lt;array&lt;LineId,3&gt;&gt;. owner 객체의 최종 변환 상속.</td></tr><tr><td>setVector(id,origin,vector)</td><td>선 시작과 방향 갱신</td><td>bool. addBasis는 mat3 열을 사용하며 정규화하지 않음.</td></tr></tbody></table></div></section><section id="render"><h2>09. Camera·Renderer·피킹</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>CameraSystem::validCamera(camera)</td><td>카메라 수치·시선·투영 설정 검사</td><td>bool. position/target/up, near/far, 시야각 유지.</td></tr><tr><td>viewMatrix / projectionMatrix(camera,aspect)</td><td>뷰 / 원근·직교 투영</td><td>mat4. aspect=픽셀 폭/높이. orthographicHalfExtent는 짧은 축 반길이.</td></tr><tr><td>Renderer::initialize(v={},f={})</td><td>GPU 버퍼·셰이더 준비</td><td>bool. 현재 OpenGL 3.3 컨텍스트 필요. 빈 경로=내장 셰이더.</td></tr><tr><td>Renderer::render(scene,camera,width,height,options={})</td><td>기하 업로드·행렬 전달·드로우</td><td>bool. 보통 Application 기본 경로 사용.</td></tr><tr><td>Renderer::destroy()</td><td>GPU 자원 해제</td><td>소유 GL 컨텍스트가 현재인 동안 호출.</td></tr><tr><td>RenderOptions</td><td>depthTest=true, wireframe=false, textures=false, lighting=false</td><td>텍스처 로드 활성화와 렌더 활성화는 별개.</td></tr><tr><td>screenRay(camera,x,y,viewport)</td><td>왼쪽 위 원점 픽셀 → near/far 광선</td><td>optional&lt;Ray&gt;. 화면 밖·잘못된 카메라·역행렬 실패 거부.</td></tr><tr><td>pick(scene,ray) / pick(scene,camera,x,y,viewport)</td><td>표시 중인 면의 가장 가까운 삼각형 충돌</td><td>optional&lt;PickResult&gt;. maxDistance 밖 제외.</td></tr><tr><td>PickResult</td><td>entityId,faceIndex,triangleIndex,worldPoint,localPoint,barycentric,uv,hasUV,distance</td><td>distance는 광선 시작점 기준. 화면 광선은 near plane에서 시작.</td></tr></tbody></table></div><pre><code>CPU Scene → VAO / VBO / EBO + model/view/projection uniform
+→ 정점 셰이더 → 클리핑 / 원근 나눗셈 / 뷰포트
+→ 래스터화 → 프래그먼트 셰이더 → 깊이 검사 → 화면</code></pre></section><section id="assets"><h2>10. AssetLoader: OBJ·텍스처</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>loadObj(relative,options={})</td><td>프로젝트 상대경로의 OBJ 텍스트</td><td>ModelResult. model 존재=성공. error/warnings/usedFallback 확인.</td></tr><tr><td>loadModel / loadPrimitive</td><td>현재 loadObj를 호출하는 호환 진입점</td><td>범용 FBX/GLTF/Assimp 로더 아님. 과거 문서와 구분.</td></tr><tr><td>loadTexture(relative,flipRows=true)</td><td>Windows WIC로 이미지 디코딩</td><td>TextureResult. image 또는 error. features.textures=true 필요.</td></tr><tr><td>LoadOptions</td><td>pivot=BottomCenter, outline=None, mergeCoplanarFaces=true, flipTextureRows=true, allowObjFallback=true</td><td>texturePath는 명시적 상대경로 덮어쓰기. 모든 면에 UV 필요.</td></tr><tr><td>ModelResult.pivotMode / localBasis</td><td>피벗 정책과 계산된 피벗</td><td>addModel(*result.model,transform,result.pivotMode,result.localBasis)에 전달.</td></tr><tr><td>AssetLoader(root,features) / features()</td><td>로더 구성 / 기능 조회</td><td>절대경로·루트 이탈 거부. Application 기본 projectRoot는 EXE 기준 ".".</td></tr></tbody></table></div><p>기본 OBJ 판독 실패 시 호환 OBJ 판독을 시도할 수 있다. 다른 형식을 읽는 기능은 아니다. .obj 또는 .txt의 OBJ 레코드를 지원한다. 텍스처 사용 시 config.features.textures와 RenderOptions.textures를 함께 검토한다.</p></section><section id="standard"><h2>11. standard: 응용 함수와 조작</h2><div class="table-wrap"><table><thead><tr><th scope="col">함수 / 기능</th><th scope="col">입력과 동작</th><th scope="col">반환 / 실패 / 주의</th></tr></thead><tbody><tr><td>main()</td><td>Application·Console 생성 → init/key/mouse 연결 → run</td><td>Console은 run 종료까지 생존. 별도 update 없이 자동 Motion 갱신.</td></tr><tr><td>Console::initScene()</td><td>두 직육면체, 시계 3개, 반사 분기·기저선·카메라</td><td>bool. 실패 false. 초기 YZ평면 반사.</td></tr><tr><td>choosePath(kind)</td><td>1 타원, 2 사각형, 3 다각형, 4 사용자 곡선+smoothStep, 5 원, 6 왕복 꺾은선</td><td>bool. pathId 교체 후 0초로 seek. 자전 시각 유지.</td></tr><tr><td>changeReflection()</td><td>YZ평면 → 원점 점대칭 → Y축 직선대칭 → 없음</td><td>bool. 성공 뒤 응용 상태 갱신.</td></tr><tr><td>toggleInsertedLayer()</td><td>첫 객체 말단 위 Local 1.5배 레이어 삽입·삭제</td><td>bool. 말단 ID·바인딩 유지. 경로 자체 확대와 구분.</td></tr><tr><td>onKey(key,action)</td><td>GLFW_PRESS만 처리. 1~6/Space/S/G/M/I/H/Esc</td><td>void. 명령 실패 시 콘솔 오류와 종료 요청.</td></tr><tr><td>onMouse(event)</td><td>왼쪽 PRESS → pickAt(windowX,windowY)</td><td>void. 충돌 entity/face ID 출력.</td></tr><tr><td>printHelp() const</td><td>한글 조작 안내</td><td>Application은 콘솔 출력 코드 페이지를 UTF-8로 설정.</td></tr></tbody></table></div><p>framework 단독 ZIP에도 <a href="IMPLEMENTATION_PATTERNS.html#sample">패턴 문서의 standard 전체 소스 스냅샷</a>을 포함한다. 실행 프로젝트 파일 자체는 standard ZIP에 있다.</p></section><section id="headers"><h2>12. 정확한 선언과 기본값: 헤더 원문</h2><p>이 배포본의 framework 원문이다. Ctrl+F로 함수명을 찾는다. 외부 SDK 헤더는 명세 대상에서 제외한다.</p><details><summary>include/Application.h · 소스 원문</summary><pre><code>#pragma once
+
+#include &quot;Graphics.h&quot;
+#include &quot;ModelLoader.h&quot;
+#include &quot;Picking.h&quot;
+#include &lt;functional&gt;
+#include &lt;exception&gt;
+
+struct GLFWwindow;
+
+namespace graphics {
+
+struct ApplicationConfig {
+    int width = WINDOW_WIDTH;
+    int height = WINDOW_HEIGHT;
+    std::string title = &quot;OpenGL&quot;;
+    std::filesystem::path shaderDirectory; // Empty selects embedded shaders.
+    std::filesystem::path projectRoot = &quot;.&quot;; // Relative to the executable.
+    std::filesystem::path runtimeDirectory = &quot;framework&quot;; // Relative to projectRoot.
+    FeatureOptions features;
+    bool verticalSync = true;
+};
+
+struct MouseEvent {
+    int button = 0, action = 0, mods = 0;
+    double windowX = 0, windowY = 0, framebufferX = 0, framebufferY = 0;
+};
+
+// 콜백에 캡처한 객체는 run()이 끝날 때까지 유지한다.
+// 한 스레드에서 Application 하나를 사용한다. GLFW 초기화와 종료를 소유한다.
+class Application {
+private:
+    GLFWwindow* window_ = nullptr;
+    bool glfwInitialized_ = false;
+    bool running_ = false;
+    Scene scene_;
+    Camera camera_;
+    Renderer renderer_;
+    RenderOptions renderOptions_;
+    std::optional&lt;AssetLoader&gt; assets_;
+    std::exception_ptr callbackError_;
+    std::function&lt;void(Application&amp;, const MouseEvent&amp;)&gt; mouseHandler_;
+    std::function&lt;void(Application&amp;, double, double)&gt; cursorHandler_;
+    template&lt;class Handler&gt; void dispatch(Handler&amp;&amp; handler) noexcept {
+        if(callbackError_) return;
+        try { handler(); } catch(...) { callbackError_=std::current_exception(); requestClose(); }
+    }
+    std::function&lt;bool(Application&amp;)&gt; initHandler_;
+    std::function&lt;void(Application&amp;, float)&gt; updateHandler_;
+    std::function&lt;void(Application&amp;, int, int)&gt; keyHandler_;
+    std::function&lt;void(Application&amp;, int, int, int)&gt; modifiedKeyHandler_;
+    std::function&lt;void(Application&amp;, bool)&gt; focusHandler_;
+    std::function&lt;bool(Application&amp;)&gt; renderHandler_;
+
+    bool initialize(const ApplicationConfig&amp; config);
+    void shutdown();
+
+public:
+    Application() = default;
+    ~Application();
+    Application(const Application&amp;) = delete;
+    Application&amp; operator=(const Application&amp;) = delete;
+
+    void setInitHandler(std::function&lt;bool(Application&amp;)&gt; handler);
+    void setUpdateHandler(std::function&lt;void(Application&amp;, float)&gt; handler);
+    void setKeyHandler(std::function&lt;void(Application&amp;, int key, int action)&gt; handler);
+    // 등록된 경우 기존 keyHandler 대신 key/action/mods를 전달한다.
+    void setModifiedKeyHandler(
+        std::function&lt;void(Application&amp;, int key, int action, int mods)&gt; handler);
+    void setFocusHandler(std::function&lt;void(Application&amp;, bool focused)&gt; handler);
+    // 없으면 renderScene()을 호출한다. 사용자 콜백은 필요할 때 직접 renderScene()을 호출한다.
+    void setRenderHandler(std::function&lt;bool(Application&amp;)&gt; handler);
+    void setMouseHandler(std::function&lt;void(Application&amp;, const MouseEvent&amp;)&gt; handler);
+    void setCursorHandler(std::function&lt;void(Application&amp;, double x, double y)&gt; handler);
+    std::optional&lt;PickResult&gt; pickAt(double windowX, double windowY) const;
+    std::optional&lt;PickResult&gt; pickAtCursor() const;
+    AssetLoader&amp; getAssets(); // Available from initialization callback until run() ends.
+    int run(const ApplicationConfig&amp; config = ApplicationConfig{});
+    void requestClose();
+    bool renderScene();
+
+    RenderOptions&amp; getRenderOptions() { return renderOptions_; }
+    Scene&amp; getScene() { return scene_; }
+    Camera&amp; getCamera() { return camera_; }
+    GLFWwindow* getWindow() const { return window_; }
+};
+
+} // namespace graphics
+
+#include &quot;../detail/Application.inl&quot;</code></pre></details><details><summary>include/Graphics.h · 소스 원문</summary><pre><code>#pragma once
+
+#include &quot;Geometry.h&quot;
+#include &quot;Motion.h&quot;
+#include &quot;../detail/Native.h&quot;
+#include &lt;map&gt;
+
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;limits&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+namespace graphics {
+
+class Scene {
+private:
+    std::vector&lt;EntityId&gt; polyId_;
+    std::vector&lt;Component_Poly&gt; components_;
+    std::vector&lt;FaceId&gt; cubeFaceId_;
+    std::vector&lt;FaceId&gt; tetraFaceId_;
+    std::vector&lt;FaceId&gt; pyramidFaceId_;
+    std::vector&lt;Line3D&gt; lines_;
+    std::uint64_t geometryRevision_ = 0;
+    MotionSystem motions_;
+    std::map&lt;EntityId, LayerId&gt; entityLayers_;
+    void rebuildFaceIds();
+
+public:
+    Scene();
+    std::optional&lt;EntityId&gt; addGroup(const Transform3D&amp; transform = Transform3D{});
+    std::optional&lt;EntityId&gt; addSphere(float radius, const glm::vec3&amp; position,
+                                      unsigned slices = 32, unsigned stacks = 16);
+    std::optional&lt;EntityId&gt; addCone(float radius, float height, const glm::vec3&amp; position,
+                                    unsigned slices = 32);
+    bool setTint(EntityId id, GlColor color);
+    std::optional&lt;EntityId&gt; push_entity(const Polyhedron&amp; polyhedron,
+                                       const Transform3D&amp; transform = Transform3D{});
+    std::optional&lt;EntityId&gt; addCuboid(const glm::vec3&amp; sideLengths,
+                                     const glm::vec3&amp; worldPosition);
+    std::optional&lt;EntityId&gt; addRightTetrahedron(const glm::vec3&amp; edgeLengths,
+                                               const glm::vec3&amp; worldPosition);
+    std::optional&lt;EntityId&gt; addPyramid(const glm::vec3&amp; sideLengths,
+                                      const glm::vec3&amp; worldPosition);
+    bool setFaceVisible(EntityId id, std::size_t faceIndex, bool visible);
+    bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix);
+    bool setFaceVertexColors(EntityId id, std::size_t faceIndex,
+                             const std::vector&lt;GlColor&gt;&amp; colors);
+    bool setPosition(EntityId id, const glm::vec3&amp; worldPosition);
+    bool setSideLengths(EntityId id, const glm::vec3&amp; sideLengths);
+    bool setTransform(EntityId id, const Transform3D&amp; transform);
+    bool setParent(EntityId id, std::optional&lt;EntityId&gt; parent);
+    std::optional&lt;glm::mat4&gt; worldMatrix(EntityId id) const;
+    std::optional&lt;glm::mat4&gt; faceWorldMatrix(EntityId id, std::size_t faceIndex) const;
+    std::optional&lt;glm::mat4&gt; lineWorldMatrix(LineId id) const;
+    MotionSystem&amp; getMotions() { return motions_; }
+    const MotionSystem&amp; getMotions() const { return motions_; }
+    bool bindEntity(EntityId id, LayerId layer);
+    bool unbindEntity(EntityId id);
+    std::optional&lt;LayerId&gt; getEntityLayer(EntityId id) const;
+    bool updateMotions(double deltaSeconds) { return motions_.update(deltaSeconds); }
+    bool setFaceTransform(EntityId id, std::size_t faceIndex,
+                          const Transform3D&amp; transform, bool independence);
+
+    std::optional&lt;EntityId&gt; addModel(const Model&amp; model, const Transform3D&amp; transform = Transform3D{},
+                                     PivotMode pivot = PivotMode::BottomCenter,
+                                     const glm::vec3&amp; customPivot = glm::vec3(0));
+    bool setModel(EntityId id, const Model&amp; model);
+    bool setMesh(EntityId id, std::size_t meshIndex, const Mesh&amp; mesh);
+    const Mesh* getMesh(EntityId id, std::size_t meshIndex) const;
+    bool setMeshVertices(EntityId id, std::size_t meshIndex,
+                         const std::vector&lt;Vertex&gt;&amp; vertices,
+                         const std::vector&lt;std::uint32_t&gt;&amp; triangles);
+    bool setVertexPosition(EntityId id, std::size_t meshIndex,
+                           std::size_t vertexIndex, const glm::vec3&amp; position);
+    bool setTriangleIndices(EntityId id, std::size_t meshIndex,
+                            const std::vector&lt;std::uint32_t&gt;&amp; indices);
+    bool generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions&amp; options = UVOptions{});
+    bool transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2&amp; scale,
+                            const glm::vec2&amp; offset, float rotationDegrees = 0);
+    bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector&lt;glm::vec2&gt;&amp; uvs);
+    bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector&lt;glm::vec3&gt;&amp; normals);
+    bool setMaterial(EntityId id, std::size_t meshIndex, const Material&amp; material);
+    bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode,
+                    const std::vector&lt;std::uint32_t&gt;&amp; explicitEdges = std::vector&lt;std::uint32_t&gt;{});
+    bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3&amp; customPivot = glm::vec3(0));
+    bool setVisible(EntityId id, bool visible);
+    bool splitFace(EntityId id, std::size_t faceIndex);
+    bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D&amp; transform);
+
+    std::optional&lt;LineId&gt; addLine(const glm::vec3&amp; start, const glm::vec3&amp; end,
+                                 GlColor color, std::optional&lt;EntityId&gt; owner = std::nullopt);
+    std::optional&lt;LineId&gt; addVector(const glm::vec3&amp; origin, const glm::vec3&amp; vector,
+                                   GlColor color, std::optional&lt;EntityId&gt; owner = std::nullopt);
+    // mat3의 열이 X/Y/Z 기저 벡터다. 벡터를 정규화하지 않고 그대로 사용한다.
+    std::optional&lt;std::array&lt;LineId, 3&gt;&gt; addBasis(
+        const glm::vec3&amp; origin, const glm::mat3&amp; basisVectors = glm::mat3(1.0f),
+        const glm::vec3&amp; axisLengths = glm::vec3(1.0f),
+        std::optional&lt;EntityId&gt; owner = std::nullopt);
+    bool setVector(LineId id, const glm::vec3&amp; origin, const glm::vec3&amp; vector);
+    void clear(); // ID는 clear 이후 재사용된다. 기존 ID를 계속 사용하지 않는다.
+
+    const std::vector&lt;EntityId&gt;&amp; getIds() const { return polyId_; }
+    const Component_Poly* getComponent(EntityId id) const;
+    const std::vector&lt;FaceId&gt;&amp; getCubeFaceIds() const { return cubeFaceId_; }
+    const std::vector&lt;FaceId&gt;&amp; getTetraFaceIds() const { return tetraFaceId_; }
+    const std::vector&lt;FaceId&gt;&amp; getPyramidFaceIds() const { return pyramidFaceId_; }
+    const std::vector&lt;Line3D&gt;&amp; getLines() const { return lines_; }
+    std::uint64_t getGeometryRevision() const { return geometryRevision_; }
+};
+
+class DiagramSystem {
+public:
+    static Polyhedron makePolyhedron(GLShape shape,
+                                     const glm::vec3&amp; sideLengths = glm::vec3(1.0f));
+    static Model makeSphere(float radius, unsigned slices = 32, unsigned stacks = 16);
+    static Model makeCone(float radius, float height, unsigned slices = 32);
+    static bool validPolyhedron(const Polyhedron&amp; polyhedron);
+    static bool validTransform(const Transform3D&amp; transform);
+    static glm::mat4 modelMatrix(const Transform3D&amp; transform);
+    static glm::mat4 faceModelMatrix(const Component_Poly&amp; component,
+                                    const PlaneFigure&amp; face);
+};
+
+struct Camera {
+    glm::vec3 position{ 2.8f, 2.0f, 5.0f };
+    glm::vec3 target{ 0.0f };
+    glm::vec3 up{ 0.0f, 1.0f, 0.0f };
+    float fieldOfViewDegrees = 45.0f;
+    float nearPlane = 0.1f;
+    float farPlane = 100.0f;
+    bool orthographic = false;
+    float orthographicHalfExtent = 1.0f; // 짧은 화면 축의 절반 길이.
+};
+
+class CameraSystem {
+public:
+    static bool validCamera(const Camera&amp; camera);
+    static glm::mat4 viewMatrix(const Camera&amp; camera);
+    static glm::mat4 projectionMatrix(const Camera&amp; camera, float aspect);
+};
+
+std::string readTextFile(const std::filesystem::path&amp; path);
+
+struct RenderOptions {
+    bool depthTest = true;
+    bool wireframe = false;
+    bool textures = false; // Explicit opt-in; no texture GPU work when false.
+    bool lighting = false;
+    glm::vec3 lightDirection{1, 1, 1};
+    GlColor lightColor;
+    GlColor outlineColor{0.05f, 0.05f, 0.05f};
+    glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
+};
+
+class Renderer {
+    struct DrawRange {
+        EntityId entityId = 0;
+        std::size_t faceIndex = 0;
+        std::optional&lt;LineId&gt; lineId;
+        std::size_t firstIndex = 0, outlineFirstIndex = 0;
+        GLsizei count = 0, outlineCount = 0;
+    };
+    GLuint shaderProgramID_ = 0, vao_ = 0, vbo_ = 0, ebo_ = 0;
+    GLint mvpLocation_ = -1, modelLocation_ = -1, normalLocation_ = -1;
+    GLint textureLocation_ = -1, hasTextureLocation_ = -1, lightingLocation_ = -1;
+    GLint lightDirectionLocation_ = -1, lightColorLocation_ = -1;
+    GLint overrideLocation_ = -1, outlineColorLocation_ = -1, tintLocation_ = -1;
+    std::vector&lt;DrawRange&gt; drawRanges_;
+    using TextureMap = std::map&lt;std::shared_ptr&lt;const TextureImage&gt;, GLuint,
+                               std::owner_less&lt;std::shared_ptr&lt;const TextureImage&gt;&gt;&gt;;
+    TextureMap textures_;
+    const Scene* uploadedScene_ = nullptr;
+    std::uint64_t uploadedRevision_ = std::numeric_limits&lt;std::uint64_t&gt;::max();
+    bool uploadedTextures_ = false;
+    bool initShader(const std::filesystem::path&amp; vertexPath, const std::filesystem::path&amp; fragmentPath);
+    bool upload(const Scene&amp; scene, bool textures);
+    bool draw(const Scene&amp; scene, const glm::mat4&amp; view, const glm::mat4&amp; projection,
+              const RenderOptions&amp; options) const;
+public:
+    Renderer() = default;
+    Renderer(const Renderer&amp;) = delete;
+    Renderer&amp; operator=(const Renderer&amp;) = delete;
+    // Requires a current OpenGL 3.3 context. Empty paths select embedded shaders.
+    bool initialize(const std::filesystem::path&amp; vertexPath = std::filesystem::path{}, const std::filesystem::path&amp; fragmentPath = std::filesystem::path{});
+    bool render(const Scene&amp; scene, const Camera&amp; camera, int width, int height,
+                const RenderOptions&amp; options = RenderOptions{});
+    void destroy(); // Call while the owning context is current, before it is destroyed.
+};
+} // namespace graphics
+#include &quot;../detail/Scene.inl&quot;
+#include &quot;../detail/Renderer.inl&quot;</code></pre></details><details><summary>include/Model.h · 소스 원문</summary><pre><code>#pragma once
+
+#include &quot;../dependencies/glm/glm/glm.hpp&quot;
+#include &quot;../dependencies/glm/glm/gtc/matrix_transform.hpp&quot;
+#include &lt;array&gt;
+#include &lt;cmath&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;limits&gt;
+#include &lt;memory&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;utility&gt;
+
+namespace graphics {
+
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 600;
+// Initial allocation hints, not scene capacity limits.
+constexpr std::size_t MAX_ENTITIES = 50;
+constexpr std::size_t MAX_LINES = 500;
+using EntityId = std::size_t;
+using LineId = std::size_t;
+
+struct GlColor { float red = 1.0f, green = 1.0f, blue = 1.0f; };
+enum class GLShape { None, Cube, Tetra, Pyramid, Custom, Imported };
+enum class GLFace { None, Rect, Triangle, Mesh };
+enum class PivotMode { Preserve, BottomCenter, Custom };
+enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
+
+struct Transform3D {
+    glm::vec3 basis{0.0f};
+    glm::vec3 localBasis{0.0f};
+    glm::mat3 rotation{1.0f};
+    glm::vec3 scale{1.0f};
+};
+
+struct TextureImage {
+    std::uint32_t width = 0, height = 0;
+    std::vector&lt;std::uint8_t&gt; rgba;
+    // Row zero maps to UV v=0. File decoding flips top-down images by default.
+    bool valid() const {
+        return width &amp;&amp; height &amp;&amp; width &lt;= 16384 &amp;&amp; height &lt;= 16384
+            &amp;&amp; rgba.size() == std::size_t(width) * height * 4;
+    }
+};
+
+struct Material {
+    GlColor color;
+    std::shared_ptr&lt;const TextureImage&gt; texture;
+    bool useTexture = false;
+    bool repeatTexture = true;
+};
+
+struct Vertex {
+    glm::vec3 position{0.0f};
+    glm::vec3 normal{0.0f};
+    glm::vec2 uv{0.0f};
+    GlColor color;
+};
+
+struct PlaneFigure {
+    GLFace shape = GLFace::Mesh;
+    std::vector&lt;glm::vec3&gt; localVertices;
+    GlColor color;
+    glm::vec3 normal{0.0f};
+    // Compatibility flag: true enables child-local SRT, never world detachment.
+    bool independence = false;
+    Transform3D transform;
+    bool visible = true;
+    glm::mat4 localAnimationMatrix{1.0f};
+    std::vector&lt;GlColor&gt; vertexColors;
+    std::vector&lt;glm::vec3&gt; vertexNormals;
+    std::vector&lt;glm::vec2&gt; texcoords;
+    std::vector&lt;std::uint32_t&gt; triangleIndices;
+    std::vector&lt;std::uint32_t&gt; outlineIndices; // GL_LINES pairs, mesh-local indices.
+    Material material;
+    OutlineMode outline = OutlineMode::None;
+    float creaseAngleDegrees = 1.0f;
+    std::string name;
+    static PlaneFigure fromVertices(const std::vector&lt;Vertex&gt;&amp; vertices,
+                                   const std::vector&lt;std::uint32_t&gt;&amp; triangles) {
+        PlaneFigure mesh;
+        mesh.triangleIndices = triangles;
+        for (const auto&amp; vertex : vertices) {
+            mesh.localVertices.push_back(vertex.position);
+            mesh.vertexNormals.push_back(vertex.normal);
+            mesh.texcoords.push_back(vertex.uv);
+            mesh.vertexColors.push_back(vertex.color);
+        }
+        return mesh;
+    }
+};
+using Mesh = PlaneFigure;
+
+struct Polyhedron {
+    GLShape shape = GLShape::Custom;
+    std::vector&lt;PlaneFigure&gt; faces;
+    std::string name;
+    std::vector&lt;Mesh&gt;&amp; meshes() { return faces; }
+    const std::vector&lt;Mesh&gt;&amp; meshes() const { return faces; }
+};
+using Model = Polyhedron;
+
+struct Component_Poly {
+    Polyhedron polyhedron;
+    Transform3D transform;
+    glm::vec3 sideLengths{1.0f};
+    bool visible = true;
+    PivotMode pivotMode = PivotMode::Preserve;
+    std::optional&lt;EntityId&gt; parent; // Local SRT is relative to this entity.
+    GlColor tint; // Per-entity multiplier; does not propagate to children.
+    bool transformOnly = false;
+};
+struct FaceId { EntityId entityId = 0; std::size_t faceIndex = 0; };
+struct Line3D {
+    glm::vec3 start{0.0f}, end{0.0f};
+    GlColor color;
+    std::optional&lt;EntityId&gt; owner;
+};
+
+namespace detail {
+inline bool finiteVector(const glm::vec3&amp; v) {
+    return std::isfinite(v.x) &amp;&amp; std::isfinite(v.y) &amp;&amp; std::isfinite(v.z);
+}
+inline bool finiteMatrix(const glm::mat4&amp; m) {
+    for (int c = 0; c &lt; 4; ++c) for (int r = 0; r &lt; 4; ++r)
+        if (!std::isfinite(m[c][r])) return false;
+    return true;
+}
+inline bool validColor(GlColor c) {
+    return std::isfinite(c.red) &amp;&amp; std::isfinite(c.green) &amp;&amp; std::isfinite(c.blue);
+}
+inline std::vector&lt;std::uint32_t&gt; triangles(const Mesh&amp; mesh) {
+    if (!mesh.triangleIndices.empty()) return mesh.triangleIndices;
+    if (mesh.shape == GLFace::Triangle) return {0, 1, 2};
+    if (mesh.shape == GLFace::Rect) return {0, 1, 2, 0, 2, 3};
+    return {};
+}
+inline bool validMesh(const Mesh&amp; m) {
+    if (m.localVertices.size() &lt; 3 || !validColor(m.color)
+        || !validColor(m.material.color) || !finiteVector(m.normal)
+        || !finiteMatrix(m.localAnimationMatrix)
+        || !std::isfinite(m.creaseAngleDegrees) || m.creaseAngleDegrees &lt; 0
+        || m.creaseAngleDegrees &gt; 180) return false;
+    const auto count = m.localVertices.size();
+    if (count &gt; std::numeric_limits&lt;std::uint32_t&gt;::max()) return false;
+    if ((!m.vertexColors.empty() &amp;&amp; m.vertexColors.size() != count)
+        || (!m.vertexNormals.empty() &amp;&amp; m.vertexNormals.size() != count)
+        || (!m.texcoords.empty() &amp;&amp; m.texcoords.size() != count)
+        || (m.material.texture &amp;&amp; !m.material.texture-&gt;valid())
+        || (m.material.useTexture &amp;&amp; (!m.material.texture || m.texcoords.empty()))) return false;
+    for (const auto&amp; v : m.localVertices) if (!finiteVector(v)) return false;
+    for (const auto&amp; v : m.vertexNormals) if (!finiteVector(v)) return false;
+    for (const auto&amp; v : m.texcoords) if (!std::isfinite(v.x) || !std::isfinite(v.y)) return false;
+    for (auto c : m.vertexColors) if (!validColor(c)) return false;
+    const auto indices = triangles(m);
+    if (indices.empty() || indices.size() % 3 || m.outlineIndices.size() % 2) return false;
+    for (auto i : indices) if (i &gt;= count) return false;
+    for (auto i : m.outlineIndices) if (i &gt;= count) return false;
+    for (std::size_t i=0;i&lt;indices.size();i+=3) {
+        const auto a=glm::dvec3(m.localVertices[indices[i]]);
+        const auto b=glm::dvec3(m.localVertices[indices[i+1]]);
+        const auto c=glm::dvec3(m.localVertices[indices[i+2]]);
+        const auto normal=glm::cross(b-a,c-a);
+        const double area=glm::dot(normal,normal);
+        if(!std::isfinite(area)||area&lt;=0) return false;
+    }
+    return true;
+}
+inline std::pair&lt;glm::vec3, glm::vec3&gt; bounds(const Model&amp; model) {
+    glm::vec3 low(std::numeric_limits&lt;float&gt;::max()), high(-std::numeric_limits&lt;float&gt;::max());
+    for (const auto&amp; face : model.faces) for (const auto&amp; p : face.localVertices) {
+        low = glm::min(low, p); high = glm::max(high, p);
+    }
+    return {low, high};
+}
+inline glm::vec3 bottomCenter(const Model&amp; model) {
+    const auto box = bounds(model);
+    return {box.first.x * .5f + box.second.x * .5f, box.first.y,
+            box.first.z * .5f + box.second.z * .5f};
+}
+inline glm::mat4 transformMatrix(const Transform3D&amp; t) {
+    glm::mat4 m = glm::translate(glm::mat4(1), t.basis);
+    m *= glm::mat4(t.rotation);
+    return glm::translate(glm::scale(m, t.scale), -t.localBasis);
+}
+inline glm::mat4 faceMatrix(const Component_Poly&amp; c, const Mesh&amp; face) {
+    glm::mat4 child(1);
+    if (face.independence) {
+        // Rotate/scale around a face pivot without moving an identity child.
+        child = glm::translate(glm::mat4(1), face.transform.localBasis)
+              * transformMatrix(face.transform);
+    }
+    return transformMatrix(c.transform) * child * face.localAnimationMatrix;
+}
+} // namespace detail
+} // namespace graphics</code></pre></details><details><summary>include/Transform.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;Model.h&quot;
+#include &lt;functional&gt;
+
+namespace graphics {
+
+struct AxisLine {
+    glm::vec3 point{0.0f};
+    glm::vec3 direction{0.0f, 1.0f, 0.0f};
+};
+
+using PathFunction = std::function&lt;glm::vec3(double)&gt;;
+using InterpolationFunction = std::function&lt;double(double)&gt;;
+
+// These functions return no matrix/path when their parameters are invalid.
+class TransformSystem {
+public:
+    static bool validAffine(const glm::mat4&amp; matrix);
+    static std::optional&lt;glm::mat4&gt; translation(const glm::vec3&amp; offset);
+    static std::optional&lt;glm::mat4&gt; scaling(const glm::vec3&amp; factors,
+                                           const glm::vec3&amp; center = glm::vec3(0));
+    static std::optional&lt;glm::mat4&gt; rotation(const AxisLine&amp; axis, double degrees);
+    static std::optional&lt;glm::mat4&gt; reflectPoint(const glm::vec3&amp; center);
+    static std::optional&lt;glm::mat4&gt; reflectLine(const AxisLine&amp; line);
+    static std::optional&lt;glm::mat4&gt; reflectPlane(const glm::vec3&amp; point,
+                                               const glm::vec3&amp; normal);
+};
+
+class PathSystem {
+public:
+    // axisU/axisV include the ellipse radii and define its plane.
+    static PathFunction ellipse(const glm::vec3&amp; center, const glm::vec3&amp; axisU,
+                                const glm::vec3&amp; axisV);
+    static PathFunction circle(const glm::vec3&amp; center, float radius,
+                               const glm::vec3&amp; normal = glm::vec3(0, 1, 0));
+    static PathFunction polyline(std::vector&lt;glm::vec3&gt; points, bool closed = false);
+    static PathFunction polygon(std::vector&lt;glm::vec3&gt; points);
+    static PathFunction rectangle(const glm::vec3&amp; center, const glm::vec3&amp; halfU,
+                                  const glm::vec3&amp; halfV);
+    static double linear(double progress);
+    static double smoothStep(double progress);
+};
+} // namespace graphics
+#include &quot;../detail/Transform.inl&quot;</code></pre></details><details><summary>include/Motion.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;Transform.h&quot;
+#include &lt;map&gt;
+
+namespace graphics {
+using MotionId = std::uint64_t;
+using LayerId = std::uint64_t;
+enum class TransformSpace { World, Local };
+enum class Playback { Once, Loop, PingPong };
+
+struct MotionSample {
+    glm::mat4 parent{1.0f};
+    glm::mat4 local{1.0f};
+};
+struct RotationMotion {
+    AxisLine axis;
+    double degreesPerSecond = 45;
+    double initialDegrees = 0;
+    TransformSpace space = TransformSpace::Local;
+};
+struct PathMotion {
+    PathFunction path;
+    InterpolationFunction interpolation = PathSystem::linear;
+    double durationSeconds = 1;
+    double rate = 1;
+    double phase = 0;
+    Playback playback = Playback::Loop;
+    bool relativeToStart = false;
+    TransformSpace space = TransformSpace::World;
+};
+struct MotionStep {
+    // The callback receives seconds since this step started, not frame delta time.
+    std::function&lt;glm::mat4(double)&gt; transform;
+    TransformSpace space = TransformSpace::World;
+    double startSeconds = 0;
+    std::optional&lt;double&gt; durationSeconds;
+    bool enabled = true;
+};
+
+class Motion {
+    std::vector&lt;MotionStep&gt; steps_;
+    static bool validStep(const MotionStep&amp; step);
+public:
+    bool append(const MotionStep&amp; step);
+    bool insert(std::size_t index, const MotionStep&amp; step);
+    bool replace(std::size_t index, const MotionStep&amp; step);
+    bool erase(std::size_t index);
+    bool then(MotionStep step); // Requires all previous steps to have finite durations.
+    const std::vector&lt;MotionStep&gt;&amp; getSteps() const { return steps_; }
+    std::optional&lt;MotionSample&gt; sample(double seconds) const;
+    static MotionStep fixed(const glm::mat4&amp; matrix,
+                            TransformSpace space = TransformSpace::World);
+    static MotionStep rotation(const RotationMotion&amp; config);
+    static MotionStep followPath(const PathMotion&amp; config);
+};
+
+struct MotionState {
+    Motion motion;
+    double timeSeconds = 0;
+    bool playing = true;
+    bool enabled = true;
+    MotionSample sampled;
+};
+
+struct LayerConfig {
+    glm::mat4 transform{1.0f};
+    TransformSpace space = TransformSpace::World;
+    std::optional&lt;MotionId&gt; motion;
+    bool enabled = true;
+};
+struct LayerState {
+    LayerConfig config;
+    std::optional&lt;LayerId&gt; parent;
+    std::vector&lt;LayerId&gt; children;
+};
+
+class MotionSystem {
+    std::map&lt;MotionId, MotionState&gt; motions_;
+    MotionId nextMotion_ = 1;
+    std::map&lt;LayerId, LayerState&gt; layers_{{0, LayerState{}}};
+    LayerId nextLayer_ = 1;
+    bool validLayer(const LayerConfig&amp; config) const;
+public:
+    static constexpr LayerId rootLayer() { return 0; }
+    std::optional&lt;MotionId&gt; createMotion(const Motion&amp; motion);
+    bool setMotion(MotionId id, const Motion&amp; motion);
+    const MotionState* getMotion(MotionId id) const;
+    bool setMotionPlaying(MotionId id, bool playing);
+    bool setMotionEnabled(MotionId id, bool enabled);
+    bool seekMotion(MotionId id, double seconds);
+    bool removeMotion(MotionId id);
+    bool update(double deltaSeconds);
+    void clear(); // Identifiers are never reused by this system, including after clear.
+    std::optional&lt;LayerId&gt; pushLayer(LayerId parent, const LayerConfig&amp; config = LayerConfig{});
+    std::optional&lt;LayerId&gt; insertLayer(LayerId child, const LayerConfig&amp; config = LayerConfig{});
+    std::optional&lt;LayerId&gt; popLayer(LayerId top); // Only removes a leaf; returns its parent.
+    bool removeLayer(LayerId id); // Promotes children in place; root cannot be removed.
+    bool reparentLayer(LayerId id, LayerId parent);
+    bool setLayer(LayerId id, const LayerConfig&amp; config);
+    const LayerState* getLayer(LayerId id) const;
+    bool bindMotion(LayerId layer, std::optional&lt;MotionId&gt; motion);
+    std::optional&lt;MotionSample&gt; layerMatrices(LayerId leaf) const;
+    std::optional&lt;MotionId&gt; createSpin(RotationMotion config);
+    std::optional&lt;MotionId&gt; createOrbit(RotationMotion config);
+    std::optional&lt;MotionId&gt; createOrbitAndSpin(RotationMotion orbit, RotationMotion spin);
+    std::optional&lt;MotionId&gt; createPathAndSpin(const PathMotion&amp; path, RotationMotion spin);
+};
+} // namespace graphics
+#include &quot;../detail/Motion.inl&quot;</code></pre></details><details><summary>include/Geometry.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;Model.h&quot;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+#include &lt;numeric&gt;
+#include &lt;stdexcept&gt;
+
+namespace graphics {
+enum class UVMapping { Planar, Box, Cylindrical, Spherical };
+struct UVOptions {
+    UVMapping mapping = UVMapping::Planar;
+    int axis = 2; // Planar projection drops X=0, Y=1, or Z=2.
+    glm::vec2 scale{1};
+    glm::vec2 offset{0};
+    float rotationDegrees = 0;
+};
+
+inline bool transformTexcoords(Mesh&amp; mesh, const glm::vec2&amp; scale,
+                              const glm::vec2&amp; offset, float rotationDegrees = 0) {
+    if (mesh.texcoords.size() != mesh.localVertices.size() || mesh.texcoords.empty()
+        || !std::isfinite(scale.x) || !std::isfinite(scale.y)
+        || !std::isfinite(offset.x) || !std::isfinite(offset.y)
+        || !std::isfinite(rotationDegrees)) return false;
+    auto uvs = mesh.texcoords;
+    const double angle = glm::radians(double(rotationDegrees));
+    const double c = std::cos(angle), s = std::sin(angle);
+    for (auto&amp; uv : uvs) {
+        const auto p = glm::dvec2(uv) * glm::dvec2(scale);
+        uv = glm::vec2(c*p.x-s*p.y, s*p.x+c*p.y) + offset;
+        if (!std::isfinite(uv.x) || !std::isfinite(uv.y)) return false;
+    }
+    mesh.texcoords = std::move(uvs);
+    return true;
+}
+
+inline bool generateTexcoords(Mesh&amp; mesh, const UVOptions&amp; options = UVOptions{}) {
+    if (!detail::validMesh(mesh) || options.axis &lt; 0 || options.axis &gt; 2) return false;
+    switch (options.mapping) {
+    case UVMapping::Planar: case UVMapping::Box:
+    case UVMapping::Cylindrical: case UVMapping::Spherical: break;
+    default: return false;
+    }
+    Mesh result = mesh;
+    glm::dvec3 low(mesh.localVertices[0]), high(low);
+    for (const auto&amp; p : mesh.localVertices) {
+        low = glm::min(low, glm::dvec3(p)); high = glm::max(high, glm::dvec3(p));
+    }
+    const auto size = high-low, center = (low+high)*0.5;
+    const double pi = std::acos(-1.0);
+    auto project = [&amp;](std::uint32_t index, int axis) {
+        const auto p = glm::dvec3(mesh.localVertices[index]);
+        if (options.mapping == UVMapping::Planar || options.mapping == UVMapping::Box) {
+            const int u = axis == 0 ? 2 : 0, v = axis == 1 ? 2 : 1;
+            return glm::vec2(size[u] &gt; 0 ? (p[u]-low[u])/size[u] : 0.5,
+                             size[v] &gt; 0 ? (p[v]-low[v])/size[v] : 0.5);
+        }
+        const auto d = p-center;
+        const double radius = glm::length(d);
+        return glm::vec2(std::atan2(d.z,d.x)/(2*pi)+0.5,
+            options.mapping == UVMapping::Spherical
+                ? (radius &gt; 0 ? std::asin(std::clamp(d.y/radius,-1.0,1.0))/pi+0.5 : 0.5)
+                : (size.y &gt; 0 ? (p.y-low.y)/size.y : 0.5));
+    };
+    if (options.mapping == UVMapping::Planar) {
+        result.texcoords.clear();
+        for (std::uint32_t i=0;i&lt;mesh.localVertices.size();++i) result.texcoords.push_back(project(i,options.axis));
+    } else {
+        const auto indices = detail::triangles(mesh);
+        if (indices.size() &gt; std::numeric_limits&lt;std::uint32_t&gt;::max()) return false;
+        result.localVertices.clear(); result.vertexNormals.clear(); result.vertexColors.clear();
+        result.texcoords.clear(); result.triangleIndices.clear(); result.outlineIndices.clear();
+        result.shape = GLFace::Mesh;
+        std::vector&lt;std::uint32_t&gt; first(mesh.localVertices.size(),std::numeric_limits&lt;std::uint32_t&gt;::max());
+        for (std::size_t t=0;t&lt;indices.size();t+=3) {
+            const auto a=glm::dvec3(mesh.localVertices[indices[t]]);
+            const auto b=glm::dvec3(mesh.localVertices[indices[t+1]]);
+            const auto d=glm::dvec3(mesh.localVertices[indices[t+2]]);
+            const auto normal=glm::abs(glm::cross(b-a,d-a));
+            const int axis=normal.x&gt;normal.y ? (normal.x&gt;normal.z?0:2) : (normal.y&gt;normal.z?1:2);
+            std::array&lt;glm::vec2,3&gt; uv{project(indices[t],axis),project(indices[t+1],axis),project(indices[t+2],axis)};
+            if (options.mapping != UVMapping::Box) {
+                // Pole U is taken from neighboring corners, where longitude is defined.
+                for (int k=0;k&lt;3;++k) {
+                    const auto p=glm::dvec3(mesh.localVertices[indices[t+k]])-center;
+                    if (p.x==0 &amp;&amp; p.z==0) {
+                        const auto u=uv[(k+1)%3].x, v=uv[(k+2)%3].x;
+                        uv[k].x=(u+v+(std::abs(u-v)&gt;0.5f?1.0f:0.0f))*0.5f;
+                    }
+                }
+                const float lo=std::min({uv[0].x,uv[1].x,uv[2].x});
+                const float hi=std::max({uv[0].x,uv[1].x,uv[2].x});
+                if (hi-lo&gt;0.5f) for (auto&amp; p:uv) if (p.x&lt;0.5f) p.x+=1;
+            }
+            for (int k=0;k&lt;3;++k) {
+                const auto source=indices[t+k], target=std::uint32_t(result.localVertices.size());
+                if(first[source]==std::numeric_limits&lt;std::uint32_t&gt;::max()) first[source]=target;
+                result.localVertices.push_back(mesh.localVertices[source]);
+                if(!mesh.vertexNormals.empty()) result.vertexNormals.push_back(mesh.vertexNormals[source]);
+                if(!mesh.vertexColors.empty()) result.vertexColors.push_back(mesh.vertexColors[source]);
+                result.texcoords.push_back(uv[k]); result.triangleIndices.push_back(target);
+            }
+        }
+        for(auto index:mesh.outlineIndices) {
+            if(first[index]==std::numeric_limits&lt;std::uint32_t&gt;::max()) {
+                first[index]=std::uint32_t(result.localVertices.size());
+                result.localVertices.push_back(mesh.localVertices[index]);
+                if(!mesh.vertexNormals.empty()) result.vertexNormals.push_back(mesh.vertexNormals[index]);
+                if(!mesh.vertexColors.empty()) result.vertexColors.push_back(mesh.vertexColors[index]);
+                result.texcoords.push_back(project(index,options.axis));
+            }
+            result.outlineIndices.push_back(first[index]);
+        }
+    }
+    if (!transformTexcoords(result,options.scale,options.offset,options.rotationDegrees)
+        || !detail::validMesh(result)) return false;
+    mesh=std::move(result); return true;
+}
+
+inline void recalculateNormals(Mesh&amp; mesh) {
+    mesh.vertexNormals.assign(mesh.localVertices.size(), glm::vec3(0));
+    const auto indices = detail::triangles(mesh);
+    for (std::size_t i = 0; i &lt; indices.size(); i += 3) {
+        const auto a = indices[i], b = indices[i+1], c = indices[i+2];
+        const auto n = glm::cross(mesh.localVertices[b] - mesh.localVertices[a],
+                                  mesh.localVertices[c] - mesh.localVertices[a]);
+        mesh.vertexNormals[a] += n; mesh.vertexNormals[b] += n; mesh.vertexNormals[c] += n;
+    }
+    for (auto&amp; n : mesh.vertexNormals) {
+        const float size = glm::length(n);
+        n = size &gt; 1e-12f ? n / size : glm::vec3(0);
+    }
+}
+
+// Weld equal positions for edge topology, while preserving separate UV/normal vertices.
+inline std::vector&lt;std::uint32_t&gt; meshOutline(const Mesh&amp; mesh,
+                                             OutlineMode mode = OutlineMode::FeatureEdges) {
+    if (mode == OutlineMode::None) return {};
+    if (mode == OutlineMode::Explicit) return mesh.outlineIndices;
+    using Position = std::array&lt;float, 3&gt;;
+    std::map&lt;Position, std::uint32_t&gt; points;
+    std::vector&lt;std::uint32_t&gt; welded;
+    for (std::uint32_t i = 0; i &lt; mesh.localVertices.size(); ++i) {
+        const auto&amp; p = mesh.localVertices[i];
+        const auto result = points.emplace(Position{p.x, p.y, p.z}, i);
+        welded.push_back(result.first-&gt;second);
+    }
+    struct Edge { std::uint32_t a = 0, b = 0; std::vector&lt;glm::vec3&gt; normals; };
+    std::map&lt;std::pair&lt;std::uint32_t, std::uint32_t&gt;, Edge&gt; edges;
+    const auto indices = detail::triangles(mesh);
+    for (std::size_t i = 0; i &lt; indices.size(); i += 3) {
+        const auto a = indices[i], b = indices[i+1], c = indices[i+2];
+        auto normal = glm::cross(mesh.localVertices[b] - mesh.localVertices[a],
+                                 mesh.localVertices[c] - mesh.localVertices[a]);
+        const auto length = glm::length(normal);
+        if (length &lt;= 1e-12f) continue;
+        normal /= length;
+        const std::array&lt;std::uint32_t, 3&gt; corners{a,b,c};
+        for (int e = 0; e &lt; 3; ++e) {
+            auto first = welded[corners[e]], second = welded[corners[(e+1)%3]];
+            if (first == second) continue;
+            if (first &gt; second) std::swap(first, second);
+            auto&amp; edge = edges[{first, second}];
+            edge.a = first; edge.b = second; edge.normals.push_back(normal);
+        }
+    }
+    const float threshold = std::cos(glm::radians(mesh.creaseAngleDegrees));
+    std::vector&lt;std::uint32_t&gt; result;
+    for (const auto&amp; item : edges) {
+        const auto&amp; edge = item.second;
+        const bool show = mode == OutlineMode::AllTriangleEdges || edge.normals.size() != 2
+            || glm::dot(edge.normals[0], edge.normals[1]) &lt; threshold;
+        if (show) { result.push_back(edge.a); result.push_back(edge.b); }
+    }
+    return result;
+}
+
+namespace detail {
+// Ear clipping handles planar simple concave polygons, with either winding.
+inline std::vector&lt;std::uint32_t&gt; triangulate(const std::vector&lt;glm::vec3&gt;&amp; points) {
+    if (points.size() &lt; 3) throw std::runtime_error(&quot;Face has fewer than three corners.&quot;);
+    glm::vec3 normal(0);
+    for (std::size_t i=0; i&lt;points.size(); ++i) {
+        const auto&amp; a=points[i]; const auto&amp; b=points[(i+1)%points.size()];
+        normal += glm::vec3((a.y-b.y)*(a.z+b.z), (a.z-b.z)*(a.x+b.x), (a.x-b.x)*(a.y+b.y));
+    }
+    if (glm::length(normal) &lt; 1e-12f) throw std::runtime_error(&quot;Degenerate polygon.&quot;);
+    const auto absNormal=glm::abs(normal);
+    const int axis=absNormal.x&gt;absNormal.y ? (absNormal.x&gt;absNormal.z?0:2) : (absNormal.y&gt;absNormal.z?1:2);
+    std::vector&lt;glm::dvec2&gt; projected;
+    for (const auto&amp; p : points) projected.push_back(axis==0 ? glm::dvec2(p.y,p.z)
+        : axis==1 ? glm::dvec2(p.x,p.z) : glm::dvec2(p.x,p.y));
+    double area=0;
+    for(std::size_t i=0;i&lt;projected.size();++i) {
+        const auto&amp; a=projected[i]; const auto&amp; b=projected[(i+1)%projected.size()];
+        area+=a.x*b.y-b.x*a.y;
+    }
+    if (std::abs(area)&lt;1e-14) throw std::runtime_error(&quot;Degenerate polygon projection.&quot;);
+    const double direction=area&gt;0?1:-1;
+    auto cross=[](glm::dvec2 a,glm::dvec2 b,glm::dvec2 c) {return (b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);};
+    std::vector&lt;std::uint32_t&gt; polygon(points.size()), result;
+    std::iota(polygon.begin(),polygon.end(),0);
+    while(polygon.size()&gt;3) {
+        bool clipped=false;
+        for(std::size_t i=0;i&lt;polygon.size();++i) {
+            const auto a=polygon[(i+polygon.size()-1)%polygon.size()],b=polygon[i],c=polygon[(i+1)%polygon.size()];
+            if(direction*cross(projected[a],projected[b],projected[c])&lt;=1e-14) continue;
+            bool inside=false;
+            for(auto p:polygon) if(p!=a&amp;&amp;p!=b&amp;&amp;p!=c
+                &amp;&amp; direction*cross(projected[a],projected[b],projected[p])&gt;=-1e-14
+                &amp;&amp; direction*cross(projected[b],projected[c],projected[p])&gt;=-1e-14
+                &amp;&amp; direction*cross(projected[c],projected[a],projected[p])&gt;=-1e-14) {inside=true;break;}
+            if(inside) continue;
+            result.insert(result.end(),{a,b,c}); polygon.erase(polygon.begin()+i); clipped=true; break;
+        }
+        if(!clipped) throw std::runtime_error(&quot;Cannot triangulate polygon; check repeated corners or self-intersections.&quot;);
+    }
+    result.insert(result.end(),polygon.begin(),polygon.end());
+    return result;
+}
+inline void appendMesh(Mesh&amp; destination, const Mesh&amp; source) {
+    const auto first=std::uint32_t(destination.localVertices.size());
+    destination.localVertices.insert(destination.localVertices.end(),source.localVertices.begin(),source.localVertices.end());
+    destination.vertexNormals.insert(destination.vertexNormals.end(),source.vertexNormals.begin(),source.vertexNormals.end());
+    destination.texcoords.insert(destination.texcoords.end(),source.texcoords.begin(),source.texcoords.end());
+    for(auto i:triangles(source)) destination.triangleIndices.push_back(first+i);
+    destination.shape=GLFace::Mesh;
+}
+inline bool shareEdge(const Mesh&amp; a,const Mesh&amp; b) {
+    const auto ae=meshOutline(a),be=meshOutline(b);
+    for(std::size_t i=0;i&lt;ae.size();i+=2) for(std::size_t j=0;j&lt;be.size();j+=2) {
+        const auto p=a.localVertices[ae[i]],q=a.localVertices[ae[i+1]],r=b.localVertices[be[j]],s=b.localVertices[be[j+1]];
+        if((p==r&amp;&amp;q==s)||(p==s&amp;&amp;q==r)) return true;
+    }
+    return false;
+}
+inline void mergeCoplanar(Model&amp; model) {
+    for(std::size_t i=0;i&lt;model.faces.size();++i) {
+        auto&amp; face=model.faces[i];
+        if(glm::length(face.normal)&lt;1e-12f) continue;
+        for(std::size_t j=i+1;j&lt;model.faces.size();) {
+            const auto&amp; other=model.faces[j];
+            const bool samePlane=glm::dot(face.normal,other.normal)&gt;1-1e-6f
+                &amp;&amp; std::abs(glm::dot(face.normal,other.localVertices[0]-face.localVertices[0]))&lt;1e-6f;
+            if(samePlane &amp;&amp; face.texcoords.empty()==other.texcoords.empty() &amp;&amp; shareEdge(face,other)) {
+                appendMesh(face,other); model.faces.erase(model.faces.begin()+j); j=i+1;
+            } else ++j;
+        }
+    }
+}
+} // namespace detail
+} // namespace graphics</code></pre></details><details><summary>include/ModelLoader.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;Geometry.h&quot;
+#include &quot;Texture.h&quot;
+
+namespace graphics {
+struct FeatureOptions { bool textures = false; };
+struct LoadOptions {
+    PivotMode pivot = PivotMode::BottomCenter;
+    glm::vec3 customPivot{0};
+    OutlineMode outline = OutlineMode::None;
+    bool mergeCoplanarFaces = true; // within each OBJ object/group/material/smoothing segment
+    bool flipTextureRows = true;
+    std::filesystem::path texturePath; // project-relative explicit override
+    bool allowObjFallback = true;
+};
+struct ModelResult {
+    std::optional&lt;Model&gt; model;
+    glm::vec3 localBasis{0};
+    PivotMode pivotMode = PivotMode::Preserve;
+    std::string error;
+    std::vector&lt;std::string&gt; warnings;
+    bool usedFallback = false;
+    explicit operator bool() const { return model.has_value(); }
+};
+struct TextureResult {
+    std::shared_ptr&lt;const TextureImage&gt; image;
+    std::string error;
+    explicit operator bool() const { return bool(image); }
+};
+
+namespace detail {
+inline ModelResult finishLoad(Model model,const LoadOptions&amp; options) {
+    if(model.faces.empty()) throw std::runtime_error(&quot;Model contains no triangle meshes.&quot;);
+    for(auto&amp; face:model.faces) {
+        face.outline=options.outline;
+        if(!validMesh(face)) throw std::runtime_error(&quot;Invalid model mesh data.&quot;);
+    }
+    ModelResult result;
+    if(options.pivot==PivotMode::BottomCenter) result.localBasis=bottomCenter(model);
+    else if(options.pivot==PivotMode::Custom) result.localBasis=options.customPivot;
+    if(!finiteVector(result.localBasis)) throw std::runtime_error(&quot;Invalid local basis.&quot;);
+    result.pivotMode=options.pivot;
+    result.model=std::move(model);
+    return result;
+}
+} // namespace detail
+
+class AssetLoader {
+    std::filesystem::path projectRoot_;
+    FeatureOptions features_;
+    mutable std::map&lt;std::filesystem::path,std::weak_ptr&lt;const TextureImage&gt;&gt; imageCache_;
+    std::filesystem::path resolve(const std::filesystem::path&amp; relative) const {
+        if(relative.empty() || relative.is_absolute() || relative.has_root_name())
+            throw std::runtime_error(&quot;Asset path must be project-relative.&quot;);
+        const auto root=std::filesystem::weakly_canonical(projectRoot_);
+        const auto full=std::filesystem::weakly_canonical(root/relative);
+        auto a=root.begin(), b=full.begin();
+        for(;a!=root.end();++a,++b) if(b==full.end() || *a!=*b)
+            throw std::runtime_error(&quot;Asset path is outside projectRoot.&quot;);
+        return full;
+    }
+    std::shared_ptr&lt;const TextureImage&gt; texture(const std::filesystem::path&amp; relative,bool flip) const {
+        if(!features_.textures) throw std::runtime_error(&quot;Texture mode is disabled.&quot;);
+        const auto full=resolve(relative);
+        // The row convention is part of the cache key.
+        const auto key=full / (flip?&quot;#flipped&quot;:&quot;#native&quot;);
+        if(auto cached=imageCache_[key].lock()) return cached;
+        auto image=std::make_shared&lt;const TextureImage&gt;(detail::decodeImage(full,nullptr,flip));
+        imageCache_[key]=image;
+        return image;
+    }
+public:
+    explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(),
+                         FeatureOptions features=FeatureOptions{})
+        : projectRoot_(std::filesystem::absolute(projectRoot)),features_(features) {}
+    const FeatureOptions&amp; features() const { return features_; }
+    TextureResult loadTexture(const std::filesystem::path&amp; relative,bool flipRows=true) const {
+        try { return {texture(relative,flipRows),{}}; }
+        catch(const std::exception&amp; e) { return {nullptr,e.what()}; }
+    }
+    ModelResult loadObj(const std::filesystem::path&amp; relative,const LoadOptions&amp; options=LoadOptions{}) const;
+    ModelResult loadPrimitive(const std::filesystem::path&amp; relative,const LoadOptions&amp; options=LoadOptions{}) const;
+    ModelResult loadModel(const std::filesystem::path&amp; relative,const LoadOptions&amp; options=LoadOptions{}) const;
+};
+} // namespace graphics
+
+#include &quot;../detail/PrimitiveLoader.inl&quot;
+#include &quot;../detail/ObjLoader.inl&quot;
+namespace graphics {
+inline ModelResult AssetLoader::loadModel(const std::filesystem::path&amp; relative,const LoadOptions&amp; options) const {
+    return loadObj(relative,options);
+}
+} // namespace graphics</code></pre></details><details><summary>include/Picking.h · 소스 원문</summary><pre><code>#pragma once
+#include &quot;Graphics.h&quot;
+
+namespace graphics {
+struct Ray {
+    glm::vec3 origin{0}, direction{0,0,-1};
+    float maxDistance = std::numeric_limits&lt;float&gt;::infinity();
+};
+struct PickResult {
+    EntityId entityId = 0;
+    std::size_t faceIndex = 0, triangleIndex = 0;
+    glm::vec3 worldPoint{0}, localPoint{0}, barycentric{0};
+    glm::vec2 uv{0};
+    bool hasUV = false;
+    float distance = 0; // Distance from ray origin (near plane for a screen ray).
+};
+struct PickViewport { double x = 0, y = 0, width = 0, height = 0; }; // top-left framebuffer pixels
+
+inline std::optional&lt;Ray&gt; screenRay(const Camera&amp; camera,double x,double y,const PickViewport&amp; viewport) {
+    if(!CameraSystem::validCamera(camera)||!std::isfinite(x)||!std::isfinite(y)
+        ||!std::isfinite(viewport.x)||!std::isfinite(viewport.y)
+        ||!std::isfinite(viewport.width)||!std::isfinite(viewport.height)
+        ||viewport.width&lt;=0||viewport.height&lt;=0||x&lt;viewport.x||y&lt;viewport.y
+        ||x&gt;=viewport.x+viewport.width||y&gt;=viewport.y+viewport.height)return {};
+    const auto pv=CameraSystem::projectionMatrix(camera,float(viewport.width/viewport.height))*CameraSystem::viewMatrix(camera);
+    const auto determinant=glm::determinant(pv);
+    if(!std::isfinite(determinant)||std::abs(determinant)&lt;1e-12f)return {};
+    const auto inverse=glm::inverse(pv);
+    const float nx=float(2*(x-viewport.x)/viewport.width-1),ny=float(1-2*(y-viewport.y)/viewport.height);
+    auto nearPoint=inverse*glm::vec4(nx,ny,-1,1),farPoint=inverse*glm::vec4(nx,ny,1,1);
+    if(std::abs(nearPoint.w)&lt;1e-12f||std::abs(farPoint.w)&lt;1e-12f)return {};
+    nearPoint/=nearPoint.w;farPoint/=farPoint.w;
+    const auto direction=glm::vec3(farPoint-nearPoint);const auto length=glm::length(direction);
+    if(!detail::finiteVector(glm::vec3(nearPoint))||!detail::finiteVector(direction)||!std::isfinite(length)||length&lt;=0)return {};
+    return Ray{glm::vec3(nearPoint),direction/length,length};
+}
+inline std::optional&lt;PickResult&gt; pick(const Scene&amp; scene,const Ray&amp; input) {
+    if(!detail::finiteVector(input.origin)||!detail::finiteVector(input.direction)
+        ||!std::isfinite(glm::length(input.direction))||glm::length(input.direction)&lt;1e-12f||std::isnan(input.maxDistance)||input.maxDistance&lt;0)return {};
+    const auto direction=glm::dvec3(glm::normalize(input.direction));
+    const auto origin=glm::dvec3(input.origin);
+    double nearest=input.maxDistance;std::optional&lt;PickResult&gt; result;
+    for(auto id:scene.getIds()) {
+        const auto* component=scene.getComponent(id);if(!component||!component-&gt;visible)continue;
+        for(std::size_t f=0;f&lt;component-&gt;polyhedron.faces.size();++f) {
+            const auto&amp; face=component-&gt;polyhedron.faces[f];if(!face.visible)continue;
+            const auto world=scene.faceWorldMatrix(id,f);if(!world)continue;
+            const auto matrix=*world;
+            const auto indices=detail::triangles(face);
+            for(std::size_t t=0;t&lt;indices.size();t+=3) {
+                const auto ia=indices[t],ib=indices[t+1],ic=indices[t+2];
+                const auto a4=matrix*glm::vec4(face.localVertices[ia],1),b4=matrix*glm::vec4(face.localVertices[ib],1),c4=matrix*glm::vec4(face.localVertices[ic],1);
+                if(std::abs(a4.w)&lt;1e-12f||std::abs(b4.w)&lt;1e-12f||std::abs(c4.w)&lt;1e-12f)continue;
+                const auto a=glm::dvec3(a4/a4.w),b=glm::dvec3(b4/b4.w),c=glm::dvec3(c4/c4.w);
+                const auto edge1=b-a,edge2=c-a,p=glm::cross(direction,edge2);
+                const auto determinant=glm::dot(edge1,p);
+                const auto tolerance=1e-12*glm::length(edge1)*glm::length(edge2);
+                if(!std::isfinite(determinant)||std::abs(determinant)&lt;=tolerance)continue;
+                const auto relative=origin-a;const auto u=glm::dot(relative,p)/determinant;
+                if(u&lt;0||u&gt;1)continue;
+                const auto q=glm::cross(relative,edge1);const auto v=glm::dot(direction,q)/determinant;
+                if(v&lt;0||u+v&gt;1)continue;
+                const auto distance=glm::dot(edge2,q)/determinant;
+                if(!std::isfinite(distance)||distance&lt;0||distance&gt;nearest)continue;
+                const glm::dvec3 weights((1-u-v)/a4.w,u/b4.w,v/c4.w);
+                const auto sum=weights.x+weights.y+weights.z;if(std::abs(sum)&lt;1e-12)continue;
+                PickResult hit;hit.entityId=id;hit.faceIndex=f;hit.triangleIndex=t/3;
+                hit.distance=float(distance);hit.worldPoint=glm::vec3(origin+direction*distance);
+                hit.barycentric=glm::vec3(weights/sum);
+                hit.localPoint=face.localVertices[ia]*hit.barycentric.x+face.localVertices[ib]*hit.barycentric.y+face.localVertices[ic]*hit.barycentric.z;
+                hit.hasUV=!face.texcoords.empty();
+                if(hit.hasUV)hit.uv=face.texcoords[ia]*hit.barycentric.x+face.texcoords[ib]*hit.barycentric.y+face.texcoords[ic]*hit.barycentric.z;
+                nearest=distance;result=hit;
+            }
+        }
+    }
+    return result;
+}
+inline std::optional&lt;PickResult&gt; pick(const Scene&amp; scene,const Camera&amp; camera,double x,double y,
+                                     const PickViewport&amp; viewport) {
+    const auto ray=screenRay(camera,x,y,viewport);return ray?pick(scene,*ray):std::nullopt;
+}
+} // namespace graphics</code></pre></details><details><summary>standard/Console.h 스냅샷 · 소스 원문</summary><pre><code>#pragma once
+#include &quot;framework/Framework.h&quot;
+
+class Console {
+    graphics::Application&amp; app_;
+    std::optional&lt;graphics::MotionId&gt; pathId_;
+    std::optional&lt;graphics::MotionId&gt; spinId_;
+    std::optional&lt;graphics::MotionId&gt; globalId_;
+    std::optional&lt;graphics::LayerId&gt; mirrorLayer_;
+    std::optional&lt;graphics::LayerId&gt; normalSpinLayer_;
+    std::optional&lt;graphics::LayerId&gt; insertedLayer_;
+    bool paused_ = false;
+    bool spinEnabled_ = true;
+    bool globalEnabled_ = false;
+    int reflection_ = 1;
+
+    bool choosePath(int kind);
+    bool changeReflection();
+    bool toggleInsertedLayer();
+    void printHelp() const;
+
+public:
+    explicit Console(graphics::Application&amp; app) : app_(app) {}
+    bool initScene();
+    void onKey(int key, int action);
+    void onMouse(const graphics::MouseEvent&amp; event);
+};</code></pre></details></section><footer>목차와 소스 원문은 인터넷 없이 사용할 수 있습니다. 예제 단편은 표시한 함수 안에서 사용하며, 컴파일 성공을 의미하지 않습니다. <a href="#content">맨 위로</a></footer></main></div></body></html>

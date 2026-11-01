@@ -123,3 +123,7 @@ RenderOptions::cull은 패스 기본 정책, Mesh::cull 또는 Scene::setFaceCul
 standard.sln에서 Debug/Release x64를 각각 빌드한다. 0 기존 모션, 7 Grid, 8 실내 예제, V 3뷰, D 추적 로그, F 바닥 개방을 확인한다. 별도 복사본에서 잘못된 EntityId·카메라 up·셰이더 문법을 넣어 오류 단계와 API를 확인한다. 리사이즈·최소화·DPI·분할 피킹·종료와 다른 경로/PC에서의 DLL 배치를 확인한다.
 
 에이전트는 빌드·실행·테스트·검증기를 실행하지 않았다. 소스·문서를 읽은 상태이며 실제 화면과 호환성은 미확인이다.
+
+## 런타임 동봉
+
+GLFW DLL의 정적 import table에서 VCRUNTIME140.dll 의존성을 확인했다. 정식 VS Redist의 x64 VCRUNTIME140.dll과 원본 Microsoft 라이선스를 dependencies/glfw-3.4.bin.WIN64 아래에 동봉했다. DLL은 GLFW 바로 옆 lib-vc2022 폴더에 배치된다. Windows 10/11 x64의 UCRT·시스템 DLL·OpenGL 드라이버는 OS에서 제공한다. 설치·실행 확인은 사용자 담당이다.

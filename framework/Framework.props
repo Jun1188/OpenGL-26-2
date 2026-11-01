@@ -12,6 +12,7 @@
   <Target Name="CheckGraphicsFrameworkPlatform" BeforeTargets="PrepareForBuild">
     <Error Condition="'$(Platform)'!='x64'" Text="Bundled framework runtime DLLs require x64." />
     <Error Condition="!Exists('$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\lib-vc2022\glfw3.dll')" Text="Copy the complete framework dependencies." />
+    <Error Condition="!Exists('$(GraphicsFrameworkDirectory)dependencies\glfw-3.4.bin.WIN64\lib-vc2022\vcruntime140.dll')" Text="Copy the bundled app-local VCRUNTIME140 DLL beside GLFW." />
   </Target>
   <Target Name="DeployGraphicsRuntime" AfterTargets="Build">
     <ItemGroup>

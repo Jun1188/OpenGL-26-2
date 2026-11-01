@@ -124,7 +124,7 @@ inline void Application::requestClose() {
 
 inline bool Application::renderScene() {
     if (window_ == nullptr) {
-        return false;
+        return Diagnostics::fail(PipelineStage::Framebuffer,"Application::renderScene","No active window/context.");
     }
     detail::glfw().MakeContextCurrent(window_);
     int width = 0;
@@ -149,9 +149,10 @@ inline int Application::run(const ApplicationConfig& config) {
     Diagnostics::configure(config.diagnostics);
     Diagnostics::clear();
     if (running_) {
+        Diagnostics::fail(PipelineStage::Runtime,"Application::run","Recursive run() is not allowed.");
         return -1; // 콜백에서 run()을 재귀 호출하지 않는다.
     }
-    if(detail::applicationActive()) return -1;
+    if(detail::applicationActive()) {Diagnostics::fail(PipelineStage::Runtime,"Application::run","Only one active Application is supported.");return -1;}
     // /utf-8 encodes narrow strings; the Windows console must decode them as UTF-8.
     SetConsoleOutputCP(CP_UTF8);
     detail::applicationActive()=true;
@@ -163,6 +164,7 @@ inline int Application::run(const ApplicationConfig& config) {
             std::cerr << "Application initialization failed.\n";
             exitCode = -1;
         } else if (initHandler_ && !initHandler_(*this)) {
+            Diagnostics::fail(PipelineStage::Scene,"Application::initHandler","User initialization returned false.","Read the preceding API error; inspect the scene creation callback.");
             std::cerr << "User scene initialization failed.\n";
             exitCode = -1;
         } else {

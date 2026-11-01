@@ -32,7 +32,8 @@ inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
 }
 struct GpuVertex { float position[3], color[3], uv[2], normal[3]; };
 inline GLuint uploadTexture(const TextureImage& image,bool repeat) {
-    auto& api=gl();GLuint id=0;api.GenTextures(1,&id);if(!id)return 0;
+    auto& api=gl();GLuint id=0;api.GenTextures(1,&id);
+    if(!id){Diagnostics::fail(PipelineStage::Asset,"glGenTextures","Texture allocation failed.");return 0;}
     api.ActiveTexture(GL_TEXTURE0);api.BindTexture(GL_TEXTURE_2D,id);
     GLint previousAlignment=4;api.GetIntegerv(GL_UNPACK_ALIGNMENT,&previousAlignment);
     api.PixelStorei(GL_UNPACK_ALIGNMENT,1);
@@ -58,7 +59,7 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText);
     if(!fragment){gl.DeleteShader(vertex);return false;}
     shaderProgramID_=gl.CreateProgram();
-    if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return false;}
+    if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return Diagnostics::fail(PipelineStage::Shader,"glCreateProgram","Program allocation failed.");}
     gl.AttachShader(shaderProgramID_,vertex);gl.AttachShader(shaderProgramID_,fragment);gl.LinkProgram(shaderProgramID_);
     gl.DeleteShader(vertex);gl.DeleteShader(fragment);
     GLint success=0;gl.GetProgramiv(shaderProgramID_,GL_LINK_STATUS,&success);
@@ -106,7 +107,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
             if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return Diagnostics::fail(PipelineStage::VertexInput, "Renderer::upload", "Missing component or invalid mesh, indices, colors, UVs or normals.", "Inspect the entity's mesh data before GPU upload.", id);}
             for(std::size_t faceIndex=0;faceIndex<c->polyhedron.faces.size();++faceIndex) {
                 const auto& face=c->polyhedron.faces[faceIndex];
-                if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return false;}
+                if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Vertex count exceeds the GPU index range.");}
                 const auto first=GLuint(vertices.size());
                 Mesh normals=face;if(normals.vertexNormals.empty())recalculateNormals(normals);
                 for(std::size_t i=0;i<face.localVertices.size();++i) {
@@ -118,7 +119,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
                 }
                 const auto triangles=detail::triangles(face);
                 const auto outline=meshOutline(face,face.outline==OutlineMode::None?OutlineMode::FeatureEdges:face.outline);
-                if(triangles.size()>std::numeric_limits<GLsizei>::max()||outline.size()>std::numeric_limits<GLsizei>::max()){cleanup();return false;}
+                if(triangles.size()>std::numeric_limits<GLsizei>::max()||outline.size()>std::numeric_limits<GLsizei>::max()){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Draw count exceeds GLsizei range.");}
                 DrawRange range;range.entityId=id;range.faceIndex=faceIndex;range.firstIndex=indices.size();range.count=GLsizei(triangles.size());
                 for(auto index:triangles)indices.push_back(first+index);
                 range.outlineFirstIndex=indices.size();range.outlineCount=GLsizei(outline.size());
@@ -134,14 +135,14 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
         }
         for(std::size_t lineIndex=0;lineIndex<scene.getLines().size();++lineIndex) {
             const auto& line=scene.getLines()[lineIndex];
-            if(vertices.size()>std::numeric_limits<GLuint>::max()-2){cleanup();return false;}
+            if(vertices.size()>std::numeric_limits<GLuint>::max()-2){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload lines","Vertex count exceeds the GPU index range.");}
             const auto first=GLuint(vertices.size());
             for(auto p:{line.start,line.end})vertices.push_back({{p.x,p.y,p.z},{line.color.red,line.color.green,line.color.blue},{0,0},{0,0,0}});
             DrawRange range;range.lineId=lineIndex;range.firstIndex=indices.size();range.count=2;
             ranges.push_back(range);indices.insert(indices.end(),{first,first+1});
         }
         if(vertices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(detail::GpuVertex)
-            ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return false;}
+            ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Buffer byte size exceeds GLsizeiptr range.");}
         if(!detail::checkGl(PipelineStage::VertexInput, "before buffer upload")){cleanup();return false;}
         gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);
         gl.BufferData(GL_ARRAY_BUFFER,GLsizeiptr(vertices.size()*sizeof(detail::GpuVertex)),vertices.empty()?nullptr:vertices.data(),GL_STATIC_DRAW);
