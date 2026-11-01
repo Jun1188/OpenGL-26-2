@@ -1,4 +1,8 @@
-﻿## 공통 3D 실행 순서
+﻿# 2026-11-01 구조 갱신
+
+현재 API·main·실습20~22의 탑다운 흐름은 [현재 TOP_DOWN.md](../../docs/practice-20-23/TOP_DOWN.md)를 따른다. 아래 기존 설명은 보존한다. 그래프 데이터는 cf2567d의 현재 소스로 갱신했다. 빌드와 실행 테스트는 하지 않았다.
+
+## 공통 3D 실행 순서
 
 Framework.h → Application.h → Graphics.h/ModelLoader.h/Picking.h → detail inline 구현을 포함한다. src 호환용 cpp는 제거했다.
 

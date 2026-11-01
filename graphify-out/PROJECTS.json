@@ -70,7 +70,7 @@
     ]
   },
   {
-    "project": "openGL_3dAssign_20/openGL_assign_19.vcxproj",
+    "project": "openGL_3dAssign_20/openGL_assign_20.vcxproj",
     "sources": [
       "openGL_3dAssign_20/main.cpp",
       "openGL_3dAssign_20/Console.cpp"
@@ -78,7 +78,49 @@
     "entrypoints": [
       {
         "file": "openGL_3dAssign_20/main.cpp",
-        "line": 2,
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_21/openGL_assign_21.vcxproj",
+    "sources": [
+      "openGL_3dAssign_21/main.cpp",
+      "openGL_3dAssign_21/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_21/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_22/openGL_assign_22.vcxproj",
+    "sources": [
+      "openGL_3dAssign_22/main.cpp",
+      "openGL_3dAssign_22/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_22/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_23/openGL_assign_23.vcxproj",
+    "sources": [
+      "openGL_3dAssign_23/main.cpp",
+      "openGL_3dAssign_23/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_23/main.cpp",
+        "line": 3,
         "name": "main"
       }
     ]

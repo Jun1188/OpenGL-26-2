@@ -1,0 +1,83 @@
+﻿[
+  {
+    "project": "standard",
+    "archive": "dist\\portable-20261101\\standard.zip",
+    "zip_bytes": 1458046,
+    "limit_bytes": 3000000,
+    "source_files": 506,
+    "sha256": "a9ad6632d5b08c46c1fdfe424c647cd91722daa12878eff327aff14d28b4be66",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_15",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_15.zip",
+    "zip_bytes": 1390254,
+    "limit_bytes": 3000000,
+    "source_files": 502,
+    "sha256": "7073aec5357ae0c82443d60ea0e1434b0d548f6c27a82b9eca882a40ec9f0f5c",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_16",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_16.zip",
+    "zip_bytes": 1389855,
+    "limit_bytes": 3000000,
+    "source_files": 500,
+    "sha256": "63e2780332e749cc8dad53f99a909757a8e5481239f05b2b3d6e865295024907",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_17",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_17.zip",
+    "zip_bytes": 1388114,
+    "limit_bytes": 3000000,
+    "source_files": 500,
+    "sha256": "4766778418eea7edaf6694b972e986bb6aeb25342436ddd90d61e1dd4edfbd7f",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_18",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_18.zip",
+    "zip_bytes": 1387646,
+    "limit_bytes": 3000000,
+    "source_files": 500,
+    "sha256": "2754f1c8f1dcc6d28c6c41a4c4c67a88a334e60cab08b4cdc0fc76487fcd87fb",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_19",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_19.zip",
+    "zip_bytes": 1388271,
+    "limit_bytes": 3000000,
+    "source_files": 500,
+    "sha256": "7127cd407816aa43a4e2c0a90c8999fa59eecf90b75fbd9be51940b3616d0f13",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_20",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_20.zip",
+    "zip_bytes": 1392938,
+    "limit_bytes": 3000000,
+    "source_files": 502,
+    "sha256": "cfdd1d78b621d9219b3c84d44d84d35fc07001d44c0ad7b4fd0e0f380f2f4778",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_21",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_21.zip",
+    "zip_bytes": 1393944,
+    "limit_bytes": 3000000,
+    "source_files": 502,
+    "sha256": "123252fe50eff3189114cee69b94b1505769ef12bbbe99318e717b81a70591a7",
+    "build_execution_tests_validators": "not_run"
+  },
+  {
+    "project": "openGL_3dAssign_22",
+    "archive": "dist\\portable-20261101\\openGL_3dAssign_22.zip",
+    "zip_bytes": 1393825,
+    "limit_bytes": 3000000,
+    "source_files": 502,
+    "sha256": "feaef6e48639f0c53fefb92e05523d7fcf020de80f51f373e508c2f384a2df3a",
+    "build_execution_tests_validators": "not_run"
+  }
+]
