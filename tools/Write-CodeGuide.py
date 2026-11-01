@@ -15,7 +15,10 @@ PARTS={'pipeline':'1. 렌더링·호출 흐름','ownership':'2. 추상화·소�
 CSS='''body{margin:0;background:#f4f5f7;color:#202934;font:16px/1.8 system-ui,"Malgun Gothic",sans-serif}main{max-width:1120px;margin:auto;padding:32px}nav{padding:12px;background:#fff;border:1px solid #ccd4df;position:sticky;top:0;z-index:2}a{color:#1454a0;text-underline-offset:3px}h1,h2,h3{line-height:1.4}h2{margin-top:48px;border-bottom:2px solid #a7bdd4;padding-bottom:8px}h3{margin-top:28px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#152333;color:#e8f2fc;padding:18px;font:14px/1.7 Consolas,monospace;border-radius:8px}code{font-family:Consolas,monospace}table{border-collapse:collapse;width:100%;background:white;margin:20px 0}td,th{border:1px solid #ccd4df;padding:10px;text-align:left;vertical-align:top}th{background:#e6edf5}aside,.box{background:white;border-left:4px solid #3377ac;padding:18px;margin:20px 0}.warn{border-color:#b46a13;background:#fff5e5}details{background:white;border:1px solid #d4dce6;margin:14px 0;padding:14px}summary{cursor:pointer;font-weight:650}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.node{display:inline-block;border:1px solid #829ebc;border-radius:7px;background:white;padding:12px}.line{display:block;scroll-margin-top:100px;line-height:1.6}.line:target{background:#485b21}.small{font-size:14px;color:#516171}input[type=search]{padding:12px;width:90%;font:inherit}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}svg{max-width:100%;height:auto}label{display:inline-block;margin:8px 15px 8px 0}footer{margin-top:48px;border-top:1px solid #ccd4df;padding:20px}.active{background:#dbeedb;border-color:#438243}.tag{font-size:13px;background:#e6edf5;padding:3px 8px}'''
 JS='''document.querySelectorAll('input[data-search]').forEach(x=>x.addEventListener('input',()=>{let q=x.value.toLowerCase();document.querySelectorAll('[data-symbol]').forEach(d=>d.hidden=!d.dataset.symbol.toLowerCase().includes(q));}));function reveal(){const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e){let d=e.closest('details');if(d)d.open=true;e.scrollIntoView();}}addEventListener('hashchange',reveal);if(location.hash)reveal();'''
 def esc(s):return html.escape(str(s))
-def write(p,s):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(s,encoding='utf-8-sig',newline='\n')
+def write(p,s):
+    p.parent.mkdir(parents=True,exist_ok=True)
+    temporary=p.with_name(p.name+'.guide.tmp')
+    temporary.write_text(s,encoding='utf-8-sig',newline='\n');os.replace(temporary,p)
 def code(s):return '<pre><code>'+esc(s)+'</code></pre>'
 def table(head,rows):return '<table><thead><tr>'+''.join('<th>'+esc(x)+'</th>' for x in head)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+str(x)+'</td>' for x in row)+'</tr>' for row in rows)+'</tbody></table>'
 def flow(items):return '<div class="flow">'+'<b>→</b>'.join('<span class="node">'+esc(x)+'</span>' for x in items)+'</div>'
@@ -29,7 +32,7 @@ def locate(file,symbol):
 def ref(file,symbol,label=None):return source_link(file,locate(file,symbol),label or symbol)
 def page(path,title,body,scope=None,extra=''):
     up='../' if scope else ''
-    nav='<a href="'+up+'index.html">목차</a> · <a href="'+up+'exam.html">시험 행동 그래프</a>'
+    nav='<a href="'+up+'index.html">목차</a> · <a href="'+up+'exam.html">시험 행동 그래프</a> · <a href="'+up+'api.html">요구별 API 호출</a> · <a href="'+up+'api-reference.html">전체 API 검색</a>'
     if scope:nav+=' · '+' · '.join('<a href="'+p+'.html">'+v+'</a>' for p,v in PARTS.items())+' · <a href="graphify-out/graph.html">graphify 그래프</a>'
     footer='소스와 graphify AST/정의 앵커를 대조한 학습 자료다. 실행 순서 설명은 실제 콜백 코드로 보완했다. 그래프의 동명 심볼·함수 포인터 간선은 확정 호출로 해석하지 않는다. 빌드·실행·테스트·검증기·브라우저 시각 확인은 수행하지 않았고 사용자에게 맡긴다. ZIP을 만들지 않았다.'
     write(path,'<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><style>'+CSS+'</style></head><body><main><nav>'+nav+'</nav><h1>'+esc(title)+'</h1>'+body+'<footer>'+footer+'</footer></main><script>'+JS+extra+'</script></body></html>')
@@ -92,7 +95,7 @@ PURPOSE={
 'rotateJoint':'연결 위치와 크기를 유지하면서 회전 기저를 변경한다.',
 'conveyorCornerPose':'직선 → 안쪽 코너 중심 원호 → 직선의 거리에서 위치·접선·yaw를 계산한다. 끝에서 처음으로 순환한다.',
 'follow':'DistancePath 샘플을 엔티티 위치와 +Z 기준 Y 회전에 반영한다.',
-'cameraFacingWall':'시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 작은 면을 선택한다. 수직 시선에는 옆벽이 없을 수 있다.',
+'cameraFacingWall':'시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.',
 'openRoomWall':'선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.',
 'openFace':'진행률 [0,1]로 이동 또는 상단 피벗 Y축 축소를 적용한다. 완전 개방은 숨기고 0 배율 특이행렬을 피한다.',
 'stepRoomBody':'방 내부에서는 로컬 반사/중력을 계산하고 released 뒤에는 월드 중력으로 적분한다.',
@@ -137,10 +140,10 @@ TARGET={
  'trace':'오른쪽 방향키 → position.x += speed*dt 한 번 → root 이동 → 원근/평면도/정면도가 같은 M을 각각 다른 P,V로 읽는다. renderViews 안에서 onUpdate를 다시 호출하지 않는다.',
  'pitfall':'glViewport만 바꾸면 glClear가 영역 밖까지 지울 수 있다. 3뷰에 WGL 컨텍스트 세 개를 만들 필요가 없다. 포신은 몸체 중심, 깃대는 밑점 피벗을 유지한다.'},
 '23':{'flow':['WASD/속도/J/O/I','CharacterBody·난수 배치','충돌/반전/착지','보행 루트·관절','벽별 개방 진행률','Front cull + 렌더'],
- 'state':'Console은 CharacterBody, JointRig ID, 장애물 Bounds3 3개, 벽별 open/doors와 유지되는 mt19937 엔진을 소유한다. 실제 모델·부모 관계는 Scene에 있다.',
- 'math':'f=normalize(target-position). 각 옆벽의 바깥 법선 n을 월드로 옮겨 dot(n,f)가 가장 작은 면을 선택한다. 상단 피벗 C에 T(C)*S(1,1-progress,1)*T(-C)를 적용한다. 보행은 이동 거리의 sin 위상으로 좌우를 반대로, 팔은 같은 쪽 다리와 반대로 흔든다.',
- 'trace':'I → 기존 난수 엔진의 다음 수열로 장애물3개를 다시 배치. 카메라를 옆으로 공전 → O → 그 순간의 벽 ID 저장 → 해당 벽의 개방 목표 토글 → 1초 동안 축소/복원. 카메라를 돌려도 진행 중 대상이 바뀌지 않는다.',
- 'pitfall':'시드2301을 initScene에서 매번 주면 같은 배치가 반복된다. 바닥/천장은 O 선택에서 제외한다. Front cull로 이미 가려진 가까운 벽은 외부 시점에서 축소가 눈에 잘 보이지 않을 수 있다. 문 선택과 컬링은 다른 처리다.'},
+ 'state':'Console은 CharacterBody, JointRig ID, 장애물 Bounds3 3개, open/doors와 단일 activeWall, 유지되는 mt19937 엔진을 소유한다. 실제 모델·부모 관계는 Scene에 있다.',
+ 'math':'f=normalize(target-position). 각 옆벽의 바깥 법선 n을 월드로 옮겨 dot(n,f)가 가장 큰 양수인 면을 선택한다. 상단 피벗 C에 T(C)*S(1,1-progress,1)*T(-C)를 적용한다. 보행은 이동 거리의 sin 위상으로 좌우를 반대로, 팔은 같은 쪽 다리와 반대로 흔든다.',
+ 'trace':'I → 난수 엔진의 다음 수열로 장애물3개 배치 + 옆벽4개 복원. O → 보이는 맞은편 벽 ID를 activeWall에 저장 → 축소. 카메라 공전 후 다시 O → 저장한 같은 벽 복원. 완전 복원 후 activeWall을 해제하여 다음 선택을 허용한다.',
+ 'pitfall':'시드2301을 initScene에서 매번 주면 같은 배치가 반복된다. 바닥/천장은 O 선택에서 제외한다. 벽별 상태만 두고 매 입력마다 새 벽을 선택하면 이전 벽이 열린 채 남는다. activeWall로 열기/복원을 한 쌍으로 묶는다. 문 선택과 컬링은 다른 처리다.'},
 'standard':{'flow':['0 기존 Motion / 7 Grid / 8 Room','CPU Scene 구성','입력·업데이트','자동 Motion 갱신','V: 1뷰/3뷰','피킹·D 단계 진단'],
  'state':'Console은 모드, MotionId/LayerId, 거리 시계와 RoomBody를 갖는다. Application은 그 Console을 소유하지 않고 등록된 람다가 참조로 접근한다.',
  'math':'GridLayout p_world=frame*(origin+extent*ratio). cells=(6,1,4)일 때 cellCenter는 (index+.5)/cells 비율이다. 기존 반사 레이어는 음수 determinant가 가능하므로 winding 보정과 노멀 계산을 따로 본다.',
@@ -203,6 +206,11 @@ def block(file,line):
 def purpose(name,is_class,file):
     leaf=name.split('::')[-1]
     if is_class:return OBJECTS.get(leaf,'값·자원·상태를 묶는 타입이다. 아래 멤버 선언과 초기값을 보고 소유 데이터와 참조/ID를 구분한다. 관련 함수는 같은 파일/타입의 항목을 함께 읽는다.')
+    catalog=ROOT/'framework/docs/API_KO.json'
+    if not hasattr(purpose,'api_records'):
+        purpose.api_records=json.loads(catalog.read_text(encoding='utf-8-sig')) if catalog.exists() else []
+    matches=[r for r in purpose.api_records if r['file']==file and r['name']==leaf]
+    if matches:return matches[0]['description']
     if leaf in PURPOSE:return PURPOSE[leaf]
     if leaf.startswith('get'):return '보관된 상태의 접근점이다. 반환 선언이 값/참조/포인터/optional 중 무엇인지 확인한다. 읽기 접근이 자원의 소유권 이전을 뜻하지는 않는다.'
     if leaf.startswith('valid'):return '호출 전에 필요한 값·범위·행렬 조건을 검사한다. 아래 조건식의 AND/OR와 유한성·인덱스 검사를 순서대로 읽는다.'
@@ -254,7 +262,7 @@ def ownership(scope):
       '20':'Console: clock_ + boxes_[5] + stripes_[30]\nScene: 바닥/벨트/상자/줄무늬\n상자 Entity → 번호 joint(4방향) → 숫자 line\n상자와 줄무늬는 같은 거리 시계를 읽음',
       '21':'Console: roomBounds_/roomAngle_/roomSpinAngle_/floorOpen_/objects_\nScene root: room 표시 + 각 box/sphere 표시 (부모 회전 중복 없음)\nBodyObject: entity ID ↔ RoomBody(local 또는 released world) + releasedRotation\ne: 모든 body release / v: 방 Y자전만 토글',
       '22':'root_ (탱크 XZ 이동)\n  ├ lower_[2] (높이와 접지)\n  └ central_ (높이 + Y자전)\n      └ upper_[2] (반원 교환)\n          ├ guns_[2] (몸체 중심 yaw) → 포신 표시\n          └ poles_[2] (밑점 pitch) → 깃대 표시\nground는 탱크 루트 밖',
-      '23':'Console: CharacterBody + JointRig + obstacles_[3] + random_ + doors_[4]/open_[4]\nScene: stage와 obstacle 모델, robot root\nrobot root (feet + yaw)\n  ├ torso 표시\n  ├ head joint → head/nose 표시\n  ├ shoulders[2] → arm 표시\n  └ hips[2] → leg 표시\n충돌 대리 상자는 root의 논리 상태이며 개별 팔다리 메시와 다름',
+      '23':'Console: CharacterBody + JointRig + obstacles_[3] + random_ + doors_[4]/open_[4] + 단일 activeWall\nScene: stage의 네 옆벽과 obstacle 모델, robot root\nrobot root (feet + yaw)\n  ├ torso 표시\n  ├ head joint → head/nose 표시\n  ├ shoulders[2] → arm 표시\n  └ hips[2] → leg 표시\n충돌 대리 상자는 root의 논리 상태이며 개별 팔다리 메시와 다름',
       'standard':'main의 Console → demo_ 모드\n0: MotionId/LayerId → Scene entity binding\n7: AnimationClock/DistancePath → 번호 상자\n8: RoomBody → room/cube ID\nV: 동일 Scene을 다른 pass로 읽기 (상태 복제 없음)',
       'framework':'Application\n  ├ Scene → Component_Poly/Model/Face + Line3D + MotionSystem\n  ├ Camera + RenderOptions\n  ├ Renderer → VAO/VBO/EBO/program + texture cache\n  ├ optional AssetLoader → weak image cache\n  └ callback std::function → 외부 Console 참조\nModule → HMODULE / GLFWwindow* → 네이티브 창 핸들'}
     return (section('이 대상의 응용 상태',para(info['state'])+code(layouts[scope]))+section('소유 관계와 의존 방향',para('아래 표는 실습의 Console 사용 패턴이다. framework/examples의 독립 예제는 Console 없이 main이 응용 상태를 소유할 수도 있다.')+flow(['main: Console 생명주기','Application& 빌림','Scene ID로 상태 반영','Renderer는 Scene을 읽음'])+
@@ -317,7 +325,7 @@ def symbols(scope,extraction,all_sources):
 def notes(scope):
     info=TARGET[scope]
     body=section('계산을 코드와 연결',para(info['math'])+code(info['trace']))+lighting(scope)
-    if scope=='23':body+=section('카메라 at·벽 선택·컬링을 분리',para('at을 target이라는 점으로 해석한다. 시선 벡터는 f=normalize(target-position)이다. 옆벽의 바깥 법선과 f의 내적이 가장 작은 면이 카메라를 향하는 벽이다. 예: position=(8,5,11), target=(0,1,0)이면 +Z 벽이 선택된다. +X 쪽으로 카메라를 옮기면 +X 벽이 선택될 수 있다. 동률은 작은 face ID를 유지한다. 완전 수직 시선은 선택하지 않는다.')+para('선택 대상은 o를 누를 때 고정한다. 벽별 개방 목표와 진행률을 따로 보관하므로 카메라 이동으로 애니메이션 대상이 튀지 않는다. 축소에 변형된 노멀 대신 원래 기하의 바깥 노멀을 사용한다. Front cull은 삼각형 winding으로 처리하므로 문 선택 계산과 별개다.'))
+    if scope=='23':body+=section('카메라 at·벽 선택·컬링을 분리',para('at은 target이라는 점이다. 시선 f=normalize(target-position)과 옆벽 바깥 법선 n의 내적이 가장 큰 양수인 면을 선택한다. 외부에서 방 안을 볼 때 화면에 보이는 맞은편 벽이다. 초기 position=(8,5,11), target=(0,1,0)이면 -Z 벽(face1)이 선택된다. 동률은 작은 face ID를 유지하며 완전 수직 시선은 선택하지 않는다.')+para('첫 o에서 activeWall을 저장한다. 이후 o는 카메라를 옮겼어도 같은 벽의 목표를 반전한다. 복원이 끝나야 선택을 해제한다. 이 정책은 여러 벽이 열린 채 남는 것을 막는다. 초기화 시 addRoom(...,false)와 네 옆벽의 progress=0으로 모두 복원하며 윤곽선을 추가한다. 축소된 노멀 대신 원래 기하의 바깥 노멀을 선택 계산에 쓴다. Front cull은 winding으로 처리하므로 문 선택 계산과 별개다.'))
     body+=section('실패 증상 → 먼저 볼 위치',table(['증상','점검 순서'],[
        ['콘솔만 뜨고 종료','첫 ERROR의 stage/Source/Operation → UTF-8 경로·DLL → 컨텍스트 → 셰이더 순서. 예외 catch 줄을 실제 결함 줄과 혼동하지 않는다.'],
        ['객체가 안 보임','정점/인덱스 → 모델/부모 변환 → 카메라/클립 → winding/culling → depth → shader/tint 순서로 좁힌다.'],
@@ -362,14 +370,14 @@ def exam():
     for key,title,_ in nodes:
         x,y=positions[key];body+=f'<a href="#{key}"><rect x="{x}" y="{y}" width="190" height="55" rx="8" fill="#e3edf7" stroke="#577694"/><text x="{x+10}" y="{y+32}" font-size="15">{esc(title)}</text></a>'
     body+='</svg>'
-    for key,title,description in nodes:body+='<section id="'+key+'" class="box action"><h3>'+title+'</h3><p>'+description+'</p></section>'
+    for key,title,description in nodes:body+='<section id="'+key+'" class="box action"><h3>'+title+'</h3><p>'+description+'</p><a href="api.html#'+('scene' if key=='read' else key)+'">이 행동의 API 호출 순서 보기</a></section>'
     body+=section('요구에 따른 분기와 재사용할 API',table(['문제 문장','먼저 할 일','이 저장소에서 연결할 것'],[
       ['부품이 연결된 채 회전','관절 위치를 정적 장면에서 먼저 맞춘다. 그 다음 각도만 변화.','addJoint/rotateJoint → 22·23'],
       ['끝에서 처음, 같은 간격','총 경로 길이와 공통 거리 시계. 개별 offset을 더한다.','conveyorCornerPose/DistancePath/AnimationClock → 20'],
       ['기울어진 방/바닥 개방','내부 좌표계와 월드 좌표계 전환, released 상태부터 설계.','RoomBody/stepRoomBody/releaseBody → 21'],
       ['장애물/점프/착지','발 위치·반폭·수직속도·접지를 정의. 충돌 후 표시.','CharacterBody/jump/stepCharacter → 23'],
       ['같은 장면 여러 시점','단일 Scene과 한 update를 유지. 렌더만 분할.','RenderPass/threeViews/renderViews → 22'],
-      ['카메라 쪽 벽 열기','target-position과 바깥 법선의 내적, 키 입력 시 선택 고정.','cameraFacingWall/openRoomWall → 23'],
+      ['화면에 보이는 맞은편 벽 열기','시선과 바깥 법선의 양의 내적 최대, 선택 고정 후 같은 벽 복원.','cameraFacingWall/openRoomWall + activeWall → 23'],
       ['랜덤 장애물','시드는 실행 시, 엔진 수명은 리셋보다 길게. 제한 재추첨·비겹침.','randomFreeBox + mt19937 → 23'],
       ['그림자처럼 어둡게','요구가 방향광 명암인지 투영 그림자인지 구분한다.','RenderOptions.lighting / Shaders.h. cast shadow는 현재 없음.']]))
     body+=section('혼합·변형 문제 세 가지를 읽는 방법',
@@ -400,17 +408,23 @@ def main():
         page(OUT/scope/'symbols.html',TITLES[scope]+' · '+PARTS['symbols'],symbols(scope,extraction,all_sources),scope)
         page(OUT/scope/'notes.html',TITLES[scope]+' · '+PARTS['notes'],notes(scope),scope)
     sources(all_sources);exam()
-    body=para('각 대상의 3개 핵심 부분과 보충 설명을 별도 HTML로 나눴다. 코드·그래프의 현재 source location을 연결한다. 공통 framework를 정규 원본으로 읽고 SDK/복사본을 중복 분석하지 않는다.')
+    body=para('중간고사 혼합·변형 문제를 읽고 무엇부터 구현할지 결정하는 자료다. 공통 행동과 API 호출을 먼저 배우고 실습은 적용 예시로 읽는다. 시험 규정·시간 제한·standard 사용 허용 여부는 실제 안내를 확인한다.')
+    body+=section('1. 시험 문제에서 구현 행동으로',flow(['요구사항 카드','행동 분기 선택','API 호출 순서','정적 장면','입력/갱신/표시','요구사항 대조'])+para('<a href="exam.html">공통 행동 그래프 열기</a> — 요구사항 분해, 기능별 우선순위, 혼합 문제와 증상별 복귀 지점.'))
+    body+=section('2. 행동을 코드로 연결',para('<a href="api.html">요구사항별 API 호출 순서</a> — 호출 골격·좌표 계약·실습 예시. <a href="api-reference.html">공개 API 전체 한글 검색</a> · <a href="../../framework/docs/API_KO.md">API_KO.md</a>. 모든 공개 함수 선언 바로 위에도 한글 기능 주석이 있다.'))
+    body+=section('3. 실습별 적용 예시와 구조 참고',para('아래는 공통 행동을 실제 코드에 적용한 예시다. 각 대상의 호출/렌더 흐름, 추상화/소유 구조, 객체/함수, 계산/명암을 나눴다. SDK와 framework 배포 사본은 중복 분석하지 않는다.'))
     body+='<div class="cards">'
     for scope,n,e in stats:
         body+='<section class="box"><h2>'+TITLES[scope]+'</h2>'+''.join('<p><a href="'+scope+'/'+key+'.html">'+value+'</a></p>' for key,value in PARTS.items())+'<p><a href="'+scope+'/graphify-out/graph.html">독립 graphify 그래프</a> · '+str(n)+'노드/'+str(e)+'간선</p></section>'
-    body+='</div>'+section('시험장에서 무엇부터 할까?',para('<a href="exam.html">중간고사 코딩테스트 행동 그래프</a> — 요구사항 카드, 우선 행동 분기, 혼합·변형 예시, 책임 골격과 증상별 복귀 지점. 실습별 복사 순서가 아닌 일반 구현 전략이다.'))
+    body+='</div>'
     body+=section('그림자·명암',para('각 notes 페이지에서 방향광 명암/깊이 가림/Front culling/투영 그림자를 구분한다. 현재 셰이더에는 cast shadow 기법이 없다.'))
     body+=section('근거와 한계',para('code-only graphify AST + source-definition anchors, 외부 LLM/API 호출 0. 기존 query CLI는 UTF-8 BOM 입력을 읽지 못해 직접 UTF-8-SIG JSON 로딩으로 근거를 읽었다. 새 6개 scope 그래프를 각각 생성했다. 생성 그래프의 dangling endpoint 및 동일 노드쌍 간선 축약은 GRAPH_HEALTH.md에 남아 있으므로 완전한 동적 호출 그래프로 해석하지 않는다.')+
        table(['대상','근거/건강 보고서'],[[TITLES[s],'<a href="'+s+'/graphify-out/GRAPH_REPORT.md">GRAPH_REPORT</a> · <a href="'+s+'/graphify-out/GRAPH_HEALTH.md">GRAPH_HEALTH</a> · <a href="'+s+'/graphify-out/SOURCE_MANIFEST.json">소스 해시</a>'] for s in SCOPES]))
     body+=para('<a href="sources.html">전체 원문 줄 보기</a> · <a href="../../openGL_3dAssign_23/README.md">23 변경 설명</a>')
     page(OUT/'index.html','OpenGL 코드 학습 · 20~23 / framework / standard',body)
-    write(OUT/'GUIDE_MANIFEST.json',json.dumps({'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scopes':stats,'html_lessons':27,'no_build_test_browser_execution':True,'query_cli':'BOM read failure; source-backed JSON fallback','graph_cost':'code-only; external LLM input/output tokens 0'},ensure_ascii=False,indent=2)+'\n')
-    print('Authored 24 subject lessons + exam + sources + index = 27 HTML files, with six graphify outputs. No builds/tests/browser execution.')
+    import importlib.util
+    api_spec=importlib.util.spec_from_file_location('exam_api',ROOT/'tools/Write-ExamApi.py')
+    api_module=importlib.util.module_from_spec(api_spec);api_spec.loader.exec_module(api_module);api_module.main()
+    write(OUT/'GUIDE_MANIFEST.json',json.dumps({'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'scopes':stats,'html_lessons':29,'no_build_test_browser_execution':True,'query_cli':'BOM read failure; source-backed JSON fallback','graph_cost':'code-only; external LLM input/output tokens 0'},ensure_ascii=False,indent=2)+'\n')
+    print('Authored 24 subject lessons + exam + sources + index + 2 API guides = 29 HTML files, with six graphify outputs. No builds/tests/browser execution.')
 
 if __name__=='__main__':main()

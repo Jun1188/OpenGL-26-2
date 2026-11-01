@@ -34,8 +34,8 @@ producer_suppression_examples:
 examples:
   - include_application_application -> include_application_h_function edges=8 relations=['references'] locations=['L47', 'L48', 'L53', 'L54', 'L55', 'L56', 'L57', 'L58'] contexts=['field']
   - include_graphics_scene -> include_graphics_h_vector edges=6 relations=['references'] locations=['L21', 'L22', 'L23', 'L24', 'L25', 'L26'] contexts=['field']
-  - include_model_planefigure -> include_model_h_vector edges=6 relations=['references'] locations=['L68', 'L76', 'L77', 'L78', 'L79', 'L80'] contexts=['field']
-  - include_graphics_renderer -> glint edges=4 relations=['references'] locations=['L178', 'L179', 'L180', 'L181'] contexts=['field']
+  - include_model_planefigure -> include_model_h_vector edges=6 relations=['references'] locations=['L69', 'L77', 'L78', 'L79', 'L80', 'L81'] contexts=['field']
+  - include_graphics_renderer -> glint edges=4 relations=['references'] locations=['L245', 'L246', 'L247', 'L248'] contexts=['field']
   - detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L51', 'L55'] contexts=['call', 'parameter_type', 'return_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
 Cross-program calls marked AMBIGUOUS: 0. Source anchors: 174.

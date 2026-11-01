@@ -4,6 +4,7 @@ import argparse
 import collections
 import hashlib
 import json
+import os
 import re
 import subprocess
 import zipfile
@@ -17,7 +18,8 @@ OUTPUTS={'BEFORE_AFTER.md','CHANGE_MANIFEST.json','COMMITS.md','PACKAGES.json'}
 
 def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(value,encoding='utf-8-sig',newline='\n')
+    temporary=path.with_name(path.name+'.report.tmp')
+    temporary.write_text(value,encoding='utf-8-sig',newline='\n');os.replace(temporary,path)
 
 def digest(value):
     return hashlib.sha256(value).hexdigest() if value is not None else None

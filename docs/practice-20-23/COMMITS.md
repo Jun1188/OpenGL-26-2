@@ -16,5 +16,8 @@
 - `e2f769e step 12: document resumed changes and refresh source graphs`
 - `fe6b251 step 13: fix UTF-8 source paths and explain installed VS toolsets`
 - `4075801 step 14: randomize robot obstacles and select doors from camera direction`
+- `687623c step 15: add scoped graphify HTML lessons and exam action graph`
+- `904b286 step16: restore the active room wall and localize practice consoles`
+- `819f554 step17: document public APIs in Korean and synchronize framework copies`
 
 이 문서와 구조 그래프·배포 결과를 담는 마지막 커밋의 해시는 최종 응답 및 git log에서 확인한다. 원격 push는 이번 작업에 포함하지 않았다.

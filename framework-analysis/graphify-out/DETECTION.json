@@ -34,9 +34,9 @@
     "video": []
   },
   "total_files": 26,
-  "total_words": 18512,
-  "needs_graph": false,
-  "warning": "Corpus is ~29,408 words - fits in a single context window. You may not need a graph.",
+  "total_words": 21189,
+  "needs_graph": true,
+  "warning": null,
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\Framework.props",

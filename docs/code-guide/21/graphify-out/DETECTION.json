@@ -34,9 +34,9 @@
     "video": []
   },
   "total_files": 26,
-  "total_words": 19176,
+  "total_words": 21700,
   "needs_graph": true,
-  "warning": "Large corpus: 416 files · ~2,492,993 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
+  "warning": "Large corpus: 471 files · ~3,210,313 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.gitattributes",
@@ -346,10 +346,13 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\dist\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\20\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\21\\graphify-out\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\22\\graphify-out\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\23\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\framework\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\standard\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\graphify-out\\",
-    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\"
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\tools\\__pycache__\\"
   ],
   "graphifyignore_patterns": 76,
   "scan_root": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2"

@@ -34,8 +34,8 @@ producer_suppression_examples:
 examples:
   - framework_detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L51', 'L55'] contexts=['call', 'parameter_type', 'return_type']
   - framework_detail_patterns_patternsystem_screenonplane -> vec3 edges=4 relations=['calls', 'references'] locations=['L332', 'L339'] contexts=['call', 'generic_arg', 'parameter_type']
-  - framework_include_gridlayout_gridlayout_position -> framework_include_gridlayout_h_vec3 edges=3 relations=['calls', 'references'] locations=['L17', 'L23'] contexts=['call', 'generic_arg', 'parameter_type']
-  - framework_include_gridlayout_gridlayout_positioninparent -> framework_include_gridlayout_h_vec3 edges=3 relations=['calls', 'references'] locations=['L46', 'L52'] contexts=['call', 'generic_arg', 'parameter_type']
+  - framework_include_gridlayout_gridlayout_position -> framework_include_gridlayout_h_vec3 edges=3 relations=['calls', 'references'] locations=['L19', 'L25'] contexts=['call', 'generic_arg', 'parameter_type']
+  - framework_include_gridlayout_gridlayout_positioninparent -> framework_include_gridlayout_h_vec3 edges=3 relations=['calls', 'references'] locations=['L51', 'L57'] contexts=['call', 'generic_arg', 'parameter_type']
   - framework_detail_objloader_objtext -> string edges=3 relations=['references'] locations=['L74'] contexts=['generic_arg', 'parameter_type', 'return_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
 Cross-program calls marked AMBIGUOUS: 0. Source anchors: 184.

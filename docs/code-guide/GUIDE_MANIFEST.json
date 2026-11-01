@@ -1,5 +1,5 @@
 ﻿{
-  "source_commit": "40758016603608929e693ba222680c3fbfedbc72",
+  "source_commit": "819f55458a0cd3b354248711f4367471bd29db57",
   "scopes": [
     [
       "framework",
@@ -28,11 +28,11 @@
     ],
     [
       "23",
-      1289,
-      1963
+      1292,
+      1966
     ]
   ],
-  "html_lessons": 27,
+  "html_lessons": 29,
   "no_build_test_browser_execution": true,
   "query_cli": "BOM read failure; source-backed JSON fallback",
   "graph_cost": "code-only; external LLM input/output tokens 0"

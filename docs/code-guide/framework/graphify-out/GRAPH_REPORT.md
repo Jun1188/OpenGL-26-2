@@ -1,7 +1,8 @@
 ﻿# Graph Report - framework  (2026-11-01)
 
 ## Corpus Check
-- Corpus is ~29,423 words - fits in a single context window. You may not need a graph.
+- 26 files · ~21,189 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
 - 1269 nodes · 1956 edges · 89 communities (67 shown, 10 thin omitted)
@@ -9,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `40758016`
+- Built from commit: `819f5545`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
