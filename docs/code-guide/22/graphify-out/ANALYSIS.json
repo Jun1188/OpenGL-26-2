@@ -1,0 +1,238 @@
+﻿{
+  "gods": [
+    {
+      "id": "framework_detail_native_glapi",
+      "label": "GlApi",
+      "degree": 86
+    },
+    {
+      "id": "framework_include_graphics_scene",
+      "label": "Scene",
+      "degree": 71
+    },
+    {
+      "id": "framework_include_application_application",
+      "label": "Application",
+      "degree": 54
+    },
+    {
+      "id": "opengl_3dassign_22_console_console",
+      "label": "Console",
+      "degree": 42
+    },
+    {
+      "id": "framework_include_graphics_renderer",
+      "label": "Renderer",
+      "degree": 40
+    },
+    {
+      "id": "framework_include_motion_motionsystem",
+      "label": "MotionSystem",
+      "degree": 35
+    },
+    {
+      "id": "framework_include_model_planefigure",
+      "label": "PlaneFigure",
+      "degree": 34
+    },
+    {
+      "id": "framework_detail_native_glfwapi",
+      "label": "GlfwApi",
+      "degree": 30
+    },
+    {
+      "id": "framework_include_patterns_patternsystem",
+      "label": "PatternSystem",
+      "degree": 25
+    },
+    {
+      "id": "framework_include_model_component_poly",
+      "label": "Component_Poly",
+      "degree": 18
+    }
+  ],
+  "surprises": [
+    {
+      "source": "main()",
+      "target": "run",
+      "source_files": [
+        "openGL_3dAssign_22/main.cpp",
+        "framework/include/Application.h"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `run` unexpectedly reaches hub `main()`"
+    },
+    {
+      "source": "main()",
+      "target": "setFocusHandler",
+      "source_files": [
+        "openGL_3dAssign_22/main.cpp",
+        "framework/include/Application.h"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `setFocusHandler` unexpectedly reaches hub `main()`"
+    },
+    {
+      "source": "main()",
+      "target": "setInitHandler",
+      "source_files": [
+        "openGL_3dAssign_22/main.cpp",
+        "framework/include/Application.h"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `setInitHandler` unexpectedly reaches hub `main()`"
+    },
+    {
+      "source": "main()",
+      "target": "setModifiedKeyHandler",
+      "source_files": [
+        "openGL_3dAssign_22/main.cpp",
+        "framework/include/Application.h"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `setModifiedKeyHandler` unexpectedly reaches hub `main()`"
+    },
+    {
+      "source": "main()",
+      "target": "setRenderHandler",
+      "source_files": [
+        "openGL_3dAssign_22/main.cpp",
+        "framework/include/Application.h"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `setRenderHandler` unexpectedly reaches hub `main()`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Application` connect `framework 코드 구조` to `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`?",
+      "why": "High betweenness centrality (0.001) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Scene` connect `framework 코드 구조` to `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, ` 코드 구조`, `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`?",
+      "why": "High betweenness centrality (0.001) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `GlApi` connect `framework 코드 구조` to `framework 코드 구조`, `framework 코드 구조`, `framework 코드 구조`?",
+      "why": "High betweenness centrality (0.001) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `handle_`, `module`, `ready` to the rest of the system?",
+      "why": "722 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `framework 코드 구조` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.024096385542168676 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `framework 코드 구조` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.03389830508474576 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `framework 코드 구조` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.034482758620689655 - nodes in this community are weakly interconnected."
+    }
+  ],
+  "cohesion": {
+    "0": 0.024096385542168676,
+    "1": 0.03389830508474576,
+    "2": 0.034482758620689655,
+    "3": 0.07088989441930618,
+    "4": 0.06183574879227053,
+    "5": 0.09408033826638477,
+    "6": 0.08084163898117387,
+    "7": 0.08534850640113797,
+    "8": 0.057057057057057055,
+    "9": 0.08907563025210084,
+    "10": 0.05714285714285714,
+    "11": 0.058823529411764705,
+    "12": 0.0625,
+    "13": 0.0625,
+    "14": 0.06666666666666667,
+    "15": 0.08045977011494253,
+    "16": 0.08,
+    "17": 0.21739130434782608,
+    "18": 0.08333333333333333,
+    "19": 0.1380952380952381,
+    "20": 0.16666666666666666,
+    "21": 0.10526315789473684,
+    "22": 0.15204678362573099,
+    "23": 0.17647058823529413,
+    "24": 0.2833333333333333,
+    "25": 0.13333333333333333,
+    "26": 0.2,
+    "27": 0.13333333333333333,
+    "28": 0.15384615384615385,
+    "29": 0.15384615384615385,
+    "30": 0.14285714285714285,
+    "31": 0.28205128205128205,
+    "32": 0.16666666666666666,
+    "33": 0.15384615384615385,
+    "34": 0.15384615384615385,
+    "35": 0.20512820512820512,
+    "36": 0.16666666666666666,
+    "37": 0.16666666666666666,
+    "38": 0.16666666666666666,
+    "39": 0.22727272727272727,
+    "40": 0.18181818181818182,
+    "41": 0.36363636363636365,
+    "42": 0.18181818181818182,
+    "43": 0.2,
+    "44": 0.2,
+    "45": 0.2,
+    "46": 0.2,
+    "47": 0.2,
+    "48": 0.2,
+    "49": 0.2,
+    "50": 0.2222222222222222,
+    "51": 0.2222222222222222,
+    "52": 0.25,
+    "53": 0.25,
+    "54": 0.25,
+    "55": 0.25,
+    "56": 0.2857142857142857,
+    "57": 0.2857142857142857,
+    "58": 0.2857142857142857,
+    "59": 0.3333333333333333,
+    "60": 0.3333333333333333,
+    "61": 0.4,
+    "62": 0.4,
+    "63": 0.5,
+    "64": 0.5,
+    "65": 0.5,
+    "66": 0.6666666666666666,
+    "67": 0.6666666666666666,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0
+  }
+}

@@ -1,0 +1,16 @@
+﻿[
+  {
+    "project": "openGL_3dAssign_22/openGL_assign_22.vcxproj",
+    "sources": [
+      "openGL_3dAssign_22/main.cpp",
+      "openGL_3dAssign_22/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_22/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  }
+]

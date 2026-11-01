@@ -1,0 +1,41 @@
+﻿[
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/basic.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/basic.cpp",
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/assets.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/assets.cpp",
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/motion.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/motion.cpp",
+        "name": "main"
+      }
+    ]
+  }
+]

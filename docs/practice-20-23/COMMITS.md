@@ -13,5 +13,8 @@
 - `5ce8e33 step 9: release all room bodies with E and add Y spin with V`
 - `ee32ae3 step 10: implement practice 23 with shared robot and collision APIs`
 - `ed32c20 step 11: synchronize context guards and per-file diagnostics across practices`
+- `e2f769e step 12: document resumed changes and refresh source graphs`
+- `fe6b251 step 13: fix UTF-8 source paths and explain installed VS toolsets`
+- `4075801 step 14: randomize robot obstacles and select doors from camera direction`
 
 이 문서와 구조 그래프·배포 결과를 담는 마지막 커밋의 해시는 최종 응답 및 git log에서 확인한다. 원격 push는 이번 작업에 포함하지 않았다.

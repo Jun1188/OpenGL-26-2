@@ -84,10 +84,13 @@ def add_source_anchors(extraction, files, root):
     return len(anchors)
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--scope',choices=['framework','repository'],default='framework')
+    parser=argparse.ArgumentParser();parser.add_argument('--scope',choices=['framework','repository','20','21','22','23','standard'],default='framework')
+    parser.add_argument('--guide',action='store_true',help='Write a separate code-guide graph for this scope.')
     args=parser.parse_args();framework=args.scope=='framework'
     root=REPOSITORY/'framework' if framework else REPOSITORY
     out=REPOSITORY/'framework-analysis/graphify-out' if framework else REPOSITORY/'graphify-out'
+    if args.guide:out=REPOSITORY/'docs/code-guide'/args.scope/'graphify-out'
+    selected='standard' if args.scope=='standard' else 'openGL_3dAssign_'+args.scope
     cache=out/'cache';out.mkdir(parents=True,exist_ok=True)
     excluded={'dependencies','packages','.vs','x64','Debug','Release','archive','graphify-out','framework-analysis','.agents','docs','.obj-work','dist'}
     files=[]
@@ -96,6 +99,9 @@ def main():
         if not p.is_file() or p.suffix.lower() not in {'.cpp','.h','.hpp','.inl'}:continue
         if any(part in excluded for part in relative.parts):continue
         if not framework and 'framework' in relative.parts and relative.parts[0]!='framework':continue
+        if args.scope not in {'framework','repository'}:
+            if relative.parts[0] not in {selected,'framework'}:continue
+            if relative.parts[:2]==('framework','examples'):continue
         files.append(p)
     files.sort()
     detection=detect(root,extra_excludes=['**/dependencies/**','**/packages/**','**/x64/**','**/archive/**','**/.vs/**','**/.obj-work/**','**/dist/**'],cache_root=cache)
@@ -144,7 +150,10 @@ def main():
     write(out/'graph.html',(out/'graph.html').read_text(encoding='utf-8-sig'))
     dump(out/'EXTRACTION.json',extraction);dump(out/'RELATIONS.json',extraction);dump(out/'DETECTION.json',detection)
     dump(out/'COMMUNITIES.json',labels);dump(out/'ANALYSIS.json',{'gods':gods,'surprises':surprises,'questions':questions,'cohesion':scores})
-    dump(out/'PROJECTS.json',project_inventory())
+    inventory=project_inventory()
+    if args.guide:
+        inventory=[p for p in inventory if p.get('standalone_example')] if framework else [p for p in inventory if str(p.get('project','')).startswith(selected+'/')]
+    dump(out/'PROJECTS.json',inventory)
     hashes={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
     dump(out/'SOURCE_HASHES.json',hashes)
     dump(out/'SOURCE_MANIFEST.json',{'source_root':'.' if not framework else 'framework','scope':args.scope,

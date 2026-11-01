@@ -1,7 +1,7 @@
 ﻿{
   "baseline_worktree_snapshot": ".obj-work/framework-20261101-before.zip",
   "baseline_commit": "e5f0620619072456415d531a89aa1a9891f1a2c9",
-  "source_pairs": 125,
+  "source_pairs": 127,
   "files": [
     {
       "path": "docs/practice-20-23/CLEANUP.md",
@@ -41,6 +41,16 @@
       "before_bytes": null,
       "after_bytes": 10426,
       "full_source_pair": "pair-95af70a4d85b7b",
+      "generated_graph_artifact": false
+    },
+    {
+      "path": "docs/practice-20-23/UNICODE_VS_FIX.md",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "40b93b31c983bd694379ebe2a91e17b4d89bb1bf2644e4a1048c4c5844fdf87c",
+      "before_bytes": null,
+      "after_bytes": 82661,
+      "full_source_pair": "pair-d8bc6740534c8e",
       "generated_graph_artifact": false
     },
     {
@@ -1057,10 +1067,10 @@
       "path": "framework-analysis/update_graph.py",
       "change": "modified",
       "before_sha256": "571f9c0fbd5617796fa61c4d46e97042fb9e6c550a8ad459474f1f650992d650",
-      "after_sha256": "a2fcd84db37b9a39da3d499c47ade2b47951805234b984a901bc6577bb457451",
+      "after_sha256": "210914f3cf9af3a7691efe1a5f1326a127faec9d639e971dd36a3d44849b7088",
       "before_bytes": 11797,
-      "after_bytes": 11974,
-      "full_source_pair": "pair-d1b879b1cb1ed0",
+      "after_bytes": 12521,
+      "full_source_pair": "pair-8226393db36991",
       "generated_graph_artifact": false
     },
     {
@@ -1087,20 +1097,20 @@
       "path": "framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -1127,20 +1137,20 @@
       "path": "framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -1247,10 +1257,10 @@
       "path": "framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -4207,20 +4217,20 @@
       "path": "openGL_3dAssign_15/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_15/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -4247,20 +4257,20 @@
       "path": "openGL_3dAssign_15/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_15/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -4387,10 +4397,10 @@
       "path": "openGL_3dAssign_15/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -4437,20 +4447,20 @@
       "path": "openGL_3dAssign_16/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_16/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -4477,20 +4487,20 @@
       "path": "openGL_3dAssign_16/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_16/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -4617,10 +4627,10 @@
       "path": "openGL_3dAssign_16/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -4667,20 +4677,20 @@
       "path": "openGL_3dAssign_17/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_17/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -4707,20 +4717,20 @@
       "path": "openGL_3dAssign_17/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_17/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -4847,10 +4857,10 @@
       "path": "openGL_3dAssign_17/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -4897,20 +4907,20 @@
       "path": "openGL_3dAssign_18/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_18/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -4937,20 +4947,20 @@
       "path": "openGL_3dAssign_18/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_18/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -5077,10 +5087,10 @@
       "path": "openGL_3dAssign_18/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -5127,20 +5137,20 @@
       "path": "openGL_3dAssign_19/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_19/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -5167,20 +5177,20 @@
       "path": "openGL_3dAssign_19/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_19/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -5307,10 +5317,10 @@
       "path": "openGL_3dAssign_19/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -5407,20 +5417,20 @@
       "path": "openGL_3dAssign_20/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_20/framework/detail/Application.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": null,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-3f254c3805223a",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-5fdbec09ed3324",
       "generated_graph_artifact": false
     },
     {
@@ -5457,10 +5467,10 @@
       "path": "openGL_3dAssign_20/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
@@ -5477,10 +5487,10 @@
       "path": "openGL_3dAssign_20/framework/detail/Renderer.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": null,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-bd1339e0f829a8",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-7187a09f39ab8b",
       "generated_graph_artifact": false
     },
     {
@@ -5687,10 +5697,10 @@
       "path": "openGL_3dAssign_20/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -5877,20 +5887,20 @@
       "path": "openGL_3dAssign_21/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_21/framework/detail/Application.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": null,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-3f254c3805223a",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-5fdbec09ed3324",
       "generated_graph_artifact": false
     },
     {
@@ -5927,10 +5937,10 @@
       "path": "openGL_3dAssign_21/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
@@ -5947,10 +5957,10 @@
       "path": "openGL_3dAssign_21/framework/detail/Renderer.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": null,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-bd1339e0f829a8",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-7187a09f39ab8b",
       "generated_graph_artifact": false
     },
     {
@@ -6157,10 +6167,10 @@
       "path": "openGL_3dAssign_21/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -6347,20 +6357,20 @@
       "path": "openGL_3dAssign_22/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_22/framework/detail/Application.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": null,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-3f254c3805223a",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-5fdbec09ed3324",
       "generated_graph_artifact": false
     },
     {
@@ -6397,10 +6407,10 @@
       "path": "openGL_3dAssign_22/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
@@ -6417,10 +6427,10 @@
       "path": "openGL_3dAssign_22/framework/detail/Renderer.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": null,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-bd1339e0f829a8",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-7187a09f39ab8b",
       "generated_graph_artifact": false
     },
     {
@@ -6627,10 +6637,10 @@
       "path": "openGL_3dAssign_22/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -6737,40 +6747,40 @@
       "path": "openGL_3dAssign_23/Console.cpp",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "8bcb22ee0d6489fb78d2f719de20bd679b00daca170fdc87746402f1f894427c",
+      "after_sha256": "a12d9ba49eaf5d61053184a39569b5191de9e381e40dc57a75deccf957bc7a33",
       "before_bytes": null,
-      "after_bytes": 3808,
-      "full_source_pair": "pair-312e4d48f6dcc9",
+      "after_bytes": 4114,
+      "full_source_pair": "pair-81699ec9f27050",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_23/Console.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f1c7d8ffad467e887fa263b091df5e1ee6338799d468328ae396ff4e1dce0420",
+      "after_sha256": "11cf4c3138e9afa462e00effd76e0c186b782ff813a54fe37449ca40fbce386e",
       "before_bytes": null,
-      "after_bytes": 533,
-      "full_source_pair": "pair-f8fb24f3742147",
+      "after_bytes": 639,
+      "full_source_pair": "pair-9f4fae297480fb",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_23/README.md",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "1c6619cd0d5fa905b715204f59e3745bcaeda60026df707c45c8e3b9fb280ee9",
+      "after_sha256": "1f13f81927aa1e7b465377745ab9ce8e4a74ba77036d58c4174cc68406375c34",
       "before_bytes": null,
-      "after_bytes": 1182,
-      "full_source_pair": "pair-9a231548e64db9",
+      "after_bytes": 1384,
+      "full_source_pair": "pair-c7a7123eba44cd",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_23/USER_CHECKS.md",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "c39e1936cc84e80aefa920cf3d97303ada06cdafcc8f6c16d4fa5a842fc87d91",
+      "after_sha256": "7ac4ce7bdb694fa6ceefbe971d14972444cb2f8cc7f972e0f72da017ee505e1f",
       "before_bytes": null,
-      "after_bytes": 719,
-      "full_source_pair": "pair-a41fc29c9cc3cc",
+      "after_bytes": 1219,
+      "full_source_pair": "pair-65f3f46e6649c6",
       "generated_graph_artifact": false
     },
     {
@@ -6817,20 +6827,20 @@
       "path": "openGL_3dAssign_23/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "openGL_3dAssign_23/framework/detail/Application.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": null,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-3f254c3805223a",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-5fdbec09ed3324",
       "generated_graph_artifact": false
     },
     {
@@ -6867,10 +6877,10 @@
       "path": "openGL_3dAssign_23/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
@@ -6887,10 +6897,10 @@
       "path": "openGL_3dAssign_23/framework/detail/Renderer.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": null,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-bd1339e0f829a8",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-7187a09f39ab8b",
       "generated_graph_artifact": false
     },
     {
@@ -7097,10 +7107,10 @@
       "path": "openGL_3dAssign_23/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -7267,20 +7277,20 @@
       "path": "standard/framework/Toolchain.props",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "091a5989fae810ae17390c3136967dd16c930608fe15f63796fe1de76e00fdf2",
+      "after_sha256": "4c34b3c5d3d2b8acb04915caa1f6ff9965baaaf628bc445039d9667069797ca5",
       "before_bytes": null,
-      "after_bytes": 568,
-      "full_source_pair": "pair-a436e17cbf08ec",
+      "after_bytes": 1535,
+      "full_source_pair": "pair-31e9a277645b04",
       "generated_graph_artifact": false
     },
     {
       "path": "standard/framework/detail/Application.inl",
       "change": "modified",
       "before_sha256": "d5577f6cf241b3a4e35cecc2fe33386e58ce7e7455cff1566e656550e5bf9176",
-      "after_sha256": "dc11d1548d50f2c4fe9b1b92d971e1c75eb0c9f5afac4a19829e58ddcf420800",
+      "after_sha256": "00ef11bbd7218f27bc0415ba1c95699c291f35809d9ef4f7f6a40550ab4b9b4a",
       "before_bytes": 9330,
-      "after_bytes": 14775,
-      "full_source_pair": "pair-436f95ac3cf883",
+      "after_bytes": 14602,
+      "full_source_pair": "pair-4f5bf2ba385129",
       "generated_graph_artifact": false
     },
     {
@@ -7307,20 +7317,20 @@
       "path": "standard/framework/detail/Patterns.inl",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "f62cbc22ab3746c3265b7d50deb96d3d4aff91aad15fbf5a873033d0900613f7",
+      "after_sha256": "c6df9e9e52923a6c97407a0fdf2ddaa0b122e6c31bbbf774c8bed241a28ee52a",
       "before_bytes": null,
-      "after_bytes": 31362,
-      "full_source_pair": "pair-37e6ecb50c0dc5",
+      "after_bytes": 33203,
+      "full_source_pair": "pair-edbf57dad2f363",
       "generated_graph_artifact": false
     },
     {
       "path": "standard/framework/detail/Renderer.inl",
       "change": "modified",
       "before_sha256": "c4f09bbd2efb9a92c6443ddbf7be5e9b76d9a8a01be0af2f89b08c4ac833ccc4",
-      "after_sha256": "f66cd6e22a15e643ea7fee54e5358fad10c084a369184eb39fab6193f384376d",
+      "after_sha256": "a703f9e0397c04c1e5651fe1c879be0601458cdbf7331c9d892a08e8e4ba30bd",
       "before_bytes": 17077,
-      "after_bytes": 24011,
-      "full_source_pair": "pair-5638e095344c98",
+      "after_bytes": 23792,
+      "full_source_pair": "pair-84565b7964f505",
       "generated_graph_artifact": false
     },
     {
@@ -7447,10 +7457,10 @@
       "path": "standard/framework/include/Patterns.h",
       "change": "added",
       "before_sha256": null,
-      "after_sha256": "38733285568b9a78aa01fff71c49011485005e78c17b529f32d91ba6b4c3ebab",
+      "after_sha256": "165db8b6ab3e4773d5c61a2027844f53443bfcf002be32eb7e8a3375dbb5c973",
       "before_bytes": null,
-      "after_bytes": 5215,
-      "full_source_pair": "pair-b91a7b03d3af76",
+      "after_bytes": 5416,
+      "full_source_pair": "pair-38ac1c777098cc",
       "generated_graph_artifact": false
     },
     {
@@ -7511,6 +7521,16 @@
       "before_bytes": 836,
       "after_bytes": 1593,
       "full_source_pair": "pair-6ac68f26acfeed",
+      "generated_graph_artifact": false
+    },
+    {
+      "path": "tools/Write-CodeGuide.py",
+      "change": "added",
+      "before_sha256": null,
+      "after_sha256": "0b230f3d7385078abde5a9ed48b007ef62fa1dc49353f5379db67ae911994955",
+      "before_bytes": null,
+      "after_bytes": 61495,
+      "full_source_pair": "pair-5d8e776ddac4c4",
       "generated_graph_artifact": false
     },
     {
