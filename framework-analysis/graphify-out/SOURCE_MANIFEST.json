@@ -1,7 +1,7 @@
 ﻿{
   "source_root": "framework",
   "scope": "framework",
-  "source_commit": "819f55458a0cd3b354248711f4367471bd29db57",
+  "source_commit": "f49ee637043580f0c050e765c121c29ac6766378",
   "includes_uncommitted_changes": true,
   "files": {
     "detail/Application.inl": "473ecd1e555ce090443991cdc4c9a75a5aa6789cf282cfebcdbdf4eee0b22faf",
@@ -19,7 +19,7 @@
     "examples/motion.cpp": "ac1884af0d3bef4800e1c9a0972c357b102e9451fc3dec4e6aba25618694c62c",
     "Framework.h": "9f6f36a9890ce2e3f3c299786854a63730d98c38275e6813b7812a4925b56bf9",
     "include/Application.h": "b5cfc2e1e66079477a245ea56fd4bd8f762c96f05fae0f2db4b88ec40b4b1707",
-    "include/Diagnostics.h": "3034f8e306d8a27b3ed01bae7933d38159c027020f097a4e495441b3ff02412e",
+    "include/Diagnostics.h": "cb7705642537fdf56a5d273ba3311274af607ffa27dd18e6873d3f71031e57cf",
     "include/Geometry.h": "471643a2e5751fee23c1d2dcc0a0dc04a5cc5198c2f9b8aabd5de03b837fd3c8",
     "include/Graphics.h": "55c2164834bf939e378ee34344abf96d9a488e5b9c09a77b5dd4cc3503ed7c68",
     "include/GridLayout.h": "d1a68e4f8570043512be31c030fdfe07aaffdbee24435085198104f53d838993",

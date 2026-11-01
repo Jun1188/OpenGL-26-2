@@ -19,5 +19,7 @@
 - `687623c step 15: add scoped graphify HTML lessons and exam action graph`
 - `904b286 step16: restore the active room wall and localize practice consoles`
 - `819f554 step17: document public APIs in Korean and synchronize framework copies`
+- `e6b75be step18: center exam guides on action graphs and API call sequences`
+- `f49ee63 step19: restore diagnostic object parameter and limit localization to literals`
 
 이 문서와 구조 그래프·배포 결과를 담는 마지막 커밋의 해시는 최종 응답 및 git log에서 확인한다. 원격 push는 이번 작업에 포함하지 않았다.

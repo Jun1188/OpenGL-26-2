@@ -1,157 +1,157 @@
 ﻿{
   "framework/detail/Application.inl": {
     "mtime": 1793542095.735091,
-    "seen": 1793542740.611744,
+    "seen": 1793543550.7938275,
     "ast_hash": "1f8102db094f7f0fcf63c5ce0ece3d44",
     "semantic_hash": ""
   },
   "framework/detail/Motion.inl": {
     "mtime": 1793537976.5085487,
-    "seen": 1793542740.611759,
+    "seen": 1793543550.7938392,
     "ast_hash": "c479cd9e838326affa031fd05cdd50dc",
     "semantic_hash": ""
   },
   "framework/detail/Native.h": {
     "mtime": 1793538277.0271292,
-    "seen": 1793542740.6117659,
+    "seen": 1793543550.7938442,
     "ast_hash": "ad810f08088a1eb362f29f4c243b691f",
     "semantic_hash": ""
   },
   "framework/detail/ObjLoader.inl": {
     "mtime": 1793537976.5085487,
-    "seen": 1793542740.6117704,
+    "seen": 1793543550.7938478,
     "ast_hash": "9abb385a79fbf080210179cd4122092f",
     "semantic_hash": ""
   },
   "framework/detail/Patterns.inl": {
     "mtime": 1793541772.559744,
-    "seen": 1793542740.611774,
+    "seen": 1793543550.7938519,
     "ast_hash": "ad7342cb717c01e658927c7287136dc2",
     "semantic_hash": ""
   },
   "framework/detail/PrimitiveLoader.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793542740.6117778,
+    "seen": 1793543550.793856,
     "ast_hash": "0de7dbe59c6ca5efd396c74ca436fb57",
     "semantic_hash": ""
   },
   "framework/detail/Renderer.inl": {
     "mtime": 1793538952.8803055,
-    "seen": 1793542740.611782,
+    "seen": 1793543550.79386,
     "ast_hash": "258db3cbbd6579dbc78959f8711ecbdc",
     "semantic_hash": ""
   },
   "framework/detail/Scene.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793542740.6117857,
+    "seen": 1793543550.7938635,
     "ast_hash": "18d43980b856ab08b2c503e20145de69",
     "semantic_hash": ""
   },
   "framework/detail/Shaders.h": {
     "mtime": 1793537976.516529,
-    "seen": 1793542740.6117892,
+    "seen": 1793543550.793867,
     "ast_hash": "ba516e2c76055a0afe0c5ca593677faa",
     "semantic_hash": ""
   },
   "framework/detail/Transform.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793542740.6117938,
+    "seen": 1793543550.79387,
     "ast_hash": "4e74883489099c5aa8d4b95954afd4e7",
     "semantic_hash": ""
   },
   "framework/Framework.h": {
     "mtime": 1793521000.6564682,
-    "seen": 1793542740.611797,
+    "seen": 1793543550.7938733,
     "ast_hash": "ca96825324f37b81bc7a71762bd9b787",
     "semantic_hash": ""
   },
   "framework/include/Application.h": {
-    "mtime": 1793542655.4413521,
-    "seen": 1793542740.6118007,
+    "mtime": 1793543419.9167,
+    "seen": 1793543550.793877,
     "ast_hash": "4ccf7ba2296ffe025f75aa3c1f178a92",
     "semantic_hash": ""
   },
   "framework/include/Diagnostics.h": {
-    "mtime": 1793542655.4527957,
-    "seen": 1793542740.6118035,
-    "ast_hash": "3db92f7a64e6aaad50a1f8420e1ec696",
+    "mtime": 1793543419.9511836,
+    "seen": 1793543550.7938802,
+    "ast_hash": "81fda9ee9be3cb10b70f4b3bcd2fcc21",
     "semantic_hash": ""
   },
   "framework/include/Geometry.h": {
-    "mtime": 1793542655.5108845,
-    "seen": 1793542740.6118066,
+    "mtime": 1793543420.0094874,
+    "seen": 1793543550.7938833,
     "ast_hash": "ff615fe01cebccac98dcaf71876f9ec1",
     "semantic_hash": ""
   },
   "framework/include/Graphics.h": {
-    "mtime": 1793542655.5504057,
-    "seen": 1793542740.611811,
+    "mtime": 1793543420.0536194,
+    "seen": 1793543550.7938867,
     "ast_hash": "49a8eae3d2e6be544518ecc50ed99c80",
     "semantic_hash": ""
   },
   "framework/include/GridLayout.h": {
-    "mtime": 1793542655.5970862,
-    "seen": 1793542740.6118143,
+    "mtime": 1793543420.0763402,
+    "seen": 1793543550.7938902,
     "ast_hash": "540c210c45c26d36f15cbc612e3eba72",
     "semantic_hash": ""
   },
   "framework/include/Model.h": {
-    "mtime": 1793542655.6368945,
-    "seen": 1793542740.6118166,
+    "mtime": 1793543420.0878017,
+    "seen": 1793543550.7938933,
     "ast_hash": "89e0a45985cebea7c10a00baaa6c1971",
     "semantic_hash": ""
   },
   "framework/include/ModelLoader.h": {
-    "mtime": 1793542655.6505167,
-    "seen": 1793542740.61182,
+    "mtime": 1793543420.1064892,
+    "seen": 1793543550.793897,
     "ast_hash": "ddd83a4c6b9416be9f5d140008e7e20f",
     "semantic_hash": ""
   },
   "framework/include/Motion.h": {
-    "mtime": 1793542655.6675146,
-    "seen": 1793542740.6118236,
+    "mtime": 1793543420.14572,
+    "seen": 1793543550.7939,
     "ast_hash": "0950a976d3eed9879e5f045f91136867",
     "semantic_hash": ""
   },
   "framework/include/Patterns.h": {
-    "mtime": 1793542655.7127454,
-    "seen": 1793542740.6118271,
+    "mtime": 1793543420.165474,
+    "seen": 1793543550.7939029,
     "ast_hash": "2a4cc1766b3448220a67e5e8f74c8a89",
     "semantic_hash": ""
   },
   "framework/include/Picking.h": {
-    "mtime": 1793542655.7269268,
-    "seen": 1793542740.6118305,
+    "mtime": 1793543420.1832335,
+    "seen": 1793543550.7939057,
     "ast_hash": "d76ee9083c6475b51cc4a57b0b928a2e",
     "semantic_hash": ""
   },
   "framework/include/Texture.h": {
     "mtime": 1793537976.4967282,
-    "seen": 1793542740.611834,
+    "seen": 1793543550.7939086,
     "ast_hash": "5441fb7bc85cbf84e4a4456dab7584bb",
     "semantic_hash": ""
   },
   "framework/include/Transform.h": {
-    "mtime": 1793542655.7455938,
-    "seen": 1793542740.6118393,
+    "mtime": 1793543420.20729,
+    "seen": 1793543550.7939124,
     "ast_hash": "9b98a45dd8231e9c0654b70ec749d853",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/Console.cpp": {
     "mtime": 1793537983.876451,
-    "seen": 1793542740.6118429,
+    "seen": 1793543550.793916,
     "ast_hash": "134679785a9de36794497c6326cd34db",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/Console.h": {
     "mtime": 1793537930.966427,
-    "seen": 1793542740.6118462,
+    "seen": 1793543550.793919,
     "ast_hash": "9ff1ce608c2fbbf3bb1aaef93305bf0d",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/main.cpp": {
     "mtime": 1793521580.2041547,
-    "seen": 1793542740.6118498,
+    "seen": 1793543550.7939222,
     "ast_hash": "e2e0f3f3947d080c49882ef0092467b5",
     "semantic_hash": ""
   }

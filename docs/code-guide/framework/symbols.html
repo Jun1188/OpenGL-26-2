@@ -5577,7 +5577,7 @@ public:
     /// [API] 주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.
     static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string&amp; cause,
                        const std::string&amp; action=&quot;소스 위치와 해당 API의 입력 조건을 확인하세요.&quot;,
-                       std::optional&lt;std::uint64_t&gt; 객체=std::nullopt) {
+                       std::optional&lt;std::uint64_t&gt; object=std::nullopt) {
         const auto saved=context();locate(file,line,api);
         if(!saved.operation.empty()) context().operation=saved.operation+&quot; -&gt; &quot;+api;
         const bool result=fail(stage,api,cause,action,object);context()=saved;return result;
@@ -5624,9 +5624,9 @@ public:
     }
 }</code></pre></details><details data-symbol="framework/include/Diagnostics.h .locate()"><summary>.locate() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_include_Diagnostics_h_L24">framework/include/Diagnostics.h:24</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>static void locate(const char* file,int line,const char* operation)</td></tr><tr><td>관련 상태 멤버</td><td>소스 본문에 _ 접미 멤버 접근이 없음. 매개변수와 지역값을 확인한다.</td></tr><tr><td>분기/거부 조건 발췌</td><td>해당 발췌에 if가 없음. 위임 호출의 검사도 확인한다.</td></tr><tr><td>반환식 발췌</td><td>void 또는 타입 선언. 상태 변경·예외·자원 생성/해제를 확인한다.</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>    static void locate(const char* file,int line,const char* operation) {context().file=file;context().line=line;context().operation=operation;}</code></pre></details><details data-symbol="framework/include/Diagnostics.h .failAt()"><summary>.failAt() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_include_Diagnostics_h_L26">framework/include/Diagnostics.h:26</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string&amp; cause,
                        const std::string&amp; action=&quot;소스 위치와 해당 API의 입력 조건을 확인하세요.&quot;,
-                       std::optional&lt;std::uint64_t&gt; 객체=std::nullopt)</td></tr><tr><td>관련 상태 멤버</td><td>소스 본문에 _ 접미 멤버 접근이 없음. 매개변수와 지역값을 확인한다.</td></tr><tr><td>분기/거부 조건 발췌</td><td>!saved.operation.empty()) context().operation=saved.operation+&quot; -&gt; &quot;+api;</td></tr><tr><td>반환식 발췌</td><td>result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.locate() <span class="tag">EXTRACTED</span> · .fail() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>    static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string&amp; cause,
+                       std::optional&lt;std::uint64_t&gt; object=std::nullopt)</td></tr><tr><td>관련 상태 멤버</td><td>소스 본문에 _ 접미 멤버 접근이 없음. 매개변수와 지역값을 확인한다.</td></tr><tr><td>분기/거부 조건 발췌</td><td>!saved.operation.empty()) context().operation=saved.operation+&quot; -&gt; &quot;+api;</td></tr><tr><td>반환식 발췌</td><td>result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.locate() <span class="tag">EXTRACTED</span> · .fail() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>    static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string&amp; cause,
                        const std::string&amp; action=&quot;소스 위치와 해당 API의 입력 조건을 확인하세요.&quot;,
-                       std::optional&lt;std::uint64_t&gt; 객체=std::nullopt) {
+                       std::optional&lt;std::uint64_t&gt; object=std::nullopt) {
         const auto saved=context();locate(file,line,api);
         if(!saved.operation.empty()) context().operation=saved.operation+&quot; -&gt; &quot;+api;
         const bool result=fail(stage,api,cause,action,object);context()=saved;return result;

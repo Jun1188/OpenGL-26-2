@@ -36,7 +36,7 @@
   "total_files": 26,
   "total_words": 20892,
   "needs_graph": true,
-  "warning": "Large corpus: 471 files · ~3,210,313 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
+  "warning": "Large corpus: 475 files · ~3,270,080 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.gitattributes",

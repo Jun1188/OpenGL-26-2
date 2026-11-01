@@ -210,6 +210,51 @@ framework/include의 공개 함수 선언 219개(오버로드·삭제된 복사 
 코드 전체 before/after는 BEFORE_AFTER.md에, 단계별 커밋은 COMMITS.md에 기록한다.
 ```
 
+<a id="pair-674a8709e238a5"></a>
+
+## docs/practice-20-23/STEP19-20.md
+
+샘플·배포 설정·문서·분석을 현재 소스와 일치시킨다.
+
+적용 경로:
+
+- `docs/practice-20-23/STEP19-20.md`
+
+### before
+
+없음
+
+### after
+
+````text
+# 단계 19~20: 한글화 식별자 회귀 수정
+
+## 확인한 원인
+
+사용자 보고: 실습23에서 `'object': 선언되지 않은 식별자입니다.`
+
+`Localize-PracticeConsole.py`가 소스 전체의 ` object=`를 ` 객체=`로 바꾸면서 `Diagnostics::failAt`의 매개변수도 변경했다. 본문은 여전히 object를 참조했다. 원본과 standard·실습15~23의 열 개 사본에 같은 결함이 있었다.
+
+```cpp
+// before
+std::optional<std::uint64_t> 객체=std::nullopt
+// 본문의 object와 이름 불일치
+
+// after
+std::optional<std::uint64_t> object=std::nullopt
+```
+
+## 변경과 이유
+
+단계19는 매개변수 이름을 복구하고, 한글화 도구를 문자열 리터럴 안에서만 치환하도록 제한했다. 주석·문자 리터럴·raw 문자열은 건너뛴다. API_KO의 선언도 복구했다. 커밋은 f49ee63이다.
+
+단계20은 현재 소스의 여섯 대상 graphify와 전체/프레임워크 그래프, HTML, 전체 before/after 자료를 갱신한다. 사건 기록과 ponytail의 공통 일괄 치환 원칙도 보완했다. 전체 코드 변경은 BEFORE_AFTER.md에 있다.
+
+## 사용자 확인
+
+소스의 선언과 참조 이름을 대조했다. 빌드·테스트·검증기·실행은 수행하지 않았다. 사용자가 실습23을 다시 빌드하여 object 오류가 없어지는지 확인한다. 같은 공통 헤더를 사용하는 다른 실습과 standard도 사용자 빌드 확인 대상이다. 다른 오류가 없다고 확정하지 않는다.
+````
+
 <a id="pair-95af70a4d85b7b"></a>
 
 ## docs/practice-20-23/TOP_DOWN.md
@@ -7081,7 +7126,7 @@ inline double PathSystem::smoothStep(double progress) {
 } // namespace graphics
 ```
 
-<a id="pair-375adcea2334d6"></a>
+<a id="pair-f18b279ec97f82"></a>
 
 ## framework/docs/API_KO.json
 
@@ -7346,7 +7391,7 @@ inline double PathSystem::smoothStep(double progress) {
   {
     "owner": "Diagnostics",
     "name": "failAt",
-    "signature": "static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action=\"소스 위치와 해당 API의 입력 조건을 확인하세요.\", std::optional<std::uint64_t> 객체=std::nullopt)",
+    "signature": "static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action=\"소스 위치와 해당 API의 입력 조건을 확인하세요.\", std::optional<std::uint64_t> object=std::nullopt)",
     "file": "framework/include/Diagnostics.h",
     "line": 26,
     "description": "주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.",
@@ -9083,7 +9128,7 @@ inline double PathSystem::smoothStep(double progress) {
 ]
 ```
 
-<a id="pair-d222d13c58fd84"></a>
+<a id="pair-f443cb33606ac2"></a>
 
 ## framework/docs/API_KO.md
 
@@ -9512,7 +9557,7 @@ static void locate(const char* file,int line,const char* operation);
 ### Diagnostics::failAt
 
 ```cpp
-static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action="소스 위치와 해당 API의 입력 조건을 확인하세요.", std::optional<std::uint64_t> 객체=std::nullopt);
+static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action="소스 위치와 해당 API의 입력 조건을 확인하세요.", std::optional<std::uint64_t> object=std::nullopt);
 ```
 
 주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.
@@ -13973,7 +14018,7 @@ public:
 #include "../detail/Application.inl"
 ```
 
-<a id="pair-f6af57a10e27b6"></a>
+<a id="pair-7f19b00d0ccf8d"></a>
 
 ## framework/include/Diagnostics.h
 
@@ -14027,7 +14072,7 @@ public:
     /// [API] 주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.
     static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause,
                        const std::string& action="소스 위치와 해당 API의 입력 조건을 확인하세요.",
-                       std::optional<std::uint64_t> 객체=std::nullopt) {
+                       std::optional<std::uint64_t> object=std::nullopt) {
         const auto saved=context();locate(file,line,api);
         if(!saved.operation.empty()) context().operation=saved.operation+" -> "+api;
         const bool result=fail(stage,api,cause,action,object);context()=saved;return result;
@@ -30313,7 +30358,7 @@ EndGlobal
 </Project>
 ```
 
-<a id="pair-23986c3b2d04ac"></a>
+<a id="pair-d2e5eb5137f19f"></a>
 
 ## tools/Localize-PracticeConsole.py
 
@@ -30333,6 +30378,7 @@ EndGlobal
 """승인된 실습 안내와 공통 실행 진단 문구를 한글로 저장한다."""
 from pathlib import Path
 import os
+import re
 ROOT=Path(__file__).resolve().parent.parent
 TRANSLATIONS={
 'Practice 22: same Scene, perspective / XZ top / XY front':'실습 22: 같은 장면을 원근 / XZ 평면도 / XY 정면도로 표시',
@@ -30398,10 +30444,18 @@ TRANSLATIONS={
 '\\n  Operation: ':'\\n  호출 경로: ',
 }
 FILES=['openGL_3dAssign_22/Console.cpp','openGL_3dAssign_22/main.cpp','openGL_3dAssign_23/Console.cpp','openGL_3dAssign_23/main.cpp','framework/detail/Application.inl','framework/include/Diagnostics.h']
+# 주석·문자 리터럴은 건너뛰고 일반 C++ 문자열 리터럴만 번역한다.
+TOKENS=re.compile(r'(?:u8|u|U|L)?R"(?P<delimiter>[^ ()\\\t\r\n]{0,16})\([\s\S]*?\)(?P=delimiter)"|//[^\n]*|/\*[\s\S]*?\*/|(?:u8|u|U|L)?\'(?:\\.|[^\'\\])*\'|(?P<string>(?:u8|u|U|L)?"(?:\\.|[^"\\])*")')
+def localize(source):
+    def replace(match):
+        literal=match.group('string')
+        if literal is None:return match[0]
+        for old,new in TRANSLATIONS.items():literal=literal.replace(old,new)
+        return literal
+    return TOKENS.sub(replace,source)
 if __name__=='__main__':
     for file in FILES:
-        p=ROOT/file;s=p.read_text(encoding='utf-8-sig')
-        for old,new in TRANSLATIONS.items():s=s.replace(old,new)
+        p=ROOT/file;s=localize(p.read_text(encoding='utf-8-sig'))
         if s!=p.read_text(encoding='utf-8-sig'):
             temp=p.with_name(p.name+'.localize.tmp')
             temp.write_text(s,encoding='utf-8-sig',newline='\n');os.replace(temp,p)

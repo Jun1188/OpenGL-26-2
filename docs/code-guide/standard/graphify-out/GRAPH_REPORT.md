@@ -1,7 +1,7 @@
 ﻿# Graph Report - OpenGL-26-2  (2026-11-01)
 
 ## Corpus Check
-- Large corpus: 471 files · ~3,210,313 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
+- Large corpus: 475 files · ~3,270,080 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
 
 ## Summary
 - 1317 nodes · 2011 edges · 87 communities (66 shown, 7 thin omitted)
@@ -9,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `819f5545`
+- Built from commit: `f49ee637`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
