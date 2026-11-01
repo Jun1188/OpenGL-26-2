@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="framework\Framework.h" />
+    <ClInclude Include="framework\include\Motion.h" />
+    <ClInclude Include="framework\include\Transform.h" />
+  </ItemGroup>
+</Project>
+
