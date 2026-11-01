@@ -1,4 +1,8 @@
-﻿# standard: 독립 OpenGL 프레임워크 샘플
+﻿# 2026-11-01: portable standard
+
+현재 사용법은 [PORTABLE.md](PORTABLE.md), 공통 API는 [framework/docs/APPLICATION_API.md](framework/docs/APPLICATION_API.md)다. standard.sln을 열고 x64를 선택한다. 아래 기존 Motion/레이어 설명은 유지하되, 고정 v145 설정은 현재 프로젝트에서 제거했다. 빌드와 실행 테스트는 사용자가 수행한다.
+
+# standard: 독립 OpenGL 프레임워크 샘플
 
 이 프로젝트는 `standard.slnx`로 여는 Windows x64용 독립 샘플이다. 실습 18~19와 같은 프로젝트 구성을 사용하고, 프레임워크의 Motion·경로·반사·레이어 API를 보여준다. 실습 1~19의 소스나 설정은 수정하지 않았다.
 

@@ -53,6 +53,7 @@ bool Console::choosePath(int kind) {
 }
 
 bool Console::initScene() {
+    demo_=Demo::Motion;
     auto& scene = app_.getScene();
     scene.clear();
     paused_ = false;
@@ -180,6 +181,19 @@ void Console::onKey(int key, int action) {
     if (action != GLFW_PRESS) {
         return;
     }
+    if(key==GLFW_KEY_7 || key==GLFW_KEY_8 || key==GLFW_KEY_0) {
+        const bool ok=key==GLFW_KEY_7?initGrid():key==GLFW_KEY_8?initRoom():initScene();
+        if(!ok) app_.requestClose();return;
+    }
+    if(key==GLFW_KEY_V) {threeViews_=!threeViews_;return;}
+    if(key==GLFW_KEY_D) {trace_=!trace_;graphics::Diagnostics::configure({true,trace_});return;}
+    if(key==GLFW_KEY_F && demo_==Demo::Room) {floorOpen_=!floorOpen_;return;}
+    if(demo_!=Demo::Motion) {
+        if(key==GLFW_KEY_SPACE) clock_.playing=!clock_.playing;
+        else if(key==GLFW_KEY_ESCAPE) app_.requestClose();
+        else if(key==GLFW_KEY_H) printHelp();
+        return;
+    }
     auto& motions = app_.getScene().getMotions();
     bool ok = true;
     if (key == GLFW_KEY_ESCAPE) {
@@ -225,7 +239,17 @@ void Console::onMouse(const graphics::MouseEvent& event) {
     if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) {
         return;
     }
-    const auto hit = app_.pickAt(event.windowX, event.windowY);
+    std::optional<graphics::PickResult> hit;
+    if(threeViews_) {
+        const auto size=app_.getFramebufferSize();
+        if(size[0]<3 || size[1]<2) return;
+        const auto passes=graphics::PatternSystem::threeViews(app_.getCamera(),size[0],size[1],app_.getRenderOptions());
+        for(const auto& pass:passes) {
+            const auto& v=pass.viewport;const double top=size[1]-v.y-v.height;
+            if(event.framebufferX>=v.x && event.framebufferX<v.x+v.width && event.framebufferY>=top && event.framebufferY<top+v.height)
+                hit=graphics::pick(app_.getScene(),pass.camera,event.framebufferX,event.framebufferY,{double(v.x),top,double(v.width),double(v.height)});
+        }
+    } else hit=app_.pickAt(event.windowX,event.windowY);
     if (hit) {
         std::cout << "entity=" << hit->entityId << " face=" << hit->faceIndex << '\n';
     }
@@ -237,5 +261,57 @@ void Console::printHelp() const {
               << "Space 시간 정지·재개 / S 자전 기여 / G 전체 공전 기여\n"
               << "M 반사 변경 / I 크기 레이어 삽입·삭제 / H 도움말 / Esc 종료\n"
               << "초기 반사: YZ평면. M은 점대칭 -> Y축 직선대칭 -> 없음 -> YZ평면 순환\n"
-              << "왼쪽 클릭: 물체의 entity/face ID 출력\n";
+              << "왼쪽 클릭: 물체의 entity/face ID 출력\n"
+              << "7 Grid/거리 기반 배치 / 8 실내 미끄럼·낙하 / 0 기존 Motion 예제\n"
+              << "V 3뷰 전환 / D 단계 추적 로그 / F 실내 예제 바닥 개방 / Space 정지·재개\n";
+}
+
+bool Console::initGrid() {
+    auto& scene=app_.getScene();scene.clear();demo_=Demo::Grid;clock_.reset();gridBoxes_.clear();
+    graphics::GridLayout grid;grid.origin={-3,-.1f,-2};grid.extent={6,.2f,4};grid.cells={6,1,4};
+    for(int z=0;z<4;++z) for(int x=0;x<6;++x) {
+        const auto center=grid.cellCenter({x,0,z}),size=grid.relativeSize({.15f,1,.22f});
+        if(!center || !size || !graphics::PatternSystem::addBox(scene,*size,*center,(x+z)%2?graphics::GlColor{.25f,.3f,.4f}:graphics::GlColor{.4f,.45f,.55f})) return false;
+    }
+    if(!distancePath_.setPoints({{-2.5f,.35f,-1.5f},{2.5f,.35f,-1.5f},{2.5f,.35f,1.5f}})) return false;
+    for(unsigned i=0;i<5;++i) {
+        const auto box=graphics::PatternSystem::addBox(scene,{.4f,.5f,.4f},{0,0,0},{.25f+.14f*i,.7f-.1f*i,.3f});
+        if(!box || !graphics::PatternSystem::addNumber(scene,i+1,{-.07f,-.1f,.205f},.2f,{1,1,1},*box)) return false;
+        gridBoxes_.push_back(*box);
+    }
+    app_.getCamera()=graphics::Camera{};app_.getCamera().position={7,6,8};app_.getCamera().target={0,0,0};
+    app_.getCamera().orthographicHalfExtent=4;return true;
+}
+bool Console::initRoom() {
+    auto& scene=app_.getScene();scene.clear();demo_=Demo::Room;clock_.reset();floorOpen_=false;
+    const auto room=graphics::PatternSystem::addRoom(scene,{{-2,-1,-2},{2,2,2}});
+    const auto cube=graphics::PatternSystem::addBox(scene,{.5f,.5f,.5f},{0,-.75f,0},{1,.7f,.2f});
+    if(!room || !cube) return false;room_=*room;roomCube_=*cube;
+    roomBody_=graphics::RoomBody{};roomBody_.localPosition={0,-.75f,0};roomBody_.halfExtent={.25f,.25f,.25f};
+    app_.getCamera()=graphics::Camera{};app_.getCamera().position={5,3,8};app_.getCamera().target={0,0,0};
+    return true;
+}
+void Console::onUpdate(float dt) {
+    if(demo_==Demo::Motion || !clock_.playing) return;
+    if(!clock_.advance(dt)) {app_.requestClose();return;}
+    auto& scene=app_.getScene();bool ok=true;
+    if(demo_==Demo::Grid) {
+        for(std::size_t i=0;i<gridBoxes_.size();++i)
+            ok=graphics::PatternSystem::follow(scene,gridBoxes_[i],distancePath_,clock_.seconds+distancePath_.length()*i/5)&&ok;
+    } else {
+        const float angle=.4f*float(std::sin(clock_.seconds));
+        const auto matrix=glm::rotate(glm::mat4(1),angle,glm::vec3(0,0,1));
+        graphics::Transform3D roomTransform;roomTransform.rotation=glm::mat3(matrix);roomTransform.basis=glm::vec3(matrix*glm::vec4(0,.5f,0,1));
+        ok=scene.setTransform(room_,roomTransform) && scene.setFaceVisible(room_,5,!floorOpen_)
+            && graphics::CollisionSystem::stepRoomBody(roomBody_,{{-2,-1,-2},{2,2,2}},matrix,dt,floorOpen_,false,{0,-9.8f,0},{0,0,.4f*float(std::cos(clock_.seconds))});
+        graphics::Transform3D cubeTransform;cubeTransform.basis=roomBody_.position(matrix);
+        if(!roomBody_.released) cubeTransform.rotation=glm::mat3(matrix);
+        ok=scene.setTransform(roomCube_,cubeTransform)&&ok;
+    }
+    if(!ok) app_.requestClose();
+}
+bool Console::onRender() {
+    if(!threeViews_) return app_.renderScene();
+    const auto size=app_.getFramebufferSize();if(size[0]<3 || size[1]<2) return true;
+    return app_.renderViews(graphics::PatternSystem::threeViews(app_.getCamera(),size[0],size[1],app_.getRenderOptions()));
 }

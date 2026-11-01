@@ -15,6 +15,7 @@
 #include <string>
 #include <stdexcept>
 #include <vector>
+#include "../include/Diagnostics.h"
 
 namespace graphics::detail {
 static_assert(sizeof(void*) == 8, "Bundled DLLs require x64.");
@@ -49,11 +50,20 @@ public:
     void open(const std::filesystem::path& path) {
         if (handle_) return;
         handle_ = LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
-        if (!handle_) throw std::runtime_error("Cannot load bundled runtime DLL (Win32 error " + std::to_string(GetLastError()) + ").");
+        if (!handle_) {
+            const auto message = "DLL=" + path.u8string() + "; Win32 error=" + std::to_string(GetLastError());
+            Diagnostics::fail(PipelineStage::Runtime, "Module::open", message,
+                "Keep the complete x64 framework/dependencies folder beside the executable; check DLL architecture and dependent runtimes.");
+            throw std::runtime_error(message);
+        }
     }
     template<class T> T symbol(const char* name) const {
         const auto address = ::GetProcAddress(handle_, name);
-        if (!address) throw std::runtime_error(std::string("Missing runtime export: ") + name);
+        if (!address) {
+            Diagnostics::fail(PipelineStage::Runtime, "Module::symbol", std::string("Missing runtime export: ") + name,
+                "Use the bundled DLL version. For OpenGL functions, check that an OpenGL 3.3 context is current.");
+            throw std::runtime_error(std::string("Missing runtime export: ") + name);
+        }
         return reinterpret_cast<T>(address);
     }
 };
@@ -61,6 +71,7 @@ struct GlfwApi {
     Module module;
     bool ready = false;
     decltype(&::glfwInit) Init = nullptr;
+    decltype(&::glfwSetErrorCallback) SetErrorCallback = nullptr;
     decltype(&::glfwTerminate) Terminate = nullptr;
     decltype(&::glfwWindowHint) WindowHint = nullptr;
     decltype(&::glfwCreateWindow) createWindow = nullptr;
@@ -87,6 +98,7 @@ struct GlfwApi {
         if (ready) return;
         module.open((root.empty() ? frameworkDirectory() : std::filesystem::absolute(root)) / "dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll");
         Init = module.symbol<decltype(Init)>("glfwInit");
+        SetErrorCallback = module.symbol<decltype(SetErrorCallback)>("glfwSetErrorCallback");
         Terminate = module.symbol<decltype(Terminate)>("glfwTerminate");
         WindowHint = module.symbol<decltype(WindowHint)>("glfwWindowHint");
         createWindow = module.symbol<decltype(createWindow)>("glfwCreateWindow");
@@ -126,6 +138,9 @@ struct GlApi {
     decltype(&::glColorMask) ColorMask = nullptr;
     decltype(&::glDepthFunc) DepthFunc = nullptr;
     decltype(&::glViewport) Viewport = nullptr;
+    decltype(&::glScissor) Scissor = nullptr;
+    decltype(&::glCullFace) CullFace = nullptr;
+    decltype(&::glFrontFace) FrontFace = nullptr;
     decltype(&::glPolygonMode) PolygonMode = nullptr;
     decltype(&::glDrawElements) DrawElements = nullptr;
     decltype(&::glGenTextures) GenTextures = nullptr;
@@ -188,6 +203,9 @@ struct GlApi {
         ColorMask = resolve<decltype(ColorMask)>("glColorMask");
         DepthFunc = resolve<decltype(DepthFunc)>("glDepthFunc");
         Viewport = resolve<decltype(Viewport)>("glViewport");
+        Scissor = resolve<decltype(Scissor)>("glScissor");
+        CullFace = resolve<decltype(CullFace)>("glCullFace");
+        FrontFace = resolve<decltype(FrontFace)>("glFrontFace");
         PolygonMode = resolve<decltype(PolygonMode)>("glPolygonMode");
         DrawElements = resolve<decltype(DrawElements)>("glDrawElements");
         GenTextures = resolve<decltype(GenTextures)>("glGenTextures");
@@ -231,4 +249,19 @@ struct GlApi {
     }
 };
 inline GlApi& gl() { static GlApi api; return api; }
+inline bool checkGl(PipelineStage stage, const char* api) {
+    bool success = true;
+    for (GLenum code = gl().GetError(); code != GL_NO_ERROR; code = gl().GetError()) {
+        const char* cause = code == GL_INVALID_ENUM ? "GL_INVALID_ENUM: unsupported enum"
+            : code == GL_INVALID_VALUE ? "GL_INVALID_VALUE: value outside allowed range"
+            : code == GL_INVALID_OPERATION ? "GL_INVALID_OPERATION: incompatible binding, state or program"
+            : code == GL_OUT_OF_MEMORY ? "GL_OUT_OF_MEMORY: GPU allocation failed"
+            : code == GL_INVALID_FRAMEBUFFER_OPERATION ? "GL_INVALID_FRAMEBUFFER_OPERATION: incomplete framebuffer"
+            : "OpenGL error";
+        Diagnostics::fail(stage, api, std::string(cause) + " (" + std::to_string(code) + ")",
+            "Inspect this stage's bindings, buffer sizes, vertex layout, shader log and current context. A GL error does not identify a single root cause.");
+        success = false;
+    }
+    return success;
+}
 } // namespace graphics::detail
