@@ -18,13 +18,13 @@ namespace detail {
 inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
     Diagnostics::trace(PipelineStage::Shader, "compileShader");
     auto& api=gl();const auto shader=api.CreateShader(kind);
-    if(!shader) { Diagnostics::fail(PipelineStage::Shader, "glCreateShader", "Shader allocation failed."); return 0; }
+    if(!shader) { Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "glCreateShader", "Shader allocation failed."); return 0; }
     const char* text=sourceText.c_str();api.ShaderSource(shader,1,&text,nullptr);api.CompileShader(shader);
     GLint success=0;api.GetShaderiv(shader,GL_COMPILE_STATUS,&success);
     if(!success) {
         GLint length=0;api.GetShaderiv(shader,GL_INFO_LOG_LENGTH,&length);
         std::string log(std::max(length,1), '\0');api.GetShaderInfoLog(shader,GLsizei(log.size()),nullptr,log.data());
-        Diagnostics::fail(PipelineStage::Shader, kind==GL_VERTEX_SHADER?"vertex shader":"fragment shader", log,
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, kind==GL_VERTEX_SHADER?"vertex shader":"fragment shader", log,
             "Read the compiler line number; check GLSL version, declarations and shader inputs/outputs.");
         api.DeleteShader(shader);return 0;
     }
@@ -33,7 +33,7 @@ inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
 struct GpuVertex { float position[3], color[3], uv[2], normal[3]; };
 inline GLuint uploadTexture(const TextureImage& image,bool repeat) {
     auto& api=gl();GLuint id=0;api.GenTextures(1,&id);
-    if(!id){Diagnostics::fail(PipelineStage::Asset,"glGenTextures","Texture allocation failed.");return 0;}
+    if(!id){Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Asset,"glGenTextures","Texture allocation failed.");return 0;}
     api.ActiveTexture(GL_TEXTURE0);api.BindTexture(GL_TEXTURE_2D,id);
     GLint previousAlignment=4;api.GetIntegerv(GL_UNPACK_ALIGNMENT,&previousAlignment);
     api.PixelStorei(GL_UNPACK_ALIGNMENT,1);
@@ -52,21 +52,21 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     auto& gl=detail::gl();
     const auto vertexText=vertexPath.empty()?std::string(detail::vertexShader):readTextFile(vertexPath);
     const auto fragmentText=fragmentPath.empty()?std::string(detail::fragmentShader):readTextFile(fragmentPath);
-    if(vertexText.empty()||fragmentText.empty()) return Diagnostics::fail(PipelineStage::Shader, "Renderer::initShader",
+    if(vertexText.empty()||fragmentText.empty()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "Renderer::initShader",
         "Shader source is empty or unreadable: vertex=" + vertexPath.u8string() + "; fragment=" + fragmentPath.u8string(),
         "Use embedded shaders (empty shaderDirectory), or copy both GLSL files to the configured project-relative directory.");
     const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText);if(!vertex)return false;
     const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText);
     if(!fragment){gl.DeleteShader(vertex);return false;}
     shaderProgramID_=gl.CreateProgram();
-    if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return Diagnostics::fail(PipelineStage::Shader,"glCreateProgram","Program allocation failed.");}
+    if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader,"glCreateProgram","Program allocation failed.");}
     gl.AttachShader(shaderProgramID_,vertex);gl.AttachShader(shaderProgramID_,fragment);gl.LinkProgram(shaderProgramID_);
     gl.DeleteShader(vertex);gl.DeleteShader(fragment);
     GLint success=0;gl.GetProgramiv(shaderProgramID_,GL_LINK_STATUS,&success);
     if(!success) {
         GLint size=0;gl.GetProgramiv(shaderProgramID_,GL_INFO_LOG_LENGTH,&size);
         std::string log(std::max(size,1),'\0');gl.GetProgramInfoLog(shaderProgramID_,GLsizei(log.size()),nullptr,log.data());
-        return Diagnostics::fail(PipelineStage::Shader, "glLinkProgram", log, "Match vertex outputs and fragment inputs; inspect the linker log.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "glLinkProgram", log, "Match vertex outputs and fragment inputs; inspect the linker log.");
     }
     mvpLocation_=gl.GetUniformLocation(shaderProgramID_,"uMVP");
     modelLocation_=gl.GetUniformLocation(shaderProgramID_,"uModel");
@@ -79,13 +79,13 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     overrideLocation_=gl.GetUniformLocation(shaderProgramID_,"uOverrideColor");
     outlineColorLocation_=gl.GetUniformLocation(shaderProgramID_,"uOutlineColor");
     tintLocation_=gl.GetUniformLocation(shaderProgramID_,"uTint");
-    return mvpLocation_>=0 || Diagnostics::fail(PipelineStage::Shader, "glGetUniformLocation", "Required uMVP uniform is missing or optimized away.");
+    return mvpLocation_>=0 || Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "glGetUniformLocation", "Required uMVP uniform is missing or optimized away.");
 }
 inline bool Renderer::initialize(const std::filesystem::path& vertexPath,const std::filesystem::path& fragmentPath) {
     detail::gl().load();destroy();
     if(!initShader(vertexPath,fragmentPath)){destroy();return false;}
     auto& gl=detail::gl();gl.GenVertexArrays(1,&vao_);gl.GenBuffers(1,&vbo_);gl.GenBuffers(1,&ebo_);
-    if(!vao_||!vbo_||!ebo_){destroy();return Diagnostics::fail(PipelineStage::VertexInput, "Renderer::initialize", "VAO/VBO/EBO allocation failed.");}
+    if(!vao_||!vbo_||!ebo_){destroy();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput, "Renderer::initialize", "VAO/VBO/EBO allocation failed.");}
     gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo_);
     using V=detail::GpuVertex;
     gl.VertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,position)));
@@ -104,10 +104,10 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
     try {
         for(auto id:scene.getIds()) {
             const auto* c=scene.getComponent(id);if(c&&c->transformOnly)continue;
-            if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return Diagnostics::fail(PipelineStage::VertexInput, "Renderer::upload", "Missing component or invalid mesh, indices, colors, UVs or normals.", "Inspect the entity's mesh data before GPU upload.", id);}
+            if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput, "Renderer::upload", "Missing component or invalid mesh, indices, colors, UVs or normals.", "Inspect the entity's mesh data before GPU upload.", id);}
             for(std::size_t faceIndex=0;faceIndex<c->polyhedron.faces.size();++faceIndex) {
                 const auto& face=c->polyhedron.faces[faceIndex];
-                if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Vertex count exceeds the GPU index range.");}
+                if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::upload","Vertex count exceeds the GPU index range.");}
                 const auto first=GLuint(vertices.size());
                 Mesh normals=face;if(normals.vertexNormals.empty())recalculateNormals(normals);
                 for(std::size_t i=0;i<face.localVertices.size();++i) {
@@ -119,7 +119,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
                 }
                 const auto triangles=detail::triangles(face);
                 const auto outline=meshOutline(face,face.outline==OutlineMode::None?OutlineMode::FeatureEdges:face.outline);
-                if(triangles.size()>std::numeric_limits<GLsizei>::max()||outline.size()>std::numeric_limits<GLsizei>::max()){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Draw count exceeds GLsizei range.");}
+                if(triangles.size()>std::numeric_limits<GLsizei>::max()||outline.size()>std::numeric_limits<GLsizei>::max()){cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::upload","Draw count exceeds GLsizei range.");}
                 DrawRange range;range.entityId=id;range.faceIndex=faceIndex;range.firstIndex=indices.size();range.count=GLsizei(triangles.size());
                 for(auto index:triangles)indices.push_back(first+index);
                 range.outlineFirstIndex=indices.size();range.outlineCount=GLsizei(outline.size());
@@ -135,14 +135,14 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
         }
         for(std::size_t lineIndex=0;lineIndex<scene.getLines().size();++lineIndex) {
             const auto& line=scene.getLines()[lineIndex];
-            if(vertices.size()>std::numeric_limits<GLuint>::max()-2){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload lines","Vertex count exceeds the GPU index range.");}
+            if(vertices.size()>std::numeric_limits<GLuint>::max()-2){cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::upload lines","Vertex count exceeds the GPU index range.");}
             const auto first=GLuint(vertices.size());
             for(auto p:{line.start,line.end})vertices.push_back({{p.x,p.y,p.z},{line.color.red,line.color.green,line.color.blue},{0,0},{0,0,0}});
             DrawRange range;range.lineId=lineIndex;range.firstIndex=indices.size();range.count=2;
             ranges.push_back(range);indices.insert(indices.end(),{first,first+1});
         }
         if(vertices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(detail::GpuVertex)
-            ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::upload","Buffer byte size exceeds GLsizeiptr range.");}
+            ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::upload","Buffer byte size exceeds GLsizeiptr range.");}
         if(!detail::checkGl(PipelineStage::VertexInput, "before buffer upload")){cleanup();return false;}
         gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);
         gl.BufferData(GL_ARRAY_BUFFER,GLsizeiptr(vertices.size()*sizeof(detail::GpuVertex)),vertices.empty()?nullptr:vertices.data(),GL_STATIC_DRAW);
@@ -157,7 +157,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
 inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::mat4& projection,
                            const RenderOptions& options) const {
     Diagnostics::trace(PipelineStage::Transform, "Renderer::draw");
-    if(!detail::finiteMatrix(view)||!detail::finiteMatrix(projection))return Diagnostics::fail(PipelineStage::Transform, "Renderer::draw", "View or projection matrix contains NaN/Inf.");
+    if(!detail::finiteMatrix(view)||!detail::finiteMatrix(projection))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform, "Renderer::draw", "View or projection matrix contains NaN/Inf.");
     for(const auto& range:drawRanges_) {
         glm::mat4 matrix(1);
         if(range.lineId) {
@@ -166,7 +166,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             const auto* c=scene.getComponent(range.entityId);
             const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;matrix=*world;
         }
-        if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return Diagnostics::fail(PipelineStage::Transform, "Renderer::draw", "World or MVP matrix contains NaN/Inf.", "Check parent transforms, scales and motion samples.", range.entityId);
+        if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform, "Renderer::draw", "World or MVP matrix contains NaN/Inf.", "Check parent transforms, scales and motion samples.", range.entityId);
     }
     auto& gl=detail::gl();gl.UseProgram(shaderProgramID_);gl.BindVertexArray(vao_);
     auto cull=[&](const Mesh* face,const glm::mat4& model) {
@@ -244,11 +244,11 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
 inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int width,int height) {
     Diagnostics::trace(PipelineStage::Framebuffer,"Renderer::renderPass");
     const auto& camera=pass.camera;const auto& options=pass.options;const auto& viewport=pass.viewport;
-    if(!shaderProgramID_||!vao_)return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::renderPass","Renderer is not initialized.");
+    if(!shaderProgramID_||!vao_)return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::renderPass","Renderer is not initialized.");
     if(width<=0||height<=0)return true;
     if(viewport.x<0 || viewport.y<0 || viewport.x>width || viewport.y>height || viewport.width<0 || viewport.height<0
         || viewport.width>width-viewport.x || viewport.height>height-viewport.y)
-        return Diagnostics::fail(PipelineStage::Framebuffer,"Renderer::renderPass","Viewport lies outside the framebuffer.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Renderer::renderPass","Viewport lies outside the framebuffer.");
     if(viewport.width==0 || viewport.height==0) return true;
     if(!CameraSystem::validCamera(camera)||!detail::finiteVector(options.lightDirection)
         ||glm::length(options.lightDirection)<1e-12f||!detail::validColor(options.lightColor)
@@ -256,7 +256,7 @@ inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int w
         ||!std::isfinite(options.background.r)||!std::isfinite(options.background.g)
         ||!std::isfinite(options.background.b)||!std::isfinite(options.background.a)
         ||(options.cull!=CullMode::Inherit && options.cull!=CullMode::None && options.cull!=CullMode::Back && options.cull!=CullMode::Front))
-        return Diagnostics::fail(PipelineStage::Transform,"Renderer::renderPass","Invalid camera, light, color or culling mode.","Check near/far planes, FOV, target/up directions, positive orthographic extent and finite render options.");
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"Renderer::renderPass","Invalid camera, light, color or culling mode.","Check near/far planes, FOV, target/up directions, positive orthographic extent and finite render options.");
     if(uploadedScene_!=&scene||uploadedRevision_!=scene.getGeometryRevision()||uploadedTextures_!=options.textures) {
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;
@@ -281,8 +281,8 @@ inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,i
 }
 inline bool Renderer::renderViews(const Scene& scene,const std::vector<RenderPass>& passes,int width,int height) {
     if(width<=0 || height<=0) return true;
-    if(passes.empty()) return Diagnostics::fail(PipelineStage::Framebuffer,"Renderer::renderViews","Need at least one render pass.");
-    if(!shaderProgramID_ || !vao_) return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::renderViews","Renderer is not initialized.");
+    if(passes.empty()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Framebuffer,"Renderer::renderViews","Need at least one render pass.");
+    if(!shaderProgramID_ || !vao_) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::VertexInput,"Renderer::renderViews","Renderer is not initialized.");
     auto& gl=detail::gl();
     gl.Disable(GL_SCISSOR_TEST);gl.Viewport(0,0,width,height);gl.DepthMask(GL_TRUE);gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
     gl.ClearColor(.08f,.08f,.1f,1);gl.Clear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
