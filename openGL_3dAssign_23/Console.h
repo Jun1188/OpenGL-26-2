@@ -9,6 +9,7 @@ class Console {
     graphics::Bounds3 bounds_{{-5,0,-5},{5,4,5}};
     std::array<float,4> doors_{};
     std::array<bool,4> open_{};
+    std::optional<std::size_t> activeWall_;
     unsigned randomSeed_=std::random_device{}();
     std::mt19937 random_{randomSeed_};
     bool walking_=true;

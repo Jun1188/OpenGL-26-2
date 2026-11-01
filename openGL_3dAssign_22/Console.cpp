@@ -12,16 +12,16 @@ graphics::EntityId requireEntity(std::optional<graphics::EntityId> id,const char
 }
 graphics::EntityId Console::box(glm::vec3 size,glm::vec3 position,graphics::EntityId parent) {
     const auto id=requireEntity(graphics::PatternSystem::addBox(
-        app_.getScene(),size,position,{1,1,1},parent),"Cannot add tank box.");
+        app_.getScene(),size,position,{1,1,1},parent),"탱크 상자 생성 실패: 크기·위치·부모 ID를 확인하세요.");
     colored_.push_back(id);
     return id;
 }
 bool Console::initScene() {
     reset();
-    std::cout << "Practice 22: same Scene, perspective / XZ top / XY front\n"
-              << "arrows move tank; d lower height; t central spin; l upper swap\n"
-              << "g guns opposite yaw; p poles opposite pitch; x/X,z/Z camera translation\n"
-              << "y/Y camera yaw, r/R camera orbit (repeat pauses); O/o colors; c reset; q quit\n";
+    std::cout << "실습 22: 같은 장면을 원근 / XZ 평면도 / XY 정면도로 표시\n"
+              << "방향키 이동; d 하부 높이; t 중앙 자전; l 상부 교환\n"
+              << "g 포신 반대 회전; p 깃대 반대 기울기; x/X,z/Z 카메라 이동\n"
+              << "y/Y 카메라 시선 회전; r/R 공전(재입력 정지); O/o 색 변경; c 초기화; q 종료\n";
     return true;
 }
 void Console::reset() {
@@ -35,21 +35,21 @@ void Console::reset() {
     cameraX_=cameraZ_=cameraYaw_=cameraOrbit_=0;
     lowerRunning_=centralRunning_=gunRunning_=poleRunning_=swapRunning_=swapStarted_=false;
     colorVersion_=0;
-    root_=requireEntity(scene.addGroup(),"Cannot create tank root.");
+    root_=requireEntity(scene.addGroup(),"탱크 루트 생성 실패.");
     central_=requireEntity(graphics::PatternSystem::addJoint(scene,root_,{0,.6f,0}),
-        "Cannot create central joint.");
-    const auto ground=requireEntity(scene.addGroup(),"Cannot create ground group.");
+        "중앙 관절 생성 실패.");
+    const auto ground=requireEntity(scene.addGroup(),"바닥 그룹 생성 실패.");
     box({12,.1f,12},{0,-.05f,0},ground);
     for(std::size_t i=0;i<2;++i)lower_[i]=box({.65f,.6f,1.8f},{i==0?-.8f:.8f,.3f,0},root_);
     box({2.3f,.25f,1.4f},{0,.125f,0},central_);
     for(std::size_t i=0;i<2;++i) {
         const float sign=i==0?-1.0f:1.0f;
         upper_[i]=requireEntity(graphics::PatternSystem::addJoint(scene,central_,{sign*.65f,.25f,0}),
-            "Cannot create upper joint.");
+            "상부 관절 생성 실패.");
         guns_[i]=requireEntity(graphics::PatternSystem::addJoint(scene,upper_[i],{0,.3f,0}),
-            "Cannot create gun body-center pivot.");
+            "포신 중심 피벗 생성 실패.");
         poles_[i]=requireEntity(graphics::PatternSystem::addJoint(scene,upper_[i],{0,.6f,0}),
-            "Cannot create pole base pivot.");
+            "깃대 밑점 피벗 생성 실패.");
         box({.65f,.6f,.8f},{0,.3f,0},upper_[i]);
         // Gun offsets stay relative to the original body-center pivot (0,.3,0).
         box({.14f,.14f,1.1f},{0,-.05f,.95f},guns_[i]);
@@ -72,15 +72,15 @@ void Console::recolor() {
         {.7f,.75f,.2f},{.9f,.4f,.15f},{1,.8f,.2f},{.4f,.7f,.8f},{.7f,.25f,.6f},{.6f,.9f,.4f}};
     for(std::size_t i=0;i<colored_.size();++i)
         if(!app_.getScene().setTint(colored_[i],palette[(i+colorVersion_)%palette.size()]))
-            throw std::runtime_error("Cannot color tank part.");
+            throw std::runtime_error("탱크 부품 색상 적용 실패.");
 }
 void Console::apply() {
     auto& scene=app_.getScene();
-    if(!scene.setPosition(root_,position_))throw std::runtime_error("Invalid tank position.");
+    if(!scene.setPosition(root_,position_))throw std::runtime_error("탱크 위치 적용 실패.");
     const float factor=1+.25f*std::sin(lowerTime_),height=.6f*factor;
     if(!scene.setPosition(central_,{0,height,0})
         ||!graphics::PatternSystem::rotateJoint(scene,central_,{0,1,0},centralAngle_))
-        throw std::runtime_error("Invalid central joint transform.");
+        throw std::runtime_error("중앙 관절 변환 적용 실패.");
     for(std::size_t i=0;i<2;++i) {
         const float sign=i==0?-1.0f:1.0f;
         graphics::Transform3D low;
@@ -91,7 +91,7 @@ void Console::apply() {
         if(!scene.setTransform(lower_[i],low)||!scene.setPosition(upper_[i],upperPosition)
             ||!graphics::PatternSystem::rotateJoint(scene,guns_[i],{0,1,0},sign*gunAngle_)
             ||!graphics::PatternSystem::rotateJoint(scene,poles_[i],{1,0,0},sign*60*std::sin(poleTime_)))
-            throw std::runtime_error("Invalid tank part transform.");
+            throw std::runtime_error("탱크 부품 변환 적용 실패.");
     }
 }
 void Console::onKey(int key,int action,int mods) {
@@ -174,7 +174,7 @@ void Console::onUpdate(float dt) {
     if(!graphics::PatternSystem::moveCamera(camera,delta)
         ||(cameraYaw_!=0&&!graphics::PatternSystem::yawCamera(camera,cameraYaw_*35*dt))
         ||(cameraOrbit_!=0&&!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},cameraOrbit_*25*dt)))
-        throw std::runtime_error("Cannot update camera.");
+        throw std::runtime_error("카메라 갱신 실패: 위치·시선·회전축을 확인하세요.");
     app_.getCamera()=camera;
     apply();
 }
@@ -190,6 +190,6 @@ bool Console::onRender() {
     if(size[0]<3||size[1]<2)return true;
     const auto passes=graphics::PatternSystem::threeViews(
         app_.getCamera(),size[0],size[1],app_.getRenderOptions());
-    if(passes.size()!=3)throw std::runtime_error("Cannot create three camera views.");
+    if(passes.size()!=3)throw std::runtime_error("세 카메라 뷰 생성 실패: 프레임버퍼 크기와 카메라를 확인하세요.");
     return app_.renderViews(passes);
 }

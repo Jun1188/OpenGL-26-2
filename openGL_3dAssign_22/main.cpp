@@ -14,14 +14,14 @@ int main() {
         app.setFocusHandler([&](graphics::Application&,bool focused){practice.onFocus(focused);});
         app.setRenderHandler([&](graphics::Application&){return practice.onRender();});
         graphics::ApplicationConfig config;
-        config.title="OpenGL Practice 22 - Perspective / XZ / XY";
+        config.title="실습 22 - 원근 / XZ / XY";
         config.width=1200;
         config.height=800;
         return app.run(config);
     } catch(const std::exception& error) {
-        std::cerr<<"Practice 22 failed: "<<error.what()<<'\n';
+        std::cerr<<"실습 22 실패: "<<error.what()<<'\n';
     } catch(...) {
-        std::cerr<<"Practice 22 failed: unknown exception.\n";
+        std::cerr<<"실습 22 실패: 알 수 없는 예외.\n";
     }
     return 1;
 }
