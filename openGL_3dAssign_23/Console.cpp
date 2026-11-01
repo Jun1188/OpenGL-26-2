@@ -13,8 +13,7 @@ bool Console::initScene() {
     const auto stage=graphics::PatternSystem::addRoom(scene,bounds_,false);
     if(!stage) return false;stage_=*stage;
     for(std::size_t face=0;face<4;++face) {
-        if(!graphics::PatternSystem::openRoomWall(scene,stage_,face,0)
-            || !scene.setOutline(stage_,face,graphics::OutlineMode::FeatureEdges)) return false;
+        if(!graphics::PatternSystem::openRoomWall(scene,stage_,face,0)) return false;
     }
     graphics::GridLayout grid;grid.origin={-.5f,0,-.3f};grid.extent={1,1.8f,.6f};
     const auto rig=graphics::PatternSystem::addWalkingRig(scene,grid);if(!rig) return false;rig_=*rig;
