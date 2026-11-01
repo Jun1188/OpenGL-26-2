@@ -133,6 +133,18 @@ inline bool Application::renderScene() {
     return renderer_.render(scene_, camera_, width, height, renderOptions_);
 }
 
+inline std::array<int,2> Application::getFramebufferSize() const {
+    std::array<int,2> size{};
+    if(window_) detail::glfw().GetFramebufferSize(window_,&size[0],&size[1]);
+    return size;
+}
+inline bool Application::renderViews(const std::vector<RenderPass>& passes) {
+    if(!window_) return Diagnostics::fail(PipelineStage::Framebuffer,"Application::renderViews","No active window/context.");
+    detail::glfw().MakeContextCurrent(window_);
+    const auto size=getFramebufferSize();
+    return renderer_.renderViews(scene_,passes,size[0],size[1]);
+}
+
 inline int Application::run(const ApplicationConfig& config) {
     Diagnostics::configure(config.diagnostics);
     Diagnostics::clear();

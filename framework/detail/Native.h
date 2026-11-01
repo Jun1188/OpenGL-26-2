@@ -138,6 +138,9 @@ struct GlApi {
     decltype(&::glColorMask) ColorMask = nullptr;
     decltype(&::glDepthFunc) DepthFunc = nullptr;
     decltype(&::glViewport) Viewport = nullptr;
+    decltype(&::glScissor) Scissor = nullptr;
+    decltype(&::glCullFace) CullFace = nullptr;
+    decltype(&::glFrontFace) FrontFace = nullptr;
     decltype(&::glPolygonMode) PolygonMode = nullptr;
     decltype(&::glDrawElements) DrawElements = nullptr;
     decltype(&::glGenTextures) GenTextures = nullptr;
@@ -200,6 +203,9 @@ struct GlApi {
         ColorMask = resolve<decltype(ColorMask)>("glColorMask");
         DepthFunc = resolve<decltype(DepthFunc)>("glDepthFunc");
         Viewport = resolve<decltype(Viewport)>("glViewport");
+        Scissor = resolve<decltype(Scissor)>("glScissor");
+        CullFace = resolve<decltype(CullFace)>("glCullFace");
+        FrontFace = resolve<decltype(FrontFace)>("glFrontFace");
         PolygonMode = resolve<decltype(PolygonMode)>("glPolygonMode");
         DrawElements = resolve<decltype(DrawElements)>("glDrawElements");
         GenTextures = resolve<decltype(GenTextures)>("glGenTextures");

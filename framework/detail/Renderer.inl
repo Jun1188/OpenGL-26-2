@@ -168,6 +168,12 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
         if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return Diagnostics::fail(PipelineStage::Transform, "Renderer::draw", "World or MVP matrix contains NaN/Inf.", "Check parent transforms, scales and motion samples.", range.entityId);
     }
     auto& gl=detail::gl();gl.UseProgram(shaderProgramID_);gl.BindVertexArray(vao_);
+    auto cull=[&](const Mesh* face,const glm::mat4& model) {
+        const auto mode=face && face->cull!=CullMode::Inherit?face->cull:options.cull;
+        gl.FrontFace(glm::determinant(glm::mat3(model))<0?GL_CW:GL_CCW);
+        if(!face || mode==CullMode::None || mode==CullMode::Inherit) gl.Disable(GL_CULL_FACE);
+        else {gl.Enable(GL_CULL_FACE);gl.CullFace(mode==CullMode::Front?GL_FRONT:GL_BACK);}
+    };
     gl.ActiveTexture(GL_TEXTURE0);gl.Uniform1i(textureLocation_,0);
     gl.Uniform3f(lightDirectionLocation_,options.lightDirection.x,options.lightDirection.y,options.lightDirection.z);
     gl.Uniform3f(lightColorLocation_,options.lightColor.red,options.lightColor.green,options.lightColor.blue);
@@ -180,7 +186,9 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             const auto* c=scene.getComponent(range.entityId);
             const auto& face=c->polyhedron.faces[range.faceIndex];
             if(!c->visible||!face.visible)continue;
-            const auto matrix=projection*view*(*scene.faceWorldMatrix(range.entityId,range.faceIndex));
+            const auto model=*scene.faceWorldMatrix(range.entityId,range.faceIndex);
+            cull(&face,model);
+            const auto matrix=projection*view*model;
             gl.UniformMatrix4fv(mvpLocation_,1,GL_FALSE,glm::value_ptr(matrix));
             gl.DrawElements(GL_TRIANGLES,range.count,GL_UNSIGNED_INT,
                 reinterpret_cast<const void*>(range.firstIndex*sizeof(GLuint)));
@@ -199,6 +207,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;model=*world;
         }
         const auto mvp=projection*view*model;
+        cull(face,model);
         const float determinant=glm::determinant(glm::mat3(model));
         const auto normalMatrix=std::isfinite(determinant)&&std::abs(determinant)>1e-12f
             ?glm::transpose(glm::inverse(glm::mat3(model))):glm::mat3(1);
@@ -231,25 +240,54 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
     }
     gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return detail::checkGl(PipelineStage::Raster, "Renderer::draw outlines and cleanup");
 }
-inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,int height,const RenderOptions& options) {
-    if(!shaderProgramID_||!vao_)return false;if(width<=0||height<=0)return true;
+inline bool Renderer::renderPass(const Scene& scene,const RenderPass& pass,int width,int height) {
+    Diagnostics::trace(PipelineStage::Framebuffer,"Renderer::renderPass");
+    const auto& camera=pass.camera;const auto& options=pass.options;const auto& viewport=pass.viewport;
+    if(!shaderProgramID_||!vao_)return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::renderPass","Renderer is not initialized.");
+    if(width<=0||height<=0)return true;
+    if(viewport.x<0 || viewport.y<0 || viewport.x>width || viewport.y>height || viewport.width<0 || viewport.height<0
+        || viewport.width>width-viewport.x || viewport.height>height-viewport.y)
+        return Diagnostics::fail(PipelineStage::Framebuffer,"Renderer::renderPass","Viewport lies outside the framebuffer.");
+    if(viewport.width==0 || viewport.height==0) return true;
     if(!CameraSystem::validCamera(camera)||!detail::finiteVector(options.lightDirection)
         ||glm::length(options.lightDirection)<1e-12f||!detail::validColor(options.lightColor)
         ||!detail::validColor(options.outlineColor)
         ||!std::isfinite(options.background.r)||!std::isfinite(options.background.g)
-        ||!std::isfinite(options.background.b)||!std::isfinite(options.background.a))return false;
+        ||!std::isfinite(options.background.b)||!std::isfinite(options.background.a)
+        ||(options.cull!=CullMode::Inherit && options.cull!=CullMode::None && options.cull!=CullMode::Back && options.cull!=CullMode::Front))
+        return Diagnostics::fail(PipelineStage::Transform,"Renderer::renderPass","Invalid camera, light, color or culling mode.","Check near/far planes, FOV, target/up directions, positive orthographic extent and finite render options.");
     if(uploadedScene_!=&scene||uploadedRevision_!=scene.getGeometryRevision()||uploadedTextures_!=options.textures) {
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;
     }
     auto& gl=detail::gl();if(!detail::checkGl(PipelineStage::Framebuffer, "before Renderer::render"))return false;
-    gl.Viewport(0,0,width,height);gl.LineWidth(1);
+    gl.Viewport(viewport.x,viewport.y,viewport.width,viewport.height);gl.LineWidth(1);
     if(options.depthTest)gl.Enable(GL_DEPTH_TEST);else gl.Disable(GL_DEPTH_TEST);
-    gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Disable(GL_SCISSOR_TEST);
+    gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Enable(GL_SCISSOR_TEST);
+    gl.Scissor(viewport.x,viewport.y,viewport.width,viewport.height);
     gl.PolygonMode(GL_FRONT_AND_BACK,GL_FILL);gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
     gl.ClearColor(options.background.r,options.background.g,options.background.b,options.background.a);
-    gl.Clear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    return draw(scene,CameraSystem::viewMatrix(camera),CameraSystem::projectionMatrix(camera,float(width)/height),options);
+    const GLbitfield mask=(pass.clearColor?GL_COLOR_BUFFER_BIT:0)|(pass.clearDepth?GL_DEPTH_BUFFER_BIT:0);
+    if(mask) gl.Clear(mask);
+    if(!detail::checkGl(PipelineStage::Framebuffer,"viewport/scissor/clear")) {gl.Disable(GL_SCISSOR_TEST);return false;}
+    const bool success=draw(scene,CameraSystem::viewMatrix(camera),CameraSystem::projectionMatrix(camera,float(viewport.width)/viewport.height),options);
+    gl.Disable(GL_SCISSOR_TEST);gl.Disable(GL_CULL_FACE);gl.FrontFace(GL_CCW);
+    return success;
+}
+inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,int height,const RenderOptions& options) {
+    RenderPass pass;pass.camera=camera;pass.options=options;pass.viewport={0,0,width,height};
+    return renderPass(scene,pass,width,height);
+}
+inline bool Renderer::renderViews(const Scene& scene,const std::vector<RenderPass>& passes,int width,int height) {
+    if(width<=0 || height<=0) return true;
+    if(passes.empty()) return Diagnostics::fail(PipelineStage::Framebuffer,"Renderer::renderViews","Need at least one render pass.");
+    if(!shaderProgramID_ || !vao_) return Diagnostics::fail(PipelineStage::VertexInput,"Renderer::renderViews","Renderer is not initialized.");
+    auto& gl=detail::gl();
+    gl.Disable(GL_SCISSOR_TEST);gl.Viewport(0,0,width,height);gl.DepthMask(GL_TRUE);gl.ColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+    gl.ClearColor(.08f,.08f,.1f,1);gl.Clear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    if(!detail::checkGl(PipelineStage::Framebuffer,"Renderer::renderViews full-frame clear")) return false;
+    for(const auto& pass:passes) if(!renderPass(scene,pass,width,height)) return false;
+    return true;
 }
 inline void Renderer::destroy() {
     auto& gl=detail::gl();

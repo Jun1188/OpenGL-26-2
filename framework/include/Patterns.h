@@ -84,6 +84,8 @@ public:
     static bool yawCamera(Camera& camera,float degrees);
     static bool orbitCamera(Camera& camera,const AxisLine& axis,float degrees);
     static bool zoomCamera(Camera& camera,float factor);
+    static std::vector<RenderPass> threeViews(const Camera& perspective,int width,int height,
+                                              const RenderOptions& options=RenderOptions{});
     static std::optional<JointRig> addWalkingRig(Scene& scene,const GridLayout& bodyGrid);
     static bool poseWalkingRig(Scene& scene,const JointRig& rig,const glm::vec3& feet,float yawDegrees,
                                double walkDistance,float speed);

@@ -79,6 +79,8 @@ public:
     int run(const ApplicationConfig& config = ApplicationConfig{});
     void requestClose();
     bool renderScene();
+    bool renderViews(const std::vector<RenderPass>& passes);
+    std::array<int,2> getFramebufferSize() const;
 
     RenderOptions& getRenderOptions() { return renderOptions_; }
     Scene& getScene() { return scene_; }

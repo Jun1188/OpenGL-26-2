@@ -136,6 +136,13 @@ inline bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visib
     return true;
 }
 
+inline bool Scene::setFaceCullMode(EntityId id,std::size_t faceIndex,CullMode mode) {
+    if(id>=components_.size() || faceIndex>=components_[id].polyhedron.faces.size()
+        || (mode!=CullMode::Inherit && mode!=CullMode::None && mode!=CullMode::Back && mode!=CullMode::Front))
+        return Diagnostics::fail(PipelineStage::Raster,"Scene::setFaceCullMode","Invalid entity, face index or culling mode.","Check the model's face list and CullMode enum.",id);
+    components_[id].polyhedron.faces[faceIndex].cull=mode;
+    return true;
+}
 inline bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex,
                                const glm::mat4& matrix) {
     if (id >= components_.size()

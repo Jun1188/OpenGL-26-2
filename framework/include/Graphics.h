@@ -46,6 +46,7 @@ public:
     std::optional<EntityId> addPyramid(const glm::vec3& sideLengths,
                                       const glm::vec3& worldPosition);
     bool setFaceVisible(EntityId id, std::size_t faceIndex, bool visible);
+    bool setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode);
     bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix);
     bool setFaceVertexColors(EntityId id, std::size_t faceIndex,
                              const std::vector<GlColor>& colors);
@@ -146,6 +147,7 @@ public:
 std::string readTextFile(const std::filesystem::path& path);
 
 struct RenderOptions {
+    CullMode cull = CullMode::None;
     bool depthTest = true;
     bool wireframe = false;
     bool textures = false; // Explicit opt-in; no texture GPU work when false.
@@ -154,6 +156,14 @@ struct RenderOptions {
     GlColor lightColor;
     GlColor outlineColor{0.05f, 0.05f, 0.05f};
     glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
+};
+
+struct Viewport { int x=0, y=0, width=0, height=0; }; // Bottom-left framebuffer pixels.
+struct RenderPass {
+    Camera camera;
+    Viewport viewport;
+    RenderOptions options;
+    bool clearColor=true, clearDepth=true;
 };
 
 class Renderer {
@@ -188,6 +198,8 @@ public:
     bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{}, const std::filesystem::path& fragmentPath = std::filesystem::path{});
     bool render(const Scene& scene, const Camera& camera, int width, int height,
                 const RenderOptions& options = RenderOptions{});
+    bool renderPass(const Scene& scene,const RenderPass& pass,int framebufferWidth,int framebufferHeight);
+    bool renderViews(const Scene& scene,const std::vector<RenderPass>& passes,int width,int height);
     void destroy(); // Call while the owning context is current, before it is destroyed.
 };
 } // namespace graphics

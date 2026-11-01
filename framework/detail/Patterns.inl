@@ -328,6 +328,19 @@ inline bool PatternSystem::zoomCamera(Camera& camera,float factor) {
     if(!CameraSystem::validCamera(next)) return Diagnostics::fail(PipelineStage::Transform,"PatternSystem::zoomCamera","Zoom creates an invalid camera.");
     camera=next;return true;
 }
+inline std::vector<RenderPass> PatternSystem::threeViews(const Camera& perspective,int width,int height,const RenderOptions& options) {
+    if(width<3 || height<2 || !CameraSystem::validCamera(perspective)) {
+        Diagnostics::fail(PipelineStage::Framebuffer,"PatternSystem::threeViews","Need a valid camera and framebuffer of at least 3x2 pixels.");return {};
+    }
+    const int left=width*2/3,right=width-left,bottom=height/2;
+    RenderPass main;main.camera=perspective;main.camera.orthographic=false;main.options=options;main.viewport={0,0,left,height};
+    RenderPass top=main;top.viewport={left,bottom,right,height-bottom};top.camera.orthographic=true;
+    top.camera.position=perspective.target+glm::vec3(0,20,0);top.camera.target=perspective.target;top.camera.up={0,0,-1};
+    top.camera.orthographicHalfExtent=std::max(6.5f,perspective.orthographicHalfExtent);
+    RenderPass front=top;front.viewport={left,0,right,bottom};
+    front.camera.position=perspective.target+glm::vec3(0,0,20);front.camera.up={0,1,0};
+    return {main,top,front};
+}
 inline std::optional<JointRig> PatternSystem::addWalkingRig(Scene& scene,const GridLayout& grid) {
     if(!grid.valid() || !detail::rigidRoom(grid.frame)) {Diagnostics::fail(PipelineStage::Scene,"PatternSystem::addWalkingRig","Need a valid grid with a rigid frame.");return {};}
     JointRig rig;const auto root=scene.addGroup();if(!root) return {};rig.root=*root;

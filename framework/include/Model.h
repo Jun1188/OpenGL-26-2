@@ -143,6 +143,7 @@ inline std::vector<std::uint32_t> triangles(const Mesh& mesh) {
     return {};
 }
 inline bool validMesh(const Mesh& m) {
+    if(m.cull!=CullMode::Inherit && m.cull!=CullMode::None && m.cull!=CullMode::Back && m.cull!=CullMode::Front) return false;
     if (m.localVertices.size() < 3 || !validColor(m.color)
         || !validColor(m.material.color) || !finiteVector(m.normal)
         || !finiteMatrix(m.localAnimationMatrix)
