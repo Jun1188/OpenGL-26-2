@@ -88,6 +88,7 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     detail::glfw().SwapInterval(config.verticalSync ? 1 : 0);
     const auto vertexPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"VertexShader.glsl";
     const auto fragmentPath=config.shaderDirectory.empty()?std::filesystem::path{}:detail::relativePathInside(root,config.shaderDirectory)/"FragmentShader.glsl";
+    Diagnostics::locate(__FILE__,__LINE__,"initialize -> Renderer::initialize -> shader source/path setup");
     if(!renderer_.initialize(vertexPath,fragmentPath)) return false;
     assets_.emplace(root,config.features);
     renderOptions_.textures=config.features.textures;

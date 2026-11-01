@@ -55,8 +55,10 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     if(vertexText.empty()||fragmentText.empty()) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader, "Renderer::initShader",
         "Shader source is empty or unreadable: vertex=" + vertexPath.u8string() + "; fragment=" + fragmentPath.u8string(),
         "Use embedded shaders (empty shaderDirectory), or copy both GLSL files to the configured project-relative directory.");
-    const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText,vertexPath.empty()?std::filesystem::path(__FILE__).parent_path()/"Shaders.h":vertexPath);if(!vertex)return false;
-    const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText,fragmentPath.empty()?std::filesystem::path(__FILE__).parent_path()/"Shaders.h":fragmentPath);
+    // /utf-8 /FC encodes __FILE__ as UTF-8, not the Windows ANSI code page.
+    const auto embeddedSource=std::filesystem::u8path(__FILE__).parent_path()/"Shaders.h";
+    const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText,vertexPath.empty()?embeddedSource:vertexPath);if(!vertex)return false;
+    const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText,fragmentPath.empty()?embeddedSource:fragmentPath);
     if(!fragment){gl.DeleteShader(vertex);return false;}
     shaderProgramID_=gl.CreateProgram();
     if(!shaderProgramID_){gl.DeleteShader(vertex);gl.DeleteShader(fragment);return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Shader,"glCreateProgram","Program allocation failed.");}
