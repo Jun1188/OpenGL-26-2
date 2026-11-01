@@ -14,7 +14,9 @@ class Console {
     std::vector<BodyObject> objects_;
     unsigned ballCount_ = 0;
     float roomAngle_ = 0;
+    float roomSpinAngle_ = 0;
     float pendingRotation_ = 0;
+    bool roomSpinning_ = false;
     bool floorOpen_ = false;
     bool dragging_ = false;
     bool focused_ = true;
@@ -22,6 +24,7 @@ class Console {
 
     glm::mat4 roomWorld() const;
     bool addBall();
+    void releaseBody(BodyObject& object) const;
     bool syncScene();
     void require(bool succeeded, const char* operation) const;
     void printHelp() const;

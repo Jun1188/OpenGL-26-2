@@ -8,7 +8,16 @@ void Console::require(bool succeeded, const char* operation) const {
 }
 
 glm::mat4 Console::roomWorld() const {
-    return glm::rotate(glm::mat4(1), roomAngle_, glm::vec3(0, 0, 1));
+    const auto spin = glm::rotate(glm::mat4(1), roomSpinAngle_, glm::vec3(0, 1, 0));
+    return glm::rotate(spin, roomAngle_, glm::vec3(0, 0, 1));
+}
+
+void Console::releaseBody(BodyObject& object) const {
+    const auto matrix = roomWorld();
+    object.body.worldPosition = object.body.position(matrix);
+    object.body.worldVelocity = glm::mat3(matrix) * object.body.localVelocity;
+    object.releasedRotation = glm::mat3(matrix);
+    object.body.released = true;
 }
 
 bool Console::initScene() {
@@ -16,8 +25,8 @@ bool Console::initScene() {
     scene.clear();
     objects_.clear();
     ballCount_ = 0;
-    roomAngle_ = pendingRotation_ = 0;
-    floorOpen_ = dragging_ = false;
+    roomAngle_ = roomSpinAngle_ = pendingRotation_ = 0;
+    floorOpen_ = dragging_ = roomSpinning_ = false;
     const auto room = graphics::PatternSystem::addRoom(scene, roomBounds_, true);
     if (!room) return false;
     room_ = *room;
@@ -102,6 +111,7 @@ bool Console::addBall() {
     ball.body.halfExtent = glm::vec3(radius);
     ball.body.localVelocity = {1.5f + .2f * ballCount_, -1.4f - .12f * ballCount_,
                               ballCount_ % 2 ? -1.8f : 1.8f};
+    if (floorOpen_) releaseBody(ball);
     objects_.push_back(ball);
     ++ballCount_;
     std::cout << "공 생성: " << ballCount_ << "/5\n";
@@ -140,11 +150,18 @@ void Console::onKey(int key, int action, int mods) {
     } else if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_B) {
             require(addBall() && syncScene(), "공 추가 또는 표시변환 실패");
-        } else if (key == GLFW_KEY_F) {
+        } else if (key == GLFW_KEY_E || key == GLFW_KEY_F) {
             floorOpen_ = !floorOpen_;
+            if (floorOpen_) {
+                for (auto& object : objects_)
+                    if (!object.body.released) releaseBody(object);
+            }
             require(syncScene(), "바닥 가시성 변경 실패");
-            std::cout << (floorOpen_ ? "바닥 열림: 객체가 아래로 이탈하면 월드 낙하\n"
+            std::cout << (floorOpen_ ? "바닥 열림: 모든 내부 공과 상자가 즉시 중력 낙하\n"
                                      : "바닥 닫힘: 이미 이탈한 객체는 계속 낙하\n");
+        } else if (key == GLFW_KEY_V) {
+            roomSpinning_ = !roomSpinning_;
+            std::cout << (roomSpinning_ ? "방 Y축 자전 시작\n" : "방 Y축 자전 정지\n");
         } else if (key == GLFW_KEY_R) {
             require(initScene(), "장면 초기화 실패");
         } else if (key == GLFW_KEY_Q || key == GLFW_KEY_ESCAPE) {
@@ -182,8 +199,12 @@ void Console::onFocus(bool focused) {
 
 void Console::onUpdate(float dt) {
     if (!focused_) return;
+    const float spinSpeed = roomSpinning_ ? glm::radians(30.0f) : 0;
+    roomSpinAngle_ = std::remainder(roomSpinAngle_ + spinSpeed * dt, glm::radians(360.0f));
     const auto matrix = roomWorld();
-    const glm::vec3 angularVelocity(0, 0, dt > 0 ? pendingRotation_ / dt : 0);
+    const auto spin = glm::rotate(glm::mat4(1), roomSpinAngle_, glm::vec3(0, 1, 0));
+    const glm::vec3 angularVelocity = glm::vec3(0, spinSpeed, 0)
+        + glm::mat3(spin) * glm::vec3(0, 0, dt > 0 ? pendingRotation_ / dt : 0);
     if (dt > 0) pendingRotation_ = 0;
     for (auto& object : objects_) {
         const bool wasReleased = object.body.released;
@@ -199,8 +220,10 @@ void Console::printHelp() const {
     std::cout << "실습 21: 실내 공 반사, 기울어진 바닥의 상자, 바닥 개방\n"
               << "z/Z: 카메라 월드 Z +/-, y/Y: 화면 로컬 Y 시계/반시계 자전\n"
               << "Shift XOR Caps Lock으로 소문자/대문자 구분. 카메라 키는 반복 허용.\n"
-              << "B: 공 추가(초기 1개, 최대 5개), F: 바닥 열기/닫기\n"
+              << "B: 공 추가(초기 1개, 최대 5개), e/F: 바닥 열기/닫기\n"
+              << "바닥 개방 즉시 모든 공/상자 중력 낙하. 개방 중 새 공도 낙하.\n"
+              << "v: 방 Y축 30도/초 자전 시작/정지, 내부 벽 Front 컬링 유지\n"
               << "왼쪽 버튼 좌우 드래그: 공간 Z축 회전, 기울기에 따라 상자 미끄럼\n"
               << "R: 전체 초기화, H: 도움말, Q 또는 Esc: 종료\n"
-              << "B/F/R/H/Q는 누른 순간 한 번만 적용. 포커스 상실 시 드래그 해제.\n";
+              << "B/e/F/v/R/H/Q는 누른 순간 한 번만 적용. 포커스 상실 시 드래그 해제.\n";
 }
