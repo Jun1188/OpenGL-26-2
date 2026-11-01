@@ -1,196 +1,163 @@
 ﻿#include "Console.h"
 #include <algorithm>
-#include <cmath>
 #include <iostream>
+#include <stdexcept>
 
 namespace {
-glm::mat3 turn(float degrees,glm::vec3 axis) {
-    return glm::mat3(glm::rotate(glm::mat4(1),glm::radians(degrees),axis));
+constexpr float beltHeight = 1.0f;
+constexpr float boxSize = .85f;
+constexpr double beltSpeed = 1.25;
+constexpr std::size_t stripeCount = 30;
+
+void require(bool success, const char* operation) {
+    if (!success) throw std::runtime_error(operation);
 }
-}
-graphics::EntityId Console::box(glm::vec3 size,glm::vec3 position,graphics::EntityId parent) {
-    auto model=graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube,size);
-    for(auto& face:model.faces)face.color={1,1,1};
-    graphics::Transform3D transform;
-    transform.basis=position;
-    auto& scene=app_.getScene();
-    const auto id=scene.addModel(model,transform,graphics::PivotMode::Preserve).value();
-    if(!scene.setParent(id,parent))throw std::runtime_error("Cannot connect tank part.");
-    colored_.push_back(id);
-    return id;
-}
-bool Console::initScene() {
-    reset();
-    std::cout << "Practice 19: arrows move tank; d lower height; t central spin; l upper swap\n"
-              << "g guns opposite yaw; p poles opposite pitch; x/X,z/Z camera translation\n"
-              << "y/Y camera yaw, r/R camera orbit (repeat pauses); o colors; c reset; q quit\n";
-    return true;
-}
-void Console::reset() {
-    auto& scene=app_.getScene();
-    scene.clear();
-    colored_.clear();
-    pressed_.fill(false);
-    position_=glm::vec3(0);
-    lowerTime_=centralAngle_=gunAngle_=poleTime_=swapProgress_=0;
-    swapDirection_=1;
-    cameraX_=cameraZ_=cameraYaw_=cameraOrbit_=0;
-    lowerRunning_=centralRunning_=gunRunning_=poleRunning_=swapRunning_=swapStarted_=false;
-    colorVersion_=0;
-    root_=scene.addGroup().value();
-    central_=scene.addGroup().value();
-    if(!scene.setParent(central_,root_))throw std::runtime_error("Cannot create tank root.");
-    const auto ground=scene.addGroup().value();
-    box({12,.1f,12},{0,-.05f,0},ground);
-    for(std::size_t i=0;i<2;++i)lower_[i]=box({.65f,.6f,1.8f},{i==0?-.8f:.8f,.3f,0},root_);
-    box({2.3f,.25f,1.4f},{0,.125f,0},central_);
-    for(std::size_t i=0;i<2;++i) {
-        upper_[i]=scene.addGroup().value();
-        guns_[i]=scene.addGroup().value();
-        poles_[i]=scene.addGroup().value();
-        if(!scene.setParent(upper_[i],central_)||!scene.setParent(guns_[i],upper_[i])||!scene.setParent(poles_[i],upper_[i]))
-            throw std::runtime_error("Cannot create upper tank hierarchy.");
-        box({.65f,.6f,.8f},{0,.3f,0},upper_[i]);
-        box({.14f,.14f,1.1f},{0,0,.55f},guns_[i]);
-        box({.08f,.85f,.08f},{0,.425f,0},poles_[i]);
-    }
-    auto& camera=app_.getCamera();
-    camera=graphics::Camera{};
-    camera.position={-5,4.5f,7};
-    camera.target={0,.7f,0};
-    camera.orthographic=false;
-    app_.getRenderOptions()=graphics::RenderOptions{};
-    app_.getRenderOptions().lighting=true;
-    
-    apply();
 }
 
-void Console::apply() {
-    auto& scene=app_.getScene();
-    if(!scene.setPosition(root_,position_))throw std::runtime_error("Invalid tank position.");
-    const float factor=1+.25f*std::sin(lowerTime_),height=.6f*factor;
-    graphics::Transform3D center;
-    center.basis={0,height,0};
-    center.rotation=turn(centralAngle_,{0,1,0});
-    if(!scene.setTransform(central_,center))throw std::runtime_error("Invalid central transform.");
-    for (std::size_t i = 0; i < 2; ++i) {
-        const float sign = i == 0 ? -1.0f : 1.0f;
-        graphics::Transform3D low;
-        low.basis = { sign * .8f,height * .5f,0 };
-        low.scale = { 1,factor,1 };
-        graphics::Transform3D upper;
-        const float a = 3.14159265f * swapProgress_;
-        upper.basis = { sign * .65f * std::cos(a),.25f,sign * .65f * std::sin(a) };
-        const glm::vec3 bodyCenter{0, .3f, 0};
-        const glm::vec3 gunOffset{0, .25f, .4f};
-        graphics::Transform3D gun;
-        gun.rotation = turn(sign * gunAngle_, {0, 1, 0});
-        gun.basis = bodyCenter
-                  + gun.rotation * (gunOffset - bodyCenter);
-        graphics::Transform3D pole;
-        pole.basis={0,.6f,0};
-        pole.rotation=turn(sign*60*std::sin(poleTime_),{1,0,0});
-        if(!scene.setTransform(lower_[i],low)||!scene.setTransform(upper_[i],upper)
-            ||!scene.setTransform(guns_[i],gun)||!scene.setTransform(poles_[i],pole))
-            throw std::runtime_error("Invalid tank part transform.");
+bool Console::initScene() {
+    auto& scene = app_.getScene();
+    scene.clear();
+    stripes_.clear();
+    require(path_.setPoints({{-4, beltHeight, -2}, {3, beltHeight, -2},
+                            {3, beltHeight, 3}}, false), "Conveyor path creation failed.");
+
+    require(graphics::PatternSystem::addPolygon(scene,
+        {{-6, 0, -4}, {-6, 0, 5}, {6, 0, 5}, {6, 0, -4}},
+        {.25f, .30f, .34f}).has_value(), "Floor creation failed.");
+    // Two convex planes meet at an edge: an L is not a single convex polygon.
+    require(graphics::PatternSystem::addPolygon(scene,
+        {{-4.8f, beltHeight, -2.8f}, {-4.8f, beltHeight, -1.2f},
+         {3.8f, beltHeight, -1.2f}, {3.8f, beltHeight, -2.8f}},
+        {.09f, .12f, .15f}).has_value(), "Horizontal conveyor plane creation failed.");
+    require(graphics::PatternSystem::addPolygon(scene,
+        {{2.2f, beltHeight, -1.2f}, {2.2f, beltHeight, 3.8f},
+         {3.8f, beltHeight, 3.8f}, {3.8f, beltHeight, -1.2f}},
+        {.09f, .12f, .15f}).has_value(), "Vertical conveyor plane creation failed.");
+
+    for (std::size_t i = 0; i < stripeCount; ++i) {
+        const auto stripe = graphics::PatternSystem::addBox(scene, {1.4f, .03f, .10f},
+            {0, 0, 0}, {.72f, .77f, .80f});
+        require(stripe.has_value(), "Conveyor stripe creation failed.");
+        stripes_.push_back(*stripe);
+    }
+
+    const std::array<graphics::GlColor, 5> colors{{
+        {.95f, .30f, .23f}, {.23f, .72f, .96f}, {.98f, .75f, .20f},
+        {.38f, .86f, .43f}, {.78f, .44f, .96f}}};
+    for (std::size_t i = 0; i < boxes_.size(); ++i) {
+        const auto box = graphics::PatternSystem::addBox(scene,
+            {boxSize, boxSize, boxSize}, {0, 0, 0}, colors[i]);
+        require(box.has_value(), "Parcel creation failed.");
+        boxes_[i] = *box;
+        // Each outward face has its own label frame, so camera orbit keeps digits readable.
+        for (int face = 0; face < 4; ++face) {
+            const auto label = graphics::PatternSystem::addJoint(scene, *box, {0, 0, 0});
+            require(label.has_value(), "Parcel label frame creation failed.");
+            require(graphics::PatternSystem::rotateJoint(scene, *label, {0, 1, 0},
+                float(face) * 90.0f), "Parcel label frame rotation failed.");
+            require(graphics::PatternSystem::addNumber(scene, unsigned(i + 1),
+                {-.12f, -.24f, boxSize * .5f + .008f}, .48f,
+                {.04f, .04f, .06f}, *label), "Parcel number creation failed.");
+        }
+    }
+
+    auto& options = app_.getRenderOptions();
+    options = graphics::RenderOptions{};
+    options.depthTest = true;
+    options.lighting = true;
+    options.background = {.08f, .10f, .14f, 1};
+    resetState();
+    std::cout << "실습 20: 택배 물류 센터\n"
+        << "b 이동 시작/정지 | +/- 확대/축소 | p 원근 / P 직각\n"
+        << "좌/우 중심 Y축 공전 | r 전체 리셋 | q 종료\n";
+    return true;
+}
+
+void Console::placeMovingObjects() {
+    auto& scene = app_.getScene();
+    const double travelled = clock_.seconds * beltSpeed;
+    for (std::size_t i = 0; i < stripes_.size(); ++i) {
+        const double offset = path_.length() * double(i) / double(stripes_.size());
+        require(graphics::PatternSystem::follow(scene, stripes_[i], path_,
+            travelled + offset, {0, .015f, 0}), "Conveyor stripe placement failed.");
+    }
+    for (std::size_t i = 0; i < boxes_.size(); ++i) {
+        const double offset = path_.length() * double(i) / double(boxes_.size());
+        require(graphics::PatternSystem::follow(scene, boxes_[i], path_,
+            travelled + offset, {0, .03f + boxSize * .5f, 0}),
+            "Parcel path placement failed.");
     }
 }
-void Console::onKey(int key,int action,int mods) {
-    const bool upper=((mods&GLFW_MOD_SHIFT)!=0)!=((mods&GLFW_MOD_CAPS_LOCK)!=0);
-    if(key==GLFW_KEY_X||key==GLFW_KEY_Z) {
-        if(action==GLFW_PRESS||action==GLFW_RELEASE) {
-            float& direction=key==GLFW_KEY_X?cameraX_:cameraZ_;
-            direction=action==GLFW_RELEASE?0:(upper?-1.0f:1.0f);
-        }
-        return;
-    }
-    if(key>=0&&key<=GLFW_KEY_LAST) {
-        if(action==GLFW_PRESS)pressed_[key]=true;
-        else if(action==GLFW_RELEASE)pressed_[key]=false;
-    }
-    if(action!=GLFW_PRESS)return;
-    const float direction=upper?1.0f:-1.0f;
-    switch(key) {
-    case GLFW_KEY_D:
-        lowerRunning_=!lowerRunning_;
-        break;
-    case GLFW_KEY_T:
-        centralRunning_=!centralRunning_;
-        break;
-    case GLFW_KEY_G:
-        gunRunning_=!gunRunning_;
+
+void Console::resetState() {
+    clock_.reset();
+    clock_.playing = false;
+    leftHeld_ = false;
+    rightHeld_ = false;
+    auto& camera = app_.getCamera();
+    camera = graphics::Camera{};
+    camera.position = {11, 10, 13};
+    camera.target = {0, .7f, .3f};
+    camera.up = {0, 1, 0};
+    camera.orthographic = false;
+    camera.orthographicHalfExtent = 7.5f;
+    camera.nearPlane = .1f;
+    camera.farPlane = 120;
+    require(graphics::CameraSystem::validCamera(camera), "Reset camera is invalid.");
+    placeMovingObjects();
+}
+
+void Console::zoom(float factor) {
+    auto& camera = app_.getCamera();
+    const float current = camera.orthographic ? camera.orthographicHalfExtent
+        : glm::length(camera.position - camera.target);
+    // Keep useful scene visibility and stay within the far clipping distance.
+    const float next = std::clamp(current * factor, 2.0f, camera.orthographic ? 35.0f : 60.0f);
+    require(graphics::PatternSystem::zoomCamera(camera, next / current), "Camera zoom failed.");
+}
+
+void Console::onKey(int key, int action, int mods) {
+    if (key == GLFW_KEY_LEFT) leftHeld_ = action != GLFW_RELEASE;
+    if (key == GLFW_KEY_RIGHT) rightHeld_ = action != GLFW_RELEASE;
+    if (action != GLFW_PRESS && action != GLFW_REPEAT) return;
+    if (key == GLFW_KEY_EQUAL || key == GLFW_KEY_KP_ADD) zoom(.9f);
+    if (key == GLFW_KEY_MINUS || key == GLFW_KEY_KP_SUBTRACT) zoom(1.0f / .9f);
+    if (action != GLFW_PRESS) return;
+    switch (key) {
+    case GLFW_KEY_B:
+        clock_.playing = !clock_.playing;
         break;
     case GLFW_KEY_P:
-        poleRunning_=!poleRunning_;
-        break;
-    case GLFW_KEY_L:
-        if(!swapStarted_){
-            swapStarted_=true;
-            swapRunning_=true;
-        }
-        else if(!swapRunning_&&(swapProgress_==0||swapProgress_==1)){
-            swapDirection_=-swapDirection_;
-            swapRunning_=true;
-        }
-        else swapRunning_=!swapRunning_;
-        break;
-    case GLFW_KEY_Y:
-        cameraYaw_=cameraYaw_==direction?0:direction;
+        // Shift and Caps Lock together produce lowercase p.
+        app_.getCamera().orthographic = ((mods & GLFW_MOD_SHIFT) != 0)
+            != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
         break;
     case GLFW_KEY_R:
-        cameraOrbit_=cameraOrbit_==direction?0:direction;
-        break;
-    
-    case GLFW_KEY_C:
-        reset();
+        resetState();
         break;
     case GLFW_KEY_Q:
-    case GLFW_KEY_ESCAPE:
         app_.requestClose();
         break;
     default:
         break;
     }
 }
-void Console::onUpdate(float dt) {
-    glm::vec3 movement{float(pressed_[GLFW_KEY_RIGHT])-float(pressed_[GLFW_KEY_LEFT]),0,
-        float(pressed_[GLFW_KEY_DOWN])-float(pressed_[GLFW_KEY_UP])};
-    if(glm::length(movement)>0)position_+=glm::normalize(movement)*dt*1.3f;
-    // 12x12 floor minus a 2.5-unit radius covers every animated part's sweep.
-    position_.x=std::clamp(position_.x,-3.5f,3.5f);
-    position_.z=std::clamp(position_.z,-3.5f,3.5f);
-    if(lowerRunning_)lowerTime_=std::fmod(lowerTime_+dt,6.283185307f);
-    if(centralRunning_)centralAngle_=std::fmod(centralAngle_+45*dt,360.0f);
-    if(gunRunning_)gunAngle_= std::fmod(gunAngle_+60*dt,-360.0f);
-    if(poleRunning_)poleTime_=std::fmod(poleTime_+dt,6.283185307f);
-    if(swapRunning_) {
-        swapProgress_=std::clamp(swapProgress_+swapDirection_*dt*.5f,0.0f,1.0f);
-        if(swapProgress_==0||swapProgress_==1)swapRunning_=false;
-    }
-    auto camera=app_.getCamera();
-    const glm::vec3 delta{cameraX_*2*dt,0,cameraZ_*2*dt};
-    camera.position+=delta;
-    camera.target+=delta;
-    if(cameraYaw_!=0) {
-        const auto forward=glm::normalize(camera.target-camera.position);
-        const auto right=glm::normalize(glm::cross(forward,camera.up));
-        const auto localUp=glm::normalize(glm::cross(right,forward));
-        const auto rotation=turn(cameraYaw_*35*dt,localUp);
-        camera.target=camera.position+rotation*(camera.target-camera.position);
-        camera.up=rotation*localUp;
-    }
-    if(cameraOrbit_!=0) {
-        const auto rotation=turn(cameraOrbit_*25*dt,{0,1,0});
-        camera.position=rotation*camera.position;
-        camera.target=rotation*camera.target;
-        camera.up=rotation*camera.up;
-    }
-    if(graphics::CameraSystem::validCamera(camera))app_.getCamera()=camera;
-    apply();
-}
+
 void Console::onFocus(bool focused) {
-    if(!focused){
-        pressed_.fill(false);
-        cameraX_=cameraZ_=0;
+    if (!focused) {
+        leftHeld_ = false;
+        rightHeld_ = false;
     }
+}
+
+void Console::onUpdate(float dt) {
+    require(clock_.advance(dt), "Conveyor clock update failed.");
+    placeMovingObjects();
+    const int direction = int(rightHeld_) - int(leftHeld_);
+    if (direction != 0) {
+        const graphics::AxisLine axis{app_.getCamera().target, {0, 1, 0}};
+        require(graphics::PatternSystem::orbitCamera(app_.getCamera(), axis,
+            float(direction) * 65.0f * dt), "Camera orbit failed.");
+    }
+    // Application::run advances Scene motions; do not update them a second time here.
 }
