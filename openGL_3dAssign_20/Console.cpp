@@ -8,6 +8,13 @@ constexpr float beltHeight = 1.0f;
 constexpr float boxSize = .85f;
 constexpr double beltSpeed = 1.25;
 constexpr std::size_t stripeCount = 30;
+constexpr float cornerRadius = .8f;
+constexpr double halfPi = 1.57079632679489661923;
+const glm::vec3 conveyorStart{-4, beltHeight, -2};
+const glm::vec3 cornerPivot{2.2f, beltHeight, -1.2f};
+constexpr float conveyorEndZ = 3.0f;
+const double conveyorLength = (double(cornerPivot.x) - conveyorStart.x)
+    + halfPi * double(cornerRadius) + (double(conveyorEndZ) - cornerPivot.z);
 
 void require(bool success, const char* operation) {
     if (!success) throw std::runtime_error(operation);
@@ -18,8 +25,6 @@ bool Console::initScene() {
     auto& scene = app_.getScene();
     scene.clear();
     stripes_.clear();
-    require(path_.setPoints({{-4, beltHeight, -2}, {3, beltHeight, -2},
-                            {3, beltHeight, 3}}, false), "Conveyor path creation failed.");
 
     require(graphics::PatternSystem::addPolygon(scene,
         {{-6, 0, -4}, {-6, 0, 5}, {6, 0, 5}, {6, 0, -4}},
@@ -76,16 +81,25 @@ bool Console::initScene() {
 void Console::placeMovingObjects() {
     auto& scene = app_.getScene();
     const double travelled = clock_.seconds * beltSpeed;
+    const auto place = [&](graphics::EntityId entity, double distance, float height) {
+        const auto pose = graphics::PatternSystem::conveyorCornerPose(distance,
+            conveyorStart, cornerPivot, cornerRadius, conveyorEndZ);
+        require(pose.has_value(), "Conveyor corner pose sampling failed.");
+        const auto* component = scene.getComponent(entity);
+        require(component != nullptr, "Conveyor moving entity is missing.");
+        auto transform = component->transform;
+        transform.basis = pose->position + glm::vec3(0, height, 0);
+        transform.rotation = glm::mat3(glm::rotate(glm::mat4(1),
+            glm::radians(pose->yawDegrees), glm::vec3(0, 1, 0)));
+        require(scene.setTransform(entity, transform), "Conveyor moving entity transform failed.");
+    };
     for (std::size_t i = 0; i < stripes_.size(); ++i) {
-        const double offset = path_.length() * double(i) / double(stripes_.size());
-        require(graphics::PatternSystem::follow(scene, stripes_[i], path_,
-            travelled + offset, {0, .015f, 0}), "Conveyor stripe placement failed.");
+        const double offset = conveyorLength * double(i) / double(stripes_.size());
+        place(stripes_[i], travelled + offset, .015f);
     }
     for (std::size_t i = 0; i < boxes_.size(); ++i) {
-        const double offset = path_.length() * double(i) / double(boxes_.size());
-        require(graphics::PatternSystem::follow(scene, boxes_[i], path_,
-            travelled + offset, {0, .03f + boxSize * .5f, 0}),
-            "Parcel path placement failed.");
+        const double offset = conveyorLength * double(i) / double(boxes_.size());
+        place(boxes_[i], travelled + offset, .03f + boxSize * .5f);
     }
 }
 

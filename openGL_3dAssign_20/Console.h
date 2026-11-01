@@ -5,7 +5,6 @@
 
 class Console {
     graphics::Application& app_;
-    graphics::DistancePath path_;
     graphics::AnimationClock clock_;
     std::array<graphics::EntityId, 5> boxes_{};
     std::vector<graphics::EntityId> stripes_;
