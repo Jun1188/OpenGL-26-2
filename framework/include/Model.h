@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "Diagnostics.h"
 #include "../dependencies/glm/glm/glm.hpp"
 #include "../dependencies/glm/glm/gtc/matrix_transform.hpp"
 #include <array>

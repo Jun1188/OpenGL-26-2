@@ -19,6 +19,7 @@ struct ApplicationConfig {
     std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
     FeatureOptions features;
     bool verticalSync = true;
+    DiagnosticOptions diagnostics;
 };
 
 struct MouseEvent {

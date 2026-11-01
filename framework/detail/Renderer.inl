@@ -16,13 +16,17 @@ inline std::string readTextFile(const std::filesystem::path& path) {
 }
 namespace detail {
 inline GLuint compileShader(GLenum kind,const std::string& sourceText) {
-    auto& api=gl();const auto shader=api.CreateShader(kind);if(!shader)return 0;
+    Diagnostics::trace(PipelineStage::Shader, "compileShader");
+    auto& api=gl();const auto shader=api.CreateShader(kind);
+    if(!shader) { Diagnostics::fail(PipelineStage::Shader, "glCreateShader", "Shader allocation failed."); return 0; }
     const char* text=sourceText.c_str();api.ShaderSource(shader,1,&text,nullptr);api.CompileShader(shader);
     GLint success=0;api.GetShaderiv(shader,GL_COMPILE_STATUS,&success);
     if(!success) {
         GLint length=0;api.GetShaderiv(shader,GL_INFO_LOG_LENGTH,&length);
         std::string log(std::max(length,1), '\0');api.GetShaderInfoLog(shader,GLsizei(log.size()),nullptr,log.data());
-        std::cerr<<"Shader compile failed: "<<log<<'\n';api.DeleteShader(shader);return 0;
+        Diagnostics::fail(PipelineStage::Shader, kind==GL_VERTEX_SHADER?"vertex shader":"fragment shader", log,
+            "Read the compiler line number; check GLSL version, declarations and shader inputs/outputs.");
+        api.DeleteShader(shader);return 0;
     }
     return shader;
 }
@@ -38,7 +42,7 @@ inline GLuint uploadTexture(const TextureImage& image,bool repeat) {
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,repeat?GL_REPEAT:GL_CLAMP_TO_EDGE);
     api.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,repeat?GL_REPEAT:GL_CLAMP_TO_EDGE);
-    if(api.GetError()!=GL_NO_ERROR) {api.DeleteTextures(1,&id);return 0;}
+    if(!checkGl(PipelineStage::Asset, "uploadTexture")) {api.DeleteTextures(1,&id);return 0;}
     return id;
 }
 } // namespace detail
@@ -47,7 +51,9 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     auto& gl=detail::gl();
     const auto vertexText=vertexPath.empty()?std::string(detail::vertexShader):readTextFile(vertexPath);
     const auto fragmentText=fragmentPath.empty()?std::string(detail::fragmentShader):readTextFile(fragmentPath);
-    if(vertexText.empty()||fragmentText.empty()) return false;
+    if(vertexText.empty()||fragmentText.empty()) return Diagnostics::fail(PipelineStage::Shader, "Renderer::initShader",
+        "Shader source is empty or unreadable: vertex=" + vertexPath.u8string() + "; fragment=" + fragmentPath.u8string(),
+        "Use embedded shaders (empty shaderDirectory), or copy both GLSL files to the configured project-relative directory.");
     const auto vertex=detail::compileShader(GL_VERTEX_SHADER,vertexText);if(!vertex)return false;
     const auto fragment=detail::compileShader(GL_FRAGMENT_SHADER,fragmentText);
     if(!fragment){gl.DeleteShader(vertex);return false;}
@@ -59,7 +65,7 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     if(!success) {
         GLint size=0;gl.GetProgramiv(shaderProgramID_,GL_INFO_LOG_LENGTH,&size);
         std::string log(std::max(size,1),'\0');gl.GetProgramInfoLog(shaderProgramID_,GLsizei(log.size()),nullptr,log.data());
-        std::cerr<<"Shader link failed: "<<log<<'\n';return false;
+        return Diagnostics::fail(PipelineStage::Shader, "glLinkProgram", log, "Match vertex outputs and fragment inputs; inspect the linker log.");
     }
     mvpLocation_=gl.GetUniformLocation(shaderProgramID_,"uMVP");
     modelLocation_=gl.GetUniformLocation(shaderProgramID_,"uModel");
@@ -72,13 +78,13 @@ inline bool Renderer::initShader(const std::filesystem::path& vertexPath,const s
     overrideLocation_=gl.GetUniformLocation(shaderProgramID_,"uOverrideColor");
     outlineColorLocation_=gl.GetUniformLocation(shaderProgramID_,"uOutlineColor");
     tintLocation_=gl.GetUniformLocation(shaderProgramID_,"uTint");
-    return mvpLocation_>=0;
+    return mvpLocation_>=0 || Diagnostics::fail(PipelineStage::Shader, "glGetUniformLocation", "Required uMVP uniform is missing or optimized away.");
 }
 inline bool Renderer::initialize(const std::filesystem::path& vertexPath,const std::filesystem::path& fragmentPath) {
     detail::gl().load();destroy();
     if(!initShader(vertexPath,fragmentPath)){destroy();return false;}
     auto& gl=detail::gl();gl.GenVertexArrays(1,&vao_);gl.GenBuffers(1,&vbo_);gl.GenBuffers(1,&ebo_);
-    if(!vao_||!vbo_||!ebo_){destroy();return false;}
+    if(!vao_||!vbo_||!ebo_){destroy();return Diagnostics::fail(PipelineStage::VertexInput, "Renderer::initialize", "VAO/VBO/EBO allocation failed.");}
     gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo_);
     using V=detail::GpuVertex;
     gl.VertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,position)));
@@ -86,9 +92,10 @@ inline bool Renderer::initialize(const std::filesystem::path& vertexPath,const s
     gl.VertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,uv)));
     gl.VertexAttribPointer(3,3,GL_FLOAT,GL_FALSE,sizeof(V),reinterpret_cast<void*>(offsetof(V,normal)));
     for(GLuint i=0;i<4;++i)gl.EnableVertexAttribArray(i);
-    gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);return true;
+    gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);return detail::checkGl(PipelineStage::VertexInput, "Renderer::initialize vertex layout");
 }
 inline bool Renderer::upload(const Scene& scene,bool textureMode) {
+    Diagnostics::trace(PipelineStage::VertexInput, "Renderer::upload");
     std::vector<detail::GpuVertex> vertices;
     std::vector<GLuint> indices;std::vector<DrawRange> ranges;
     TextureMap stagedTextures;auto& gl=detail::gl();
@@ -96,7 +103,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
     try {
         for(auto id:scene.getIds()) {
             const auto* c=scene.getComponent(id);if(c&&c->transformOnly)continue;
-            if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return false;}
+            if(!c||!DiagramSystem::validPolyhedron(c->polyhedron)){cleanup();return Diagnostics::fail(PipelineStage::VertexInput, "Renderer::upload", "Missing component or invalid mesh, indices, colors, UVs or normals.", "Inspect the entity's mesh data before GPU upload.", id);}
             for(std::size_t faceIndex=0;faceIndex<c->polyhedron.faces.size();++faceIndex) {
                 const auto& face=c->polyhedron.faces[faceIndex];
                 if(vertices.size()+face.localVertices.size()>std::numeric_limits<GLuint>::max()) {cleanup();return false;}
@@ -118,7 +125,7 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
                 for(auto index:outline)indices.push_back(first+index);
                 ranges.push_back(range);
                 if(textureMode&&face.material.useTexture&&stagedTextures.find(face.material.texture)==stagedTextures.end()) {
-                    while(gl.GetError()!=GL_NO_ERROR){}
+                    if(!detail::checkGl(PipelineStage::Asset, "before uploadTexture")){cleanup();return false;}
                     const auto texture=detail::uploadTexture(*face.material.texture,face.material.repeatTexture);
                     if(!texture){cleanup();return false;}
                     try{stagedTextures.emplace(face.material.texture,texture);}catch(...){gl.DeleteTextures(1,&texture);throw;}
@@ -135,20 +142,21 @@ inline bool Renderer::upload(const Scene& scene,bool textureMode) {
         }
         if(vertices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(detail::GpuVertex)
             ||indices.size()>std::size_t(std::numeric_limits<GLsizeiptr>::max())/sizeof(GLuint)){cleanup();return false;}
-        while(gl.GetError()!=GL_NO_ERROR){}
+        if(!detail::checkGl(PipelineStage::VertexInput, "before buffer upload")){cleanup();return false;}
         gl.BindVertexArray(vao_);gl.BindBuffer(GL_ARRAY_BUFFER,vbo_);
         gl.BufferData(GL_ARRAY_BUFFER,GLsizeiptr(vertices.size()*sizeof(detail::GpuVertex)),vertices.empty()?nullptr:vertices.data(),GL_STATIC_DRAW);
         gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo_);
         gl.BufferData(GL_ELEMENT_ARRAY_BUFFER,GLsizeiptr(indices.size()*sizeof(GLuint)),indices.empty()?nullptr:indices.data(),GL_STATIC_DRAW);
         gl.BindVertexArray(0);gl.BindBuffer(GL_ARRAY_BUFFER,0);
-        if(gl.GetError()!=GL_NO_ERROR){cleanup();return false;}
+        if(!detail::checkGl(PipelineStage::VertexInput, "glBufferData")){cleanup();return false;}
         for(const auto& item:textures_)gl.DeleteTextures(1,&item.second);
         textures_=std::move(stagedTextures);drawRanges_=std::move(ranges);return true;
     } catch(...) {cleanup();throw;}
 }
 inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::mat4& projection,
                            const RenderOptions& options) const {
-    if(!detail::finiteMatrix(view)||!detail::finiteMatrix(projection))return false;
+    Diagnostics::trace(PipelineStage::Transform, "Renderer::draw");
+    if(!detail::finiteMatrix(view)||!detail::finiteMatrix(projection))return Diagnostics::fail(PipelineStage::Transform, "Renderer::draw", "View or projection matrix contains NaN/Inf.");
     for(const auto& range:drawRanges_) {
         glm::mat4 matrix(1);
         if(range.lineId) {
@@ -157,7 +165,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             const auto* c=scene.getComponent(range.entityId);
             const auto world=scene.faceWorldMatrix(range.entityId,range.faceIndex);if(!world)return false;matrix=*world;
         }
-        if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return false;
+        if(!detail::finiteMatrix(matrix)||!detail::finiteMatrix(projection*view*matrix))return Diagnostics::fail(PipelineStage::Transform, "Renderer::draw", "World or MVP matrix contains NaN/Inf.", "Check parent transforms, scales and motion samples.", range.entityId);
     }
     auto& gl=detail::gl();gl.UseProgram(shaderProgramID_);gl.BindVertexArray(vao_);
     gl.ActiveTexture(GL_TEXTURE0);gl.Uniform1i(textureLocation_,0);
@@ -206,8 +214,13 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             gl.TexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,face->material.repeatTexture?GL_REPEAT:GL_CLAMP_TO_EDGE);}
         else gl.BindTexture(GL_TEXTURE_2D,0);
         if(!face||!options.wireframe)
+        {
             gl.DrawElements(face?GL_TRIANGLES:GL_LINES,range.count,GL_UNSIGNED_INT,
                 reinterpret_cast<const void*>(range.firstIndex*sizeof(GLuint)));
+            if(!detail::checkGl(PipelineStage::Raster, "glDrawElements")) {
+                gl.BindVertexArray(0);gl.UseProgram(0);return false;
+            }
+        }
         if(face&&(options.wireframe||face->outline!=OutlineMode::None)) {
             gl.Uniform1i(hasTextureLocation_,0);gl.Uniform1i(lightingLocation_,0);gl.Uniform1i(overrideLocation_,options.wireframe?0:1);
             gl.DepthFunc(GL_LEQUAL);gl.DepthMask(GL_FALSE);
@@ -216,7 +229,7 @@ inline bool Renderer::draw(const Scene& scene,const glm::mat4& view,const glm::m
             gl.DepthFunc(GL_LESS);gl.DepthMask(GL_TRUE);
         }
     }
-    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return gl.GetError()==GL_NO_ERROR;
+    gl.Uniform1i(overrideLocation_,0);gl.BindTexture(GL_TEXTURE_2D,0);gl.BindVertexArray(0);gl.UseProgram(0);return detail::checkGl(PipelineStage::Raster, "Renderer::draw outlines and cleanup");
 }
 inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,int height,const RenderOptions& options) {
     if(!shaderProgramID_||!vao_)return false;if(width<=0||height<=0)return true;
@@ -229,7 +242,7 @@ inline bool Renderer::render(const Scene& scene,const Camera& camera,int width,i
         if(!upload(scene,options.textures))return false;
         uploadedScene_=&scene;uploadedRevision_=scene.getGeometryRevision();uploadedTextures_=options.textures;
     }
-    auto& gl=detail::gl();while(gl.GetError()!=GL_NO_ERROR){}
+    auto& gl=detail::gl();if(!detail::checkGl(PipelineStage::Framebuffer, "before Renderer::render"))return false;
     gl.Viewport(0,0,width,height);gl.LineWidth(1);
     if(options.depthTest)gl.Enable(GL_DEPTH_TEST);else gl.Disable(GL_DEPTH_TEST);
     gl.Disable(GL_CULL_FACE);gl.Disable(GL_BLEND);gl.Disable(GL_SCISSOR_TEST);

@@ -37,12 +37,18 @@ inline void Application::setRenderHandler(std::function<bool(Application&)> hand
 }
 
 inline bool Application::initialize(const ApplicationConfig& config) {
+    Diagnostics::trace(PipelineStage::Runtime, "Application::initialize");
     const auto root=detail::relativePathInside(detail::executableDirectory(),config.projectRoot);
     const auto runtime=detail::relativePathInside(root,config.runtimeDirectory);
     detail::glfw().load(runtime);
-    if (config.width <= 0 || config.height <= 0 || !detail::glfw().Init()) {
-        return false;
-    }
+    detail::glfw().SetErrorCallback([](int code, const char* message) {
+        Diagnostics::fail(PipelineStage::Runtime, "GLFW", std::to_string(code) + ": " + (message ? message : "unknown error"),
+            "Check the graphics driver, OpenGL 3.3 support, window dimensions and the bundled GLFW DLL.");
+    });
+    if (config.width <= 0 || config.height <= 0)
+        return Diagnostics::fail(PipelineStage::Runtime, "Application::initialize", "Window width and height must be positive.");
+    if (!detail::glfw().Init())
+        return Diagnostics::fail(PipelineStage::Runtime, "glfwInit", "GLFW initialization failed; see the GLFW error above.");
     glfwInitialized_ = true;
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     detail::glfw().WindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -52,7 +58,7 @@ inline bool Application::initialize(const ApplicationConfig& config) {
     window_ = detail::glfw().createWindow(config.width, config.height,
                               config.title.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
-        return false;
+        return Diagnostics::fail(PipelineStage::Runtime, "glfwCreateWindow", "Could not create an OpenGL 3.3 core window.", "Check the GLFW error above and update the graphics driver.");
     }
     detail::glfw().MakeContextCurrent(window_);
     detail::glfw().SwapInterval(config.verticalSync ? 1 : 0);
@@ -128,6 +134,8 @@ inline bool Application::renderScene() {
 }
 
 inline int Application::run(const ApplicationConfig& config) {
+    Diagnostics::configure(config.diagnostics);
+    Diagnostics::clear();
     if (running_) {
         return -1; // 콜백에서 run()을 재귀 호출하지 않는다.
     }
@@ -167,6 +175,7 @@ inline int Application::run(const ApplicationConfig& config) {
                     std::clamp(currentTime - previousTime, 0.0, 0.05));
                 previousTime = currentTime;
                 if (updateHandler_) {
+                    Diagnostics::trace(PipelineStage::Input, "Application::updateHandler");
                     updateHandler_(*this, deltaTime);
                 }
                 if (detail::glfw().WindowShouldClose(window_)) {
@@ -188,7 +197,14 @@ inline int Application::run(const ApplicationConfig& config) {
                 detail::glfw().SwapBuffers(window_);
             }
         }
+    } catch (const std::exception& error) {
+        Diagnostics::fail(PipelineStage::Runtime, "Application::run", error.what(), "Read the preceding stage/API error; user callback exceptions are rethrown after cleanup.");
+        shutdown();
+        running_ = false;
+        detail::applicationActive()=false;
+        throw;
     } catch (...) {
+        Diagnostics::fail(PipelineStage::Runtime, "Application::run", "Non-standard exception in a callback or runtime operation.");
         shutdown();
         running_ = false;
         detail::applicationActive()=false;
