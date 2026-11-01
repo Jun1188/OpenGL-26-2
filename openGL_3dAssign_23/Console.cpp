@@ -1,6 +1,7 @@
 ﻿#include "Console.h"
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 namespace {
 void require(bool ok,const char* message) {if(!ok) throw std::runtime_error(message);}
 }
@@ -8,16 +9,16 @@ bool Console::initScene() {
     auto& scene=app_.getScene();scene.clear();obstacles_.clear();
     body_=graphics::CharacterBody{};body_.feet={-3,0,-3};body_.speed=1;
     body_.height=1.8f;body_.halfWidth={.5f,.5f};
-    door_=0;open_=false;walking_=true;
+    doors_.fill(0);open_.fill(false);walking_=true;
     const auto stage=graphics::PatternSystem::addRoom(scene,bounds_,false);
     if(!stage) return false;stage_=*stage;
     graphics::GridLayout grid;grid.origin={-.5f,0,-.3f};grid.extent={1,1.8f,.6f};
     const auto rig=graphics::PatternSystem::addWalkingRig(scene,grid);if(!rig) return false;rig_=*rig;
-    std::mt19937 random(2301);
+    std::cout << "Practice23 random seed=" << randomSeed_ << "; reset continues the random engine\n";
     std::vector<graphics::Bounds3> occupied{{{-3.8f,0,-3.8f},{-2.2f,2,-2.2f}}};
     for(unsigned i=0;i<3;++i) {
         const glm::vec3 size{.9f+.2f*i,.6f+.25f*i,.9f+.15f*i};
-        const auto box=graphics::CollisionSystem::randomFreeBox({{-4,0,-4},{4,size.y,4}},size,occupied,random);
+        const auto box=graphics::CollisionSystem::randomFreeBox({{-4,0,-4},{4,size.y,4}},size,occupied,random_);
         if(!box) return false;
         if(!graphics::PatternSystem::addBox(scene,size,(box->minimum+box->maximum)*.5f,{.3f+.2f*i,.5f,.8f-.2f*i})) return false;
         occupied.push_back(*box);obstacles_.push_back(*box);
@@ -43,7 +44,10 @@ void Console::onKey(int key,int action,int mods) {
     if(key==GLFW_KEY_A) {body_.direction={-1,0,0};walking_=true;}
     if(key==GLFW_KEY_D) {body_.direction={1,0,0};walking_=true;}
     if(action!=GLFW_PRESS) return;
-    if(key==GLFW_KEY_O) open_=!open_;
+    if(key==GLFW_KEY_O) {
+        const auto wall=graphics::PatternSystem::cameraFacingWall(app_.getScene(),stage_,camera);
+        if(wall) {open_[*wall]=!open_[*wall];std::cout<<"Selected wall="<<*wall<<'\n';}
+    }
     if(key==GLFW_KEY_SPACE) walking_=!walking_;
     if(key==GLFW_KEY_J) graphics::CollisionSystem::jump(body_,5.5f);
     if(key==GLFW_KEY_I) require(initScene(),"Practice23 reset failed.");
@@ -57,6 +61,8 @@ void Console::onUpdate(float dt) {
     require(result.has_value(),"Practice23 character collision failed.");
     const float yaw=glm::degrees(std::atan2(body_.direction.x,body_.direction.z));
     require(graphics::PatternSystem::poseWalkingRig(app_.getScene(),rig_,body_.feet,yaw,body_.walkDistance,body_.speed),"Practice23 rig pose failed.");
-    door_=std::clamp(door_+(open_?1.0f:-1.0f)*dt,0.0f,1.0f);
-    require(graphics::PatternSystem::openFace(app_.getScene(),stage_,0,door_,{0,4,0},{0,2,5},true),"Practice23 door failed.");
+    for(std::size_t face=0;face<doors_.size();++face) {
+        doors_[face]=std::clamp(doors_[face]+(open_[face]?1.0f:-1.0f)*dt,0.0f,1.0f);
+        require(graphics::PatternSystem::openRoomWall(app_.getScene(),stage_,face,doors_[face]),"Practice23 door failed.");
+    }
 }

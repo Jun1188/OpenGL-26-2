@@ -75,6 +75,8 @@ public:
     static bool foldFace(Scene& scene,EntityId entity,std::size_t face,const AxisLine& hinge,float degrees);
     static bool openFace(Scene& scene,EntityId entity,std::size_t face,float progress,
                          const glm::vec3& displacement,const glm::vec3& topPivot,bool scaleOpen);
+    static std::optional<std::size_t> cameraFacingWall(const Scene& scene,EntityId room,const Camera& camera);
+    static bool openRoomWall(Scene& scene,EntityId room,std::size_t face,float progress);
     static bool swapModels(Scene& scene,EntityId first,EntityId second);
     static std::vector<glm::ivec3> snakeCells(const glm::ivec3& cells);
     static bool aligned(float first,float second,float tolerance);

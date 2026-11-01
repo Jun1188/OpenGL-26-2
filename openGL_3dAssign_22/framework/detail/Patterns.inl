@@ -275,6 +275,33 @@ inline bool PatternSystem::openFace(Scene& scene,EntityId entity,std::size_t fac
     }
     return scene.setFaceLocalMatrix(entity,face,glm::translate(glm::mat4(1),displacement*progress)) && scene.setFaceVisible(entity,face,true);
 }
+inline std::optional<std::size_t> PatternSystem::cameraFacingWall(const Scene& scene,EntityId room,const Camera& camera) {
+    const auto* component=scene.getComponent(room);const auto world=scene.worldMatrix(room);
+    if(!component || component->polyhedron.faces.size()!=6 || !world || !CameraSystem::validCamera(camera)
+        || std::abs(glm::determinant(glm::mat3(*world)))<1e-8f) {
+        Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"cameraFacingWall","Need a six-face room, invertible world transform and valid camera.");return {};
+    }
+    const auto view=glm::normalize(camera.target-camera.position);
+    const auto normals=glm::transpose(glm::inverse(glm::mat3(*world)));
+    float best=0;std::optional<std::size_t> selected;
+    for(std::size_t i=0;i<4;++i) {
+        const auto& vertices=component->polyhedron.faces[i].localVertices;
+        if(vertices.size()<3) return {};
+        const auto n=glm::normalize(normals*glm::cross(vertices[1]-vertices[0],vertices[2]-vertices[0]));
+        const float score=glm::dot(n,view);
+        if(score<best-1e-6f) {best=score;selected=i;}
+    }
+    return selected; // A vertical view has no opposing side wall; normal query miss.
+}
+inline bool PatternSystem::openRoomWall(Scene& scene,EntityId room,std::size_t face,float progress) {
+    const auto* mesh=scene.getMesh(room,face);
+    if(!mesh || face>=4 || mesh->localVertices.empty())
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"openRoomWall","Select one of the four side walls of addRoom().");
+    glm::vec3 pivot(0);float top=mesh->localVertices.front().y;
+    for(const auto& vertex:mesh->localVertices) {pivot+=vertex;top=std::max(top,vertex.y);}
+    pivot/=float(mesh->localVertices.size());pivot.y=top;
+    return openFace(scene,room,face,progress,glm::vec3(0),pivot,true);
+}
 inline bool PatternSystem::swapModels(Scene& scene,EntityId first,EntityId second) {
     const auto* a=scene.getComponent(first);const auto* b=scene.getComponent(second);
     if(!a || !b || a->transformOnly || b->transformOnly) return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"PatternSystem::swapModels","Both entities must contain a model.");
