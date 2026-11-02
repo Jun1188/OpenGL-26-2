@@ -48,6 +48,8 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="framework\Framework.h" />
     <ClInclude Include="framework\include\Motion.h" />
+    <ClInclude Include="framework\include\Animation.h" />
+    <ClInclude Include="framework\detail\Animation.inl" />
     <ClInclude Include="framework\include\Transform.h" />
     <ClInclude Include="framework\include\Patterns.h" />
     <ClInclude Include="framework\include\GridLayout.h" />

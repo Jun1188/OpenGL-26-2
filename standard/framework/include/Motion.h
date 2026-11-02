@@ -28,6 +28,20 @@ struct PathMotion {
     bool relativeToStart = false;
     TransformSpace space = TransformSpace::World;
 };
+struct LinearMotion {
+    glm::vec3 from{0}, to{1, 0, 0};
+    double durationSeconds = 1;
+    Playback playback = Playback::Once;
+    TransformSpace space = TransformSpace::Local;
+};
+struct PendulumMotion {
+    AxisLine axis{{0, 0, 0}, {1, 0, 0}};
+    double amplitudeDegrees = 25;
+    double periodSeconds = 3;
+    double phaseDegrees = 0;
+    double offsetDegrees = 0;
+    TransformSpace space = TransformSpace::Local;
+};
 struct MotionStep {
     // The callback receives seconds since this step started, not frame delta time.
     std::function<glm::mat4(double)> transform;
@@ -62,6 +76,10 @@ public:
     static MotionStep rotation(const RotationMotion& config);
     /// [API] 경로·보간·재생 설정으로 시간에 따른 위치 이동 모션 단계를 만든다.
     static MotionStep followPath(const PathMotion& config);
+    /// [API] 시작·끝 위치를 지정 시간 동안 선형보간한다. Once·Loop·PingPong을 지원한다.
+    static MotionStep linear(const LinearMotion& config);
+    /// [API] 지정 축에서 offset + amplitude*sin(위상)의 도 단위 회전을 반복한다. 물리 적분은 아니다.
+    static MotionStep pendulum(const PendulumMotion& config);
 };
 
 struct MotionState {

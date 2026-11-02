@@ -13,18 +13,21 @@ class Console {
     bool spinEnabled_ = true;
     bool globalEnabled_ = false;
     int reflection_ = 1;
-    enum class Demo { Motion, Grid, Room };
+    enum class Demo { Motion, Grid, Room, Animation };
     Demo demo_=Demo::Motion;
     graphics::AnimationClock clock_;
     graphics::DistancePath distancePath_;
     std::vector<graphics::EntityId> gridBoxes_;
     graphics::RoomBody roomBody_;
     graphics::EntityId room_=0, roomCube_=0;
+    std::vector<graphics::JointAnimation> animation_;
     bool threeViews_=false, trace_=false, floorOpen_=false;
     /// 거리 기반 격자 예제를 구성한다.
     bool initGrid();
     /// 회전하는 방 예제를 구성한다.
     bool initRoom();
+    /// 선형보간·그네·사람 관절의 계층 애니메이션 예제를 구성한다.
+    bool initAnimation();
 
     /// 선택한 경로로 이동 모션을 바꾼다.
     bool choosePath(int kind);

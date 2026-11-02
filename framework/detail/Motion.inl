@@ -103,6 +103,41 @@ inline MotionStep Motion::followPath(const PathMotion& config) {
     };
     return step;
 }
+inline MotionStep Motion::linear(const LinearMotion& config) {
+    if (!detail::finiteVector(config.from) || !detail::finiteVector(config.to)
+        || !std::isfinite(config.durationSeconds) || config.durationSeconds <= 0
+        || (config.playback != Playback::Once && config.playback != Playback::Loop
+            && config.playback != Playback::PingPong)
+        || (config.space != TransformSpace::World && config.space != TransformSpace::Local)) return {};
+    PathMotion path;
+    path.path = [from = glm::dvec3(config.from), to = glm::dvec3(config.to)](double u) {
+        return glm::vec3((1 - u) * from + u * to);
+    };
+    path.durationSeconds = config.durationSeconds;
+    path.playback = config.playback;
+    path.space = config.space;
+    return followPath(path);
+}
+inline MotionStep Motion::pendulum(const PendulumMotion& config) {
+    MotionStep step;
+    if (!std::isfinite(config.amplitudeDegrees) || config.amplitudeDegrees < 0
+        || !std::isfinite(config.periodSeconds) || config.periodSeconds <= 0
+        || !std::isfinite(config.phaseDegrees) || !std::isfinite(config.offsetDegrees)
+        || !std::isfinite(std::abs(config.offsetDegrees) + config.amplitudeDegrees)
+        || (config.space != TransformSpace::World && config.space != TransformSpace::Local)
+        || !TransformSystem::rotation(config.axis, config.offsetDegrees)) return step;
+    step.space = config.space;
+    step.transform = [config](double seconds) {
+        constexpr double pi = 3.14159265358979323846;
+        const double phase = std::remainder(seconds, config.periodSeconds) / config.periodSeconds * 2 * pi
+                           + std::remainder(config.phaseDegrees, 360.0) * pi / 180;
+        const auto matrix = TransformSystem::rotation(config.axis,
+            config.offsetDegrees + config.amplitudeDegrees * std::sin(phase));
+        if (!matrix) throw std::domain_error("Pendulum motion produced an invalid matrix.");
+        return *matrix;
+    };
+    return step;
+}
 inline std::optional<MotionId> MotionSystem::createMotion(const Motion& motion) {
     const auto sample = motion.sample(0);
     if (!sample || nextMotion_ == std::numeric_limits<MotionId>::max()) return (Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Motion, "MotionSystem::createMotion", "Rejected condition: !sample || nextMotion_ == std::numeric_limits<MotionId>::max()", "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."), std::nullopt);
