@@ -4,6 +4,8 @@
 새 사람형·계층 패턴은 `graphics::AnimationSystem`, 기본 시간 모션은 `graphics::Motion`에 있다.
 기존 `PatternSystem::addWalkingRig`, `poseWalkingRig`, `JointRig`는 유지한다.
 
+[렌더링 흐름·그네/사람 계층 흐름도](../../framework-analysis/animation-api/flowcharts.html)에서 호출 순서와 부모 관계를 볼 수 있다.
+
 ## 선형보간
 
 ```cpp

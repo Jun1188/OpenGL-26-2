@@ -10,6 +10,54 @@
 현재 디스크에 존재하는 실행 프로젝트 11개와 독립 예제 3개를 구분했다. 없는 sparse-checkout 파일을 삭제로 해석하지 않는다.
 빌드·테스트·검증기·앱 실행·브라우저 시각 확인은 수행하지 않았다.
 
+## 렌더링·계층 흐름도
+
+브라우저에서는 [오프라인 흐름도 HTML](flowcharts.html)을 연다. 외부 라이브러리 없이 SVG로 표시한다.
+
+### 프레임 호출과 렌더링
+
+```mermaid
+flowchart TD
+    A[main: 콜백 등록] --> B[run: 창·컨텍스트·Renderer 초기화]
+    B --> C[initHandler: initScene]
+    C --> D[PollEvents: 입력 콜백]
+    D --> E{프레임버퍼 크기 유효?}
+    E -->|아니오| F[WaitEvents · 시간 기준 재설정]
+    F --> D
+    E -->|예| G[dt 제한 → updateHandler]
+    G --> H[Scene.updateMotions]
+    H --> I{사용자 renderHandler 등록?}
+    I -->|예| J[사용자 렌더 콜백]
+    I -->|아니오| K[renderScene]
+    J --> L[SwapBuffers]
+    K --> L
+    L --> D
+    D -. 종료·오류 .-> M[shutdown: GPU·창·GLFW 정리]
+```
+
+사용자 렌더 콜백은 직접 렌더링 호출을 선택한다. standard는 onRender에서 renderScene/renderViews를 호출한다.
+GPU 흐름은 Scene의 M·카메라 V/P → VAO/VBO/EBO·uniform → 드로우 → 정점 셰이더 → 클리핑·원근 나눗셈·뷰포트·래스터화 → 프래그먼트 셰이더 → 깊이·블렌딩 등 출력 처리 → 프레임버퍼다.
+
+### 그네·사람 부모 계층
+
+```mermaid
+flowchart TD
+    A[frame: 고정 프레임] --> B[지지대·가로봉]
+    A --> C[hinge: 진자 관절]
+    C --> D[ropes: 양쪽 줄]
+    C --> E[seat: 좌석]
+    E --> F[person.root]
+    F --> G[pelvis: 골반]
+    G --> H[torso: 상체 모션 관절]
+    G --> I[hips: 양쪽 엉덩이]
+    H --> J[torsoMesh]
+    H --> K[neck → head·nose]
+    H --> L[shoulders → elbows → hands]
+    I --> M[knees → feet]
+```
+
+이 그림의 화살표는 부모 관계다. 줄과 좌석은 같은 hinge 아래에 있다. 상완 메시의 부모는 어깨, 아래팔은 팔꿈치, 허벅지는 엉덩이, 종아리는 무릎이다.
+
 ## 공통 Application 경로
 
 실습 15~23과 standard의 main은 각각 별도 실행 프로그램이다.

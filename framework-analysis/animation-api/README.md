@@ -8,6 +8,7 @@
 - [3단계 전체 전후 코드](STEP3_BEFORE_AFTER.md)
 - [4단계 소스 정리와 분석 생성 코드](STEP4_BEFORE_AFTER.md)
 - [5단계 sample0 BOM 반영](STEP5_ENCODING.md)
+- [렌더링·계층 흐름도 HTML](flowcharts.html)
 - [전체 실행 구조와 호출·소유·GPU 흐름](STRUCTURE.md)
 - [상호작용 그래프](graphify-out/graph.html), [그래프 JSON](graphify-out/graph.json), [graphify 보고서](graphify-out/GRAPH_REPORT.md)
 - [임시 파일 보존 목록](CLEANUP_CANDIDATES.md)
