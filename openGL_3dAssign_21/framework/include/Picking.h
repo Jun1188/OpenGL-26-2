@@ -16,7 +16,6 @@ struct PickResult {
 };
 struct PickViewport { double x = 0, y = 0, width = 0, height = 0; }; // top-left framebuffer pixels
 
-/// [API] 왼쪽 위 기준 프레임버퍼 픽셀을 카메라 ray로 역투영한다. 영역 밖/잘못된 투영이면 빈 결과다.
 inline std::optional<Ray> screenRay(const Camera& camera,double x,double y,const PickViewport& viewport) {
     if(!CameraSystem::validCamera(camera)||!std::isfinite(x)||!std::isfinite(y)
         ||!std::isfinite(viewport.x)||!std::isfinite(viewport.y)
@@ -35,7 +34,6 @@ inline std::optional<Ray> screenRay(const Camera& camera,double x,double y,const
     if(!detail::finiteVector(glm::vec3(nearPoint))||!detail::finiteVector(direction)||!std::isfinite(length)||length<=0)return {};
     return Ray{glm::vec3(nearPoint),direction/length,length};
 }
-/// [API] ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.
 inline std::optional<PickResult> pick(const Scene& scene,const Ray& input) {
     if(!detail::finiteVector(input.origin)||!detail::finiteVector(input.direction)
         ||!std::isfinite(glm::length(input.direction))||glm::length(input.direction)<1e-12f||std::isnan(input.maxDistance)||input.maxDistance<0)return {};
@@ -78,7 +76,6 @@ inline std::optional<PickResult> pick(const Scene& scene,const Ray& input) {
     }
     return result;
 }
-/// [API] ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.
 inline std::optional<PickResult> pick(const Scene& scene,const Camera& camera,double x,double y,
                                      const PickViewport& viewport) {
     const auto ray=screenRay(camera,x,y,viewport);return ray?pick(scene,*ray):std::nullopt;

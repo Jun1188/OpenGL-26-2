@@ -3,18 +3,15 @@
 #include <iostream>
 #include <stdexcept>
 
-/// 실패한 작업을 예외로 전달한다.
 void Console::require(bool succeeded, const char* operation) const {
     if (!succeeded) throw std::runtime_error(operation);
 }
 
-/// 방의 월드 회전 행렬을 계산한다.
 glm::mat4 Console::roomWorld() const {
     const auto spin = glm::rotate(glm::mat4(1), roomSpinAngle_, glm::vec3(0, 1, 0));
     return glm::rotate(spin, roomAngle_, glm::vec3(0, 0, 1));
 }
 
-/// 방 안의 물체를 월드 낙하 상태로 전환한다.
 void Console::releaseBody(BodyObject& object) const {
     const auto matrix = roomWorld();
     object.body.worldPosition = object.body.position(matrix);
@@ -23,7 +20,6 @@ void Console::releaseBody(BodyObject& object) const {
     object.body.released = true;
 }
 
-/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     auto& scene = app_.getScene();
     scene.clear();
@@ -73,7 +69,6 @@ bool Console::initScene() {
     return syncScene();
 }
 
-/// 허용 범위에 공을 추가한다.
 bool Console::addBall() {
     if (ballCount_ >= 5) {
         std::cout << "공은 최대 5개입니다. R로 초기화할 수 있습니다.\n";
@@ -122,7 +117,6 @@ bool Console::addBall() {
     return true;
 }
 
-/// 물리 상태를 표시 객체에 반영한다.
 bool Console::syncScene() {
     auto& scene = app_.getScene();
     const auto matrix = roomWorld();
@@ -143,7 +137,6 @@ bool Console::syncScene() {
     return true;
 }
 
-/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key, int action, int mods) {
     if (!focused_ || (action != GLFW_PRESS && action != GLFW_REPEAT)) return;
     const bool uppercase = ((mods & GLFW_MOD_SHIFT) != 0) != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
@@ -178,7 +171,6 @@ void Console::onKey(int key, int action, int mods) {
     }
 }
 
-/// 마우스 버튼 입력을 처리한다.
 void Console::onMouse(const graphics::MouseEvent& event) {
     if (event.button != GLFW_MOUSE_BUTTON_LEFT) return;
     if (event.action == GLFW_RELEASE) { dragging_ = false; return; }
@@ -188,7 +180,6 @@ void Console::onMouse(const graphics::MouseEvent& event) {
     }
 }
 
-/// 커서 이동으로 조작 상태를 갱신한다.
 void Console::onCursor(double x, double) {
     if (!dragging_ || !focused_) return;
     const float delta = glm::radians(float((previousMouseX_ - x) * .3));
@@ -199,14 +190,12 @@ void Console::onCursor(double x, double) {
     pendingRotation_ += delta;
 }
 
-/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     focused_ = focused;
     dragging_ = false;
     pendingRotation_ = 0;
 }
 
-/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     if (!focused_) return;
     const float spinSpeed = roomSpinning_ ? glm::radians(30.0f) : 0;
@@ -226,7 +215,6 @@ void Console::onUpdate(float dt) {
     require(syncScene(), "장면 표시변환 실패");
 }
 
-/// 조작 방법을 출력한다.
 void Console::printHelp() const {
     std::cout << "실습 21: 실내 공 반사, 기울어진 바닥의 상자, 바닥 개방\n"
               << "z/Z: 카메라 월드 Z +/-, y/Y: 화면 로컬 Y 시계/반시계 자전\n"

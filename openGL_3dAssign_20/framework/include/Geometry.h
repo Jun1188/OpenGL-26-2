@@ -14,9 +14,8 @@ struct UVOptions {
     glm::vec2 offset{0};
     float rotationDegrees = 0;
 };
-/// [API] 메시 UV에 배율→회전→이동을 적용한다. 회전 입력 단위는 도다.
 inline bool transformTexcoords(Mesh& mesh, const glm::vec2& scale,
-                              const glm::vec2& offset, float rotationDegrees = 0) {
+                              const glm::vec2& offset, float rotationDegrees = 0) { // UV에 배율 → 회전(도) → 이동 적용.
     if (mesh.texcoords.size() != mesh.localVertices.size() || mesh.texcoords.empty()
         || !std::isfinite(scale.x) || !std::isfinite(scale.y)
         || !std::isfinite(offset.x) || !std::isfinite(offset.y)
@@ -32,7 +31,6 @@ inline bool transformTexcoords(Mesh& mesh, const glm::vec2& scale,
     mesh.texcoords = std::move(uvs);
     return true;
 }
-/// [API] 평면·박스·원통·구 투영 옵션으로 메시 UV를 생성한다.
 inline bool generateTexcoords(Mesh& mesh, const UVOptions& options = UVOptions{}) {
     if (!detail::validMesh(mesh) || options.axis < 0 || options.axis > 2) return false;
     switch (options.mapping) {
@@ -115,7 +113,6 @@ inline bool generateTexcoords(Mesh& mesh, const UVOptions& options = UVOptions{}
         || !detail::validMesh(result)) return false;
     mesh=std::move(result); return true;
 }
-/// [API] 메시의 삼각형 기하로 정점 법선을 다시 계산한다.
 inline void recalculateNormals(Mesh& mesh) {
     mesh.vertexNormals.assign(mesh.localVertices.size(), glm::vec3(0));
     const auto indices = detail::triangles(mesh);
@@ -132,7 +129,6 @@ inline void recalculateNormals(Mesh& mesh) {
 }
 
 // Weld equal positions for edge topology, while preserving separate UV/normal vertices.
-/// [API] 메시의 윤곽 모드에 따라 선으로 그릴 정점 인덱스 쌍 목록을 계산한다.
 inline std::vector<std::uint32_t> meshOutline(const Mesh& mesh,
                                              OutlineMode mode = OutlineMode::FeatureEdges) {
     if (mode == OutlineMode::None) return {};

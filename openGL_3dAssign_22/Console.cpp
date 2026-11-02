@@ -5,20 +5,17 @@
 #include <stdexcept>
 
 namespace {
-/// 생성 결과에서 유효한 객체 ID를 얻는다.
 graphics::EntityId requireEntity(std::optional<graphics::EntityId> id,const char* reason) {
     if(!id)throw std::runtime_error(reason);
     return *id;
 }
 }
-/// 부모에 연결한 상자를 만든다.
 graphics::EntityId Console::box(glm::vec3 size,glm::vec3 position,graphics::EntityId parent) {
     const auto id=requireEntity(graphics::PatternSystem::addBox(
         app_.getScene(),size,position,{1,1,1},parent),"탱크 상자 생성 실패: 크기·위치·부모 ID를 확인하세요.");
     colored_.push_back(id);
     return id;
 }
-/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     reset();
     std::cout << "실습 22: 같은 장면을 원근 / XZ 평면도 / XY 정면도로 표시\n"
@@ -27,7 +24,6 @@ bool Console::initScene() {
               << "y/Y 카메라 시선 회전; r/R 공전(재입력 정지); O/o 색 변경; c 초기화; q 종료\n";
     return true;
 }
-/// 배치와 조작 상태를 초기화한다.
 void Console::reset() {
     auto& scene=app_.getScene();
     scene.clear();
@@ -70,7 +66,6 @@ void Console::reset() {
     recolor();
     apply();
 }
-/// 물체 색을 다시 지정한다.
 void Console::recolor() {
     const std::array<graphics::GlColor,10> palette{
         graphics::GlColor{.3f,.35f,.4f},{.25f,.6f,.3f},{.55f,.35f,.2f},{.2f,.55f,.75f},
@@ -79,7 +74,6 @@ void Console::recolor() {
         if(!app_.getScene().setTint(colored_[i],palette[(i+colorVersion_)%palette.size()]))
             throw std::runtime_error("탱크 부품 색상 적용 실패.");
 }
-/// 계산한 변환을 장면에 반영한다.
 void Console::apply() {
     auto& scene=app_.getScene();
     if(!scene.setPosition(root_,position_))throw std::runtime_error("탱크 위치 적용 실패.");
@@ -100,7 +94,6 @@ void Console::apply() {
             throw std::runtime_error("탱크 부품 변환 적용 실패.");
     }
 }
-/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key,int action,int mods) {
     const bool upper=((mods&GLFW_MOD_SHIFT)!=0)!=((mods&GLFW_MOD_CAPS_LOCK)!=0);
     if(key==GLFW_KEY_X||key==GLFW_KEY_Z) {
@@ -161,7 +154,6 @@ void Console::onKey(int key,int action,int mods) {
         break;
     }
 }
-/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     glm::vec3 movement{float(pressed_[GLFW_KEY_RIGHT])-float(pressed_[GLFW_KEY_LEFT]),0,
         float(pressed_[GLFW_KEY_DOWN])-float(pressed_[GLFW_KEY_UP])};
@@ -186,7 +178,6 @@ void Console::onUpdate(float dt) {
     app_.getCamera()=camera;
     apply();
 }
-/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     if(!focused){
         pressed_.fill(false);
@@ -194,7 +185,6 @@ void Console::onFocus(bool focused) {
     }
 }
 
-/// 현재 장면을 지정한 뷰로 렌더링한다.
 bool Console::onRender() {
     const auto size=app_.getFramebufferSize();
     if(size[0]<3||size[1]<2)return true;

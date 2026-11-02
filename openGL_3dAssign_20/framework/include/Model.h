@@ -43,7 +43,6 @@ struct TextureImage {
     std::uint32_t width = 0, height = 0;
     std::vector<std::uint8_t> rgba;
     // Row zero maps to UV v=0. File decoding flips top-down images by default.
-    /// [API] 이미지 너비·높이와 RGBA 바이트 수가 맞는지 검사한다.
     bool valid() const {
         return width && height && width <= 16384 && height <= 16384
             && rgba.size() == std::size_t(width) * height * 4;
@@ -84,7 +83,6 @@ struct PlaneFigure {
     float creaseAngleDegrees = 1.0f;
     std::string name;
     CullMode cull = CullMode::Inherit;
-    /// [API] 정점 목록에서 하나의 면 데이터를 만든다. 모델/Scene 등록은 수행하지 않는다.
     static PlaneFigure fromVertices(const std::vector<Vertex>& vertices,
                                    const std::vector<std::uint32_t>& triangles) {
         PlaneFigure mesh;
@@ -104,9 +102,7 @@ struct Polyhedron {
     GLShape shape = GLShape::Custom;
     std::vector<PlaneFigure> faces;
     std::string name;
-    /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
     std::vector<Mesh>& meshes() { return faces; }
-    /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
     const std::vector<Mesh>& meshes() const { return faces; }
 };
 using Model = Polyhedron;
