@@ -268,6 +268,7 @@ bool CollisionSystem::jump(CharacterBody& body, float speed) {
 std::optional<CharacterStep> CollisionSystem::stepCharacter(CharacterBody& body, const Bounds3& stage,
                                                             const std::vector<Bounds3>& obstacles, float dt,
                                                             float gravity) {
+
     if (!stage.valid() || !detail::finiteVector(body.feet) || !detail::finiteVector(body.direction) ||
         !std::isfinite(body.speed) || body.speed < 0 || !std::isfinite(body.height) || body.height <= 0 ||
         !std::isfinite(body.halfWidth.x) || !std::isfinite(body.halfWidth.y) || body.halfWidth.x <= 0 ||

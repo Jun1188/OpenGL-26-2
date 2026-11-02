@@ -73,7 +73,7 @@ tests and validators were not run by the agent. Practice 23 is deferred.
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", choices=PROJECTS, action="append", help="Repeat for a subset; default is all present projects.")
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "dist/portable-20261101")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "dist/portable-20261101-final")
     args = parser.parse_args()
     destination = args.output_dir.resolve()
     summary = destination / "PACKAGES.json"
