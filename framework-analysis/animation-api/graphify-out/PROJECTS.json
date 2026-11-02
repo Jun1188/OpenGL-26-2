@@ -78,7 +78,7 @@
     "entrypoints": [
       {
         "file": "openGL_3dAssign_20/main.cpp",
-        "line": 6,
+        "line": 5,
         "name": "main"
       }
     ]
@@ -92,7 +92,7 @@
     "entrypoints": [
       {
         "file": "openGL_3dAssign_21/main.cpp",
-        "line": 6,
+        "line": 5,
         "name": "main"
       }
     ]
@@ -106,7 +106,7 @@
     "entrypoints": [
       {
         "file": "openGL_3dAssign_22/main.cpp",
-        "line": 6,
+        "line": 5,
         "name": "main"
       }
     ]
@@ -120,7 +120,7 @@
     "entrypoints": [
       {
         "file": "openGL_3dAssign_23/main.cpp",
-        "line": 5,
+        "line": 4,
         "name": "main"
       }
     ]

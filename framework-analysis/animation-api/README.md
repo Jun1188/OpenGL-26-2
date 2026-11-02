@@ -2,6 +2,10 @@
 
 실습 소스의 주석을 함수 기능 한 줄로 정리했다. framework와 standard에 선형보간·진자·관절 계층·편집 가능한 사람형·그네→사람 패턴을 추가했다. 실습 23의 첫 cout 전에 UTF-8 콘솔 설정을 적용했다.
 
+- [통합 응용패턴·사례 코드·패턴별 흐름도](../../standard/docs/IMPLEMENTATION_PATTERNS.html)
+- [공통 구현·전체 공개 API 사례](../../standard/docs/API_REFERENCE.html)
+- [시험 현장 구현 순서](../../standard/docs/EXAM_IMPLEMENTATION_ORDER.html)
+- [현재 standard 전체 용량](../../standard/SIZE_REPORT.md)
 - [API 사용법과 사용자 확인 절차](../../framework/docs/ANIMATION_API.md)
 - [1단계 전체 전후 코드](STEP1_BEFORE_AFTER.md)
 - [2단계 전체 변경 블록](STEP2_BEFORE_AFTER.md)
@@ -18,3 +22,5 @@
 별도 작업 중인 docs/code-guide HTML과 관련 기존 변경은 수정·커밋하지 않았다.
 
 빌드·테스트·검증기·앱 실행·브라우저 확인·배포 ZIP 생성은 수행하지 않았다. 사용자가 standard의 9번 예제와 실습 23의 첫 한글 안내 출력을 직접 확인한다.
+
+추가 단계: dd914ec에서 착석 높이·관절 SRT 편집을 반영했다. 최신 문서 작성 범위는 API_CASE_INVENTORY.md, 관절 전체 전후는 STEP7_JOINT_CONTROLS.md를 따른다. 기존 시험 문서는 docs/code-guide/exam.html에 있었으며 standard 독립 문서로 현재 조작을 연결했다.

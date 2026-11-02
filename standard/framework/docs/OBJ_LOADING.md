@@ -1,4 +1,8 @@
-﻿# OBJ 텍스트 로드 API
+﻿# 현재 배포본: 2026-11-02
+
+아래 OBJ·텍스처 계약은 현재 배포 헤더와 함께 읽는다. [전체 API 사례](API_REFERENCE.html#case-assets)와 [응용패턴](IMPLEMENTATION_PATTERNS.html#pattern-assets)에서 초기화 연결 코드를 제공한다. 빌드·실행은 사용자에게 맡긴다.
+
+# OBJ 텍스트 로드 API
 
 Assimp와 DLL·헤더 종속성을 제거했다. C++17, Windows x64 API다. `loadObj`는 확장자가 `.obj` 또는 `.txt`인 OBJ 텍스트를 같은 방식으로 읽는다. 경로는 실행 파일 디렉터리를 기준으로 한 `projectRoot` 내부 상대경로다. 외부 경로는 거부한다.
 

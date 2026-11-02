@@ -4,7 +4,7 @@
 
 새 graphify 결과는 [graph.html](graphify-out/graph.html), [graph.json](graphify-out/graph.json),
 [GRAPH_REPORT.md](graphify-out/GRAPH_REPORT.md)이다. 코드 AST 및 실제 정의·콜백 등록 위치를 추출했다.
-64개 코드 파일, 2,031개 노드, 3,181개 관계, 135개 커뮤니티를 생성했다.
+64개 코드 파일, 2,045개 노드, 3,205개 관계, 130개 커뮤니티를 생성했다.
 프로젝트별 SDK와 framework 배포 사본은 중복 추출하지 않았다. 실제 컴파일은 각 프로젝트의 framework를 사용한다.
 분석 중인 소스에는 다른 작업의 미커밋 변경이 포함될 수 있다. 원본 파일 해시는 SOURCE_HASHES.json에 있다.
 현재 디스크에 존재하는 실행 프로젝트 11개와 독립 예제 3개를 구분했다. 없는 sparse-checkout 파일을 삭제로 해석하지 않는다.
@@ -132,7 +132,7 @@ initAnimation은 addSwingWithRider, addHumanoid, poseHumanoid, createJointAnimat
 
 계층은 frame→hinge→seat→person.root→pelvis→torso→neck/head 및 shoulders/elbows/hands로 이어진다.
 hips/knees/feet는 pelvis 아래다. 몸통 트랙은 어깨·머리에도 전달되며, 그네 트랙은 사람 전체에 전달된다.
-관절 트랙은 강체 이동·회전만 허용한다. 크기 편집은 자식 메시에서 한다. World 표기는 이 API에서는 관절 부모 공간이다.
+관절 모션 샘플은 강체 이동·회전이다. 기준 rest는 양수 균일 배율·이동·회전·피벗 편집을 허용한다. 비균일 배율은 자식 메시 편집으로 분리한다. World 표기는 이 API에서는 관절 부모 공간이다.
 
 ## CPU에서 GPU까지
 
@@ -152,3 +152,7 @@ EXTRACTED는 구문상 정의·호출 또는 등록 위치의 근거다. 등록�
 새 API의 정의와 위 호출 흐름은 해당 소스와 대조했다. 실행·렌더링 결과는 확인하지 않았다.
 
 회상 질문: 그네 회전각을 바꿨을 때 사람의 팔꿈치 월드 위치까지 바뀌는 부모 체인을 설명할 수 있는가?
+
+## 선택 관절 SRT 입력
+
+standard 9번은 frame/hinge/seat와 두 사람의 16개 관절씩 총 35개를 선택한다. Tab/Backspace로 선택하고 X/Y/Z로 축을 정한다. 방향키는 회전·이동, PageUp/Down은 localBasis 피벗, +/-는 .1~3 균일 배율, R은 선택 rest 복원이다. 입력은 Scene의 최종 변환 대신 animation_의 rest를 편집한다. Space로 시간을 멈춰도 편집은 즉시 적용되고 재개 후에도 유지된다. 손·발 노드는 메시가 없는 연결점이다.
