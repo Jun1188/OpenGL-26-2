@@ -18,48 +18,77 @@
 
 namespace graphics::detail {
 static_assert(sizeof(void*) == 8, "Bundled DLLs require x64.");
+
 inline std::filesystem::path executableDirectory() {
     std::wstring path(32768, L'\0');
     const DWORD size = GetModuleFileNameW(nullptr, path.data(), DWORD(path.size()));
-    if (!size || size >= path.size()) throw std::runtime_error("Cannot locate the executable directory.");
+
+    if (!size || size >= path.size())
+        throw std::runtime_error("Cannot locate the executable directory.");
     path.resize(size);
+
     return std::filesystem::path(path).parent_path();
 }
+
 inline std::filesystem::path relativePathInside(const std::filesystem::path& root,
                                                 const std::filesystem::path& relative) {
-    if(relative.empty()||relative.is_absolute()||relative.has_root_name()||relative.has_root_directory())
+    if (relative.empty() || relative.is_absolute() || relative.has_root_name() || relative.has_root_directory())
         throw std::runtime_error("Use a relative path inside the project.");
-    const auto base=std::filesystem::weakly_canonical(root);
-    const auto full=std::filesystem::weakly_canonical(base/relative);
-    auto a=base.begin(),b=full.begin();
-    for(;a!=base.end();++a,++b)if(b==full.end()||*a!=*b)
-        throw std::runtime_error("Path leaves the project directory.");
+
+    const auto base = std::filesystem::weakly_canonical(root);
+    const auto full = std::filesystem::weakly_canonical(base / relative);
+    auto a = base.begin(), b = full.begin();
+
+    for (; a != base.end(); ++a, ++b)
+        if (b == full.end() || *a != *b)
+            throw std::runtime_error("Path leaves the project directory.");
+
     return full;
 }
+
 inline std::filesystem::path frameworkDirectory() {
-    return executableDirectory()/"framework";
+    return executableDirectory() / "framework";
 }
+
 class Module {
     HMODULE handle_ = nullptr;
+
 public:
     Module() = default;
     Module(const Module&) = delete;
+
     Module& operator=(const Module&) = delete;
-    ~Module() { if (handle_) FreeLibrary(handle_); }
-    void open(const std::filesystem::path& path) {
-        if (handle_) return;
-        handle_ = LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
-        if (!handle_) throw std::runtime_error("Cannot load bundled runtime DLL (Win32 error " + std::to_string(GetLastError()) + ").");
+
+    ~Module() {
+        if (handle_)
+            FreeLibrary(handle_);
     }
-    template<class T> T symbol(const char* name) const {
+
+    void open(const std::filesystem::path& path) {
+        if (handle_)
+            return;
+        handle_ =
+            LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
+
+        if (!handle_)
+            throw std::runtime_error("Cannot load bundled runtime DLL (Win32 error " + std::to_string(GetLastError()) +
+                                     ").");
+    }
+
+    template <class T> T symbol(const char* name) const {
         const auto address = ::GetProcAddress(handle_, name);
-        if (!address) throw std::runtime_error(std::string("Missing runtime export: ") + name);
+
+        if (!address)
+            throw std::runtime_error(std::string("Missing runtime export: ") + name);
+
         return reinterpret_cast<T>(address);
     }
 };
+
 struct GlfwApi {
     Module module;
     bool ready = false;
+
     decltype(&::glfwInit) Init = nullptr;
     decltype(&::glfwTerminate) Terminate = nullptr;
     decltype(&::glfwWindowHint) WindowHint = nullptr;
@@ -83,9 +112,12 @@ struct GlfwApi {
     decltype(&::glfwPollEvents) PollEvents = nullptr;
     decltype(&::glfwWaitEvents) WaitEvents = nullptr;
     decltype(&::glfwSwapBuffers) SwapBuffers = nullptr;
+
     void load(const std::filesystem::path& root = std::filesystem::path{}) {
-        if (ready) return;
-        module.open((root.empty() ? frameworkDirectory() : std::filesystem::absolute(root)) / "dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll");
+        if (ready)
+            return;
+        module.open((root.empty() ? frameworkDirectory() : std::filesystem::absolute(root)) /
+                    "dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll");
         Init = module.symbol<decltype(Init)>("glfwInit");
         Terminate = module.symbol<decltype(Terminate)>("glfwTerminate");
         WindowHint = module.symbol<decltype(WindowHint)>("glfwWindowHint");
@@ -112,12 +144,20 @@ struct GlfwApi {
         ready = true;
     }
 };
-inline GlfwApi& glfw() { static GlfwApi api; return api; }
+
+inline GlfwApi& glfw() {
+    static GlfwApi api;
+
+    return api;
+}
 
 struct GlApi {
     Module module;
-    using WglGetProc = PROC (WINAPI*)(LPCSTR);
+
+    using WglGetProc = PROC(WINAPI*)(LPCSTR);
+
     WglGetProc wglGetProc = nullptr;
+
     decltype(&::glClearColor) ClearColor = nullptr;
     decltype(&::glClear) Clear = nullptr;
     decltype(&::glEnable) Enable = nullptr;
@@ -137,6 +177,7 @@ struct GlApi {
     decltype(&::glGetIntegerv) GetIntegerv = nullptr;
     decltype(&::glGetError) GetError = nullptr;
     decltype(&::glLineWidth) LineWidth = nullptr;
+
     PFNGLGENVERTEXARRAYSPROC GenVertexArrays = nullptr;
     PFNGLBINDVERTEXARRAYPROC BindVertexArray = nullptr;
     PFNGLDELETEVERTEXARRAYSPROC DeleteVertexArrays = nullptr;
@@ -166,17 +207,23 @@ struct GlApi {
     PFNGLUNIFORM3FPROC Uniform3f = nullptr;
     PFNGLUNIFORM1IPROC Uniform1i = nullptr;
     PFNGLACTIVETEXTUREPROC ActiveTexture = nullptr;
-    template<class T> T resolve(const char* name) {
+
+    template <class T> T resolve(const char* name) {
         PROC p = wglGetProc(name);
-        if (!p || p == reinterpret_cast<PROC>(1) || p == reinterpret_cast<PROC>(2)
-            || p == reinterpret_cast<PROC>(3) || p == reinterpret_cast<PROC>(-1))
+
+        if (!p || p == reinterpret_cast<PROC>(1) || p == reinterpret_cast<PROC>(2) || p == reinterpret_cast<PROC>(3) ||
+            p == reinterpret_cast<PROC>(-1))
             p = module.symbol<PROC>(name);
+
         return reinterpret_cast<T>(p);
     }
+
     void load() {
         std::wstring directory(32768, L'\0');
         const UINT size = GetSystemDirectoryW(directory.data(), UINT(directory.size()));
-        if (!size || size >= directory.size()) throw std::runtime_error("Cannot find Windows system directory.");
+
+        if (!size || size >= directory.size())
+            throw std::runtime_error("Cannot find Windows system directory.");
         directory.resize(size);
         module.open(std::filesystem::path(directory) / "opengl32.dll");
         wglGetProc = module.symbol<WglGetProc>("wglGetProcAddress");
@@ -230,5 +277,10 @@ struct GlApi {
         ActiveTexture = resolve<decltype(ActiveTexture)>("glActiveTexture");
     }
 };
-inline GlApi& gl() { static GlApi api; return api; }
+
+inline GlApi& gl() {
+    static GlApi api;
+
+    return api;
+}
 } // namespace graphics::detail

@@ -28,15 +28,32 @@ enum class GLShape { Spot, Line, Triangle, Rect };
 
 class Diagram {
 public:
-    Diagram(GLShape shape, const std::vector<Point>& localVertices,
-            GlColor color, Point pivot, bool filled = true);
+    Diagram(GLShape shape, const std::vector<Point>& localVertices, GlColor color, Point pivot, bool filled = true);
 
-    GLShape getShape() const { return shape_; }
-    const GlColor& getColor() const { return color_; }
-    std::size_t getVertexCount() const { return localVertices_.size(); }
-    Point getPivot() const { return pivot_; }
-    bool isFilled() const { return filled_; }
-    void setColor(GlColor color) { color_ = color; }
+    GLShape getShape() const {
+        return shape_;
+    }
+
+    const GlColor& getColor() const {
+        return color_;
+    }
+
+    std::size_t getVertexCount() const {
+        return localVertices_.size();
+    }
+
+    Point getPivot() const {
+        return pivot_;
+    }
+
+    bool isFilled() const {
+        return filled_;
+    }
+
+    void setColor(GlColor color) {
+        color_ = color;
+    }
+
     bool setPivot(Point pivot);
     std::vector<Point> worldVertices() const;
     bool fitsNdc() const;
@@ -54,10 +71,10 @@ std::string readTextFile(const std::filesystem::path& path);
 
 class ShaderHandler {
 public:
-    bool initShader(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
+    bool initShader(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath);
     bool initBuffer();
     bool upload(const std::vector<Diagram>& diagrams);
+
     void render() const;
     void destroy();
 
@@ -67,9 +84,10 @@ private:
         GLint first = 0;
         GLsizei count = 0;
     };
+
     GLuint shaderProgramID_ = 0;
     GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 };
+    GLuint vbo_[2] = {0, 0};
     GLuint ebo_ = 0;
     GLint useOverrideLocation_ = -1;
     std::vector<DrawRange> drawRanges_;

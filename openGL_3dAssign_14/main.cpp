@@ -1,11 +1,11 @@
 ﻿#include "Console.h"
 #include <iostream>
 
-
 int main() {
     graphics::Application application;
     Console practice(application);
     graphics::ApplicationConfig config;
+
     config.title = "OpenGL Practice 14";
     application.setInitHandler([&](graphics::Application&) {
         return practice.initScene();
@@ -19,5 +19,6 @@ int main() {
     application.setFocusHandler([&](graphics::Application&, bool focused) {
         practice.onFocus(focused);
     });
+
     return application.run(config);
 }

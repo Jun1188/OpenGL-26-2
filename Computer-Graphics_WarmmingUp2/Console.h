@@ -8,11 +8,15 @@ public:
     Console();
     ~Console() noexcept;
     Console(const Console&) = delete;
+
     Console& operator=(const Console&) = delete;
+
     void setHighlight(bool highlighted);
     void clear();
+
 private:
     void* handle_ = nullptr;
+
     std::uint16_t originalAttributes_ = 0;
     unsigned int originalInputPage_ = 0;
     unsigned int originalOutputPage_ = 0;

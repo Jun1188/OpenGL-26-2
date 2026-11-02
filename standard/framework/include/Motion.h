@@ -12,12 +12,14 @@ struct MotionSample {
     glm::mat4 parent{1.0f};
     glm::mat4 local{1.0f};
 };
+
 struct RotationMotion {
     AxisLine axis;
     double degreesPerSecond = 45;
     double initialDegrees = 0;
     TransformSpace space = TransformSpace::Local;
 };
+
 struct PathMotion {
     PathFunction path;
     InterpolationFunction interpolation = PathSystem::linear;
@@ -28,12 +30,14 @@ struct PathMotion {
     bool relativeToStart = false;
     TransformSpace space = TransformSpace::World;
 };
+
 struct LinearMotion {
     glm::vec3 from{0}, to{1, 0, 0};
     double durationSeconds = 1;
     Playback playback = Playback::Once;
     TransformSpace space = TransformSpace::Local;
 };
+
 struct PendulumMotion {
     AxisLine axis{{0, 0, 0}, {1, 0, 0}};
     double amplitudeDegrees = 25;
@@ -42,6 +46,7 @@ struct PendulumMotion {
     double offsetDegrees = 0;
     TransformSpace space = TransformSpace::Local;
 };
+
 struct MotionStep {
     // The callback receives seconds since this step started, not frame delta time.
     std::function<glm::mat4(double)> transform;
@@ -54,6 +59,7 @@ struct MotionStep {
 class Motion {
     std::vector<MotionStep> steps_;
     static bool validStep(const MotionStep& step);
+
 public:
     /// [API] 모션 단계 배열의 끝에 유효한 단계를 추가한다. 자동 순차 배치는 then을 사용한다.
     bool append(const MotionStep& step);
@@ -65,13 +71,16 @@ public:
     bool erase(std::size_t index);
     /// [API] 모든 앞 단계의 유한 종료 시각을 구한 뒤 새 단계의 시작을 그 뒤로 이동해 순차 실행을 만든다.
     bool then(MotionStep step); // Requires all previous steps to have finite durations.
+
     /// [API] 등록된 모션 단계 배열을 읽기 전용 참조로 반환한다.
-    const std::vector<MotionStep>& getSteps() const { return steps_; }
+    const std::vector<MotionStep>& getSteps() const {
+        return steps_;
+    }
+
     /// [API] 절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성하여 MotionSample을 반환한다.
     std::optional<MotionSample> sample(double seconds) const;
     /// [API] 고정 행렬을 반환하는 모션 단계를 만든다. 합성 공간을 함께 지정한다.
-    static MotionStep fixed(const glm::mat4& matrix,
-                            TransformSpace space = TransformSpace::World);
+    static MotionStep fixed(const glm::mat4& matrix, TransformSpace space = TransformSpace::World);
     /// [API] 축·초당 각속도·초기 각도·합성 공간으로 회전 모션 단계를 만든다.
     static MotionStep rotation(const RotationMotion& config);
     /// [API] 경로·보간·재생 설정으로 시간에 따른 위치 이동 모션 단계를 만든다.
@@ -96,6 +105,7 @@ struct LayerConfig {
     std::optional<MotionId> motion;
     bool enabled = true;
 };
+
 struct LayerState {
     LayerConfig config;
     std::optional<LayerId> parent;
@@ -108,9 +118,13 @@ class MotionSystem {
     std::map<LayerId, LayerState> layers_{{0, LayerState{}}};
     LayerId nextLayer_ = 1;
     bool validLayer(const LayerConfig& config) const;
+
 public:
     /// [API] 삭제할 수 없는 루트 레이어의 ID 0을 반환한다.
-    static constexpr LayerId rootLayer() { return 0; }
+    static constexpr LayerId rootLayer() {
+        return 0;
+    }
+
     /// [API] 모션을 시스템에 등록하고 새 MotionId를 반환한다.
     std::optional<MotionId> createMotion(const Motion& motion);
     /// [API] 기존 MotionId의 모션 데이터를 교체하고 현재 시각의 샘플을 갱신한다.

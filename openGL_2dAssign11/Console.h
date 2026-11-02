@@ -12,10 +12,16 @@ struct GLFWwindow;
 class Console {
 public:
     virtual ~Console() = default;
-    virtual void update(float) {}
+
+    virtual void update(float) {
+    }
+
     virtual void onKey(int key, int action) = 0;
     virtual void onMouseButton(int button, int action, Point point) = 0;
-    virtual void onCursorMove(Point) {}
+
+    virtual void onCursorMove(Point) {
+    }
+
     virtual bool render() = 0;
 };
 
@@ -24,6 +30,7 @@ constexpr std::size_t EFFECT_STEP = 5;
 class Grid { // Board owns diagrams, the active index, and collision effects.
 public:
     explicit Grid(std::size_t gridX = 20, std::size_t gridY = 20);
+
     bool getIsEndPos() const;
     bool stepEffect(std::size_t idx);
     bool moveUp(std::size_t step, std::size_t idx);
@@ -31,26 +38,34 @@ public:
     bool moveLeft(std::size_t step, std::size_t idx);
     bool moveRight(std::size_t step, std::size_t idx);
     Diagram effectBy(const Diagram& changed) const;
+
     void resetBoard();
     void moveSelectedTo();
     void moveByStep();
     void advanceEffects();
+
     float getStepDuration() const;
+
     void changeSpeed(float factor);
+
     std::vector<Diagram> getRenderItems() const;
-    std::uint64_t getRevision() const { return revision_; }
+
+    std::uint64_t getRevision() const {
+        return revision_;
+    }
 
 private:
     struct Cell {
         std::size_t x = 0;
         std::size_t y = 0;
     };
+
     Point cellCenter(Cell cell) const;
     bool moveTo(Cell cell, std::size_t idx);
 
     const std::size_t gridX, gridY; // Constructor inputs, never hardcoded in movement
     const float squareX, squareY;
-    float speedVertical = 5.0f;   // Cells per secon
+    float speedVertical = 5.0f; // Cells per secon
     float speedHorizontal = 8.0f;
     float speedMultiplier_ = 1.0f;
     std::size_t selectedIndex_ = 0;
@@ -65,11 +80,14 @@ private:
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window, std::size_t gridX = 20,
-                             std::size_t gridY = 20)
-        : window_(window), grid_(gridX, gridY) {}
+    explicit PracticeConsole(GLFWwindow* window, std::size_t gridX = 20, std::size_t gridY = 20)
+        : window_(window), grid_(gridX, gridY) {
+    }
+
     bool initGraphics(const std::filesystem::path& shaderDirectory);
+
     void shutdownGraphics();
+
     bool render() override;
 
 protected:
@@ -84,11 +102,12 @@ private:
 
 class Practice11Console final : public PracticeConsole {
 public:
-    explicit Practice11Console(GLFWwindow* window, std::size_t gridX = 20,
-                               std::size_t gridY = 20);
+    explicit Practice11Console(GLFWwindow* window, std::size_t gridX = 20, std::size_t gridY = 20);
     void update(float deltaTime) override;
     void onKey(int key, int action) override;
-    void onMouseButton(int, int, Point) override {} 
+
+    void onMouseButton(int, int, Point) override {
+    }
 
 private:
     float moveTime_ = 0.0f;

@@ -14,9 +14,11 @@ struct ApplicationConfig {
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;
     std::string title = "OpenGL";
-    std::filesystem::path shaderDirectory; // Empty selects embedded shaders.
-    std::filesystem::path projectRoot = "."; // Relative to the executable.
+
+    std::filesystem::path shaderDirectory;                // Empty selects embedded shaders.
+    std::filesystem::path projectRoot = ".";              // Relative to the executable.
     std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
+
     FeatureOptions features;
     bool verticalSync = true;
     DiagnosticOptions diagnostics;
@@ -34,10 +36,12 @@ private:
     GLFWwindow* window_ = nullptr;
     bool glfwInitialized_ = false;
     bool running_ = false;
-    DWORD contextThread_=0;
-    bool contextFailed_=false;
-    void* nativeContext_=nullptr;
-    bool ensureContext(const char* operation,const char* file,int line);
+    DWORD contextThread_ = 0;
+    bool contextFailed_ = false;
+
+    void* nativeContext_ = nullptr;
+
+    bool ensureContext(const char* operation, const char* file, int line);
     Scene scene_;
     Camera camera_;
     Renderer renderer_;
@@ -46,10 +50,19 @@ private:
     std::exception_ptr callbackError_;
     std::function<void(Application&, const MouseEvent&)> mouseHandler_;
     std::function<void(Application&, double, double)> cursorHandler_;
-    template<class Handler> void dispatch(Handler&& handler) noexcept {
-        if(callbackError_) return;
-        try { handler(); } catch(...) { callbackError_=std::current_exception(); requestClose(); }
+
+    template <class Handler> void dispatch(Handler&& handler) noexcept {
+        if (callbackError_)
+            return;
+
+        try {
+            handler();
+        } catch (...) {
+            callbackError_ = std::current_exception();
+            requestClose();
+        }
     }
+
     std::function<bool(Application&)> initHandler_;
     std::function<void(Application&, float)> updateHandler_;
     std::function<void(Application&, int, int)> keyHandler_;
@@ -58,37 +71,54 @@ private:
     std::function<bool(Application&)> renderHandler_;
 
     bool initialize(const ApplicationConfig& config);
+
     void shutdown();
 
 public:
     Application() = default; // 창은 run()에서 생성한다.
     ~Application();
     Application(const Application&) = delete;
+
     Application& operator=(const Application&) = delete;
+
     void setInitHandler(std::function<bool(Application&)> handler); // 창·렌더러 초기화 후 한 번 호출. false면 종료.
     void setUpdateHandler(std::function<void(Application&, float)> handler); // dt는 초 단위. 프레임당 한 번 호출.
     void setKeyHandler(std::function<void(Application&, int key, int action)> handler);
     // 등록된 경우 기존 keyHandler 대신 key/action/mods를 전달한다.
-    void setModifiedKeyHandler(
-        std::function<void(Application&, int key, int action, int mods)> handler);
+    void setModifiedKeyHandler(std::function<void(Application&, int key, int action, int mods)> handler);
     void setFocusHandler(std::function<void(Application&, bool focused)> handler);
     // 없으면 renderScene()을 호출한다. 사용자 콜백은 필요할 때 직접 renderScene()을 호출한다.
     void setRenderHandler(std::function<bool(Application&)> handler);
     void setMouseHandler(std::function<void(Application&, const MouseEvent&)> handler);
     void setCursorHandler(std::function<void(Application&, double x, double y)> handler); // x, y는 창 좌표.
-    std::optional<PickResult> pickAt(double windowX, double windowY) const; // 창 좌표 입력. 기본 카메라와 전체 뷰포트 사용.
+
+    std::optional<PickResult> pickAt(double windowX,
+                                     double windowY) const; // 창 좌표 입력. 기본 카메라와 전체 뷰포트 사용.
     std::optional<PickResult> pickAtCursor() const;
     AssetLoader& getAssets(); // Available from initialization callback until run() ends.
     int run(const ApplicationConfig& config = ApplicationConfig{});
+
     void requestClose();
+
     bool renderScene();
     bool renderViews(const std::vector<RenderPass>& passes); // 시간 갱신 없이 여러 뷰를 렌더링한다.
-    std::array<int,2> getFramebufferSize() const; // DPI 배율을 적용한 실제 픽셀 크기.
-    RenderOptions& getRenderOptions() { return renderOptions_; }
-    Scene& getScene() { return scene_; }
-    Camera& getCamera() { return camera_; }
-    GLFWwindow* getWindow() const { return window_; }
+    std::array<int, 2> getFramebufferSize() const;           // DPI 배율을 적용한 실제 픽셀 크기.
+
+    RenderOptions& getRenderOptions() {
+        return renderOptions_;
+    }
+
+    Scene& getScene() {
+        return scene_;
+    }
+
+    Camera& getCamera() {
+        return camera_;
+    }
+
+    GLFWwindow* getWindow() const {
+        return window_;
+    }
 };
 
 } // namespace graphics
-

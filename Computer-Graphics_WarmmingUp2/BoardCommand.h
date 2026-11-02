@@ -4,6 +4,7 @@
 
 namespace warmup {
 enum class CommandKind { move, resize, area, resizeBoard, reset, quit };
+
 struct BoardCommand {
     CommandKind kind = CommandKind::quit;
     std::size_t rectangle = 0;

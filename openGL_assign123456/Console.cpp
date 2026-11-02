@@ -7,20 +7,17 @@ namespace {
 
 constexpr float SCALE_STEP = 0.05f;
 
-enum class OutlineMode {
-    SelectedOnly,
-    EveryRectangle
-};
+enum class OutlineMode { SelectedOnly, EveryRectangle };
 
-template <typename State>
-void renderRects(const State& state, OutlineMode outlineMode) {
+template <typename State> void renderRects(const State& state, OutlineMode outlineMode) {
     const std::vector<AnimatedRect>& rects = state.getItems();
     const std::vector<std::size_t> renderOrder = state.getRenderOrder();
 
     for (std::size_t index : renderOrder) {
         renderFilledRect(rects[index].rect);
+
         if (outlineMode == OutlineMode::EveryRectangle) {
-            renderRectOutline(rects[index].rect, { 0.15f, 0.15f, 0.15f }, 1.0f);
+            renderRectOutline(rects[index].rect, {0.15f, 0.15f, 0.15f}, 1.0f);
         }
     }
 }
@@ -34,8 +31,7 @@ void BaseColorState::setRandomSections() {
     section4Color.setRandom();
 }
 
-Practice2Console::Practice2Console(GLFWwindow* window)
-    : window_(window) {
+Practice2Console::Practice2Console(GLFWwindow* window) : window_(window) {
     baseColorState_.setRandomSections();
 }
 
@@ -121,6 +117,7 @@ void Practice2Console::onCursorMove(const Point&) {
 
 void Practice2Console::render() const {
     const GlColor& background = baseColorState_.backgroundColor;
+
     glClearColor(background.red, background.green, background.blue, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -128,8 +125,9 @@ void Practice2Console::render() const {
     renderRects(rectState_, OutlineMode::SelectedOnly);
 
     const Rect* selected = rectState_.getSelected();
+
     if (selected != nullptr) {
-        renderRectOutline(*selected, { 1.0f, 1.0f, 1.0f }, 4.0f);
+        renderRectOutline(*selected, {1.0f, 1.0f, 1.0f}, 4.0f);
     }
 }
 
@@ -156,8 +154,7 @@ void Practice2Console::renderBase() const {
     glEnd();
 }
 
-Practice3Console::Practice3Console(GLFWwindow* window)
-    : window_(window) {
+Practice3Console::Practice3Console(GLFWwindow* window) : window_(window) {
 }
 
 Practice3Console::Command Practice3Console::parseKey(int key, int action) const {
@@ -197,12 +194,10 @@ void Practice3Console::onMouseButton(int button, int action, const Point& point)
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         if (action == GLFW_PRESS) {
             rectState_.beginDrag(point);
-        }
-        else if (action == GLFW_RELEASE) {
+        } else if (action == GLFW_RELEASE) {
             rectState_.endDrag();
         }
-    }
-    else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+    } else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
         rectState_.splitAt(point);
     }
 }
@@ -219,12 +214,12 @@ void Practice3Console::render() const {
 
     if (rectState_.isDragging()) {
         const Rect* selected = rectState_.getSelected();
+
         if (selected != nullptr) {
-            renderRectOutline(*selected, { 1.0f, 1.0f, 1.0f }, 4.0f);
+            renderRectOutline(*selected, {1.0f, 1.0f, 1.0f}, 4.0f);
         }
     }
 }
-
 
 Practice4Console::Command Practice4Console::parseKey(int key, int action) const {
     if (action != GLFW_PRESS) {
@@ -257,6 +252,7 @@ Practice4Console::Command Practice4Console::parseKey(int key, int action) const 
         return Command::None;
     }
 }
+
 void Practice4Console::input(Practice4Console::Command command) {
     switch (command) {
     case Command::Diagonal:
@@ -295,8 +291,7 @@ void Practice4Console::input(Practice4Console::Command command) {
     }
 }
 
-Practice4Console::Practice4Console(GLFWwindow* window)
-    : window_(window) {
+Practice4Console::Practice4Console(GLFWwindow* window) : window_(window) {
 }
 
 void Practice4Console::update(float deltaTime) {
@@ -325,13 +320,9 @@ void Practice4Console::render() const {
     }
 }
 
-
-
-
 //start practice 5
 
-Practice5Console::Practice5Console(GLFWwindow* window)
-    : window_(window) {
+Practice5Console::Practice5Console(GLFWwindow* window) : window_(window) {
 }
 
 Practice5Console::Command Practice5Console::parseKey(int key, int action) const {
@@ -371,17 +362,16 @@ void Practice5Console::onMouseButton(int button, int action, const Point& point)
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         if (action == GLFW_PRESS) {
             rectState_.beginDrag(point);
-        }
-        else if (action == GLFW_RELEASE) {
+        } else if (action == GLFW_RELEASE) {
             rectState_.endDrag();
         }
     }
+
     if (button == GLFW_MOUSE_BUTTON_RIGHT) {
         if (action == GLFW_PRESS) {
             rectState_.tryCreateRectAt(point);
         }
     }
-    
 }
 
 void Practice5Console::onCursorMove(const Point& point) {
@@ -394,13 +384,12 @@ void Practice5Console::render() const {
 
     for (const AnimatedRect& item : rectState_.getItems())
         renderFilledRect(item.rect);
-    if(rectState_.getEraser() != std::nullopt)
+
+    if (rectState_.getEraser() != std::nullopt)
         renderFilledRect(rectState_.getEraser().value());
-    
 }
 
-Practice6Console::Practice6Console(GLFWwindow* window)
-    : window_(window) {
+Practice6Console::Practice6Console(GLFWwindow* window) : window_(window) {
 }
 
 void Practice6Console::update(float deltaTime) {
@@ -408,15 +397,12 @@ void Practice6Console::update(float deltaTime) {
 }
 
 void Practice6Console::onKey(int key, int action) {
-    if (action == GLFW_PRESS
-        && (key == GLFW_KEY_Q || key == GLFW_KEY_ESCAPE)) {
+    if (action == GLFW_PRESS && (key == GLFW_KEY_Q || key == GLFW_KEY_ESCAPE)) {
         glfwSetWindowShouldClose(window_, GLFW_TRUE);
     }
 }
 
-void Practice6Console::onMouseButton(
-    int button, int action, const Point& point
-) {
+void Practice6Console::onMouseButton(int button, int action, const Point& point) {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         rectState_.tryCreateAnimationAt(point);
     }
@@ -432,10 +418,9 @@ void Practice6Console::render() const {
     for (const AnimatedRect& item : rectState_.getItems()) {
         renderFilledRect(item.rect);
     }
-    for (const Practice6RectState::Animation& animation
-        : rectState_.getAnimations()) {
-        for (const Practice6RectState::SplitRect& fragment
-            : animation.splitRects) {
+
+    for (const Practice6RectState::Animation& animation : rectState_.getAnimations()) {
+        for (const Practice6RectState::SplitRect& fragment : animation.splitRects) {
             renderFilledRect(fragment.rect);
         }
     }

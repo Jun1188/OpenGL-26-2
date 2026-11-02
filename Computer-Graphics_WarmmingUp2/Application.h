@@ -13,9 +13,10 @@ class Console;
 // Coordinates the menu, board commands and file processing.
 class Application {
 public:
-    explicit Application(Console* console = nullptr,
-                         std::filesystem::path outputDirectory = {});
+    explicit Application(Console* console = nullptr, std::filesystem::path outputDirectory = {});
+
     int run(const std::vector<std::string>& arguments);
+
 private:
     int runBoard();
     int runMesh(const std::filesystem::path& path);
@@ -26,6 +27,7 @@ private:
     MeshParser meshParser_;
     MeshValidator meshValidator_;
     MeshReporter meshReporter_;
+
     std::filesystem::path outputDirectory_;
 };
 }

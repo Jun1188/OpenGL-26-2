@@ -7,16 +7,18 @@
 class Console {
 private:
     enum class Motion { None, Top, Front, Side, Back, Hinge, Swap, OrbitY, OrbitX, Count };
+
     struct FaceMotion {
         bool initialized = false;
         bool running = false;
         float progress = 0.0f;
         float direction = 1.0f;
-        std::array<std::size_t, 2> pair{ 0, 3 };
-        glm::vec3 hinge{ 0.4f, 0.0f, 0.4f };
+        std::array<std::size_t, 2> pair{0, 3};
+        glm::vec3 hinge{0.4f, 0.0f, 0.4f};
     };
 
     enum class PyramidMotion { None, All, Sequence, Swap, Apex };
+
     PyramidMotion pyramidMotion_ = PyramidMotion::None;
     bool pyramidRunning_ = false;
     float pyramidProgress_ = 0, pyramidDirection_ = 1;
@@ -26,6 +28,7 @@ private:
     void updatePyramid(float dt);
     /// 피라미드 면 변환을 반영한다.
     void applyPyramid();
+
     graphics::Application& application_;
     graphics::EntityId cuboidId_ = 0;
     graphics::EntityId pyramidId_ = 0;
@@ -33,7 +36,7 @@ private:
     bool spinning_ = false;
     float spinDegrees_ = 0.0f;
     std::array<FaceMotion, static_cast<std::size_t>(Motion::Count)> motions_{};
-    std::mt19937 random_{ std::random_device{}() };
+    std::mt19937 random_{std::random_device{}()};
 
     /// 조작할 도형을 선택한다.
     void selectShape(bool pyramid);
@@ -50,7 +53,9 @@ private:
 
 public:
     /// 애플리케이션 참조를 보관한다.
-    explicit Console(graphics::Application& application) : application_(application) {}
+    explicit Console(graphics::Application& application) : application_(application) {
+    }
+
     /// 장면 객체와 초기 상태를 구성한다.
     bool initScene();
     /// 키 입력에 따라 동작을 변경한다.

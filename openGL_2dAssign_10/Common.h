@@ -65,34 +65,76 @@ DiagCaseTable makeDCT();
 
 class Diagram {
 public:
-    explicit Diagram(GLShape shape, const std::vector<Point>& localVertices,
-                     GlColor color, Point pivot, Point localPivot, BoundsCase bounds);
-    explicit Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
-                     GlColor color, Point pivot, Point localPivot, BoundsCase bounds);
+    explicit Diagram(GLShape shape, const std::vector<Point>& localVertices, GlColor color, Point pivot,
+                     Point localPivot, BoundsCase bounds);
+    explicit Diagram(TriangleCase tc, const std::vector<Point>& localVertices, GlColor color, Point pivot,
+                     Point localPivot, BoundsCase bounds);
 
-    GLShape getShape() const { return glshape_; }
-    const GlColor& getColor() const { return color_; }
-    std::size_t getVertexCount() const { return localVertices_.size(); }
-    Point getPivot() const { return pivot_; }
-    Point getScale() const { return scale_; }
-    float getRotation() const { return rotationDegrees_; }
-    std::size_t getId() const { return id_; }
-    std::size_t getBoardId() const { return boardId_; }
-    BoundsCase getBoundCase() const { return bounds_; }
-    std::optional<TriangleCase> getTriangleCase() const { return tricase_; }
-    bool isMatched() const { return matched_; }
-    bool isMovable() const { return bounds_ == BoundsCase::Unfit && !matched_; }
-    bool isOutline() const { return bounds_ == BoundsCase::Fit && !matched_; }
+    GLShape getShape() const {
+        return glshape_;
+    }
+
+    const GlColor& getColor() const {
+        return color_;
+    }
+
+    std::size_t getVertexCount() const {
+        return localVertices_.size();
+    }
+
+    Point getPivot() const {
+        return pivot_;
+    }
+
+    Point getScale() const {
+        return scale_;
+    }
+
+    float getRotation() const {
+        return rotationDegrees_;
+    }
+
+    std::size_t getId() const {
+        return id_;
+    }
+
+    std::size_t getBoardId() const {
+        return boardId_;
+    }
+
+    BoundsCase getBoundCase() const {
+        return bounds_;
+    }
+
+    std::optional<TriangleCase> getTriangleCase() const {
+        return tricase_;
+    }
+
+    bool isMatched() const {
+        return matched_;
+    }
+
+    bool isMovable() const {
+        return bounds_ == BoundsCase::Unfit && !matched_;
+    }
+
+    bool isOutline() const {
+        return bounds_ == BoundsCase::Fit && !matched_;
+    }
 
     Diagram makeUnfitCopy() const;
+
     void setIdentity(std::size_t pairId, std::size_t boardId);
     void markMatched(GlColor color);
+
     float getDistanceByPivot(const Point& pivot) const;
     bool hasSameShape(const Diagram& other) const;
 
     bool canTranslate(Point direction) const;
     bool translate(Point direction);
+
     void setDirection(Point direction, float speed);
+
     bool setScale(Point scale);
     bool setRotation(float degrees);
     bool setPose(Point pivot, float rotationDegrees);
@@ -113,9 +155,9 @@ private:
 
     std::vector<Point> localVertices_;
     GlColor color_;
-    Point pivot_;       // 월드 위치.
-    Point localPivot_;  // 로컬 회전·크기 중심.
-    Point scale_{ 1.0f, 1.0f };
+    Point pivot_;      // 월드 위치.
+    Point localPivot_; // 로컬 회전·크기 중심.
+    Point scale_{1.0f, 1.0f};
     float rotationDegrees_ = 0.0f;
     Point direction_{};
     float speed_ = 0.0f;
@@ -127,11 +169,10 @@ std::string readTextFile(const std::filesystem::path& path);
 
 class ShaderHandler {
 public:
-    bool initShader(const std::filesystem::path& vertexPath,
-                    const std::filesystem::path& fragmentPath);
+    bool initShader(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath);
     bool initBuffer();
-    bool upload(const std::vector<Diagram>& diagrams,
-                std::optional<std::size_t> selectedIndex);
+    bool upload(const std::vector<Diagram>& diagrams, std::optional<std::size_t> selectedIndex);
+
     void render() const;
     void destroy();
 
@@ -145,8 +186,8 @@ private:
     static constexpr std::size_t MAX_VERTICES = MAX_DIAGRAMS * 4;
     GLuint shaderProgramID_ = 0;
     GLuint vao_ = 0;
-    GLuint vbo_[2] = { 0, 0 }; // 위치와 색상.
-    GLuint ebo_ = 0;          // 모든 도형이 공유하는 외곽선·채움 인덱스.
+    GLuint vbo_[2] = {0, 0}; // 위치와 색상.
+    GLuint ebo_ = 0;         // 모든 도형이 공유하는 외곽선·채움 인덱스.
 
     GLint useOverrideLocation_ = -1;
     GLint overrideColorLocation_ = -1;

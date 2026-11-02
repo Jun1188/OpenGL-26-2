@@ -17,9 +17,11 @@ struct ShapeBoard {
 class DiagramStore {
 public:
     bool resetAtRandom();
+
     void clear();
     void selectAt(Point point);
     void clearSelection();
+
     bool moveSelectedTo(Point pivot);
     bool mergeSelectedDiagram();
     int findClosestSameShape_IndexAtCloseAndFit(const Diagram& diagram) const;
@@ -32,14 +34,31 @@ public:
     bool setSelectedRotation(float degrees);
     bool setSelectedDirection(Point direction, float speed);
     bool advance(float deltaTime);
+
     void setWindowSize(int width, int height);
 
-    const std::vector<Diagram>& getItems() const { return diagrams_; }
-    const std::vector<ShapeBoard>& getBoards() const { return boards_; }
-    const DiagCaseTable& getCaseTable() const { return dct_; }
-    std::optional<std::size_t> getSelectedIndex() const { return selectedIndex_; }
+    const std::vector<Diagram>& getItems() const {
+        return diagrams_;
+    }
+
+    const std::vector<ShapeBoard>& getBoards() const {
+        return boards_;
+    }
+
+    const DiagCaseTable& getCaseTable() const {
+        return dct_;
+    }
+
+    std::optional<std::size_t> getSelectedIndex() const {
+        return selectedIndex_;
+    }
+
     std::optional<Point> getSelectedPivot() const;
-    std::uint64_t getRevision() const { return revision_; }
+
+    std::uint64_t getRevision() const {
+        return revision_;
+    }
+
     std::size_t getCompletedBoardCount() const;
 
 private:

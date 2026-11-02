@@ -5,7 +5,10 @@
 class Console {
 public:
     virtual ~Console() = default;
-    virtual void update(float) {}
+
+    virtual void update(float) {
+    }
+
     virtual void onKey(int key, int action) = 0;
     virtual void onMouseButton(int button, int action, const Point& point) = 0;
     virtual void onCursorMove(const Point& point) = 0;
@@ -13,7 +16,7 @@ public:
 };
 
 struct BaseColorState {
-    GlColor backgroundColor{ 0.12f, 0.12f, 0.16f };
+    GlColor backgroundColor{0.12f, 0.12f, 0.16f};
     GlColor section1Color;
     GlColor section2Color;
     GlColor section3Color;
@@ -46,6 +49,7 @@ private:
     };
 
     Command parseKey(int key, int action) const;
+
     void input(Command command);
     void renderBase() const;
 
@@ -64,21 +68,15 @@ public:
     void render() const override;
 
 private:
-    enum class Command {
-        None,
-        AddRandomRect,
-        Quit
-    };
+    enum class Command { None, AddRandomRect, Quit };
 
     Command parseKey(int key, int action) const;
+
     void input(Command command);
 
     GLFWwindow* window_ = nullptr;
     Practice3RectState rectState_;
 };
-
-
-
 
 class Practice4Console final : public Console {
 public:
@@ -91,28 +89,15 @@ public:
     void render() const override;
 
 private:
-    enum class Command {
-        None,
-        Diagonal,
-        HorizontalZigzag,
-        Orbit,
-        Resize,
-        Recolor,
-        Stop,
-        Rollback,
-        Reset,
-        Quit,
-        Print
-    };
+    enum class Command { None, Diagonal, HorizontalZigzag, Orbit, Resize, Recolor, Stop, Rollback, Reset, Quit, Print };
 
     Command parseKey(int key, int action) const;
+
     void input(Command command);
 
     GLFWwindow* window_ = nullptr;
     Practice4RectState rectState_;
 };
-
-
 
 class Practice5Console final : public Console {
 public:
@@ -124,19 +109,14 @@ public:
     void render() const override;
 
 private:
-    enum class Command {
-        None,
-        Reset,
-        Quit
-    };
+    enum class Command { None, Reset, Quit };
 
     Command parseKey(int key, int action) const;
+
     void input(Command command);
-    
 
     GLFWwindow* window_ = nullptr;
     Practice5RectState rectState_;
-    
 };
 
 class Practice6Console final : public Console {

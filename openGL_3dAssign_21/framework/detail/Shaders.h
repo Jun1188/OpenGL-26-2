@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 namespace graphics::detail {
 inline constexpr char vertexShader[] = R"GLSL(#version 330 core
 layout(location=0) in vec3 vPos;

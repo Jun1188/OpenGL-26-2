@@ -8,7 +8,7 @@
 #include <iostream>
 #include <memory>
 
-#if PROB != 2 && PROB != 3 && PROB != 4 && PROB !=5 && PROB != 6
+#if PROB != 2 && PROB != 3 && PROB != 4 && PROB != 5 && PROB != 6
 #error PROB must be 2 ~ 6.
 #endif
 
@@ -42,6 +42,7 @@ std::unique_ptr<Console> createConsole(GLFWwindow* window) {
 
 void keyCallback(GLFWwindow* window, int key, int, int action, int) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
+
     if (console != nullptr) {
         console->onKey(key, action);
     }
@@ -49,18 +50,21 @@ void keyCallback(GLFWwindow* window, int key, int, int action, int) {
 
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
+
     if (console == nullptr) {
         return;
     }
 
     double mouseX = 0.0;
     double mouseY = 0.0;
+
     glfwGetCursorPos(window, &mouseX, &mouseY);
     console->onMouseButton(button, action, screenToOpenGl(window, mouseX, mouseY));
 }
 
 void cursorPositionCallback(GLFWwindow* window, double mouseX, double mouseY) {
     Console* console = static_cast<Console*>(glfwGetWindowUserPointer(window));
+
     if (console != nullptr) {
         console->onCursorMove(screenToOpenGl(window, mouseX, mouseY));
     }
@@ -75,6 +79,7 @@ void framebufferSizeCallback(GLFWwindow*, int width, int height) {
 int main() {
     if (!glfwInit()) {
         std::cerr << "GLFW initialization failed.\n";
+
         return -1;
     }
 
@@ -82,17 +87,12 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(
-        WINDOW_WIDTH,
-        WINDOW_HEIGHT,
-        WINDOW_TITLE,
-        nullptr,
-        nullptr
-    );
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, nullptr, nullptr);
 
     if (window == nullptr) {
         std::cerr << "Window creation failed.\n";
         glfwTerminate();
+
         return -1;
     }
 
@@ -100,19 +100,23 @@ int main() {
     glfwSwapInterval(1);
 
     glewExperimental = GL_TRUE;
+
     if (glewInit() != GLEW_OK) {
         std::cerr << "GLEW initialization failed.\n";
         glfwDestroyWindow(window);
         glfwTerminate();
+
         return -1;
     }
 
     int framebufferWidth = 0;
     int framebufferHeight = 0;
+
     glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
     glViewport(0, 0, framebufferWidth, framebufferHeight);
 
     std::unique_ptr<Console> console = createConsole(window);
+
     glfwSetWindowUserPointer(window, console.get());
     glfwSetKeyCallback(window, keyCallback);
     glfwSetMouseButtonCallback(window, mouseButtonCallback);
@@ -124,6 +128,7 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         const double currentTime = glfwGetTime();
         float deltaTime = static_cast<float>(currentTime - previousTime);
+
         previousTime = currentTime;
 
         if (deltaTime > 0.05f) {
@@ -138,5 +143,6 @@ int main() {
     console.reset();
     glfwDestroyWindow(window);
     glfwTerminate();
+
     return 0;
 }

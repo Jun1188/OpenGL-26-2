@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
 namespace {
 
 constexpr std::size_t QUAD_OUTLINE_FIRST = 0;
@@ -21,11 +20,14 @@ std::default_random_engine randomEngine(randomDevice());
 
 GLuint compileShader(GLenum type, const std::filesystem::path& path) {
     const std::string sourceText = readTextFile(path);
+
     if (sourceText.empty()) {
         return 0;
     }
+
     const char* source = sourceText.c_str();
     const GLuint shader = glCreateShader(type);
+
     if (shader == 0) {
         return 0;
     }
@@ -33,26 +35,38 @@ GLuint compileShader(GLenum type, const std::filesystem::path& path) {
     glCompileShader(shader);
 
     GLint compiled = GL_FALSE;
+
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+
     if (compiled != GL_TRUE) {
         GLint length = 0;
+
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+
         std::string log(length > 0 ? length : 1, '\0');
+
         glGetShaderInfoLog(shader, static_cast<GLsizei>(log.size()), nullptr, log.data());
         std::cerr << "Shader compile failed: " << path << '\n' << log << '\n';
         glDeleteShader(shader);
+
         return 0;
     }
+
     return shader;
 }
 
 std::size_t requiredVertices(GLShape shape) {
     switch (shape) {
-    case GLShape::Spot: return 4;     // A small square, not GL_POINTS.
-    case GLShape::Line: return 2;
-    case GLShape::Triangle: return 3;
-    case GLShape::Rect: return 4;
+    case GLShape::Spot:
+        return 4; // A small square, not GL_POINTS.
+    case GLShape::Line:
+        return 2;
+    case GLShape::Triangle:
+        return 3;
+    case GLShape::Rect:
+        return 4;
     }
+
     return 0;
 }
 
@@ -60,38 +74,39 @@ GLenum drawMode(const Diagram& diagram) {
     if (diagram.getShape() == GLShape::Line) {
         return GL_LINES;
     }
+
     return diagram.isOutline() ? GL_LINE_LOOP : GL_TRIANGLES;
 }
 
 float cross(Point a, Point b, Point c) {
-    return (b.x - a.x) * (c.y - a.y)
-         - (b.y - a.y) * (c.x - a.x);
+    return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
 }
 
 bool insideTriangle(Point p, Point a, Point b, Point c) {
     if (std::abs(cross(a, b, c)) < 0.000001f) {
         return false;
     }
+
     const float ab = cross(a, b, p);
     const float bc = cross(b, c, p);
     const float ca = cross(c, a, p);
-    return !(ab < 0.0f || bc < 0.0f || ca < 0.0f)
-        || !(ab > 0.0f || bc > 0.0f || ca > 0.0f);
+
+    return !(ab < 0.0f || bc < 0.0f || ca < 0.0f) || !(ab > 0.0f || bc > 0.0f || ca > 0.0f);
 }
 
 bool nearLine(Point p, Point a, Point b) {
     const float dx = b.x - a.x;
     const float dy = b.y - a.y;
     const float lengthSquared = dx * dx + dy * dy;
+
     if (lengthSquared == 0.0f) {
         return false;
     }
-    const float t = std::clamp(
-        ((p.x - a.x) * dx + (p.y - a.y) * dy) / lengthSquared,
-        0.0f, 1.0f
-    );
+
+    const float t = std::clamp(((p.x - a.x) * dx + (p.y - a.y) * dy) / lengthSquared, 0.0f, 1.0f);
     const float distanceX = p.x - (a.x + t * dx);
     const float distanceY = p.y - (a.y + t * dy);
+
     return distanceX * distanceX + distanceY * distanceY <= 0.025f * 0.025f;
 }
 
@@ -99,6 +114,7 @@ bool nearLine(Point p, Point a, Point b) {
 
 float randomFloat(float minimum, float maximum) {
     std::uniform_real_distribution<float> distribution(minimum, maximum);
+
     return distribution(randomEngine);
 }
 
@@ -109,43 +125,46 @@ void GlColor::set(float r, float g, float b) {
 }
 
 void GlColor::setRandom() {
-    set(randomFloat(0.15f, 0.95f),
-        randomFloat(0.15f, 0.95f),
-        randomFloat(0.15f, 0.95f));
+    set(randomFloat(0.15f, 0.95f), randomFloat(0.15f, 0.95f), randomFloat(0.15f, 0.95f));
 }
 
 int randomInt(int minimum, int maximum) {
     std::uniform_int_distribution<int> distribution(minimum, maximum);
+
     return distribution(randomEngine);
 }
 
 DiagCaseTable makeDCT() {
     DiagCaseTable dct;
+
     dct.rectRows = randomInt(2, 3);
     dct.rectColumns = randomInt(2, 3);
     dct.NumOfEqual = 6; // 바람개비 4개 + 집 지붕 + 화살표 머리.
     dct.NumOfRight = 2;
     dct.NumOfRect = static_cast<std::size_t>(dct.rectRows * dct.rectColumns) + 2;
+
     return dct;
 }
 
-Diagram::Diagram(GLShape shape, const std::vector<Point>& localVertices,
-                 GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
-    : glshape_(shape), bounds_(bounds), localVertices_(localVertices),
-      color_(color), pivot_(pivot), localPivot_(localPivot) {
+Diagram::Diagram(GLShape shape, const std::vector<Point>& localVertices, GlColor color, Point pivot, Point localPivot,
+                 BoundsCase bounds)
+    : glshape_(shape), bounds_(bounds), localVertices_(localVertices), color_(color), pivot_(pivot),
+      localPivot_(localPivot) {
 }
 
-Diagram::Diagram(TriangleCase tc, const std::vector<Point>& localVertices,
-                 GlColor color, Point pivot, Point localPivot, BoundsCase bounds)
-    : glshape_(GLShape::Triangle), tricase_(tc), bounds_(bounds),
-      localVertices_(localVertices), color_(color), pivot_(pivot), localPivot_(localPivot) {
+Diagram::Diagram(TriangleCase tc, const std::vector<Point>& localVertices, GlColor color, Point pivot, Point localPivot,
+                 BoundsCase bounds)
+    : glshape_(GLShape::Triangle), tricase_(tc), bounds_(bounds), localVertices_(localVertices), color_(color),
+      pivot_(pivot), localPivot_(localPivot) {
 }
 
 Diagram Diagram::makeUnfitCopy() const {
     Diagram source = *this;
+
     source.bounds_ = BoundsCase::Unfit;
     source.pivot_ = {};
     source.matched_ = false;
+
     return source;
 }
 
@@ -166,29 +185,29 @@ void Diagram::markMatched(GlColor color) {
 float Diagram::getDistanceByPivot(const Point& pivot) const {
     const float dx = pivot.x - pivot_.x;
     const float dy = pivot.y - pivot_.y;
+
     return std::sqrt(dx * dx + dy * dy);
 }
 
 bool Diagram::hasSameShape(const Diagram& other) const {
     constexpr float EPSILON = 0.0001f;
-    if (glshape_ != other.glshape_ || tricase_ != other.tricase_
-        || localVertices_.size() != other.localVertices_.size()
-        || std::abs(scale_.x - other.scale_.x) > EPSILON
-        || std::abs(scale_.y - other.scale_.y) > EPSILON
-        || std::abs(std::remainder(rotationDegrees_ - other.rotationDegrees_, 360.0f))
-           > EPSILON) {
+
+    if (glshape_ != other.glshape_ || tricase_ != other.tricase_ ||
+        localVertices_.size() != other.localVertices_.size() || std::abs(scale_.x - other.scale_.x) > EPSILON ||
+        std::abs(scale_.y - other.scale_.y) > EPSILON ||
+        std::abs(std::remainder(rotationDegrees_ - other.rotationDegrees_, 360.0f)) > EPSILON) {
         return false;
     }
     // 월드 위치, ID, 색은 제외한다. 로컬 중심을 뺀 형상을 비교한다.
     for (std::size_t i = 0; i < localVertices_.size(); ++i) {
-        const float dx = (localVertices_[i].x - localPivot_.x)
-                       - (other.localVertices_[i].x - other.localPivot_.x);
-        const float dy = (localVertices_[i].y - localPivot_.y)
-                       - (other.localVertices_[i].y - other.localPivot_.y);
+        const float dx = (localVertices_[i].x - localPivot_.x) - (other.localVertices_[i].x - other.localPivot_.x);
+        const float dy = (localVertices_[i].y - localPivot_.y) - (other.localVertices_[i].y - other.localPivot_.y);
+
         if (std::abs(dx) > EPSILON || std::abs(dy) > EPSILON) {
             return false;
         }
     }
+
     return true;
 }
 
@@ -196,13 +215,14 @@ bool Diagram::canTranslate(Point direction) const {
     if (!isMovable()) {
         return false;
     }
+
     Diagram candidate = *this;
+
     candidate.pivot_.x += direction.x;
     candidate.pivot_.y += direction.y;
+
     return candidate.fitsNdc();
 }
-
-
 
 bool Diagram::translate(Point direction) {
     if (!canTranslate(direction)) {
@@ -211,6 +231,7 @@ bool Diagram::translate(Point direction) {
 
     pivot_.x += direction.x;
     pivot_.y += direction.y;
+
     return true;
 }
 
@@ -223,12 +244,16 @@ bool Diagram::setScale(Point scale) {
     if (matched_) {
         return false;
     }
+
     Diagram candidate = *this;
+
     candidate.scale_ = scale;
+
     if (!candidate.fitsNdc()) {
         return false;
     }
     scale_ = scale;
+
     return true;
 }
 
@@ -236,133 +261,155 @@ bool Diagram::setRotation(float degrees) {
     if (matched_) {
         return false;
     }
+
     Diagram candidate = *this;
+
     candidate.rotationDegrees_ = degrees;
+
     if (!candidate.fitsNdc()) {
         return false;
     }
     rotationDegrees_ = degrees;
+
     return true;
 }
-
-
 
 bool Diagram::setPose(Point pivot, float rotationDegrees) {
     if (matched_) {
         return false;
     }
+
     Diagram candidate = *this;
+
     candidate.pivot_ = pivot;
     candidate.rotationDegrees_ = rotationDegrees;
+
     if (!candidate.fitsNdc()) {
         return false;
     }
-   
+
     pivot_ = pivot;
     rotationDegrees_ = rotationDegrees;
+
     return true;
 }
 
 bool Diagram::advance(float deltaTime) {
-    if (!isMovable() || deltaTime <= 0.0f || speed_ == 0.0f
-        || (direction_.x == 0.0f && direction_.y == 0.0f)) {
+    if (!isMovable() || deltaTime <= 0.0f || speed_ == 0.0f || (direction_.x == 0.0f && direction_.y == 0.0f)) {
         return false;
     }
-    return translate({ direction_.x * speed_ * deltaTime,
-                       direction_.y * speed_ * deltaTime });
+
+    return translate({direction_.x * speed_ * deltaTime, direction_.y * speed_ * deltaTime});
 }
 
 std::vector<Point> Diagram::worldVertices() const {
     return worldVerticesAt(pivot_, rotationDegrees_);
 }
 
-std::vector<Point> Diagram::worldVerticesAt(//model space -> TRS -> world space
-    Point pivot, float rotationDegrees
-) const {
+std::vector<Point> Diagram::worldVerticesAt( //model space -> TRS -> world space
+    Point pivot, float rotationDegrees) const {
     // 로컬 중심 빼기 -> 크기 -> 회전 -> 화면 비율 보정 -> 월드 이동.
     glm::mat4 model(1.0f);
+
     model = glm::translate(model, glm::vec3(pivot.x, pivot.y, 0.0f));
     // 화면 가로·세로 비율을 보정한다. 회전한 로컬 형상을 NDC로 옮긴다.
     model = glm::scale(model, glm::vec3(LOCAL_TO_NDC_X, 1.0f, 1.0f));
-    model = glm::rotate(model, glm::radians(rotationDegrees),
-                        glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::rotate(model, glm::radians(rotationDegrees), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, glm::vec3(scale_.x, scale_.y, 1.0f));
-    model = glm::translate(model,
-        glm::vec3(-localPivot_.x, -localPivot_.y, 0.0f));
+    model = glm::translate(model, glm::vec3(-localPivot_.x, -localPivot_.y, 0.0f));
 
     std::vector<Point> world;
+
     world.reserve(localVertices_.size());
+
     for (const Point& local : localVertices_) {
         const glm::vec4 p = model * glm::vec4(local.x, local.y, 0.0f, 1.0f);
-        world.push_back({ p.x, p.y });
+
+        world.push_back({p.x, p.y});
     }
+
     return world;
 }
 
 bool Diagram::fitsNdc() const {
     const std::vector<Point> world = worldVertices();
+
     if (world.size() != requiredVertices(glshape_)) {
         return false;
     }
+
     for (const Point& point : world) {
-        if (!std::isfinite(point.x) || !std::isfinite(point.y)
-            || point.x < -1.0f || point.x > 1.0f
-            || point.y < -1.0f || point.y > 1.0f) {
+        if (!std::isfinite(point.x) || !std::isfinite(point.y) || point.x < -1.0f || point.x > 1.0f ||
+            point.y < -1.0f || point.y > 1.0f) {
             return false;
         }
     }
+
     return true;
 }
 
 bool Diagram::contains(Point point) const {
     const std::vector<Point> p = worldVertices();
+
     if (p.size() != requiredVertices(glshape_)) {
         return false;
     }
+
     if (glshape_ == GLShape::Line) {
         return nearLine(point, p[0], p[1]);
     }
+
     if (glshape_ == GLShape::Triangle) {
         return insideTriangle(point, p[0], p[1], p[2]);
     }
     // Quad fill is 0-1-2 and 2-1-3; its perimeter is 0-1-3-2.
-    return insideTriangle(point, p[0], p[1], p[2])
-        || insideTriangle(point, p[2], p[1], p[3]);
+    return insideTriangle(point, p[0], p[1], p[2]) || insideTriangle(point, p[2], p[1], p[3]);
 }
 
 std::string readTextFile(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
+
     if (!file) {
         std::cerr << "Cannot open shader file: " << path << '\n';
+
         return {};
     }
+
     std::ostringstream buffer;
+
     buffer << file.rdbuf();
+
     std::string text = buffer.str();
-    if (text.size() >= 3 && static_cast<unsigned char>(text[0]) == 0xEF
-        && static_cast<unsigned char>(text[1]) == 0xBB
-        && static_cast<unsigned char>(text[2]) == 0xBF) {
+
+    if (text.size() >= 3 && static_cast<unsigned char>(text[0]) == 0xEF &&
+        static_cast<unsigned char>(text[1]) == 0xBB && static_cast<unsigned char>(text[2]) == 0xBF) {
         text.erase(0, 3); // GLSL #version must be the first source directive.
     }
+
     return text;
 }
 
-bool ShaderHandler::initShader(const std::filesystem::path& vertexPath,
-                               const std::filesystem::path& fragmentPath) {
+bool ShaderHandler::initShader(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath) {
     const GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexPath);
+
     if (vertexShader == 0) {
         return false;
     }
+
     const GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentPath);
+
     if (fragmentShader == 0) {
         glDeleteShader(vertexShader);
+
         return false;
     }
 
     shaderProgramID_ = glCreateProgram();
+
     if (shaderProgramID_ == 0) {
         glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
+
         return false;
     }
     glAttachShader(shaderProgramID_, vertexShader);
@@ -370,32 +417,40 @@ bool ShaderHandler::initShader(const std::filesystem::path& vertexPath,
     glLinkProgram(shaderProgramID_);
 
     GLint linked = GL_FALSE;
+
     glGetProgramiv(shaderProgramID_, GL_LINK_STATUS, &linked);
+
     if (linked != GL_TRUE) {
         GLint length = 0;
+
         glGetProgramiv(shaderProgramID_, GL_INFO_LOG_LENGTH, &length);
+
         std::string log(length > 0 ? length : 1, '\0');
-        glGetProgramInfoLog(shaderProgramID_, static_cast<GLsizei>(log.size()),
-                            nullptr, log.data());
+
+        glGetProgramInfoLog(shaderProgramID_, static_cast<GLsizei>(log.size()), nullptr, log.data());
         std::cerr << "Shader link failed:\n" << log << '\n';
     }
     glDetachShader(shaderProgramID_, vertexShader);
     glDetachShader(shaderProgramID_, fragmentShader);
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
     if (linked != GL_TRUE) {
         destroy();
+
         return false;
     }
-
 
     useOverrideLocation_ = glGetUniformLocation(shaderProgramID_, "uUseOverrideColor");
     overrideColorLocation_ = glGetUniformLocation(shaderProgramID_, "uOverrideColor");
+
     if (useOverrideLocation_ < 0 || overrideColorLocation_ < 0) {
         std::cerr << "Selection color uniforms are missing.\n";
         destroy();
+
         return false;
     }
+
     return true;
 }
 
@@ -403,16 +458,18 @@ bool ShaderHandler::initBuffer() {
     if (shaderProgramID_ == 0) {
         return false;
     }
+
     const GLint positionLocation = glGetAttribLocation(shaderProgramID_, "vPos");
     const GLint colorLocation = glGetAttribLocation(shaderProgramID_, "vColor");
 
     if (positionLocation < 0 || colorLocation < 0) {
         std::cerr << "Shader attributes vPos or vColor are missing.\n";
+
         return false;
     }
 
-    const GLsizeiptr bufferBytes =
-        static_cast<GLsizeiptr>(MAX_VERTICES * 3 * sizeof(GLfloat));
+    const GLsizeiptr bufferBytes = static_cast<GLsizeiptr>(MAX_VERTICES * 3 * sizeof(GLfloat));
+
     glGenVertexArrays(1, &vao_);
     glBindVertexArray(vao_);
     glGenBuffers(2, vbo_);
@@ -420,15 +477,13 @@ bool ShaderHandler::initBuffer() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[0]);
     glBufferData(GL_ARRAY_BUFFER, bufferBytes, nullptr, GL_DYNAMIC_DRAW);
 
-    glVertexAttribPointer(static_cast<GLuint>(positionLocation),
-                          3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(static_cast<GLuint>(positionLocation), 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(static_cast<GLuint>(positionLocation));
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
     glBufferData(GL_ARRAY_BUFFER, bufferBytes, nullptr, GL_DYNAMIC_DRAW);
 
-    glVertexAttribPointer(static_cast<GLuint>(colorLocation),
-                          3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(static_cast<GLuint>(colorLocation), 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(static_cast<GLuint>(colorLocation));
 
     // Each shape keeps its outline before its fill in this shared EBO.
@@ -437,27 +492,29 @@ bool ShaderHandler::initBuffer() {
         0, 1, 2, 2, 1, 3, // Quad fill: two triangles, no drawn diagonal.
         0, 1, 2,          // Triangle outline.
         0, 1, 2,          // Triangle fill.
-        0, 1             // Line.
+        0, 1              // Line.
     };
     glGenBuffers(1, &ebo_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),
-                 indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     glBindVertexArray(0); // The EBO binding remains part of this VAO.
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     return vao_ != 0 && vbo_[0] != 0 && vbo_[1] != 0 && ebo_ != 0;
 }
 
-bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
-                           std::optional<std::size_t> selectedIndex) {
+bool ShaderHandler::upload(const std::vector<Diagram>& diagrams, std::optional<std::size_t> selectedIndex) {
     if (vao_ == 0 || (selectedIndex && *selectedIndex >= diagrams.size())) {
         return false;
     }
+
     std::size_t vertexCount = 0;
+
     for (const Diagram& diagram : diagrams) {
-        if (diagram.getVertexCount() != requiredVertices(diagram.getShape())
-            || diagram.getVertexCount() > MAX_VERTICES - vertexCount) {
+        if (diagram.getVertexCount() != requiredVertices(diagram.getShape()) ||
+            diagram.getVertexCount() > MAX_VERTICES - vertexCount) {
             std::cerr << "Invalid diagram vertex count or VBO capacity exceeded.\n";
+
             return false;
         }
         vertexCount += diagram.getVertexCount();
@@ -470,54 +527,49 @@ bool ShaderHandler::upload(const std::vector<Diagram>& diagrams,
     positions.reserve(vertexCount * 3);
     colors.reserve(vertexCount * 3);
     ranges.reserve(diagrams.size());
-   
 
     GLint first = 0;
+
     for (const Diagram& diagram : diagrams) {
         const std::vector<Point> world = diagram.worldVertices();
-        const GlColor color = diagram.isOutline()
-            ? GlColor{ 0.7f, 0.7f, 0.7f } : diagram.getColor();
-        for (const Point& point : world) {
-            positions.insert(positions.end(), { point.x, point.y, 0.0f });
-            colors.insert(colors.end(), { color.red, color.green, color.blue });
-        }
-        ranges.push_back({ drawMode(diagram), first,
-                           static_cast<GLsizei>(world.size()) });
-        first += static_cast<GLint>(world.size());
+        const GlColor color = diagram.isOutline() ? GlColor{0.7f, 0.7f, 0.7f} : diagram.getColor();
 
+        for (const Point& point : world) {
+            positions.insert(positions.end(), {point.x, point.y, 0.0f});
+            colors.insert(colors.end(), {color.red, color.green, color.blue});
+        }
+        ranges.push_back({drawMode(diagram), first, static_cast<GLsizei>(world.size())});
+        first += static_cast<GLint>(world.size());
     }
 
+    const GLfloat zero[3] = {0.0f, 0.0f, 0.0f};
+    const GLsizeiptr bytes =
+        positions.empty() ? sizeof(zero) : static_cast<GLsizeiptr>(positions.size() * sizeof(GLfloat));
 
-    const GLfloat zero[3] = { 0.0f, 0.0f, 0.0f };
-    const GLsizeiptr bytes = positions.empty()
-        ? sizeof(zero)
-        : static_cast<GLsizeiptr>(positions.size() * sizeof(GLfloat));
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[0]);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, bytes,
-                    positions.empty() ? zero : positions.data());
+    glBufferSubData(GL_ARRAY_BUFFER, 0, bytes, positions.empty() ? zero : positions.data());
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_[1]);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, bytes,
-                    colors.empty() ? zero : colors.data());
+    glBufferSubData(GL_ARRAY_BUFFER, 0, bytes, colors.empty() ? zero : colors.data());
 
-    
     selectedOutlineCount_ = 0;
+
     if (selectedIndex) {
         const Diagram& selected = diagrams[*selectedIndex];
+
         selectedOutlineCount_ = static_cast<GLsizei>(selected.getVertexCount());
-        selectedOutlineMode_ = selected.getShape() == GLShape::Line
-            ? GL_LINES : GL_LINE_LOOP;
+        selectedOutlineMode_ = selected.getShape() == GLShape::Line ? GL_LINES : GL_LINE_LOOP;
     }
 
     drawRanges_ = std::move(ranges);
 
     selectedIndex_ = selectedIndex;
+
     return true;
 }
 
 void ShaderHandler::render() const {
     glUseProgram(shaderProgramID_);
-
 
     glBindVertexArray(vao_);
     glUniform1i(useOverrideLocation_, GL_FALSE);
@@ -526,6 +578,7 @@ void ShaderHandler::render() const {
     for (const DrawRange& range : drawRanges_) {
         std::size_t firstIndex = LINE_FIRST;
         GLsizei indexCount = range.count;
+
         if (range.mode == GL_LINE_LOOP) {
             firstIndex = range.count == 4 ? QUAD_OUTLINE_FIRST : TRIANGLE_OUTLINE_FIRST;
         } else if (range.mode == GL_TRIANGLES) {
@@ -536,31 +589,31 @@ void ShaderHandler::render() const {
                 firstIndex = TRIANGLE_FILL_FIRST;
             }
         }
-        
-        glDrawElementsBaseVertex(range.mode, indexCount, GL_UNSIGNED_INT,
-                                 indexByteOffset(firstIndex), range.first);
+
+        glDrawElementsBaseVertex(range.mode, indexCount, GL_UNSIGNED_INT, indexByteOffset(firstIndex), range.first);
     }
 
     if (selectedIndex_) {
         const DrawRange& selected = drawRanges_[*selectedIndex_];
+
         glUniform1i(useOverrideLocation_, GL_TRUE);
         glUniform3f(overrideColorLocation_, 1.0f, 1.0f, 1.0f);
         glLineWidth(selectedOutlineMode_ == GL_LINES ? 5.0f : 4.0f);
+
         std::size_t outlineFirst = LINE_FIRST;
+
         if (selectedOutlineMode_ == GL_LINE_LOOP) {
-            outlineFirst = selected.count == 4
-                ? QUAD_OUTLINE_FIRST : TRIANGLE_OUTLINE_FIRST;
+            outlineFirst = selected.count == 4 ? QUAD_OUTLINE_FIRST : TRIANGLE_OUTLINE_FIRST;
         }
-        glDrawElementsBaseVertex(selectedOutlineMode_, selectedOutlineCount_,
-                                 GL_UNSIGNED_INT,
-                                 indexByteOffset(outlineFirst),
-                                 selected.first);
+        glDrawElementsBaseVertex(selectedOutlineMode_, selectedOutlineCount_, GL_UNSIGNED_INT,
+                                 indexByteOffset(outlineFirst), selected.first);
+
         if (selectedOutlineMode_ == GL_LINES) {
             // Restore the original color inside the white selected-line border.
             glUniform1i(useOverrideLocation_, GL_FALSE);
             glLineWidth(2.0f);
-            glDrawElementsBaseVertex(GL_LINES, selected.count, GL_UNSIGNED_INT,
-                                     indexByteOffset(LINE_FIRST), selected.first);
+            glDrawElementsBaseVertex(GL_LINES, selected.count, GL_UNSIGNED_INT, indexByteOffset(LINE_FIRST),
+                                     selected.first);
         }
     }
 
@@ -570,28 +623,31 @@ void ShaderHandler::render() const {
 }
 
 void ShaderHandler::destroy() {
-    
+
     if (ebo_ != 0) {
         glDeleteBuffers(1, &ebo_);
         ebo_ = 0;
     }
+
     if (vbo_[0] != 0 || vbo_[1] != 0) {
         glDeleteBuffers(2, vbo_);
         vbo_[0] = vbo_[1] = 0;
     }
+
     if (vao_ != 0) {
         glDeleteVertexArrays(1, &vao_);
         vao_ = 0;
     }
+
     if (shaderProgramID_ != 0) {
         glDeleteProgram(shaderProgramID_);
         shaderProgramID_ = 0;
     }
-   
+
     useOverrideLocation_ = -1;
     overrideColorLocation_ = -1;
     drawRanges_.clear();
-    
+
     selectedIndex_.reset();
     selectedOutlineCount_ = 0;
 }

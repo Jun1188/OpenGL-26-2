@@ -14,9 +14,11 @@ struct ApplicationConfig {
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;
     std::string title = "OpenGL";
-    std::filesystem::path shaderDirectory; // Empty selects embedded shaders.
-    std::filesystem::path projectRoot = "."; // Relative to the executable.
+
+    std::filesystem::path shaderDirectory;                // Empty selects embedded shaders.
+    std::filesystem::path projectRoot = ".";              // Relative to the executable.
     std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
+
     FeatureOptions features;
     bool verticalSync = true;
     DiagnosticOptions diagnostics;
@@ -34,10 +36,12 @@ private:
     GLFWwindow* window_ = nullptr;
     bool glfwInitialized_ = false;
     bool running_ = false;
-    DWORD contextThread_=0;
-    bool contextFailed_=false;
-    void* nativeContext_=nullptr;
-    bool ensureContext(const char* operation,const char* file,int line);
+    DWORD contextThread_ = 0;
+    bool contextFailed_ = false;
+
+    void* nativeContext_ = nullptr;
+
+    bool ensureContext(const char* operation, const char* file, int line);
     Scene scene_;
     Camera camera_;
     Renderer renderer_;
@@ -46,10 +50,19 @@ private:
     std::exception_ptr callbackError_;
     std::function<void(Application&, const MouseEvent&)> mouseHandler_;
     std::function<void(Application&, double, double)> cursorHandler_;
-    template<class Handler> void dispatch(Handler&& handler) noexcept {
-        if(callbackError_) return;
-        try { handler(); } catch(...) { callbackError_=std::current_exception(); requestClose(); }
+
+    template <class Handler> void dispatch(Handler&& handler) noexcept {
+        if (callbackError_)
+            return;
+
+        try {
+            handler();
+        } catch (...) {
+            callbackError_ = std::current_exception();
+            requestClose();
+        }
     }
+
     std::function<bool(Application&)> initHandler_;
     std::function<void(Application&, float)> updateHandler_;
     std::function<void(Application&, int, int)> keyHandler_;
@@ -58,6 +71,7 @@ private:
     std::function<bool(Application&)> renderHandler_;
 
     bool initialize(const ApplicationConfig& config);
+
     void shutdown();
 
 public:
@@ -77,8 +91,7 @@ public:
     void setKeyHandler(std::function<void(Application&, int key, int action)> handler);
     // 등록된 경우 기존 keyHandler 대신 key/action/mods를 전달한다.
     /// [API] 키·action·mods를 받는 콜백을 등록하여 Shift 등 수정키를 처리한다.
-    void setModifiedKeyHandler(
-        std::function<void(Application&, int key, int action, int mods)> handler);
+    void setModifiedKeyHandler(std::function<void(Application&, int key, int action, int mods)> handler);
     /// [API] 창 포커스 변경 콜백을 등록한다. 지속 입력 상태 해제 등에 사용한다.
     void setFocusHandler(std::function<void(Application&, bool focused)> handler);
     // 없으면 renderScene()을 호출한다. 사용자 콜백은 필요할 때 직접 renderScene()을 호출한다.
@@ -103,16 +116,27 @@ public:
     /// [API] 현재 창의 한 컨텍스트에서 여러 카메라 패스를 렌더링한다. 시간은 진행시키지 않는다.
     bool renderViews(const std::vector<RenderPass>& passes);
     /// [API] 현재 창의 실제 픽셀 크기를 반환한다. DPI 배율이 있으면 창 좌표 크기와 다를 수 있다.
-    std::array<int,2> getFramebufferSize() const;
+    std::array<int, 2> getFramebufferSize() const;
+
     /// [API] 애플리케이션의 렌더 옵션을 수정할 수 있는 참조를 반환한다.
-    RenderOptions& getRenderOptions() { return renderOptions_; }
+    RenderOptions& getRenderOptions() {
+        return renderOptions_;
+    }
+
     /// [API] 애플리케이션이 소유한 CPU Scene의 수정 가능한 참조를 반환한다.
-    Scene& getScene() { return scene_; }
+    Scene& getScene() {
+        return scene_;
+    }
+
     /// [API] 기본 카메라의 수정 가능한 참조를 반환한다.
-    Camera& getCamera() { return camera_; }
+    Camera& getCamera() {
+        return camera_;
+    }
+
     /// [API] GLFW 창의 비소유 포인터를 반환한다. 창 수명 밖에서는 사용할 수 없다.
-    GLFWwindow* getWindow() const { return window_; }
+    GLFWwindow* getWindow() const {
+        return window_;
+    }
 };
 
 } // namespace graphics
-

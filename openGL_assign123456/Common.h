@@ -30,12 +30,7 @@ class Rect {
 public:
     Rect(const Point& first, const Point& second, const GlColor& color);
 
-    static Rect fromCenter(
-        const Point& center,
-        float halfWidth,
-        float halfHeight,
-        const GlColor& color
-    );
+    static Rect fromCenter(const Point& center, float halfWidth, float halfHeight, const GlColor& color);
 
     const Point& getMinimum() const;
     const Point& getMaximum() const;
@@ -53,8 +48,8 @@ public:
     bool overlaps(const Rect& other) const;
 
     bool scaleWithin(float amount, const Bounds& bounds);
-    void moveCenterWithin(const Point& desiredCenter, const Bounds& bounds);
 
+    void moveCenterWithin(const Point& desiredCenter, const Bounds& bounds);
 
     void resetAssignedColorAt(const GlColor gl);
     void setRandomColor();
@@ -65,17 +60,10 @@ private:
     GlColor color_{};
 };
 
-
-enum class OrbitEdge {
-    Top,
-    Right,
-    Bottom,
-    Left
-};
+enum class OrbitEdge { Top, Right, Bottom, Left };
 
 struct AnimatedRect {
-    explicit AnimatedRect(const Rect& source)
-        : rect(source) {
+    explicit AnimatedRect(const Rect& source) : rect(source) {
     }
 
     Rect rect;
@@ -85,20 +73,20 @@ struct AnimatedRect {
     bool orbitReachedBorder = false;
     bool growing = true;
     float recolorElapsed = 0.0f;
-   
+
     bool isZigzagMove = true;
     float zigzagStep = 0.0f;
 };
 
-
-
-
 float randomFloat(float minimum, float maximum);
+
 size_t randomIndex(size_t minSize, size_t maxSize);
+
 bool randomBool();
 
 void setOpenGlColor(const GlColor& color);
 void renderFilledRect(const Rect& rect);
 void renderFilledRect(const AnimatedRect& aniRect);
 void renderRectOutline(const Rect& rect, const GlColor& color, float lineWidth);
+
 Point screenToOpenGl(GLFWwindow* window, double mouseX, double mouseY);

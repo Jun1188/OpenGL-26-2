@@ -18,10 +18,15 @@ public:
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window) : window_(window) {}
+    explicit PracticeConsole(GLFWwindow* window) : window_(window) {
+    }
+
     bool initGraphics(const std::filesystem::path& shaderDirectory);
+
     void shutdownGraphics();
+
     bool render() override;
+
     void update(float deltaTime) override;
     void onKey(int key, int action) override;
 

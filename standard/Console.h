@@ -13,19 +13,23 @@ class Console {
     bool spinEnabled_ = true;
     bool globalEnabled_ = false;
     int reflection_ = 1;
+
     enum class Demo { Motion, Grid, Room, Animation };
-    Demo demo_=Demo::Motion;
+
+    Demo demo_ = Demo::Motion;
     graphics::AnimationClock clock_;
     graphics::DistancePath distancePath_;
     std::vector<graphics::EntityId> gridBoxes_;
     graphics::RoomBody roomBody_;
-    graphics::EntityId room_=0, roomCube_=0;
+    graphics::EntityId room_ = 0, roomCube_ = 0;
     std::vector<graphics::JointAnimation> animation_;
+
     struct JointControl {
         std::size_t track = 0;
         std::string name;
         graphics::Transform3D initialRest;
     };
+
     std::vector<JointControl> jointControls_;
     std::size_t selectedJoint_ = 0;
     int selectedAxis_ = 0;
@@ -33,7 +37,8 @@ class Console {
     bool handleJointKey(int key);
     /// 현재 선택 관절과 조작 축을 콘솔에 출력한다.
     void printSelectedJoint() const;
-    bool threeViews_=false, trace_=false, floorOpen_=false;
+
+    bool threeViews_ = false, trace_ = false, floorOpen_ = false;
     /// 거리 기반 격자 예제를 구성한다.
     bool initGrid();
     /// 회전하는 방 예제를 구성한다.
@@ -52,7 +57,9 @@ class Console {
 
 public:
     /// 애플리케이션 참조를 보관한다.
-    explicit Console(graphics::Application& app) : app_(app) {}
+    explicit Console(graphics::Application& app) : app_(app) {
+    }
+
     /// 장면 객체와 초기 상태를 구성한다.
     bool initScene();
     /// 키 입력에 따라 동작을 변경한다.

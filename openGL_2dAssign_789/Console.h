@@ -12,18 +12,28 @@ struct GLFWwindow;
 class Console {
 public:
     virtual ~Console() = default;
-    virtual void update(float) {}
+
+    virtual void update(float) {
+    }
+
     virtual void onKey(int key, int action) = 0;
     virtual void onMouseButton(int button, int action, Point point) = 0;
-    virtual void onCursorMove(Point) {}
+
+    virtual void onCursorMove(Point) {
+    }
+
     virtual bool render() = 0;
 };
 
 class PracticeConsole : public Console {
 public:
-    explicit PracticeConsole(GLFWwindow* window) : window_(window) {}
+    explicit PracticeConsole(GLFWwindow* window) : window_(window) {
+    }
+
     bool initGraphics(const std::filesystem::path& shaderDirectory);
+
     void shutdownGraphics();
+
     bool render() override;
 
 protected:
@@ -48,16 +58,17 @@ public:
     explicit Practice8Console(GLFWwindow* window);
     void onKey(int key, int action) override;
     void onMouseButton(int button, int action, Point point) override;
+
     bool render() override;
 
 private:
-    enum class Command {
-        None, Fill, Outline, Grow, Shrink, Reset, Quit
-    };
+    enum class Command { None, Fill, Outline, Grow, Shrink, Reset, Quit };
 
     Command parseKey(int key, int action) const;
+
     void input(Command command);
     void reset();
+
     bool replaceItems(const std::vector<Diagram>& items);
 
     bool outline_ = false;
@@ -70,6 +81,7 @@ public:
     void update(float deltaTime) override;
     void onKey(int key, int action) override;
     void onMouseButton(int button, int action, Point point) override;
+
     bool render() override;
 
 private:
@@ -88,9 +100,8 @@ private:
         float radius = 0.0f;
         float radialSpeed = 0.0f;
         float radialDirection = 1.0f;
-        size_t stepYcnt = 0;
 
-        
+        size_t stepYcnt = 0;
     };
 
     void reset();

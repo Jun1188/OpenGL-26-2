@@ -11,8 +11,10 @@ class DiagramStore {
 public:
     bool push(const Diagram& diagram);
     bool replaceAt(std::size_t index, const Diagram& diagram);
+
     void clear();
     void selectAt(Point point);
+
     bool translateSelected(Point direction);
     bool translateAll(Point direction);
     bool setSelectedScale(Point scale);
@@ -20,9 +22,17 @@ public:
     bool setSelectedDirection(Point direction, float speed);
     bool advance(float deltaTime);
 
-    const std::vector<Diagram>& getItems() const { return diagrams_; }
-    std::optional<std::size_t> getSelectedIndex() const { return selectedIndex_; }
-    std::uint64_t getRevision() const { return revision_; }
+    const std::vector<Diagram>& getItems() const {
+        return diagrams_;
+    }
+
+    std::optional<std::size_t> getSelectedIndex() const {
+        return selectedIndex_;
+    }
+
+    std::uint64_t getRevision() const {
+        return revision_;
+    }
 
 private:
     std::vector<Diagram> diagrams_;

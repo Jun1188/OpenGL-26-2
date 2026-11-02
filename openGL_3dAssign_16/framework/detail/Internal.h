@@ -9,6 +9,8 @@ std::optional<glm::mat4> motionAround(const glm::vec3& center, const glm::mat4& 
 bool motionPlane(const glm::vec3& u, const glm::vec3& v);
 bool positiveLengths(const glm::vec3& value);
 std::uint64_t nextGeometryRevision();
+
 void appendFace(Polyhedron& polyhedron, GLFace shape, std::initializer_list<glm::vec3> vertices, GlColor color);
+
 bool rigidRoom(const glm::mat4& matrix);
 } // namespace graphics::detail

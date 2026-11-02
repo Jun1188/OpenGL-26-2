@@ -6,8 +6,7 @@ in vec3 vPathPos;
 out vec3 outColor;
 uniform bool uUsePathPosition;
 
-void main()
-{
+void main() {
     gl_Position = vec4(uUsePathPosition ? vPathPos : vPos, 1.0);
     outColor = vColor;
 }

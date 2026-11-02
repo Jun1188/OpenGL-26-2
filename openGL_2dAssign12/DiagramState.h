@@ -30,11 +30,15 @@ class DiagramStore {
 public:
     DiagramStore();
     void reset();
+
     bool advance(float deltaTime);
     bool checkHit();
     bool hitAnimation();
     std::vector<Diagram> getItems() const;
-    std::uint64_t getRevision() const { return revision_; }
+
+    std::uint64_t getRevision() const {
+        return revision_;
+    }
 
 private:
     void spawnPair();

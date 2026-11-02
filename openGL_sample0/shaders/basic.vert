@@ -9,8 +9,7 @@ uniform mat4 uProjection;
 
 out vec3 vWorldNormal;
 
-void main()
-{
+void main() {
     vec4 modelPosition = vec4(aPosition, 1.0);
     vec4 worldPosition = uModel * modelPosition;
     vec4 viewPosition = uView * worldPosition;

@@ -6,6 +6,7 @@ int main() {
     graphics::Application application;
     Console practice(application);
     graphics::ApplicationConfig config;
+
     config.title = "OpenGL Practice 15";
     application.setInitHandler([&](graphics::Application&) {
         return practice.initScene();
@@ -16,5 +17,6 @@ int main() {
     application.setUpdateHandler([&](graphics::Application&, float deltaTime) {
         practice.onUpdate(deltaTime);
     });
+
     return application.run(config);
 }

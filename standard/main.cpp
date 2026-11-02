@@ -14,10 +14,16 @@ int main() {
     app.setMouseHandler([&](graphics::Application&, const graphics::MouseEvent& event) {
         sample.onMouse(event);
     });
-    app.setUpdateHandler([&](graphics::Application&,float dt) {sample.onUpdate(dt);});
-    app.setRenderHandler([&](graphics::Application&) {return sample.onRender();});
+    app.setUpdateHandler([&](graphics::Application&, float dt) {
+        sample.onUpdate(dt);
+    });
+    app.setRenderHandler([&](graphics::Application&) {
+        return sample.onRender();
+    });
 
     graphics::ApplicationConfig config;
+
     config.title = "standard - Motion, Grid, diagnostics and render passes";
+
     return app.run(config);
 }
