@@ -62,9 +62,16 @@ bool Console::initScene() {
             require(label.has_value(), "Parcel label frame creation failed.");
             require(graphics::PatternSystem::rotateJoint(scene, *label, {0, 1, 0},
                 float(face) * 90.0f), "Parcel label frame rotation failed.");
-            require(graphics::PatternSystem::addNumber(scene, unsigned(i + 1),
-                {-.12f, -.24f, boxSize * .5f + .008f}, .48f,
-                {.04f, .04f, .06f}, *label), "Parcel number creation failed.");
+            const int count = int(i + 1);
+            const float z = boxSize * .5f + .008f;
+            for (int mark = 0; mark < count; ++mark) {
+                const float x = (float(mark) - float(count - 1) * .5f) * .14f;
+                require(graphics::PatternSystem::addPolygon(scene,
+                    {{x - .05f, -.05f, z}, {x + .05f, -.05f, z},
+                     {x + .05f,  .05f, z}, {x - .05f,  .05f, z}},
+                    {0, 0, 0}, *label).has_value(),
+                    "Parcel square mark creation failed.");
+            }
         }
     }
 

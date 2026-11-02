@@ -2,25 +2,25 @@
 input: <in-memory>
 input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>
-nodes: 1294
+nodes: 1402
 unverified_code_nodes: 0
-raw_edges: 2139
-valid_candidate_edges: 2081
+raw_edges: 2287
+valid_candidate_edges: 2228
 missing_endpoint_edges: 0
-dangling_endpoint_edges: 58
+dangling_endpoint_edges: 59
 self_loop_edges: 0
 exact_duplicate_edges: 35
-directed_unique_endpoint_pairs: 1979
-directed_same_endpoint_collapsed_edges: 102
-undirected_unique_endpoint_pairs: 1973
-undirected_same_endpoint_collapsed_edges: 108
-same_endpoint_group_count: 85
+directed_unique_endpoint_pairs: 2121
+directed_same_endpoint_collapsed_edges: 107
+undirected_unique_endpoint_pairs: 2115
+undirected_same_endpoint_collapsed_edges: 113
+same_endpoint_group_count: 90
 relation_variant_groups: 31
 source_file_variant_groups: 0
-source_location_variant_groups: 8
-context_variant_groups: 34
+source_location_variant_groups: 11
+context_variant_groups: 39
 post_build_graph_type: DiGraph
-post_build_edges: 1977
+post_build_edges: 2119
 producer_suppression_sites: 12
 producer_suppression_examples:
   - L1204 seen_ids arity=unknown
@@ -38,4 +38,4 @@ examples:
   - framework_include_gridlayout_gridlayout_positioninparent -> framework_include_gridlayout_h_vec3 edges=3 relations=['calls', 'references'] locations=['L51', 'L57'] contexts=['call', 'generic_arg', 'parameter_type']
   - framework_detail_objloader_objtext -> string edges=3 relations=['references'] locations=['L74'] contexts=['generic_arg', 'parameter_type', 'return_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
-Cross-program calls marked AMBIGUOUS: 0. Source anchors: 179.
+Cross-program calls marked AMBIGUOUS: 0. Source anchors: 187.

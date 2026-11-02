@@ -1,6 +1,7 @@
 ﻿{
   "files": {
     "code": [
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Animation.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Application.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Motion.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Native.h",
@@ -12,6 +13,7 @@
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Shaders.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Transform.inl",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\Framework.h",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\include\\Animation.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\include\\Application.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\include\\Diagnostics.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\include\\Geometry.h",
@@ -33,10 +35,10 @@
     "image": [],
     "video": []
   },
-  "total_files": 26,
-  "total_words": 21303,
+  "total_files": 28,
+  "total_words": 23166,
   "needs_graph": true,
-  "warning": "Large corpus: 475 files · ~3,270,080 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
+  "warning": "Large corpus: 488 files · ~3,187,424 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.gitattributes",
@@ -46,6 +48,7 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\Framework.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\LegacyOpenGL.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\Toolchain.props",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Animation.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Application.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\Motion.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework\\detail\\ObjLoader.inl",
@@ -249,6 +252,7 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\Framework.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\LegacyOpenGL.props",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\Toolchain.props",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Animation.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Application.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\Motion.inl",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\framework\\detail\\ObjLoader.inl",
@@ -350,6 +354,7 @@
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\23\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\framework\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\docs\\code-guide\\standard\\graphify-out\\",
+    "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\animation-api\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\framework-analysis\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\",
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\tools\\__pycache__\\"

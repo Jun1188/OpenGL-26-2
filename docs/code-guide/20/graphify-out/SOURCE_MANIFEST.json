@@ -1,11 +1,12 @@
 ﻿{
   "source_root": ".",
   "scope": "20",
-  "source_commit": "f49ee637043580f0c050e765c121c29ac6766378",
+  "source_commit": "e2aae859ed66dedfaba41fa9bd3630406815be42",
   "includes_uncommitted_changes": true,
   "files": {
+    "framework/detail/Animation.inl": "9ba666e41c271866811d6ec291404df6188551b5d550f5c939f9dd064eaa1790",
     "framework/detail/Application.inl": "473ecd1e555ce090443991cdc4c9a75a5aa6789cf282cfebcdbdf4eee0b22faf",
-    "framework/detail/Motion.inl": "0989a0290f14f654ba9608fff1a6c21647f8734cc3652b9eccfed5dbf7307eb6",
+    "framework/detail/Motion.inl": "a22595e1263fcaef363a352b21bdd8318c2db1ad6478eaf5533fbc079d0d7184",
     "framework/detail/Native.h": "32aad19bd83f63779da829825d346099e79b3dfb0233f7bd1f2d92969f32f095",
     "framework/detail/ObjLoader.inl": "389af33212f8c99761172f89758f05747c524951d5d3e6b4d05bb352956cc877",
     "framework/detail/Patterns.inl": "a438850550b33c9d05c3cf6e2eeb276ecf0ad91eda5519d624080d46aa7cc853",
@@ -14,7 +15,8 @@
     "framework/detail/Scene.inl": "64442d1079269e602a4d9fa00f73b3328c5a0df9b01a1c9001a035b243939ff0",
     "framework/detail/Shaders.h": "c5c3efd43b1b581a0daaaf1fff75f8159518a601a9c4acd395e9453e0d2f2789",
     "framework/detail/Transform.inl": "1a205c93c83450a468b48819d9b50e390c436a8844b326a0114b1e724ae6bc58",
-    "framework/Framework.h": "9f6f36a9890ce2e3f3c299786854a63730d98c38275e6813b7812a4925b56bf9",
+    "framework/Framework.h": "f53a681c76bbe5aaaa5de18b0dd6d11041f0112484118341afa0fadb0dfe2a44",
+    "framework/include/Animation.h": "4f02c69cbe0ec9625de4a84f8589e9c5e42e1a1a31999a20c79924a4fb790fbc",
     "framework/include/Application.h": "b5cfc2e1e66079477a245ea56fd4bd8f762c96f05fae0f2db4b88ec40b4b1707",
     "framework/include/Diagnostics.h": "cb7705642537fdf56a5d273ba3311274af607ffa27dd18e6873d3f71031e57cf",
     "framework/include/Geometry.h": "471643a2e5751fee23c1d2dcc0a0dc04a5cc5198c2f9b8aabd5de03b837fd3c8",
@@ -22,13 +24,13 @@
     "framework/include/GridLayout.h": "d1a68e4f8570043512be31c030fdfe07aaffdbee24435085198104f53d838993",
     "framework/include/Model.h": "1380a8b61c974a5dbc95d9afb278d742e0da1730877b25dcaa3dcb70090f6f71",
     "framework/include/ModelLoader.h": "9d7ece6406b2d6892c198e858f481c5c04d5a9726e092cc301480d9a031663d0",
-    "framework/include/Motion.h": "0334a52d4252d7374bc565f22d8310442503249b98db24171393e86d086967bf",
+    "framework/include/Motion.h": "0d55c0dcbad892e2254fe4eca8cabaaef4b1f972236678589afc19547798a48b",
     "framework/include/Patterns.h": "22ee63aaa21cd4ae62fb38b48ad9e16ff76dc7422aa17533c626a920111ba3c2",
     "framework/include/Picking.h": "eb72b4c2536a9ed4b444890cc0c372a26deaa527fb0494a9686f679effa79236",
     "framework/include/Texture.h": "3466c4344ba2be9a88054f914fec18a8d14784cf6e0dba43d6de02169af83313",
     "framework/include/Transform.h": "8661ad78b6e21158d8c117690c6d2d18f0c9ba6e41b26b952ff43e76fb919f54",
-    "openGL_3dAssign_20/Console.cpp": "ea9f73a24f3b1aab9a346a37f2f14a12c8ce2770f5ac6365527fdd4415049dc6",
-    "openGL_3dAssign_20/Console.h": "99853cb2c3fd261f156b387036d4d6a791f255da330d444b4008ca4690c4b834",
-    "openGL_3dAssign_20/main.cpp": "1d468d244d3162e15dd03c9d551bc09ce8563a953974ffb7e25927da16dc36bb"
+    "openGL_3dAssign_20/Console.cpp": "261d7717c5a2cb76359650b98f5d782e9701755b78a76219fd44a3c8a0889895",
+    "openGL_3dAssign_20/Console.h": "d666a39b53ec51aa41cb84c1d8793ffc490ba451ee3b2d2393d134a218c9a1aa",
+    "openGL_3dAssign_20/main.cpp": "08de4003365c9db2ed3d58a9049f8f4ee5e760bfdefe81c66bda9b81e35cf87e"
   }
 }

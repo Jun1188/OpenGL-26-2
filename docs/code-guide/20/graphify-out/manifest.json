@@ -1,158 +1,170 @@
 ﻿{
+  "framework/detail/Animation.inl": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793590051.0920181,
+    "ast_hash": "1342fd7823c43ad0a4f4c787793dcaf0",
+    "semantic_hash": ""
+  },
   "framework/detail/Application.inl": {
     "mtime": 1793542095.735091,
-    "seen": 1793543550.7938275,
+    "seen": 1793590051.0920277,
     "ast_hash": "1f8102db094f7f0fcf63c5ce0ece3d44",
     "semantic_hash": ""
   },
   "framework/detail/Motion.inl": {
-    "mtime": 1793537976.5085487,
-    "seen": 1793543550.7938392,
-    "ast_hash": "c479cd9e838326affa031fd05cdd50dc",
+    "mtime": 1793589353.4255538,
+    "seen": 1793590051.0920315,
+    "ast_hash": "859f78c8395e17f1355c441b9b2b6f34",
     "semantic_hash": ""
   },
   "framework/detail/Native.h": {
     "mtime": 1793538277.0271292,
-    "seen": 1793543550.7938442,
+    "seen": 1793590051.0920348,
     "ast_hash": "ad810f08088a1eb362f29f4c243b691f",
     "semantic_hash": ""
   },
   "framework/detail/ObjLoader.inl": {
     "mtime": 1793537976.5085487,
-    "seen": 1793543550.7938478,
+    "seen": 1793590051.0920374,
     "ast_hash": "9abb385a79fbf080210179cd4122092f",
     "semantic_hash": ""
   },
   "framework/detail/Patterns.inl": {
     "mtime": 1793541772.559744,
-    "seen": 1793543550.7938519,
+    "seen": 1793590051.0920393,
     "ast_hash": "ad7342cb717c01e658927c7287136dc2",
     "semantic_hash": ""
   },
   "framework/detail/PrimitiveLoader.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793543550.793856,
+    "seen": 1793590051.092042,
     "ast_hash": "0de7dbe59c6ca5efd396c74ca436fb57",
     "semantic_hash": ""
   },
   "framework/detail/Renderer.inl": {
     "mtime": 1793538952.8803055,
-    "seen": 1793543550.79386,
+    "seen": 1793590051.0920444,
     "ast_hash": "258db3cbbd6579dbc78959f8711ecbdc",
     "semantic_hash": ""
   },
   "framework/detail/Scene.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793543550.7938635,
+    "seen": 1793590051.0920467,
     "ast_hash": "18d43980b856ab08b2c503e20145de69",
     "semantic_hash": ""
   },
   "framework/detail/Shaders.h": {
     "mtime": 1793537976.516529,
-    "seen": 1793543550.793867,
+    "seen": 1793590051.0920494,
     "ast_hash": "ba516e2c76055a0afe0c5ca593677faa",
     "semantic_hash": ""
   },
   "framework/detail/Transform.inl": {
     "mtime": 1793537976.516529,
-    "seen": 1793543550.79387,
+    "seen": 1793590051.092052,
     "ast_hash": "4e74883489099c5aa8d4b95954afd4e7",
     "semantic_hash": ""
   },
   "framework/Framework.h": {
-    "mtime": 1793521000.6564682,
-    "seen": 1793543550.7938733,
-    "ast_hash": "ca96825324f37b81bc7a71762bd9b787",
+    "mtime": 1793589353.4255538,
+    "seen": 1793590051.0920546,
+    "ast_hash": "5d7519e527ab7e883d02d62057b4746e",
+    "semantic_hash": ""
+  },
+  "framework/include/Animation.h": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793590051.0920565,
+    "ast_hash": "134eb93c6653ff9688e626603bc54063",
     "semantic_hash": ""
   },
   "framework/include/Application.h": {
     "mtime": 1793543419.9167,
-    "seen": 1793543550.793877,
+    "seen": 1793590051.0920594,
     "ast_hash": "4ccf7ba2296ffe025f75aa3c1f178a92",
     "semantic_hash": ""
   },
   "framework/include/Diagnostics.h": {
     "mtime": 1793543419.9511836,
-    "seen": 1793543550.7938802,
+    "seen": 1793590051.0920618,
     "ast_hash": "81fda9ee9be3cb10b70f4b3bcd2fcc21",
     "semantic_hash": ""
   },
   "framework/include/Geometry.h": {
     "mtime": 1793543420.0094874,
-    "seen": 1793543550.7938833,
+    "seen": 1793590051.0920641,
     "ast_hash": "ff615fe01cebccac98dcaf71876f9ec1",
     "semantic_hash": ""
   },
   "framework/include/Graphics.h": {
     "mtime": 1793543420.0536194,
-    "seen": 1793543550.7938867,
+    "seen": 1793590051.0920663,
     "ast_hash": "49a8eae3d2e6be544518ecc50ed99c80",
     "semantic_hash": ""
   },
   "framework/include/GridLayout.h": {
     "mtime": 1793543420.0763402,
-    "seen": 1793543550.7938902,
+    "seen": 1793590051.0920684,
     "ast_hash": "540c210c45c26d36f15cbc612e3eba72",
     "semantic_hash": ""
   },
   "framework/include/Model.h": {
     "mtime": 1793543420.0878017,
-    "seen": 1793543550.7938933,
+    "seen": 1793590051.0920703,
     "ast_hash": "89e0a45985cebea7c10a00baaa6c1971",
     "semantic_hash": ""
   },
   "framework/include/ModelLoader.h": {
     "mtime": 1793543420.1064892,
-    "seen": 1793543550.793897,
+    "seen": 1793590051.0920725,
     "ast_hash": "ddd83a4c6b9416be9f5d140008e7e20f",
     "semantic_hash": ""
   },
   "framework/include/Motion.h": {
-    "mtime": 1793543420.14572,
-    "seen": 1793543550.7939,
-    "ast_hash": "0950a976d3eed9879e5f045f91136867",
+    "mtime": 1793589353.4255538,
+    "seen": 1793590051.092074,
+    "ast_hash": "0552e23d16755da948b0a9a7ef803143",
     "semantic_hash": ""
   },
   "framework/include/Patterns.h": {
     "mtime": 1793543420.165474,
-    "seen": 1793543550.7939029,
+    "seen": 1793590051.092076,
     "ast_hash": "2a4cc1766b3448220a67e5e8f74c8a89",
     "semantic_hash": ""
   },
   "framework/include/Picking.h": {
     "mtime": 1793543420.1832335,
-    "seen": 1793543550.7939057,
+    "seen": 1793590051.0920784,
     "ast_hash": "d76ee9083c6475b51cc4a57b0b928a2e",
     "semantic_hash": ""
   },
   "framework/include/Texture.h": {
     "mtime": 1793537976.4967282,
-    "seen": 1793543550.7939086,
+    "seen": 1793590051.0920804,
     "ast_hash": "5441fb7bc85cbf84e4a4456dab7584bb",
     "semantic_hash": ""
   },
   "framework/include/Transform.h": {
     "mtime": 1793543420.20729,
-    "seen": 1793543550.7939124,
+    "seen": 1793590051.0920823,
     "ast_hash": "9b98a45dd8231e9c0654b70ec749d853",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/Console.cpp": {
-    "mtime": 1793537983.876451,
-    "seen": 1793543550.793916,
-    "ast_hash": "134679785a9de36794497c6326cd34db",
+    "mtime": 1793590024.134461,
+    "seen": 1793590051.092084,
+    "ast_hash": "4acba895433a9c23f6e8b79a5715afc3",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/Console.h": {
-    "mtime": 1793537930.966427,
-    "seen": 1793543550.793919,
-    "ast_hash": "9ff1ce608c2fbbf3bb1aaef93305bf0d",
+    "mtime": 1793588729.7110896,
+    "seen": 1793590051.092086,
+    "ast_hash": "b5a62eb9a8d1f9a93e9603015b6bf312",
     "semantic_hash": ""
   },
   "openGL_3dAssign_20/main.cpp": {
-    "mtime": 1793521580.2041547,
-    "seen": 1793543550.7939222,
-    "ast_hash": "e2e0f3f3947d080c49882ef0092467b5",
+    "mtime": 1793588729.7070682,
+    "seen": 1793590051.0920875,
+    "ast_hash": "63ee8f7f20fa389602e811d0b1ffef4d",
     "semantic_hash": ""
   }
 }

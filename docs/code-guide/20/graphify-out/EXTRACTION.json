@@ -1057,6 +1057,540 @@
       "_origin": "ast"
     },
     {
+      "id": "framework_include_animation",
+      "label": "Animation.h",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_jointanimation",
+      "label": "JointAnimation",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L5",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_h_entityid",
+      "label": "EntityId",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_jointanimation_joint",
+      "label": "joint",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_jointanimation_rest",
+      "label": "rest",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_jointanimation_motion",
+      "label": "motion",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig",
+      "label": "HumanoidConfig",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L10",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_grid",
+      "label": "grid",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_upperarmfraction",
+      "label": "upperArmFraction",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_upperlegfraction",
+      "label": "upperLegFraction",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_torsocolor",
+      "label": "torsoColor",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_headcolor",
+      "label": "headColor",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_leftcolor",
+      "label": "leftColor",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidconfig_rightcolor",
+      "label": "rightColor",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig",
+      "label": "HumanoidRig",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L16",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_root",
+      "label": "root",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_pelvis",
+      "label": "pelvis",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_torso",
+      "label": "torso",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_neck",
+      "label": "neck",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_torsomesh",
+      "label": "torsoMesh",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_head",
+      "label": "head",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_nose",
+      "label": "nose",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_h_array",
+      "label": "array",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_shoulders",
+      "label": "shoulders",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_elbows",
+      "label": "elbows",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_hands",
+      "label": "hands",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_hips",
+      "label": "hips",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_knees",
+      "label": "knees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_feet",
+      "label": "feet",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_upperarms",
+      "label": "upperArms",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_forearms",
+      "label": "forearms",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_thighs",
+      "label": "thighs",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidrig_shins",
+      "label": "shins",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose",
+      "label": "HumanoidPose",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L22",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_h_vec3",
+      "label": "vec3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_pelvisdegrees",
+      "label": "pelvisDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_torsodegrees",
+      "label": "torsoDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_neckdegrees",
+      "label": "neckDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_shoulders",
+      "label": "shoulders",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_elbows",
+      "label": "elbows",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_hips",
+      "label": "hips",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_knees",
+      "label": "knees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_humanoidpose_seated",
+      "label": "seated",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig",
+      "label": "SwingConfig",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L31",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_pivot",
+      "label": "pivot",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_seatsize",
+      "label": "seatSize",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_length",
+      "label": "length",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_ropethickness",
+      "label": "ropeThickness",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_pendulum",
+      "label": "pendulum",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_person",
+      "label": "person",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingconfig_riderswaydegrees",
+      "label": "riderSwayDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L36",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig",
+      "label": "SwingRig",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L38",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_frame",
+      "label": "frame",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_hinge",
+      "label": "hinge",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_seat",
+      "label": "seat",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_ropes",
+      "label": "ropes",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_person",
+      "label": "person",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L41",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_h_vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_swingrig_animation",
+      "label": "animation",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L42",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem",
+      "label": "AnimationSystem",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L44",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem_createjointanimation",
+      "label": "createJointAnimation",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L47",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem_posehierarchy",
+      "label": "poseHierarchy",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L49",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem_addhumanoid",
+      "label": "addHumanoid",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L51",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem_posehumanoid",
+      "label": "poseHumanoid",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L54",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_animation_animationsystem_addswingwithrider",
+      "label": "addSwingWithRider",
+      "file_type": "code",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L56",
+      "_origin": "ast"
+    },
+    {
       "id": "framework_include_application",
       "label": "Application.h",
       "file_type": "code",
@@ -4758,11 +5292,127 @@
       "_origin": "ast"
     },
     {
+      "id": "framework_include_motion_linearmotion",
+      "label": "LinearMotion",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L31",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_h_vec3",
+      "label": "vec3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_linearmotion_from",
+      "label": "from",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_linearmotion_to",
+      "label": "to",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_linearmotion_durationseconds",
+      "label": "durationSeconds",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_linearmotion_playback",
+      "label": "playback",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_linearmotion_space",
+      "label": "space",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion",
+      "label": "PendulumMotion",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L37",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_axis",
+      "label": "axis",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_amplitudedegrees",
+      "label": "amplitudeDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_periodseconds",
+      "label": "periodSeconds",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_phasedegrees",
+      "label": "phaseDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L41",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_offsetdegrees",
+      "label": "offsetDegrees",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L42",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_pendulummotion_space",
+      "label": "space",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L43",
+      "_origin": "ast"
+    },
+    {
       "id": "framework_include_motion_motionstep",
       "label": "MotionStep",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L31",
+      "source_location": "L45",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -4780,7 +5430,7 @@
       "label": "transform",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L33",
+      "source_location": "L47",
       "_origin": "ast"
     },
     {
@@ -4788,7 +5438,7 @@
       "label": "space",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L34",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -4796,7 +5446,7 @@
       "label": "startSeconds",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L35",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -4812,7 +5462,7 @@
       "label": "durationSeconds",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L36",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -4820,7 +5470,7 @@
       "label": "enabled",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L37",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -4828,7 +5478,7 @@
       "label": "Motion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L40",
+      "source_location": "L54",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -4846,7 +5496,7 @@
       "label": "steps_",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L41",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
@@ -4854,7 +5504,7 @@
       "label": "validStep",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L42",
+      "source_location": "L56",
       "_origin": "ast"
     },
     {
@@ -4862,7 +5512,7 @@
       "label": "append",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L45",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
@@ -4870,7 +5520,7 @@
       "label": "insert",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L47",
+      "source_location": "L61",
       "_origin": "ast"
     },
     {
@@ -4878,7 +5528,7 @@
       "label": "replace",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L49",
+      "source_location": "L63",
       "_origin": "ast"
     },
     {
@@ -4886,7 +5536,7 @@
       "label": "erase",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L51",
+      "source_location": "L65",
       "_origin": "ast"
     },
     {
@@ -4894,7 +5544,7 @@
       "label": "then",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L53",
+      "source_location": "L67",
       "_origin": "ast"
     },
     {
@@ -4902,7 +5552,7 @@
       "label": "sample",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L57",
+      "source_location": "L71",
       "_origin": "ast"
     },
     {
@@ -4910,7 +5560,7 @@
       "label": "fixed",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L59",
+      "source_location": "L73",
       "_origin": "ast"
     },
     {
@@ -4918,7 +5568,7 @@
       "label": "rotation",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L62",
+      "source_location": "L76",
       "_origin": "ast"
     },
     {
@@ -4926,7 +5576,23 @@
       "label": "followPath",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L64",
+      "source_location": "L78",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_motion_linear",
+      "label": "linear",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L80",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_include_motion_motion_pendulum",
+      "label": "pendulum",
+      "file_type": "code",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L82",
       "_origin": "ast"
     },
     {
@@ -4934,7 +5600,7 @@
       "label": "MotionState",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L67",
+      "source_location": "L85",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -4944,7 +5610,7 @@
       "label": "motion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L68",
+      "source_location": "L86",
       "_origin": "ast"
     },
     {
@@ -4952,7 +5618,7 @@
       "label": "timeSeconds",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L69",
+      "source_location": "L87",
       "_origin": "ast"
     },
     {
@@ -4960,7 +5626,7 @@
       "label": "playing",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L70",
+      "source_location": "L88",
       "_origin": "ast"
     },
     {
@@ -4968,7 +5634,7 @@
       "label": "enabled",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L71",
+      "source_location": "L89",
       "_origin": "ast"
     },
     {
@@ -4976,7 +5642,7 @@
       "label": "sampled",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L72",
+      "source_location": "L90",
       "_origin": "ast"
     },
     {
@@ -4984,7 +5650,7 @@
       "label": "LayerConfig",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L75",
+      "source_location": "L93",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -4994,7 +5660,7 @@
       "label": "transform",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L76",
+      "source_location": "L94",
       "_origin": "ast"
     },
     {
@@ -5002,7 +5668,7 @@
       "label": "space",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L77",
+      "source_location": "L95",
       "_origin": "ast"
     },
     {
@@ -5018,7 +5684,7 @@
       "label": "motion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L78",
+      "source_location": "L96",
       "_origin": "ast"
     },
     {
@@ -5026,7 +5692,7 @@
       "label": "enabled",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L79",
+      "source_location": "L97",
       "_origin": "ast"
     },
     {
@@ -5034,7 +5700,7 @@
       "label": "LayerState",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L81",
+      "source_location": "L99",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -5044,7 +5710,7 @@
       "label": "config",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L82",
+      "source_location": "L100",
       "_origin": "ast"
     },
     {
@@ -5060,7 +5726,7 @@
       "label": "parent",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L83",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -5068,7 +5734,7 @@
       "label": "children",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L84",
+      "source_location": "L102",
       "_origin": "ast"
     },
     {
@@ -5076,7 +5742,7 @@
       "label": "MotionSystem",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L87",
+      "source_location": "L105",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -5094,7 +5760,7 @@
       "label": "motions_",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L88",
+      "source_location": "L106",
       "_origin": "ast"
     },
     {
@@ -5102,7 +5768,7 @@
       "label": "nextMotion_",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L89",
+      "source_location": "L107",
       "_origin": "ast"
     },
     {
@@ -5110,7 +5776,7 @@
       "label": "layers_",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L90",
+      "source_location": "L108",
       "_origin": "ast"
     },
     {
@@ -5118,7 +5784,7 @@
       "label": "nextLayer_",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L91",
+      "source_location": "L109",
       "_origin": "ast"
     },
     {
@@ -5126,7 +5792,7 @@
       "label": "validLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L92",
+      "source_location": "L110",
       "_origin": "ast"
     },
     {
@@ -5134,7 +5800,7 @@
       "label": ".rootLayer()",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L95",
+      "source_location": "L113",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5143,7 +5809,7 @@
       "label": "createMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L97",
+      "source_location": "L115",
       "_origin": "ast"
     },
     {
@@ -5151,7 +5817,7 @@
       "label": "setMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L99",
+      "source_location": "L117",
       "_origin": "ast"
     },
     {
@@ -5159,7 +5825,7 @@
       "label": "getMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L101",
+      "source_location": "L119",
       "_origin": "ast"
     },
     {
@@ -5167,7 +5833,7 @@
       "label": "setMotionPlaying",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L103",
+      "source_location": "L121",
       "_origin": "ast"
     },
     {
@@ -5175,7 +5841,7 @@
       "label": "setMotionEnabled",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L105",
+      "source_location": "L123",
       "_origin": "ast"
     },
     {
@@ -5183,7 +5849,7 @@
       "label": "seekMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L107",
+      "source_location": "L125",
       "_origin": "ast"
     },
     {
@@ -5191,7 +5857,7 @@
       "label": "removeMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L109",
+      "source_location": "L127",
       "_origin": "ast"
     },
     {
@@ -5199,7 +5865,7 @@
       "label": "update",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L111",
+      "source_location": "L129",
       "_origin": "ast"
     },
     {
@@ -5207,7 +5873,7 @@
       "label": "clear",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L113",
+      "source_location": "L131",
       "_origin": "ast"
     },
     {
@@ -5215,7 +5881,7 @@
       "label": "pushLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L115",
+      "source_location": "L133",
       "_origin": "ast"
     },
     {
@@ -5223,7 +5889,7 @@
       "label": "insertLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L117",
+      "source_location": "L135",
       "_origin": "ast"
     },
     {
@@ -5231,7 +5897,7 @@
       "label": "popLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L119",
+      "source_location": "L137",
       "_origin": "ast"
     },
     {
@@ -5239,7 +5905,7 @@
       "label": "removeLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L121",
+      "source_location": "L139",
       "_origin": "ast"
     },
     {
@@ -5247,7 +5913,7 @@
       "label": "reparentLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L123",
+      "source_location": "L141",
       "_origin": "ast"
     },
     {
@@ -5255,7 +5921,7 @@
       "label": "setLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L125",
+      "source_location": "L143",
       "_origin": "ast"
     },
     {
@@ -5263,7 +5929,7 @@
       "label": "getLayer",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L127",
+      "source_location": "L145",
       "_origin": "ast"
     },
     {
@@ -5271,7 +5937,7 @@
       "label": "bindMotion",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L129",
+      "source_location": "L147",
       "_origin": "ast"
     },
     {
@@ -5279,7 +5945,7 @@
       "label": "layerMatrices",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L131",
+      "source_location": "L149",
       "_origin": "ast"
     },
     {
@@ -5287,7 +5953,7 @@
       "label": "createSpin",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L133",
+      "source_location": "L151",
       "_origin": "ast"
     },
     {
@@ -5295,7 +5961,7 @@
       "label": "createOrbit",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L135",
+      "source_location": "L153",
       "_origin": "ast"
     },
     {
@@ -5303,7 +5969,7 @@
       "label": "createOrbitAndSpin",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L137",
+      "source_location": "L155",
       "_origin": "ast"
     },
     {
@@ -5311,7 +5977,7 @@
       "label": "createPathAndSpin",
       "file_type": "code",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L139",
+      "source_location": "L157",
       "_origin": "ast"
     },
     {
@@ -6532,7 +7198,7 @@
       "label": "require()",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L19",
+      "source_location": "L20",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6623,9 +7289,9 @@
       "label": "placeMovingObjects",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L13",
+      "source_location": "L14",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L81",
+      "definition_location": "L91",
       "_origin": "ast"
     },
     {
@@ -6633,9 +7299,9 @@
       "label": "resetState",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L14",
+      "source_location": "L16",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L106",
+      "definition_location": "L117",
       "_origin": "ast"
     },
     {
@@ -6643,9 +7309,9 @@
       "label": "zoom",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L15",
+      "source_location": "L18",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L124",
+      "definition_location": "L136",
       "_origin": "ast"
     },
     {
@@ -6653,7 +7319,7 @@
       "label": ".Console()",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L18",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6662,9 +7328,9 @@
       "label": "initScene",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L19",
+      "source_location": "L24",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L24",
+      "definition_location": "L26",
       "_origin": "ast"
     },
     {
@@ -6672,9 +7338,9 @@
       "label": "onKey",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L20",
+      "source_location": "L26",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L133",
+      "definition_location": "L146",
       "_origin": "ast"
     },
     {
@@ -6682,9 +7348,9 @@
       "label": "onFocus",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L21",
+      "source_location": "L28",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L160",
+      "definition_location": "L174",
       "_origin": "ast"
     },
     {
@@ -6692,9 +7358,9 @@
       "label": "onUpdate",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L22",
+      "source_location": "L30",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_20\\Console.cpp",
-      "definition_location": "L167",
+      "definition_location": "L182",
       "_origin": "ast"
     },
     {
@@ -6710,8 +7376,158 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "openGL_3dAssign_20/main.cpp",
+      "source_location": "L6",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation",
+      "label": "Animation.inl",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_humanoidpose_seated",
+      "label": "HumanoidPose::seated()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
       "source_location": "L5",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "humanoidpose",
+      "label": "HumanoidPose",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_animationsystem_createjointanimation",
+      "label": "AnimationSystem::createJointAnimation()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "optional",
+      "label": "optional",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "jointanimation",
+      "label": "JointAnimation",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "scene",
+      "label": "Scene",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "entityid",
+      "label": "EntityId",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "motion",
+      "label": "Motion",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_animationsystem_posehierarchy",
+      "label": "AnimationSystem::poseHierarchy()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_animationsystem_addhumanoid",
+      "label": "AnimationSystem::addHumanoid()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "humanoidrig",
+      "label": "HumanoidRig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "humanoidconfig",
+      "label": "HumanoidConfig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_animationsystem_posehumanoid",
+      "label": "AnimationSystem::poseHumanoid()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_animation_animationsystem_addswingwithrider",
+      "label": "AnimationSystem::addSwingWithRider()",
+      "file_type": "code",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "swingrig",
+      "label": "SwingRig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "swingconfig",
+      "label": "SwingConfig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast"
     },
     {
@@ -7112,11 +7928,45 @@
       "_origin": "ast"
     },
     {
+      "id": "framework_detail_motion_motion_linear",
+      "label": "Motion::linear()",
+      "file_type": "code",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L106",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "linearmotion",
+      "label": "LinearMotion",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "framework_detail_motion_motion_pendulum",
+      "label": "Motion::pendulum()",
+      "file_type": "code",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L121",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "pendulummotion",
+      "label": "PendulumMotion",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
       "id": "framework_detail_motion_motionsystem_createmotion",
       "label": "MotionSystem::createMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L106",
+      "source_location": "L141",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7141,7 +7991,7 @@
       "label": "MotionSystem::getMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117",
+      "source_location": "L152",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7158,7 +8008,7 @@
       "label": "MotionSystem::setMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L121",
+      "source_location": "L156",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7167,7 +8017,7 @@
       "label": "MotionSystem::setMotionPlaying()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L130",
+      "source_location": "L165",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7176,7 +8026,7 @@
       "label": "MotionSystem::setMotionEnabled()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L136",
+      "source_location": "L171",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7185,7 +8035,7 @@
       "label": "MotionSystem::seekMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L142",
+      "source_location": "L177",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7194,7 +8044,7 @@
       "label": "MotionSystem::removeMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L151",
+      "source_location": "L186",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7203,7 +8053,7 @@
       "label": "MotionSystem::update()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L157",
+      "source_location": "L192",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7212,7 +8062,7 @@
       "label": "MotionSystem::clear()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L177",
+      "source_location": "L212",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7221,7 +8071,7 @@
       "label": "MotionSystem::validLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L182",
+      "source_location": "L217",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7238,7 +8088,7 @@
       "label": "MotionSystem::getLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L186",
+      "source_location": "L221",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7263,7 +8113,7 @@
       "label": "MotionSystem::pushLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7272,7 +8122,7 @@
       "label": "MotionSystem::insertLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7281,7 +8131,7 @@
       "label": "MotionSystem::removeLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L216",
+      "source_location": "L251",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7290,7 +8140,7 @@
       "label": "MotionSystem::popLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7299,7 +8149,7 @@
       "label": "MotionSystem::reparentLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238",
+      "source_location": "L273",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7308,7 +8158,7 @@
       "label": "MotionSystem::setLayer()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255",
+      "source_location": "L290",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7317,7 +8167,7 @@
       "label": "MotionSystem::bindMotion()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7326,7 +8176,7 @@
       "label": "MotionSystem::layerMatrices()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7335,7 +8185,7 @@
       "label": "MotionSystem::createSpin()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7344,7 +8194,7 @@
       "label": "MotionSystem::createOrbit()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7353,7 +8203,7 @@
       "label": "MotionSystem::createOrbitAndSpin()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7362,7 +8212,7 @@
       "label": "MotionSystem::createPathAndSpin()",
       "file_type": "code",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9437,6 +10287,68 @@
       "_origin": "ast"
     },
     {
+      "id": "review_file_ddf3c7f8880e6a7f7ae6",
+      "label": "framework/detail/Animation.inl",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L1",
+      "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_eba6cfc3e3628db549d2",
+      "label": "HumanoidPose::seated",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L5",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_fc6b55572e679679000f",
+      "label": "AnimationSystem::createJointAnimation",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_0b11bd1fc1577fba8a0f",
+      "label": "AnimationSystem::poseHierarchy",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_fe772c1d4f798935a453",
+      "label": "AnimationSystem::addHumanoid",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_2b4c991da4df7e423bce",
+      "label": "AnimationSystem::poseHumanoid",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_7cd999ecffaf4372eaa7",
+      "label": "AnimationSystem::addSwingWithRider",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
       "id": "review_file_b6882c3b13f4df310724",
       "label": "framework/detail/Application.inl",
       "source_file": "framework/detail/Application.inl",
@@ -9759,8 +10671,8 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_c355d6dbe47615a125c7",
-      "label": "MotionSystem::createMotion",
+      "id": "source_3b1c7429e4fe534f19b2",
+      "label": "Motion::linear",
       "source_file": "framework/detail/Motion.inl",
       "source_location": "L106",
       "file_type": "code",
@@ -9768,17 +10680,8 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_fada9155e0648f3ebb15",
-      "label": "MotionSystem::getMotion",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_ae7783b7838c3e9702fa",
-      "label": "MotionSystem::setMotion",
+      "id": "source_6951661d3bc11a15bf72",
+      "label": "Motion::pendulum",
       "source_file": "framework/detail/Motion.inl",
       "source_location": "L121",
       "file_type": "code",
@@ -9786,53 +10689,53 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_4d2014f54d8e51115c8c",
+      "id": "source_e80f4b656f77f6fdafce",
+      "label": "MotionSystem::createMotion",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L141",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_7f35c492083b2f85a43b",
+      "label": "MotionSystem::getMotion",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L152",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_cd0e4ca231ec698eb0b9",
+      "label": "MotionSystem::setMotion",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L156",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_4bc97a6457d4035a3c8b",
       "label": "MotionSystem::setMotionPlaying",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L130",
+      "source_location": "L165",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_a06ff83c329ec1fb2326",
+      "id": "source_0896296b126c9b37168a",
       "label": "MotionSystem::setMotionEnabled",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L136",
+      "source_location": "L171",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_b497987641af09559077",
+      "id": "source_3400df5b958b8d1511e0",
       "label": "MotionSystem::seekMotion",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L142",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_db00aff4c8d473ac771e",
-      "label": "MotionSystem::removeMotion",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L151",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_2abfd2a2c8bdb5f7642c",
-      "label": "MotionSystem::update",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L157",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_b5403973c51a49d027b3",
-      "label": "MotionSystem::clear",
       "source_file": "framework/detail/Motion.inl",
       "source_location": "L177",
       "file_type": "code",
@@ -9840,17 +10743,8 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_4a4964f3a2bfc36643a3",
-      "label": "MotionSystem::validLayer",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L182",
-      "file_type": "code",
-      "_callable": true,
-      "_origin": "source_definition_review"
-    },
-    {
-      "id": "source_b2b71fa82c5be0e78c11",
-      "label": "MotionSystem::getLayer",
+      "id": "source_eb8c731bb5464f9c8567",
+      "label": "MotionSystem::removeMotion",
       "source_file": "framework/detail/Motion.inl",
       "source_location": "L186",
       "file_type": "code",
@@ -9858,109 +10752,145 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_8576e1e1a0749de8765b",
+      "id": "source_fa962d05a9eda7141114",
+      "label": "MotionSystem::update",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L192",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_26ee3577c4ea1460f55d",
+      "label": "MotionSystem::clear",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L212",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_8334e449ed641e6daf67",
+      "label": "MotionSystem::validLayer",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L217",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_d295e0ad7a67fa4298d6",
+      "label": "MotionSystem::getLayer",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L221",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_4cbe6eba2abf760d2c2e",
       "label": "MotionSystem::pushLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_f8d91db4cdc983cbba94",
+      "id": "source_a48e2956771d06976664",
       "label": "MotionSystem::insertLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_3c7cad7dd9ba9cc78012",
+      "id": "source_dd3721557346b9c5519f",
       "label": "MotionSystem::removeLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L216",
+      "source_location": "L251",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_b29f8802fab7c411fa08",
+      "id": "source_ab9f5e62246dd652041f",
       "label": "MotionSystem::popLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_3e7b545bd7673659160a",
+      "id": "source_c8fdbfc48d5d750aefbc",
       "label": "MotionSystem::reparentLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238",
+      "source_location": "L273",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_0f6c104a4ada3e1eb9cb",
+      "id": "source_10c57b7bb4894cb1a69f",
       "label": "MotionSystem::setLayer",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255",
+      "source_location": "L290",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_22fc00e46474ba80e563",
+      "id": "source_4f829044f80415cfb336",
       "label": "MotionSystem::bindMotion",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_4c068ed66bd50309b803",
+      "id": "source_3aa5b7ea60cf3ed7c166",
       "label": "MotionSystem::layerMatrices",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_046abd4e5243f4f35ad5",
+      "id": "source_596f87f0f8f438d0b9b3",
       "label": "MotionSystem::createSpin",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_e1c336e0f8bf9bc8c353",
+      "id": "source_87e8d9307f1744bd718f",
       "label": "MotionSystem::createOrbit",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_6e6f8afcad6fda49fb50",
+      "id": "source_0dabb7db58d7af09f5d7",
       "label": "MotionSystem::createOrbitAndSpin",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_32d8b6451e9bc2f48e92",
+      "id": "source_bc76a41a48fe54c5a79b",
       "label": "MotionSystem::createPathAndSpin",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -11100,6 +12030,14 @@
       "_origin": "source_definition_review"
     },
     {
+      "id": "review_file_74bcc462450b0dfe9bb4",
+      "label": "framework/include/Animation.h",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L1",
+      "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
       "id": "review_file_97f30744029f73e0cc2b",
       "label": "framework/include/Application.h",
       "source_file": "framework/include/Application.h",
@@ -11213,64 +12151,64 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_49414fea8317ce281a73",
+      "id": "source_7dc82209495a032ce35d",
       "label": "Console::initScene",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L24",
+      "source_location": "L26",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_b2c93d1710b72b9675cb",
+      "id": "source_3a3fa6b6ca3392c2b518",
       "label": "Console::placeMovingObjects",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L81",
+      "source_location": "L91",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_cb35abe3a9bfc197425b",
+      "id": "source_edc231bf5523053b3cdd",
       "label": "Console::resetState",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L106",
+      "source_location": "L117",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_f7e9ea14447818f7334e",
+      "id": "source_ec71827a5359641ae43c",
       "label": "Console::zoom",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L124",
+      "source_location": "L136",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_d1a14007baebec5668ce",
+      "id": "source_7eedeb22ad30c6f0c9bf",
       "label": "Console::onKey",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L133",
+      "source_location": "L146",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_4d14c21efc582c99b2c0",
+      "id": "source_960eda5308848579aec1",
       "label": "Console::onFocus",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L160",
+      "source_location": "L174",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_6d6e30f482387544145c",
+      "id": "source_1655744ecb129c31ad1b",
       "label": "Console::onUpdate",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L167",
+      "source_location": "L182",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -11292,10 +12230,10 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_2356cc02cd047013afdf",
+      "id": "source_b8c4aef9b35785013fc3",
       "label": "main",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L5",
+      "source_location": "L6",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -11370,7 +12308,7 @@
     },
     {
       "source": "framework_detail_native",
-      "target": "framework_include_geometry_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -12936,6 +13874,912 @@
       "confidence": "EXTRACTED",
       "source_file": "framework/Framework.h",
       "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_framework",
+      "target": "framework_include_animation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/Framework.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_patterns",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_jointanimation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_animation_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_animation_jointanimation_joint",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_model_transform3d",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_animation_jointanimation_rest",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_motion_motion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_jointanimation",
+      "target": "framework_include_animation_jointanimation_motion",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_humanoidconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_gridlayout_gridlayout",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_grid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_upperarmfraction",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_upperlegfraction",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_model_glcolor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_torsocolor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_headcolor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_leftcolor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidconfig",
+      "target": "framework_include_animation_humanoidconfig_rightcolor",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_humanoidrig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_root",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_pelvis",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_torso",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_neck",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_torsomesh",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_head",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_nose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_h_array",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_shoulders",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_elbows",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_hands",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_hips",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_knees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_feet",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_upperarms",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_forearms",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_thighs",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_humanoidrig_shins",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_humanoidpose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_pelvisdegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_torsodegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_neckdegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L23",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_h_array",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_shoulders",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_elbows",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_hips",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_knees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_humanoidpose_seated",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_swingconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_pivot",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_seatsize",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_length",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_ropethickness",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_motion_pendulummotion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_pendulum",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_humanoidconfig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_person",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingconfig",
+      "target": "framework_include_animation_swingconfig_riderswaydegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L36",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_swingrig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_frame",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_hinge",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_seat",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_h_array",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_ropes",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_humanoidrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_person",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_h_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L42",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_jointanimation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L42",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_swingrig_animation",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L42",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_include_animation_animationsystem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_animationsystem",
+      "target": "framework_include_animation_animationsystem_createjointanimation",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_animationsystem",
+      "target": "framework_include_animation_animationsystem_posehierarchy",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_animationsystem",
+      "target": "framework_include_animation_animationsystem_addhumanoid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L51",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_animationsystem",
+      "target": "framework_include_animation_animationsystem_posehumanoid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L54",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation_animationsystem",
+      "target": "framework_include_animation_animationsystem_addswingwithrider",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L56",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_animation",
+      "target": "framework_detail_animation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Animation.h",
+      "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -14818,7 +16662,7 @@
     },
     {
       "source": "framework_include_graphics",
-      "target": "framework_include_patterns_h_array",
+      "target": "framework_include_animation_h_array",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -14895,7 +16739,7 @@
     },
     {
       "source": "framework_include_graphics",
-      "target": "framework_include_geometry_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -17295,7 +19139,7 @@
     },
     {
       "source": "framework_include_model",
-      "target": "framework_include_patterns_h_array",
+      "target": "framework_include_animation_h_array",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -17394,7 +19238,7 @@
     },
     {
       "source": "framework_include_model",
-      "target": "framework_include_geometry_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -20098,11 +21942,207 @@
     },
     {
       "source": "framework_include_motion",
-      "target": "framework_include_motion_motionstep",
+      "target": "framework_include_motion_linearmotion",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
       "source_location": "L31",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_linearmotion_from",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_linearmotion_to",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_linearmotion_durationseconds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "playback",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_linearmotion_playback",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L34",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "transformspace",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_linearmotion",
+      "target": "framework_include_motion_linearmotion_space",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion",
+      "target": "framework_include_motion_pendulummotion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_transform_axisline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_axis",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_amplitudedegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_periodseconds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_phasedegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_offsetdegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L42",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "transformspace",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L43",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_pendulummotion",
+      "target": "framework_include_motion_pendulummotion_space",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L43",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion",
+      "target": "framework_include_motion_motionstep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L45",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20112,7 +22152,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L33",
+      "source_location": "L47",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20123,7 +22163,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L33",
+      "source_location": "L47",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20134,7 +22174,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L33",
+      "source_location": "L47",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20145,7 +22185,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L34",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20156,7 +22196,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L34",
+      "source_location": "L48",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20167,7 +22207,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L35",
+      "source_location": "L49",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20178,7 +22218,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L36",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20189,7 +22229,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L36",
+      "source_location": "L50",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20200,7 +22240,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L37",
+      "source_location": "L51",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20211,7 +22251,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L40",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20221,7 +22261,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L41",
+      "source_location": "L55",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20232,7 +22272,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L41",
+      "source_location": "L55",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20243,7 +22283,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L41",
+      "source_location": "L55",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20254,7 +22294,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L42",
+      "source_location": "L56",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20265,7 +22305,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L45",
+      "source_location": "L59",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20276,7 +22316,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L47",
+      "source_location": "L61",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20287,7 +22327,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L49",
+      "source_location": "L63",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20298,7 +22338,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L51",
+      "source_location": "L65",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20309,7 +22349,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L53",
+      "source_location": "L67",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20320,7 +22360,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L57",
+      "source_location": "L71",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20331,7 +22371,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L59",
+      "source_location": "L73",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20342,7 +22382,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L62",
+      "source_location": "L76",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20353,7 +22393,29 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L64",
+      "source_location": "L78",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_motion",
+      "target": "framework_include_motion_motion_linear",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion_motion",
+      "target": "framework_include_motion_motion_pendulum",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L82",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20364,7 +22426,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L67",
+      "source_location": "L85",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20374,7 +22436,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L68",
+      "source_location": "L86",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20385,7 +22447,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L68",
+      "source_location": "L86",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20396,7 +22458,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L69",
+      "source_location": "L87",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20407,7 +22469,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L70",
+      "source_location": "L88",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20418,7 +22480,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L71",
+      "source_location": "L89",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20429,7 +22491,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L72",
+      "source_location": "L90",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20440,7 +22502,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L72",
+      "source_location": "L90",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20451,7 +22513,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L75",
+      "source_location": "L93",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20461,7 +22523,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L76",
+      "source_location": "L94",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20472,7 +22534,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L76",
+      "source_location": "L94",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20483,7 +22545,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L77",
+      "source_location": "L95",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20494,7 +22556,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L77",
+      "source_location": "L95",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20505,7 +22567,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L78",
+      "source_location": "L96",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20516,7 +22578,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L78",
+      "source_location": "L96",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20527,7 +22589,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L78",
+      "source_location": "L96",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20538,7 +22600,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L79",
+      "source_location": "L97",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20549,7 +22611,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L81",
+      "source_location": "L99",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20559,7 +22621,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L82",
+      "source_location": "L100",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20570,7 +22632,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L82",
+      "source_location": "L100",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20581,7 +22643,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L83",
+      "source_location": "L101",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20592,7 +22654,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L83",
+      "source_location": "L101",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20603,7 +22665,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L83",
+      "source_location": "L101",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20614,7 +22676,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L84",
+      "source_location": "L102",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20625,7 +22687,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L84",
+      "source_location": "L102",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20636,7 +22698,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L87",
+      "source_location": "L105",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20646,7 +22708,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L88",
+      "source_location": "L106",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20657,7 +22719,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L88",
+      "source_location": "L106",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20668,7 +22730,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L88",
+      "source_location": "L106",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20679,7 +22741,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L88",
+      "source_location": "L106",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20690,7 +22752,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L89",
+      "source_location": "L107",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20701,7 +22763,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L89",
+      "source_location": "L107",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20712,7 +22774,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L90",
+      "source_location": "L108",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20723,7 +22785,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L90",
+      "source_location": "L108",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -20734,7 +22796,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L90",
+      "source_location": "L108",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20745,7 +22807,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L91",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20756,7 +22818,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L91",
+      "source_location": "L109",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20767,7 +22829,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L92",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20778,7 +22840,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L95",
+      "source_location": "L113",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -20788,7 +22850,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L95",
+      "source_location": "L113",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -20799,7 +22861,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L97",
+      "source_location": "L115",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20810,7 +22872,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L99",
+      "source_location": "L117",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20821,7 +22883,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L101",
+      "source_location": "L119",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20832,7 +22894,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L103",
+      "source_location": "L121",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20843,7 +22905,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L105",
+      "source_location": "L123",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20854,7 +22916,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L107",
+      "source_location": "L125",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20865,7 +22927,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L109",
+      "source_location": "L127",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20876,7 +22938,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L111",
+      "source_location": "L129",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20887,7 +22949,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L113",
+      "source_location": "L131",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20898,7 +22960,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L115",
+      "source_location": "L133",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20909,7 +22971,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L117",
+      "source_location": "L135",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20920,7 +22982,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L119",
+      "source_location": "L137",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20931,7 +22993,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L121",
+      "source_location": "L139",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20942,7 +23004,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L123",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20953,7 +23015,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L125",
+      "source_location": "L143",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20964,7 +23026,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L127",
+      "source_location": "L145",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20975,7 +23037,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L129",
+      "source_location": "L147",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20986,7 +23048,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L131",
+      "source_location": "L149",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -20997,7 +23059,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L133",
+      "source_location": "L151",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -21008,7 +23070,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L135",
+      "source_location": "L153",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -21019,7 +23081,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L137",
+      "source_location": "L155",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -21030,7 +23092,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L139",
+      "source_location": "L157",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -21042,7 +23104,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "framework/include/Motion.h",
-      "source_location": "L142",
+      "source_location": "L160",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23049,7 +25111,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23059,7 +25121,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23069,7 +25131,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L81",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23079,7 +25141,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L106",
+      "source_location": "L117",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23089,7 +25151,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L124",
+      "source_location": "L136",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23099,7 +25161,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L133",
+      "source_location": "L146",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23109,7 +25171,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L160",
+      "source_location": "L174",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23119,7 +25181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L167",
+      "source_location": "L182",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23130,7 +25192,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23141,7 +25203,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L87",
+      "source_location": "L97",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23152,7 +25214,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L120",
+      "source_location": "L131",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23163,7 +25225,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L130",
+      "source_location": "L142",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23174,7 +25236,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L168",
+      "source_location": "L183",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23191,7 +25253,7 @@
     },
     {
       "source": "opengl_3dassign_20_console_h_opengl_3dassign_20_console",
-      "target": "framework_include_patterns_h_array",
+      "target": "framework_include_animation_h_array",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -23202,7 +25264,7 @@
     },
     {
       "source": "opengl_3dassign_20_console_h_opengl_3dassign_20_console",
-      "target": "framework_include_geometry_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -23337,7 +25399,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23348,7 +25410,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L14",
+      "source_location": "L16",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23359,7 +25421,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L15",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23370,7 +25432,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23380,7 +25442,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -23391,7 +25453,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L19",
+      "source_location": "L24",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23402,7 +25464,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L20",
+      "source_location": "L26",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23413,7 +25475,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L21",
+      "source_location": "L28",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23424,7 +25486,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
-      "source_location": "L22",
+      "source_location": "L30",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -23468,7 +25530,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23588,7 +25650,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L74",
+      "source_location": "L83",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23600,7 +25662,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L121",
+      "source_location": "L132",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23612,7 +25674,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L137",
+      "source_location": "L150",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23624,7 +25686,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L150",
+      "source_location": "L163",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23636,7 +25698,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L169",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23804,7 +25866,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23816,7 +25878,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23828,7 +25890,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23840,7 +25902,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -23852,8 +25914,343 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "set",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_humanoidpose_seated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_humanoidpose_seated",
+      "target": "humanoidpose",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L5",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_animationsystem_createjointanimation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_createjointanimation",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_createjointanimation",
+      "target": "jointanimation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_createjointanimation",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_createjointanimation",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_createjointanimation",
+      "target": "motion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_animationsystem_posehierarchy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehierarchy",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehierarchy",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehierarchy",
+      "target": "jointanimation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_animationsystem_addhumanoid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "humanoidrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "humanoidconfig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_animationsystem_posehumanoid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehumanoid",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehumanoid",
+      "target": "humanoidrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_posehumanoid",
+      "target": "humanoidpose",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation",
+      "target": "framework_detail_animation_animationsystem_addswingwithrider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "swingrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "swingconfig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142",
+      "weight": 1.0,
+      "context": "generic_arg",
       "_origin": "ast"
     },
     {
@@ -24577,11 +26974,75 @@
     },
     {
       "source": "framework_detail_motion",
-      "target": "framework_detail_motion_motionsystem_createmotion",
+      "target": "framework_detail_motion_motion_linear",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
       "source_location": "L106",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion_motion_linear",
+      "target": "motionstep",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion_motion_linear",
+      "target": "linearmotion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion",
+      "target": "framework_detail_motion_motion_pendulum",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L121",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion_motion_pendulum",
+      "target": "motionstep",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L121",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion_motion_pendulum",
+      "target": "pendulummotion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L121",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion",
+      "target": "framework_detail_motion_motionsystem_createmotion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L141",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24591,7 +27052,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L106",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24602,7 +27063,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L106",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -24613,7 +27074,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L106",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24624,7 +27085,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117",
+      "source_location": "L152",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24634,7 +27095,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24645,7 +27106,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117",
+      "source_location": "L152",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24656,7 +27117,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L121",
+      "source_location": "L156",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24666,7 +27127,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L121",
+      "source_location": "L156",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24677,7 +27138,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L121",
+      "source_location": "L156",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24688,7 +27149,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L130",
+      "source_location": "L165",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24698,7 +27159,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L130",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24709,7 +27170,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L136",
+      "source_location": "L171",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24719,7 +27180,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L136",
+      "source_location": "L171",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24730,7 +27191,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L142",
+      "source_location": "L177",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24740,7 +27201,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L142",
+      "source_location": "L177",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24751,7 +27212,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L151",
+      "source_location": "L186",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24761,7 +27222,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L151",
+      "source_location": "L186",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24772,7 +27233,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L157",
+      "source_location": "L192",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24782,7 +27243,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L177",
+      "source_location": "L212",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24792,7 +27253,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L182",
+      "source_location": "L217",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24802,7 +27263,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L182",
+      "source_location": "L217",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24813,7 +27274,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L186",
+      "source_location": "L221",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24823,7 +27284,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L186",
+      "source_location": "L221",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24834,7 +27295,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L186",
+      "source_location": "L221",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24845,7 +27306,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24855,7 +27316,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24866,7 +27327,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -24877,7 +27338,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24888,7 +27349,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190",
+      "source_location": "L225",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24899,7 +27360,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24909,7 +27370,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24920,7 +27381,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -24931,7 +27392,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24942,7 +27403,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201",
+      "source_location": "L236",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24953,7 +27414,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L216",
+      "source_location": "L251",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24963,7 +27424,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L216",
+      "source_location": "L251",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -24974,7 +27435,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -24984,7 +27445,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -24995,7 +27456,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25006,7 +27467,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231",
+      "source_location": "L266",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25017,7 +27478,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238",
+      "source_location": "L273",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25027,7 +27488,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238",
+      "source_location": "L273",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25038,7 +27499,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238",
+      "source_location": "L273",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25049,7 +27510,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255",
+      "source_location": "L290",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25059,7 +27520,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255",
+      "source_location": "L290",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25070,7 +27531,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255",
+      "source_location": "L290",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25081,7 +27542,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25091,7 +27552,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25102,7 +27563,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25113,7 +27574,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261",
+      "source_location": "L296",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25124,7 +27585,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25134,7 +27595,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -25145,7 +27606,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25156,7 +27617,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268",
+      "source_location": "L303",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25167,7 +27628,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25177,7 +27638,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -25188,7 +27649,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25199,7 +27660,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302",
+      "source_location": "L337",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25210,7 +27671,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25220,7 +27681,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -25231,7 +27692,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25242,7 +27703,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308",
+      "source_location": "L343",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25253,7 +27714,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25263,7 +27724,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -25274,7 +27735,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25285,7 +27746,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25296,7 +27757,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314",
+      "source_location": "L349",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25307,7 +27768,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -25317,7 +27778,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -25328,7 +27789,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -25339,7 +27800,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25350,7 +27811,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322",
+      "source_location": "L357",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -25362,7 +27823,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L223",
+      "source_location": "L258",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -32465,6 +34926,54 @@
       "_origin": "ast"
     },
     {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_eba6cfc3e3628db549d2",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L5"
+    },
+    {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_fc6b55572e679679000f",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L15"
+    },
+    {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_0b11bd1fc1577fba8a0f",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L27"
+    },
+    {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_fe772c1d4f798935a453",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L52"
+    },
+    {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_2b4c991da4df7e423bce",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L115"
+    },
+    {
+      "source": "review_file_ddf3c7f8880e6a7f7ae6",
+      "target": "source_7cd999ecffaf4372eaa7",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.inl",
+      "source_location": "L142"
+    },
+    {
       "source": "review_file_b6882c3b13f4df310724",
       "target": "source_67bb6c006b2513ee450b",
       "relation": "defines",
@@ -32738,7 +35247,7 @@
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_c355d6dbe47615a125c7",
+      "target": "source_3b1c7429e4fe534f19b2",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
@@ -32746,15 +35255,7 @@
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_fada9155e0648f3ebb15",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L117"
-    },
-    {
-      "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_ae7783b7838c3e9702fa",
+      "target": "source_6951661d3bc11a15bf72",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
@@ -32762,47 +35263,47 @@
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_4d2014f54d8e51115c8c",
+      "target": "source_e80f4b656f77f6fdafce",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L130"
+      "source_location": "L141"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_a06ff83c329ec1fb2326",
+      "target": "source_7f35c492083b2f85a43b",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L136"
+      "source_location": "L152"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_b497987641af09559077",
+      "target": "source_cd0e4ca231ec698eb0b9",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L142"
+      "source_location": "L156"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_db00aff4c8d473ac771e",
+      "target": "source_4bc97a6457d4035a3c8b",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L151"
+      "source_location": "L165"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_2abfd2a2c8bdb5f7642c",
+      "target": "source_0896296b126c9b37168a",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L157"
+      "source_location": "L171"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_b5403973c51a49d027b3",
+      "target": "source_3400df5b958b8d1511e0",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
@@ -32810,15 +35311,7 @@
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_4a4964f3a2bfc36643a3",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "framework/detail/Motion.inl",
-      "source_location": "L182"
-    },
-    {
-      "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_b2b71fa82c5be0e78c11",
+      "target": "source_eb8c731bb5464f9c8567",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
@@ -32826,99 +35319,131 @@
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_8576e1e1a0749de8765b",
+      "target": "source_fa962d05a9eda7141114",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L190"
+      "source_location": "L192"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_f8d91db4cdc983cbba94",
+      "target": "source_26ee3577c4ea1460f55d",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L201"
+      "source_location": "L212"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_3c7cad7dd9ba9cc78012",
+      "target": "source_8334e449ed641e6daf67",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L216"
+      "source_location": "L217"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_b29f8802fab7c411fa08",
+      "target": "source_d295e0ad7a67fa4298d6",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L231"
+      "source_location": "L221"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_3e7b545bd7673659160a",
+      "target": "source_4cbe6eba2abf760d2c2e",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L238"
+      "source_location": "L225"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_0f6c104a4ada3e1eb9cb",
+      "target": "source_a48e2956771d06976664",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L255"
+      "source_location": "L236"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_22fc00e46474ba80e563",
+      "target": "source_dd3721557346b9c5519f",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L261"
+      "source_location": "L251"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_4c068ed66bd50309b803",
+      "target": "source_ab9f5e62246dd652041f",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L268"
+      "source_location": "L266"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_046abd4e5243f4f35ad5",
+      "target": "source_c8fdbfc48d5d750aefbc",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L302"
+      "source_location": "L273"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_e1c336e0f8bf9bc8c353",
+      "target": "source_10c57b7bb4894cb1a69f",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L308"
+      "source_location": "L290"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_6e6f8afcad6fda49fb50",
+      "target": "source_4f829044f80415cfb336",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L314"
+      "source_location": "L296"
     },
     {
       "source": "review_file_908c6eb9db9f51a281b4",
-      "target": "source_32d8b6451e9bc2f48e92",
+      "target": "source_3aa5b7ea60cf3ed7c166",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Motion.inl",
-      "source_location": "L322"
+      "source_location": "L303"
+    },
+    {
+      "source": "review_file_908c6eb9db9f51a281b4",
+      "target": "source_596f87f0f8f438d0b9b3",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L337"
+    },
+    {
+      "source": "review_file_908c6eb9db9f51a281b4",
+      "target": "source_87e8d9307f1744bd718f",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L343"
+    },
+    {
+      "source": "review_file_908c6eb9db9f51a281b4",
+      "target": "source_0dabb7db58d7af09f5d7",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L349"
+    },
+    {
+      "source": "review_file_908c6eb9db9f51a281b4",
+      "target": "source_bc76a41a48fe54c5a79b",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.inl",
+      "source_location": "L357"
     },
     {
       "source": "review_file_b1a65a96afcf207c6808",
@@ -33874,102 +36399,102 @@
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_49414fea8317ce281a73",
+      "target": "source_7dc82209495a032ce35d",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L24"
+      "source_location": "L26"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_b2c93d1710b72b9675cb",
+      "target": "source_3a3fa6b6ca3392c2b518",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L81"
+      "source_location": "L91"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_cb35abe3a9bfc197425b",
+      "target": "source_edc231bf5523053b3cdd",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L106"
+      "source_location": "L117"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_f7e9ea14447818f7334e",
+      "target": "source_ec71827a5359641ae43c",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L124"
+      "source_location": "L136"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_d1a14007baebec5668ce",
+      "target": "source_7eedeb22ad30c6f0c9bf",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L133"
+      "source_location": "L146"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_4d14c21efc582c99b2c0",
+      "target": "source_960eda5308848579aec1",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L160"
+      "source_location": "L174"
     },
     {
       "source": "review_file_40c9ca12abc720ffa3e2",
-      "target": "source_6d6e30f482387544145c",
+      "target": "source_1655744ecb129c31ad1b",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.cpp",
-      "source_location": "L167"
+      "source_location": "L182"
     },
     {
       "source": "review_file_80257001d463e4733cee",
-      "target": "source_2356cc02cd047013afdf",
+      "target": "source_b8c4aef9b35785013fc3",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L5"
+      "source_location": "L6"
     },
     {
-      "source": "source_2356cc02cd047013afdf",
-      "target": "source_49414fea8317ce281a73",
+      "source": "source_b8c4aef9b35785013fc3",
+      "target": "source_7dc82209495a032ce35d",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L9",
+      "source_location": "L10",
       "context": "openGL_3dAssign_20: lambda executes later through Application callbacks"
     },
     {
-      "source": "source_2356cc02cd047013afdf",
-      "target": "source_d1a14007baebec5668ce",
+      "source": "source_b8c4aef9b35785013fc3",
+      "target": "source_7eedeb22ad30c6f0c9bf",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L11",
+      "source_location": "L12",
       "context": "openGL_3dAssign_20: lambda executes later through Application callbacks"
     },
     {
-      "source": "source_2356cc02cd047013afdf",
-      "target": "source_4d14c21efc582c99b2c0",
+      "source": "source_b8c4aef9b35785013fc3",
+      "target": "source_960eda5308848579aec1",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L14",
+      "source_location": "L15",
       "context": "openGL_3dAssign_20: lambda executes later through Application callbacks"
     },
     {
-      "source": "source_2356cc02cd047013afdf",
-      "target": "source_6d6e30f482387544145c",
+      "source": "source_b8c4aef9b35785013fc3",
+      "target": "source_1655744ecb129c31ad1b",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/main.cpp",
-      "source_location": "L16",
+      "source_location": "L17",
       "context": "openGL_3dAssign_20: lambda executes later through Application callbacks"
     }
   ],

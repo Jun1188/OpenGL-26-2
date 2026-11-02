@@ -24,7 +24,7 @@ P 입력은 Shift와 Caps Lock의 XOR로 대소문자를 구분한다. 둘을 �
 |---|---|
 | XZ 바닥, 바닥 위 일정 높이의 ㄱ자 평면 벨트 | `Console::initScene`: y=0 바닥, y=1의 두 볼록 평면을 모서리에서 연결 |
 | 육면체 여러 개로 줄무늬 | 폭 1.4, 높이 .03, 길이 .10의 육면체 30개 |
-| 다른 색 상자 5개와 번호 | 서로 다른 색의 .85 정육면체 5개, 네 옆면에 1~5 번호 |
+| 다른 색 상자 5개와 번호 | 서로 다른 색의 .85 정육면체 5개, 네 옆면에 번호만큼 검은 정사각형 1~5개를 가로 중앙 정렬 |
 | 벨트와 상자가 함께 이동 | `placeMovingObjects`: 모든 객체에 동일한 `clock_.seconds * beltSpeed` 적용 |
 | 끝에서 시작으로 순환 | `conveyorCornerPose`의 거리 순환. 끝→시작은 순간 이동이며 복귀 선분 없음 |
 | 코너에서 상자 방향 회전 | 안쪽 꼭짓점 `(2.2,1,-1.2)` 중심의 반지름 .8 원호를 따라 위치와 Y 회전을 함께 연속 변경 |
@@ -38,18 +38,18 @@ P 입력은 Shift와 Caps Lock의 XOR로 대소문자를 구분한다. 둘을 �
 2. 프레임마다 `onUpdate`가 `clock_.advance(dt)`를 한 번 호출한다.
 3. `travelled = seconds × 1.25`에 각 객체의 고정 거리 오프셋을 더한다.
 4. 공통 `conveyorCornerPose`가 직선·원호·직선을 거리로 샘플링한다. 응용은 반환된 위치와 Y 회전각을 `Scene::setTransform`에 적용한다.
-5. Scene의 부모 변환은 상자와 네 측면 번호에 함께 적용된다. Renderer가 정점 입력과 모델·뷰·투영 행렬을 셰이더로 전달한다.
+5. Scene의 부모 변환은 상자와 네 측면의 검은 정사각형 표시에 함께 적용된다. Renderer가 정점 입력과 모델·뷰·투영 행렬을 셰이더로 전달한다.
 
 경로는 `(-4,1,-2) → (2.2,1,-2)`의 +X 직선, 안쪽 꼭짓점 `(2.2,1,-1.2)` 중심·반지름 .8의 90도 원호, `(3,1,-1.2) → (3,1,3)`의 +Z 직선이다. 전체 길이 `L = 6.2 + π×.8/2 + 4.2 ≈ 11.656637`을 `conveyorLength`에 보관한다. 상자의 경로상 간격은 L/5≈2.331327, 줄무늬는 L/30≈.388555다. 같은 경로거리로 배치하므로 코너 양쪽 상자의 **직선거리**는 경로상 간격보다 짧을 수 있다. 번호 순서는 경로상 순환 순서이며 역방향으로 번호가 바뀌지 않는다. 시작과 끝은 별개 위치이며 끝에서 시작으로 순간 이동한다.
 
-코너 진입 거리 6.2부터 원호 길이 `π×.8/2≈1.256637` 동안 상자는 안쪽 꼭짓점을 중심으로 이동하며 방향각이 90도에서 0도로 연속 변한다. 속도1.25일 때 코너 회전은 시뮬레이션 시간 약1.005초 동안 진행된다. 직선과 원호의 접선이 이어지므로 진입·이탈 시 위치나 방향이 튀지 않는다. 줄무늬도 같은 경로·속도로 회전한다. 벨트 평면은 오목 ㄱ자를 단일 fan으로 만들지 않고 겹치지 않는 두 볼록 사각형으로 만든다. 줄무늬 아래면은 벨트 y=1, 위면은 y=1.03이다. 상자 바닥은 y=1.03이며 번호는 옆면보다 .008 바깥에 있다. 이 높이 분리로 겹치는 표시 면의 z-fighting을 피한다.
+코너 진입 거리 6.2부터 원호 길이 `π×.8/2≈1.256637` 동안 상자는 안쪽 꼭짓점을 중심으로 이동하며 방향각이 90도에서 0도로 연속 변한다. 속도1.25일 때 코너 회전은 시뮬레이션 시간 약1.005초 동안 진행된다. 직선과 원호의 접선이 이어지므로 진입·이탈 시 위치나 방향이 튀지 않는다. 줄무늬도 같은 경로·속도로 회전한다. 벨트 평면은 오목 ㄱ자를 단일 fan으로 만들지 않고 겹치지 않는 두 볼록 사각형으로 만든다. 줄무늬 아래면은 벨트 y=1, 위면은 y=1.03이다. 상자 바닥은 y=1.03이며 번호를 나타내는 검은 정사각형은 한 변 .10, 중심 간격 .14이며 옆면보다 .008 바깥에 있다. 각 옆면에서 가로 중앙에 배치하며, 2번 상자에는 정사각형 2개를 표시한다. 이 높이 분리로 겹치는 표시 면의 z-fighting을 피한다.
 
 카메라는 초기 `(11,10,13)`에서 `(0,.7,.3)`을 본다. 공전축은 주목점을 지나는 월드 Y축이다. 벨트가 정지해도 카메라 조작은 가능하다. Application이 Scene 모션을 자동 갱신하므로 응용에서 `updateMotions`를 중복 호출하지 않는다.
 
 ## 공통 API와 배포
 
 - `framework/docs/APPLICATION_API.md`: 응용 API 계약과 실습 대응.
-- `framework/include/Patterns.h`, `framework/detail/Patterns.inl`: AnimationClock, conveyorCornerPose, addPolygon/addBox/addNumber/addJoint/rotateJoint/zoomCamera/orbitCamera.
+- `framework/include/Patterns.h`, `framework/detail/Patterns.inl`: AnimationClock, conveyorCornerPose, addPolygon/addBox/addJoint/rotateJoint/zoomCamera/orbitCamera.
 - `framework/include/Graphics.h`: Camera, Scene, RenderOptions.
 - `framework/include/Application.h`, `framework/detail/Application.inl`: 콜백, Caps Lock 수정키, 포커스, 프레임 루프, 오류 전달.
 - `framework/Toolchain.props`, `framework/Framework.props`: 설치된 도구 집합 선택과 런타임 배포.
@@ -58,6 +58,6 @@ P 입력은 Shift와 Caps Lock의 XOR로 대소문자를 구분한다. 둘을 �
 
 ## 확인 상태와 학습 질문
 
-소스와 PDF를 읽고 구현했다. 빌드·실행·테스트·검증기는 실행하지 않았다. 실제 코너 회전·번호 가독성·화면 배치·DLL 로딩·다른 PC 호환성은 미확인이다. 사용자 확인 절차와 예상 결과는 `USER_CHECKS.md`에 있다.
+소스와 PDF를 읽고 구현했다. 빌드·실행·테스트·검증기는 실행하지 않았다. 실제 코너 회전·정사각형 표시 가독성·화면 배치·DLL 로딩·다른 PC 호환성은 미확인이다. 사용자 확인 절차와 예상 결과는 `USER_CHECKS.md`에 있다.
 
 확인 질문: `clock_.seconds` 대신 상자마다 별도 프레임 카운터를 사용하면 벨트와 상자의 상대 위치가 어떤 조건에서 달라질 수 있는가?
