@@ -50,7 +50,7 @@
 
 - 공통 계약: [APPLICATION_API.md](framework/docs/APPLICATION_API.md)
 - 선언: [Patterns.h](framework/include/Patterns.h), [Application.h](framework/include/Application.h), [Graphics.h](framework/include/Graphics.h)
-- 구현: [Patterns.inl](framework/detail/Patterns.inl), [Scene.inl](framework/detail/Scene.inl), [Application.inl](framework/detail/Application.inl)
+- 구현: [Patterns.inl](framework/detail/Patterns.cpp), [Scene.inl](framework/detail/Scene.cpp), [Application.inl](framework/detail/Application.cpp)
 - 실습 코드: [Console.h](Console.h), [Console.cpp](Console.cpp), [main.cpp](main.cpp)
 
 공통 충돌은 방 축에 정렬된 반크기 경계를 사용하는 교육용 모델이다. 바닥이 닫힌 동안 공·상자는 방 벽과만 충돌한다. 바닥 개방 명령 뒤에는 방 벽 충돌을 중단하고 월드 중력 낙하를 계산한다. 객체끼리 충돌하지 않으므로 생성 뒤 경로에서 서로 통과할 수 있다. 구의 모서리 정밀 접촉, 마찰, 강체 토크, 코리올리/원심 가속도, 이탈 뒤 지면 착지는 제공하지 않는다. 공간 앞면은 표시상 열려 있지만 공의 +Z 물리 경계는 유지한다. 급격한 드래그는 정밀 회전 강체 충돌을 재현하지 않는다. 개방 명령의 즉시 낙하 전환은 모든 객체가 떨어지는 조작을 우선하며, 방 각속도에 의한 접선 속도는 추가하지 않는다. Y 자전 중에도 방의 각 면 Front 컬링과 안쪽 법선을 유지한다. 외부에서 바라보는 벽이 사라지는 것은 내부 벽 컬링 정책이다.

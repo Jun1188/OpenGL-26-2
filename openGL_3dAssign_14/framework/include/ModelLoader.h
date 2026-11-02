@@ -80,5 +80,3 @@ public:
 };
 } // namespace graphics
 
-#include "../detail/PrimitiveLoader.inl"
-#include "../detail/AssimpLoader.inl"

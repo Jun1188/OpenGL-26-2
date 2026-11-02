@@ -46,8 +46,8 @@ setter의 false와 로더의 error를 확인한다. clear 뒤에는 ID가 재사
 
 ### 13.1 구성과 프레임 순서
 
-- `include/Transform.h`, `detail/Transform.inl`: 반사·회전·이동·크기 행렬 및 경로 함수.
-- `include/Motion.h`, `detail/Motion.inl`: 시간에 따른 행렬 합성, 동작 식별자, 레이어 트리.
+- `include/Transform.h`, `detail/Transform.cpp`: 반사·회전·이동·크기 행렬 및 경로 함수.
+- `include/Motion.h`, `detail/Motion.cpp`: 시간에 따른 행렬 합성, 동작 식별자, 레이어 트리.
 - `Scene::getMotions()`: 해당 장면의 MotionSystem 참조. `Framework.h` 또는 `Graphics.h`로 공개된다.
 - `examples/motion.cpp`: 경로 선택, 공유 동작, 반사, 레이어 삽입·삭제, 클릭 피킹 예제. 다른 예제와 main이 중복되므로 하나만 프로젝트에 등록한다.
 

@@ -1027,7 +1027,7 @@ public:
                                                    std::optional<EntityId> parent = std::nullopt);
 };
 } // namespace graphics
-#include "../detail/Animation.inl"
+#include "../detail/Animation.cpp"
 ```
 
 ### after
@@ -1091,10 +1091,10 @@ public:
                                                    std::optional<EntityId> parent = std::nullopt);
 };
 } // namespace graphics
-#include "../detail/Animation.inl"
+#include "../detail/Animation.cpp"
 ```
 
-## standard/framework/detail/Animation.inl
+## standard/framework/detail/Animation.cpp
 
 ### before
 ```cpp

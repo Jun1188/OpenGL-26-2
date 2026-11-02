@@ -3,6 +3,9 @@
   <PropertyGroup>
     <GraphicsFrameworkDirectory>$(MSBuildThisFileDirectory)</GraphicsFrameworkDirectory>
   </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\*.cpp" />
+  </ItemGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalOptions>/utf-8 /FC %(AdditionalOptions)</AdditionalOptions>

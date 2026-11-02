@@ -49,9 +49,9 @@ P 입력은 Shift와 Caps Lock의 XOR로 대소문자를 구분한다. 둘을 �
 ## 공통 API와 배포
 
 - `framework/docs/APPLICATION_API.md`: 응용 API 계약과 실습 대응.
-- `framework/include/Patterns.h`, `framework/detail/Patterns.inl`: AnimationClock, conveyorCornerPose, addPolygon/addBox/addJoint/rotateJoint/zoomCamera/orbitCamera.
+- `framework/include/Patterns.h`, `framework/detail/Patterns.cpp`: AnimationClock, conveyorCornerPose, addPolygon/addBox/addJoint/rotateJoint/zoomCamera/orbitCamera.
 - `framework/include/Graphics.h`: Camera, Scene, RenderOptions.
-- `framework/include/Application.h`, `framework/detail/Application.inl`: 콜백, Caps Lock 수정키, 포커스, 프레임 루프, 오류 전달.
+- `framework/include/Application.h`, `framework/detail/Application.cpp`: 콜백, Caps Lock 수정키, 포커스, 프레임 루프, 오류 전달.
 - `framework/Toolchain.props`, `framework/Framework.props`: 설치된 도구 집합 선택과 런타임 배포.
 
 프로젝트는 C++17, x64, Debug /MTd·Release /MT다. 고정 v145나 외부 SDK 절대경로를 추가하지 않았다. `projectRoot="."`, `runtimeDirectory="framework"`는 실행 파일 기준이며 빌드 시 Framework.props가 DLL과 셰이더를 출력 폴더로 복사한다. 배포할 때 실행 파일만 복사하지 말고 출력 폴더의 `framework`도 함께 복사한다.

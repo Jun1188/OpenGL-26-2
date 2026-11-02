@@ -280,5 +280,3 @@ public:
     void abandon() { shaderProgramID_=vao_=vbo_=ebo_=0;textures_.clear();drawRanges_.clear();uploadedScene_=nullptr;uploadedRevision_=std::numeric_limits<std::uint64_t>::max(); }
 };
 } // namespace graphics
-#include "../detail/Scene.inl"
-#include "../detail/Renderer.inl"

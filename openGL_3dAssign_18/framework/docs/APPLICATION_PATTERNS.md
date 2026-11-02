@@ -577,7 +577,7 @@ PollEvents -> 응용 update(dt) -> Motion 갱신 1회
 
 **계산.** 평면도는 예를 들어 +Y에서 원점을 보고 up=(0,0,-1), 정면도는 +Z에서 원점을 보고 up=(0,1,0)으로 둔다. 평면도에서 기본 up=(0,1,0)을 그대로 쓰면 시선과 평행해 유효한 카메라 기저가 만들어지지 않는다. 두 카메라는 orthographic=true로 설정한다. 투영 aspect는 전체 창이 아니라 각 viewport의 width/height로 구한다. 리사이즈 시 실제 framebuffer 크기로 영역과 투영을 다시 계산한다.
 
-**현재 API와 확장 경계.** Camera/CameraSystem은 카메라별 뷰·투영 계산을 지원한다. setRenderHandler는 사용자 렌더 경로를 연결한다. 하지만 현재 [Renderer::render](../detail/Renderer.inl)는 호출할 때마다 Viewport(0,0,width,height)를 설정하고, scissor를 끈 뒤 색·깊이 버퍼 전체를 지운다. 내부 draw는 private이고 Application의 renderer도 비공개다. renderScene()을 세 번 호출하거나 호출 전에 glViewport만 설정하는 방법으로는 화면 분할이 유지되지 않는다.
+**현재 API와 확장 경계.** Camera/CameraSystem은 카메라별 뷰·투영 계산을 지원한다. setRenderHandler는 사용자 렌더 경로를 연결한다. 하지만 현재 [Renderer::render](../detail/Renderer.cpp)는 호출할 때마다 Viewport(0,0,width,height)를 설정하고, scissor를 끈 뒤 색·깊이 버퍼 전체를 지운다. 내부 draw는 private이고 Application의 renderer도 비공개다. renderScene()을 세 번 호출하거나 호출 전에 glViewport만 설정하는 방법으로는 화면 분할이 유지되지 않는다.
 
 실제 구현에는 viewport 원점·크기와 clear 범위를 전달하는 렌더 패스 API 확장, 또는 자원 수명을 직접 관리하는 별도 렌더 경로가 필요하다. 이는 **이 문서에서 제안하는 후속 구현**이며 이번 작업에서 코드를 바꾸지는 않는다. 확장한다면 프레임 전체 초기화와 패스별 그리기를 분리하고, 겹친 영역에서는 scissor와 깊이 초기화 범위를 명시한다. glViewport만 바꿔도 glClear의 범위가 제한되는 것은 아니다.
 

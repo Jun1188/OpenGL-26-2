@@ -94,4 +94,3 @@ public:
                                double walkDistance,float speed);
 };
 } // namespace graphics
-#include "../detail/Patterns.inl"

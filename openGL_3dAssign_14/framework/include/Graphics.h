@@ -191,5 +191,3 @@ public:
     void destroy(); // Call while the owning context is current, before it is destroyed.
 };
 } // namespace graphics
-#include "../detail/Scene.inl"
-#include "../detail/Renderer.inl"

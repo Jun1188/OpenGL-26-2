@@ -57,4 +57,3 @@ public:
                                                    std::optional<EntityId> parent = std::nullopt);
 };
 } // namespace graphics
-#include "../detail/Animation.inl"

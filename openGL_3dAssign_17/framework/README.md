@@ -23,13 +23,13 @@
 | [include/ModelLoader.h](include/ModelLoader.h) | FeatureOptions, LoadOptions, AssetLoader | 외부 자산 읽기 |
 | [include/Texture.h](include/Texture.h) | 이미지 디코딩 | 텍스처 오류 추적 |
 | [include/Picking.h](include/Picking.h) | 화면 광선과 삼각형 교차 판정 | 클릭 선택 |
-| detail/*.inl | 공개 API의 inline 구현 | 내부 동작 추적 |
+| detail/*.cpp | 공개 API의 별도 컴파일 구현 | 내부 동작 추적 |
 | detail/Native.h | GLFW·OpenGL 함수 로딩과 실행 경로 처리 | 초기화·배포 오류 추적 |
 | detail/Shaders.h, shaders/*.glsl | 내장 셰이더와 외부 셰이더 파일 | GPU 입력·출력 확인 |
 | examples/basic.cpp, examples/assets.cpp | 면 선택과 자산 로드 예제 | 기존 코드 재사용 |
 | dependencies/ | 배포에 포함된 라이브러리·헤더·라이선스 | 폴더 전체 복사 |
 
-프레임워크는 헤더와 inline 구현으로 구성된다. detail의 파일을 별도 .cpp처럼 프로젝트에 추가할 필요가 없다. 응용 프로그램에서 detail 함수를 직접 쓰기보다 공개 API를 사용한다.
+프레임워크는 공개 헤더와 별도로 컴파일하는 detail/*.cpp 구현으로 구성된다. Framework.props를 import하면 구현 파일이 컴파일 목록에 포함된다. 응용 프로그램에서 detail 함수를 직접 쓰기보다 공개 API를 사용한다.
 
 ## 2. 새 프로젝트에 연결
 
@@ -82,7 +82,7 @@ int main() {
 
 ## 3. Application의 실행 순서
 
-구현: [detail/Application.inl](detail/Application.inl). set...Handler는 함수를 등록한다. 등록하는 자리에서 함수 본문을 실행하는 것은 아니다.
+구현: [detail/Application.cpp](detail/Application.cpp). set...Handler는 함수를 등록한다. 등록하는 자리에서 함수 본문을 실행하는 것은 아니다.
 
 ```text
 main: Application·응용 상태 생성 → 콜백 등록 → run(config)
@@ -391,8 +391,8 @@ screenRay로 근·원 클립면의 점을 역변환하고 각 표시 면의 삼�
 
 ### 13.1 구성과 프레임 순서
 
-- `include/Transform.h`, `detail/Transform.inl`: 반사·회전·이동·크기 행렬 및 경로 함수.
-- `include/Motion.h`, `detail/Motion.inl`: 시간에 따른 행렬 합성, 동작 식별자, 레이어 트리.
+- `include/Transform.h`, `detail/Transform.cpp`: 반사·회전·이동·크기 행렬 및 경로 함수.
+- `include/Motion.h`, `detail/Motion.cpp`: 시간에 따른 행렬 합성, 동작 식별자, 레이어 트리.
 - `Scene::getMotions()`: 해당 장면의 MotionSystem 참조. `Framework.h` 또는 `Graphics.h`로 공개된다.
 - `examples/motion.cpp`: 경로 선택, 공유 동작, 반사, 레이어 삽입·삭제, 클릭 피킹 예제. 다른 예제와 main이 중복되므로 하나만 프로젝트에 등록한다.
 

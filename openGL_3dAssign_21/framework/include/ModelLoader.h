@@ -84,8 +84,6 @@ public:
 };
 } // namespace graphics
 
-#include "../detail/PrimitiveLoader.inl"
-#include "../detail/ObjLoader.inl"
 namespace graphics {
 inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative,const LoadOptions& options) const { // loadObj() 호환 진입점. OBJ만 지원.
     return loadObj(relative,options);

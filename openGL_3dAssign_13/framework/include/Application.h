@@ -87,4 +87,3 @@ public:
 
 } // namespace graphics
 
-#include "../detail/Application.inl"

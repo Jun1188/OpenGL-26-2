@@ -55,4 +55,3 @@ public:
     static double smoothStep(double progress);
 };
 } // namespace graphics
-#include "../detail/Transform.inl"

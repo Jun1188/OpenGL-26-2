@@ -157,4 +157,3 @@ public:
     std::optional<MotionId> createPathAndSpin(const PathMotion& path, RotationMotion spin);
 };
 } // namespace graphics
-#include "../detail/Motion.inl"

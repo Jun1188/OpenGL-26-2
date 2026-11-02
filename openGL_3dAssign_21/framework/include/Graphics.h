@@ -204,5 +204,3 @@ public:
     void abandon() { shaderProgramID_=vao_=vbo_=ebo_=0;textures_.clear();drawRanges_.clear();uploadedScene_=nullptr;uploadedRevision_=std::numeric_limits<std::uint64_t>::max(); } // GL 호출 없이 핸들·캐시만 비운다. 자원은 창 파괴 시 회수.
 };
 } // namespace graphics
-#include "../detail/Scene.inl"
-#include "../detail/Renderer.inl"

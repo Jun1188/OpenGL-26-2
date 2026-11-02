@@ -92,8 +92,6 @@ public:
 };
 } // namespace graphics
 
-#include "../detail/PrimitiveLoader.inl"
-#include "../detail/ObjLoader.inl"
 namespace graphics {
 /// [API] 모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
 inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative,const LoadOptions& options) const {
