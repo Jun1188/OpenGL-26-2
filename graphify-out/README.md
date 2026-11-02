@@ -1,9 +1,9 @@
 ﻿# 저장소 코드 구조
 
-2026-10-17. regenerate.py는 framework-analysis/update_graph.py --scope repository를 호출한다. 코드 105개 파일을 분석한다. SDK·문서·PDF·과제별 프레임워크 복사본은 제외하고 루트 원본을 사용한다.
+2026-11-02. graphify AST와 기존 update_graph.py의 소스 앵커 절차로 코드 64개 파일을 분석했다. SDK·문서·PDF·중복 프레임워크는 제외했다. 실습 23에서 수정된 Patterns.inl/Patterns.h는 루트 프레임워크와 별도로 포함했다.
 
-PROJECTS.json은 각 실행 프로젝트와 조건부 main을 구분한다. EXECUTION_FLOW.md는 콜백 등록과 실행 순서·CPU→GPU 흐름이다. 같은 이름 메서드·간접 호출은 소스와 대조해야 한다. GRAPH_HEALTH.md의 미해결 관계는 분석 한계다.
+PROJECTS.json은 각 실행 프로젝트와 독립 예제의 진입점을 구분한다. EXECUTION_FLOW.md는 콜백 등록·실행 조건과 CPU → GPU 흐름을 설명한다. PRACTICE23.md는 이번 코드의 전체 변경 전후와 사용자 확인 절차다.
 
-SOURCE_MANIFEST/SOURCE_HASHES는 최종 소스 스냅샷이다. source_commit은 분석 시점의 HEAD이고 includes_uncommitted_changes=true로 해당 작업의 최종 소스를 포함한다. 문서 커밋 뒤 HEAD가 달라지는 것은 정상이다. 빌드·실행·테스트·벤치마크는 수행하지 않았다. cost.json의 0 tokens는 graphify 외부 의미 분석 비용이며 대화의 전체 토큰 사용량이 아니다.
+SOURCE_MANIFEST/SOURCE_HASHES는 생성 시점 작업 트리의 소스 스냅샷이다. source_commit은 그 시점 HEAD이며 includes_uncommitted_changes=true이다. 기존 사용자 변경도 입력에 포함되므로 이번 수정과 구분해야 한다.
 
-PRACTICE15.md와 TOPDOWN_13_14_15.md는 이전 버전 기록이다. 현재 설명은 EXECUTION_FLOW.md와 ../docs/practice-14-19/README.md를 우선한다.
+그래프는 2,083개 노드와 3,306개 관계다. 같은 이름·간접 호출의 관계는 실제 소스와 대조해야 한다. 빌드·실행·테스트·벤치마크·검증기·그래프 무결성 진단은 실행하지 않았다. cost.json의 0 tokens는 외부 의미 분석 API 비용이며 대화 토큰이 아니다.

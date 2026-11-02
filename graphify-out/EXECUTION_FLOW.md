@@ -1,14 +1,14 @@
 ﻿# 실행 프로젝트와 CPU → GPU 흐름
 
-소스와 graphify AST·정의·콜백 등록 앵커를 대조한 정적 구조 요약이다. 실행 결과를 관찰한 보고가 아니다. SDK와 과제별 프레임워크 사본은 그래프 입력에서 제외하고 루트 원본을 분석한다. 실제 프로젝트는 동일한 내부 배포본을 사용한다.
+소스와 graphify AST·정의·콜백 등록 앵커를 대조한 정적 구조 요약이다. 실행 결과를 관찰한 보고가 아니다. SDK와 중복 프레임워크 사본은 제외하고 루트 원본을 분석한다. 단, 실습 23의 수정된 Patterns.inl/Patterns.h는 별도 소스로 포함한다. 각 실행 프로젝트는 자기 폴더의 프레임워크를 컴파일하므로 루트 원본과의 차이를 소스에서 확인해야 한다.
 
 ## 독립 진입점
 
-현재 작업 트리에는 standard, openGL_sample0, 실습 15~20의 8개 실행 프로젝트가 있다. 각 main은 별도 실행 파일이다. framework/examples/{basic,assets,motion}.cpp는 별도로 프로젝트에 등록하는 독립 예제다. 현재 소스의 main에는 조건부 대체 진입점이 없다. PROJECTS.json은 실제 vcxproj 컴파일 소스와 진입점을 기록한다. 과거 문서의 워밍업·2D·실습 13·14 프로젝트는 현재 작업 트리에서 확인되지 않는다.
+2026-11-02 작업 트리에서 확인한 실행 프로젝트는 11개다: openGL_3dAssign_15, openGL_3dAssign_16, openGL_3dAssign_17, openGL_3dAssign_18, openGL_3dAssign_19, openGL_3dAssign_20, openGL_3dAssign_21, openGL_3dAssign_22, openGL_3dAssign_23, openGL_sample0, standard. 각 main은 별도 실행 파일이다. framework/examples/{basic,assets,motion}.cpp는 독립 예제다. PROJECTS.json은 vcxproj 컴파일 소스와 각 진입점의 위치·조건을 기록한다. 현재 inventory의 진입점에는 조건부 대체 main이 없다. sparse checkout으로 없는 프로젝트의 과거 상태는 이번 분석에 포함하지 않는다.
 
 - standard/main.cpp: Console 상태 생성 → init/key/mouse 콜백 등록 → Application::run. initScene은 Motion·레이어와 객체를 구성하고 onKey/onMouse가 입력·선택을 처리한다.
 - openGL_sample0/main.cpp: GLFW/GLEW 초기화 → 셰이더·VAO/VBO → 메시 읽기·검증 → 입력·카메라·프레임 루프 → 자원·창 해제. 이 프로젝트는 자체 MeshParser/MeshValidator를 사용한다.
-- openGL_3dAssign_15~20/main.cpp: 각각 Console 생성 → Application 콜백 등록 → run. 콜백 람다는 등록할 때 실행되지 않는다.
+- openGL_3dAssign_15~23/main.cpp: 각각 Console 생성 → Application 콜백 등록 → run. 콜백 람다는 등록할 때 실행되지 않는다.
 - framework/examples/basic.cpp, assets.cpp, motion.cpp: 각각 별도 main이다. assets는 loadObj를 호출하는 예제이며 다른 예제의 main과 함께 링크하지 않는다.
 
 ## 공통 3D 실행 순서
@@ -64,6 +64,28 @@ standard/standard.slnx는 standard/standard.vcxproj 하나를 연다. 컴파일 
 5. Renderer와 pick은 동봉 Scene::faceWorldMatrix의 결과를 공유한다. GPU의 VAO/VBO/EBO와 uModel/uMVP/uNormalMatrix 경로는 공통 프레임워크와 같다. 원본 root framework 코드가 아니라 standard/framework의 동일한 배포 코드를 컴파일한다.
 6. 종료·예외는 기존 Application 자원 정리로 이어지고 run이 끝날 때 Console·Application 수명이 끝난다.
 
-분석에서는 root framework만 추출하고 standard/framework는 중복 제외한다. 코드 113개 파일을 graphify AST와 정의 앵커로 분석했다. 표준 프로젝트의 등록 콜백 간선은 standard/main.cpp와 Console.cpp의 소스 위치에 연결했다. 그래프 3368노드·5348간선은 구조 수치이며 실행·컴파일·피킹 성공의 증거가 아니다. 미해결 끝점과 동적 연결의 한계는 GRAPH_HEALTH.md에 남긴다.
+2026-11-02 갱신에서는 코드 64개 파일을 분석했다. standard/framework는 중복 제외하고, 실습 23에서 수정한 Patterns 구현·선언은 별도 포함한다. 2,083노드·3,306관계는 구조 수치이며 실행·컴파일·피킹 성공의 증거가 아니다. 그래프 무결성 진단은 사용자 지침에 따라 실행하지 않았다.
 
 OBJ 정의·호출·CPU→GPU 경계는 [현재 OBJ 구조 요약](../docs/obj-loader/ARCHITECTURE.md)을 따른다.
+
+
+## 실습 20~23과 벽 변경 (2026-11-02)
+
+이 절은 graphify AST·정의 앵커와 각 Console.cpp/main.cpp의 소스를 대조한 요약이다. 추출기의 같은 이름 메서드 연결은 확정 호출로 취급하지 않는다. 기존 사용자 변경도 작업 트리 입력에 포함되며 이번 수정으로 분류하지 않는다.
+
+- 20: main은 init/key/focus/update 콜백을 등록한 뒤 Application::run을 호출한다. initScene이 상자·컨베이어를 생성하고, onKey가 상태를 설정한다. onUpdate는 clock_.advance → placeMovingObjects와 카메라 공전을 처리한다. Scene의 Motion은 공통 run에서 갱신한다.
+- 21: main은 init/key/mouse/cursor/focus/update를 등록한다. initScene은 방·충돌 물체를 생성한다. 입력과 드래그가 방 회전·개방 상태를 바꾸고, onUpdate는 roomWorld → CollisionSystem::stepRoomBody → syncScene으로 표시 변환을 갱신한다.
+- 22: main은 init/key/update/focus/render를 등록한다. initScene → reset이 관절·상자를 생성한다. 입력 후 onUpdate → apply가 이동·관절·카메라를 갱신한다. onRender → PatternSystem::threeViews → Application::renderViews가 같은 장면의 세 뷰를 출력한다. 프레임버퍼가 너무 작으면 render 콜백은 뷰 생성을 건너뛴다.
+- 23: main은 Application·Console을 생성하고 init/key/update를 등록한 뒤 run한다. 등록 시 람다 본문은 실행되지 않는다. run의 initialize 뒤 initScene이 방·걷기 관절·장애물·카메라를 생성한다. 방은 Front 컬링을 쓰고 별도 윤곽선을 요청하지 않는다.
+
+### 실습 23의 입력 → 변환 → 출력
+
+1. `main.cpp`의 수정 키 콜백 → `Console.cpp::onKey`: O를 누르면 cameraFacingWall로 벽을 선택하거나 activeWall의 열기 방향을 반전한다. cameraFacingWall은 `framework/detail/Patterns.inl`에 정의되어 있다. 이미 선택한 벽은 카메라를 옮겨도 유지한다.
+2. 공통 `framework/detail/Application.inl::Application::run`은 PollEvents 뒤 유효 프레임버퍼에서 onUpdate를 호출한다. `Console.cpp::onUpdate`는 stepCharacter·poseWalkingRig 뒤 doors_를 [0,1]로 갱신하고 같은 폴더 프레임워크의 openRoomWall을 호출한다.
+3. `framework/detail/Patterns.inl::PatternSystem::openRoomWall`은 원래 로컬 정점의 평균을 구한다. `framework/detail/Transform.inl::TransformSystem::scaling`으로 T(center) S(1-progress) T(-center)를 만든다. localVertices 자체를 누적 수정하지 않는다. 0은 원래 크기, 1은 숨김이다. 역행렬을 위해 최소 양수 배율 0.001을 유지한다.
+4. `framework/detail/Scene.inl::Scene::setFaceLocalMatrix`가 면의 localAnimationMatrix를 저장하고 setFaceVisible이 완전 개방의 숨김을 저장한다. `Scene::faceWorldMatrix`가 렌더링에서 쓸 면의 최종 행렬을 계산한다.
+5. onUpdate 뒤 공통 run은 Scene::updateMotions를 호출한 후 renderScene → `framework/detail/Renderer.inl::Renderer::render` → renderViews/renderPass → upload/draw 경로를 사용한다. upload는 정점/색/UV/법선을 VBO·EBO·VAO에 전달한다. 면의 애니메이션 행렬은 uniform으로 전달하므로 원래 정점을 매 프레임 축소해서 저장하지 않는다.
+6. draw는 표시 면의 uMVP/uModel/uNormalMatrix를 설정한다. 기본 설정에서는 `framework/detail/Shaders.h`의 내장 셰이더를 사용하고, shaderDirectory를 지정한 경우 VertexShader.glsl/FragmentShader.glsl 파일을 사용한다. 정점 셰이더가 로컬 정점을 클립 좌표로 바꾸며, 래스터 단계에서 Front 면을 컬링한다. 프래그먼트 셰이더는 색·조명을 계산하고 깊이 처리 뒤 화면에 출력한다. GL_LINES는 면 컬링 대상이 아니므로 벽의 FeatureEdges 요청을 제거했다.
+7. 종료·예외는 Application::shutdown으로 이어진다. 자산·GPU 버퍼·프로그램·창·GLFW를 정리한다. 각 main의 실행과 자원 수명은 다른 프로젝트와 독립적이다.
+
+정적 소스에서 확인한 경로이며 실제 화면·입력·자원 해제 동작은 실행하지 않았다. 사용자 확인 절차는 ../openGL_3dAssign_23/USER_CHECKS.md를 따른다.

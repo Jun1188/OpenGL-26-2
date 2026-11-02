@@ -297,10 +297,15 @@ inline bool PatternSystem::openRoomWall(Scene& scene,EntityId room,std::size_t f
     const auto* mesh=scene.getMesh(room,face);
     if(!mesh || face>=4 || mesh->localVertices.empty())
         return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Scene,"openRoomWall","Select one of the four side walls of addRoom().");
-    glm::vec3 pivot(0);float top=mesh->localVertices.front().y;
-    for(const auto& vertex:mesh->localVertices) {pivot+=vertex;top=std::max(top,vertex.y);}
-    pivot/=float(mesh->localVertices.size());pivot.y=top;
-    return openFace(scene,room,face,progress,glm::vec3(0),pivot,true);
+    if(!std::isfinite(progress) || progress<0 || progress>1)
+        return Diagnostics::failAt(__FILE__,__LINE__,PipelineStage::Transform,"openRoomWall","Need progress in [0,1].");
+    glm::vec3 pivot(0);
+    for(const auto& vertex:mesh->localVertices) pivot+=vertex;
+    pivot/=float(mesh->localVertices.size());
+    // Fully open faces are hidden; retain a nonsingular matrix for normals/picking.
+    const float factor=std::max(1e-3f,1-progress);
+    const auto scale=TransformSystem::scaling(glm::vec3(factor),pivot);
+    return scale && scene.setFaceLocalMatrix(room,face,*scale) && scene.setFaceVisible(room,face,progress<1);
 }
 inline bool PatternSystem::swapModels(Scene& scene,EntityId first,EntityId second) {
     const auto* a=scene.getComponent(first);const auto* b=scene.getComponent(second);

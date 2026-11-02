@@ -55,6 +55,8 @@
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_22\\main.cpp",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\Console.cpp",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\Console.h",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\framework\\detail\\Patterns.inl",
+      "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\framework\\include\\Patterns.h",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\main.cpp",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\main.cpp",
       "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_sample0\\Mesh.h",
@@ -69,10 +71,10 @@
     "image": [],
     "video": []
   },
-  "total_files": 62,
-  "total_words": 32842,
+  "total_files": 64,
+  "total_words": 35504,
   "needs_graph": true,
-  "warning": "Large corpus: 475 files · ~3,270,080 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
+  "warning": "Large corpus: 476 files · ~3,148,863 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.",
   "skipped_sensitive": [],
   "unclassified": [
     "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\.gitattributes",

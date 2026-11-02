@@ -1,7 +1,7 @@
 ﻿{
   "source_root": ".",
   "scope": "repository",
-  "source_commit": "f49ee637043580f0c050e765c121c29ac6766378",
+  "source_commit": "1b0e5bd30b7485d3a51fcc1a880114841b2f2d0e",
   "includes_uncommitted_changes": true,
   "files": {
     "framework/detail/Application.inl": "473ecd1e555ce090443991cdc4c9a75a5aa6789cf282cfebcdbdf4eee0b22faf",
@@ -56,9 +56,11 @@
     "openGL_3dAssign_22/Console.cpp": "6d2e6bc73e41a44af417baae9cd463607ba5225b766a03bc4bcfbc83b3db3e1a",
     "openGL_3dAssign_22/Console.h": "f406aab63fc017b8be6382ca953360e15b93f5c0d10f70fa890a867373706109",
     "openGL_3dAssign_22/main.cpp": "2965526a97234d8fbdb14b4ee0f7b6c7ba2cde40a7c939b60db15cba14d1bd25",
-    "openGL_3dAssign_23/Console.cpp": "3c5684195b10bb79f6e542f58852a1f9d4d7a684fa1cb21527446929b1a72c78",
+    "openGL_3dAssign_23/Console.cpp": "0180a9209efe639cb062d94f285152bd8a6cd2db600e1e0ef1d9ba7028c20f21",
     "openGL_3dAssign_23/Console.h": "e9c50cd1382e8aa718236ffbca732f6d746fbcef6e316d6196d4d9722a8acf4a",
-    "openGL_3dAssign_23/main.cpp": "1331c61be82e1a12c6be221d799c4aed368bfdf7db5245f02641c9345d83ba9a",
+    "openGL_3dAssign_23/framework/detail/Patterns.inl": "088a5fdcd6e68e36a20082df19632d8ecc73cddef5e2be766e47c2125cf9dfbe",
+    "openGL_3dAssign_23/framework/include/Patterns.h": "ab7bd1c5f4e4a4f56eda24a64fec57d252ade94af07940c7dbaaf2468a5a6b2f",
+    "openGL_3dAssign_23/main.cpp": "735f91d907b879296eb501cf5636ae5fa4e95f4f9d3828e0ffacd3fc535d0e5b",
     "openGL_sample0/main.cpp": "0a41507cccd1bfdd7c9d67b0b9aaa9b27a4b9ecf9a476826006ccacb8d3dd6f5",
     "openGL_sample0/Mesh.h": "af44974a360f2ef065f94d7574ebc3d44a21346c6b40ef131b1059a77b078114",
     "openGL_sample0/MeshParser.cpp": "2f410a637b8c10965281bfa501e6805db2dd0928289b390d67708ca4d3d26d02",

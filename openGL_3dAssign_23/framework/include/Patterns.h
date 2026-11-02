@@ -100,7 +100,7 @@ public:
                          const glm::vec3& displacement,const glm::vec3& topPivot,bool scaleOpen);
     /// [API] 시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.
     static std::optional<std::size_t> cameraFacingWall(const Scene& scene,EntityId room,const Camera& camera);
-    /// [API] 선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
+    /// [API] 선택 옆벽의 정점 평균을 중심으로 균등 축소/복원한다. 진행률 1은 숨기고 0은 원래 크기로 복원한다.
     static bool openRoomWall(Scene& scene,EntityId room,std::size_t face,float progress);
     /// [API] 두 ID의 위치는 유지하고 모델을 교환한다.
     static bool swapModels(Scene& scene,EntityId first,EntityId second);

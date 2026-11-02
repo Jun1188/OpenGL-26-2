@@ -8481,6 +8481,14 @@
       "_origin": "ast"
     },
     {
+      "id": "opengl_3dassign_20_console_h_animationclock",
+      "label": "AnimationClock",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
       "id": "opengl_3dassign_20_console_console_clock",
       "label": "clock_",
       "file_type": "code",
@@ -8701,6 +8709,14 @@
       "_origin": "ast"
     },
     {
+      "id": "opengl_3dassign_21_console_h_roombody",
+      "label": "RoomBody",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
       "id": "opengl_3dassign_21_console_bodyobject_body",
       "label": "body",
       "file_type": "code",
@@ -8730,6 +8746,14 @@
       "file_type": "code",
       "source_file": "openGL_3dAssign_21/Console.h",
       "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_21_console_h_bounds3",
+      "label": "Bounds3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast"
     },
     {
@@ -9433,11 +9457,27 @@
       "_origin": "ast"
     },
     {
+      "id": "characterbody",
+      "label": "CharacterBody",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
       "id": "opengl_3dassign_23_console_console_body",
       "label": "body_",
       "file_type": "code",
       "source_file": "openGL_3dAssign_23/Console.h",
       "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "jointrig",
+      "label": "JointRig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast"
     },
     {
@@ -9467,6 +9507,14 @@
     {
       "id": "opengl_3dassign_23_console_h_vector",
       "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_console_h_bounds3",
+      "label": "Bounds3",
       "file_type": "code",
       "source_file": "",
       "source_location": "",
@@ -9594,7 +9642,7 @@
       "source_file": "openGL_3dAssign_23/Console.h",
       "source_location": "L19",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\Console.cpp",
-      "definition_location": "L35",
+      "definition_location": "L34",
       "_origin": "ast"
     },
     {
@@ -9604,7 +9652,702 @@
       "source_file": "openGL_3dAssign_23/Console.h",
       "source_location": "L20",
       "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\openGL_3dAssign_23\\Console.cpp",
-      "definition_location": "L64",
+      "definition_location": "L63",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns",
+      "label": "Patterns.h",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "label": "Bounds3",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L7",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "label": "vec3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3_minimum",
+      "label": "minimum",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3_maximum",
+      "label": "maximum",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3_valid",
+      "label": "valid",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3_contains",
+      "label": "contains",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_bounds3_overlaps",
+      "label": "overlaps",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "label": "PathPose",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_pathpose_position",
+      "label": "position",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_pathpose_tangent",
+      "label": "tangent",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_pathpose_yawdegrees",
+      "label": "yawDegrees",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "label": "DistancePath",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L17",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath_points",
+      "label": "points_",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath_distances",
+      "label": "distances_",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath_setpoints",
+      "label": "setPoints",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath_length",
+      "label": ".length()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L24",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_distancepath_sample",
+      "label": "sample",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "label": "AnimationClock",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L28",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_animationclock_seconds",
+      "label": "seconds",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_animationclock_playing",
+      "label": "playing",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_animationclock_advance",
+      "label": "advance",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_animationclock_reset",
+      "label": ".reset()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L34",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "label": "RoomBody",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L36",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_localposition",
+      "label": "localPosition",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_localvelocity",
+      "label": "localVelocity",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_halfextent",
+      "label": "halfExtent",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_worldposition",
+      "label": "worldPosition",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_worldvelocity",
+      "label": "worldVelocity",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_released",
+      "label": "released",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_roombody_position",
+      "label": ".position()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L41",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_mat4",
+      "label": "mat4",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "label": "CharacterBody",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L45",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_feet",
+      "label": "feet",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L46",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_direction",
+      "label": "direction",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L46",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_vec2",
+      "label": "vec2",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_halfwidth",
+      "label": "halfWidth",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L47",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_height",
+      "label": "height",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_speed",
+      "label": "speed",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_verticalspeed",
+      "label": "verticalSpeed",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_walkdistance",
+      "label": "walkDistance",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L49",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterbody_grounded",
+      "label": "grounded",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L50",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterstep",
+      "label": "CharacterStep",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterstep_blocked",
+      "label": "blocked",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterstep_turned",
+      "label": "turned",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_characterstep_landed",
+      "label": "landed",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "label": "CollisionSystem",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L53",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_collisionsystem_steproombody",
+      "label": "stepRoomBody",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_collisionsystem_jump",
+      "label": "jump",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L62",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_collisionsystem_stepcharacter",
+      "label": "stepCharacter",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L64",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_collisionsystem_randomfreebox",
+      "label": "randomFreeBox",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L67",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "label": "JointRig",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L70",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_entityid",
+      "label": "EntityId",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_jointrig_root",
+      "label": "root",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_jointrig_head",
+      "label": "head",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_h_array",
+      "label": "array",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_jointrig_shoulders",
+      "label": "shoulders",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_jointrig_hips",
+      "label": "hips",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "label": "PatternSystem",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L74",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_conveyorcornerpose",
+      "label": "conveyorCornerPose",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L77",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addbox",
+      "label": "addBox",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L79",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addpolygon",
+      "label": "addPolygon",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L82",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addroom",
+      "label": "addRoom",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L85",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addjoint",
+      "label": "addJoint",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L87",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_rotatejoint",
+      "label": "rotateJoint",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L89",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_follow",
+      "label": "follow",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L91",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addnumber",
+      "label": "addNumber",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L94",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_foldface",
+      "label": "foldFace",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L97",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_openface",
+      "label": "openFace",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_camerafacingwall",
+      "label": "cameraFacingWall",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L102",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_openroomwall",
+      "label": "openRoomWall",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L104",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_swapmodels",
+      "label": "swapModels",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L106",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_snakecells",
+      "label": "snakeCells",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L108",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_aligned",
+      "label": "aligned",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L110",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_snap",
+      "label": "snap",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L112",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_screenonplane",
+      "label": "screenOnPlane",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L114",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_movecamera",
+      "label": "moveCamera",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L117",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_yawcamera",
+      "label": "yawCamera",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L119",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_orbitcamera",
+      "label": "orbitCamera",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L121",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_zoomcamera",
+      "label": "zoomCamera",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L123",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_threeviews",
+      "label": "threeViews",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L125",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_addwalkingrig",
+      "label": "addWalkingRig",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L128",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_include_patterns_patternsystem_posewalkingrig",
+      "label": "poseWalkingRig",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L130",
       "_origin": "ast"
     },
     {
@@ -10741,11 +11484,27 @@
       "_origin": "ast"
     },
     {
+      "id": "standard_console_h_animationclock",
+      "label": "AnimationClock",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
       "id": "standard_console_console_clock",
       "label": "clock_",
       "file_type": "code",
       "source_file": "standard/Console.h",
       "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "distancepath",
+      "label": "DistancePath",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast"
     },
     {
@@ -10778,6 +11537,14 @@
       "file_type": "code",
       "source_file": "standard/Console.h",
       "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_console_h_roombody",
+      "label": "RoomBody",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
       "_origin": "ast"
     },
     {
@@ -13687,6 +14454,530 @@
       "_origin": "ast"
     },
     {
+      "id": "opengl_3dassign_23_framework_detail_patterns",
+      "label": "Patterns.inl",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "label": "PatternSystem::conveyorCornerPose()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "optional",
+      "label": "optional",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "pathpose",
+      "label": "PathPose",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "vec3",
+      "label": "vec3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_bounds3_valid",
+      "label": "Bounds3::valid()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L18",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_bounds3_contains",
+      "label": "Bounds3::contains()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_bounds3_overlaps",
+      "label": "Bounds3::overlaps()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L29",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "bounds3",
+      "label": "Bounds3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_distancepath_setpoints",
+      "label": "DistancePath::setPoints()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "label": "DistancePath::sample()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "playback",
+      "label": "Playback",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_animationclock_advance",
+      "label": "AnimationClock::advance()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L67",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "label": "rigidRoom()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L73",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "mat4",
+      "label": "mat4",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "label": "horizontalOverlap()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L80",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "characterbody",
+      "label": "CharacterBody",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "label": "CollisionSystem::stepRoomBody()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "roombody",
+      "label": "RoomBody",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_jump",
+      "label": "CollisionSystem::jump()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L133",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "label": "CollisionSystem::stepCharacter()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "characterstep",
+      "label": "CharacterStep",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "label": "CollisionSystem::randomFreeBox()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "mt19937",
+      "label": "mt19937",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "label": "PatternSystem::addBox()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "entityid",
+      "label": "EntityId",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "scene",
+      "label": "Scene",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "glcolor",
+      "label": "GlColor",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "label": "PatternSystem::addPolygon()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "label": "PatternSystem::addRoom()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "label": "PatternSystem::addJoint()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_rotatejoint",
+      "label": "PatternSystem::rotateJoint()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "label": "PatternSystem::follow()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "distancepath",
+      "label": "DistancePath",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "label": "PatternSystem::addNumber()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "label": "PatternSystem::foldFace()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "size_t",
+      "label": "size_t",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "axisline",
+      "label": "AxisLine",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "label": "PatternSystem::openFace()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "label": "PatternSystem::cameraFacingWall()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "camera",
+      "label": "Camera",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "label": "PatternSystem::openRoomWall()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_swapmodels",
+      "label": "PatternSystem::swapModels()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snakecells",
+      "label": "PatternSystem::snakeCells()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "ivec3",
+      "label": "ivec3",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_aligned",
+      "label": "PatternSystem::aligned()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L325",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snap",
+      "label": "PatternSystem::snap()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "label": "PatternSystem::screenOnPlane()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "pickviewport",
+      "label": "PickViewport",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_movecamera",
+      "label": "PatternSystem::moveCamera()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_yawcamera",
+      "label": "PatternSystem::yawCamera()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L351",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_orbitcamera",
+      "label": "PatternSystem::orbitCamera()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_zoomcamera",
+      "label": "PatternSystem::zoomCamera()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L367",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "label": "PatternSystem::threeViews()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "renderpass",
+      "label": "RenderPass",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "renderoptions",
+      "label": "RenderOptions",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "label": "PatternSystem::addWalkingRig()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "jointrig",
+      "label": "JointRig",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "gridlayout",
+      "label": "GridLayout",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "label": "PatternSystem::poseWalkingRig()",
+      "file_type": "code",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "review_file_b6882c3b13f4df310724",
       "label": "framework/detail/Application.inl",
       "source_file": "framework/detail/Application.inl",
@@ -16451,19 +17742,19 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_3ef7d3e5277de3bf389e",
+      "id": "source_768a798c91bc0270b73e",
       "label": "Console::onKey",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L35",
+      "source_location": "L34",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_57483dd865f5b80e45cd",
+      "id": "source_7eee6c58b5593e6e4533",
       "label": "Console::onUpdate",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L64",
+      "source_location": "L63",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -16472,6 +17763,328 @@
       "id": "review_file_5aeeeb3d1f458bc99ec5",
       "label": "openGL_3dAssign_23/Console.h",
       "source_file": "openGL_3dAssign_23/Console.h",
+      "source_location": "L1",
+      "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "review_file_8042a9e35ab0d959b37c",
+      "label": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L1",
+      "file_type": "code",
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_016284df29e30eb4e1cd",
+      "label": "PatternSystem::conveyorCornerPose",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_9b66c7fbb13711958e01",
+      "label": "Bounds3::valid",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L18",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_17d59cdf3ccde39a2cb1",
+      "label": "Bounds3::contains",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_5ffef13ee41a52f18827",
+      "label": "Bounds3::overlaps",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L29",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_aada08c7914445acd80d",
+      "label": "DistancePath::setPoints",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_6a6448c127bbbf353d13",
+      "label": "DistancePath::sample",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_3d8ae4d3a4065e429405",
+      "label": "AnimationClock::advance",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L67",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_9b674138754cfb9f3e90",
+      "label": "CollisionSystem::stepRoomBody",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_3716af4d8c2fcf4a5e3b",
+      "label": "CollisionSystem::jump",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L133",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_d115c5e2d37892d7ce18",
+      "label": "CollisionSystem::stepCharacter",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_c39cfaaafc51be3cce88",
+      "label": "CollisionSystem::randomFreeBox",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_f16a4cb2f9caa2203498",
+      "label": "PatternSystem::addBox",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_874c93467821cd10e6c8",
+      "label": "PatternSystem::addPolygon",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_2e1841d6bb03b64b4f5f",
+      "label": "PatternSystem::addRoom",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_1b49fed334f510a6d4a7",
+      "label": "PatternSystem::addJoint",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_10e03d4806650ed9bd44",
+      "label": "PatternSystem::rotateJoint",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_32fd8879966cac359867",
+      "label": "PatternSystem::follow",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_3cdb7e692daa84e37a3e",
+      "label": "PatternSystem::addNumber",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_f0126cd15ad13495eb26",
+      "label": "PatternSystem::foldFace",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_4e96bc92d76d83279966",
+      "label": "PatternSystem::openFace",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_7cddc28f4e198a63f55b",
+      "label": "PatternSystem::cameraFacingWall",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_144266ce4ee033a6309e",
+      "label": "PatternSystem::openRoomWall",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_32b008816b9af9b5eb05",
+      "label": "PatternSystem::swapModels",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_bce1321f86380a72fb2d",
+      "label": "PatternSystem::snakeCells",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_6df3e938a6b723c76ac6",
+      "label": "PatternSystem::aligned",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L325",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_d8b1b4a38aaac53778b3",
+      "label": "PatternSystem::snap",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_fdca592e3ca77f023f72",
+      "label": "PatternSystem::screenOnPlane",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_aee55e90de9ddc37c09b",
+      "label": "PatternSystem::moveCamera",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_4142b5745d9ec48e9331",
+      "label": "PatternSystem::yawCamera",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L351",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_0a6d05253be304b9d735",
+      "label": "PatternSystem::orbitCamera",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_caa04aa8e3d48b80d1c7",
+      "label": "PatternSystem::zoomCamera",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L367",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_130a90420a1ad5f8558c",
+      "label": "PatternSystem::threeViews",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_22a699571e94d4e45bef",
+      "label": "PatternSystem::addWalkingRig",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "source_194880a1301b2957fe9d",
+      "label": "PatternSystem::poseWalkingRig",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "file_type": "code",
+      "_callable": true,
+      "_origin": "source_definition_review"
+    },
+    {
+      "id": "review_file_da10ccc7fd5f037dbcce",
+      "label": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
       "source_location": "L1",
       "file_type": "code",
       "_origin": "source_definition_review"
@@ -32724,7 +34337,7 @@
     },
     {
       "source": "opengl_3dassign_20_console_console",
-      "target": "framework_include_patterns_animationclock",
+      "target": "opengl_3dassign_20_console_h_animationclock",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_20/Console.h",
@@ -33236,7 +34849,7 @@
     },
     {
       "source": "opengl_3dassign_21_console_bodyobject",
-      "target": "framework_include_patterns_roombody",
+      "target": "opengl_3dassign_21_console_h_roombody",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_21/Console.h",
@@ -33302,7 +34915,7 @@
     },
     {
       "source": "opengl_3dassign_21_console_console",
-      "target": "framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_21_console_h_bounds3",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_21/Console.h",
@@ -34554,7 +36167,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L35",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -34564,7 +36177,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L64",
+      "source_location": "L63",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -34575,7 +36188,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L41",
+      "source_location": "L40",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -34586,7 +36199,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L69",
+      "source_location": "L68",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -34624,7 +36237,7 @@
     },
     {
       "source": "opengl_3dassign_23_console_console",
-      "target": "framework_include_patterns_characterbody",
+      "target": "characterbody",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.h",
@@ -34646,7 +36259,7 @@
     },
     {
       "source": "opengl_3dassign_23_console_console",
-      "target": "framework_include_patterns_jointrig",
+      "target": "jointrig",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.h",
@@ -34701,7 +36314,7 @@
     },
     {
       "source": "opengl_3dassign_23_console_console",
-      "target": "framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_console_h_bounds3",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.h",
@@ -34723,7 +36336,7 @@
     },
     {
       "source": "opengl_3dassign_23_console_console",
-      "target": "framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_console_h_bounds3",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.h",
@@ -34905,6 +36518,1027 @@
       "source_location": "L20",
       "weight": 1.0,
       "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_application",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_gridlayout",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "random",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3_minimum",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3_maximum",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3_valid",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3_contains",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_bounds3",
+      "target": "opengl_3dassign_23_framework_include_patterns_bounds3_overlaps",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "target": "opengl_3dassign_23_framework_include_patterns_pathpose_position",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "target": "opengl_3dassign_23_framework_include_patterns_pathpose_tangent",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_pathpose",
+      "target": "opengl_3dassign_23_framework_include_patterns_pathpose_yawdegrees",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath_points",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath_distances",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath_setpoints",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath_length",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_distancepath",
+      "target": "opengl_3dassign_23_framework_include_patterns_distancepath_sample",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "target": "opengl_3dassign_23_framework_include_patterns_animationclock_seconds",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "target": "opengl_3dassign_23_framework_include_patterns_animationclock_playing",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L30",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "target": "opengl_3dassign_23_framework_include_patterns_animationclock_advance",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L32",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_animationclock",
+      "target": "opengl_3dassign_23_framework_include_patterns_animationclock_reset",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_localposition",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_localvelocity",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_halfextent",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_worldposition",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_worldvelocity",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_released",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L39",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody",
+      "target": "opengl_3dassign_23_framework_include_patterns_roombody_position",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody_position",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody_position",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_mat4",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L41",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L46",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_feet",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L46",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_direction",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L46",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_halfwidth",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_height",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_speed",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_verticalspeed",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_walkdistance",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterbody",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterbody_grounded",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L50",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterstep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterstep",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterstep_blocked",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterstep",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterstep_turned",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_characterstep",
+      "target": "opengl_3dassign_23_framework_include_patterns_characterstep_landed",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_collisionsystem_steproombody",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L57",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_collisionsystem_jump",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L62",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_collisionsystem_stepcharacter",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L64",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_collisionsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_collisionsystem_randomfreebox",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L70",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_jointrig_root",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_jointrig_head",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L71",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_array",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_jointrig_shoulders",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_jointrig",
+      "target": "opengl_3dassign_23_framework_include_patterns_jointrig_hips",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L72",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_conveyorcornerpose",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L77",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addbox",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L79",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addpolygon",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L82",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addroom",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addjoint",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L87",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_rotatejoint",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L89",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_follow",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L91",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addnumber",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L94",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_foldface",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L97",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_openface",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L99",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_camerafacingwall",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L102",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_openroomwall",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L104",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_swapmodels",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L106",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_snakecells",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L108",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_aligned",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L110",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_snap",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L112",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_screenonplane",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L114",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_movecamera",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L117",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_yawcamera",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L119",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_orbitcamera",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L121",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_zoomcamera",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L123",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_threeviews",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L125",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_addwalkingrig",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L128",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_patternsystem",
+      "target": "opengl_3dassign_23_framework_include_patterns_patternsystem_posewalkingrig",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L130",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L134",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_include_patterns_roombody_position",
+      "target": "opengl_3dassign_23_framework_include_patterns_h_vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/include/Patterns.h",
+      "source_location": "L42",
+      "weight": 1.0,
       "_origin": "ast"
     },
     {
@@ -37785,7 +40419,7 @@
     },
     {
       "source": "standard_console_console",
-      "target": "framework_include_patterns_animationclock",
+      "target": "standard_console_h_animationclock",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "standard/Console.h",
@@ -37807,7 +40441,7 @@
     },
     {
       "source": "standard_console_console",
-      "target": "framework_include_patterns_distancepath",
+      "target": "distancepath",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "standard/Console.h",
@@ -37862,7 +40496,7 @@
     },
     {
       "source": "standard_console_console",
-      "target": "framework_include_patterns_roombody",
+      "target": "standard_console_h_roombody",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "standard/Console.h",
@@ -39153,7 +41787,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L61",
+      "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -40130,18 +42764,6 @@
       "_origin": "ast"
     },
     {
-      "source": "opengl_3dassign_21_console_console_addball",
-      "target": "framework_include_patterns_bounds3_overlaps",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "openGL_3dAssign_21/Console.cpp",
-      "source_location": "L93",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
       "source": "opengl_3dassign_21_main_main",
       "target": "framework_include_application_application_setinithandler",
       "relation": "calls",
@@ -40294,18 +42916,6 @@
       "confidence_score": 0.8,
       "source_file": "openGL_3dAssign_22/main.cpp",
       "source_location": "L20",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "opengl_3dassign_23_console_console_initscene",
-      "target": "framework_include_patterns_bounds3",
-      "relation": "references",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L28",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -49074,6 +51684,1950 @@
       "_origin": "ast"
     },
     {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "pathpose",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_bounds3_valid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_bounds3_contains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_bounds3_contains",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_bounds3_contains",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_bounds3_overlaps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_bounds3_overlaps",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_distancepath_setpoints",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_setpoints",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_setpoints",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "target": "pathpose",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "target": "playback",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_animationclock_advance",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "target": "mat4",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L73",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "target": "characterbody",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "roombody",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "mat4",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_jump",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_jump",
+      "target": "characterbody",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "characterstep",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "characterbody",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "mt19937",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "glcolor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addbox",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "glcolor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addroom",
+      "target": "bounds3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addjoint",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_rotatejoint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_rotatejoint",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_rotatejoint",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_rotatejoint",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "distancepath",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "glcolor",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "target": "size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_foldface",
+      "target": "axisline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "target": "size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_camerafacingwall",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "target": "size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_swapmodels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_swapmodels",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_swapmodels",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_swapmodels",
+      "target": "entityid",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snakecells",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snakecells",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snakecells",
+      "target": "ivec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snakecells",
+      "target": "ivec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_aligned",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L325",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snap",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snap",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snap",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "pickviewport",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_movecamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_movecamera",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_movecamera",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_yawcamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L351",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_yawcamera",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L351",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_orbitcamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_orbitcamera",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_orbitcamera",
+      "target": "axisline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_zoomcamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L367",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_zoomcamera",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L367",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "target": "vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "target": "renderpass",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "target": "camera",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "target": "renderoptions",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "optional",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "jointrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "gridlayout",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns",
+      "target": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "scene",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "jointrig",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "vec3",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "target": "size_t",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_distancepath_sample",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L105",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L159",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "opengl_3dassign_23_framework_detail_patterns_horizontaloverlap",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "mat4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L250",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_follow",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L250",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addnumber",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L259",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openface",
+      "target": "mat4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L276",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_openroomwall",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L307",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_snap",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L334",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L344",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_yawcamera",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L356",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_orbitcamera",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L362",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_threeviews",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L382",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "opengl_3dassign_23_framework_detail_patterns_rigidroom",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L389",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_addwalkingrig",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L392",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "mat4",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L414",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "opengl_3dassign_23_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "vec3",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L414",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "review_file_b6882c3b13f4df310724",
       "target": "source_67bb6c006b2513ee450b",
       "relation": "defines",
@@ -51155,19 +55709,291 @@
     },
     {
       "source": "review_file_72cdfe2a29829f55d902",
-      "target": "source_3ef7d3e5277de3bf389e",
+      "target": "source_768a798c91bc0270b73e",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L35"
+      "source_location": "L34"
     },
     {
       "source": "review_file_72cdfe2a29829f55d902",
-      "target": "source_57483dd865f5b80e45cd",
+      "target": "source_7eee6c58b5593e6e4533",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/Console.cpp",
-      "source_location": "L64"
+      "source_location": "L63"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_016284df29e30eb4e1cd",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L6"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_9b66c7fbb13711958e01",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L18"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_17d59cdf3ccde39a2cb1",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L22"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_5ffef13ee41a52f18827",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L29"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_aada08c7914445acd80d",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L33"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_6a6448c127bbbf353d13",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L48"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_3d8ae4d3a4065e429405",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L67"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_9b674138754cfb9f3e90",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L85"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_3716af4d8c2fcf4a5e3b",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L133"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_d115c5e2d37892d7ce18",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L138"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_c39cfaaafc51be3cce88",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L192"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_f16a4cb2f9caa2203498",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L207"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_874c93467821cd10e6c8",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L217"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_2e1841d6bb03b64b4f5f",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L228"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_1b49fed334f510a6d4a7",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L236"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_10e03d4806650ed9bd44",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L241"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_32fd8879966cac359867",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L246"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_3cdb7e692daa84e37a3e",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L253"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_f0126cd15ad13495eb26",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L264"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_4e96bc92d76d83279966",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L267"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_7cddc28f4e198a63f55b",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L278"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_144266ce4ee033a6309e",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L296"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_32b008816b9af9b5eb05",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L310"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_bce1321f86380a72fb2d",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L318"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_6df3e938a6b723c76ac6",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L325"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_d8b1b4a38aaac53778b3",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L330"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_fdca592e3ca77f023f72",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L337"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_aee55e90de9ddc37c09b",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L346"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_4142b5745d9ec48e9331",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L351"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_0a6d05253be304b9d735",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L360"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_caa04aa8e3d48b80d1c7",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L367"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_130a90420a1ad5f8558c",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L375"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_22a699571e94d4e45bef",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L388"
+    },
+    {
+      "source": "review_file_8042a9e35ab0d959b37c",
+      "target": "source_194880a1301b2957fe9d",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "openGL_3dAssign_23/framework/detail/Patterns.inl",
+      "source_location": "L406"
     },
     {
       "source": "review_file_67d1d765d7b72b6ad095",
@@ -51605,7 +56431,7 @@
     },
     {
       "source": "source_3a2b3a50d2414dd774f7",
-      "target": "source_3ef7d3e5277de3bf389e",
+      "target": "source_768a798c91bc0270b73e",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/main.cpp",
@@ -51614,7 +56440,7 @@
     },
     {
       "source": "source_3a2b3a50d2414dd774f7",
-      "target": "source_57483dd865f5b80e45cd",
+      "target": "source_7eee6c58b5593e6e4533",
       "relation": "registered_callback_body_calls",
       "confidence": "EXTRACTED",
       "source_file": "openGL_3dAssign_23/main.cpp",
