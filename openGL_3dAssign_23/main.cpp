@@ -1,7 +1,9 @@
 ﻿#include "Console.h"
 #include <iostream>
+#include <Windows.h>
 /// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     try {
         graphics::Application app;Console practice(app);
         app.setInitHandler([&](graphics::Application&){return practice.initScene();});
