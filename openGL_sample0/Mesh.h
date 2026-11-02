@@ -83,7 +83,9 @@ public:
 };
 class MeshReporter {
 public:
+    /// 메시 검사 결과와 오류를 출력한다.
     void print(const ParseResult& parsed, const ValidationResult& validated) const;
+    /// 메시 검사 결과와 오류를 출력한다.
     void print(const ParseResult& parsed, const ValidationResult& validated, std::ostream& output) const;
 };
 /// 파싱과 검사 결과가 성공했는지 반환한다.

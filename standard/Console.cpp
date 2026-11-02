@@ -344,7 +344,6 @@ bool Console::initAnimation() {
     animation_.push_back(*track);
     app_.getCamera() = graphics::Camera{};
     app_.getCamera().position = {8, 5, 10}; app_.getCamera().target = {0, 1.4f, 0};
-    app_.getRenderOptions().lighting = true;
     std::cout << "9: 노란 상자는 4초 편도 선형보간, 그네는 3초 주기 진자, 좌석의 사람은 계층 변환을 따릅니다.\n";
     return graphics::AnimationSystem::poseHierarchy(scene, animation_, 0);
 }

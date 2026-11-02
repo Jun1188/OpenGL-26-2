@@ -1,0 +1,386 @@
+﻿{
+  "framework/detail/Animation.inl": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.4992597,
+    "ast_hash": "1342fd7823c43ad0a4f4c787793dcaf0",
+    "semantic_hash": ""
+  },
+  "framework/detail/Application.inl": {
+    "mtime": 1793542095.735091,
+    "seen": 1793589797.4992685,
+    "ast_hash": "1f8102db094f7f0fcf63c5ce0ece3d44",
+    "semantic_hash": ""
+  },
+  "framework/detail/Motion.inl": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.499272,
+    "ast_hash": "859f78c8395e17f1355c441b9b2b6f34",
+    "semantic_hash": ""
+  },
+  "framework/detail/Native.h": {
+    "mtime": 1793538277.0271292,
+    "seen": 1793589797.4992745,
+    "ast_hash": "ad810f08088a1eb362f29f4c243b691f",
+    "semantic_hash": ""
+  },
+  "framework/detail/ObjLoader.inl": {
+    "mtime": 1793537976.5085487,
+    "seen": 1793589797.4992769,
+    "ast_hash": "9abb385a79fbf080210179cd4122092f",
+    "semantic_hash": ""
+  },
+  "framework/detail/Patterns.inl": {
+    "mtime": 1793541772.559744,
+    "seen": 1793589797.4992788,
+    "ast_hash": "ad7342cb717c01e658927c7287136dc2",
+    "semantic_hash": ""
+  },
+  "framework/detail/PrimitiveLoader.inl": {
+    "mtime": 1793537976.516529,
+    "seen": 1793589797.4992812,
+    "ast_hash": "0de7dbe59c6ca5efd396c74ca436fb57",
+    "semantic_hash": ""
+  },
+  "framework/detail/Renderer.inl": {
+    "mtime": 1793538952.8803055,
+    "seen": 1793589797.4992833,
+    "ast_hash": "258db3cbbd6579dbc78959f8711ecbdc",
+    "semantic_hash": ""
+  },
+  "framework/detail/Scene.inl": {
+    "mtime": 1793537976.516529,
+    "seen": 1793589797.499286,
+    "ast_hash": "18d43980b856ab08b2c503e20145de69",
+    "semantic_hash": ""
+  },
+  "framework/detail/Shaders.h": {
+    "mtime": 1793537976.516529,
+    "seen": 1793589797.4992883,
+    "ast_hash": "ba516e2c76055a0afe0c5ca593677faa",
+    "semantic_hash": ""
+  },
+  "framework/detail/Transform.inl": {
+    "mtime": 1793537976.516529,
+    "seen": 1793589797.4992907,
+    "ast_hash": "4e74883489099c5aa8d4b95954afd4e7",
+    "semantic_hash": ""
+  },
+  "framework/examples/assets.cpp": {
+    "mtime": 1792671970.7218602,
+    "seen": 1793589797.4992929,
+    "ast_hash": "486d8bcc550863f99036f57a14f13b36",
+    "semantic_hash": ""
+  },
+  "framework/examples/basic.cpp": {
+    "mtime": 1792227229.9696531,
+    "seen": 1793589797.499295,
+    "ast_hash": "fe7baf339ab2548ef36d1e2697211775",
+    "semantic_hash": ""
+  },
+  "framework/examples/motion.cpp": {
+    "mtime": 1792655115.6862926,
+    "seen": 1793589797.4992971,
+    "ast_hash": "2d4569c2aff114f4bfdd03d3eafd5d5a",
+    "semantic_hash": ""
+  },
+  "framework/Framework.h": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.4992993,
+    "ast_hash": "5d7519e527ab7e883d02d62057b4746e",
+    "semantic_hash": ""
+  },
+  "framework/include/Animation.h": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.4993014,
+    "ast_hash": "134eb93c6653ff9688e626603bc54063",
+    "semantic_hash": ""
+  },
+  "framework/include/Application.h": {
+    "mtime": 1793543419.9167,
+    "seen": 1793589797.4993033,
+    "ast_hash": "4ccf7ba2296ffe025f75aa3c1f178a92",
+    "semantic_hash": ""
+  },
+  "framework/include/Diagnostics.h": {
+    "mtime": 1793543419.9511836,
+    "seen": 1793589797.4993055,
+    "ast_hash": "81fda9ee9be3cb10b70f4b3bcd2fcc21",
+    "semantic_hash": ""
+  },
+  "framework/include/Geometry.h": {
+    "mtime": 1793543420.0094874,
+    "seen": 1793589797.4993079,
+    "ast_hash": "ff615fe01cebccac98dcaf71876f9ec1",
+    "semantic_hash": ""
+  },
+  "framework/include/Graphics.h": {
+    "mtime": 1793543420.0536194,
+    "seen": 1793589797.49931,
+    "ast_hash": "49a8eae3d2e6be544518ecc50ed99c80",
+    "semantic_hash": ""
+  },
+  "framework/include/GridLayout.h": {
+    "mtime": 1793543420.0763402,
+    "seen": 1793589797.4993122,
+    "ast_hash": "540c210c45c26d36f15cbc612e3eba72",
+    "semantic_hash": ""
+  },
+  "framework/include/Model.h": {
+    "mtime": 1793543420.0878017,
+    "seen": 1793589797.4993138,
+    "ast_hash": "89e0a45985cebea7c10a00baaa6c1971",
+    "semantic_hash": ""
+  },
+  "framework/include/ModelLoader.h": {
+    "mtime": 1793543420.1064892,
+    "seen": 1793589797.499317,
+    "ast_hash": "ddd83a4c6b9416be9f5d140008e7e20f",
+    "semantic_hash": ""
+  },
+  "framework/include/Motion.h": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.499319,
+    "ast_hash": "0552e23d16755da948b0a9a7ef803143",
+    "semantic_hash": ""
+  },
+  "framework/include/Patterns.h": {
+    "mtime": 1793543420.165474,
+    "seen": 1793589797.499321,
+    "ast_hash": "2a4cc1766b3448220a67e5e8f74c8a89",
+    "semantic_hash": ""
+  },
+  "framework/include/Picking.h": {
+    "mtime": 1793543420.1832335,
+    "seen": 1793589797.4993236,
+    "ast_hash": "d76ee9083c6475b51cc4a57b0b928a2e",
+    "semantic_hash": ""
+  },
+  "framework/include/Texture.h": {
+    "mtime": 1793537976.4967282,
+    "seen": 1793589797.499326,
+    "ast_hash": "5441fb7bc85cbf84e4a4456dab7584bb",
+    "semantic_hash": ""
+  },
+  "framework/include/Transform.h": {
+    "mtime": 1793543420.20729,
+    "seen": 1793589797.4993277,
+    "ast_hash": "9b98a45dd8231e9c0654b70ec749d853",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_15/Console.cpp": {
+    "mtime": 1793588729.4796607,
+    "seen": 1793589797.4993298,
+    "ast_hash": "cff8269b4ccb5f618072ff0f247a3db2",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_15/Console.h": {
+    "mtime": 1793588729.4867094,
+    "seen": 1793589797.4993315,
+    "ast_hash": "02e7780d37a548cb75b7dced219710c0",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_15/Graphics.h": {
+    "mtime": 1793588729.491428,
+    "seen": 1793589797.4993336,
+    "ast_hash": "81780d62a3245f8d4ac2e21733366fea",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_15/main.cpp": {
+    "mtime": 1793588729.484697,
+    "seen": 1793589797.4993358,
+    "ast_hash": "41da9043a34c519c2c3f1690fa13473f",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_15/resource.h": {
+    "mtime": 1793588729.49344,
+    "seen": 1793589797.4993377,
+    "ast_hash": "8b90b0e0646582a9fd8fda39f88399af",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_16/Console.cpp": {
+    "mtime": 1793588729.5462072,
+    "seen": 1793589797.4993403,
+    "ast_hash": "c51f71ae83b15825d16a36abbb1da062",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_16/Console.h": {
+    "mtime": 1793588729.5538752,
+    "seen": 1793589797.4993427,
+    "ast_hash": "eb4aa6ab4bee99557360b9a0c06a8066",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_16/main.cpp": {
+    "mtime": 1793588729.549995,
+    "seen": 1793589797.4993448,
+    "ast_hash": "b58fe2710e13d7c920093ad96c9eb7a8",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_17/Console.cpp": {
+    "mtime": 1793588729.5819125,
+    "seen": 1793589797.4993472,
+    "ast_hash": "c49fb22cb9b89a6bb0453ac45d852289",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_17/Console.h": {
+    "mtime": 1793588729.594821,
+    "seen": 1793589797.4993494,
+    "ast_hash": "70a1ee3b15058461e68d69b876c60847",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_17/main.cpp": {
+    "mtime": 1793588729.59075,
+    "seen": 1793589797.4993513,
+    "ast_hash": "d83405c8644e7bbcd8d5e99dadd506d6",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_18/Console.cpp": {
+    "mtime": 1793588729.6212683,
+    "seen": 1793589797.4993536,
+    "ast_hash": "ee5f2aba1493a969dc154c7b80d2aa48",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_18/Console.h": {
+    "mtime": 1793588729.6300285,
+    "seen": 1793589797.4993556,
+    "ast_hash": "0dcf0a12bd37fd9b0e713346467ca149",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_18/main.cpp": {
+    "mtime": 1793588729.6276705,
+    "seen": 1793589797.499358,
+    "ast_hash": "8e73e02de8c126ba26d10cacb004c255",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_19/Console.cpp": {
+    "mtime": 1793588729.663833,
+    "seen": 1793589797.4993603,
+    "ast_hash": "dd5269845702bf438b62b571ddd03274",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_19/Console.h": {
+    "mtime": 1793588729.6726847,
+    "seen": 1793589797.4993634,
+    "ast_hash": "595af6d5719bb858b371e75d71d98152",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_19/main.cpp": {
+    "mtime": 1793588729.668664,
+    "seen": 1793589797.4993653,
+    "ast_hash": "e8aabf5db05fed26dce783b63210cbc0",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_20/Console.cpp": {
+    "mtime": 1793588729.7004962,
+    "seen": 1793589797.4993675,
+    "ast_hash": "a70bf0cc6cbaedfc3dafc07e6480d9ba",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_20/Console.h": {
+    "mtime": 1793588729.7110896,
+    "seen": 1793589797.4993694,
+    "ast_hash": "b5a62eb9a8d1f9a93e9603015b6bf312",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_20/main.cpp": {
+    "mtime": 1793588729.7070682,
+    "seen": 1793589797.4993718,
+    "ast_hash": "63ee8f7f20fa389602e811d0b1ffef4d",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_21/Console.cpp": {
+    "mtime": 1793588729.7446992,
+    "seen": 1793589797.499374,
+    "ast_hash": "99e6d597571f92798d2d2cd53cada419",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_21/Console.h": {
+    "mtime": 1793588729.757937,
+    "seen": 1793589797.499376,
+    "ast_hash": "6b5416c14cac86b5d672a2c81040dcc2",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_21/main.cpp": {
+    "mtime": 1793588729.752885,
+    "seen": 1793589797.4993792,
+    "ast_hash": "48cbdb86c0c648e85c6e6d1725557913",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_22/Console.cpp": {
+    "mtime": 1793588729.8765912,
+    "seen": 1793589797.4993813,
+    "ast_hash": "486d7c250d33217a29d25c43f7173017",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_22/Console.h": {
+    "mtime": 1793588729.8889036,
+    "seen": 1793589797.4993832,
+    "ast_hash": "a76df72014a7449741843b4374232cdb",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_22/main.cpp": {
+    "mtime": 1793588729.8861477,
+    "seen": 1793589797.4993856,
+    "ast_hash": "95a8dae9d12d0db62467b00c202da044",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_23/Console.cpp": {
+    "mtime": 1793588729.9196005,
+    "seen": 1793589797.499388,
+    "ast_hash": "ea7f48db32031da216e33123bc7e9b72",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_23/Console.h": {
+    "mtime": 1793588729.9281595,
+    "seen": 1793589797.4993906,
+    "ast_hash": "57fc9813cf0d4b77c0a8cf5fdc214137",
+    "semantic_hash": ""
+  },
+  "openGL_3dAssign_23/main.cpp": {
+    "mtime": 1793589632.9793744,
+    "seen": 1793589797.4993927,
+    "ast_hash": "546f2e972f1a262cd121af2cd37a659b",
+    "semantic_hash": ""
+  },
+  "openGL_sample0/main.cpp": {
+    "mtime": 1793588730.0118454,
+    "seen": 1793589797.4993951,
+    "ast_hash": "ade07d13735f2af11f10cc354ccc4587",
+    "semantic_hash": ""
+  },
+  "openGL_sample0/Mesh.h": {
+    "mtime": 1793589633.1171455,
+    "seen": 1793589797.499397,
+    "ast_hash": "5db2a578a1f09e5ab4cee9bb5c1a9094",
+    "semantic_hash": ""
+  },
+  "openGL_sample0/MeshParser.cpp": {
+    "mtime": 1793588730.030409,
+    "seen": 1793589797.4993994,
+    "ast_hash": "2bc61ab229f54721e744b320fb0651c7",
+    "semantic_hash": ""
+  },
+  "openGL_sample0/MeshValidator.cpp": {
+    "mtime": 1793588730.053673,
+    "seen": 1793589797.4994016,
+    "ast_hash": "2359c45055fa9665701bf2ad1a3263eb",
+    "semantic_hash": ""
+  },
+  "standard/Console.cpp": {
+    "mtime": 1793589781.0620012,
+    "seen": 1793589797.4994037,
+    "ast_hash": "dce71a3d8dd1b003ac5756082407a854",
+    "semantic_hash": ""
+  },
+  "standard/Console.h": {
+    "mtime": 1793589353.4255538,
+    "seen": 1793589797.499406,
+    "ast_hash": "ffbaf2edacdc16ccdb440b9e92e25b1a",
+    "semantic_hash": ""
+  },
+  "standard/main.cpp": {
+    "mtime": 1793588730.1594002,
+    "seen": 1793589797.4994085,
+    "ast_hash": "6f6f5cc93ebce998759b342c93607a27",
+    "semantic_hash": ""
+  }
+}

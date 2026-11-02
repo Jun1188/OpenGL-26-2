@@ -1,0 +1,196 @@
+﻿[
+  {
+    "project": "openGL_3dAssign_15/openGL_sample2.vcxproj",
+    "sources": [
+      "openGL_3dAssign_15/Console.cpp",
+      "openGL_3dAssign_15/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_15/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_16/openGL_assign_16.vcxproj",
+    "sources": [
+      "openGL_3dAssign_16/main.cpp",
+      "openGL_3dAssign_16/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_16/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_17/openGL_assign_17.vcxproj",
+    "sources": [
+      "openGL_3dAssign_17/main.cpp",
+      "openGL_3dAssign_17/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_17/main.cpp",
+        "line": 3,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_18/openGL_assign_18.vcxproj",
+    "sources": [
+      "openGL_3dAssign_18/main.cpp",
+      "openGL_3dAssign_18/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_18/main.cpp",
+        "line": 3,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_19/openGL_assign_19.vcxproj",
+    "sources": [
+      "openGL_3dAssign_19/main.cpp",
+      "openGL_3dAssign_19/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_19/main.cpp",
+        "line": 3,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_20/openGL_assign_20.vcxproj",
+    "sources": [
+      "openGL_3dAssign_20/main.cpp",
+      "openGL_3dAssign_20/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_20/main.cpp",
+        "line": 6,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_21/openGL_assign_21.vcxproj",
+    "sources": [
+      "openGL_3dAssign_21/main.cpp",
+      "openGL_3dAssign_21/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_21/main.cpp",
+        "line": 6,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_22/openGL_assign_22.vcxproj",
+    "sources": [
+      "openGL_3dAssign_22/main.cpp",
+      "openGL_3dAssign_22/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_22/main.cpp",
+        "line": 6,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_23/openGL_assign_23.vcxproj",
+    "sources": [
+      "openGL_3dAssign_23/main.cpp",
+      "openGL_3dAssign_23/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_23/main.cpp",
+        "line": 5,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "openGL_sample0/openGL_sample0.vcxproj",
+    "sources": [
+      "openGL_sample0/main.cpp",
+      "openGL_sample0/MeshParser.cpp",
+      "openGL_sample0/MeshValidator.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_sample0/main.cpp",
+        "line": 266,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": "standard/standard.vcxproj",
+    "sources": [
+      "standard/main.cpp",
+      "standard/Console.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "standard/main.cpp",
+        "line": 4,
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/basic.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/basic.cpp",
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/assets.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/assets.cpp",
+        "name": "main"
+      }
+    ]
+  },
+  {
+    "project": null,
+    "standalone_example": true,
+    "sources": [
+      "framework/examples/motion.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "framework/examples/motion.cpp",
+        "name": "main"
+      }
+    ]
+  }
+]
