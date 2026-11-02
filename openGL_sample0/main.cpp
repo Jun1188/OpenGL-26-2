@@ -1,7 +1,7 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
-#include <glew.h> // GLEW must be included before GLFW.
+#include <glew.h>
 #include <glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -18,7 +18,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
 
 namespace {
 
@@ -46,9 +45,10 @@ struct Camera {
     float radius = 0.15f;
 };
 
+/// 모델 경계를 월드 경계로 변환한다.
 Bounds transformBounds(const Bounds& local, const glm::mat4& model) {
     Bounds world;
-    // Transform all eight corners to enclose the rotated object in world space.
+
     for (int corner = 0; corner < 8; ++corner) {
         const glm::vec3 point(
             corner & 1 ? local.maximum.x : local.minimum.x,
@@ -61,12 +61,14 @@ Bounds transformBounds(const Bounds& local, const glm::mat4& model) {
     return world;
 }
 
+/// 카메라와 물체 경계의 충돌을 검사한다.
 bool intersectsObject(const glm::vec3& position, float radius, const Bounds& bounds) {
     const glm::vec3 closest = glm::clamp(position, bounds.minimum, bounds.maximum);
     const glm::vec3 difference = position - closest;
     return glm::dot(difference, difference) <= radius * radius;
 }
 
+/// 입력과 충돌에 따라 카메라를 이동한다.
 void updateCamera(GLFWwindow* window, Camera& camera, const Bounds& bounds, float deltaTime) {
     if (glfwGetWindowAttrib(window, GLFW_FOCUSED) != GLFW_TRUE) {
         return;
@@ -81,7 +83,7 @@ void updateCamera(GLFWwindow* window, Camera& camera, const Bounds& bounds, floa
         return;
     }
     const glm::vec3 movement = glm::normalize(direction) * camera.speed * deltaTime;
-    // Small steps prevent a fast camera from jumping across a thin bounding box.
+
     const int steps = std::max(1, static_cast<int>(std::ceil(
         glm::length(movement) / (camera.radius * 0.5f))));
     const glm::vec3 step = movement / static_cast<float>(steps);
@@ -94,14 +96,17 @@ void updateCamera(GLFWwindow* window, Camera& camera, const Bounds& bounds, floa
     }
 }
 
+/// GLFW 오류를 출력한다.
 void glfwErrorCallback(int errorCode, const char* description) {
     std::cerr << "[GLFW 오류 " << errorCode << "] " << description << '\n';
 }
 
+/// 프레임버퍼 크기로 뷰포트를 갱신한다.
 void framebufferSizeCallback(GLFWwindow*, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
+/// 텍스트 파일에서 셰이더를 읽는다.
 bool readTextFile(const char* path, std::string& contents) {
     std::ifstream file(path, std::ios::in | std::ios::binary);
     if (!file) {
@@ -112,7 +117,7 @@ bool readTextFile(const char* path, std::string& contents) {
     std::ostringstream buffer;
     buffer << file.rdbuf();
     contents = buffer.str();
-    // Files use UTF-8 BOM; GLSL source must start with #version after loading.
+
     if (contents.size() >= 3 &&
         static_cast<unsigned char>(contents[0]) == 0xEF &&
         static_cast<unsigned char>(contents[1]) == 0xBB &&
@@ -122,6 +127,7 @@ bool readTextFile(const char* path, std::string& contents) {
     return true;
 }
 
+/// 셰이더 소스를 컴파일한다.
 GLuint compileShader(GLenum shaderType, const std::string& source, const char* path) {
     const GLuint shader = glCreateShader(shaderType);
     const char* sourcePointer = source.c_str();
@@ -144,6 +150,7 @@ GLuint compileShader(GLenum shaderType, const std::string& source, const char* p
     return 0;
 }
 
+/// 셰이더를 연결해 프로그램을 만든다.
 GLuint createShaderProgram(const char* vertexPath, const char* fragmentPath) {
     std::string vertexSource;
     std::string fragmentSource;
@@ -187,6 +194,7 @@ GLuint createShaderProgram(const char* vertexPath, const char* fragmentPath) {
     return 0;
 }
 
+/// 메시를 읽어 렌더링 정점과 경계를 만든다.
 bool loadMeshVertices(const char* path, std::vector<RenderVertex>& vertices, Bounds& bounds) {
     std::ifstream input(path);
     if (!input) {
@@ -224,11 +232,10 @@ bool loadMeshVertices(const char* path, std::vector<RenderVertex>& vertices, Bou
             const warmup::Vertex& p = face.vertices[corner];
             positions[corner] = glm::dvec3(p.x, p.y, p.z);
         }
-        // TXT has no normals: derive one normal per triangle from its winding.
+
         glm::dvec3 edgeA = positions[1] - positions[0];
         glm::dvec3 edgeB = positions[2] - positions[0];
-        // Match the validator's support for very small valid triangles:
-        // scale edges before the cross product to avoid double underflow.
+
         const glm::dvec3 absoluteA = glm::abs(edgeA);
         const glm::dvec3 absoluteB = glm::abs(edgeB);
         edgeA /= std::max({absoluteA.x, absoluteA.y, absoluteA.z});
@@ -253,8 +260,9 @@ bool loadMeshVertices(const char* path, std::vector<RenderVertex>& vertices, Bou
     return true;
 }
 
-} // namespace
+}
 
+/// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() {
     glfwSetErrorCallback(glfwErrorCallback);
     if (glfwInit() != GLFW_TRUE) {
@@ -293,7 +301,6 @@ int main() {
         return -1;
     }
 
-    // GLEW can generate GL_INVALID_ENUM while loading a core profile context.
     glGetError();
 
     int framebufferWidth = 0;
@@ -308,7 +315,6 @@ int main() {
         return -1;
     }
 
-    // Validated TXT triangles become model-space position/normal data.
     std::vector<RenderVertex> vertices;
     Bounds localBounds;
     if (!loadMeshVertices(kMeshPath, vertices, localBounds)) {
@@ -406,7 +412,7 @@ int main() {
             candidateAngle,
             glm::normalize(glm::vec3(0.6f, 1.0f, 0.2f)));
         const Bounds candidateBounds = transformBounds(localBounds, candidateModel);
-        // Keep the rendered transform and collision bounds synchronized.
+
         if (!intersectsObject(camera.position, camera.radius, candidateBounds)) {
             modelAngle = candidateAngle;
             model = candidateModel;
@@ -426,8 +432,7 @@ int main() {
         glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
         glUniform3fv(lightLocation, 1, glm::value_ptr(lightDirection));
         glBindVertexArray(vertexArray);
-        // GLSL outputs clip coordinates. OpenGL clips, divides by w,
-        // maps NDC to the viewport, and rasterizes triangles into fragments.
+
         glDrawArrays(
             GL_TRIANGLES,
             0,

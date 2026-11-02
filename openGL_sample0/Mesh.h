@@ -22,7 +22,7 @@ struct Texture {
     double s = 0, t = 0;
 };
 struct CornerIndex {
-    std::size_t vertex = 0;  // Internal indices start at zero.
+    std::size_t vertex = 0;
     std::size_t texture = 0;
     bool hasTexture = false;
 };
@@ -30,10 +30,9 @@ struct TriangleIndices {
     CornerIndex corners[mesh_rules::triangleCorners];
 };
 
-// Keep an invalid declaration's slot so later indices do not shift.
 struct VertexRecord {
     std::size_t line = 0;
-    bool valid = false;     // Whether its syntax was parsed successfully.
+    bool valid = false;
     Vertex value;
 };
 struct TextureRecord {
@@ -53,7 +52,7 @@ struct Mesh {
 };
 struct Diagnostic {
     std::size_t line = 0;
-    std::size_t face = 0;   // Zero means this error does not belong to a face.
+    std::size_t face = 0;
     std::string message;
 };
 struct ParseResult {
@@ -74,10 +73,12 @@ struct ValidationResult {
 
 class MeshParser {
 public:
+    /// 입력 메시와 문법 오류를 읽는다.
     ParseResult parse(std::istream& input) const;
 };
 class MeshValidator {
 public:
+    /// 메시의 좌표와 면을 검사한다.
     ValidationResult validate(const Mesh& mesh) const;
 };
 class MeshReporter {
@@ -85,5 +86,6 @@ public:
     void print(const ParseResult& parsed, const ValidationResult& validated) const;
     void print(const ParseResult& parsed, const ValidationResult& validated, std::ostream& output) const;
 };
+/// 파싱과 검사 결과가 성공했는지 반환한다.
 bool succeeded(const ParseResult& parsed, const ValidationResult& validated);
 }

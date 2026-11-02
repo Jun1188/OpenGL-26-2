@@ -5,9 +5,10 @@
 
 namespace warmup {
 namespace {
-// Read the whole token, not just a numeric prefix such as the 3 in "3abc".
+
+/// 숫자 토큰 전체를 해석한다.
 bool readNumber(const std::string& token, double& value, std::string& error) {
-    // The assignment accepts ordinary decimal/scientific notation, not 0x hexadecimal notation.
+
     if (token.find('x') != std::string::npos || token.find('X') != std::string::npos) {
         error = "Invalid number: " + token;
         return false;
@@ -23,6 +24,7 @@ bool readNumber(const std::string& token, double& value, std::string& error) {
     return true;
 }
 
+/// 외부 인덱스를 내부 인덱스로 변환한다.
 bool readIndex(const std::string& token, std::size_t& index, std::string& error) {
     if (token.empty()) {
         error = "Missing index.";
@@ -44,6 +46,7 @@ bool readIndex(const std::string& token, std::size_t& index, std::string& error)
     return true;
 }
 
+/// 정점 좌표를 해석한다.
 bool readVertex(const std::vector<std::string>& tokens, Vertex& vertex, std::string& error) {
     if (tokens.size() != 3) {
         error = "A vertex requires three coordinate components.";
@@ -54,6 +57,7 @@ bool readVertex(const std::vector<std::string>& tokens, Vertex& vertex, std::str
         && readNumber(tokens[2], vertex.z, error);
 }
 
+/// 텍스처 좌표를 해석한다.
 bool readTexture(const std::vector<std::string>& tokens, Texture& texture, std::string& error) {
     if (tokens.size() != 2) {
         error = "A texture requires two coordinate components.";
@@ -63,6 +67,7 @@ bool readTexture(const std::vector<std::string>& tokens, Texture& texture, std::
         && readNumber(tokens[1], texture.t, error);
 }
 
+/// 면의 정점·텍스처 인덱스를 해석한다.
 bool readCorner(const std::string& token, CornerIndex& corner, std::string& error) {
     CornerIndex candidate;
     std::size_t slash = token.find('/');
@@ -79,6 +84,7 @@ bool readCorner(const std::string& token, CornerIndex& corner, std::string& erro
     return true;
 }
 
+/// 삼각형 면을 해석한다.
 bool readFace(const std::vector<std::string>& tokens, TriangleIndices& face, std::string& error) {
     if (tokens.size() != mesh_rules::triangleCorners) {
         error = "A face requires exactly three corners.";
@@ -98,13 +104,14 @@ bool readFace(const std::vector<std::string>& tokens, TriangleIndices& face, std
 }
 }
 
+/// 입력 메시와 문법 오류를 읽는다.
 ParseResult MeshParser::parse(std::istream& input) const {
     ParseResult result;
     std::string line;
     std::size_t lineNumber = 0;
     while (std::getline(input, line)) {
         ++lineNumber;
-        // UTF-8 text files may start with these three BOM bytes.
+
         if (lineNumber == 1 && line.compare(0, 3, "\xef\xbb\xbf") == 0) line.erase(0, 3);
         std::size_t comment = line.find('#');
         if (comment != std::string::npos) line.erase(comment);

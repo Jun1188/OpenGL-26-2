@@ -1,6 +1,7 @@
 ﻿#include "Console.h"
 #include <iostream>
 
+/// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() {
     graphics::Application application;
     Console practice(application);

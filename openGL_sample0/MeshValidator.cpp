@@ -3,33 +3,42 @@
 
 namespace warmup {
 namespace {
+/// 값이 지정 범위 안에 있는지 반환한다.
 bool inRange(double value, double minimum, double maximum) {
     return std::isfinite(value) && value >= minimum && value <= maximum;
 }
+/// 정점 좌표 범위를 검사한다.
 bool vertexInRange(const Vertex& vertex) {
     return inRange(vertex.x, mesh_rules::vertexMinimum, mesh_rules::vertexMaximum)
         && inRange(vertex.y, mesh_rules::vertexMinimum, mesh_rules::vertexMaximum)
         && inRange(vertex.z, mesh_rules::vertexMinimum, mesh_rules::vertexMaximum);
 }
+/// 텍스처 좌표 범위를 검사한다.
 bool textureInRange(const Texture& texture) {
     return inRange(texture.s, mesh_rules::textureMinimum, mesh_rules::textureMaximum)
         && inRange(texture.t, mesh_rules::textureMinimum, mesh_rules::textureMaximum);
 }
+/// 두 정점 좌표가 같은지 반환한다.
 bool sameVertex(const Vertex& a, const Vertex& b) {
     return a.x == b.x && a.y == b.y && a.z == b.z;
 }
+/// 두 텍스처 좌표가 같은지 반환한다.
 bool sameTexture(const Texture& a, const Texture& b) {
     return a.s == b.s && a.t == b.t;
 }
+/// 두 정점 벡터의 차를 구한다.
 Vertex subtract(const Vertex& a, const Vertex& b) {
     return {a.x - b.x, a.y - b.y, a.z - b.z};
 }
+/// 두 벡터의 외적을 구한다.
 Vertex cross(const Vertex& a, const Vertex& b) {
     return {a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x};
 }
+/// 벡터 길이의 제곱을 구한다.
 double squaredLength(const Vertex& vertex) {
     return vertex.x*vertex.x + vertex.y*vertex.y + vertex.z*vertex.z;
 }
+/// 벡터 계산의 수치 범위를 조절한다.
 bool normalizeScale(Vertex& vertex) {
     double scale = std::abs(vertex.x);
     if (std::abs(vertex.y) > scale) scale = std::abs(vertex.y);
@@ -40,10 +49,11 @@ bool normalizeScale(Vertex& vertex) {
     vertex.z /= scale;
     return true;
 }
+/// 세 정점이 일직선에 있는지 검사한다.
 bool isCollinear(const Vertex& a, const Vertex& b, const Vertex& c) {
     Vertex edgeA = subtract(b, a);
     Vertex edgeB = subtract(c, a);
-    // Preserve the previous fix for very small, valid triangles.
+
     if (!normalizeScale(edgeA) || !normalizeScale(edgeB)) return true;
     return squaredLength(cross(edgeA, edgeB))
         <= mesh_rules::collinearSinSquared * squaredLength(edgeA) * squaredLength(edgeB);
@@ -83,7 +93,7 @@ bool resolveFace(const Mesh& mesh, const FaceRecord& record,
             face.textures[i] = texture.value;
         }
     }
-    // Compare each pair of corners within this face only.
+
     for (int i = 0; i < mesh_rules::triangleCorners; ++i) {
         for (int j = i + 1; j < mesh_rules::triangleCorners; ++j) {
             if (face.vertexIndices[i] == face.vertexIndices[j]) {
@@ -108,6 +118,7 @@ bool resolveFace(const Mesh& mesh, const FaceRecord& record,
 }
 }
 
+/// 메시의 좌표와 면을 검사한다.
 ValidationResult MeshValidator::validate(const Mesh& mesh) const {
     ValidationResult result;
     for (std::size_t i = 0; i < mesh.vertices.size(); ++i) {
@@ -127,7 +138,7 @@ ValidationResult MeshValidator::validate(const Mesh& mesh) const {
     if (mesh.faces.empty()) result.diagnostics.push_back({0, 0, "No faces found."});
     for (std::size_t i = 0; i < mesh.faces.size(); ++i) {
         const FaceRecord& record = mesh.faces[i];
-        if (!record.valid) continue; // The parser already reported this syntax error.
+        if (!record.valid) continue;
         ResolvedFace face;
         face.number = i + 1;
         std::string error;
@@ -137,6 +148,7 @@ ValidationResult MeshValidator::validate(const Mesh& mesh) const {
     return result;
 }
 
+/// 파싱과 검사 결과가 성공했는지 반환한다.
 bool succeeded(const ParseResult& parsed, const ValidationResult& validated) {
     return parsed.diagnostics.empty() && validated.diagnostics.empty()
         && !parsed.mesh.faces.empty() && validated.faces.size() == parsed.mesh.faces.size();

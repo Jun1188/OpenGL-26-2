@@ -4,10 +4,12 @@
 #include <iostream>
 
 namespace {
+/// 축과 각도로 회전 행렬을 만든다.
 glm::mat3 turn(float degrees,glm::vec3 axis) {
     return glm::mat3(glm::rotate(glm::mat4(1),glm::radians(degrees),axis));
 }
 }
+/// 부모에 연결한 상자를 만든다.
 graphics::EntityId Console::box(glm::vec3 size,glm::vec3 position,graphics::EntityId parent) {
     auto model=graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube,size);
     for(auto& face:model.faces)face.color={1,1,1};
@@ -19,6 +21,7 @@ graphics::EntityId Console::box(glm::vec3 size,glm::vec3 position,graphics::Enti
     colored_.push_back(id);
     return id;
 }
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     reset();
     std::cout << "Practice 19: arrows move tank; d lower height; t central spin; l upper swap\n"
@@ -26,6 +29,7 @@ bool Console::initScene() {
               << "y/Y camera yaw, r/R camera orbit (repeat pauses); o colors; c reset; q quit\n";
     return true;
 }
+/// 배치와 조작 상태를 초기화한다.
 void Console::reset() {
     auto& scene=app_.getScene();
     scene.clear();
@@ -64,6 +68,7 @@ void Console::reset() {
     recolor();
     apply();
 }
+/// 물체 색을 다시 지정한다.
 void Console::recolor() {
     const std::array<graphics::GlColor,10> palette{
         graphics::GlColor{.3f,.35f,.4f},{.25f,.6f,.3f},{.55f,.35f,.2f},{.2f,.55f,.75f},
@@ -72,6 +77,7 @@ void Console::recolor() {
         if(!app_.getScene().setTint(colored_[i],palette[(i+colorVersion_)%palette.size()]))
             throw std::runtime_error("Cannot color tank part.");
 }
+/// 계산한 변환을 장면에 반영한다.
 void Console::apply() {
     auto& scene=app_.getScene();
     if(!scene.setPosition(root_,position_))throw std::runtime_error("Invalid tank position.");
@@ -102,6 +108,7 @@ void Console::apply() {
             throw std::runtime_error("Invalid tank part transform.");
     }
 }
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key,int action,int mods) {
     const bool upper=((mods&GLFW_MOD_SHIFT)!=0)!=((mods&GLFW_MOD_CAPS_LOCK)!=0);
     if(key==GLFW_KEY_X||key==GLFW_KEY_Z) {
@@ -162,11 +169,12 @@ void Console::onKey(int key,int action,int mods) {
         break;
     }
 }
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     glm::vec3 movement{float(pressed_[GLFW_KEY_RIGHT])-float(pressed_[GLFW_KEY_LEFT]),0,
         float(pressed_[GLFW_KEY_DOWN])-float(pressed_[GLFW_KEY_UP])};
     if(glm::length(movement)>0)position_+=glm::normalize(movement)*dt*1.3f;
-    // 12x12 floor minus a 2.5-unit radius covers every animated part's sweep.
+
     position_.x=std::clamp(position_.x,-3.5f,3.5f);
     position_.z=std::clamp(position_.z,-3.5f,3.5f);
     if(lowerRunning_)lowerTime_=std::fmod(lowerTime_+dt,6.283185307f);
@@ -198,6 +206,7 @@ void Console::onUpdate(float dt) {
     if(graphics::CameraSystem::validCamera(camera))app_.getCamera()=camera;
     apply();
 }
+/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     if(!focused){
         pressed_.fill(false);

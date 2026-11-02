@@ -4,11 +4,13 @@
 #include <iostream>
 
 namespace {
+/// 축과 각도로 회전 행렬을 만든다.
 glm::mat3 turn(float degrees,glm::vec3 axis) {
     return glm::mat3(glm::rotate(glm::mat4(1),glm::radians(degrees),axis));
 }
 constexpr std::array<float,3> radii{2.0f,2.8f,3.6f};
 constexpr std::array<float,3> inclinations{0,45,-45};
+/// 부모에 연결한 원 궤도를 그린다.
 void circle(graphics::Scene& scene,graphics::EntityId owner,graphics::GlColor color,bool xz) {
     constexpr int segments=96;
     for(int i=0;i<segments;++i) {
@@ -21,6 +23,7 @@ void circle(graphics::Scene& scene,graphics::EntityId owner,graphics::GlColor co
     }
 }
 }
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     auto& scene=app_.getScene();
     scene.clear();
@@ -58,6 +61,7 @@ bool Console::initScene() {
               << "WASD move XY, +/- move Z; 1 orbit size; 2 sun pulse/color; 3 moon orbit rotation/spin; q quit\n";
     return true;
 }
+/// 계산한 변환을 장면에 반영한다.
 void Console::apply() {
     auto& scene=app_.getScene();
     if(!scene.setPosition(root_,position_))throw std::runtime_error("Invalid system position.");
@@ -88,6 +92,7 @@ void Console::apply() {
             throw std::runtime_error("Invalid orbit transform.");
     }
 }
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key,int action,int mods) {
     if(key>=0&&key<=GLFW_KEY_LAST) {
         if(action==GLFW_PRESS)pressed_[key]=true;
@@ -119,6 +124,7 @@ void Console::onKey(int key,int action,int mods) {
         break;
     }
 }
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     glm::vec3 movement{float(pressed_[GLFW_KEY_D])-float(pressed_[GLFW_KEY_A]),
         float(pressed_[GLFW_KEY_W])-float(pressed_[GLFW_KEY_S]),
@@ -136,6 +142,7 @@ void Console::onUpdate(float dt) {
     }
     apply();
 }
+/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     if(!focused)pressed_.fill(false);
 }

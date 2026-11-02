@@ -3,8 +3,10 @@
 #include <stdexcept>
 #include <iostream>
 namespace {
+/// 실패한 작업을 예외로 전달한다.
 void require(bool ok,const char* message) {if(!ok) throw std::runtime_error(message);}
 }
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     auto& scene=app_.getScene();scene.clear();obstacles_.clear();
     body_=graphics::CharacterBody{};body_.feet={-3,0,-3};body_.speed=1;
@@ -31,6 +33,7 @@ bool Console::initScene() {
     app_.getRenderOptions().lighting=true;
     return graphics::PatternSystem::poseWalkingRig(scene,rig_,body_.feet,0,0,body_.speed);
 }
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key,int action,int mods) {
     if(action!=GLFW_PRESS && action!=GLFW_REPEAT) return;
     const bool upper=((mods&GLFW_MOD_SHIFT)!=0)!=((mods&GLFW_MOD_CAPS_LOCK)!=0);
@@ -60,6 +63,7 @@ void Console::onKey(int key,int action,int mods) {
     if(key==GLFW_KEY_I) require(initScene(),"실습 23 초기화 실패: 앞선 API 오류를 확인하세요.");
     if(key==GLFW_KEY_Q || key==GLFW_KEY_ESCAPE) app_.requestClose();
 }
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     const float requested=body_.speed;
     if(!walking_) body_.speed=0;

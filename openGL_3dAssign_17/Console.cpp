@@ -4,10 +4,12 @@
 #include <iostream>
 
 namespace {
+/// 축과 각도로 회전 행렬을 만든다.
 glm::mat3 turn(float degrees,glm::vec3 axis) {
     return glm::mat3(glm::rotate(glm::mat4(1),glm::radians(degrees),axis));
 }
 }
+/// 선택한 도형의 모델을 만든다.
 graphics::Model Console::model(int shape) const {
     if(shape==0) {
         auto cone=graphics::DiagramSystem::makeCone(.5f,1.0f);
@@ -18,12 +20,15 @@ graphics::Model Console::model(int shape) const {
     if(shape==1)return graphics::DiagramSystem::makeSphere(.5f);
     return graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube);
 }
+/// 공전 회전 행렬을 계산한다.
 glm::mat3 Console::orbitRotation(std::size_t i) const {
     return turn(objects_[i].orbitDegrees,{0,1,0});
 }
+/// 물체의 월드 위치를 계산한다.
 glm::vec3 Console::worldPosition(std::size_t i) const {
     return orbitRotation(i)*objects_[i].position;
 }
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     reset();
     std::cout << "Practice 17: 1 left, 2 right, 3 both; x/X,y/Y spin; r/R orbit\n"
@@ -31,6 +36,7 @@ bool Console::initScene() {
               << "t straight swap, u bypass swap, v scale/spin/orbit; c shape, s reset, q quit\n";
     return true;
 }
+/// 배치와 조작 상태를 초기화한다.
 void Console::reset() {
     auto& scene=app_.getScene();
     scene.clear();
@@ -63,6 +69,7 @@ void Console::reset() {
     app_.getRenderOptions().wireframe=true;
     apply();
 }
+/// 계산한 변환을 장면에 반영한다.
 void Console::apply() {
     auto& scene=app_.getScene();
     for(std::size_t i=0;i<2;++i) {
@@ -79,6 +86,7 @@ void Console::apply() {
             throw std::runtime_error("Invalid model transform.");
     }
 }
+/// 선택한 이동을 시작한다.
 void Console::begin(Motion motion) {
     if(motion_==motion) {
         running_=!running_;
@@ -92,6 +100,7 @@ void Console::begin(Motion motion) {
         scales_[i]=objects_[i].scale;
     }
 }
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key,int action,int mods) {
     const bool upper=((mods&GLFW_MOD_SHIFT)!=0)!=((mods&GLFW_MOD_CAPS_LOCK)!=0);
     const float sign=upper?-1.0f:1.0f;
@@ -162,7 +171,7 @@ void Console::onKey(int key,int action,int mods) {
             break;
         }
     }
-    // A paused animation resumes from the edited pose rather than restoring stale captures.
+
     if(motion_!=Motion::None && !running_) {
         for(std::size_t i=0;i<2;++i){
             starts_[i]=worldPosition(i);
@@ -172,6 +181,7 @@ void Console::onKey(int key,int action,int mods) {
     }
     apply();
 }
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     if(running_)elapsed_+=dt;
     for(std::size_t i=0;i<2;++i) {
@@ -205,6 +215,7 @@ void Console::onUpdate(float dt) {
     apply();
 }
 
+/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     if(!focused)movement_=glm::vec2(0);
 }

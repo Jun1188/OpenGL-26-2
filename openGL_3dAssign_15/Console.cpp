@@ -13,9 +13,7 @@ const glm::vec3 X_AXIS{ 1.0f, 0.0f, 0.0f };
 const glm::vec3 Y_AXIS{ 0.0f, 1.0f, 0.0f };
 const glm::vec3 Z_AXIS{ 0.0f, 0.0f, 1.0f };
 
-
-
-// 부호 조합은 육면체 8개 꼭짓점을 구분한다. 사각뿔은 바닥 4개와 꼭짓점 색이 다르다.
+/// 각 면의 정점 색을 지정한다.
 void assignVertexColors(graphics::Polyhedron& shape) {
     const std::array<graphics::GlColor, 8> palette{
         graphics::GlColor{ 1.0f, 0.2f, 0.2f }, { 0.2f, 1.0f, 0.2f },
@@ -32,20 +30,23 @@ void assignVertexColors(graphics::Polyhedron& shape) {
     }
 }
 
+/// 지정한 피벗 주위로 회전한다.
 glm::mat4 rotateAround(const glm::vec3& pivot, const glm::vec3& axis, float degrees) {
     return glm::translate(glm::mat4(1.0f), pivot)
         * glm::rotate(glm::mat4(1.0f), glm::radians(degrees), axis)
         * glm::translate(glm::mat4(1.0f), -pivot);
 }
 
+/// 지정한 피벗 주위로 크기를 변경한다.
 glm::mat4 scaleAround(const glm::vec3& pivot, float scale) {
     return glm::translate(glm::mat4(1.0f), pivot)
         * glm::scale(glm::mat4(1.0f), glm::vec3(scale))
         * glm::translate(glm::mat4(1.0f), -pivot);
 }
 
-} // namespace
+}
 
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     auto& scene = application_.getScene();
     scene.clear();
@@ -87,6 +88,7 @@ bool Console::initScene() {
     return true;
 }
 
+/// 면별 애니메이션을 초기화한다.
 void Console::resetFaces() {
     auto& scene = application_.getScene();
     for (auto id : scene.getIds()) {
@@ -98,6 +100,7 @@ void Console::resetFaces() {
     }
 }
 
+/// 조작할 도형을 선택한다.
 void Console::selectShape(bool pyramid) {
     pyramidSelected_ = pyramid;
     motions_ = {};
@@ -105,6 +108,7 @@ void Console::selectShape(bool pyramid) {
     applyObjectTransform();
 }
 
+/// 전체 조작 상태를 초기화한다.
 void Console::resetAll() {
     spinning_ = false;
     spinDegrees_ = 0.0f;
@@ -112,15 +116,17 @@ void Console::resetAll() {
     selectShape(false);
 }
 
+/// 물체 변환을 장면에 반영한다.
 void Console::applyObjectTransform() {
     graphics::Transform3D transform;
     transform.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(spinDegrees_), Y_AXIS));
     application_.getScene().setTransform(pyramidSelected_ ? pyramidId_ : cuboidId_, transform);
 }
 
+/// 선택한 면 애니메이션을 시작한다.
 void Console::beginMotion(Motion kind) {
     if (pyramidSelected_) {
-        return; // 사각뿔에서는 육면체 면 명령을 무시한다.
+        return;
     }
     auto& motion = motions_[static_cast<std::size_t>(kind)];
     if (motion.initialized) {
@@ -151,12 +157,12 @@ void Console::beginMotion(Motion kind) {
     applyFaceMotion();
 }
 
+/// 면별 변환을 장면에 반영한다.
 void Console::applyFaceMotion() {
     auto& scene = application_.getScene();
     std::array<glm::mat4, 6> matrices;
     matrices.fill(glm::mat4(1.0f));
-    // 열벡터 기준으로 다음 모션을 왼쪽에 곱한다. 매 프레임 기준 형상에서 계산한다.
-    // 적용 순서: T -> F -> S -> B -> 1 -> 2 -> 4 -> 5 -> 전체 객체 변환.
+
     const auto compose = [&](std::size_t face, const glm::mat4& matrix) {
         matrices[face] = matrix * matrices[face];
     };
@@ -175,7 +181,7 @@ void Console::applyFaceMotion() {
             compose(0, rotateAround({ 0.0f, HALF_SIZE, HALF_SIZE }, X_AXIS, -90.0f * progress));
             break;
         case Motion::Side:
-            // 마주 보는 왼쪽과 오른쪽 면을 각각 자기 중점의 X축으로 회전한다.
+
             compose(2, rotateAround({ -HALF_SIZE, 0.0f, 0.0f }, X_AXIS, progress));
             compose(3, rotateAround({ HALF_SIZE, 0.0f, 0.0f }, X_AXIS, progress));
             break;
@@ -188,7 +194,7 @@ void Console::applyFaceMotion() {
             }
             break;
         case Motion::Swap: {
-            // 0 -> 90 -> 0 왕복: 두 면이 교체된 뒤 복귀하며 같은 동작을 반복한다.
+
             const float angle = progress <= 90.0f ? progress : 180.0f - progress;
             compose(motion.pair[0], rotateAround(glm::vec3(0.0f), Y_AXIS, angle));
             compose(motion.pair[1], rotateAround(glm::vec3(0.0f), Y_AXIS, -angle));
@@ -215,6 +221,7 @@ void Console::applyFaceMotion() {
     }
 }
 
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key, int action) {
     if (action != GLFW_PRESS) {
         return;
@@ -242,6 +249,7 @@ void Console::onKey(int key, int action) {
     }
 }
 
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float deltaTime) {
     if (spinning_) {
         spinDegrees_ = std::fmod(spinDegrees_ + ROTATION_SPEED * deltaTime, 360.0f);
@@ -259,7 +267,7 @@ void Console::onUpdate(float deltaTime) {
         if (kind == Motion::Front || kind == Motion::Back) {
             motion.progress = std::clamp(motion.progress + motion.direction * deltaTime, 0.0f, 1.0f);
             if (motion.progress == 0.0f || motion.progress == 1.0f) {
-                motion.running = false; // 이 모션만 완료한다. 다른 모션은 계속 실행한다.
+                motion.running = false;
             }
         } else {
             const float period = kind == Motion::Swap ? 180.0f : 360.0f;

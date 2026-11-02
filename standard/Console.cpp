@@ -1,6 +1,7 @@
 ﻿#include "Console.h"
 #include <iostream>
 
+/// 선택한 경로로 이동 모션을 바꾼다.
 bool Console::choosePath(int kind) {
     graphics::PathMotion path;
     path.durationSeconds = 6;
@@ -52,6 +53,7 @@ bool Console::choosePath(int kind) {
     return true;
 }
 
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     demo_=Demo::Motion;
     auto& scene = app_.getScene();
@@ -128,6 +130,7 @@ bool Console::initScene() {
     return true;
 }
 
+/// 반사 변환을 순서대로 변경한다.
 bool Console::changeReflection() {
     const int next = (reflection_ + 1) % 4;
     std::optional<glm::mat4> matrix = glm::mat4(1);
@@ -152,6 +155,7 @@ bool Console::changeReflection() {
     return true;
 }
 
+/// 크기 레이어를 삽입하거나 제거한다.
 bool Console::toggleInsertedLayer() {
     auto& motions = app_.getScene().getMotions();
     if (insertedLayer_) {
@@ -177,6 +181,7 @@ bool Console::toggleInsertedLayer() {
     return true;
 }
 
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key, int action) {
     if (action != GLFW_PRESS) {
         return;
@@ -235,6 +240,7 @@ void Console::onKey(int key, int action) {
     }
 }
 
+/// 마우스 버튼 입력을 처리한다.
 void Console::onMouse(const graphics::MouseEvent& event) {
     if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) {
         return;
@@ -255,6 +261,7 @@ void Console::onMouse(const graphics::MouseEvent& event) {
     }
 }
 
+/// 조작 방법을 출력한다.
 void Console::printHelp() const {
     std::cout << "standard: 프레임워크 Motion·반사·레이어 샘플\n"
               << "1 타원 / 2 사각형 / 3 다각형 / 4 사용자 3D 경로+보간 / 5 원 / 6 왕복 꺾은선\n"
@@ -266,6 +273,7 @@ void Console::printHelp() const {
               << "V 3뷰 전환 / D 단계 추적 로그 / F 실내 예제 바닥 개방 / Space 정지·재개\n";
 }
 
+/// 거리 기반 격자 예제를 구성한다.
 bool Console::initGrid() {
     auto& scene=app_.getScene();scene.clear();demo_=Demo::Grid;clock_.reset();gridBoxes_.clear();
     graphics::GridLayout grid;grid.origin={-3,-.1f,-2};grid.extent={6,.2f,4};grid.cells={6,1,4};
@@ -282,6 +290,7 @@ bool Console::initGrid() {
     app_.getCamera()=graphics::Camera{};app_.getCamera().position={7,6,8};app_.getCamera().target={0,0,0};
     app_.getCamera().orthographicHalfExtent=4;return true;
 }
+/// 회전하는 방 예제를 구성한다.
 bool Console::initRoom() {
     auto& scene=app_.getScene();scene.clear();demo_=Demo::Room;clock_.reset();floorOpen_=false;
     const auto room=graphics::PatternSystem::addRoom(scene,{{-2,-1,-2},{2,2,2}});
@@ -291,6 +300,7 @@ bool Console::initRoom() {
     app_.getCamera()=graphics::Camera{};app_.getCamera().position={5,3,8};app_.getCamera().target={0,0,0};
     return true;
 }
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     if(demo_==Demo::Motion || !clock_.playing) return;
     if(!clock_.advance(dt)) {app_.requestClose();return;}
@@ -310,6 +320,7 @@ void Console::onUpdate(float dt) {
     }
     if(!ok) app_.requestClose();
 }
+/// 현재 장면을 지정한 뷰로 렌더링한다.
 bool Console::onRender() {
     if(!threeViews_) return app_.renderScene();
     const auto size=app_.getFramebufferSize();if(size[0]<3 || size[1]<2) return true;

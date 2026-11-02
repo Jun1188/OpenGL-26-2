@@ -16,11 +16,13 @@ constexpr float conveyorEndZ = 3.0f;
 const double conveyorLength = (double(cornerPivot.x) - conveyorStart.x)
     + halfPi * double(cornerRadius) + (double(conveyorEndZ) - cornerPivot.z);
 
+/// 실패한 작업을 예외로 전달한다.
 void require(bool success, const char* operation) {
     if (!success) throw std::runtime_error(operation);
 }
 }
 
+/// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     auto& scene = app_.getScene();
     scene.clear();
@@ -29,7 +31,7 @@ bool Console::initScene() {
     require(graphics::PatternSystem::addPolygon(scene,
         {{-6, 0, -4}, {-6, 0, 5}, {6, 0, 5}, {6, 0, -4}},
         {.25f, .30f, .34f}).has_value(), "Floor creation failed.");
-    // Two convex planes meet at an edge: an L is not a single convex polygon.
+
     require(graphics::PatternSystem::addPolygon(scene,
         {{-4.8f, beltHeight, -2.8f}, {-4.8f, beltHeight, -1.2f},
          {3.8f, beltHeight, -1.2f}, {3.8f, beltHeight, -2.8f}},
@@ -54,7 +56,7 @@ bool Console::initScene() {
             {boxSize, boxSize, boxSize}, {0, 0, 0}, colors[i]);
         require(box.has_value(), "Parcel creation failed.");
         boxes_[i] = *box;
-        // Each outward face has its own label frame, so camera orbit keeps digits readable.
+
         for (int face = 0; face < 4; ++face) {
             const auto label = graphics::PatternSystem::addJoint(scene, *box, {0, 0, 0});
             require(label.has_value(), "Parcel label frame creation failed.");
@@ -78,6 +80,7 @@ bool Console::initScene() {
     return true;
 }
 
+/// 이동 거리로 상자와 벨트 표시를 배치한다.
 void Console::placeMovingObjects() {
     auto& scene = app_.getScene();
     const double travelled = clock_.seconds * beltSpeed;
@@ -103,6 +106,7 @@ void Console::placeMovingObjects() {
     }
 }
 
+/// 이동 시간과 카메라 상태를 초기화한다.
 void Console::resetState() {
     clock_.reset();
     clock_.playing = false;
@@ -121,15 +125,17 @@ void Console::resetState() {
     placeMovingObjects();
 }
 
+/// 카메라 배율을 변경한다.
 void Console::zoom(float factor) {
     auto& camera = app_.getCamera();
     const float current = camera.orthographic ? camera.orthographicHalfExtent
         : glm::length(camera.position - camera.target);
-    // Keep useful scene visibility and stay within the far clipping distance.
+
     const float next = std::clamp(current * factor, 2.0f, camera.orthographic ? 35.0f : 60.0f);
     require(graphics::PatternSystem::zoomCamera(camera, next / current), "Camera zoom failed.");
 }
 
+/// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key, int action, int mods) {
     if (key == GLFW_KEY_LEFT) leftHeld_ = action != GLFW_RELEASE;
     if (key == GLFW_KEY_RIGHT) rightHeld_ = action != GLFW_RELEASE;
@@ -142,7 +148,7 @@ void Console::onKey(int key, int action, int mods) {
         clock_.playing = !clock_.playing;
         break;
     case GLFW_KEY_P:
-        // Shift and Caps Lock together produce lowercase p.
+
         app_.getCamera().orthographic = ((mods & GLFW_MOD_SHIFT) != 0)
             != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
         break;
@@ -157,6 +163,7 @@ void Console::onKey(int key, int action, int mods) {
     }
 }
 
+/// 포커스가 없으면 지속 입력을 해제한다.
 void Console::onFocus(bool focused) {
     if (!focused) {
         leftHeld_ = false;
@@ -164,6 +171,7 @@ void Console::onFocus(bool focused) {
     }
 }
 
+/// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {
     require(clock_.advance(dt), "Conveyor clock update failed.");
     placeMovingObjects();
@@ -173,5 +181,5 @@ void Console::onUpdate(float dt) {
         require(graphics::PatternSystem::orbitCamera(app_.getCamera(), axis,
             float(direction) * 65.0f * dt), "Camera orbit failed.");
     }
-    // Application::run advances Scene motions; do not update them a second time here.
+
 }
