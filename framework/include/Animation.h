@@ -43,9 +43,9 @@ struct SwingRig {
 };
 class AnimationSystem {
 public:
-    /// [API] 관절의 현재 강체 자세와 모션을 보관한다. 자세를 편집한 뒤 다시 만들면 새 기준 자세를 사용한다.
+    /// [API] 관절의 현재 SRT와 강체 모션을 보관한다. 기준 배율은 양수 균일 배율만 허용한다.
     static std::optional<JointAnimation> createJointAnimation(const Scene& scene, EntityId joint, const Motion& motion);
-    /// [API] 초 단위 절대 시간으로 관절들을 샘플링한 뒤 모두 유효할 때 반영한다. Scene 부모 계층을 유지한다.
+    /// [API] 기준 SRT·피벗과 강체 모션을 합성해 모두 유효할 때 반영한다. 부모 계층과 균일 배율을 유지한다.
     static bool poseHierarchy(Scene& scene, const std::vector<JointAnimation>& animation, double seconds);
     /// [API] 실습 23 비율의 사람형을 만든다. 부모가 있으면 grid.frame은 부모 로컬 변환이다. 실패 시 Scene을 보존한다.
     static std::optional<HumanoidRig> addHumanoid(Scene& scene, const HumanoidConfig& config = HumanoidConfig{},

@@ -21,6 +21,18 @@ class Console {
     graphics::RoomBody roomBody_;
     graphics::EntityId room_=0, roomCube_=0;
     std::vector<graphics::JointAnimation> animation_;
+    struct JointControl {
+        std::size_t track = 0;
+        std::string name;
+        graphics::Transform3D initialRest;
+    };
+    std::vector<JointControl> jointControls_;
+    std::size_t selectedJoint_ = 0;
+    int selectedAxis_ = 0;
+    /// 선택한 관절의 기준 SRT와 피벗을 키 입력으로 편집한다.
+    bool handleJointKey(int key);
+    /// 현재 선택 관절과 조작 축을 콘솔에 출력한다.
+    void printSelectedJoint() const;
     bool threeViews_=false, trace_=false, floorOpen_=false;
     /// 거리 기반 격자 예제를 구성한다.
     bool initGrid();

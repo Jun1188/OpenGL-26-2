@@ -192,6 +192,7 @@ void Console::onKey(int key, int action) {
     }
     if(key==GLFW_KEY_V) {threeViews_=!threeViews_;return;}
     if(key==GLFW_KEY_D) {trace_=!trace_;graphics::Diagnostics::configure({true,trace_});return;}
+    if(demo_==Demo::Animation && handleJointKey(key)) return;
     if(key==GLFW_KEY_F && demo_==Demo::Room) {floorOpen_=!floorOpen_;return;}
     if(demo_!=Demo::Motion) {
         if(key==GLFW_KEY_SPACE) clock_.playing=!clock_.playing;
@@ -271,6 +272,7 @@ void Console::printHelp() const {
               << "왼쪽 클릭: 물체의 entity/face ID 출력\n"
               << "7 Grid/거리 기반 배치 / 8 실내 미끄럼·낙하 / 0 기존 Motion 예제\n"
               << "9 선형보간·진자·사람형·그네→사람 계층 애니메이션\n"
+              << "9번 관절: Tab/Backspace 선택, X/Y/Z 축, 좌우 회전, 상하 이동, PageUp/Down 피벗, +/- 균일 배율, R 복원\n"
               << "V 3뷰 전환 / D 단계 추적 로그 / F 실내 예제 바닥 개방 / Space 정지·재개\n";
 }
 
@@ -305,6 +307,7 @@ bool Console::initRoom() {
 bool Console::initAnimation() {
     auto& scene = app_.getScene();
     scene.clear(); demo_ = Demo::Animation; clock_.reset(); animation_.clear();
+    jointControls_.clear(); selectedJoint_=0; selectedAxis_=0;
     if (!graphics::PatternSystem::addBox(scene, {8, .15f, 6}, {0, -.15f, 0}, {.25f, .3f, .35f})) return false;
     graphics::SwingConfig swingConfig;
     swingConfig.pivot = {1, 3, 0};
@@ -342,10 +345,75 @@ bool Console::initAnimation() {
     const auto track = graphics::AnimationSystem::createJointAnimation(scene, *marker, motion);
     if (!track) return false;
     animation_.push_back(*track);
+    const auto control = [&](graphics::EntityId id, const std::string& name) {
+        std::size_t index=0;
+        while(index<animation_.size() && animation_[index].joint!=id) ++index;
+        if(index==animation_.size()) {
+            auto fixed=graphics::AnimationSystem::createJointAnimation(scene,id,graphics::Motion{});
+            if(!fixed) return false;
+            animation_.push_back(*fixed);
+        }
+        jointControls_.push_back({index,name,animation_[index].rest}); return true;
+    };
+    const auto personControls = [&](const graphics::HumanoidRig& rig,const std::string& prefix) {
+        if(!control(rig.root,prefix+" root") || !control(rig.pelvis,prefix+" pelvis")
+           || !control(rig.torso,prefix+" torso") || !control(rig.neck,prefix+" neck")) return false;
+        for(std::size_t i=0;i<2;++i) {
+            const auto side=prefix+(i==0?" left ":" right ");
+            if(!control(rig.shoulders[i],side+"shoulder") || !control(rig.elbows[i],side+"elbow")
+               || !control(rig.hands[i],side+"hand") || !control(rig.hips[i],side+"hip")
+               || !control(rig.knees[i],side+"knee") || !control(rig.feet[i],side+"foot")) return false;
+        }
+        return true;
+    };
+    if(!control(swing->frame,"swing frame") || !control(swing->hinge,"swing hinge")
+       || !control(swing->seat,"swing seat") || !personControls(swing->person,"rider")
+       || !personControls(*person,"standing")) return false;
     app_.getCamera() = graphics::Camera{};
     app_.getCamera().position = {8, 5, 10}; app_.getCamera().target = {0, 1.4f, 0};
     std::cout << "9: 노란 상자는 4초 편도 선형보간, 그네는 3초 주기 진자, 좌석의 사람은 계층 변환을 따릅니다.\n";
+    printSelectedJoint();
     return graphics::AnimationSystem::poseHierarchy(scene, animation_, 0);
+}
+/// 선택한 관절의 기준 자세를 편집하고 같은 시각의 애니메이션에 반영한다.
+bool Console::handleJointKey(int key) {
+    if(jointControls_.empty()) return false;
+    if(key==GLFW_KEY_TAB) selectedJoint_=(selectedJoint_+1)%jointControls_.size();
+    else if(key==GLFW_KEY_BACKSPACE) selectedJoint_=(selectedJoint_+jointControls_.size()-1)%jointControls_.size();
+    else if(key==GLFW_KEY_X || key==GLFW_KEY_Y || key==GLFW_KEY_Z)
+        selectedAxis_=key==GLFW_KEY_X?0:key==GLFW_KEY_Y?1:2;
+    else {
+        auto& track=animation_[jointControls_[selectedJoint_].track];
+        const auto saved=track.rest;
+        if(key==GLFW_KEY_LEFT || key==GLFW_KEY_RIGHT) {
+            glm::vec3 axis(0);axis[selectedAxis_]=1;
+            track.rest.rotation=track.rest.rotation*glm::mat3(glm::rotate(glm::mat4(1),
+                glm::radians(key==GLFW_KEY_LEFT?-5.0f:5.0f),axis));
+        } else if(key==GLFW_KEY_UP || key==GLFW_KEY_DOWN)
+            track.rest.basis[selectedAxis_]+=key==GLFW_KEY_UP?.05f:-.05f;
+        else if(key==GLFW_KEY_PAGE_UP || key==GLFW_KEY_PAGE_DOWN)
+            track.rest.localBasis[selectedAxis_]+=key==GLFW_KEY_PAGE_UP?.05f:-.05f;
+        else if(key==GLFW_KEY_EQUAL || key==GLFW_KEY_KP_ADD || key==GLFW_KEY_MINUS || key==GLFW_KEY_KP_SUBTRACT) {
+            const bool grow=key==GLFW_KEY_EQUAL || key==GLFW_KEY_KP_ADD;
+            track.rest.scale=glm::vec3(std::clamp(track.rest.scale.x*(grow?1.1f:1/1.1f),.1f,3.0f));
+        } else if(key==GLFW_KEY_R) track.rest=jointControls_[selectedJoint_].initialRest;
+        else return false;
+        if(!graphics::AnimationSystem::poseHierarchy(app_.getScene(),animation_,clock_.seconds)) {
+            track.rest=saved;
+            std::cerr<<"관절 편집 거절: 기준 자세를 복원했습니다.\n";
+        }
+    }
+    printSelectedJoint();return true;
+}
+/// 선택 관절·축·이동·피벗·균일 배율을 출력한다.
+void Console::printSelectedJoint() const {
+    if(jointControls_.empty()) return;
+    const auto& control=jointControls_[selectedJoint_];
+    const auto& rest=animation_[control.track].rest;
+    std::cout<<"joint "<<selectedJoint_+1<<'/'<<jointControls_.size()<<": "<<control.name
+        <<" axis="<<"XYZ"[selectedAxis_]<<" position="<<rest.basis.x<<','<<rest.basis.y<<','<<rest.basis.z
+        <<" pivot="<<rest.localBasis.x<<','<<rest.localBasis.y<<','<<rest.localBasis.z
+        <<" scale="<<rest.scale.x<<'\n';
 }
 /// 프레임 시간으로 상태와 장면을 갱신한다.
 void Console::onUpdate(float dt) {

@@ -2,6 +2,13 @@
 #include <set>
 
 namespace graphics {
+namespace detail {
+inline bool validJointRest(const Transform3D& rest) {
+    return DiagramSystem::validTransform(rest) && rest.scale.x > 1e-6f
+        && std::abs(rest.scale.x - rest.scale.y) < 1e-6f
+        && std::abs(rest.scale.x - rest.scale.z) < 1e-6f;
+}
+}
 inline HumanoidPose HumanoidPose::seated() {
     HumanoidPose pose;
     for (std::size_t i = 0; i < 2; ++i) {
@@ -16,10 +23,10 @@ inline std::optional<JointAnimation> AnimationSystem::createJointAnimation(
         const Scene& scene, EntityId joint, const Motion& motion) {
     const auto* component = scene.getComponent(joint);
     const auto sample = motion.sample(0);
-    if (!component || !sample || !detail::rigidRoom(DiagramSystem::modelMatrix(component->transform))
+    if (!component || !sample || !detail::validJointRest(component->transform)
         || !detail::rigidRoom(sample->parent) || !detail::rigidRoom(sample->local)) {
         Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "AnimationSystem::createJointAnimation",
-            "Need an existing rigid joint and a rigid motion sample. Scale the child mesh instead of the joint.");
+            "Need a joint with positive uniform rest scale and a rigid motion sample.");
         return {};
     }
     return JointAnimation{joint, component->transform, motion};
@@ -34,14 +41,15 @@ inline bool AnimationSystem::poseHierarchy(Scene& scene, const std::vector<Joint
         const auto sample = track.motion.sample(seconds);
         const auto rest = DiagramSystem::modelMatrix(track.rest);
         if (!scene.getComponent(track.joint) || !seen.insert(track.joint).second || !sample
-            || !detail::rigidRoom(rest) || !detail::rigidRoom(sample->parent) || !detail::rigidRoom(sample->local))
+            || !detail::validJointRest(track.rest) || !detail::rigidRoom(sample->parent) || !detail::rigidRoom(sample->local))
             return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "AnimationSystem::poseHierarchy",
-                "Need unique existing joints, rigid rest poses and rigid motion samples.");
+                "Need unique existing joints, positive uniform rest scales and rigid motion samples.");
         // World contributions are in the joint parent's space, before its rest pose.
         const auto matrix = sample->parent * rest * sample->local;
         Transform3D transform;
         transform.basis = glm::vec3(matrix[3]);
-        transform.rotation = glm::mat3(matrix);
+        transform.scale = track.rest.scale;
+        transform.rotation = glm::mat3(matrix) / track.rest.scale.x;
         if (!DiagramSystem::validTransform(transform))
             return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "AnimationSystem::poseHierarchy", "Joint composition overflow.");
         staged.emplace_back(track.joint, transform);
@@ -179,7 +187,9 @@ inline std::optional<SwingRig> AnimationSystem::addSwingWithRider(Scene& scene, 
     const auto* root = staged.getComponent(rig.person.root);
     auto personTransform = root->transform;
     const auto hipCenter = config.person.grid.origin + config.person.grid.extent * glm::vec3(.5f, .4f, .5f);
-    personTransform.basis = glm::vec3(0, config.seatSize.y / 2, 0) - personTransform.rotation * hipCenter;
+    const float thighHalfThickness = config.person.grid.extent.z * .2f;
+    personTransform.basis = glm::vec3(0, config.seatSize.y / 2 + thighHalfThickness, 0)
+                          - personTransform.rotation * hipCenter;
     if (!staged.setTransform(rig.person.root, personTransform)) return {};
     const auto swingTrack = createJointAnimation(staged, rig.hinge, swingMotion);
     PendulumMotion rider;
