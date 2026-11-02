@@ -16,6 +16,8 @@ def read(p): return (ROOT / source_path(p)).read_text(encoding='utf-8-sig')
 def write(p, s):
     p = ROOT / p
     p.parent.mkdir(parents=True, exist_ok=True)
+    if p.is_file() and p.read_bytes() == s.encode('utf-8-sig'):
+        return
     p.write_text(s, encoding='utf-8-sig', newline='\n')
 def esc(s): return html.escape(s)
 def code(s): return '<pre><code>' + esc(s.strip()) + '</code></pre>'
@@ -898,16 +900,164 @@ def refresh_size_report():
         write('standard/SIZE_REPORT.md',report)
     print(f'Standard total: {total:,} bytes; {total/1e6:.6f} MB; 30 MB exceeded: {total>30000000}')
 
+def graph_svg(ident, title, nodes, edges, width, height):
+    """Author an offline diagram with explicit branch and return paths."""
+    marker = ident + '-arrow'
+    parts = [f'<figure><div class="flow"><svg viewBox="0 0 {width} {height}" role="img" aria-label="{esc(title)}"><title>{esc(title)}</title><defs><marker id="{marker}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#4d688a"/></marker></defs>']
+    for path, label, x, y in edges:
+        parts.append(f'<path d="{path}" fill="none" stroke="#4d688a" stroke-width="2" marker-end="url(#{marker})"/>')
+        if label:
+            parts.append(f'<text x="{x}" y="{y}" font-size="16" fill="#263f5e">{esc(label)}</text>')
+    for x, y, w, h, decision, lines in nodes:
+        if decision:
+            parts.append(f'<path d="M{x+w/2} {y} L{x+w} {y+h/2} L{x+w/2} {y+h} L{x} {y+h/2} Z" fill="#fff1cd" stroke="#9a7a31"/>')
+        else:
+            parts.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/>')
+        for i, line in enumerate(lines):
+            text_y = y + h/2 + (i-(len(lines)-1)/2)*23 + 6
+            parts.append(f'<text x="{x+w/2}" y="{text_y}" text-anchor="middle" font-size="17" fill="#1d2c40">{esc(line)}</text>')
+    return ''.join(parts) + '</svg></div><figcaption>' + esc(title) + '</figcaption></figure>'
+
+def loop_chart(ident):
+    nodes = [
+        (410,20,380,65,False,['main: 콜백 등록','등록 시 본문은 실행하지 않음']),
+        (410,120,380,65,False,['run: 창·Renderer 초기화','initHandler → initScene 1회']),
+        (410,230,380,90,True,['종료 요청 없이 계속 실행?']),
+        (850,240,300,70,False,['shutdown → return','실패·예외도 자원 정리']),
+        (410,360,380,65,False,['PollEvents → 입력 콜백','닫기 요청·콜백 오류 재확인']),
+        (410,470,380,90,True,['framebuffer 크기가 양수?']),
+        (30,480,270,70,False,['WaitEvents','previousTime 재설정']),
+        (410,610,380,65,False,['dt = clamp(경과 초, 0, .05)','updateHandler → onUpdate']),
+        (410,720,380,65,False,['Scene::updateMotions(dt)','현재 GL 컨텍스트 확인']),
+        (410,830,380,90,True,['renderHandler 등록됨?']),
+        (30,840,270,65,False,['사용자 renderHandler','예: Console::onRender']),
+        (850,840,300,65,False,['기본 renderScene','한 Scene·기본 카메라']),
+        (410,1000,380,65,False,['성공한 프레임: SwapBuffers','다음 반복으로 돌아감']),
+    ]
+    edges = [('M600 85 V120','',0,0),('M600 185 V230','',0,0),
+             ('M790 275 H850','아니오',797,263),('M600 320 V360','예',612,344),
+             ('M600 425 V470','',0,0),('M410 515 H300','아니오',320,501),
+             ('M30 515 H15 V275 H410','다음 반복',24,260),
+             ('M600 560 V610','예',612,587),('M600 675 V720','',0,0),
+             ('M600 785 V830','',0,0),('M410 875 H300','예',350,859),
+             ('M790 875 H850','아니오',797,859),
+             ('M165 905 V960 H600 V1000','',0,0),('M1000 905 V960 H600','',0,0),
+             ('M600 1065 V1100 H350 V210 H600 V230','반복',363,1090)]
+    return graph_svg(ident, '프레임 루프: 조건 분기와 반복 복귀', nodes, edges, 1200, 1130)
+
+def hierarchy_chart(ident):
+    nodes = [(60,20,270,65,False,['엔티티 루트 L0']),
+             (60,150,270,65,False,['조상 L1: prefix에 포함']),
+             (360,150,250,65,False,['다른 자식','대상 체인에는 미포함']),
+             (60,280,270,65,False,['연결 엔티티 La: anchor']),
+             (60,410,270,65,False,['자손 Lt: suffix에 포함']),
+             (60,540,270,65,False,['대상 면: faceChild × F']),
+             (710,20,320,65,False,['모션 rootLayer']),
+             (710,150,320,65,False,['상위 모션 레이어']),
+             (710,280,320,65,False,['연결할 말단 LayerId']),
+             (690,410,360,65,False,['layerMatrices 결과','motion.parent / motion.local']),
+             (390,540,660,65,False,['entityWorld = parent × prefix × local × suffix','Mface = entityWorld × faceChild × F'])]
+    edges = [('M195 85 V150','부모 → 자식',205,125),
+             ('M195 85 V115 H485 V150','분기',385,106),
+             ('M195 215 V280','',0,0),('M195 345 V410','',0,0),
+             ('M195 475 V540','면 변환',205,513),
+             ('M870 85 V150','레이어 부모',880,125),('M870 215 V280','',0,0),
+             ('M710 312 H330','bindEntity: 부모 관계와 별개',365,298),
+             ('M870 345 V410','World / Local 합성',878,381),
+             ('M870 475 V540','',0,0)]
+    return graph_svg(ident, '엔티티 계층과 모션 레이어: 연결 위치와 행렬 전달', nodes, edges, 1100, 640)
+
+def swing_chart(ident):
+    nodes = [(410,20,300,65,False,['frame: 고정 기준']),
+             (40,150,270,65,False,['고정 지지대','hinge의 형제가 됨']),
+             (410,150,300,65,False,['hinge: 진자 회전']),
+             (40,280,270,65,False,['줄: hinge를 따라감']),
+             (410,280,300,65,False,['seat: hinge를 따라감']),
+             (410,410,300,65,False,['person.root: 좌석의 자식']),
+             (410,540,300,65,False,['pelvis: 골반 기준']),
+             (100,680,330,65,False,['torso → 목·머리·어깨·팔','상체 편집은 이 하위로 전달']),
+             (680,680,330,65,False,['양쪽 hips → 무릎·발','하체는 골반 아래에서 분기'])]
+    edges = [('M560 85 V115 H175 V150','',0,0),('M560 85 V150','',0,0),
+             ('M560 215 V245 H175 V280','',0,0),('M560 215 V280','',0,0),
+             ('M560 345 V410','부모 변환 전달',573,385),('M560 475 V540','',0,0),
+             ('M560 605 V640 H265 V680','',0,0),('M560 605 V640 H845 V680','',0,0)]
+    return graph_svg(ident, '그네·착석 사람: 부모에서 자식으로 전달되는 변환', nodes, edges, 1100, 790)
+
+def cube_diagrams():
+    return {
+        'cube-exam': flow(['CPU: 입력·시간·Scene 상태 결정','GPU 버퍼·프로그램·uniform 바인딩','정점: M → V → P → 클립 좌표','클리핑 → 원근 나눗셈 → viewport','래스터화 → 프래그먼트 → 깊이/블렌딩','framebuffer → SwapBuffers'], 'cube-pipeline-chart'),
+        'cube-m': flow(['모델 정점 v','T(-localBasis): 피벗을 원점으로','S: 배율 → R: 회전','T(basis): 부모 공간에 배치','부모·모션·면 합성 → 최종 M'], 'cube-m-chart'),
+        'cube-v': flow(['월드 좌표 M × v','position / target / up','viewMatrix → lookAt → V','뷰 좌표 V × M × v'], 'cube-v-chart'),
+        'cube-p': flow(['카메라 투영 값·viewport aspect','원근 perspective / 직교 ortho','P × viewPosition → clip','클리핑 후 w로 나눠 NDC'], 'cube-p-chart'),
+        'cube-binding': flow(['초기화: VAO → VBO/EBO → attribute 설정','형상 변경: CPU 메시 → GPU 버퍼 업로드','draw: UseProgram → BindVertexArray','면별 MVP·법선·텍스처 uniform','DrawElements: EBO 구간의 인덱스 사용'], 'cube-bind-chart'),
+        'cube-hierarchy': hierarchy_chart('cube-hierarchy-chart'),
+        'cube-face': flow(['상자 entityWorld 계산','independence이면 faceChild 합성; 아니면 I','localAnimationMatrix: T(c) × R × T(-c)','Mface = entityWorld × faceChild × localAnimation','P × V × Mface × 정점 → 한 면만 열기'], 'cube-face-chart'),
+        'cube-after': flow(['gl_Position: 클립 좌표','프리미티브 조립·클리핑','원근 나눗셈: clip.xyz / clip.w','NDC → viewport → 화면 좌표','래스터화·속성 보간 → 프래그먼트','깊이·블렌딩 → framebuffer'], 'cube-after-chart'),
+        'cube-order': flow(['요구를 M/V/P·부모·면·바인딩으로 분류','정지한 육면체 한 개 생성','M·피벗 → 부모 계층 → 면 변환','입력 상태 → 프레임당 update 한 번','V/P·viewport → 렌더링 연결','사용자가 빌드·실행·리셋 확인'], 'cube-order-chart'),
+    }
+
+def refresh_doc_flowcharts():
+    targets = {'runtime-loop': loop_chart, 'case-app': loop_chart,
+               'runtime-matrix': swing_chart, 'case-animation': swing_chart,
+               'case-transform': hierarchy_chart, 'case-layers': hierarchy_chart,
+               'pattern-parts': hierarchy_chart, 'pattern-swing': swing_chart}
+    assets = {'frame-loop': loop_chart('standalone-loop'),
+              'entity-layers': hierarchy_chart('standalone-hierarchy'),
+              'swing-hierarchy': swing_chart('standalone-swing'),
+              'render-pipeline': cube_diagrams()['cube-exam']}
+    markdown = {'API_KO.md': ['frame-loop', 'entity-layers', 'render-pipeline'],
+                'APPLICATION_PATTERNS.md': ['frame-loop', 'entity-layers', 'swing-hierarchy'],
+                'ANIMATION_API.md': ['frame-loop', 'swing-hierarchy']}
+    labels = {'frame-loop': '프레임 루프·조건 분기', 'entity-layers': '엔티티 계층·모션 레이어',
+              'swing-hierarchy': '그네·착석 사람 계층', 'render-pipeline': '렌더링 파이프라인'}
+    for directory in ('framework/docs', 'standard/docs', 'standard/framework/docs'):
+        for name, diagram in assets.items():
+            svg = re.search(r'<svg\b[\s\S]*?</svg>', diagram).group(0)
+            svg = svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif" ', 1)
+            write(directory + '/flowcharts/' + name + '.svg', svg + '\n')
+        for name, images in markdown.items():
+            begin, end = '<!-- doc-flowcharts:start -->', '<!-- doc-flowcharts:end -->'
+            addition = begin + '\n\n' + '\n\n'.join(
+                '![이미지: ' + labels[key] + '](flowcharts/' + key + '.svg)' for key in images)
+            addition += '\n\n' + end + '\n\n'
+            path = directory + '/' + name
+            current = re.sub(re.escape(begin) + r'[\s\S]*?' + re.escape(end) + r'\s*', '', read(path))
+            current = current.replace('\n\n', '\n\n' + addition, 1)
+            write(path, current)
+        for name in ('API_REFERENCE.html', 'IMPLEMENTATION_PATTERNS.html'):
+            path = directory + '/' + name
+            current = read(path)
+            for section, author in targets.items():
+                begin, end = '<!-- chart-' + section + ':start -->', '<!-- chart-' + section + ':end -->'
+                current = re.sub(re.escape(begin) + r'[\s\S]*?' + re.escape(end), '', current)
+                pattern = r'(<section id="' + section + r'">\s*<h2>[\s\S]*?</h2>)'
+                addition = begin + author('doc-' + section) + end
+                current = re.sub(pattern, lambda m: m.group(0) + addition, current, count=1)
+            write(path, current)
+    index = read('standard/DOCUMENT_INDEX.md')
+    begin, end = '<!-- flowchart-index:start -->', '<!-- flowchart-index:end -->'
+    index = re.sub(re.escape(begin) + r'[\s\S]*?' + re.escape(end) + r'\s*', '', index)
+    addition = begin + '\n\n' + '\n'.join(
+        '- [' + labels[key] + '](docs/flowcharts/' + key + '.svg)' for key in assets)
+    index = index.replace('\n\n', '\n\n' + addition + '\n\n' + end + '\n\n', 1)
+    write('standard/DOCUMENT_INDEX.md', index)
+
 def refresh_cube_docs():
     """Add the approved cube material without refreshing unrelated source snapshots."""
     body = read('tools/templates/cube_pipeline_body.html')
+    for section, diagram in cube_diagrams().items():
+        pattern = r'(<section id="' + section + r'">\s*<h2>[\s\S]*?</h2>)'
+        body = re.sub(pattern, lambda m: m.group(0) + diagram, body, count=1)
+    loop = '<section id="cube-loop"><h2>프레임 반복과 콜백 실행 시점</h2>' + loop_chart('cube-loop-chart')
+    loop += '<p>화살표가 조건 검사로 돌아가면 다음 프레임이다. 최소화 상태는 WaitEvents 뒤 시간 기준을 재설정한다. 입력·update 뒤의 종료 요청은 반복을 중단한다. 모션·컨텍스트·렌더·swap 실패와 콜백 예외도 shutdown 경로로 간다. update는 프레임당 한 번이며 여러 카메라 렌더 패스에서 반복하지 않는다.</p></section>'
+    body += loop
     begin, end = '<!-- cube-exam:start -->', '<!-- cube-exam:end -->'
     sections = {m.group(1): m.group(0) for m in re.finditer(
         r'<section id="(cube-[^"]+)">[\s\S]*?</section>', body)}
     selection = {
         'API_REFERENCE.html': list(sections),
-        'IMPLEMENTATION_PATTERNS.html': ['cube-exam', 'cube-hierarchy', 'cube-face'],
-        'EXAM_IMPLEMENTATION_ORDER.html': ['cube-exam', 'cube-order'],
+        'IMPLEMENTATION_PATTERNS.html': ['cube-exam', 'cube-loop', 'cube-hierarchy', 'cube-face'],
+        'EXAM_IMPLEMENTATION_ORDER.html': ['cube-exam', 'cube-loop', 'cube-order'],
     }
     for directory in ('framework/docs', 'standard/docs', 'standard/framework/docs'):
         for name, ids in selection.items():
@@ -941,4 +1091,5 @@ if __name__=='__main__':
         main()
         refresh_standard()
     refresh_cube_docs()
+    refresh_doc_flowcharts()
     refresh_size_report()

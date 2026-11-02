@@ -1,5 +1,14 @@
 ﻿# standard 문서 목차
 
+<!-- flowchart-index:start -->
+
+- [프레임 루프·조건 분기](docs/flowcharts/frame-loop.svg)
+- [엔티티 계층·모션 레이어](docs/flowcharts/entity-layers.svg)
+- [그네·착석 사람 계층](docs/flowcharts/swing-hierarchy.svg)
+- [렌더링 파이프라인](docs/flowcharts/render-pipeline.svg)
+
+<!-- flowchart-index:end -->
+
 2026-11-02 현재 소스 기준. 저장소 밖 링크 없이 standard 폴더 안에서 읽는다. 의존성 라이선스와 예제 데이터는 문서 개편 대상에서 제외하고 원본을 유지한다.
 
 - README.md: 모드·키·실행 흐름

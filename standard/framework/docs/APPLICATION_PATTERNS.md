@@ -1,5 +1,15 @@
 ﻿# 응용패턴·그네 통합 설명
 
+<!-- doc-flowcharts:start -->
+
+![이미지: 프레임 루프·조건 분기](flowcharts/frame-loop.svg)
+
+![이미지: 엔티티 계층·모션 레이어](flowcharts/entity-layers.svg)
+
+![이미지: 그네·착석 사람 계층](flowcharts/swing-hierarchy.svg)
+
+<!-- doc-flowcharts:end -->
+
 흐름도·실제 사용 코드·저장소 소스는 [통합 HTML](IMPLEMENTATION_PATTERNS.html)을 연다. 이 목록은 현재 API로 구현하는 순서를 요약한다.
 
 ## 콜백으로 응용 상태 연결

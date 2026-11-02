@@ -1,5 +1,15 @@
 ﻿# 공개 API와 실제 사용 사례
 
+<!-- doc-flowcharts:start -->
+
+![이미지: 프레임 루프·조건 분기](flowcharts/frame-loop.svg)
+
+![이미지: 엔티티 계층·모션 레이어](flowcharts/entity-layers.svg)
+
+![이미지: 렌더링 파이프라인](flowcharts/render-pipeline.svg)
+
+<!-- doc-flowcharts:end -->
+
 현재 헤더 기준의 선언·오버로드를 모두 수록한다. 기본 include는 framework/Framework.h다. 문서 예제는 빌드하지 않았다.
 
 [공통 구현·사례 HTML](API_REFERENCE.html) · [응용패턴 HTML](IMPLEMENTATION_PATTERNS.html)

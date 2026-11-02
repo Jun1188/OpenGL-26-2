@@ -1,5 +1,13 @@
 ﻿# 그네·사람형·계층 SRT 빠른 참조
 
+<!-- doc-flowcharts:start -->
+
+![이미지: 프레임 루프·조건 분기](flowcharts/frame-loop.svg)
+
+![이미지: 그네·착석 사람 계층](flowcharts/swing-hierarchy.svg)
+
+<!-- doc-flowcharts:end -->
+
 [통합 응용패턴과 실제 코드](IMPLEMENTATION_PATTERNS.html#pattern-swing) · [공통 구현·전체 API](API_REFERENCE.html)
 
 사람은 seat의 자식이며 엉덩이 -90°, 무릎 +90°의 앉은 자세다. 허벅지 아래쪽을 좌석 윗면에 맞춘다. frame의 고정 지지대는 hinge의 진자 회전에 포함하지 않는다. torso는 독립 상체 트랙을 가진다.
