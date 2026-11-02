@@ -4,7 +4,15 @@ import re, json, html, hashlib, difflib
 import os
 
 ROOT = Path(__file__).resolve().parents[1]
-def read(p): return (ROOT / p).read_text(encoding='utf-8-sig')
+def source_path(p):
+    # Older guide inputs used inline implementations; current sources use .cpp.
+    if p.endswith('.inl') and not (ROOT / p).is_file():
+        candidate = str(Path(p).with_suffix('.cpp')).replace('\\', '/')
+        if (ROOT / candidate).is_file():
+            return candidate
+    return p
+
+def read(p): return (ROOT / source_path(p)).read_text(encoding='utf-8-sig')
 def write(p, s):
     p = ROOT / p
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -13,6 +21,7 @@ def esc(s): return html.escape(s)
 def code(s): return '<pre><code>' + esc(s.strip()) + '</code></pre>'
 def para(s): return '<p>' + esc(s) + '</p>'
 def source(p):
+    p = source_path(p)
     return '<details><summary>실제 저장소 소스 · '+esc(p)+'</summary>'+code(read(p))+'</details>'
 
 def apis():
@@ -871,6 +880,8 @@ Application이 Scene·Renderer와 창 수명을 소유한다. Scene의 ID와 비
         if p.is_file() and p.suffix.lower() in ('.md','.html','.json') and not any(x in p.parts for x in ('dependencies','x64','.vs')):
             rel=p.relative_to(ROOT/'standard').as_posix();index+=f'- [{rel}]({rel})\n'
     write('standard/DOCUMENT_INDEX.md',index)
+
+def refresh_size_report():
     # Re-read logical byte sizes after all authored documents are present, including this report.
     for _ in range(4):
         total=0; by={};count=0
@@ -887,6 +898,47 @@ Application이 Scene·Renderer와 창 수명을 소유한다. Scene의 ID와 비
         write('standard/SIZE_REPORT.md',report)
     print(f'Standard total: {total:,} bytes; {total/1e6:.6f} MB; 30 MB exceeded: {total>30000000}')
 
+def refresh_cube_docs():
+    """Add the approved cube material without refreshing unrelated source snapshots."""
+    body = read('tools/templates/cube_pipeline_body.html')
+    begin, end = '<!-- cube-exam:start -->', '<!-- cube-exam:end -->'
+    sections = {m.group(1): m.group(0) for m in re.finditer(
+        r'<section id="(cube-[^"]+)">[\s\S]*?</section>', body)}
+    selection = {
+        'API_REFERENCE.html': list(sections),
+        'IMPLEMENTATION_PATTERNS.html': ['cube-exam', 'cube-hierarchy', 'cube-face'],
+        'EXAM_IMPLEMENTATION_ORDER.html': ['cube-exam', 'cube-order'],
+    }
+    for directory in ('framework/docs', 'standard/docs', 'standard/framework/docs'):
+        for name, ids in selection.items():
+            addition = ''.join(sections[key] for key in ids)
+            if name != 'API_REFERENCE.html':
+                addition = re.sub(
+                    r'href="#(cube-[^"]+)"',
+                    lambda m: m.group(0) if m.group(1) in ids else
+                    'href="API_REFERENCE.html#' + m.group(1) + '"', addition)
+                addition += '<p><a href="API_REFERENCE.html#cube-binding">바인딩·M/V/P·전체 변환 설명</a></p>'
+            if name == 'EXAM_IMPLEMENTATION_ORDER.html':
+                addition += '<h2>추가 응용: 기존 그네·사람형 구현 순서</h2><p>아래 착석·관절 예제는 추가 응용 자료다. 육면체 코딩테스트의 확정 요구사항이 아니다.</p>'
+            addition = begin + addition + end
+            path = directory + '/' + name
+            current = read(path)
+            current = re.sub(re.escape(begin) + r'[\s\S]*?' + re.escape(end), '', current)
+            # Insert before the previous material so the cube is the exam baseline.
+            current = current.replace('</nav>', '</nav>' + addition, 1)
+            if name == 'EXAM_IMPLEMENTATION_ORDER.html':
+                current = current.replace('시험 현장 구현 순서: 정적 조립에서 관절 제어까지',
+                                          '시험 현장 구현 순서: 육면체·렌더링·계층 변환')
+            write(path, current)
+
 if __name__=='__main__':
-    main()
-    refresh_standard()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cube-only', action='store_true',
+                        help='Update only cube sections; retain existing guide snapshots.')
+    args = parser.parse_args()
+    if not args.cube_only:
+        main()
+        refresh_standard()
+    refresh_cube_docs()
+    refresh_size_report()

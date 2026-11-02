@@ -1,0 +1,260 @@
+﻿<section id="cube-exam">
+<h2>중간고사: 육면체로 렌더링과 변환을 추적하기</h2>
+<p class="note"><strong>사용자가 전달한 시험 조건: 코딩테스트에서 육면체를 사용한다.</strong> 바인딩·M/V/P·계층·면 변환을 바꾸는 문제는 대비용 예상 사례다. 실제 출제 범위·제한 시간·허용 자료가 확정되었다는 뜻은 아니다.</p>
+<p>같은 육면체에서도 정점 연결, 전체 자세, 카메라, 투영, 부모 관계, 한 면의 자세를 각각 바꿀 수 있다. 먼저 문제의 동사를 아래 표에 대응한다. 그다음 해당 상태를 만드는 함수와 그 상태를 읽는 렌더링 단계를 찾는다.</p>
+<nav aria-label="육면체 시험 설명"><a href="#cube-binding">바인딩</a><a href="#cube-m">M·SRT·피벗</a><a href="#cube-v">V</a><a href="#cube-p">P</a><a href="#cube-hierarchy">계층·레이어</a><a href="#cube-face">면 열기</a><a href="#cube-after">클립 이후·법선</a><a href="#cube-order">현장 구현 순서</a></nav>
+<table><thead><tr><th>문제의 요구</th><th>바꿀 상태</th><th>주요 위치</th></tr></thead><tbody>
+<tr><td>면 연결·색·정점 형상을 바꾼다</td><td>CPU 메시, 정점 속성, 인덱스, GPU 업로드</td><td>Scene의 메시 API → Renderer::upload</td></tr>
+<tr><td>상자 전체를 이동·회전·확대한다</td><td>Transform3D → M</td><td>Scene::setTransform → worldMatrix</td></tr>
+<tr><td>카메라를 돌린다</td><td>Camera.position/target/up → V</td><td>CameraSystem::viewMatrix</td></tr>
+<tr><td>원근감·시야·화면 비율을 바꾼다</td><td>Camera의 투영 값·aspect → P</td><td>CameraSystem::projectionMatrix</td></tr>
+<tr><td>다른 상자를 따라 회전하거나 한 면을 연다</td><td>부모 관계·모션 레이어·면 피벗</td><td>setParent / bindEntity / setFaceLocalMatrix</td></tr>
+</tbody></table>
+<pre><code>CPU: 메시·입력·시간 → 엔티티/면 M, 카메라 V, 투영 P
+GL 상태: 프로그램 + VAO/EBO + uniform + 텍스처 + 깊이/컬링
+정점: local → M → world → V → view → P → clip
+고정 처리: 프리미티브 조립 → 클리핑 → w로 나눔 → NDC → viewport
+화면: 래스터화·보간 → 프래그먼트 셰이더 → 깊이/블렌딩 → framebuffer</code></pre>
+<p>이 순서는 개념상 데이터 흐름이다. GPU는 일부 프래그먼트 검사를 앞당길 수 있다. 바인딩은 좌표를 변환하는 행렬 단계가 아니라, 뒤의 GL 명령이 사용할 대상과 상태를 선택하는 CPU 측 작업이다.</p>
+</section>
+
+<section id="cube-binding">
+<h2>1. 바인딩: 무엇을, 언제, 어느 명령이 읽는가?</h2>
+<p>육면체를 만들었다고 바로 그려지지 않는다. Renderer::initialize는 GPU 자원과 정점 형식을 만들고, upload는 CPU 정점·인덱스를 버퍼에 쓴다. draw는 프로그램과 VAO를 선택하고 면마다 uniform과 텍스처를 지정한 뒤 인덱스 구간을 그린다. ID, 바이트 데이터, 바인딩 상태를 구분한다.</p>
+<table><thead><tr><th>호출/대상</th><th>저장·선택하는 내용</th><th>육면체에서의 의미</th></tr></thead><tbody>
+<tr><td>UseProgram(program)</td><td>사용할 링크 완료 프로그램을 선택한다.</td><td>정점·프래그먼트 셰이더와 uniform의 주인이 결정된다. UniformMatrix 호출 전에 맞는 프로그램을 선택한다.</td></tr>
+<tr><td>BindVertexArray(vao)</td><td>정점 속성 배열 상태와 EBO 연결을 선택한다.</td><td>position/color/uv/normal을 어떤 버퍼·형식으로 읽는지 복원한다. VAO 자체가 정점 바이트를 소유하는 것은 아니다.</td></tr>
+<tr><td>BindBuffer(GL_ARRAY_BUFFER, vbo)</td><td>버퍼 쓰기와 VertexAttribPointer 설정에 사용할 대상을 선택한다.</td><td>VertexAttribPointer를 호출할 때 선택된 VBO가 해당 attribute에 기록된다. 나중에 ARRAY_BUFFER만 바꿔도 기존 attribute 연결이 바뀌지는 않는다.</td></tr>
+<tr><td>BindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo)</td><td>현재 VAO의 인덱스 버퍼 연결을 설정한다.</td><td>드로우에 사용할 육면체 삼각형 인덱스다. VAO를 바인딩한 채 EBO를 0으로 바꾸면 그 연결을 해제한다.</td></tr>
+<tr><td>VertexAttribPointer + EnableVertexAttribArray</td><td>속성 위치·성분 수·자료형·stride·offset과 배열 사용 여부를 기록한다.</td><td>현재 GpuVertex는 float 기준 위치3, 색3, UV2, 법선3이다. sizeof와 offsetof가 CPU 구조체 배치에 맞아야 한다.</td></tr>
+<tr><td>UniformMatrix4fv(location, 1, GL_FALSE, data)</td><td>현재 프로그램의 해당 uniform에 행렬 값을 전달한다.</td><td>GLM 행렬을 현재 코드의 열 우선 저장 그대로 보낸다. uMVP에는 CPU에서 계산한 P×V×M이 들어간다.</td></tr>
+<tr><td>ActiveTexture(GL_TEXTURE0), BindTexture, Uniform1i</td><td>텍스처 유닛을 선택하고 해당 유닛에 텍스처를 연결한다. sampler에는 유닛 번호를 넣는다.</td><td>uTexture=0은 텍스처 객체 ID가 아니라 0번 유닛이다. UV는 정점 속성이며 바인딩과 별개다.</td></tr>
+<tr><td>DrawElements(mode, count, type, offset)</td><td>현재 VAO/EBO와 프로그램·uniform 상태로 그린다.</td><td>count는 정점 수가 아니라 이번 구간의 인덱스 수다. EBO가 있을 때 마지막 인자는 CPU 주소가 아니라 바이트 offset이다.</td></tr>
+</tbody></table>
+<h3>현재 초기화와 드로우의 핵심 호출</h3>
+<p>아래는 Renderer.cpp의 호출 관계를 설명한 단편이다. GL 함수 포인터는 현재 구현의 gl 객체로 호출한다. vao_, vbo_, ebo_, range, location은 Renderer 내부 값이다. 응용 Console에 그대로 붙이는 독립 코드는 아니다.</p>
+<pre><code>// initialize: VAO에 형식과 버퍼 연결을 기록한다.
+gl.BindVertexArray(vao_);
+gl.BindBuffer(GL_ARRAY_BUFFER, vbo_);
+gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
+using V = detail::GpuVertex;
+gl.VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(V),
+                     reinterpret_cast&lt;void*&gt;(offsetof(V, position)));
+gl.EnableVertexAttribArray(0); // 나머지 color/uv/normal도 설정한다.
+
+// draw: 현재 호출이 읽을 상태를 선택한다.
+gl.UseProgram(shaderProgramID_);
+gl.BindVertexArray(vao_);
+const auto mvp = projection * view * model;
+gl.UniformMatrix4fv(mvpLocation_, 1, GL_FALSE, glm::value_ptr(mvp));
+gl.DrawElements(GL_TRIANGLES, range.count, GL_UNSIGNED_INT,
+                reinterpret_cast&lt;const void*&gt;(range.firstIndex * sizeof(GLuint)));</code></pre>
+<p>예상 변형: position의 location 0과 color의 location 1을 잘못 연결하면 좌표와 색 입력이 뒤섞인다. EBO의 삼각형 인덱스를 바꾸면 연결 모양과 앞·뒤 방향이 달라진다. uniform을 다른 프로그램에 보내면 계산한 M이 맞아도 원하는 셰이더가 그 값을 사용하지 않는다. GL 상태 추적은 값 계산과 함께 확인한다.</p>
+<p class="badge">근거: framework/detail/Renderer.cpp의 initialize·upload·draw, framework/detail/Shaders.h의 layout(location=0..3).</p>
+</section>
+
+<section id="cube-m">
+<h2>2. M: 로컬 정점을 월드로 옮기는 행렬</h2>
+<p>육면체의 localVertices는 모델 안의 점이다. M은 그 점을 장면 어디에, 어떤 방향과 크기로 놓을지 결정한다. 현재 Renderer의 면별 model은 Scene::faceWorldMatrix의 결과다. 따라서 M에는 엔티티 하나의 SRT뿐 아니라 부모·모션·면 변환도 포함될 수 있다.</p>
+<pre><code>// Model.h: Transform3D의 한 노드 로컬 행렬
+L = T(basis) * R(rotation) * S(scale) * T(-localBasis)
+
+// 열벡터이므로 정점에는 오른쪽부터 적용한다.
+localVertex → 피벗을 원점으로 이동 → 배율 → 회전 → basis 위치로 이동</code></pre>
+<table><thead><tr><th>값</th><th>역할</th><th>육면체 사례</th></tr></thead><tbody>
+<tr><td>basis</td><td>부모 좌표에서 피벗이 놓일 위치다. 부모가 없으면 월드 기준이다.</td><td>{2,0,0}이면 피벗을 부모의 X=2에 놓는다.</td></tr>
+<tr><td>localBasis</td><td>원래 모델 좌표에서 선택한 피벗이다.</td><td>한 변 1인 중심 육면체의 아래쪽 가운데는 {0,-.5,0}이다. localBasis를 바꾸면 회전 0에서도 원래 정점의 위치가 달라질 수 있다.</td></tr>
+<tr><td>rotation</td><td>회전 기저인 mat3다. 각도 자체를 저장하는 변수가 아니다.</td><td>glm::rotate에 radians를 넘겨 만든 mat4에서 mat3를 취한다.</td></tr>
+<tr><td>scale</td><td>피벗 기준 모델 축 배율이다.</td><td>{2,1,1}이면 로컬 X방향 길이가 두 배다. addCuboid의 변 길이에 다시 곱해진다.</td></tr>
+</tbody></table>
+<h3>중심 회전과 아래쪽 피벗 회전</h3>
+<p>아래 함수들은 Framework.h를 포함한 응용 코드에서 사용한다. cube는 addCuboid({1,1,1}, {0,0,0})로 만든 유효 ID이며 부모·모션 레이어는 없는 상태를 전제로 한다. 각 함수는 새 Transform3D를 구성하므로 기존 자세를 대체한다.</p>
+<pre><code>bool spinCube(graphics::Scene&amp; scene, graphics::EntityId cube, float degrees) {
+    graphics::Transform3D t;
+    t.basis = {2, 0, 0};
+    t.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(degrees),
+                                     glm::vec3(0, 0, 1)));
+    return scene.setTransform(cube, t);
+}
+
+bool tiltCubeAtBottom(graphics::Scene&amp; scene, graphics::EntityId cube, float degrees) {
+    graphics::Transform3D t;
+    t.localBasis = {0, -.5f, 0};
+    t.basis = {2, -.5f, 0};
+    t.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(degrees),
+                                     glm::vec3(0, 0, 1)));
+    return scene.setTransform(cube, t);
+}</code></pre>
+<p>degrees=0이면 두 방식의 중심은 {2,0,0}으로 같다. 90°에서는 중심 회전의 중심은 그대로이고, 아래쪽 피벗 회전의 중심은 {1.5,-.5,0}이 된다. localBasis만 바꾸고 basis를 보정하지 않으면 초기 위치도 달라진다.</p>
+<h3>곱하는 위치에 따라 자전과 공전이 달라진다</h3>
+<pre><code>T(2,0,0) * Rz(90°) * v  // 원점 v는 (2,0,0)으로 이동한다. 중심은 고정된 자전.
+Rz(90°) * T(2,0,0) * v  // 원점 v는 (0,2,0)으로 이동한다. 중심도 원점 주위를 공전.
+T(c) * R * T(-c) * v    // c를 지나는 회전축 주위로 회전한다.
+P * V * M * v          // M→V→P 순서로 적용한다. uMVP의 실제 곱은 P×V×M.</code></pre>
+<p>glm::translate(m,d), rotate(m,...), scale(m,s)는 현재 GLM에서 m의 오른쪽에 변환을 합성한다. 코드 작성 순서를 정점에 적용하는 순서로 읽지 않는다. x=1인 점에 T(2,0,0)×S(2,2,2)를 적용하면 x=4, S×T를 적용하면 x=6이다.</p>
+<p class="badge">근거: framework/include/Model.h의 detail::transformMatrix, Graphics.h의 변환 API, Renderer.cpp의 projection * view * model.</p>
+</section>
+<section id="cube-v">
+<h2>3. V: 월드를 카메라 좌표로 표현한다</h2>
+<p>CameraSystem::viewMatrix는 glm::lookAt(position,target,up)으로 V를 만든다. position은 시점, target은 바라볼 점, up은 화면의 위쪽을 정하는 보조 벡터다. V는 카메라의 월드 자세를 나타내는 행렬의 역변환에 해당한다. 현재 일반 설정에서 카메라 앞쪽은 뷰 공간의 -Z 방향이다.</p>
+<pre><code>graphics::Camera camera;
+camera.position = {0, 0, 5};
+camera.target   = {0, 0, 0};
+camera.up       = {0, 1, 0};
+const auto view = graphics::CameraSystem::viewMatrix(camera);
+// 월드 원점 (0,0,0,1)은 뷰 좌표 (0,0,-5,1)이다.</code></pre>
+<p>position을 {0,0,10}으로 바꾸면 원점까지의 거리가 10이 된다. 원근 투영이면 같은 상자가 더 작게 보인다. position과 target을 같은 양만큼 평행 이동하면 카메라 방향은 유지된다. position만 X 방향으로 옮기고 target을 원점에 두면 카메라 방향도 바뀐다.</p>
+<p>“물체를 회전하라”는 주로 M, “물체 주위를 돌며 보라”는 주로 V를 바꾼다. 한 물체의 화면을 비슷하게 만들어도 다른 물체·조명·월드 좌표·피킹과의 관계가 달라진다. position=target, up=0, 시선과 up이 평행한 경우는 유효한 카메라 기저를 만들 수 없다. CameraSystem::validCamera의 결과를 확인한다.</p>
+</section>
+<section id="cube-p">
+<h2>4. P: 시야와 클립 범위를 정한다</h2>
+<p>P는 뷰 좌표를 클립 좌표로 옮긴다. 이 단계만으로 화면 픽셀 좌표가 되는 것은 아니다. 현재 원근 투영은 perspective(radians(fieldOfViewDegrees),aspect,nearPlane,farPlane), 직교 투영은 ortho를 사용한다.</p>
+<table><thead><tr><th>값·선택</th><th>역할</th><th>예상 화면</th></tr></thead><tbody>
+<tr><td>fieldOfViewDegrees</td><td>원근 투영의 세로 시야각이다. 도→라디안으로 변환해 전달한다.</td><td>45→60으로 늘리면 시야가 넓어지고 같은 거리의 상자는 작게 보인다.</td></tr>
+<tr><td>aspect</td><td>그릴 viewport의 너비/높이다.</td><td>가로로 긴 창에서는 P도 갱신한다. 예전 aspect를 유지한 채 viewport만 늘리면 상자가 가로로 늘어나 보인다.</td></tr>
+<tr><td>nearPlane / farPlane</td><td>카메라에서 앞·뒤 경계까지의 양수 거리다.</td><td>near가 상자보다 멀면 앞부분이 잘린다. 0&lt;near&lt;far가 필요하다. near를 과도하게 0에 가깝게 잡으면 깊이 정밀도가 나빠진다.</td></tr>
+<tr><td>orthographic=false</td><td>원근 투영이다. 거리에 따라 화면 크기가 달라진다.</td><td>멀리 있는 같은 상자가 더 작게 보인다.</td></tr>
+<tr><td>orthographic=true</td><td>직교 투영이다. 거리에 따른 축소가 없다.</td><td>앞뒤 위치만 다른 같은 상자는 같은 크기다. 클리핑과 깊이 비교는 여전히 적용된다.</td></tr>
+<tr><td>orthographicHalfExtent</td><td>현재 구현에서는 짧은 화면 축의 절반 범위다.</td><td>2라면 짧은 축은 -2~+2다. 가로로 긴 화면은 가로를 aspect배, 세로로 긴 화면은 세로를 1/aspect배 늘린다.</td></tr>
+</tbody></table>
+<pre><code>// 먼저 viewport의 너비·높이가 양수인지 확인한다.
+float aspect = float(viewport.width) / float(viewport.height);
+auto p = graphics::CameraSystem::projectionMatrix(camera, aspect);
+auto v = graphics::CameraSystem::viewMatrix(camera);
+auto m = scene.faceWorldMatrix(cube, faceIndex);
+if (!m) return false;
+auto clip = p * v * (*m) * glm::vec4(localVertex, 1);</code></pre>
+<p>이 코드는 유효한 scene/cube/faceIndex/localVertex/viewport를 받는 처리의 일부다. Renderer는 카메라와 viewport로 P를 준비한다. 다중 뷰에서는 각 영역의 너비/높이를 사용한다. 창 전체의 aspect를 재사용하지 않는다. V의 거리와 P의 시야각을 동시에 바꾸면 원인을 추적하기 어려우므로 하나씩 바꾼다.</p>
+</section>
+<section id="cube-hierarchy">
+<h2>5. 부모·자식과 모션 레이어: 두 계층을 구분한다</h2>
+<p>setParent는 엔티티 사이의 부모·자식 관계를 만든다. bindEntity는 엔티티를 MotionSystem의 레이어에 연결한다. GL의 VAO·텍스처 바인딩과 다른 처리이며, CPU에서 행렬을 합성할 위치를 정한다.</p>
+<h3>모션 없이 부모·자식부터 만든다</h3>
+<pre><code>bool makeOrbitingCube(graphics::Scene&amp; scene) {
+    auto pivot = scene.addGroup();
+    auto cube  = scene.addCuboid({1,1,1}, {2,0,0});
+    if (!pivot || !cube || !scene.setParent(*cube, *pivot)) return false;
+    graphics::Transform3D parent;
+    parent.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(90.0f),
+                                          glm::vec3(0,0,1)));
+    return scene.setTransform(*pivot, parent);
+}</code></pre>
+<p>pivot은 형상이 없는 회전 중심이다. cube의 basis={2,0,0}은 pivot 좌표에서의 위치다. 모션이 없으면 M=Rparent×Tchild이고 중심은 {0,2,0}으로 이동한다. 자식의 rotation만 바꾸면 중심은 그대로이고 자세만 변한다. 부모의 비균일 배율 뒤에 자식 회전이 붙으면 최종 행렬에는 전단(shear)이 생길 수 있다.</p>
+<p>setParent는 현재 월드 자세를 자동 보존하지 않는다. 위치를 보존하려면 개념적으로 Lnew=inverse(MnewParent)×MoldWorld를 구해야 한다. 부모 행렬은 역행렬이 존재해야 하고, 분해 결과도 Transform3D의 허용 범위여야 한다. 임의의 행렬을 setTransform에 그대로 전달하는 API는 아니다.</p>
+<h3>현재 Scene::worldMatrix의 실제 합성</h3>
+<pre><code>chain = [root, ..., target]          // 루트부터 대상까지의 엔티티
+anchor = 대상부터 부모 방향으로 찾은 가장 가까운 명시적 레이어 연결 위치
+prefix = Lroot * ... * Lanchor
+suffix = Lanchor의 자식 * ... * Ltarget
+entityWorld = motion.parent * prefix * motion.local * suffix
+// 명시적 연결이 없으면 rootLayer를 사용한다. anchor=target, suffix=I.</code></pre>
+<p>대상 자체에 연결하면 local 모션은 대상 SRT의 오른쪽에 들어간다. 조상에만 연결하면 그 조상까지의 prefix 오른쪽, 자손 suffix 왼쪽에 들어간다. 자식이 다른 레이어에 명시적으로 연결되면 가장 가까운 연결이 선택된다. 모든 조상의 연결 레이어를 각각 따로 곱하는 처리가 아니다.</p>
+<p>MotionSystem::layerMatrices는 레이어 계층을 루트부터 순회하며 World 기여를 parent, Local 기여를 local에 누적한다. 각 층의 config.transform과 샘플 기여를 합성하며, 루트 층의 parent/local은 result.parent에 모은다. World/Local이라는 이름은 이 삽입 위치와 함께 이해한다. 항상 각 자식의 절대 월드 축을 뜻한다고 일반화하지 않는다.</p>
+<h3>관절 애니메이션과 연결한다</h3>
+<pre><code>jointLocal = sample.parent * modelMatrix(track.rest) * sample.local
+// poseHierarchy가 결과를 Scene의 관절 로컬 자세에 반영한다.
+// 이후 Scene::worldMatrix가 엔티티 부모·자식과 연결 레이어를 합성한다.</code></pre>
+<p>poseHierarchy의 World 기여는 관절의 부모 공간이다. rest는 기준 자세이며, 현재 관절 API는 양수 균일 배율과 강체 모션을 전제로 한다. Scene 일반 SRT의 비균일 배율과 구분한다. 입력에서 Scene을 직접 수정해도 다음 poseHierarchy가 덮어쓸 수 있으므로 9번의 편집처럼 rest를 바꾼다. 같은 동작을 관절 API와 Scene 모션 층 양쪽에 등록하면 두 번 적용된다.</p>
+<p class="badge">근거: framework/detail/Scene.cpp의 worldMatrix·setParent, Motion.cpp의 layerMatrices, Animation.cpp의 poseHierarchy.</p>
+</section>
+<section id="cube-face">
+<h2>6. 육면체의 한 면을 연다: 전체 M과 면 변환을 구분한다</h2>
+<p>“상자 전체 회전”은 엔티티의 Transform3D, “뚜껑 한 장 열기”는 면 변환을 사용한다. Scene::faceWorldMatrix는 아래 순서로 합성한다. face.localVertices는 상자의 모델 좌표이므로 면의 피벗도 같은 좌표로 정한다.</p>
+<pre><code>faceChild = I
+if (face.independence):
+    faceChild = T(face.localBasis) * modelMatrix(face.transform)
+Mface = entityWorld * faceChild * face.localAnimationMatrix
+
+// 독립 면의 faceChild를 펼치면 다음과 같다.
+T(c) * T(face.basis) * Rface * Sface * T(-c)</code></pre>
+<p>independence=false이면 face.transform은 면의 M에 기여하지 않는다. setFaceLocalMatrix로 설정하는 localAnimationMatrix는 이 경우에도 합성된다. independence=true도 부모 엔티티의 자세에서 완전히 독립한다는 뜻은 아니다. 부모 행렬 오른쪽에 면 변환을 넣는다는 뜻이다.</p>
+<h3>단위 상자의 위쪽 면을 뒤쪽 모서리에서 연다</h3>
+<p>cube는 원점 중심·각 변 1인 상자다. topFace는 호출자가 실제 면 정점에서 확인한 위쪽 면 번호다. 면 번호를 임의로 고정하지 않는다. 위쪽 y=.5, 뒤쪽 모서리 z=-.5인 사례이며, hinge는 상자의 모델 좌표다. 다른 면 변환은 초기값으로 둔다.</p>
+<pre><code>bool openCubeLid(graphics::Scene&amp; scene, graphics::EntityId cube,
+                 std::size_t topFace, float degrees) {
+    graphics::AxisLine hinge;
+    hinge.point = {0, .5f, -.5f};
+    hinge.direction = {1, 0, 0};
+    auto rotation = graphics::TransformSystem::rotation(hinge, degrees);
+    return rotation &amp;&amp; scene.setFaceLocalMatrix(cube, topFace, *rotation);
+}</code></pre>
+<p>0°에서 닫히고 +90°에서 해당 모서리를 축으로 위쪽으로 열린다. hinge 위의 점은 고정되고 반대쪽 모서리가 움직인다. 상자 전체 M을 바꾸면 뚜껑도 따라간다. 변 길이나 모델 원점을 바꾸면 hinge도 바꾼다.</p>
+<p>다른 방법은 localAnimationMatrix를 I로 두고 setFaceTransform(cube,topFace,t,true)에 localBasis=c, basis=0, rotation=R을 전달하는 것이다. 면 쪽의 T(c)가 보충되므로 T(c)×R×T(-c)가 된다. 두 방법에 같은 회전을 설정하면 두 번 회전한다. 전체 Transform3D의 basis와 독립 면의 basis는 사용 방식이 다르다.</p>
+<p>면 변환은 정점 데이터 수정과 다르다. 이웃 면의 공유 위치도 자동으로 따라가지는 않으므로, 열린 축 이외의 모서리에는 틈이 생긴다. 면을 뒤에서 볼 때는 CullMode도 확인한다.</p>
+</section>
+<section id="cube-after">
+<h2>7. uMVP 이후: 화면 위치·법선·깊이</h2>
+<p>현재 정점 셰이더는 gl_Position=uMVP×vec4(vPos,1)을 출력한다. 이 값은 클립 좌표이며 NDC나 픽셀이 아니다. 기본 OpenGL 클립 체적에서는 -w≤x,y,z≤w 범위로 프리미티브를 자른다. 이후 xyz를 w로 나누어 NDC를 만든다. 원근 투영에서는 거리에 따라 w가 변하므로 멀리 있는 물체가 작아진다.</p>
+<pre><code>clip = P * V * M * vec4(localPosition, 1)
+ndc  = clip.xyz / clip.w
+window.x = viewport.x + (ndc.x + 1) * viewport.width  / 2
+window.y = viewport.y + (ndc.y + 1) * viewport.height / 2
+// 기본 depth range라면 depth = (ndc.z + 1) / 2</code></pre>
+<p>이 식은 기본 설정의 설명이다. GPU 클리핑 전에 CPU에서 임의의 clip.w로 나눠 가시성을 판정하는 구현 예제가 아니다. 삼각형이 경계를 가로지르는 경우도 처리해야 한다. viewport는 framebuffer 왼쪽 아래 원점의 영역이며 P와 별개 상태다.</p>
+<h3>법선·UV·색은 위치와 다른 값이다</h3>
+<p>위치는 w=1이므로 평행 이동을 받는다. 방향은 평행 이동을 받지 않는다. 법선은 접선과의 수직 관계를 유지하기 위해 역행렬이 존재하는 M에서 transpose(inverse(mat3(M)))을 사용한다. Renderer는 모델 행렬로 법선 행렬을 만들고, 정점 셰이더는 Normal=uNormalMatrix×vNormal을 계산한다. 프래그먼트에서는 normalize한 법선과 월드 방향광을 비교한다. V와 P를 법선에 그대로 곱하지 않는다.</p>
+<p>특이 모델 행렬에서는 현재 Renderer가 법선 행렬을 단위 행렬로 대체한다. 두께를 0으로 만든 상자의 조명이 올바르다는 보장은 아니다. UV는 텍스처 참조 좌표, 색은 프래그먼트 색의 재료이며 M의 위치 값이 아니다. 래스터화 과정에서 정점 출력이 보간된다.</p>
+<p>현재 Shaders.h는 uModel을 선언하지만 셰이더 본문에서 사용하지 않는다. Renderer는 업로드를 시도하지만, 미사용 uniform은 최적화되어 location=-1일 수 있다. uMVP는 gl_Position 계산에 실제로 사용하는 필수 uniform이다. 선언된 변수와 실제로 소비되는 값을 구분한다.</p>
+<h3>깊이와 컬링</h3>
+<p>깊이 검사는 앞뒤 가림을, 컬링은 정점 순회 방향에 따른 앞·뒷면 제외를 제어한다. 현재 Renderer는 mat3(M)의 행렬식이 음수이면 FrontFace를 CW로 바꾸어 반사로 뒤집힌 방향에 대응한다. 면의 인덱스 순서를 바꿀 때도 표면 방향을 확인한다. wireframe과 depthTest가 모두 켜지면 면을 색 없이 깊이에 먼저 쓰고 선을 그리므로, 뒷면 선 표시는 단순 GL_LINES 중첩과 다르다.</p>
+<p>모양은 맞고 명암만 이상하면 법선·광원 방향·lighting, 앞뒤 겹침만 이상하면 depthTest·깊이 초기화, 뒤에서 면이 사라지면 CullMode·인덱스 순서를 확인한다. 비표시 원인을 한 단계로 단정하지 않는다.</p>
+</section>
+<section id="cube-order">
+<h2>8. 시험 현장 구현 순서: 한 상자로 단계를 분리한다</h2>
+<ol>
+<li><strong>요구를 단계로 나눈다.</strong> 입력, 전체 M, 부모·자식, 면, V, P, 렌더 상태 중 무엇을 바꿀지 정한다. 지정하지 않은 단계는 기준값으로 둔다.</li>
+<li><strong>정지한 단위 상자를 만든다.</strong> addCuboid({1,1,1},{0,0,0})의 ID를 보관하고 카메라·depthTest를 설정한다. optional/bool 결과를 처리한다.</li>
+<li><strong>M부터 구현한다.</strong> 0°→90°의 중심과 정점 하나를 종이에서 예측한다. basis·localBasis와 행렬 곱의 좌우를 정한다.</li>
+<li><strong>필요한 계층을 추가한다.</strong> 공전 중심은 addGroup, 부품 추종은 setParent, 한 면 열기는 면 API를 사용한다. 레이어를 사용하면 anchor와 parent/local의 합성 위치도 정한다.</li>
+<li><strong>입력과 시간을 분리한다.</strong> 키는 선택·목표 각도·재생 상태를 바꾸고 update에서 dt로 각도를 한 번만 진행한다. 기준 자세에서 계산하며 같은 회전을 불필요하게 누적하지 않는다.</li>
+<li><strong>V와 P를 따로 바꾼다.</strong> 카메라 공전은 position/target, 투영은 orthographic/FOV/aspect에 연결한다. 창과 각 뷰의 크기 변경도 처리한다.</li>
+<li><strong>그리기 직전의 의존 관계를 추적한다.</strong> program→VAO/EBO→MVP/법선/텍스처→DrawElements를 확인한다. Console의 일반 그리기 호출과 Renderer 내부의 책임을 구분한다.</li>
+<li><strong>사용자가 빌드·실행한다.</strong> 초기화, 정지/재개, 90°, 면의 뒤쪽, 가로/세로 화면, 부모만/자식만 조작을 순서대로 확인한다.</li>
+</ol>
+<h3>입력·갱신을 연결하는 독립 main</h3>
+<p>Framework.h와 현재 Framework.props를 사용하는 프로젝트용 새 예제다. 기존 main과 동시에 등록하지 않는다. Space는 자전 정지/재개, O는 원근/직교 전환, R은 각도를 0으로 복원한다. 화면 출력은 확인하지 않았으며 실행 확인은 사용자가 한다.</p>
+<pre><code>#include "framework/Framework.h"
+
+int main() {
+    graphics::Application app;
+    std::optional&lt;graphics::EntityId&gt; cube;
+    float degrees = 0;
+    bool playing = true;
+    app.setInitHandler([&amp;](graphics::Application&amp; current) {
+        cube = current.getScene().addCuboid({1,1,1}, {0,0,0});
+        auto&amp; camera = current.getCamera();
+        camera.position = {3,2,5}; camera.target = {0,0,0};
+        camera.orthographicHalfExtent = 2;
+        current.getRenderOptions().depthTest = true;
+        return cube.has_value();
+    });
+    app.setKeyHandler([&amp;](graphics::Application&amp; current, int key, int action) {
+        if (action != GLFW_PRESS) return;
+        if (key == GLFW_KEY_SPACE) playing = !playing;
+        if (key == GLFW_KEY_R) degrees = 0;
+        if (key == GLFW_KEY_O) {
+            auto&amp; camera = current.getCamera();
+            camera.orthographic = !camera.orthographic;
+        }
+        if (key == GLFW_KEY_ESCAPE) current.requestClose();
+    });
+    app.setUpdateHandler([&amp;](graphics::Application&amp; current, float dt) {
+        if (playing) degrees = std::fmod(degrees + 45.0f * dt, 360.0f);
+        graphics::Transform3D t;
+        t.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(degrees),
+                                         glm::vec3(0,1,0)));
+        if (!cube || !current.getScene().setTransform(*cube, t)) current.requestClose();
+    });
+    return app.run();
+}</code></pre>
+<p>app은 창과 루프의 소유자, cube는 Scene 안의 상자를 찾는 ID, degrees와 playing은 응용 상태다. setUpdateHandler에서는 자세만 갱신한다. 일반 렌더링은 Application에 맡기므로 여기서 GL 바인딩을 다시 작성하지 않는다. Application이 갱신하는 MotionSystem을 중복 update하지 않는다.</p>
+<table><thead><tr><th>사용자 확인</th><th>예상 결과·되돌아갈 위치</th></tr></thead><tbody>
+<tr><td>예제 실행, Space→Space</td><td>상자가 Y축으로 자전하고 정지/재개한다. 정지하지 않으면 시간 갱신과 입력 상태를 확인한다.</td></tr>
+<tr><td>정지한 뒤 R</td><td>다음 update에서 0° 자세다. 복원되지 않으면 Scene을 덮어쓰는 다른 모션을 확인한다.</td></tr>
+<tr><td>O, 별도 시도로 카메라 Z=5→10</td><td>원근에서는 상자가 작아지고 직교에서는 크기가 같다. V와 P의 역할을 확인한다.</td></tr>
+<tr><td>가로·세로로 창 크기 변경</td><td>상자의 비율을 유지한다. 늘어나 보이면 viewport와 aspect를 확인한다.</td></tr>
+<tr><td>부모 90°·자식 X=2, 다른 시도로 자식만 90°</td><td>부모 조작은 중심도 이동한다. 자식만 조작하면 제자리에서 회전한다.</td></tr>
+<tr><td>뚜껑 0°→90°</td><td>한 모서리가 고정되고 해당 면만 열린다. 상자 전체가 움직이면 수정 대상, 축이 어긋나면 피벗 좌표를 확인한다.</td></tr>
+</tbody></table>
+<p>이 표는 미실시 확인 절차이며 통과 결과가 아니다. 회상 과제: 중심 X=2인 상자의 “제자리 회전”과 “원점 주위 공전”에서 T와 R 중 무엇을 왼쪽에 두는지 설명한다.</p>
+</section>
