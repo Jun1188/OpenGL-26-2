@@ -6,6 +6,7 @@
 
 namespace assembly {
 using Tokens = std::vector<std::string>;
+class Assembly;
 
 struct FaceMount {
     graphics::EntityId mesh = 0;
@@ -27,7 +28,7 @@ struct Node {
     bool affineGroup = false;
 };
 
-enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom };
+enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom, Input };
 inline bool faceEffect(Effect effect) { return effect == Effect::Face || effect == Effect::FaceTrack || effect == Effect::Wall; }
 struct Behavior {
     std::string name, target, reference;
@@ -51,6 +52,10 @@ struct Behavior {
     std::vector<std::string> obstacles;
     glm::mat4 previousRoom{1};
     std::function<bool(graphics::Scene&, const graphics::Transform3D&, double, float)> custom;
+    std::function<bool(Assembly&, int, int, int)> key;
+    std::function<bool(Assembly&, const graphics::MouseEvent&)> mouse;
+    std::function<bool(Assembly&, double, double)> cursor;
+    std::function<void(Assembly&, bool)> focus;
 };
 
 struct Binding {
@@ -77,6 +82,7 @@ class Assembly {
     } state_;
     graphics::Application& app_;
     bool replaying_ = false, faulted_ = false;
+    std::uint64_t topologyRevision_ = 0;
 
     bool dispatch(const Tokens& args, std::ostream& out);
     bool motionCommand(const Tokens& args, std::ostream& out);
@@ -86,6 +92,7 @@ class Assembly {
     bool trackCommand(const Tokens& args, std::ostream& out);
     bool inputCommand(const Tokens& args, std::ostream& out);
     bool applyPoses(float dt);
+    bool dispatchInput(const std::function<bool(const Behavior&)>& callback, std::ostream& out);
     void applyMounts();
     void registerNode(const std::string& name, graphics::EntityId id, bool whole,
                       const std::string& kind = "part", std::optional<graphics::EntityId> mesh = std::nullopt);

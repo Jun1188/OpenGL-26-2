@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <cctype>
 #include <sstream>
+#include <iostream>
 
 namespace assembly {
 namespace {
@@ -143,12 +144,32 @@ bool Assembly::inputCommand(const Tokens& a, std::ostream&) {
     return true;
 }
 
+bool Assembly::dispatchInput(const std::function<bool(const Behavior&)>& callback, std::ostream& out) {
+    try {
+        // A callback may execute clear/load or remove itself.
+        const auto snapshot = state_.behaviors;
+        const auto revision = topologyRevision_;
+        for (const auto& behavior : snapshot) {
+            if (behavior.enabled && callback(behavior)) return true;
+            if (topologyRevision_ != revision) return true;
+        }
+    } catch (const std::exception& error) {
+        faulted_ = true; state_.paused = true;
+        state_.dragging = false; state_.dragX.reset();
+        for (auto& binding : state_.bindings) binding.down = false;
+        out << "사용자 입력 정지: " << error.what() << "\nguide input 또는 remove <입력ID>로 수정하세요.\n";
+        return true;
+    }
+    return false;
+}
+
 void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
     if (action == GLFW_RELEASE) {
         for (auto& binding : state_.bindings)
             if (binding.key == key) binding.down = false;
-        return;
     }
+    if (dispatchInput([&](const Behavior& b) { return b.key && b.key(*this, key, action, mods); }, out)) return;
+    if (action == GLFW_RELEASE) return;
     const int physicalMods = mods & (GLFW_MOD_SHIFT | GLFW_MOD_CONTROL | GLFW_MOD_ALT);
     for (auto& binding : state_.bindings) {
         if (binding.key != key || binding.mods != physicalMods) continue;
@@ -194,9 +215,14 @@ void Assembly::onFocus(bool focused) {
         for (auto& binding : state_.bindings) binding.down = false;
         state_.dragging = false; state_.dragX.reset();
     }
+    dispatchInput([&](const Behavior& b) { if (b.focus) b.focus(*this, focused); return false; }, std::cout);
 }
 
 void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
+    if (event.button == GLFW_MOUSE_BUTTON_RIGHT && event.action == GLFW_RELEASE) {
+        state_.dragging = false; state_.dragX.reset();
+    }
+    if (dispatchInput([&](const Behavior& b) { return b.mouse && b.mouse(*this, event); }, out)) return;
     if (event.button == GLFW_MOUSE_BUTTON_RIGHT && !state_.dragTarget.empty()) {
         state_.dragging = event.action == GLFW_PRESS;
         state_.dragX.reset();
@@ -231,7 +257,8 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
     }
     out << "선택 해제\n";
 }
-void Assembly::onCursor(double x, double, std::ostream& out) {
+void Assembly::onCursor(double x, double y, std::ostream& out) {
+    if (dispatchInput([&](const Behavior& b) { return b.cursor && b.cursor(*this, x, y); }, out)) return;
     if (!state_.dragging || !std::isfinite(x)) return;
     try {
         if (state_.dragX) rotate(state_.dragTarget, state_.dragAxis, float(x - *state_.dragX) * state_.dragSensitivity);

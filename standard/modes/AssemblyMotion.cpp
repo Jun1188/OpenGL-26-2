@@ -35,6 +35,7 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
                     app_.getScene().setFaceVisible(mesh, it->faceIndex, it->initialFaceVisible), "면 동작 복원 실패.");
         }
         state_.behaviors.erase(it);
+        ++topologyRevision_;
         return true;
     }
     if (command == "play" || command == "enable" || command == "seek") {

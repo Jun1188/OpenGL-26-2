@@ -99,6 +99,7 @@ const Node& Assembly::node(const std::string& name) const {
 }
 
 void Assembly::clear() {
+    ++topologyRevision_;
     app_.getScene().clear();
     state_ = State{};
     faulted_ = false;
@@ -112,6 +113,7 @@ void Assembly::registerNode(const std::string& name, graphics::EntityId id, bool
     require(component != nullptr, "등록할 엔티티가 없습니다.");
     for (const auto& item : state_.nodes)
         require(item.second.id != id, "같은 엔티티를 두 이름으로 등록할 수 없습니다.");
+    ++topologyRevision_;
     state_.nodes.emplace(name, Node{id, mesh, component->transform, component->transform, kind, whole, {}, {}});
     if (state_.selected.empty() && whole)
         state_.selected = name;
@@ -127,8 +129,10 @@ Behavior* Assembly::positionDriver(const std::string& target) {
 void Assembly::attach(Behavior behavior) {
     require(!behavior.name.empty(), "동작 이름이 필요합니다.");
     const auto& targetNode = node(behavior.target);
-    require(!targetNode.affineGroup || behavior.effect == Effect::Custom,
+    require(!targetNode.affineGroup || behavior.effect == Effect::Custom || behavior.effect == Effect::Input,
             "비균일/반사 그룹은 정적 계층입니다. 자식 group/joint에 모션을 붙이세요.");
+    if (behavior.effect == Effect::Input)
+        require(bool(behavior.key) || bool(behavior.mouse) || bool(behavior.cursor) || bool(behavior.focus), "Input에는 입력 콜백이 필요합니다.");
     if (behavior.effect == Effect::Custom) {
         require(bool(behavior.custom), "Custom 동작 함수가 필요합니다.");
         behavior.positionDriver = true;
@@ -136,7 +140,7 @@ void Assembly::attach(Behavior behavior) {
     if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor)
         behavior.positionDriver = true;
     const auto checkGeometryOwner = [&](const Behavior& physics, const Behavior& other) {
-        if (physics.effect != Effect::Body && physics.effect != Effect::Walk) return;
+        if (other.effect == Effect::Input || (physics.effect != Effect::Body && physics.effect != Effect::Walk)) return;
         const auto& object = node(other.target);
         const auto& room = node(physics.reference);
         const bool face = faceEffect(other.effect);
@@ -149,8 +153,9 @@ void Assembly::attach(Behavior behavior) {
         checkGeometryOwner(current, behavior);
         checkGeometryOwner(behavior, current);
         require(current.name != behavior.name, "중복 동작 이름입니다: " + behavior.name);
-        require(!(current.effect == Effect::Body && behavior.target == current.target + ".mesh") &&
-                !(behavior.effect == Effect::Body && current.target == behavior.target + ".mesh"),
+        require(behavior.effect == Effect::Input || current.effect == Effect::Input ||
+                (!(current.effect == Effect::Body && behavior.target == current.target + ".mesh") &&
+                 !(behavior.effect == Effect::Body && current.target == behavior.target + ".mesh")),
                 "물리 메시에는 별도 동작을 붙일 수 없습니다. 상자 루트를 사용하세요.");
         const bool currentFace = faceEffect(current.effect);
         const bool newFace = faceEffect(behavior.effect);
@@ -188,6 +193,7 @@ void Assembly::attach(Behavior behavior) {
         require(graphics::TransformSystem::validAffine(behavior.faceTrackBase), "면의 기준 행렬이 특이합니다.");
     }
     state_.behaviors.push_back(std::move(behavior));
+    ++topologyRevision_;
 }
 
 void Assembly::setRest(const std::string& target, const graphics::Transform3D& rest) {
