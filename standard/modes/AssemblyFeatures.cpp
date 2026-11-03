@@ -42,7 +42,7 @@ std::optional<graphics::Transform3D> srtMatrix(const glm::mat4& matrix) {
 }
 
 void Assembly::addFeature(const std::string& name, int mode) {
-    require(state_.features.size() < 16 && mode >= 1 && mode <= lastStandardMode, "기능은 모드1~22, 인스턴스16개 이하여야 합니다.");
+    require(state_.features.size() < 64 && mode >= 1 && mode <= lastStandardMode, "기능은 모드1~22, 인스턴스64개 이하여야 합니다.");
     group(name, {0, 0, 0});
     node(name).guideTopic = "mode" + std::to_string(mode);
     FeatureInstance feature;
@@ -51,7 +51,7 @@ void Assembly::addFeature(const std::string& name, int mode) {
 }
 
 void Assembly::portFeature(const std::string& source, graphics::EntityId native, const std::string& name) {
-    require(state_.features.size() < 16, "기능 인스턴스16개 한도입니다.");
+    require(state_.features.size() < 64, "기능 인스턴스64개 한도입니다.");
     const auto found = std::find_if(state_.features.begin(), state_.features.end(), [&](const auto& f) { return f.name == source; });
     require(found != state_.features.end() && found->program->scene().getComponent(native), "원본 기능과 native 엔티티 ID를 확인하세요.");
     FeatureInstance port;
@@ -69,7 +69,7 @@ bool Assembly::featureCommand(const Tokens& a, std::ostream& out) {
         return *it;
     };
     if (a[1] == "add") {
-        require(a.size() == 4 && state_.features.size() < 16, "feature add <이름> <모드1~22>. 컨테이너 한도16개.");
+        require(a.size() == 4 && state_.features.size() < 64, "feature add <이름> <모드1~22>. 컨테이너 한도64개.");
         const auto mode = indexNumber(a[3]);
         require(mode >= 1 && mode <= lastStandardMode, "feature 모드는 1~22입니다.");
         addFeature(a[2], int(mode));
@@ -103,7 +103,7 @@ bool Assembly::featureCommand(const Tokens& a, std::ostream& out) {
         return true;
     }
     if (a[1] == "port") {
-        require(a.size() == 5 && state_.features.size() < 16, "feature port <기존이름> <native엔티티ID> <새이름>");
+        require(a.size() == 5 && state_.features.size() < 64, "feature port <기존이름> <native엔티티ID> <새이름>");
         portFeature(a[2], indexNumber(a[3]), a[4]);
         out << "라이브 포트는 원본의 상태/시계를 공유합니다. 독립 인스턴스는 feature add를 사용하세요.\n";
         return true;
