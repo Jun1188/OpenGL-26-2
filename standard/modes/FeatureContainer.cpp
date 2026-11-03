@@ -75,6 +75,9 @@ void FeatureContainer::mouse(const graphics::MouseEvent& event, const graphics::
 void FeatureContainer::cursor(double x, double y) {
     Impl::Context context(*impl_); impl_->controller.onCursor(x, y); context.check();
 }
+void FeatureContainer::pick(std::optional<graphics::PickResult> hit) {
+    Impl::Context context(*impl_); impl_->controller.selectFromContainer(hit); context.check();
+}
 void FeatureContainer::focus(bool value) {
     Impl::Context context(*impl_); impl_->controller.onFocus(value); context.check();
 }

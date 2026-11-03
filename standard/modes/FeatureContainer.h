@@ -26,15 +26,17 @@ public:
     void mouse(const graphics::MouseEvent& event, const graphics::Camera& view);
     void cursor(double x, double y);
     void focus(bool value);
+    void pick(std::optional<graphics::PickResult> hit);
 };
 
 struct FeatureEvent {
-    enum class Kind { Key, Mouse, Cursor, Focus } kind = Kind::Focus;
+    enum class Kind { Key, Mouse, Cursor, Focus, Pick } kind = Kind::Focus;
     int key = 0, action = 0, mods = 0;
     double x = 0, y = 0;
     bool focused = false;
     graphics::MouseEvent mouse;
     graphics::Camera view;
+    std::optional<graphics::PickResult> hit;
 };
 struct FeatureEntity {
     graphics::EntityId group = 0;

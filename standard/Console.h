@@ -101,6 +101,7 @@ public:
 
     /// 장면 객체와 초기 상태를 구성한다.
     bool initScene();
+    void selectFromContainer(std::optional<graphics::PickResult> hit) { if (!practiceMode_) selectPicked(hit); }
 
 
     /// 키 입력에 따라 동작을 변경한다.

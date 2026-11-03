@@ -181,6 +181,7 @@ void Assembly::advanceFeatures(float dt) {
             playing = playing || (f.enabled && f.playing);
             for (const auto& event : f.events) {
                 switch (event.kind) {
+                case FeatureEvent::Kind::Pick: f.program->pick(event.hit); break;
                 case FeatureEvent::Kind::Key: f.program->key(event.key, event.action, event.mods); break;
                 case FeatureEvent::Kind::Mouse: f.program->mouse(event.mouse, event.view); break;
                 case FeatureEvent::Kind::Cursor: f.program->cursor(event.x, event.y); break;
@@ -303,8 +304,9 @@ void Assembly::syncFeatures() {
         require(it != state_.features.end(), "카메라 소유 컨테이너가 없습니다.");
         const auto matrix = scene.worldMatrix(node(it->name).id); require(matrix.has_value(), "카메라 컨테이너 행렬 실패.");
         const auto scale = glm::length(glm::vec3((*matrix)[0]));
+        require(scale > .0001f, "카메라 포트 배율이 너무 작습니다.");
         const auto frame = *matrix * glm::scale(glm::mat4(1), glm::vec3(1 / scale));
-        require(scale > .0001f && rigid(frame), "카메라 포트의 부모 계층은 양수 균일 SRT여야 합니다.");
+        require(rigid(frame), "카메라 포트의 부모 계층은 양수 균일 SRT여야 합니다.");
         auto camera = it->program->camera();
         camera.position = glm::vec3(*matrix * glm::vec4(camera.position, 1));
         camera.target = glm::vec3(*matrix * glm::vec4(camera.target, 1));
