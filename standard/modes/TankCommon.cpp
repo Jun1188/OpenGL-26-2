@@ -1,4 +1,5 @@
 ﻿#include "TankCommon.h"
+#include "AssemblyParts.h"
 #include "PracticeCommon.h"
 #include <array>
 #include <vector>
@@ -80,31 +81,12 @@ void TankMode::reset() {
     cameraX_ = cameraZ_ = cameraYaw_ = cameraOrbit_ = 0;
     lowerRunning_ = centralRunning_ = gunRunning_ = poleRunning_ = swapRunning_ = swapStarted_ = false;
     colorVersion_ = 0;
-    root_ = requireEntity(scene.addGroup(), "탱크 루트 생성 실패.");
-    central_ = requireEntity(graphics::PatternSystem::addJoint(scene, root_, {0, .6f, 0}), "중앙 관절 생성 실패.");
-
     const auto ground = requireEntity(scene.addGroup(), "바닥 그룹 생성 실패.");
-
     box({12, .1f, 12}, {0, -.05f, 0}, ground);
-
-    for (std::size_t i = 0; i < 2; ++i)
-        lower_[i] = box({.65f, .6f, 1.8f}, {i == 0 ? -.8f : .8f, .3f, 0}, root_);
-    box({2.3f, .25f, 1.4f}, {0, .125f, 0}, central_);
-
-    for (std::size_t i = 0; i < 2; ++i) {
-        const float sign = i == 0 ? -1.0f : 1.0f;
-
-        upper_[i] = requireEntity(graphics::PatternSystem::addJoint(scene, central_, {sign * .65f, .25f, 0}),
-                                  "상부 관절 생성 실패.");
-        guns_[i] = requireEntity(graphics::PatternSystem::addJoint(scene, upper_[i], {0, .3f, 0}),
-                                 "포신 중심 피벗 생성 실패.");
-        poles_[i] = requireEntity(graphics::PatternSystem::addJoint(scene, upper_[i], {0, .6f, 0}),
-                                  "깃대 밑점 피벗 생성 실패.");
-        box({.65f, .6f, .8f}, {0, .3f, 0}, upper_[i]);
-
-        box({.14f, .14f, 1.1f}, {0, -.05f, .95f}, guns_[i]);
-        box({.08f, .85f, .08f}, {0, .425f, 0}, poles_[i]);
-    }
+    const auto rig = assembly::addTankParts(scene);
+    root_ = rig.root; central_ = rig.central;
+    lower_ = rig.lower; upper_ = rig.upper; guns_ = rig.guns; poles_ = rig.poles;
+    colored_.insert(colored_.end(), rig.colored.begin(), rig.colored.end());
 
     auto& camera = app_.getCamera();
 

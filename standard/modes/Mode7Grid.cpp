@@ -1,4 +1,5 @@
 ﻿#include "../Console.h"
+#include "AssemblyParts.h"
 
 /// 거리 기반 격자 예제를 구성한다.
 bool Console::initGrid() {
@@ -15,17 +16,10 @@ bool Console::initGrid() {
     grid.extent = {6, .2f, 4};
     grid.cells = {6, 1, 4};
 
-    for (int z = 0; z < 4; ++z)
-        for (int x = 0; x < 6; ++x) {
-            const auto center = grid.cellCenter({x, 0, z}), size = grid.relativeSize({.15f, 1, .22f});
-
-            if (!center || !size)
-                return false;
-            const auto tile = graphics::PatternSystem::addBox(scene, *size, *center,
-                (x + z) % 2 ? graphics::GlColor{.25f, .3f, .4f} : graphics::GlColor{.4f, .45f, .55f});
-            if (!tile || !addControl(*tile, "grid tile " + std::to_string(z * 6 + x + 1)))
-                return false;
-        }
+    const auto cells = assembly::addGridParts(scene, grid);
+    for (std::size_t i = 0; i < cells.size(); ++i)
+        if (!addControl(cells[i], "grid tile " + std::to_string(i + 1)))
+            return false;
 
     if (!distancePath_.setPoints({{-2.5f, .35f, -1.5f}, {2.5f, .35f, -1.5f}, {2.5f, .35f, 1.5f}}))
         return false;
