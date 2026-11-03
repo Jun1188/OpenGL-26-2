@@ -31,7 +31,13 @@ def read(path):
 def write(path, text):
     path = ROOT / path
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding='utf-8-sig', newline='\n')
+    content = text.replace('\r\n', '\n').encode('utf-8-sig')
+    if path.exists() and path.read_bytes() == content:
+        return
+    # Match the existing API catalog writer: finish a sibling file before replacement.
+    temporary = path.with_name(path.name + '.api.tmp')
+    temporary.write_bytes(content)
+    os.replace(temporary, path)
 
 
 def dump(path, value):
@@ -172,15 +178,23 @@ def source_link(directory, path):
 
 def refresh_diagrams():
     charts = diagrams()
+    health_path = OUT / 'graphify-out/GRAPH_HEALTH.md'
+    health = health_path.read_text(encoding='utf-8-sig') if health_path.exists() else ''
+    missing = re.search(r'dangling_endpoint_edges: (\d+)', health)
+    collapsed = re.search(r'directed_same_endpoint_collapsed_edges: (\d+)', health)
     for directory in DIRECTORIES:
         block = '<!-- API-ARCHITECTURE:BEGIN --><section id="api-architecture"><h2>API 코드베이스: 네 관계와 종합 흐름</h2>'
         block += '<p>정적 소스와 graphify AST 분석에 근거한다. 화살표의 소유·참조·호출·생성·ID 연결을 구분한다. 각 설명의 소스 링크에서 실제 구현을 읽는다.</p>'
-        block += '<p class="badge">graphify 추출 한계: 연결 대상 누락 123건, 같은 노드 쌍의 관계 병합 150건. 원본 간선은 EXTRACTION.json에 보존했다. 아래 순서도는 그래프만으로 확정하지 않고 실제 소스를 대조했다. 빌드·실행·브라우저 확인은 사용자에게 맡긴다.</p><nav>'
+        if missing and collapsed:
+            block += '<p class="badge">graphify 추출 한계: 연결 대상 누락 ' + missing.group(1) + '건, 같은 노드 쌍의 관계 병합 ' + collapsed.group(1) + '건. 원본 간선은 EXTRACTION.json에 보존했다. 아래 순서도는 그래프만으로 확정하지 않고 실제 소스를 대조했다. 빌드·실행·브라우저 확인은 사용자에게 맡긴다.</p>'
+        block += '<nav>'
         block += ''.join('<a href="#arch-' + key + '">' + esc(c['title']) + '</a>' for key, c in charts.items()) + '</nav>'
         for key, chart in charts.items():
             block += '<section id="arch-' + key + '"><h3>' + esc(chart['title']) + '</h3>' + chart['html']
             block += '<p>' + esc(chart['note']) + '</p><p class="badge">소스: '
             block += ' · '.join(source_link(directory, p) for p in chart['evidence']) + '</p></section>'
+            if key == 'layers':
+                block += '<p>코드 경계: Framework.h는 공개 헤더를 모으는 include 진입점이다. include/*.h의 선언 → detail/*.cpp의 구현 → detail/Native.h의 gl()/glfw() 함수 테이블 → GLFW/OpenGL 네이티브 함수로 내려간다. 헤더 include는 컴파일 의존성이며 실행 중 함수 호출이 아니다. 셰이더와 GPU 고정 단계는 그 이후의 처리다.</p>'
             svg = re.search(r'<svg[\s\S]*?</svg>', chart['html']).group()
             write(directory + '/flowcharts/api-' + key + '.svg', svg + '\n')
         block += '</section><!-- API-ARCHITECTURE:END -->'

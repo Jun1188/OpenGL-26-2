@@ -731,6 +731,11 @@ PATTERNS.append(('face-modes','면의 독립·계층과 힌지·자전·공전',
 
 def main():
     entries=apis()
+    previous_path = ROOT / 'framework/docs/API_CASE_MAP.json'
+    previous = json.loads(read('framework/docs/API_CASE_MAP.json')) if previous_path.exists() else []
+    stable_ids = {(a['owner'], a['name'], a['signature']): int(a['api_id'].split('-')[1])
+                  for a in previous if a.get('api_id')}
+    next_id = max(stable_ids.values(), default=-1) + 1
     intro='<p><a href="MODE_ACTIONS.md">의미 동작·육면체 모드</a> · <a href="RENDER_CONFIGURATION.md">정점 입력·내부 수정 순서</a> · <a href="PATTERN_COMPOSITION.md">패턴 조립·API 압축</a></p>'+para('함수 이름을 외우는 대신 실제 상황에서 무엇을 저장하고 무엇을 바꾸는지 읽는다. 공개 함수·오버로드·생성자·소멸자·삭제된 복사 연산을 현재 framework/include 헤더에서 수록했다. graphics::detail 및 private 구현은 공개 호출 대상으로 나열하지 않고 공통 구현 설명에서 다룬다.')
     intro+='<p class="note">모든 코드는 현재 선언·구현에 근거한 문서다. 새 사용 사례는 함께 쓸 API를 묶은 함수 단편이며, 독립 main인 예제는 별도로 표시한다. 실행 성공을 확인한 코드라는 뜻은 아니다. 외부 자산 경로는 사용자가 준비한다.</p>'
     body=intro+runtime()+'<section id="cases"><h2>함께 사용하는 API의 실제 사례 코드</h2>'+para('기본 포함은 framework/Framework.h다. 출력 사례는 iostream, 예외 처리는 stdexcept를 추가한다. 아래 독립 함수들은 graphics 이름을 완전히 적었고, 입력 Scene/ID/컨텍스트의 전제는 각 사례에 명시한다.')+'</section>'
@@ -738,6 +743,13 @@ def main():
     body+='<section id="api"><h2>전체 공개 API → 사례 연결</h2>'+para(f'현재 헤더에서 수록한 선언 항목은 {len(entries)}개다. 각 오버로드는 선언을 따로 표시하고 같은 사례에서 함께 설명한다. 삭제된 복사 연산은 호출 예제를 만드는 대신 금지 이유를 설명한다.')+'<label for="api-search">함수·클래스·설명 검색</label><input id="api-search" placeholder="예: setParent, Motion, 좌석"></section>'
     inventory=[];missing=[]
     for idx,a in enumerate(entries):
+        identity = (a['owner'], a['name'], a['signature'])
+        if stable_ids:
+            if identity in stable_ids:
+                idx = stable_ids[identity]
+            else:
+                idx = next_id
+                next_id += 1
         key=choose(a);g=GROUPS[key];name=a['name'];qualified=(a['owner']+'::' if a['owner'] else '')+name
         lines=[line.strip() for line in g['code'].splitlines() if re.search(r'\b'+re.escape(name)+r'\s*\(',line)]
         deleted='= delete' in a['signature']
@@ -750,7 +762,7 @@ def main():
         body+=para('사례 맥락: '+g['story'])+'<p><a href="#case-'+key+'">'+esc(g['title'])+' — 입력·관련 변수·전체 호출 묶음</a></p>'
         body+=code('\n'.join(lines)) if lines else para('이 함수의 호출 위치는 아래 연결된 전체 사례와 원본 선언에서 읽는다.')
         body+=para('호출 뒤 확인할 점: '+g['after'])+f'<p class="badge">선언 위치: {esc(a["file"])}:{a["line"]} · 반환형·기본값·const 여부는 위 선언을 따른다.</p></article>'
-        inventory.append(dict(**a,case=key,example_lines=lines,callable=not deleted))
+        inventory.append(dict(**a,case=key,example_lines=lines,callable=not deleted,api_id='api-'+str(idx)))
     body+='''<script>document.getElementById('api-search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.api-entry').forEach(n=>n.hidden=!n.textContent.toLowerCase().includes(q));});</script>'''
     api_html=page('공통 구현과 전체 API 사례 코드',body)
     patterns=intro+para('응용패턴은 목적 → 변수 역할 → 흐름도 → 응용 코드 → 예상 결과 순으로 짧게 읽는다. 반복되는 렌더링 루프·GPU 자원 구현은 API 문서의 공통 구현 절에서 자세히 설명한다.')
@@ -1140,3 +1152,7 @@ if __name__=='__main__':
     refresh_cube_docs()
     refresh_doc_flowcharts()
     refresh_size_report()
+    # Keep the ownership/call index and source snapshots when regenerating guides.
+    import runpy
+    runpy.run_path(str(ROOT / 'tools/Refresh-ApiArchitecture.py'), run_name='api_architecture_refresh')['refresh_diagrams']()
+    runpy.run_path(str(ROOT / 'tools/Refresh-ApiCatalog.py'), run_name='api_catalog_refresh')['main']()
