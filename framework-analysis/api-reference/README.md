@@ -18,3 +18,9 @@
 공개 문서만 갱신할 때 기존 graphify 인터프리터로 `tools/Refresh-ApiArchitecture.py`와 `tools/Refresh-ApiCatalog.py`를 순서대로 실행한다. AST도 다시 추출할 때 첫 명령에 `--graph`를 지정한다. 기존 `author_framework_guides.py`의 전체 문서 생성 경로에도 두 갱신 절차를 연결했다. 그 전체 생성 경로는 이번 작업에서 실행하지 않았다.
 
 빌드·테스트·브라우저·IDE hover 확인은 사용자에게 맡겼다. 코드 정적 대조를 실행 성공으로 간주하지 않는다. 자동 정리·기존 임시파일 삭제·push는 하지 않았다.
+
+## 외부 헤더 경계 보완
+
+기존 그래프에서 빠졌던 외부 헤더 33개와 include 간선 123개를 보완했다. 내부 코드 재추출·커뮤니티 재분류 없이 기존 노드·간선을 유지했다. 현재 그래프는 3,528개 노드·5,357개 간선이며 연결 대상 누락은 0건이다. 같은 노드 쌍 관계 병합 150건은 별도로 남아 있다.
+
+`tools/Refresh-ApiArchitecture.py --repair-graph`는 저장된 그래프의 누락된 외부 include 경계만 보완한다. 이후 전체 추출에서도 같은 경계 노드를 생성하도록 연결했다. [상세 근거와 변경 전후](BOUNDARY_REPAIR.md), [복원한 원본 간선](graphify-out/BOUNDARY_REPAIR.json)을 참조한다.

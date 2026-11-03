@@ -39862,6 +39862,1428 @@
       "norm_label": "standard/framework/detail/transform.cpp",
       "source_file": "standard/framework/detail/Transform.cpp",
       "source_location": "L1"
+    },
+    {
+      "id": "stdexcept",
+      "label": "\uc678\ubd80 \ud5e4\ub354: stdexcept",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 11,
+      "community_name": "Motion \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "stdexcept",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L4",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L16",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L6",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L5",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L4",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L16",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L6",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L5",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: stdexcept",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "wincodec",
+      "label": "\uc678\ubd80 \ud5e4\ub354: wincodec.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 113,
+      "community_name": "Texture \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "wincodec.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L4",
+          "include": "#include <wincodec.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "wincodec.h"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L4",
+          "include": "#include <wincodec.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "wincodec.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: wincodec.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "memory",
+      "label": "\uc678\ubd80 \ud5e4\ub354: memory",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 120,
+      "community_name": "Model \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "memory",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L12",
+          "include": "#include <memory>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "memory"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L12",
+          "include": "#include <memory>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "memory"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: memory",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "cstddef",
+      "label": "\uc678\ubd80 \ud5e4\ub354: cstddef",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 14,
+      "community_name": "Motion \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "cstddef",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L10",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L8",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L10",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L8",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: cstddef",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "limits",
+      "label": "\uc678\ubd80 \ud5e4\ub354: limits",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 14,
+      "community_name": "Motion \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "limits",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L13",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L11",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L13",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L11",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: limits",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "initializer_list",
+      "label": "\uc678\ubd80 \ud5e4\ub354: initializer_list",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 161,
+      "community_name": " \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "initializer_list",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Internal.h",
+          "source_location": "L3",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L4",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "standard/framework/detail/Internal.h",
+          "source_location": "L3",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L4",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: initializer_list",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "set",
+      "label": "\uc678\ubd80 \ud5e4\ub354: set",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 41,
+      "community_name": "Animation \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "set",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L3",
+          "include": "#include <set>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "set"
+        },
+        {
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L3",
+          "include": "#include <set>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "set"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: set",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "cstdint",
+      "label": "\uc678\ubd80 \ud5e4\ub354: cstdint",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 44,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "cstdint",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Diagnostics.h",
+          "source_location": "L2",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L11",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L9",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Diagnostics.h",
+          "source_location": "L2",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L11",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L9",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: cstdint",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "filesystem",
+      "label": "\uc678\ubd80 \ud5e4\ub354: filesystem",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 44,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "filesystem",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L14",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L12",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L10",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L14",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L12",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L10",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: filesystem",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "exception",
+      "label": "\uc678\ubd80 \ud5e4\ub354: exception",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 57,
+      "community_name": "Patterns \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "exception",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Application.h",
+          "source_location": "L7",
+          "include": "#include <exception>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "exception"
+        },
+        {
+          "source_file": "standard/framework/include/Application.h",
+          "source_location": "L7",
+          "include": "#include <exception>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "exception"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: exception",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "functional",
+      "label": "\uc678\ubd80 \ud5e4\ub354: functional",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 57,
+      "community_name": "Patterns \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "functional",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Application.h",
+          "source_location": "L6",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "framework/include/RenderConfig.h",
+          "source_location": "L4",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "framework/include/Transform.h",
+          "source_location": "L3",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/Application.h",
+          "source_location": "L6",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/RenderConfig.h",
+          "source_location": "L4",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/Transform.h",
+          "source_location": "L3",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: functional",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "iostream",
+      "label": "\uc678\ubd80 \ud5e4\ub354: iostream",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 57,
+      "community_name": "Patterns \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "iostream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L4",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L5",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/assets.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/basic.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/motion.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/include/Diagnostics.h",
+          "source_location": "L3",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/Console.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L4",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L5",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/assets.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/basic.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/motion.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/include/Diagnostics.h",
+          "source_location": "L3",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: iostream",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "random",
+      "label": "\uc678\ubd80 \ud5e4\ub354: random",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 57,
+      "community_name": "Patterns \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "random",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L4",
+          "include": "#include <random>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "random"
+        },
+        {
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L4",
+          "include": "#include <random>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "random"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: random",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "cstring",
+      "label": "\uc678\ubd80 \ud5e4\ub354: cstring",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 59,
+      "community_name": "Renderer \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "cstring",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L9",
+          "include": "#include <cstring>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstring"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L9",
+          "include": "#include <cstring>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstring"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: cstring",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "windows",
+      "label": "\uc678\ubd80 \ud5e4\ub354: windows.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 62,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "windows.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L8",
+          "include": "#include <windows.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "windows.h"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L8",
+          "include": "#include <windows.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "windows.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: windows.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "cmath",
+      "label": "\uc678\ubd80 \ud5e4\ub354: cmath",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 74,
+      "community_name": "Patterns \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "cmath",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L4",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L7",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L4",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L7",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: cmath",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "algorithm",
+      "label": "\uc678\ubd80 \ud5e4\ub354: algorithm",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 82,
+      "community_name": "Application \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "algorithm",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/CuboidMode.cpp",
+          "source_location": "L2",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L5",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L6",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/CuboidMode.cpp",
+          "source_location": "L2",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L5",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L6",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: algorithm",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "utility",
+      "label": "\uc678\ubd80 \ud5e4\ub354: utility",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 82,
+      "community_name": "Application \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "utility",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L5",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L7",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L16",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L5",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L7",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L16",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: utility",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "fstream",
+      "label": "\uc678\ubd80 \ud5e4\ub354: fstream",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 9,
+      "community_name": "ObjLoader \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "fstream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L6",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L6",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: fstream",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "iterator",
+      "label": "\uc678\ubd80 \ud5e4\ub354: iterator",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 9,
+      "community_name": "ObjLoader \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "iterator",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L6",
+          "include": "#include <iterator>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iterator"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L6",
+          "include": "#include <iterator>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iterator"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: iterator",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "locale",
+      "label": "\uc678\ubd80 \ud5e4\ub354: locale",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 9,
+      "community_name": "ObjLoader \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "locale",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L5",
+          "include": "#include <locale>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "locale"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L5",
+          "include": "#include <locale>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "locale"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: locale",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "numeric",
+      "label": "\uc678\ubd80 \ud5e4\ub354: numeric",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 9,
+      "community_name": "ObjLoader \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "numeric",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L5",
+          "include": "#include <numeric>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "numeric"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L5",
+          "include": "#include <numeric>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "numeric"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: numeric",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "sstream",
+      "label": "\uc678\ubd80 \ud5e4\ub354: sstream",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "community": 9,
+      "community_name": "ObjLoader \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "sstream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L4",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L8",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L6",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L4",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L8",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L6",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: sstream",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "framework_dependencies_glm_glm_glm",
+      "label": "\uc678\ubd80 \ud5e4\ub354: framework/dependencies/glm/glm/glm.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 120,
+      "community_name": "Model \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "framework/dependencies/glm/glm/glm.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/glm.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/glm.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: framework/dependencies/glm/glm/glm.hpp",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "framework_dependencies_glm_glm_gtc_matrix_transform",
+      "label": "\uc678\ubd80 \ud5e4\ub354: framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 120,
+      "community_name": "Model \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L5",
+          "include": "#include \"../dependencies/glm/glm/gtc/matrix_transform.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/gtc/matrix_transform.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_glm",
+      "label": "\uc678\ubd80 \ud5e4\ub354: standard/framework/dependencies/glm/glm/glm.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 129,
+      "community_name": "Model \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "standard/framework/dependencies/glm/glm/glm.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/glm.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/glm.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: standard/framework/dependencies/glm/glm/glm.hpp",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_gtc_matrix_transform",
+      "label": "\uc678\ubd80 \ud5e4\ub354: standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 129,
+      "community_name": "Model \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L5",
+          "include": "#include \"../dependencies/glm/glm/gtc/matrix_transform.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "standard_framework_dependencies_glew_2_3_1_include_gl_glew",
+      "label": "\uc678\ubd80 \ud5e4\ub354: standard/framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 44,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "standard/framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L9",
+          "include": "#include \"../dependencies/glew-2.3.1/include/GL/glew.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glew-2.3.1/include/GL/glew.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: standard/framework/dependencies/glew-2.3.1/include/gl/glew.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "standard_framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "label": "\uc678\ubd80 \ud5e4\ub354: standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 44,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L13",
+          "include": "#include \"../dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: standard/framework/dependencies/glfw-3.4.bin.win64/include/glfw/glfw3.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "framework_dependencies_glm_glm_gtc_type_ptr",
+      "label": "\uc678\ubd80 \ud5e4\ub354: framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 59,
+      "community_name": "Renderer \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/gtc/type_ptr.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/gtc/type_ptr.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "framework_dependencies_glew_2_3_1_include_gl_glew",
+      "label": "\uc678\ubd80 \ud5e4\ub354: framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 62,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L9",
+          "include": "#include \"../dependencies/glew-2.3.1/include/GL/glew.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glew-2.3.1/include/GL/glew.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: framework/dependencies/glew-2.3.1/include/gl/glew.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "label": "\uc678\ubd80 \ud5e4\ub354: framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 62,
+      "community_name": "Native \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L13",
+          "include": "#include \"../dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: framework/dependencies/glfw-3.4.bin.win64/include/glfw/glfw3.h",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_gtc_type_ptr",
+      "label": "\uc678\ubd80 \ud5e4\ub354: standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "community": 81,
+      "community_name": "Renderer \uad00\uacc4",
+      "confidence": "EXTRACTED",
+      "description": "include \uc9c0\uc2dc\ubb38\uc73c\ub85c \ud655\uc778\ud55c \uc678\ubd80 \uacbd\uacc4. \ud5e4\ub354 \ub0b4\ubd80 \uc815\uc758\u00b7\ud568\uc218 \ud638\ucd9c\uc744 \ubd84\uc11d\ud55c \ub178\ub4dc\uac00 \uc544\ub2d8.",
+      "file_type": "concept",
+      "header_path": "standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/gtc/type_ptr.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp"
+        }
+      ],
+      "norm_label": "\u110b\u116c\u1107\u116e \u1112\u1166\u1103\u1165: standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "source_file": "",
+      "source_location": ""
     }
   ],
   "links": [
@@ -69458,6 +70880,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_animation",
+      "target": "set",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Animation.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_application",
       "target": "framework_framework",
       "relation": "imports",
@@ -69479,6 +70913,42 @@
       "context": "import",
       "source_file": "framework/detail/Application.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -69494,6 +70964,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_cuboidmode",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/CuboidMode.cpp",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_internal",
       "target": "framework_include_model",
       "relation": "imports",
@@ -69503,6 +70985,18 @@
       "context": "import",
       "source_file": "framework/detail/Internal.h",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_internal",
+      "target": "initializer_list",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Internal.h",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -69530,6 +71024,54 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_motion",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Motion.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_motion",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Motion.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_native",
       "target": "framework_include_application_h_string",
       "relation": "imports",
@@ -69539,6 +71081,18 @@
       "context": "import",
       "source_file": "framework/detail/Native.h",
       "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -69566,6 +71120,30 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_native",
+      "target": "windows",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "framework_dependencies_glew_2_3_1_include_gl_glew",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_objloader",
       "target": "framework_framework",
       "relation": "imports",
@@ -69590,6 +71168,66 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_objloader",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "locale",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "iterator",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_patterns",
       "target": "framework_framework",
       "relation": "imports",
@@ -69611,6 +71249,30 @@
       "context": "import",
       "source_file": "framework/detail/Patterns.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_patterns",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Patterns.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_patterns",
+      "target": "cmath",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Patterns.cpp",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -69674,6 +71336,78 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_renderer",
+      "target": "framework_dependencies_glm_glm_gtc_type_ptr",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "cstring",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_scene",
       "target": "framework_framework",
       "relation": "imports",
@@ -69695,6 +71429,18 @@
       "context": "import",
       "source_file": "framework/detail/Scene.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -69710,6 +71456,42 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_scene",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "framework_detail_transform",
       "target": "framework_framework",
       "relation": "imports",
@@ -69734,6 +71516,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_detail_transform",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/detail/Transform.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "framework_examples_assets",
       "target": "framework_framework",
       "relation": "imports",
@@ -69743,6 +71537,18 @@
       "context": "import",
       "source_file": "framework/examples/assets.cpp",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_examples_assets",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/examples/assets.cpp",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -69758,6 +71564,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_examples_basic",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/examples/basic.cpp",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "framework_examples_motion",
       "target": "framework_framework",
       "relation": "imports",
@@ -69767,6 +71585,18 @@
       "context": "import",
       "source_file": "framework/examples/motion.cpp",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_examples_motion",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/examples/motion.cpp",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -69890,6 +71720,30 @@
       "weight": 1.0
     },
     {
+      "source": "framework_include_application",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Application.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_application",
+      "target": "exception",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Application.h",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "framework_include_cuboidmode",
       "target": "framework_include_actions",
       "relation": "imports",
@@ -69899,6 +71753,30 @@
       "context": "import",
       "source_file": "framework/include/CuboidMode.h",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_diagnostics",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Diagnostics.h",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_diagnostics",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Diagnostics.h",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -69939,6 +71817,18 @@
     },
     {
       "source": "framework_include_geometry",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_geometry",
       "target": "framework_include_cuboidmode_h_map",
       "relation": "imports",
       "_origin": "ast",
@@ -69947,6 +71837,78 @@
       "context": "import",
       "source_file": "framework/include/Geometry.h",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_geometry",
+      "target": "numeric",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_geometry",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "cstddef",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "limits",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -70071,6 +72033,42 @@
     },
     {
       "source": "framework_include_model",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "limits",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "memory",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
       "target": "framework_include_actions_h_optional",
       "relation": "imports",
       "_origin": "ast",
@@ -70107,6 +72105,18 @@
     },
     {
       "source": "framework_include_model",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
       "target": "framework_include_diagnostics",
       "relation": "imports",
       "_origin": "ast",
@@ -70119,6 +72129,30 @@
     },
     {
       "source": "framework_include_model",
+      "target": "framework_dependencies_glm_glm_glm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "framework_dependencies_glm_glm_gtc_matrix_transform",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
       "target": "framework_include_animation_h_array",
       "relation": "imports",
       "_origin": "ast",
@@ -70127,6 +72161,42 @@
       "context": "import",
       "source_file": "framework/include/Model.h",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cmath",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cstddef",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -70178,6 +72248,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_include_motion",
+      "target": "initializer_list",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "framework_include_patterns",
       "target": "framework_include_application",
       "relation": "imports",
@@ -70199,6 +72281,18 @@
       "context": "import",
       "source_file": "framework/include/Patterns.h",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_patterns",
+      "target": "random",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Patterns.h",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -70238,6 +72332,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_include_renderconfig",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/RenderConfig.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "framework_include_texture",
       "target": "framework_include_model",
       "relation": "imports",
@@ -70262,6 +72368,42 @@
       "weight": 1.0
     },
     {
+      "source": "framework_include_texture",
+      "target": "wincodec",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_texture",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "framework_include_texture",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "framework_include_transform",
       "target": "framework_include_model",
       "relation": "imports",
@@ -70274,6 +72416,18 @@
       "weight": 1.0
     },
     {
+      "source": "framework_include_transform",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "framework/include/Transform.h",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "standard_console_cpp_standard_console",
       "target": "standard_console_h_standard_console",
       "relation": "imports",
@@ -70283,6 +72437,18 @@
       "context": "import",
       "source_file": "standard/Console.cpp",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_console_cpp_standard_console",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/Console.cpp",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -70322,6 +72488,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_animation",
+      "target": "set",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Animation.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_application",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70343,6 +72521,42 @@
       "context": "import",
       "source_file": "standard/framework/detail/Application.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -70358,6 +72572,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_cuboidmode",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/CuboidMode.cpp",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_internal",
       "target": "standard_framework_include_model",
       "relation": "imports",
@@ -70367,6 +72593,18 @@
       "context": "import",
       "source_file": "standard/framework/detail/Internal.h",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_internal",
+      "target": "initializer_list",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Internal.h",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -70394,6 +72632,54 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_motion",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Motion.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_motion",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Motion.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "standard_framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_native",
       "target": "framework_include_application_h_string",
       "relation": "imports",
@@ -70403,6 +72689,18 @@
       "context": "import",
       "source_file": "standard/framework/detail/Native.h",
       "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -70430,6 +72728,30 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_native",
+      "target": "windows",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "standard_framework_dependencies_glew_2_3_1_include_gl_glew",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_objloader",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70454,6 +72776,66 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_objloader",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "locale",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "iterator",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_patterns",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70475,6 +72857,30 @@
       "context": "import",
       "source_file": "standard/framework/detail/Patterns.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_patterns",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Patterns.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_patterns",
+      "target": "cmath",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Patterns.cpp",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -70538,6 +72944,78 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_renderer",
+      "target": "standard_framework_dependencies_glm_glm_gtc_type_ptr",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "cstring",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_scene",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70559,6 +73037,18 @@
       "context": "import",
       "source_file": "standard/framework/detail/Scene.cpp",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "fstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -70574,6 +73064,42 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_scene",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "sstream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_detail_transform",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70598,6 +73124,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_detail_transform",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/detail/Transform.cpp",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_examples_assets",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70607,6 +73145,18 @@
       "context": "import",
       "source_file": "standard/framework/examples/assets.cpp",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_examples_assets",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/examples/assets.cpp",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -70622,6 +73172,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_examples_basic",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/examples/basic.cpp",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_examples_motion",
       "target": "standard_framework_framework",
       "relation": "imports",
@@ -70631,6 +73193,18 @@
       "context": "import",
       "source_file": "standard/framework/examples/motion.cpp",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_examples_motion",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/examples/motion.cpp",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -70754,6 +73328,30 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_include_application",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Application.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_application",
+      "target": "exception",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Application.h",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_include_cuboidmode",
       "target": "standard_framework_include_actions",
       "relation": "imports",
@@ -70763,6 +73361,30 @@
       "context": "import",
       "source_file": "standard/framework/include/CuboidMode.h",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_diagnostics",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Diagnostics.h",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_diagnostics",
+      "target": "iostream",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Diagnostics.h",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -70803,6 +73425,18 @@
     },
     {
       "source": "standard_framework_include_geometry",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_geometry",
       "target": "framework_include_cuboidmode_h_map",
       "relation": "imports",
       "_origin": "ast",
@@ -70811,6 +73445,78 @@
       "context": "import",
       "source_file": "standard/framework/include/Geometry.h",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_geometry",
+      "target": "numeric",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_geometry",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "cstddef",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "limits",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -70935,6 +73641,42 @@
     },
     {
       "source": "standard_framework_include_model",
+      "target": "filesystem",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "limits",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "memory",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
       "target": "framework_include_actions_h_optional",
       "relation": "imports",
       "_origin": "ast",
@@ -70971,6 +73713,18 @@
     },
     {
       "source": "standard_framework_include_model",
+      "target": "utility",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
       "target": "standard_framework_include_diagnostics",
       "relation": "imports",
       "_origin": "ast",
@@ -70983,6 +73737,30 @@
     },
     {
       "source": "standard_framework_include_model",
+      "target": "standard_framework_dependencies_glm_glm_glm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "standard_framework_dependencies_glm_glm_gtc_matrix_transform",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
       "target": "framework_include_animation_h_array",
       "relation": "imports",
       "_origin": "ast",
@@ -70991,6 +73769,42 @@
       "context": "import",
       "source_file": "standard/framework/include/Model.h",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cmath",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cstddef",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cstdint",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -71042,6 +73856,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_include_motion",
+      "target": "initializer_list",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Motion.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_include_patterns",
       "target": "standard_framework_include_application",
       "relation": "imports",
@@ -71063,6 +73889,18 @@
       "context": "import",
       "source_file": "standard/framework/include/Patterns.h",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_patterns",
+      "target": "random",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Patterns.h",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -71102,6 +73940,18 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_include_renderconfig",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/RenderConfig.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_include_texture",
       "target": "standard_framework_include_model",
       "relation": "imports",
@@ -71126,6 +73976,42 @@
       "weight": 1.0
     },
     {
+      "source": "standard_framework_include_texture",
+      "target": "wincodec",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_texture",
+      "target": "stdexcept",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_texture",
+      "target": "algorithm",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "standard_framework_include_transform",
       "target": "standard_framework_include_model",
       "relation": "imports",
@@ -71135,6 +74021,18 @@
       "context": "import",
       "source_file": "standard/framework/include/Transform.h",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "standard_framework_include_transform",
+      "target": "functional",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "standard/framework/include/Transform.h",
+      "source_location": "L3",
       "weight": 1.0
     },
     {

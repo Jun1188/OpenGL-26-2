@@ -1,0 +1,2694 @@
+﻿{
+  "mode": "saved_graph_endpoint_patch",
+  "before": {
+    "nodes": 3495,
+    "edges": 5234
+  },
+  "after": {
+    "nodes": 3528,
+    "edges": 5357
+  },
+  "added_nodes": [
+    {
+      "id": "algorithm",
+      "label": "외부 헤더: algorithm",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "algorithm",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/CuboidMode.cpp",
+          "source_location": "L2",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L5",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L6",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/CuboidMode.cpp",
+          "source_location": "L2",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L5",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L3",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L6",
+          "include": "#include <algorithm>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "algorithm"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "cmath",
+      "label": "외부 헤더: cmath",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "cmath",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L4",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L7",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L4",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L7",
+          "include": "#include <cmath>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cmath"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "cstddef",
+      "label": "외부 헤더: cstddef",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "cstddef",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L10",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L8",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L10",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L8",
+          "include": "#include <cstddef>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstddef"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "cstdint",
+      "label": "외부 헤더: cstdint",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "cstdint",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Diagnostics.h",
+          "source_location": "L2",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L11",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L9",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Diagnostics.h",
+          "source_location": "L2",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L11",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L9",
+          "include": "#include <cstdint>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstdint"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "cstring",
+      "label": "외부 헤더: cstring",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "cstring",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L9",
+          "include": "#include <cstring>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstring"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L9",
+          "include": "#include <cstring>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "cstring"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "exception",
+      "label": "외부 헤더: exception",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "exception",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Application.h",
+          "source_location": "L7",
+          "include": "#include <exception>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "exception"
+        },
+        {
+          "source_file": "standard/framework/include/Application.h",
+          "source_location": "L7",
+          "include": "#include <exception>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "exception"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "filesystem",
+      "label": "외부 헤더: filesystem",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "filesystem",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L14",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L12",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L10",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L14",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L12",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L10",
+          "include": "#include <filesystem>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "filesystem"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "framework_dependencies_glew_2_3_1_include_gl_glew",
+      "label": "외부 헤더: framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L9",
+          "include": "#include \"../dependencies/glew-2.3.1/include/GL/glew.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glew-2.3.1/include/GL/glew.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "label": "외부 헤더: framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L13",
+          "include": "#include \"../dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "framework_dependencies_glm_glm_glm",
+      "label": "외부 헤더: framework/dependencies/glm/glm/glm.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "framework/dependencies/glm/glm/glm.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/glm.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/glm.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "framework_dependencies_glm_glm_gtc_matrix_transform",
+      "label": "외부 헤더: framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L5",
+          "include": "#include \"../dependencies/glm/glm/gtc/matrix_transform.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/gtc/matrix_transform.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "framework_dependencies_glm_glm_gtc_type_ptr",
+      "label": "외부 헤더: framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/gtc/type_ptr.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "framework/dependencies/glm/glm/gtc/type_ptr.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "fstream",
+      "label": "외부 헤더: fstream",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "fstream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L6",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L6",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L3",
+          "include": "#include <fstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "fstream"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "functional",
+      "label": "외부 헤더: functional",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "functional",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Application.h",
+          "source_location": "L6",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "framework/include/RenderConfig.h",
+          "source_location": "L4",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "framework/include/Transform.h",
+          "source_location": "L3",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/Application.h",
+          "source_location": "L6",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/RenderConfig.h",
+          "source_location": "L4",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        },
+        {
+          "source_file": "standard/framework/include/Transform.h",
+          "source_location": "L3",
+          "include": "#include <functional>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "functional"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "initializer_list",
+      "label": "외부 헤더: initializer_list",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "initializer_list",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Internal.h",
+          "source_location": "L3",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L4",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "standard/framework/detail/Internal.h",
+          "source_location": "L3",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        },
+        {
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L4",
+          "include": "#include <initializer_list>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "initializer_list"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "iostream",
+      "label": "외부 헤더: iostream",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "iostream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L4",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L5",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/assets.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/basic.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/examples/motion.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "framework/include/Diagnostics.h",
+          "source_location": "L3",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/Console.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L4",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L7",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L5",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/assets.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/basic.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/examples/motion.cpp",
+          "source_location": "L2",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        },
+        {
+          "source_file": "standard/framework/include/Diagnostics.h",
+          "source_location": "L3",
+          "include": "#include <iostream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iostream"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "iterator",
+      "label": "외부 헤더: iterator",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "iterator",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L6",
+          "include": "#include <iterator>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iterator"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L6",
+          "include": "#include <iterator>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "iterator"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "limits",
+      "label": "외부 헤더: limits",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "limits",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L13",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L11",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L13",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L11",
+          "include": "#include <limits>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "limits"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "locale",
+      "label": "외부 헤더: locale",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "locale",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L5",
+          "include": "#include <locale>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "locale"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L5",
+          "include": "#include <locale>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "locale"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "memory",
+      "label": "외부 헤더: memory",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "memory",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L12",
+          "include": "#include <memory>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "memory"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L12",
+          "include": "#include <memory>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "memory"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "numeric",
+      "label": "외부 헤더: numeric",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "numeric",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L5",
+          "include": "#include <numeric>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "numeric"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L5",
+          "include": "#include <numeric>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "numeric"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "random",
+      "label": "외부 헤더: random",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "random",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L4",
+          "include": "#include <random>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "random"
+        },
+        {
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L4",
+          "include": "#include <random>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "random"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "set",
+      "label": "외부 헤더: set",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "set",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L3",
+          "include": "#include <set>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "set"
+        },
+        {
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L3",
+          "include": "#include <set>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "set"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "sstream",
+      "label": "외부 헤더: sstream",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "sstream",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L4",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "framework/detail/Renderer.cpp",
+          "source_location": "L8",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L6",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L4",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L8",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L6",
+          "include": "#include <sstream>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "sstream"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "standard_framework_dependencies_glew_2_3_1_include_gl_glew",
+      "label": "외부 헤더: standard/framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "standard/framework/dependencies/glew-2.3.1/include/GL/glew.h",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L9",
+          "include": "#include \"../dependencies/glew-2.3.1/include/GL/glew.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glew-2.3.1/include/GL/glew.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "standard_framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "label": "외부 헤더: standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L13",
+          "include": "#include \"../dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_glm",
+      "label": "외부 헤더: standard/framework/dependencies/glm/glm/glm.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "standard/framework/dependencies/glm/glm/glm.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/glm.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/glm.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_gtc_matrix_transform",
+      "label": "외부 헤더: standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L5",
+          "include": "#include \"../dependencies/glm/glm/gtc/matrix_transform.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "standard_framework_dependencies_glm_glm_gtc_type_ptr",
+      "label": "외부 헤더: standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "vendored_sdk_header",
+      "header_path": "standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp",
+      "include_evidence": [
+        {
+          "source_file": "standard/framework/detail/Renderer.cpp",
+          "source_location": "L4",
+          "include": "#include \"../dependencies/glm/glm/gtc/type_ptr.hpp\"",
+          "boundary_kind": "vendored_sdk_header",
+          "header_path": "standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "stdexcept",
+      "label": "외부 헤더: stdexcept",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "stdexcept",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L4",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L16",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L6",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L5",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L4",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L16",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L6",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L5",
+          "include": "#include <stdexcept>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "stdexcept"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "utility",
+      "label": "외부 헤더: utility",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "utility",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Application.cpp",
+          "source_location": "L5",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L7",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "framework/include/Model.h",
+          "source_location": "L16",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/detail/Application.cpp",
+          "source_location": "L5",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L7",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        },
+        {
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L16",
+          "include": "#include <utility>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "utility"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "wincodec",
+      "label": "외부 헤더: wincodec.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "wincodec.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/include/Texture.h",
+          "source_location": "L4",
+          "include": "#include <wincodec.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "wincodec.h"
+        },
+        {
+          "source_file": "standard/framework/include/Texture.h",
+          "source_location": "L4",
+          "include": "#include <wincodec.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "wincodec.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    },
+    {
+      "id": "windows",
+      "label": "외부 헤더: windows.h",
+      "file_type": "concept",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "source_verified_include_boundary",
+      "boundary_kind": "system_header_reference",
+      "header_path": "windows.h",
+      "include_evidence": [
+        {
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L8",
+          "include": "#include <windows.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "windows.h"
+        },
+        {
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L8",
+          "include": "#include <windows.h>",
+          "boundary_kind": "system_header_reference",
+          "header_path": "windows.h"
+        }
+      ],
+      "confidence": "EXTRACTED",
+      "description": "include 지시문으로 확인한 외부 경계. 헤더 내부 정의·함수 호출을 분석한 노드가 아님."
+    }
+  ],
+  "restored_edges": [
+    {
+      "source": "framework_detail_animation",
+      "target": "set",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Animation.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_application",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Application.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_cuboidmode",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/CuboidMode.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_internal",
+      "target": "initializer_list",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Internal.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_motion",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Motion.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "windows",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "framework_dependencies_glew_2_3_1_include_gl_glew",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_native",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Native.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "locale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "iterator",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_objloader",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/ObjLoader.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_patterns",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Patterns.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_patterns",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Patterns.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "framework_dependencies_glm_glm_gtc_type_ptr",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_renderer",
+      "target": "cstring",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Renderer.cpp",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_scene",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Scene.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_detail_transform",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/detail/Transform.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_examples_assets",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/examples/assets.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_examples_basic",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/examples/basic.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_examples_motion",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/examples/motion.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_application",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Application.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_application",
+      "target": "exception",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Application.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_diagnostics",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Diagnostics.h",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_diagnostics",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Diagnostics.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_geometry",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_geometry",
+      "target": "numeric",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_geometry",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Geometry.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "cstddef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_graphics",
+      "target": "limits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Graphics.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "framework_dependencies_glm_glm_glm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "framework_dependencies_glm_glm_gtc_matrix_transform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cstddef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "limits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "memory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_model",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Model.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_motion",
+      "target": "initializer_list",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Motion.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_patterns",
+      "target": "random",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Patterns.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_renderconfig",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/RenderConfig.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_texture",
+      "target": "wincodec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_texture",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_texture",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Texture.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "framework_include_transform",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "framework/include/Transform.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_console_cpp_standard_console",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/Console.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_animation",
+      "target": "set",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Animation.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_application",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Application.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_cuboidmode",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/CuboidMode.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_internal",
+      "target": "initializer_list",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Internal.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_motion",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Motion.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_motion",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Motion.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "windows",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "standard_framework_dependencies_glew_2_3_1_include_gl_glew",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "standard_framework_dependencies_glfw_3_4_bin_win64_include_glfw_glfw3",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_native",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Native.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "locale",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "iterator",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_objloader",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/ObjLoader.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_patterns",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Patterns.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_patterns",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Patterns.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "standard_framework_dependencies_glm_glm_gtc_type_ptr",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_renderer",
+      "target": "cstring",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Renderer.cpp",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_scene",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Scene.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_detail_transform",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/detail/Transform.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_examples_assets",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/examples/assets.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_examples_basic",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/examples/basic.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_examples_motion",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/examples/motion.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_application",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Application.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_application",
+      "target": "exception",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Application.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_diagnostics",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Diagnostics.h",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_diagnostics",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Diagnostics.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_geometry",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_geometry",
+      "target": "numeric",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_geometry",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Geometry.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "cstddef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_graphics",
+      "target": "limits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Graphics.h",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "standard_framework_dependencies_glm_glm_glm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "standard_framework_dependencies_glm_glm_gtc_matrix_transform",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cstddef",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "cstdint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "limits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "memory",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_model",
+      "target": "utility",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Model.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_motion",
+      "target": "initializer_list",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Motion.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_patterns",
+      "target": "random",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Patterns.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_renderconfig",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/RenderConfig.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_texture",
+      "target": "wincodec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_texture",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_texture",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Texture.h",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_framework_include_transform",
+      "target": "functional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/framework/include/Transform.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    }
+  ],
+  "remaining_dangling": 0,
+  "existing_code_reextracted": false,
+  "existing_communities_reclustered": false
+}
