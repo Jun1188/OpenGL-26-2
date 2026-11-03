@@ -2032,17 +2032,6 @@ ModelResult loadModel(const std::filesystem::path& relative, const LoadOptions& 
 
 소스: [framework/include/ModelLoader.h:140](../include/ModelLoader.h)
 
-## AssetLoader::loadModel
-
-```cpp
-inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative, const LoadOptions& options) const;
-```
-
-모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
-
-반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
-
-소스: [framework/include/ModelLoader.h:146](../include/ModelLoader.h)
 
 ## Motion::append
 

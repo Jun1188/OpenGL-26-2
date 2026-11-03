@@ -2340,20 +2340,6 @@
     "callable": true
   },
   {
-    "owner": "AssetLoader",
-    "name": "loadModel",
-    "signature": "inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative, const LoadOptions& options) const",
-    "file": "framework/include/ModelLoader.h",
-    "line": 146,
-    "description": "모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.",
-    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
-    "case": "assets",
-    "example_lines": [
-      "auto b=loader.loadModel(\"models/robot.obj\");"
-    ],
-    "callable": true
-  },
-  {
     "owner": "Motion",
     "name": "append",
     "signature": "bool append(const MotionStep& step)",

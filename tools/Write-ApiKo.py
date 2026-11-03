@@ -169,7 +169,7 @@ def save(p,text):
     if p.exists() and p.read_text(encoding='utf-8-sig')==text:return
     temp=p.with_name(p.name+'.api.tmp');temp.write_text(text,encoding='utf-8-sig',newline='\n');os.replace(temp,p)
 def declarations(path):
-    b=path.read_bytes();out=[]
+    b=path.read_bytes();out=[];class_names=set()
     def text(n):return b[n.start_byte:n.end_byte].decode('utf-8') if n else ''
     def find(n):
         if n.type in ('function_declarator','operator_cast'):return n
@@ -181,6 +181,7 @@ def declarations(path):
         if n.type=='namespace_definition' and text(n.child_by_field_name('name'))=='detail':return
         if n.type in ('class_specifier','struct_specifier'):
             name=text(n.child_by_field_name('name'));body=n.child_by_field_name('body');vis=n.type=='struct_specifier'
+            class_names.add(name)
             if body:
                 for c in body.named_children:
                     if c.type=='access_specifier':vis=text(c)=='public'
@@ -191,7 +192,11 @@ def declarations(path):
             if d and public:
                 name='operator bool' if d.type=='operator_cast' else text(d.child_by_field_name('declarator'))
                 owner=scope
-                if '::' in name:owner,name=name.rsplit('::',1)
+                if '::' in name:
+                    owner,name=name.rsplit('::',1)
+                    # Out-of-class member definitions repeat the class declaration.
+                    if n.type=='function_definition' and not scope and owner.rsplit('::',1)[-1] in class_names:
+                        return
                 body=n.child_by_field_name('body');end=body.start_byte if body else n.end_byte
                 sig=b[n.start_byte:end].decode('utf-8').strip().rstrip(';').strip()
                 out.append({'owner':owner,'name':name,'signature':re.sub(r'\s+',' ',sig),'file':path.relative_to(ROOT).as_posix(),'line':n.start_point.row+1})
@@ -270,7 +275,7 @@ def main():
     for p in paths:
         for r in declarations(p):r.update(description=description(r),result=result_contract(r));records.append(r)
     save(ROOT/'framework/docs/API_KO.json',json.dumps(records,ensure_ascii=False,indent=2)+'\n')
-    md='# 프레임워크 공개 API 한글 목록\n\n대상: `framework/include/*.h`의 공개 함수·메서드·생성/소멸·변환 연산자. 비공개 멤버, detail 구현, SDK 함수는 제외한다. 오버로드와 헤더 내 정의는 각각 기록한다. 각 함수의 한글 주석은 선언 바로 위에 있다.\n\n'
+    md='# 프레임워크 공개 API 한글 목록\n\n대상: `framework/include/*.h`의 공개 함수·메서드·생성/소멸·변환 연산자. 비공개 멤버, detail 구현, SDK 함수는 제외한다. 오버로드와 const 구분은 각각 기록한다. 클래스 외부의 멤버 정의는 클래스 내부 선언과 중복 수록하지 않는다. 각 함수의 한글 주석은 선언 바로 위에 있다.\n\n'
     md+='이 문서는 API의 전체 탐색 목록이다. 시험장에서 사용할 호출 순서는 [공통 행동 그래프](../../docs/code-guide/exam.html)와 [요구사항별 API 호출](../../docs/code-guide/api.html)을 먼저 읽는다.\n\n'
     md+='## 공통 계약\n\n- 시간은 초, 각도는 별도 표기가 없으면 도다. `glm::radians`에 넣은 뒤 GLM 회전 행렬을 만든다.\n- 부모가 있는 엔티티의 위치는 부모 로컬이다. GridLayout.position은 월드 위치, relativeSize는 그리드 로컬 크기다.\n- bool/optional/포인터를 검사한 뒤 결과를 사용한다. 빈 피킹 결과·공중 jump의 false는 정상적인 판정일 수 있다.\n- Application은 모션을 프레임당 한 번 갱신한다. 여러 RenderPass에서도 물리와 시간을 중복 갱신하지 않는다.\n- ID는 소유 포인터가 아니다. Scene.clear 후 엔티티 ID를 다시 받는다. GPU 자원은 현재 컨텍스트에서 생성·해제한다.\n- Front cull은 winding에 따른 면 제거다. 법선 기반 명암과 다르다. 현재 셰이더에는 투영 그림자가 없다.\n\n## 파일별 목록\n\n'
     for p in paths:

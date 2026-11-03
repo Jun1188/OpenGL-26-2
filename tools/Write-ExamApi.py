@@ -17,17 +17,6 @@ if(key==GLFW_KEY_LEFT && action!=GLFW_REPEAT)
 if(leftHeld_) position_.x-=speed_*dt;''',
  '예제의 멤버 변수는 응용이 선언해야 한다. REPEAT마다 토글하면 한 번 길게 눌렀을 때 상태가 계속 뒤집힌다. Scene.clear 후 예전 ID를 재사용하지 않는다.',
  ['20/pipeline.html','21/pipeline.html']),
-('input','키 입력·토글·초기화','한 번 누르는 명령과 누르는 동안의 입력을 구분하고, reset이 복구할 상태 목록을 먼저 적는다.',
- ['PRESS/REPEAT/RELEASE 구분','입력 의도를 상태에 저장','update에서 dt 적용','reset에서 상태와 ID 복원'],
- '''// onKey의 토글 예:
-if(action==GLFW_PRESS && key==GLFW_KEY_SPACE) playing_=!playing_;
-// 지속 이동은 PRESS/RELEASE로 누름 상태를 저장한다.
-if(key==GLFW_KEY_LEFT && action!=GLFW_REPEAT)
-    leftHeld_=(action==GLFW_PRESS);
-// onUpdate에서만 시간 반영:
-if(leftHeld_) position_.x-=speed_*dt;''',
- '예제의 멤버 변수는 응용이 선언해야 한다. REPEAT마다 토글하면 한 번 길게 눌렀을 때 상태가 계속 뒤집힌다. Scene.clear 후 예전 ID를 재사용하지 않는다.',
- ['20/pipeline.html','21/pipeline.html']),
 ('boot','창·기본 루프','모든 문제의 출발점이다. standard의 main과 콜백 연결을 유지하고 데모의 상태와 입력을 필요한 만큼 줄인다.',
  ['Application 생성','Console 수명 유지','init/key/update 등록','run(config)'],
  '''graphics::Application app;
@@ -149,7 +138,7 @@ def main():
       ['자전 부품 + 공전 이동','루트/관절/표시 계층','각 책임의 축과 피벗','메시 배율을 관절 위치에 중복 적용']]))
     g.page(g.OUT/'api.html','코딩테스트 · 요구사항별 API 호출 순서',body)
     records=json.loads((ROOT/'framework/docs/API_KO.json').read_text(encoding='utf-8-sig'))
-    body=g.para('공개 함수·메서드의 모든 선언을 포함한다. 오버로드·복사 금지 선언·헤더 내 별도 정의는 개별 항목이다. 비공개/detail/SDK는 제외한다. <a href="api.html">먼저 호출 순서 보기</a> · <a href="../../framework/docs/API_KO.md">전체 Markdown</a>')
+    body=g.para('공개 함수·메서드의 모든 선언을 포함한다. 오버로드·const 구분·복사 금지 선언은 개별 항목이다. 클래스 외부 멤버 정의는 클래스 내부 선언과 중복 수록하지 않는다. 비공개/detail/SDK는 제외한다. <a href="api.html">먼저 호출 순서 보기</a> · <a href="../../framework/docs/API_KO.md">전체 Markdown</a>')
     body+='<input type="search" data-search placeholder="함수·타입·한글 기능 검색" aria-label="API 검색">'
     for i,r in enumerate(records):
         full=(r['owner']+'::' if r['owner'] else '')+r['name']
