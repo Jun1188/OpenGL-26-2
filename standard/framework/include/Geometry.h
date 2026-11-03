@@ -40,13 +40,14 @@ inline bool transformTexcoords(Mesh& mesh, const glm::vec2& scale, const glm::ve
     return true;
 }
 
+
 /// [API] 평면·박스·원통·구 투영 옵션으로 메시 UV를 생성한다.
 inline bool generateTexcoords(Mesh& mesh, const UVOptions& options = UVOptions{}) {
     if (!detail::validMesh(mesh) || options.axis < 0 || options.axis > 2)
         return false;
 
     switch (options.mapping) {
-    case UVMapping::Planar:
+        case UVMapping::Planar:
     case UVMapping::Box:
     case UVMapping::Cylindrical:
     case UVMapping::Spherical:
@@ -175,6 +176,7 @@ inline bool generateTexcoords(Mesh& mesh, const UVOptions& options = UVOptions{}
     return true;
 }
 
+
 /// [API] 메시의 삼각형 기하로 정점 법선을 다시 계산한다.
 inline void recalculateNormals(Mesh& mesh) {
     mesh.vertexNormals.assign(mesh.localVertices.size(), glm::vec3(0));
@@ -197,6 +199,7 @@ inline void recalculateNormals(Mesh& mesh) {
         n = size > 1e-12f ? n / size : glm::vec3(0);
     }
 }
+
 
 // Weld equal positions for edge topology, while preserving separate UV/normal vertices.
 /// [API] 메시의 윤곽 모드에 따라 선으로 그릴 정점 인덱스 쌍 목록을 계산한다.
@@ -271,6 +274,7 @@ inline std::vector<std::uint32_t> meshOutline(const Mesh& mesh, OutlineMode mode
 
     return result;
 }
+
 
 namespace detail {
 // Ear clipping handles planar simple concave polygons, with either winding.
@@ -356,6 +360,7 @@ inline std::vector<std::uint32_t> triangulate(const std::vector<glm::vec3>& poin
     return result;
 }
 
+
 inline void appendMesh(Mesh& destination, const Mesh& source) {
     const auto first = std::uint32_t(destination.localVertices.size());
 
@@ -369,6 +374,7 @@ inline void appendMesh(Mesh& destination, const Mesh& source) {
         destination.triangleIndices.push_back(first + i);
     destination.shape = GLFace::Mesh;
 }
+
 
 inline bool shareEdge(const Mesh& a, const Mesh& b) {
     const auto ae = meshOutline(a), be = meshOutline(b);
@@ -384,6 +390,7 @@ inline bool shareEdge(const Mesh& a, const Mesh& b) {
 
     return false;
 }
+
 
 inline void mergeCoplanar(Model& model) {
     for (std::size_t i = 0; i < model.faces.size(); ++i) {

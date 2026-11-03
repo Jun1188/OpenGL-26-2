@@ -1,0 +1,207 @@
+﻿[
+  {
+    "file": "standard/Console.h",
+    "changed": true,
+    "before_sha256": "a5733b4af3a787c549376fa28e098a5dbe6dd32b2d171ade21a72499652f77cd"
+  },
+  {
+    "file": "framework/detail/Internal.h",
+    "changed": true,
+    "before_sha256": "18384c937e7b9bea5c2f8d8570c4a794e3f7c5f23bde460f85a3f559d03337cf"
+  },
+  {
+    "file": "framework/detail/Native.h",
+    "changed": true,
+    "before_sha256": "ba084bda8053a0a4cb5f815aba1cd4e85aeb098abd17f87e7eb4816232cbc8c8"
+  },
+  {
+    "file": "framework/detail/Shaders.h",
+    "changed": false,
+    "before_sha256": "c636e2fa7fa5997a4422802fac4f0c5b7c1f2fd809e8f4cbe658ae4b3987c5f7"
+  },
+  {
+    "file": "framework/Framework.h",
+    "changed": false,
+    "before_sha256": "c9e306aab3ee3693235f071014fe57362c03e079a7afc6f0b87d6fa00c54c462"
+  },
+  {
+    "file": "framework/include/Actions.h",
+    "changed": true,
+    "before_sha256": "eca11672acebcad9f312d8e38c1ef2acef6af30d311d9d950def0f0d60048806"
+  },
+  {
+    "file": "framework/include/Animation.h",
+    "changed": true,
+    "before_sha256": "d35fb0f22409ce62b5f813febc1f3cea2ce40d38ecdcb77bdd03a7a33dab753d"
+  },
+  {
+    "file": "framework/include/Application.h",
+    "changed": true,
+    "before_sha256": "256669ef2ccd91bb7ec924b1d953a5bbe855532cf967f1d98cab1e27d2c80c9f"
+  },
+  {
+    "file": "framework/include/CuboidMode.h",
+    "changed": true,
+    "before_sha256": "a84fc4f62b6b0889af960dd22beda26f45a568728e99e37aa36bdc785c8c1175"
+  },
+  {
+    "file": "framework/include/Diagnostics.h",
+    "changed": true,
+    "before_sha256": "7608411af0b8be5c88c8816a8fe8e4f7ba433564cd23ae13ed11c13eaafad3ec"
+  },
+  {
+    "file": "framework/include/Geometry.h",
+    "changed": true,
+    "before_sha256": "a70d8e61cc36b9cf0daf290c1540afd8aa074c78591dbc26c832d0a2e65cefee"
+  },
+  {
+    "file": "framework/include/Graphics.h",
+    "changed": true,
+    "before_sha256": "f66d8ae306efb2acfdd14cd684f05cc9feb8db352c00ecba1e2dbe33c4503809"
+  },
+  {
+    "file": "framework/include/GridLayout.h",
+    "changed": true,
+    "before_sha256": "00933f85b7efc3cc6de2d2a7670447c53b42f4ecfbdab975364e7ce3f027309d"
+  },
+  {
+    "file": "framework/include/Model.h",
+    "changed": true,
+    "before_sha256": "4aa1fb6cf987ef616f1e6884f79a975d0c996e7f9c2631c153babb93d3ec5f17"
+  },
+  {
+    "file": "framework/include/ModelLoader.h",
+    "changed": true,
+    "before_sha256": "2423ef2a3d35e97e55b6b5db14808c2c6d6fb5313147009ecec2c80ccd1be18a"
+  },
+  {
+    "file": "framework/include/Motion.h",
+    "changed": true,
+    "before_sha256": "30d69be7b23dba0ff1e8fd4094619ad108894d6592c272d07a83286285e116c5"
+  },
+  {
+    "file": "framework/include/Patterns.h",
+    "changed": true,
+    "before_sha256": "388f7c98aaac71d1b2b7e22ac86d9d0a867b97d98ccb380a983e08199725ea07"
+  },
+  {
+    "file": "framework/include/Picking.h",
+    "changed": true,
+    "before_sha256": "139f1ac932405d898b2857d595cdbda1c82cb8ec26433dd7d0dc6024c585e328"
+  },
+  {
+    "file": "framework/include/RenderConfig.h",
+    "changed": true,
+    "before_sha256": "293ead3662b58de1d57642ef8d815dac8929057d0c660ae678e02bc4d548d251"
+  },
+  {
+    "file": "framework/include/Texture.h",
+    "changed": true,
+    "before_sha256": "c2cfee00ffadb42d269dcb85db88d1140cbd6baa5a5d9c816f1eb080fa61bd04"
+  },
+  {
+    "file": "framework/include/Transform.h",
+    "changed": true,
+    "before_sha256": "d1b89a0347c602df4feb623644287bc5af216429922a1c73c4fd971a4cdc6b94"
+  },
+  {
+    "file": "standard/framework/detail/Internal.h",
+    "changed": true,
+    "before_sha256": "18384c937e7b9bea5c2f8d8570c4a794e3f7c5f23bde460f85a3f559d03337cf"
+  },
+  {
+    "file": "standard/framework/detail/Native.h",
+    "changed": true,
+    "before_sha256": "bd6d8884336cbdce312175b2b7e07a9460d9e2e05e01375d1182991403725983"
+  },
+  {
+    "file": "standard/framework/detail/Shaders.h",
+    "changed": false,
+    "before_sha256": "c636e2fa7fa5997a4422802fac4f0c5b7c1f2fd809e8f4cbe658ae4b3987c5f7"
+  },
+  {
+    "file": "standard/framework/Framework.h",
+    "changed": false,
+    "before_sha256": "c9e306aab3ee3693235f071014fe57362c03e079a7afc6f0b87d6fa00c54c462"
+  },
+  {
+    "file": "standard/framework/include/Actions.h",
+    "changed": true,
+    "before_sha256": "d40e31b55d843cfd7837a5b4b633014426608d29e31396a310b9d2b78acc9857"
+  },
+  {
+    "file": "standard/framework/include/Animation.h",
+    "changed": true,
+    "before_sha256": "b0f2883bcc5fcfd90e67a8660fd0390628ec0f85dc422efc94bd8ccdfa66dc3b"
+  },
+  {
+    "file": "standard/framework/include/Application.h",
+    "changed": true,
+    "before_sha256": "256669ef2ccd91bb7ec924b1d953a5bbe855532cf967f1d98cab1e27d2c80c9f"
+  },
+  {
+    "file": "standard/framework/include/CuboidMode.h",
+    "changed": true,
+    "before_sha256": "a84fc4f62b6b0889af960dd22beda26f45a568728e99e37aa36bdc785c8c1175"
+  },
+  {
+    "file": "standard/framework/include/Diagnostics.h",
+    "changed": true,
+    "before_sha256": "1a5230f99719ce3d430988a0a6d9b16d14b2dd16944e7ef815177d27189eea5b"
+  },
+  {
+    "file": "standard/framework/include/Geometry.h",
+    "changed": true,
+    "before_sha256": "8cd5de280f6030d5bc345188c24d7948b93fdf981f5fbb383ed26fd240aeed05"
+  },
+  {
+    "file": "standard/framework/include/Graphics.h",
+    "changed": true,
+    "before_sha256": "f66d8ae306efb2acfdd14cd684f05cc9feb8db352c00ecba1e2dbe33c4503809"
+  },
+  {
+    "file": "standard/framework/include/GridLayout.h",
+    "changed": true,
+    "before_sha256": "f02772555afd98fca6793d1af275cac6f7dad22789dfed838e0af2c379b52d87"
+  },
+  {
+    "file": "standard/framework/include/Model.h",
+    "changed": true,
+    "before_sha256": "4aa1fb6cf987ef616f1e6884f79a975d0c996e7f9c2631c153babb93d3ec5f17"
+  },
+  {
+    "file": "standard/framework/include/ModelLoader.h",
+    "changed": true,
+    "before_sha256": "1f3a7a782dc18e9b936cae5cec024106d611d876333f93823ec49cbad98fab54"
+  },
+  {
+    "file": "standard/framework/include/Motion.h",
+    "changed": true,
+    "before_sha256": "30d69be7b23dba0ff1e8fd4094619ad108894d6592c272d07a83286285e116c5"
+  },
+  {
+    "file": "standard/framework/include/Patterns.h",
+    "changed": true,
+    "before_sha256": "388f7c98aaac71d1b2b7e22ac86d9d0a867b97d98ccb380a983e08199725ea07"
+  },
+  {
+    "file": "standard/framework/include/Picking.h",
+    "changed": true,
+    "before_sha256": "636d0515539d5b7f71293f0f80cae60ab56eaa41f93a7b60c171ae0464e5bfe1"
+  },
+  {
+    "file": "standard/framework/include/RenderConfig.h",
+    "changed": true,
+    "before_sha256": "293ead3662b58de1d57642ef8d815dac8929057d0c660ae678e02bc4d548d251"
+  },
+  {
+    "file": "standard/framework/include/Texture.h",
+    "changed": true,
+    "before_sha256": "06036f01edb06c0becc975ca9eefcbc478f71aa354d5fd6fe4ff96f6adec9e36"
+  },
+  {
+    "file": "standard/framework/include/Transform.h",
+    "changed": true,
+    "before_sha256": "9674af0f30046937bdb3aeceff0b8154f8a5cb252e47ddbd46f9c0cfeb457ca1"
+  }
+]

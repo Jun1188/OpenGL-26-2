@@ -12,29 +12,38 @@ namespace detail {
 template <class T> struct ComOwner {
     T* value = nullptr;
 
+
     ~ComOwner() {
         if (value)
             value->Release();
     }
 
+
     ComOwner() = default;
+
+
     ComOwner(const ComOwner&) = delete;
+
 
     ComOwner& operator=(const ComOwner&) = delete;
 };
+
 
 inline void checkCom(HRESULT result) {
     if (FAILED(result))
         throw std::runtime_error("Image decoder failed (HRESULT " + std::to_string(result) + ").");
 }
 
+
 struct ComApartment {
     HRESULT result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+
 
     ComApartment() {
         if (result != RPC_E_CHANGED_MODE)
             checkCom(result);
     }
+
 
     ~ComApartment() {
         if (SUCCEEDED(result))

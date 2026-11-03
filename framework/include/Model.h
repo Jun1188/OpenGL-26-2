@@ -48,6 +48,7 @@ struct TextureImage {
     std::uint32_t width = 0, height = 0;
     std::vector<std::uint8_t> rgba;
 
+
     // Row zero maps to UV v=0. File decoding flips top-down images by default.
     /// [API] 이미지 너비·높이와 RGBA 바이트 수가 맞는지 검사한다.
     bool valid() const {
@@ -93,6 +94,7 @@ struct PlaneFigure {
     glm::mat4 transformFrame{1.0f}; // Parent-local correction, or a frozen world frame.
     FaceAnimationSpace animationSpace = FaceAnimationSpace::Local;
 
+
     /// [API] 정점 목록에서 하나의 면 데이터를 만든다. 모델/Scene 등록은 수행하지 않는다.
     static PlaneFigure fromVertices(const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& triangles) {
         PlaneFigure mesh;
@@ -117,10 +119,12 @@ struct Polyhedron {
     std::vector<PlaneFigure> faces;
     std::string name;
 
+
     /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
     std::vector<Mesh>& meshes() {
         return faces;
     }
+
 
     /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
     const std::vector<Mesh>& meshes() const {
@@ -157,6 +161,7 @@ inline bool finiteVector(const glm::vec3& v) {
     return std::isfinite(v.x) && std::isfinite(v.y) && std::isfinite(v.z);
 }
 
+
 inline bool finiteMatrix(const glm::mat4& m) {
     for (int c = 0; c < 4; ++c)
         for (int r = 0; r < 4; ++r)
@@ -166,9 +171,11 @@ inline bool finiteMatrix(const glm::mat4& m) {
     return true;
 }
 
+
 inline bool validColor(GlColor c) {
     return std::isfinite(c.red) && std::isfinite(c.green) && std::isfinite(c.blue);
 }
+
 
 inline std::vector<std::uint32_t> triangles(const Mesh& mesh) {
     if (!mesh.triangleIndices.empty())
@@ -182,6 +189,7 @@ inline std::vector<std::uint32_t> triangles(const Mesh& mesh) {
 
     return {};
 }
+
 
 inline bool validMesh(const Mesh& m) {
     if (m.cull != CullMode::Inherit && m.cull != CullMode::None && m.cull != CullMode::Back &&
@@ -252,6 +260,7 @@ inline bool validMesh(const Mesh& m) {
     return true;
 }
 
+
 inline std::pair<glm::vec3, glm::vec3> bounds(const Model& model) {
     glm::vec3 low(std::numeric_limits<float>::max()), high(-std::numeric_limits<float>::max());
 
@@ -264,11 +273,13 @@ inline std::pair<glm::vec3, glm::vec3> bounds(const Model& model) {
     return {low, high};
 }
 
+
 inline glm::vec3 bottomCenter(const Model& model) {
     const auto box = bounds(model);
 
     return {box.first.x * .5f + box.second.x * .5f, box.first.y, box.first.z * .5f + box.second.z * .5f};
 }
+
 
 inline glm::mat4 transformMatrix(const Transform3D& t) {
     glm::mat4 m = glm::translate(glm::mat4(1), t.basis);
@@ -278,17 +289,20 @@ inline glm::mat4 transformMatrix(const Transform3D& t) {
     return glm::translate(glm::scale(m, t.scale), -t.localBasis);
 }
 
+
 inline glm::mat4 faceSrtMatrix(const Mesh& face) {
     return face.independence
         ? glm::translate(glm::mat4(1), face.transform.localBasis) * transformMatrix(face.transform)
         : glm::mat4(1);
 }
 
+
 inline glm::mat4 faceLocalMatrix(const Mesh& face) {
     const auto child = faceSrtMatrix(face);
     return face.animationSpace == FaceAnimationSpace::Model
         ? face.localAnimationMatrix * child : child * face.localAnimationMatrix;
 }
+
 
 inline glm::mat4 faceMatrix(const Component_Poly& c, const Mesh& face) {
     const auto parent = face.transformMode == FaceTransformMode::Hierarchy ? transformMatrix(c.transform) : glm::mat4(1);

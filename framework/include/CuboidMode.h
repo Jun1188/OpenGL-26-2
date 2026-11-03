@@ -56,22 +56,58 @@ class CuboidMode {
 public:
     /// [API] 초기 설정만 교체한다. 현재 Scene은 apply를 호출할 때 갱신된다.
     bool setConfig(const CuboidModeConfig& config);
-    const CuboidModeConfig& getConfig() const { return config_; }
+
+
+    const CuboidModeConfig& getConfig() const {
+        return config_;
+    }
+
+
     /// [API] 같은 이름의 육면체 초기 설정을 교체하거나 새로 등록한다.
     bool setCuboid(const CuboidConfig& config);
+
+
     /// [API] 같은 key/action/mods 바인딩을 교체하거나 추가한다.
     bool bindKey(const CuboidKeyBinding& binding);
+
+
     bool unbindKey(int key, int action = GLFW_PRESS, int mods = 0);
-    const std::vector<CuboidKeyBinding>& getBindings() const { return bindings_; }
-    void setSetupHandler(CuboidHandler handler) { setup_ = std::move(handler); }
-    void setUpdateHandler(std::function<bool(Application&, CuboidMode&, float)> handler) { update_ = std::move(handler); }
+
+
+    const std::vector<CuboidKeyBinding>& getBindings() const {
+        return bindings_;
+    }
+
+
+    void setSetupHandler(CuboidHandler handler) {
+        setup_ = std::move(handler);
+    }
+
+
+    void setUpdateHandler(std::function<bool(Application&, CuboidMode&, float)> handler) {
+        update_ = std::move(handler);
+    }
+
+
     /// [API] 별도 CPU Scene에 육면체와 모션을 구성하고 성공하면 장면 전체를 교체한다.
     bool apply(Application& app);
+
+
     bool update(Application& app, float dt);
+
+
     bool dispatch(Application& app, int key, int action, int mods);
+
+
     std::optional<EntityId> entity(const std::string& name) const;
+
+
     std::optional<LayerId> layer(const std::string& name) const;
+
+
     std::optional<MotionId> motion(const std::string& name) const;
+
+
     /// [API] 실행 시 이름을 해석하므로 초기 설정 재적용 뒤에도 같은 바인딩을 사용한다.
     static CuboidHandler action(std::string name, CuboidCommand command);
 };

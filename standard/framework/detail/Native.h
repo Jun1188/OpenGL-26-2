@@ -20,6 +20,7 @@
 namespace graphics::detail {
 static_assert(sizeof(void*) == 8, "Bundled DLLs require x64.");
 
+
 inline std::filesystem::path executableDirectory() {
     std::wstring path(32768, L'\0');
     const DWORD size = GetModuleFileNameW(nullptr, path.data(), DWORD(path.size()));
@@ -30,6 +31,7 @@ inline std::filesystem::path executableDirectory() {
 
     return std::filesystem::path(path).parent_path();
 }
+
 
 inline std::filesystem::path relativePathInside(const std::filesystem::path& root,
                                                 const std::filesystem::path& relative) {
@@ -47,23 +49,30 @@ inline std::filesystem::path relativePathInside(const std::filesystem::path& roo
     return full;
 }
 
+
 inline std::filesystem::path frameworkDirectory() {
     return executableDirectory() / "framework";
 }
+
 
 class Module {
     HMODULE handle_ = nullptr;
 
 public:
     Module() = default;
+
+
     Module(const Module&) = delete;
 
+
     Module& operator=(const Module&) = delete;
+
 
     ~Module() {
         if (handle_)
             FreeLibrary(handle_);
     }
+
 
     void open(const std::filesystem::path& path) {
         if (handle_)
@@ -81,6 +90,7 @@ public:
             throw std::runtime_error(message);
         }
     }
+
 
     template <class T> T symbol(const char* name) const {
         const auto address = ::GetProcAddress(handle_, name);
@@ -127,6 +137,7 @@ struct GlfwApi {
     decltype(&::glfwWaitEvents) WaitEvents = nullptr;
     decltype(&::glfwSwapBuffers) SwapBuffers = nullptr;
 
+
     void load(const std::filesystem::path& root = std::filesystem::path{}) {
         if (ready)
             return;
@@ -166,6 +177,7 @@ inline GlfwApi& glfw() {
 
     return api;
 }
+
 
 struct GlApi {
     Module module;
@@ -229,6 +241,7 @@ struct GlApi {
     PFNGLUNIFORM1FPROC Uniform1f = nullptr;
     PFNGLACTIVETEXTUREPROC ActiveTexture = nullptr;
 
+
     template <class T> T resolve(const char* name) {
         PROC p = wglGetProc(name);
 
@@ -238,6 +251,7 @@ struct GlApi {
 
         return reinterpret_cast<T>(p);
     }
+
 
     void load() {
         std::wstring directory(32768, L'\0');
@@ -309,6 +323,7 @@ inline GlApi& gl() {
 
     return api;
 }
+
 
 inline bool checkGlAt(const char* file, int line, PipelineStage stage, const char* api) {
     bool success = true;

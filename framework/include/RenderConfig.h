@@ -44,29 +44,45 @@ struct DrawUniformContext {
     std::size_t face;
     glm::mat4 model, view, projection;
     bool depthOnly = false;
+
+
     /// [API] 현재 program의 추가 float uniform을 설정한다. 없는 이름이나 비유한 값은 거부한다.
     bool setUniform(const std::string& name, float value) const {
         const auto location = detail::gl().GetUniformLocation(program, name.c_str());
-        if (location < 0 || !std::isfinite(value)) return false;
-        detail::gl().Uniform1f(location, value); return true;
+        if (location < 0 || !std::isfinite(value))
+            return false;
+        detail::gl().Uniform1f(location, value);
+        return true;
     }
+
+
     /// [API] 현재 program의 추가 int/bool/sampler uniform을 설정한다.
     bool setUniform(const std::string& name, int value) const {
         const auto location = detail::gl().GetUniformLocation(program, name.c_str());
-        if (location < 0) return false;
-        detail::gl().Uniform1i(location, value); return true;
+        if (location < 0)
+            return false;
+        detail::gl().Uniform1i(location, value);
+        return true;
     }
+
+
     /// [API] 현재 program의 추가 vec3 uniform을 설정한다.
     bool setUniform(const std::string& name, const glm::vec3& value) const {
         const auto location = detail::gl().GetUniformLocation(program, name.c_str());
-        if (location < 0 || !detail::finiteVector(value)) return false;
-        detail::gl().Uniform3f(location, value.x, value.y, value.z); return true;
+        if (location < 0 || !detail::finiteVector(value))
+            return false;
+        detail::gl().Uniform3f(location, value.x, value.y, value.z);
+        return true;
     }
+
+
     /// [API] 현재 program의 추가 mat4 uniform을 설정한다.
     bool setUniform(const std::string& name, const glm::mat4& value) const {
         const auto location = detail::gl().GetUniformLocation(program, name.c_str());
-        if (location < 0 || !detail::finiteMatrix(value)) return false;
-        detail::gl().UniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]); return true;
+        if (location < 0 || !detail::finiteMatrix(value))
+            return false;
+        detail::gl().UniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
+        return true;
     }
 };
 
