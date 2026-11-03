@@ -1,0 +1,4490 @@
+﻿{
+  "graph_type": "MultiDiGraph",
+  "affected_pairs": 134,
+  "restored_additional_relations": 150,
+  "remaining_collapsed_relations": 0,
+  "nodes": 3528,
+  "edges": 5507,
+  "groups": [
+    {
+      "source": "framework_detail_animation_animationsystem_addhumanoid",
+      "target": "framework_detail_animation_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_animation_animationsystem_addhumanoid",
+          "target": "framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_animation_animationsystem_addhumanoid",
+          "target": "framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-1c78f62bc24b8a5b10034d16e999fd1ee211b2beb2df04de0ca2f64fc538aa60",
+        "relation-4659ab2cc6c8b3f053ef3f1246abb274014e977bad6cd7cfb2937d6bf1794f18"
+      ]
+    },
+    {
+      "source": "framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "framework_detail_animation_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_animation_animationsystem_addswingwithrider",
+          "target": "framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L234",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_animation_animationsystem_addswingwithrider",
+          "target": "framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Animation.cpp",
+          "source_location": "L234",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-7524af1ed37f3d42c12dd861ab4901fafaf94dbeeab94c14b23a4d8d915d7472",
+        "relation-2b50b06a1d24324a7aef1455b6ed43ca0d609af698c832b8108d3b0c234b2053"
+      ]
+    },
+    {
+      "source": "framework_detail_cuboidmode_lookup",
+      "target": "framework_detail_cuboidmode_cpp_string",
+      "records": [
+        {
+          "source": "framework_detail_cuboidmode_lookup",
+          "target": "framework_detail_cuboidmode_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/CuboidMode.cpp",
+          "source_location": "L25",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_cuboidmode_lookup",
+          "target": "framework_detail_cuboidmode_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/CuboidMode.cpp",
+          "source_location": "L25",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d997f5d3a53f64b1c89b967788631af673c605ac15a6b41e70718ba49a86c49e",
+        "relation-8ae40e0fcc7e4aed70bb00c8b44975a6d533a5a1591693fe2f43cbbd6302c99c"
+      ]
+    },
+    {
+      "source": "framework_detail_motion_motionsystem_pushlayer",
+      "target": "framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "framework_detail_motion_motionsystem_pushlayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L452",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_motion_motionsystem_pushlayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L452",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-781df02240b5363f620a43d19e52880f5090bf6732553b882d918f9d8b7905e4",
+        "relation-c7ccb6fb2756575159be35c75a946206b4d6b0fd92eac320f94c38653b00b3e3"
+      ]
+    },
+    {
+      "source": "framework_detail_motion_motionsystem_insertlayer",
+      "target": "framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "framework_detail_motion_motionsystem_insertlayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L472",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_motion_motionsystem_insertlayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L472",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-bfad5070c813d64023c183c535aaa3dd8e0572c5a7770068be89583aed4201bb",
+        "relation-89575c6aca573fbeed51bcb0b16ce2c68762382cf5b54cc3e1ebcbfb86be19ca"
+      ]
+    },
+    {
+      "source": "framework_detail_motion_motionsystem_poplayer",
+      "target": "framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "framework_detail_motion_motionsystem_poplayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L525",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_motion_motionsystem_poplayer",
+          "target": "framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Motion.cpp",
+          "source_location": "L525",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-acad4a2abf30376964a891853b8425bd9b154e6dbab301e6a8d878b1e13587ac",
+        "relation-1742063b3c7c019b9f71703c2cd963848823f3da01713cc400a6b6e3afc37181"
+      ]
+    },
+    {
+      "source": "framework_detail_native_relativepathinside",
+      "target": "framework_detail_native_h_path",
+      "records": [
+        {
+          "source": "framework_detail_native_relativepathinside",
+          "target": "framework_detail_native_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L36",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_native_relativepathinside",
+          "target": "framework_detail_native_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Native.h",
+          "source_location": "L36",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c6a81f820b75df64b7badd6899a6e11f898d13530de287f5422d30ceb6f48374",
+        "relation-6e305ba391a83fa115112b9e8e3d4ba80b3a14dc1a36f7cb99c612eaa38596d5"
+      ]
+    },
+    {
+      "source": "framework_detail_objloader_objwarning",
+      "target": "framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "framework_detail_objloader_objwarning",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_objwarning",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c22747eae6aed810cf868ed886f2675454853157a805c88e32a7e821fd752239",
+        "relation-e0f592de28f9c3c87f793a5a7644ab8e24aa6c36bdc1a09d79f4300d0ff45939"
+      ]
+    },
+    {
+      "source": "framework_detail_objloader_objresolve",
+      "target": "framework_detail_objloader_cpp_size_t",
+      "records": [
+        {
+          "source": "framework_detail_objloader_objresolve",
+          "target": "framework_detail_objloader_cpp_size_t",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_objresolve",
+          "target": "framework_detail_objloader_cpp_size_t",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_objresolve",
+          "target": "framework_detail_objloader_cpp_size_t",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-1c92dbdaef8028db9940f6beffa39f418b3a611f8f28d16d6d18388daad55eda",
+        "relation-19830b0dafa09e1fdad37311fa2e66b79459c1af537044cd14e72a3e79fff49d",
+        "relation-92500f0cfe2698d8f637261c512338953d54a4a1947b58b46f2b3776d759148d"
+      ]
+    },
+    {
+      "source": "framework_detail_objloader_objtext",
+      "target": "framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "framework_detail_objloader_objtext",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_objtext",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_objtext",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-1b0d67f8380cfcf5c2e8bedfba58cf9ee441e9c04a2f3cacdcf3181a42ed901a",
+        "relation-f227c3a80628a4161a29c3a2b858093f5053e1951cea1f59744342395a8984e7",
+        "relation-e6fc23d44c6a1a9ed8dab65a97bfb12bc6497c60969467149bd6e994912d7568"
+      ]
+    },
+    {
+      "source": "framework_detail_objloader_parseobj",
+      "target": "framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "framework_detail_objloader_parseobj",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L189",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_objloader_parseobj",
+          "target": "framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/ObjLoader.cpp",
+          "source_location": "L189",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d3f32711e5a5c50b2076d94f53749a1ee2a2a446ed30f71a72bd3ae63ef52461",
+        "relation-629754e07a3a74024841275ef9db17efcf1fe8e7c2125ad311d12549cd5b0823"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_conveyorcornerpose",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_conveyorcornerpose",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b4f38e85738888fc2801af0d7b05bc47b1591db1dc2a89b6c9c2036ceb0c8148",
+        "relation-2e019be5582bdb04f61f1044cc3b8fc8c48c44d22f537db02826c9e9bd990840"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_collisionsystem_steproombody",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_collisionsystem_steproombody",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L166",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_collisionsystem_steproombody",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L203",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d8c48b5bde7e25eeeedb1e6d3da419e33666bb2fecd4d2a812b2aec044283667",
+        "relation-04772b1ed0357db825609939b9453dc2f17a5f6d56da1b95a50ad25ce57aa438"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "framework_detail_patterns_cpp_bounds3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_collisionsystem_stepcharacter",
+          "target": "framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L268",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_collisionsystem_stepcharacter",
+          "target": "framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L268",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b7a4c78e30e5f06b8a72d0363f241ed6a81a26577927fd72902055ffc4b18e4e",
+        "relation-b3f9c392338992518d22319209271ac161e75a137e7b25920d53a2ca4a900194"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "framework_detail_patterns_cpp_bounds3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_collisionsystem_randomfreebox",
+          "target": "framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L394",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_collisionsystem_randomfreebox",
+          "target": "framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L394",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c931b229f309be8f2134fcaba1b72633a970f31e7e2107a9de6a87d05bc55469",
+        "relation-5c6821d1cad24d23ea1871c64035ec0bbc1f50a7ab51e30d8ba3fb7d258836b9"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_addbox",
+      "target": "framework_detail_patterns_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_addbox",
+          "target": "framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L434",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_addbox",
+          "target": "framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L434",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b270745a19fd04450c2cb21c565ec32bf9c24a10011ca391f5d4c689f2de52c7",
+        "relation-b5341527721959b20fd23003eddf646c612d15a2a1bb9b2a113e2d71e38a17c5"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_addpolygon",
+      "target": "framework_detail_patterns_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_addpolygon",
+          "target": "framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L461",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_addpolygon",
+          "target": "framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L461",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-9ea100f6b60b1d779f2b6e13810f8989dd67506c0ef10564803acb0b7ffbb200",
+        "relation-760cf6551d98d87b84eb0dbbb856bcb743877e5b3e83420a5f50fc5a5e24c84d"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_addjoint",
+      "target": "framework_detail_patterns_cpp_entityid",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_addjoint",
+          "target": "framework_detail_patterns_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L517",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_addjoint",
+          "target": "framework_detail_patterns_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L517",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-ca6284d6594ae77a0c98818046f6e99812e56c967dabcf8358a75c56834ed2e9",
+        "relation-e1d040d0dd8b81f319362a91a60ad30ad4a72ac0c5da3e490cd33ee4bc460d52"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_follow",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_follow",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L552",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_follow",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L566",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-66f53fe5d46b13d9fe01dc6f4f6dcc9b5d0caafe2bee9d101e12068901b94e8f",
+        "relation-13a8597d382cfdb733e33707d2bf26b1829a68dd04d5d99e9af70aefcc95e818"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_addnumber",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_addnumber",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L571",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_addnumber",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L585",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-63d13468ebcc3ae786b4eef625e8d517b829e849abe61de01fd85bfccac67c17",
+        "relation-0a67d85adfd8223a51dfd65be3bace21ce47cca69d26630a615ecdb38ab0ce58"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_snakecells",
+      "target": "framework_detail_patterns_cpp_ivec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_snakecells",
+          "target": "framework_detail_patterns_cpp_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L710",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_snakecells",
+          "target": "framework_detail_patterns_cpp_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L710",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c16d498650c549842e2dff1a8bfc6b66b093b67e22c0c5f963c1f0d5aca14e12",
+        "relation-de9b49fad76471298ccf83b811b62bdd054cb2da883bdb89fd0e0c00f9b10713"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_snap",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_snap",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L735",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_snap",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L735",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_snap",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L743",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-a586a71f69184feccdf1dd28655fa4f510c02239bff5a40ba2d7ba460ba5260f",
+        "relation-1b67a672ccb54c890267c5908e8f218f147fec35b3d0927a7abd61621ffc13ae",
+        "relation-5e2ccc7ca5630168ef174c2bb654d071830383863208b3fd4de4f8869f8f3e55"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_screenonplane",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_screenonplane",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L754",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_screenonplane",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L754",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_screenonplane",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L777",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-53ce11b8406a98fc4932ff84d4ee650d5c7dc88a5497ddffbe15474b640ddd20",
+        "relation-ce9e0c18d5cc1b209c223946a5476938fcabfce7102fb7076b7f7c97cd9b0a74",
+        "relation-1a684ec4007b6444326a638d22d66d46c05e2d9c27d527a855685fccfd433059"
+      ]
+    },
+    {
+      "source": "framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_patterns_patternsystem_posewalkingrig",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L954",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_patterns_patternsystem_posewalkingrig",
+          "target": "framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Patterns.cpp",
+          "source_location": "L980",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8fb5f0eca9825d48a36deaf9de5588c5bede1485950c700d6fd561135300c4d0",
+        "relation-9b54c10a5e448a534c240a6104ce38fd89268d4a1f9f901f459b47961780222d"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_scene_setparent",
+      "target": "framework_detail_scene_cpp_entityid",
+      "records": [
+        {
+          "source": "framework_detail_scene_scene_setparent",
+          "target": "framework_detail_scene_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L309",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_scene_setparent",
+          "target": "framework_detail_scene_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L309",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-09709d52384f11aa43b9bb311a1c62199b59c8f8571491a5785d1c8ae9970505",
+        "relation-f04e260c18ea60bc2afd1d66e47f685713013636c107008d881356de30f04af0"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_scene_faceworldmatrix",
+      "target": "framework_detail_scene_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_scene_scene_faceworldmatrix",
+          "target": "framework_detail_scene_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L397",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_scene_faceworldmatrix",
+          "target": "framework_detail_scene_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L408",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8272eb5aed9c7cf21df9189488bae382eabd860b1a4686ba498c7a000db5a089",
+        "relation-66d340dbc8fec27135e903595fb85f114ee001e0fe2f48deea1c417bb96e3fc7"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_scene_addline",
+      "target": "framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_scene_scene_addline",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L534",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_scene_addline",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L534",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-3d6c374b861ce5b54a7da6d89d832f8183a0eb89f5718778da596f120a3502a5",
+        "relation-57b732e7fbc8679e395178dfde34df77e04884dfdc6775fd8f36a3df810ef6a9"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_scene_addvector",
+      "target": "framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_scene_scene_addvector",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L554",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_scene_addvector",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L554",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c583fa8027571d380cf9a2af7796de94dfdd0280056ba68d689f329da87fb773",
+        "relation-5de245bbca0f83945e4066584f4510eb0d8b9633435984d6c89301d9bf5e3bc4"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_scene_addbasis",
+      "target": "framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "framework_detail_scene_scene_addbasis",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L559",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_scene_addbasis",
+          "target": "framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L559",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-6517a8fd1853955b98e27e1397664a1c469cb9eb81ef97691b04c73ea475e7c8",
+        "relation-d89556f8c899c55851732458436be455e2ed73e0932383c9ea585b637274b42c"
+      ]
+    },
+    {
+      "source": "framework_detail_scene_diagramsystem_makepolyhedron",
+      "target": "framework_detail_scene_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_scene_diagramsystem_makepolyhedron",
+          "target": "framework_detail_scene_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L646",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_scene_diagramsystem_makepolyhedron",
+          "target": "framework_detail_scene_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Scene.cpp",
+          "source_location": "L687",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-2abf1923ea3e2b3ccc55006a6231e8dd367df26816819c44b4b88f5a116db8e3",
+        "relation-8252fcb3281bddc2a7e75088a8de7bd942085ffe4935215b12c0c1108623d7f7"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_motionunitvector",
+      "target": "framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_transform_motionunitvector",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_motionunitvector",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_motionunitvector",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L16",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-5093471af2d0e7baf82cee3c7f8bad5bbe1817cd5d1bbd4ddb138be8f28a2aee",
+        "relation-e90a287adbb6e327aae37bbb735c5a2d97c9e3a4e2db9d30dea13926d6263c2e",
+        "relation-4657123a48c7ba042a5303b6eae26bd45af9a4a88b27c0e5e3a77af6ff22b589"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_motionaround",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_motionaround",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_motionaround",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_motionaround",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L23",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b8a7fee25c37e72b4d8ba4f051fc7c8ae29b4e6632cb7462113a2b0bac9a9abb",
+        "relation-d69dc54bfee2a412c778fcf7a012ccf5ea0fc6a77e1b54bc8e8544d1f4ecfcff",
+        "relation-097fed34b985213849d1e4d879a6979a6d7c45ff76000c08f16ae93658206a00"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_translation",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_translation",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L39",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_translation",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L47",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-70ced4653b8a9220aa31bb7c05f7f80932d7e62ae16cc8c31e96fae0ecaf94ec",
+        "relation-ecb5a683b4167e193d31681cac67813b7c59d5884fbd0127ce6c13db33530ca2"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_scaling",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_scaling",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L50",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_scaling",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L58",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f127316fac469bf3b95cead40262a58cba052f88a9cc8d43a175c2efd3af3880",
+        "relation-1318ca0cba725799b37825ac743147033f8add5013180102206181d5dc45f746"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_rotation",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_rotation",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L61",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_rotation",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L73",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f468c1ab62b9a27f7cf57c4953d4c370de32981c69634baa135540dc5d5a93e2",
+        "relation-53634f7e823b432a8238e12918675d5434fcaeeedc77316d49b910a24cd57716"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_reflectpoint",
+      "target": "framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_reflectpoint",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L76",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_reflectpoint",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-afb337740542e1780ae7a7e16d549aef492582200000d8a2d1b1c26980ff1ff8",
+        "relation-004801197533670afbf632f3229bfb01e5f3b9a63d5bcf73fb9fd4ad39a50c85"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_reflectline",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_reflectline",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L80",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_reflectline",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L96",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8f123786987da09556c882fe510b794ec9b9e56455894cec22e9203df8f851a1",
+        "relation-9a73eb19e88aad844a635dd96baaf5c90bfda9b738baa21d7a59342ba1a86c9a"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_transformsystem_reflectplane",
+      "target": "framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "framework_detail_transform_transformsystem_reflectplane",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L99",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_transformsystem_reflectplane",
+          "target": "framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L115",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-26113b31d5f9e37bf6527aa6a280c34972f402c3cceb15bb32daf691dbc45f05",
+        "relation-717efd39385000b4a2dc90b88b5f412db0b30a756590e3a96ee2fb7aea9f21e1"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_pathsystem_circle",
+      "target": "framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_transform_pathsystem_circle",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L133",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_pathsystem_circle",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L143",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-89bb101e307487240c7cc4ec2a2ff66ed76d2f36187459830d9fbb99ae40b1fd",
+        "relation-d090a78a77c03a4d2838aefa1aea4bb9cf61ef1eb8aece99c36c8553400b02df"
+      ]
+    },
+    {
+      "source": "framework_detail_transform_pathsystem_polyline",
+      "target": "framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "framework_detail_transform_pathsystem_polyline",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L149",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_detail_transform_pathsystem_polyline",
+          "target": "framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/detail/Transform.cpp",
+          "source_location": "L197",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-fb461304b173991409fd76c053fd9c04c1fab0f4e50c9e39ae9e5e84ab07b54a",
+        "relation-4d8e9e96735643d5bba55a00b820cd42c9ee55214958506f92abb78a6d66066c"
+      ]
+    },
+    {
+      "source": "framework_include_actions_sceneactions_parent",
+      "target": "framework_include_actions_h_entityid",
+      "records": [
+        {
+          "source": "framework_include_actions_sceneactions_parent",
+          "target": "framework_include_actions_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Actions.h",
+          "source_location": "L103",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_actions_sceneactions_parent",
+          "target": "framework_include_actions_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Actions.h",
+          "source_location": "L103",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-5f61a6e7ec6bbfce2a812da1836d017a5f8f47bee46fb0e6b3f42c96b689cba5",
+        "relation-2a89227655b466a8b8f6c02a8bdeadf71fdd69d03b305621147f248442000b40"
+      ]
+    },
+    {
+      "source": "framework_include_animation_humanoidrig",
+      "target": "framework_include_animation_h_entityid",
+      "records": [
+        {
+          "source": "framework_include_animation_humanoidrig",
+          "target": "framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_animation_humanoidrig",
+          "target": "framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L21",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-154372690833dd672ad8825067c9930e3d95d9b4842753ffe92ab3a67248255b",
+        "relation-c1a7e339d7be9de35f68a3060c33302747c3add3524c394783b1e773cd98fcff"
+      ]
+    },
+    {
+      "source": "framework_include_animation_humanoidpose",
+      "target": "framework_include_animation_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_animation_humanoidpose",
+          "target": "framework_include_animation_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L26",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_animation_humanoidpose",
+          "target": "framework_include_animation_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L27",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-320549bc010a8859859b52c72a4f35ddc7e4e9a36a1c840ae1f05469630c280b",
+        "relation-2c20512fecd3322e1740655d6263fd21da73d6fcfb8e22752b04b5806545fb4f"
+      ]
+    },
+    {
+      "source": "framework_include_animation_swingrig",
+      "target": "framework_include_animation_h_entityid",
+      "records": [
+        {
+          "source": "framework_include_animation_swingrig",
+          "target": "framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L46",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_animation_swingrig",
+          "target": "framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Animation.h",
+          "source_location": "L47",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-77f9af3fe856d3d6ebee4865f49dc30dbbb76a78449bd29473ca43d17ed4d055",
+        "relation-69d1e7921e48f74c725001b9ffdc4ad8dbabfb0f156901943962b16fac031f25"
+      ]
+    },
+    {
+      "source": "framework_include_geometry_transformtexcoords",
+      "target": "framework_include_geometry_h_vec2",
+      "records": [
+        {
+          "source": "framework_include_geometry_transformtexcoords",
+          "target": "framework_include_geometry_h_vec2",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L20",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_geometry_transformtexcoords",
+          "target": "framework_include_geometry_h_vec2",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L33",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0affdda04411a40753cf189d4ca10d2ed9198acf910e6588bb54266e98422047",
+        "relation-f359c6508577b80f5f6841af2cea756667f8dc7d2d0ffc0450defa3a7099a654"
+      ]
+    },
+    {
+      "source": "framework_include_geometry_triangulate",
+      "target": "framework_include_geometry_h_vector",
+      "records": [
+        {
+          "source": "framework_include_geometry_triangulate",
+          "target": "framework_include_geometry_h_vector",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_geometry_triangulate",
+          "target": "framework_include_geometry_h_vector",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f6d420996028e99ab9bb86876d88662b385fb6a8df95cdeb1ed915aa1496ee83",
+        "relation-6a81c42c08c7e986712300f7f63ad272fcf6af5913000aad96dad54c84f396d2"
+      ]
+    },
+    {
+      "source": "framework_include_geometry_triangulate",
+      "target": "framework_include_geometry_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_geometry_triangulate",
+          "target": "framework_include_geometry_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_geometry_triangulate",
+          "target": "framework_include_geometry_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Geometry.h",
+          "source_location": "L291",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-cedcee4b517a1237d5897cd049aa4861971d8340e995355f84a6eb5e4dfd7645",
+        "relation-884c39155641d047597df13107bde2372729e0f7d14982ca853250f8abf1d23d"
+      ]
+    },
+    {
+      "source": "framework_include_graphics_renderer",
+      "target": "framework_include_graphics_drawrange",
+      "records": [
+        {
+          "source": "framework_include_graphics_renderer",
+          "target": "framework_include_graphics_drawrange",
+          "relation": "contains",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L379",
+          "weight": 1.0,
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_graphics_renderer",
+          "target": "framework_include_graphics_drawrange",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Graphics.h",
+          "source_location": "L393",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d700b475f9acad5f1da1dd2e2ced884f99e99220196f3f240d9d55441aebef02",
+        "relation-29aa3051f64580e60bd186cb3ac3aed75dd945a03fc5589887f5e9bd49a6478b"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_position",
+      "target": "framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_position",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L23",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_position",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L23",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_position",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L32",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f5d9adcb75704c7cb81183507c31edaeb622bb977470f2acc13b67ac06204cd7",
+        "relation-a4cffe11c7f0480816d4ee4aeb03a69581ad652cf0746d5a3cf4a89fe37872cd",
+        "relation-e07b29d787108a482187b347d958dd2c7ff7818de19eb0063774de204dd2375f"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_cellcenter",
+      "target": "framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellcenter",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L46",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellcenter",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L55",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-82881dee70301468b36af2f6eb4a507249007edca35f6b1f2e43634b433e60fe",
+        "relation-3ddaf0b007d857b7722812524e4a9648680f4b7a1fc2ee84ce93c7ea29b1b9c1"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_relativesize",
+      "target": "framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_relativesize",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L60",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_relativesize",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L60",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-83ec008e8977d75252b63b8b8a17aaefa6cfb58f40f6ba06ff543d0135c65bff",
+        "relation-0f38e1eccd9a400bc1aa939fa50e8801a2b2dce330a7c1c8b24238f24bc8fca1"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_positioninparent",
+      "target": "framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L95",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-a469b8e774f41d9853399c61184272962c7a5c1f4c0916b6f3f17775fa700af7",
+        "relation-a0e967085eabdd7b0ab5fb7b544756c3bcaa3eb2ce2657c504bc23fcd4db837a",
+        "relation-dec150177d1aa2d7ed9ca56799b8fb2f733e21a1c3bb76b1a3979c6ffacb5c65"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_cellat",
+      "target": "framework_include_gridlayout_h_ivec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellat",
+          "target": "framework_include_gridlayout_h_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L109",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellat",
+          "target": "framework_include_gridlayout_h_ivec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L124",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-da9b6098b92155711b507fd7731314c4426058703b2a239dc8548e356ed90599",
+        "relation-2176462f18661d1397e5bc689e538f8ebd19fd7147b7d4dd8e4ead7e41e24770"
+      ]
+    },
+    {
+      "source": "framework_include_gridlayout_gridlayout_cellat",
+      "target": "framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellat",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L109",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_gridlayout_gridlayout_cellat",
+          "target": "framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/GridLayout.h",
+          "source_location": "L117",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-4d8b6a4b094ce0e46f9644df6ba42bcf5dfae77981a5aeb8eec382503376efea",
+        "relation-c9a575ed6be4aff85d66f30409660370eb23b82435c98bb574fcb3b4f372e9d3"
+      ]
+    },
+    {
+      "source": "framework_include_model_planefigure",
+      "target": "framework_include_model_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_model_planefigure",
+          "target": "framework_include_model_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L75",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_model_planefigure",
+          "target": "framework_include_model_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-292b19366ee9496455a3f323a12e335b6f92270252404dbca5867034404e4087",
+        "relation-2f44bd728abe729c981e6cea4a224ecf1c985b056151ae054ba42388ca1891de"
+      ]
+    },
+    {
+      "source": "framework_include_model_planefigure",
+      "target": "framework_include_model_glcolor",
+      "records": [
+        {
+          "source": "framework_include_model_planefigure",
+          "target": "framework_include_model_glcolor",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L76",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_model_planefigure",
+          "target": "framework_include_model_glcolor",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-fa0c22dd62ff1bd07cca791b9482f95ce1385f84160cfb9a70028af90438fb5f",
+        "relation-c407c4e75fc03ffbf45edcdd3c077c1b374e56e20930eb5b8226f5d7e14a1dd0"
+      ]
+    },
+    {
+      "source": "framework_include_model_transformmatrix",
+      "target": "framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "framework_include_model_transformmatrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L284",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_model_transformmatrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L285",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-87554137001cb7f4ffd541ecbc99979e973836ef5e1c15ed1a1f86ecccd2f679",
+        "relation-8a8aea77bf6e154de23974dfae106438da829738c82738fc6805a4f3dcd67ee4"
+      ]
+    },
+    {
+      "source": "framework_include_model_facesrtmatrix",
+      "target": "framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "framework_include_model_facesrtmatrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L293",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_model_facesrtmatrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L295",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-31892437d19b0c452f5ae7fc12933e18f223f2e4ab0e06f4aecbab2a7c4fdb69",
+        "relation-c2a9224bed3a6d2154d75b9bb6260d042ad0c55c62be5e537fdcf04f12e691d4"
+      ]
+    },
+    {
+      "source": "framework_include_model_facematrix",
+      "target": "framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "framework_include_model_facematrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L307",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_model_facematrix",
+          "target": "framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Model.h",
+          "source_location": "L308",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-de3a1a7eccdad9a49bc8a614b4cf467a8dfb8b464a2e7fbba95f404616288be2",
+        "relation-64e97627f354fa89177f5699679cd3954d8cdb9a7e37e56ec1f4248c60e9d475"
+      ]
+    },
+    {
+      "source": "framework_include_modelloader_modelresult",
+      "target": "framework_include_modelloader_h_string",
+      "records": [
+        {
+          "source": "framework_include_modelloader_modelresult",
+          "target": "framework_include_modelloader_h_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L26",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_modelloader_modelresult",
+          "target": "framework_include_modelloader_h_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L27",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f568de57985495bf90394481e38d41c18d174b1ba67493f37434c51016a23978",
+        "relation-d7a7679b2cc628ee5e68eb73a3011b37d8b22842a5237df4c5aff96ae32ecd94"
+      ]
+    },
+    {
+      "source": "framework_include_modelloader_assetloader",
+      "target": "framework_include_modelloader_h_path",
+      "records": [
+        {
+          "source": "framework_include_modelloader_assetloader",
+          "target": "framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_modelloader_assetloader",
+          "target": "framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L81",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b16f2406a011a216dc02959e334e01ed82ace948ce5cdd87ac49f9898d0d6255",
+        "relation-b0864fc5978eebf091b252bdcc8a667f4df22ce9c48c428b3c56460d521b3352"
+      ]
+    },
+    {
+      "source": "framework_include_modelloader_assetloader_resolve",
+      "target": "framework_include_modelloader_h_path",
+      "records": [
+        {
+          "source": "framework_include_modelloader_assetloader_resolve",
+          "target": "framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L84",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_modelloader_assetloader_resolve",
+          "target": "framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/ModelLoader.h",
+          "source_location": "L84",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0ddac93658103af158cdb775ad699548ea78fba7bd6a3584eeb4f97281afe4c9",
+        "relation-14f0a7c4c5e521269a52d252f98c3f6efbd6c3917914c011de1609b7a873e98c"
+      ]
+    },
+    {
+      "source": "framework_include_motion_motionsystem",
+      "target": "framework_include_motion_h_motionid",
+      "records": [
+        {
+          "source": "framework_include_motion_motionsystem",
+          "target": "framework_include_motion_h_motionid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L160",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_motion_motionsystem",
+          "target": "framework_include_motion_h_motionid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L161",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-087b38eeb10e20a2e1551065183fda7dcc03ba8fb14f4c620a484e72d9c29ded",
+        "relation-87a89d1f8fa06e9a3460f031307605721845575833d0ba56d9e4973a780aa90b"
+      ]
+    },
+    {
+      "source": "framework_include_motion_motionsystem",
+      "target": "framework_include_motion_h_layerid",
+      "records": [
+        {
+          "source": "framework_include_motion_motionsystem",
+          "target": "framework_include_motion_h_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L162",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_motion_motionsystem",
+          "target": "framework_include_motion_h_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Motion.h",
+          "source_location": "L163",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0b1a4c144053f0428488f3f488206a8fc64a6988a52f81d016bd1ea0be582d85",
+        "relation-6a542356b391172c13155393cc1eec18b8bfffb066e0d0b452197586d70ccc1e"
+      ]
+    },
+    {
+      "source": "framework_include_patterns_roombody_position",
+      "target": "framework_include_patterns_h_vec3",
+      "records": [
+        {
+          "source": "framework_include_patterns_roombody_position",
+          "target": "framework_include_patterns_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L70",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_patterns_roombody_position",
+          "target": "framework_include_patterns_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L71",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-40af3adf90211fe8bed56b9a532ad46a4d507bfd0af3e25e73cc96723398e13a",
+        "relation-b876e08cccc511d95826c13747919c0394f56fcbe1b1f8661e31b2fa48dd3ddb"
+      ]
+    },
+    {
+      "source": "framework_include_patterns_jointrig",
+      "target": "framework_include_patterns_h_entityid",
+      "records": [
+        {
+          "source": "framework_include_patterns_jointrig",
+          "target": "framework_include_patterns_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "framework_include_patterns_jointrig",
+          "target": "framework_include_patterns_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "framework/include/Patterns.h",
+          "source_location": "L114",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b70efb0047bc60617b67b533e00824e0a21ddc733742687571e3913fa4e33aff",
+        "relation-76a4a65f9ed49b9a4a5c13023f53533a353b3a03dd68b6f7fd3af5f1d5646c5e"
+      ]
+    },
+    {
+      "source": "standard_console_console",
+      "target": "standard_console_h_entityid",
+      "records": [
+        {
+          "source": "standard_console_console",
+          "target": "standard_console_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/Console.h",
+          "source_location": "L22",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_console_console",
+          "target": "standard_console_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/Console.h",
+          "source_location": "L24",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c5ba00a5042843b4f1f700dcc3df29316cb8eef48b4383887e4a670907d131ec",
+        "relation-7269752119e62badf4ad62f00e225ebccf6275168802572b959da142e692f3b8"
+      ]
+    },
+    {
+      "source": "standard_console_console",
+      "target": "standard_console_jointcontrol",
+      "records": [
+        {
+          "source": "standard_console_console",
+          "target": "standard_console_jointcontrol",
+          "relation": "contains",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/Console.h",
+          "source_location": "L27",
+          "weight": 1.0,
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_console_console",
+          "target": "standard_console_jointcontrol",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/Console.h",
+          "source_location": "L33",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-c4f89ec8265c6ec32e7488a229df0f2cf76e019ce7fd9af2f0f9ac086da4ad1d",
+        "relation-92f59a373dea38c7f2b4cad01ef4a9a64c05dfa5431b586a46210922330195ec"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_animation_animationsystem_addhumanoid",
+      "target": "standard_framework_detail_animation_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_animation_animationsystem_addhumanoid",
+          "target": "standard_framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_animation_animationsystem_addhumanoid",
+          "target": "standard_framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0188d57370468238048f58d7f20b79f5d93504a14f94952d1e38aaebe9563061",
+        "relation-8e645e821448d7583bdf173dfb7e0870ffc5fc52cb12f188d83ede52e4a2ce56"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_animation_animationsystem_addswingwithrider",
+      "target": "standard_framework_detail_animation_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_animation_animationsystem_addswingwithrider",
+          "target": "standard_framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L234",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_animation_animationsystem_addswingwithrider",
+          "target": "standard_framework_detail_animation_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Animation.cpp",
+          "source_location": "L234",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-7cffeaee8efff0efa911ef52c5811128580b9b1ef391d811c95e64ab7ea25275",
+        "relation-12745dad335683ffa758a987f57e5a930397adaf5f5aa949c48dd97954635542"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_cuboidmode_lookup",
+      "target": "standard_framework_detail_cuboidmode_cpp_string",
+      "records": [
+        {
+          "source": "standard_framework_detail_cuboidmode_lookup",
+          "target": "standard_framework_detail_cuboidmode_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/CuboidMode.cpp",
+          "source_location": "L25",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_cuboidmode_lookup",
+          "target": "standard_framework_detail_cuboidmode_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/CuboidMode.cpp",
+          "source_location": "L25",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-85c06056a3830516936cf27790d99e78285402e687ea855dc2663d0f9f5fa053",
+        "relation-f62e7925712820246c4fb572e895214ebb7abc1114ab2a8a16241433df9a49c3"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_motion_motionsystem_pushlayer",
+      "target": "standard_framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "standard_framework_detail_motion_motionsystem_pushlayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L452",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_motion_motionsystem_pushlayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L452",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-a73e5ea532c8f59d571bdf233bdc1b3ea7420d383e38742dbcf87f762a7969b4",
+        "relation-9ca0c8e37a4837e6f017a5cae8b0748c6f8e00934252aac6823497f4821ae75c"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_motion_motionsystem_insertlayer",
+      "target": "standard_framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "standard_framework_detail_motion_motionsystem_insertlayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L472",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_motion_motionsystem_insertlayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L472",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b0a856d03a57443cc7552dea29a28e66f10e11b0c7ee80427bc20a462b4c973f",
+        "relation-bcc27fba676dc8f36d0271d4560f4f37648532c564bb9475139dc25541dfc1f9"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_motion_motionsystem_poplayer",
+      "target": "standard_framework_detail_motion_cpp_layerid",
+      "records": [
+        {
+          "source": "standard_framework_detail_motion_motionsystem_poplayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L525",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_motion_motionsystem_poplayer",
+          "target": "standard_framework_detail_motion_cpp_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Motion.cpp",
+          "source_location": "L525",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-5cf34d2d9c7e95e9a6f39d87e40f96230e1c95efb26f507f30197cbe0536a104",
+        "relation-7cef42779ab8ce3c47abaa7cfb1280fcf6b04d225133264ff8436f7982c82fff"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_native_relativepathinside",
+      "target": "standard_framework_detail_native_h_path",
+      "records": [
+        {
+          "source": "standard_framework_detail_native_relativepathinside",
+          "target": "standard_framework_detail_native_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L36",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_native_relativepathinside",
+          "target": "standard_framework_detail_native_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Native.h",
+          "source_location": "L36",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d373369a4341d3cffd3ebc6a51532725629e6b8c5e82ced204b8f56a8c747c91",
+        "relation-adb610e229d728a6b2f1ee405337ff6a9f379d4256ee5dd9881dd7674814f385"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_objloader_objwarning",
+      "target": "standard_framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "standard_framework_detail_objloader_objwarning",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_objwarning",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-1ca146231fed205b758c973702008ef8b15bd06dca086642399a6d4889c17029",
+        "relation-3fd5c685f4b42d43926cfdd4133797681d7a4a6caf31febc2a8b791a9ddfebc7"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_objloader_objresolve",
+      "target": "standard_framework_detail_objloader_cpp_size_t",
+      "records": [
+        {
+          "source": "standard_framework_detail_objloader_objresolve",
+          "target": "standard_framework_detail_objloader_cpp_size_t",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_objresolve",
+          "target": "standard_framework_detail_objloader_cpp_size_t",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_objresolve",
+          "target": "standard_framework_detail_objloader_cpp_size_t",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L83",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-4968c7918e436844bb6b79ac67395c2d6782eb3a33224e7b2ea3b212e791b300",
+        "relation-c4fbd812191e7682bea38b4758b735e872b26cbc33d6a113a322b1cf79603103",
+        "relation-74a2f5cc1869dcf30e555c048871b89126fe047361a27af33f827783542df320"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_objloader_objtext",
+      "target": "standard_framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "standard_framework_detail_objloader_objtext",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_objtext",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_objtext",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-11c022433efaa68cb26b5ac624522658a4b8e0ae5becedff6c0a6a2434ee5add",
+        "relation-2b8db019b7c152133fe9f7d2640485d6a0ef93671aadb5fac2c6a58e12c0ba23",
+        "relation-937b64409324ef75d3f0371792d28b38919f05d9d64f887c9a723b758667079b"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_objloader_parseobj",
+      "target": "standard_framework_detail_objloader_cpp_string",
+      "records": [
+        {
+          "source": "standard_framework_detail_objloader_parseobj",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L189",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_objloader_parseobj",
+          "target": "standard_framework_detail_objloader_cpp_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/ObjLoader.cpp",
+          "source_location": "L189",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-3dfa28bf357989498380e02bac0696f209256dc375a9a4b0a3b6b0a64845ffad",
+        "relation-aa80b2f73f0e5fd6119bc705cebb651ae7f6197daf893c1888ae2c7c408dcb09"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_conveyorcornerpose",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_conveyorcornerpose",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_conveyorcornerpose",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L28",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-175f53e9bdb98b54161563458a5e2d2f3e7f309c7892fa0a1331e67a0dbdffb9",
+        "relation-a3db0b552cf2fff620478de7f4b3b4f8a038e54f5fa48c1663a96b2512c3cadb"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_collisionsystem_steproombody",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_steproombody",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L166",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_steproombody",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L203",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0bb77d69b08e528d0d0da3d29b207b1d6aed3e4bd0c26b0b067042723265dff7",
+        "relation-1203787461e82ac8533950f269d8ae38f3ad2cc34435ee5d5dac80d62897e010"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_collisionsystem_stepcharacter",
+      "target": "standard_framework_detail_patterns_cpp_bounds3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_stepcharacter",
+          "target": "standard_framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L268",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_stepcharacter",
+          "target": "standard_framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L268",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-9585b08a6258ea0c58c441799cfd25f9c27509a317199813cb34b1f0c1e56590",
+        "relation-30cfa396bcac3d3361da0501563d57089e588d333cd038d2b5ede354fca3bd5e"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_collisionsystem_randomfreebox",
+      "target": "standard_framework_detail_patterns_cpp_bounds3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_randomfreebox",
+          "target": "standard_framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L394",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_collisionsystem_randomfreebox",
+          "target": "standard_framework_detail_patterns_cpp_bounds3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L394",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8d6b0149d09ac0849089e50845780faca273e7dacbaf333a757841808bc7d3a6",
+        "relation-a101dfaad551baa13c753594ead5ba603f8d0b1676d3f7b4ebed0921b2e8e6de"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_addbox",
+      "target": "standard_framework_detail_patterns_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addbox",
+          "target": "standard_framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L434",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addbox",
+          "target": "standard_framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L434",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-3837f58701d054be98d44ca215e7e29653d47acf13f1a15f1f634b7183a7d787",
+        "relation-d5c23fff45fd4ac9b7a6b13a8ecbf4963d4bef5fc7fbd45e15e069d365e8c517"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_addpolygon",
+      "target": "standard_framework_detail_patterns_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addpolygon",
+          "target": "standard_framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L461",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addpolygon",
+          "target": "standard_framework_detail_patterns_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L461",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-582d75ff9b4643cbc70d5c31badfdc31b54b0e24159350ed0d581170f7c7982e",
+        "relation-872e2ecab54e4fa1adde5d1cf2468a42f6c3e049f6e08e700b38ae6bb5cfce51"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_addjoint",
+      "target": "standard_framework_detail_patterns_cpp_entityid",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addjoint",
+          "target": "standard_framework_detail_patterns_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L517",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addjoint",
+          "target": "standard_framework_detail_patterns_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L517",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d95198a2e1a68379d4e55f2995ad62b3664839bd6c4310eebfffa336db7e46a1",
+        "relation-81d4f0348dd12d5c02a5611caf3807a808e6d2a22692fe9ea984d2b890bae588"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_follow",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_follow",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L552",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_follow",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L566",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-479b349166e07ce35d4eb2eaea1196c2cbc0f14191250bfbd18486480346b58a",
+        "relation-4458c93385f744a9939d9b3ce52ea2524a7b6e309443369ae2286865f6048b13"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_addnumber",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addnumber",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L571",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_addnumber",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L585",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-3da869f67fe2c28a2864199ba4c93ae535930830212c7fc5e74a2a1242c5abac",
+        "relation-a6b9d7d304fdb86b99466d4127be521c18f7f4f02c22f356d09e5b918b6b34ad"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_snakecells",
+      "target": "standard_framework_detail_patterns_cpp_ivec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_snakecells",
+          "target": "standard_framework_detail_patterns_cpp_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L710",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_snakecells",
+          "target": "standard_framework_detail_patterns_cpp_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L710",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8220c59d69b87b1ddb4db2e3db40c017ae20c4ca8d1325cf0af2b34ca06d3af9",
+        "relation-d85ffd717c9cca52ac53e24988141df06b0f3719e31d82ac3ba3a4814d798f74"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_snap",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_snap",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L735",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_snap",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L735",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_snap",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L743",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f3ac181b0dbba2204a0fd9e1dd3db382fd991c04cee21ed254a2204fd706aaca",
+        "relation-1c6e4ecab80ddfad50f5f42b2a77d56954c9d443289a51b4111f525c5c4a7496",
+        "relation-505fbe02e335daf8e9a9bf6624a0235f8169e635db05a98318d2a10bf7cffbdf"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_screenonplane",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_screenonplane",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L754",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_screenonplane",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L754",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_screenonplane",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L777",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-6a2ca6c70caa9a412c5ee1294716c5ecee2b0cb0a162f508c565485fc4ad6c00",
+        "relation-e2691e84fc1f580c8fbb24bb16daf0e54f40dcd31c9c9a6b71f164dff1b18ee7",
+        "relation-657a94d09b6d0785342c4abee13e479c6f684542a3983a380c123d144a86ca51"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_patterns_patternsystem_posewalkingrig",
+      "target": "standard_framework_detail_patterns_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_posewalkingrig",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L954",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_patterns_patternsystem_posewalkingrig",
+          "target": "standard_framework_detail_patterns_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Patterns.cpp",
+          "source_location": "L980",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-63661b7d7b0fb2d297823791dd74d7bbfa6051def1a2e362d270f26ced7aa5f0",
+        "relation-d2f7b0926dcee81f4c4006b5bbe50a5cc5e8cdb6ff3cce03859f8f7ef990fa4b"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_scene_setparent",
+      "target": "standard_framework_detail_scene_cpp_entityid",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_scene_setparent",
+          "target": "standard_framework_detail_scene_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L309",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_scene_setparent",
+          "target": "standard_framework_detail_scene_cpp_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L309",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-d5de45b5279d0cec426f68df179fa881d0651c1c3a35bb86a259f5f4c42563fc",
+        "relation-feccde1268f1f32b8e00f01cd102c59839c223b2503ec4fe3b57ace3e5d640e7"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_scene_faceworldmatrix",
+      "target": "standard_framework_detail_scene_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_scene_faceworldmatrix",
+          "target": "standard_framework_detail_scene_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L397",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_scene_faceworldmatrix",
+          "target": "standard_framework_detail_scene_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L408",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-55f1aefbbde217ad8eda60519929e2fb91a037f5710528b6712544bb33ce3001",
+        "relation-54171f19d234455e96e06aab44597c0e94b1e0034fc3081b63d5b2e603203ef8"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_scene_addline",
+      "target": "standard_framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_scene_addline",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L534",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_scene_addline",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L534",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-e53d505f501c026a1a1bc41ce3eca1f60c41aab36f4d26cb013c6e586451e756",
+        "relation-9e26b8e583288c8a10d2460a7b8683845f2af41b07bdbac59a6f08539c04144a"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_scene_addvector",
+      "target": "standard_framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_scene_addvector",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L554",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_scene_addvector",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L554",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-55be0fa3720650ec933ce9b07a85803f0b080e4f1127b65dc2f7893fc0a80ff5",
+        "relation-d006969a1cef31e5b7e1a99b7964a0cf52cd1685f375ececd5d3018f85463ae2"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_scene_addbasis",
+      "target": "standard_framework_detail_scene_cpp_optional",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_scene_addbasis",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L559",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_scene_addbasis",
+          "target": "standard_framework_detail_scene_cpp_optional",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L559",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b9121ff24c9a3ce7baf2aa18f954e6047ad3c1b631ba2c033f4f1bd23ac5677e",
+        "relation-36c721c3609cdf30f465beabed0016f495e08bcf5739eae7b82489c128b3d324"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_scene_diagramsystem_makepolyhedron",
+      "target": "standard_framework_detail_scene_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_scene_diagramsystem_makepolyhedron",
+          "target": "standard_framework_detail_scene_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L646",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_scene_diagramsystem_makepolyhedron",
+          "target": "standard_framework_detail_scene_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Scene.cpp",
+          "source_location": "L687",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-6c2fbbcded809eb2f15545c327fd80cce7797460ae23f9f3e2631d23ecec13a1",
+        "relation-b59516a702faf20c4323fd077ed6dcf42998622645e03aca8f2d28e91f51eeb2"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_motionunitvector",
+      "target": "standard_framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_motionunitvector",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_motionunitvector",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L7",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_motionunitvector",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L16",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-a785701b23be44d6c231a9557e60562a6f40b7b36af7a613f9a73bfc887188d7",
+        "relation-3b5233091d6bfbec7c13c18685c676b191ca08644b955eb43c91e2084bea0f9f",
+        "relation-58f0eec0cba7692d7d13e8c5f508709909a4e0c0b2a522636413bf38f8ee35e2"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_motionaround",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_motionaround",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_motionaround",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_motionaround",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L23",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-b9ae4a409134e04390b2955382b4fe319c02a46569cc57df5b6e7f623e3adb02",
+        "relation-dea93b784d492e92b31e13b6e8068b65a2729287066bbb719bd48de9c47dc8d2",
+        "relation-9786c3459847756406ac247dab9206c1de14a587be819e0d345cb0eef1b3fbac"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_translation",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_translation",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L39",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_translation",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L47",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-6d35e75ff14b1d18a5d763e0c38717600e0efb88c5e2cb6a0d06a32156e6eac8",
+        "relation-920c898c1b755cc839b5896ec641453c30515dbad3036e8e0ed2cedcea946448"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_scaling",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_scaling",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L50",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_scaling",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L58",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-2b44462cc395a55c3b3634492ffeb4f40b338530b2a488d2ef83db9992a7467e",
+        "relation-bb90bb3cf8949b64aba616d2dbbfa89f16c72d5bc0e14dc3dfa45e8af77b61ac"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_rotation",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_rotation",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L61",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_rotation",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L73",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-6141de4f67333479621a77d9e20ccd5cd64c02a42b6d6bbadd0de81e0a5888a4",
+        "relation-cb1d8c99c3be01ecd430ef7406c6275b218a3596dae7d9a6b51c2f0acf91e1e6"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_reflectpoint",
+      "target": "standard_framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectpoint",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L76",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectpoint",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L77",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-046ad540ab4d2cab32af0ebe621feb700d3be27e181bedb29098413c546a006f",
+        "relation-8c2352f0458f8999c87b7ecfd94b9dd796a7de93a724ad6134394523db02b3bd"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_reflectline",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectline",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L80",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectline",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L96",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-8c395ed9c3a4ab46e2bf8869e32fe528b09b74791c378de25c6f152413118c23",
+        "relation-4a81a4fad805e41f48a91b0865eb16d44f79cb8f5e46d93de142edf272028a0c"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_transformsystem_reflectplane",
+      "target": "standard_framework_detail_transform_cpp_mat4",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectplane",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L99",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_transformsystem_reflectplane",
+          "target": "standard_framework_detail_transform_cpp_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L115",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-f446c96a1ecf47ee6b5ab7dddfec080df72983bedc8e61df06949813ad9391b4",
+        "relation-0bec1d2c8c270c7df2ea55923417752dd4588a44065bf559ddea8e4d7df320a9"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_pathsystem_circle",
+      "target": "standard_framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_pathsystem_circle",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L133",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_pathsystem_circle",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L143",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-739d57a85b6d4a397c0142a771b7f75bdb7f4e27638f964ef2c2dc987c20dd7f",
+        "relation-c18a44b2dc794ad837060ade592b4b3843df64cdd2db485bd2d6a2fc2fdbb363"
+      ]
+    },
+    {
+      "source": "standard_framework_detail_transform_pathsystem_polyline",
+      "target": "standard_framework_detail_transform_cpp_vec3",
+      "records": [
+        {
+          "source": "standard_framework_detail_transform_pathsystem_polyline",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L149",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_detail_transform_pathsystem_polyline",
+          "target": "standard_framework_detail_transform_cpp_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/detail/Transform.cpp",
+          "source_location": "L197",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-5761f3fc3bc4d04bf7403da279277fa871058be8245c0bb783bb43e894a23815",
+        "relation-7292821d63fb336bd5add0ec27a02668c551d9b6034b7615a44b062cc783b4c3"
+      ]
+    },
+    {
+      "source": "standard_framework_include_actions_sceneactions_parent",
+      "target": "standard_framework_include_actions_h_entityid",
+      "records": [
+        {
+          "source": "standard_framework_include_actions_sceneactions_parent",
+          "target": "standard_framework_include_actions_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Actions.h",
+          "source_location": "L103",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_actions_sceneactions_parent",
+          "target": "standard_framework_include_actions_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Actions.h",
+          "source_location": "L103",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-4460ba8db0d5908ff796243ea07bcf55cbb68eb62294b94d571da8008dcf55ce",
+        "relation-33ce0ebdfd5a2a01a68ff15d75db9722bb927c9c11aa9961e90180db7b571f56"
+      ]
+    },
+    {
+      "source": "standard_framework_include_animation_humanoidrig",
+      "target": "standard_framework_include_animation_h_entityid",
+      "records": [
+        {
+          "source": "standard_framework_include_animation_humanoidrig",
+          "target": "standard_framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L19",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_animation_humanoidrig",
+          "target": "standard_framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L21",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-cddd6155197d9dd9f1e0177e867d3d47182d5dcbeca1a564383d0fa1c4d78644",
+        "relation-f41c6dcbade20c8290c6ef6c4c8e6f6f9328b2e38817c3da673c349da9910e41"
+      ]
+    },
+    {
+      "source": "standard_framework_include_animation_humanoidpose",
+      "target": "standard_framework_include_animation_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_animation_humanoidpose",
+          "target": "standard_framework_include_animation_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L26",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_animation_humanoidpose",
+          "target": "standard_framework_include_animation_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L27",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-24942beae13c0c93e2187b6abdf9a0cd519c62767d22b9daaebd8ed939554e40",
+        "relation-59c3efa37b6048f69f52aa3a792ec2fda7e8f2f11c1dd9ed5af9080f360bc168"
+      ]
+    },
+    {
+      "source": "standard_framework_include_animation_swingrig",
+      "target": "standard_framework_include_animation_h_entityid",
+      "records": [
+        {
+          "source": "standard_framework_include_animation_swingrig",
+          "target": "standard_framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L46",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_animation_swingrig",
+          "target": "standard_framework_include_animation_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Animation.h",
+          "source_location": "L47",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-ed4ead7d3ef9c4ac49ca7a2e3115e4207692a63c9a35235b436a82e3c37605b7",
+        "relation-977597d5fbce263caad51860c219158936e55786c0a5b12f6c957a19b6f6554b"
+      ]
+    },
+    {
+      "source": "standard_framework_include_geometry_transformtexcoords",
+      "target": "standard_framework_include_geometry_h_vec2",
+      "records": [
+        {
+          "source": "standard_framework_include_geometry_transformtexcoords",
+          "target": "standard_framework_include_geometry_h_vec2",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L20",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_geometry_transformtexcoords",
+          "target": "standard_framework_include_geometry_h_vec2",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L33",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-bc6d2b2523f7444e99d2dc1df0157f79a337b388e618f28442b4b8e82d500cd4",
+        "relation-6fcaa76d44dcf5da00478fabe232eca80a74da440d49379684cc15f70bbb2c96"
+      ]
+    },
+    {
+      "source": "standard_framework_include_geometry_triangulate",
+      "target": "standard_framework_include_geometry_h_vector",
+      "records": [
+        {
+          "source": "standard_framework_include_geometry_triangulate",
+          "target": "standard_framework_include_geometry_h_vector",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_geometry_triangulate",
+          "target": "standard_framework_include_geometry_h_vector",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-e6946425e40dfdc2b9d4f1c2feacd91532eb9254629b8825add830395897247b",
+        "relation-bc9d41303af2dfa0e232e34b13352eeb21b57faceb9c3a0ca1a7517294a95daf"
+      ]
+    },
+    {
+      "source": "standard_framework_include_geometry_triangulate",
+      "target": "standard_framework_include_geometry_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_geometry_triangulate",
+          "target": "standard_framework_include_geometry_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L281",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_geometry_triangulate",
+          "target": "standard_framework_include_geometry_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Geometry.h",
+          "source_location": "L291",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-df4be2a8888fe52b64c690ae7a97993f8fbc9edf1b70338e7ceaf432e1888d34",
+        "relation-24b927199cc806d3b3cad42f18440261a43253ad2c0baf919d52eaff458a1c5b"
+      ]
+    },
+    {
+      "source": "standard_framework_include_graphics_renderer",
+      "target": "standard_framework_include_graphics_drawrange",
+      "records": [
+        {
+          "source": "standard_framework_include_graphics_renderer",
+          "target": "standard_framework_include_graphics_drawrange",
+          "relation": "contains",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L379",
+          "weight": 1.0,
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_graphics_renderer",
+          "target": "standard_framework_include_graphics_drawrange",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Graphics.h",
+          "source_location": "L393",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-2dc0405594c06c46fbb3fc0918fd93f20a5ad2e246e30af093ee726edf598751",
+        "relation-31574d7a2a8441d4ae460babf593c6b0a193312fdc8dbf4d4ab35d7e99220ee2"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_position",
+      "target": "standard_framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_position",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L23",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_position",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L23",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_position",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L32",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-fef25afaa3fd7de9f72bac59d952c86e7b3401d33d5b39442a2c8dd259fbf4d8",
+        "relation-c7bdf4d388a50d3b72c75f5b3d815d75959440a918fae0d179df550a695ec058",
+        "relation-386a135575015f6d3af17cd3fc33358debebc79adbe3e0fd2a73ccc72c24eb9a"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_cellcenter",
+      "target": "standard_framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellcenter",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L46",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellcenter",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L55",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-63fbde3d534f70408fd4347dd8b5ad2eb5365c2f9afaba1e324735129173fdc7",
+        "relation-01b25d9817cee145a636a80e86a14ecfaced471ac3bd1c65021ae9fc9d80f64e"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_relativesize",
+      "target": "standard_framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_relativesize",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L60",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_relativesize",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L60",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-ee2cce470f52e623e5b7808b0c5a6bb39c1ce15d49ce6c4d09fc5182e4a811ac",
+        "relation-2d989624bc7f878c989c872cc047a7c3be6b22929a690aee97465a83530efa31"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_positioninparent",
+      "target": "standard_framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_positioninparent",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L95",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-90865c58b5829786974056fee2b1e70609f84a2d0797e96dba7a34aeb2ab7dbb",
+        "relation-26bcad18bd9ed78dc6c2444e4e5adba2384f8807959a1ffacd0c23d8473083bf",
+        "relation-47986dc4149579e947fc7b3ca99ee8534a382d909eadc6a8a60ff8e434d4f4cc"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+      "target": "standard_framework_include_gridlayout_h_ivec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+          "target": "standard_framework_include_gridlayout_h_ivec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L109",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+          "target": "standard_framework_include_gridlayout_h_ivec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L124",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-431eb5eedf426e457b4cdd6719523a997d8b05e150268566b9414d3fc6ceb976",
+        "relation-b5bdc0b21767ddd3226ea39f0df951a3e06d7f41f221b299633f664c3cdc7062"
+      ]
+    },
+    {
+      "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+      "target": "standard_framework_include_gridlayout_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L109",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_gridlayout_gridlayout_cellat",
+          "target": "standard_framework_include_gridlayout_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/GridLayout.h",
+          "source_location": "L117",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-069570b69bfb62cf6012ed34419ee20c9a738d611e34d55be06e5be7a574d4f3",
+        "relation-cc99343724a88f059e390262332526cfe0301f03e459a6d34be81cd792bf7142"
+      ]
+    },
+    {
+      "source": "standard_framework_include_model_planefigure",
+      "target": "standard_framework_include_model_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_model_planefigure",
+          "target": "standard_framework_include_model_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L75",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_model_planefigure",
+          "target": "standard_framework_include_model_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-80a75d5f7d28c96dc8a5ec0ef7de67285cf554b9b7154424db0529546b638946",
+        "relation-1a6b83fc01fce7fde9bae7ab708e63125135341282214952673f2a325feecd40"
+      ]
+    },
+    {
+      "source": "standard_framework_include_model_planefigure",
+      "target": "standard_framework_include_model_glcolor",
+      "records": [
+        {
+          "source": "standard_framework_include_model_planefigure",
+          "target": "standard_framework_include_model_glcolor",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L76",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_model_planefigure",
+          "target": "standard_framework_include_model_glcolor",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L83",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-0dba9751cc9e05911e90623ed0b44e5f584f468ba977df8d67e0b63ef55d9d9a",
+        "relation-8726a3d86ace60949751e09ec39d74f0a8ef34e494cc362af73f200e122744ca"
+      ]
+    },
+    {
+      "source": "standard_framework_include_model_transformmatrix",
+      "target": "standard_framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "standard_framework_include_model_transformmatrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L284",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_model_transformmatrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L285",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-df8fead17bf40d7d2a07dcff44cfc3e8141fc2e9f8d945da6c5536a31e97da50",
+        "relation-36fb5a2a61ad60896f80421d6d81512eaef6b17d14319c05a4e6e77bd4dab048"
+      ]
+    },
+    {
+      "source": "standard_framework_include_model_facesrtmatrix",
+      "target": "standard_framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "standard_framework_include_model_facesrtmatrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L293",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_model_facesrtmatrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L295",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-9f23d70716147c5c2c26aef9a19b3a6f551536c1b5f86d05ef80b4e3066886cc",
+        "relation-1b0b53b34cc043f51a2e57e2de1709b03580201b0884b40da192da0f11ab3bde"
+      ]
+    },
+    {
+      "source": "standard_framework_include_model_facematrix",
+      "target": "standard_framework_include_model_h_mat4",
+      "records": [
+        {
+          "source": "standard_framework_include_model_facematrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L307",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_model_facematrix",
+          "target": "standard_framework_include_model_h_mat4",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Model.h",
+          "source_location": "L308",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-149ac8b40d69ec4604a223f0892d710aa29a9acc8c411aab6d66f5edeebc1e92",
+        "relation-a21cb70a346e9729e8743a283390f80c8ff8f13c9b44faa6c5ee85c9914da1d1"
+      ]
+    },
+    {
+      "source": "standard_framework_include_modelloader_modelresult",
+      "target": "standard_framework_include_modelloader_h_string",
+      "records": [
+        {
+          "source": "standard_framework_include_modelloader_modelresult",
+          "target": "standard_framework_include_modelloader_h_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L26",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_modelloader_modelresult",
+          "target": "standard_framework_include_modelloader_h_string",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L27",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-16aae60364aeceda1ae6d577a4721f1134839ac7a1caad957d4b48f371073850",
+        "relation-607048c12bafcfd7e95fe8054225d61e8f8bccda68a91f21db61871a6ae5f06a"
+      ]
+    },
+    {
+      "source": "standard_framework_include_modelloader_assetloader",
+      "target": "standard_framework_include_modelloader_h_path",
+      "records": [
+        {
+          "source": "standard_framework_include_modelloader_assetloader",
+          "target": "standard_framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L77",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_modelloader_assetloader",
+          "target": "standard_framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L81",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-7ad9bdf12ffd41e422f351232d704736111f999df9e740239befdc55455a09ca",
+        "relation-4939ac02c06b9531eb5f13b7faa2e099d1f2e91baa204f7dd08e18fa757debd4"
+      ]
+    },
+    {
+      "source": "standard_framework_include_modelloader_assetloader_resolve",
+      "target": "standard_framework_include_modelloader_h_path",
+      "records": [
+        {
+          "source": "standard_framework_include_modelloader_assetloader_resolve",
+          "target": "standard_framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L84",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_modelloader_assetloader_resolve",
+          "target": "standard_framework_include_modelloader_h_path",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/ModelLoader.h",
+          "source_location": "L84",
+          "weight": 1.0,
+          "context": "parameter_type",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-55351c6f41ed14c07811673645dd911012ff7ab5075e387b274f6f0f2e1494f0",
+        "relation-97564207d15642aa7d91c6771ad645c59d888f9076ff9b7f00f2d85409a3e939"
+      ]
+    },
+    {
+      "source": "standard_framework_include_motion_motionsystem",
+      "target": "standard_framework_include_motion_h_motionid",
+      "records": [
+        {
+          "source": "standard_framework_include_motion_motionsystem",
+          "target": "standard_framework_include_motion_h_motionid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L160",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_motion_motionsystem",
+          "target": "standard_framework_include_motion_h_motionid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L161",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-e1840f2e85031acd3f28d2c383d1492c556d485eef6bce438e95a54b1c2b18bd",
+        "relation-15a7e93e3e10a2b9992b70b50191f013bc1879cc052da7215c9d1faaa8f01630"
+      ]
+    },
+    {
+      "source": "standard_framework_include_motion_motionsystem",
+      "target": "standard_framework_include_motion_h_layerid",
+      "records": [
+        {
+          "source": "standard_framework_include_motion_motionsystem",
+          "target": "standard_framework_include_motion_h_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L162",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_motion_motionsystem",
+          "target": "standard_framework_include_motion_h_layerid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Motion.h",
+          "source_location": "L163",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-241f974bd8e615156dd6dbb80f55a5dbd63cf34dfd355e14d0677af660774b4b",
+        "relation-134fddef942c427240efac23ecae0bf597525ccd394897adf8343967988793aa"
+      ]
+    },
+    {
+      "source": "standard_framework_include_patterns_roombody_position",
+      "target": "standard_framework_include_patterns_h_vec3",
+      "records": [
+        {
+          "source": "standard_framework_include_patterns_roombody_position",
+          "target": "standard_framework_include_patterns_h_vec3",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L70",
+          "weight": 1.0,
+          "context": "return_type",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_patterns_roombody_position",
+          "target": "standard_framework_include_patterns_h_vec3",
+          "relation": "calls",
+          "context": "call",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L71",
+          "weight": 1.0,
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-ae7deeb58488a99cf398fdd791fca871705cc7a2a928ccc15d4b1f9617ffc1e1",
+        "relation-693028ee3be625ca878692a5c51c3578e49b5766f8595c7e2887289e6ff89995"
+      ]
+    },
+    {
+      "source": "standard_framework_include_patterns_jointrig",
+      "target": "standard_framework_include_patterns_h_entityid",
+      "records": [
+        {
+          "source": "standard_framework_include_patterns_jointrig",
+          "target": "standard_framework_include_patterns_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L113",
+          "weight": 1.0,
+          "context": "field",
+          "_origin": "ast"
+        },
+        {
+          "source": "standard_framework_include_patterns_jointrig",
+          "target": "standard_framework_include_patterns_h_entityid",
+          "relation": "references",
+          "confidence": "EXTRACTED",
+          "source_file": "standard/framework/include/Patterns.h",
+          "source_location": "L114",
+          "weight": 1.0,
+          "context": "generic_arg",
+          "_origin": "ast"
+        }
+      ],
+      "keys": [
+        "relation-10c81a355720dce644c2becbb94e8f511eb351fcc48af884af0a91fbefbc0c4f",
+        "relation-50a679805b3f1385590d89a70bd98e751888a16ab37a7f35f502a6b57225a4d0"
+      ]
+    }
+  ],
+  "before_edges": 5357,
+  "existing_nodes_reextracted": false,
+  "existing_communities_reclustered": false
+}

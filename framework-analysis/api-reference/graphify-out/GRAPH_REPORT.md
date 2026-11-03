@@ -999,4 +999,10 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.07088989441930618 - nodes in this community are weakly interconnected._
 ## 외부 헤더 경계 보완
 
-기존 코드 노드·간선·커뮤니티를 유지하고 include 원문에 근거한 외부 헤더 경계만 보완했다. 표준·Windows 헤더는 include 참조만, SDK 헤더는 로컬 파일 존재까지 확인했다. 외부 함수 정의를 추정하지 않았다. 관계 병합 150건은 별도 항목이며 원본 간선은 EXTRACTION.json에 유지된다. framework와 standard/framework는 별도 경로이며 standard 실행은 후자를 사용한다. 같은 이름의 메서드 간 연결은 정확한 오버로드 해석이 아니다. GPU 고정 단계는 C++ 호출 간선이 아니다. 빌드·테스트·브라우저 확인은 사용자에게 맡긴다.
+기존 코드 노드·간선·커뮤니티를 유지하고 include 원문에 근거한 외부 헤더 경계만 보완했다. 표준·Windows 헤더는 include 참조만, SDK 헤더는 로컬 파일 존재까지 확인했다. 외부 함수 정의를 추정하지 않았다. 이 단계에서 남았던 관계 병합 150건은 아래 병렬 관계 복원에서 보완했다. 원본 간선은 EXTRACTION.json에 유지된다. framework와 standard/framework는 별도 경로이며 standard 실행은 후자를 사용한다. 같은 이름의 메서드 간 연결은 정확한 오버로드 해석이 아니다. GPU 고정 단계는 C++ 호출 간선이 아니다. 빌드·테스트·브라우저 확인은 사용자에게 맡긴다.
+
+<!-- RELATION-REPAIR:BEGIN -->
+## 병렬 관계 복원 후 현재 상태
+
+위 초기 분석의 5,357개 단순 간선을 5,507개 병렬 간선으로 보완했다. 대상 134쌍의 추가 관계 150건을 원본 종류·문맥·소스 줄과 함께 복원했다. 기존 노드·커뮤니티·단일 간선과 원본 추출은 유지했다. 기존 순위·응집도는 단순 연결 구조 기준이다. 코드 재추출·빌드·테스트·브라우저 확인은 하지 않았다.
+<!-- RELATION-REPAIR:END -->

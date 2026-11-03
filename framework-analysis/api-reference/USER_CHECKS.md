@@ -8,4 +8,8 @@
 4. Visual Studio에서 `Application.h`의 setInitHandler, renderScene와 `Graphics.h`의 Scene::setParent에 커서를 올린다. 선언 바로 위의 `/// [API]` 설명이 Quick Info에 표시되는지 확인한다. 주석과 선언 사이에는 빈 줄이 없다.
 5. 필요하면 평소 방법으로 standard를 빌드·실행한다. 입력·갱신·렌더링·종료가 기존과 같은지 확인한다. 코드 토큰은 변경하지 않았다. IDE 인덱싱·컴파일·실행 성공은 아직 확인하지 않았다.
 
-외부 라이브러리는 변경하지 않았다. 누락된 외부 헤더 경계 33개를 추가해 include 간선 123개를 복원했다. 현재 연결 대상 누락은 0건이다. 같은 노드 쌍 관계 병합 150건은 별도로 남아 있으며 원본 추출 결과를 보존했다. 그래프에서 <algorithm> 및 GLM·GLFW·GLEW 헤더의 include 연결과 외부 경계 표시를 사용자가 확인한다.
+외부 라이브러리는 변경하지 않았다. 누락된 외부 헤더 경계 33개를 추가해 include 간선 123개를 복원했다. 현재 연결 대상 누락은 0건이다. 같은 노드 쌍에서 병합됐던 추가 관계 150건도 134쌍의 병렬 간선으로 복원했고 원본 추출 결과를 보존했다. 그래프에서 <algorithm> 및 GLM·GLFW·GLEW 헤더의 include 연결과 외부 경계 표시를 사용자가 확인한다.
+
+## 병렬 간선 표시 확인
+
+`graphify-out/graph.html`에서 `objResolve` 주변의 size_t 참조를 찾는다. 같은 노드 쌍의 calls/references와 call/parameter_type/return_type 문맥이 별도 간선으로 표시되는지 확인한다. 간선에 커서를 올리거나 선택하면 파일·줄 번호·원본 문맥이 표시되어야 한다. `graph.json`을 읽는 별도 도구는 `multigraph: true`와 간선 `key`를 유지해야 한다. 단순 DiGraph로 바꾸면 관계가 다시 합쳐진다.

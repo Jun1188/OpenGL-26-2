@@ -1,4 +1,18 @@
-﻿[graphify] MultiDiGraph edge-collapse diagnostic
+﻿# 실제 출력 그래프
+
+- graph_type: MultiDiGraph
+- nodes: 3528
+- edges: 5507
+- restored_parallel_pairs: 134
+- preserved_additional_relations: 150
+- output_collapsed_relations: 0
+- dangling_endpoint_edges: 0
+
+## 원본 추출을 단순 DiGraph로 만들 경우의 진단
+
+아래 collapsed 값은 단순 그래프로 투영할 때의 값이다. 현재 MultiDiGraph의 손실 개수가 아니다.
+
+[graphify] MultiDiGraph edge-collapse diagnostic
 input: <in-memory>
 input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>

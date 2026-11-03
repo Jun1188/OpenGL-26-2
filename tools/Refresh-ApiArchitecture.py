@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse
 import collections
 import importlib.util
+import hashlib
 import json
 import os
 import re
@@ -85,10 +86,138 @@ def complete_include_boundaries(extraction):
     return nodes
 
 
+def restore_parallel_relations(graph, extraction):
+    """Restore raw records only for pairs that a DiGraph previously collapsed."""
+    import networkx as nx
+    result = nx.MultiDiGraph(graph)
+    groups = collections.defaultdict(list)
+    for index, edge in enumerate(extraction['edges']):
+        groups[edge['source'], edge['target']].append((index, edge))
+    restored = []
+    for (source, target), records in groups.items():
+        if len(records) < 2:
+            continue
+        if source not in result or target not in result or not result.has_edge(source, target):
+            raise RuntimeError('Parallel relation endpoints require separate source investigation: ' + source)
+        result.remove_edges_from([(source, target, key) for key in list(result[source][target])])
+        keys = []
+        for index, edge in records:
+            key = 'relation-' + hashlib.sha256(json.dumps(edge, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
+            attrs = {k: v for k, v in edge.items() if k not in ('source', 'target')}
+            result.add_edge(source, target, key=key, **attrs, extraction_index=index)
+            keys.append(key)
+        restored.append(dict(source=source, target=target, records=[e for _, e in records], keys=keys))
+    return result, dict(graph_type='MultiDiGraph', affected_pairs=len(restored),
+                        restored_additional_relations=sum(len(g['records']) - 1 for g in restored),
+                        remaining_collapsed_relations=0, nodes=result.number_of_nodes(),
+                        edges=result.number_of_edges(), groups=restored)
+
+
+def export_relation_html(graph, communities, path, labels):
+    """Use graphify's view and add source evidence and separate arcs for parallel records."""
+    from graphify.export import to_html
+    to_html(graph, communities, str(path), community_labels=labels)
+    records = []
+    for source, target, attrs in graph.edges(data=True):
+        records.append(dict(source=source, target=target, relation=attrs.get('relation', ''),
+                            context=attrs.get('context', ''), file=attrs.get('source_file', ''),
+                            location=attrs.get('source_location', ''), confidence=attrs.get('confidence', '')))
+    data = json.dumps(records, ensure_ascii=False).replace('</', '<\\/')
+    script = '''<script id="relation-evidence">
+const RELATION_EVIDENCE = __DATA__;
+const parallelGroups = new Map();
+RELATION_EVIDENCE.forEach((r, i) => {
+  const key = JSON.stringify([r.source, r.target]);
+  if (!parallelGroups.has(key)) parallelGroups.set(key, []);
+  parallelGroups.get(key).push(i);
+});
+const evidenceUpdates = [];
+parallelGroups.forEach(ids => ids.forEach((id, offset) => {
+  const r = RELATION_EVIDENCE[id];
+  const title = document.createElement('div');
+  title.textContent = `${r.relation} [${r.context}] · ${r.file}:${r.location} · ${r.confidence}`;
+  const update = {id, title};
+  if (ids.length > 1) {
+    update.label = `${r.relation} · ${r.context} · ${r.location}`;
+    update.smooth = {enabled: true, type: offset % 2 ? 'curvedCCW' : 'curvedCW',
+                     roundness: 0.15 + Math.floor(offset / 2) * 0.18};
+  }
+  evidenceUpdates.push(update);
+}));
+edgesDS.update(evidenceUpdates);
+network.on('click', params => {
+  if (params.nodes.length || !params.edges.length) return;
+  const panel = document.getElementById('info-content');
+  panel.replaceChildren();
+  const heading = document.createElement('strong');
+  heading.textContent = '관계 근거';
+  panel.appendChild(heading);
+  params.edges.forEach(id => {
+    const r = RELATION_EVIDENCE[id];
+    if (!r) return;
+    const detail = document.createElement('p');
+    detail.textContent = `${r.source} → ${r.target}: ${r.relation} / ${r.context} / ${r.file}:${r.location} [${r.confidence}]`;
+    panel.appendChild(detail);
+  });
+});
+</script>'''.replace('__DATA__', data)
+    write(path, read(path).replace('</body>', script + '</body>'))
+
+
+def relation_health(extraction, audit):
+    from graphify.diagnostics import diagnose_extraction, format_diagnostic_report
+    health = diagnose_extraction(extraction, directed=True, root=str(ROOT))
+    return ('# 실제 출력 그래프\n\n'
+            f'- graph_type: MultiDiGraph\n- nodes: {audit["nodes"]}\n- edges: {audit["edges"]}\n'
+            f'- restored_parallel_pairs: {audit["affected_pairs"]}\n'
+            f'- preserved_additional_relations: {audit["restored_additional_relations"]}\n'
+            '- output_collapsed_relations: 0\n'
+            f'- dangling_endpoint_edges: {health["dangling_endpoint_edges"]}\n\n'
+            '## 원본 추출을 단순 DiGraph로 만들 경우의 진단\n\n'
+            '아래 collapsed 값은 단순 그래프로 투영할 때의 값이다. 현재 MultiDiGraph의 손실 개수가 아니다.\n\n'
+            + format_diagnostic_report(health))
+
+
+def repair_saved_relations():
+    import networkx as nx
+    from graphify.export import to_json
+    output = OUT / 'graphify-out'
+    original = json.loads(read(output / 'graph.json'))
+    extraction = json.loads(read(output / 'EXTRACTION.json'))
+    graph = nx.node_link_graph(original, edges='links' if 'links' in original else 'edges')
+    before_edges = graph.number_of_edges()
+    graph, audit = restore_parallel_relations(graph, extraction)
+    audit.update(before_edges=before_edges, existing_nodes_reextracted=False,
+                 existing_communities_reclustered=False)
+    communities, labels = collections.defaultdict(list), {}
+    for ident, attrs in graph.nodes(data=True):
+        cid = attrs['community']
+        communities[cid].append(ident)
+        labels[cid] = attrs.get('community_name', labels.get(cid, '공통 관계'))
+    staged = output / 'graph.relation-patch.json'
+    if not to_json(graph, communities, str(staged), community_labels=labels,
+                   built_at_commit=original.get('built_at_commit')):
+        raise RuntimeError('Relation export refused; preserve previous graph.')
+    os.replace(staged, output / 'graph.json')
+    export_relation_html(graph, communities, output / 'graph.html', labels)
+    write(output / 'graph.json', read(output / 'graph.json'))
+    dump(output / 'RELATION_REPAIR.json', audit)
+    write(output / 'GRAPH_HEALTH.md', relation_health(extraction, audit))
+    report = read(output / 'GRAPH_REPORT.md')
+    report = re.sub(r'<!-- RELATION-REPAIR:BEGIN -->[\s\S]*?<!-- RELATION-REPAIR:END -->', '', report)
+    report += ('\n<!-- RELATION-REPAIR:BEGIN -->\n## 병렬 관계 복원 후 현재 상태\n\n'
+               f'위 초기 분석의 {before_edges:,}개 단순 간선을 {audit["edges"]:,}개 병렬 간선으로 보완했다. '
+               f'대상 {audit["affected_pairs"]}쌍의 추가 관계 {audit["restored_additional_relations"]}건을 원본 종류·문맥·소스 줄과 함께 복원했다. '
+               '기존 노드·커뮤니티·단일 간선과 원본 추출은 유지했다. 기존 순위·응집도는 단순 연결 구조 기준이다. '
+               '코드 재추출·빌드·테스트·브라우저 확인은 하지 않았다.\n<!-- RELATION-REPAIR:END -->\n')
+    write(output / 'GRAPH_REPORT.md', report)
+    print(f'Parallel relations restored: {audit["restored_additional_relations"]} across {audit["affected_pairs"]} pairs; edges {before_edges} -> {audit["edges"]}.')
+
+
 def repair_saved_graph():
     """Patch saved graph endpoints without extracting or reclustering existing code."""
     import networkx as nx
-    from graphify.export import to_json, to_html
+    from graphify.export import to_json
     from graphify.analyze import god_nodes, surprising_connections, suggest_questions
     from graphify.cluster import score_all
     from graphify.report import generate
@@ -134,12 +263,17 @@ def repair_saved_graph():
                    built_at_commit=original.get('built_at_commit')):
         raise RuntimeError('Graph export refused; preserve previous report.')
     os.replace(staged, output / 'graph.json')
-    to_html(graph, communities, str(output / 'graph.html'), community_labels=labels)
+    export_relation_html(graph, communities, output / 'graph.html', labels)
     dump(output / 'EXTRACTION.json', extraction)
     dump(output / 'BOUNDARY_REPAIR.json', audit)
     dump(output / 'ANALYSIS.json', dict(gods=gods, surprises=surprises, questions=questions))
     write(output / 'GRAPH_REPORT.md', report)
-    write(output / 'GRAPH_HEALTH.md', format_diagnostic_report(health))
+    if graph.is_multigraph():
+        _, relation_audit = restore_parallel_relations(graph, extraction)
+        write(output / 'GRAPH_HEALTH.md', relation_health(extraction, relation_audit))
+        dump(output / 'RELATION_REPAIR.json', relation_audit)
+    else:
+        write(output / 'GRAPH_HEALTH.md', format_diagnostic_report(health))
     for name in ('graph.json', 'graph.html'):
         write(output / name, read(output / name))
     print(f'Boundary patch: +{len(added)} nodes, +{len(edges)} include edges; remaining dangling: {health["dangling_endpoint_edges"]}.')
@@ -283,11 +417,18 @@ def refresh_diagrams():
     health = health_path.read_text(encoding='utf-8-sig') if health_path.exists() else ''
     missing = re.search(r'dangling_endpoint_edges: (\d+)', health)
     collapsed = re.search(r'directed_same_endpoint_collapsed_edges: (\d+)', health)
+    relation_path = OUT / 'graphify-out/RELATION_REPAIR.json'
+    relation_audit = json.loads(relation_path.read_text(encoding='utf-8-sig')) if relation_path.exists() else None
     for directory in DIRECTORIES:
         block = '<!-- API-ARCHITECTURE:BEGIN --><section id="api-architecture"><h2>API 코드베이스: 네 관계와 종합 흐름</h2>'
         block += '<p>정적 소스와 graphify AST 분석에 근거한다. 화살표의 소유·참조·호출·생성·ID 연결을 구분한다. 각 설명의 소스 링크에서 실제 구현을 읽는다.</p>'
         if missing and collapsed:
-            block += '<p class="badge">graphify 연결 대상 누락: ' + missing.group(1) + '건. 외부 헤더는 include 근거를 가진 경계 노드이며 내부 함수 분석을 뜻하지 않는다. 같은 노드 쌍의 관계 병합 ' + collapsed.group(1) + '건은 원본 EXTRACTION.json에 보존했다. 아래 순서도는 실제 소스를 대조했다. 빌드·실행·브라우저 확인은 사용자에게 맡긴다.</p>'
+            relation_note = ('같은 노드 쌍의 관계 병합 ' + collapsed.group(1) + '건은 원본 EXTRACTION.json에 보존했다.')
+            if relation_audit:
+                relation_note = (f'병합되었던 {relation_audit["restored_additional_relations"]}개 추가 관계를 '
+                                 f'{relation_audit["affected_pairs"]}쌍의 병렬 간선으로 복원했다. 현재 관계 병합 손실은 '
+                                 f'{relation_audit["remaining_collapsed_relations"]}건이다. 관계·문맥·소스 위치를 구분한다.')
+            block += '<p class="badge">graphify 연결 대상 누락: ' + missing.group(1) + '건. 외부 헤더는 include 근거를 가진 경계 노드이며 내부 함수 분석을 뜻하지 않는다. ' + relation_note + ' 아래 순서도는 실제 소스를 대조했다. 빌드·실행·브라우저 확인은 사용자에게 맡긴다.</p>'
         block += '<nav>'
         block += ''.join('<a href="#arch-' + key + '">' + esc(c['title']) + '</a>' for key, c in charts.items()) + '</nav>'
         for key, chart in charts.items():
@@ -316,7 +457,7 @@ def build_graph():
     from graphify.build import build_from_json
     from graphify.cluster import cluster, score_all
     from graphify.analyze import god_nodes, surprising_connections, suggest_questions
-    from graphify.export import to_json, to_html
+    from graphify.export import to_json
     from graphify.report import generate
     from graphify.diagnostics import diagnose_extraction, format_diagnostic_report
     output = OUT / 'graphify-out'
@@ -349,14 +490,17 @@ def build_graph():
     gods, surprises = god_nodes(graph), surprising_connections(graph, communities)
     questions = suggest_questions(graph, communities, labels)
     commit = subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip()
+    cohesion = score_all(graph, communities)
+    graph, relation_audit = restore_parallel_relations(graph, extraction)
     to_json(graph, communities, str(output / 'graph.json'), force=True, community_labels=labels, built_at_commit=commit)
-    to_html(graph, communities, str(output / 'graph.html'), community_labels=labels)
-    report = generate(graph, communities, score_all(graph, communities), labels, gods, surprises, detection,
+    export_relation_html(graph, communities, output / 'graph.html', labels)
+    report = generate(graph, communities, cohesion, labels, gods, surprises, detection,
                       {'input': 0, 'output': 0}, str(ROOT), suggested_questions=questions, built_at_commit=commit)
     report += '\n## 범위와 한계\n\nframework와 standard/framework를 별도 경로로 추출했다. standard 실행은 standard/framework를 사용한다. 같은 이름의 C++ 메서드 간 AST 연결은 정확한 오버로드 해석이 아니다. 문서 순서도는 실제 소스를 추가로 읽어 작성했다. GPU 고정 단계는 C++ 호출 간선이 아니다. 빌드·테스트·브라우저 확인은 사용자에게 맡겼다.\n'
     write(output / 'GRAPH_REPORT.md', report)
     health = diagnose_extraction(extraction, directed=True, root=str(ROOT))
-    write(output / 'GRAPH_HEALTH.md', format_diagnostic_report(health))
+    write(output / 'GRAPH_HEALTH.md', relation_health(extraction, relation_audit))
+    dump(output / 'RELATION_REPAIR.json', relation_audit)
     dump(output / 'EXTRACTION.json', extraction)
     dump(output / 'DETECTION.json', detection)
     dump(output / 'ANALYSIS.json', {'gods': gods, 'surprises': surprises, 'questions': questions})
@@ -378,8 +522,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--graph', action='store_true')
     parser.add_argument('--repair-graph', action='store_true', help='Patch only missing include endpoints in the saved graph.')
+    parser.add_argument('--repair-relations', action='store_true', help='Restore parallel relation records without reextracting code.')
     args = parser.parse_args()
-    if args.repair_graph:
+    if args.repair_relations:
+        repair_saved_relations()
+    elif args.repair_graph:
         repair_saved_graph()
     elif args.graph:
         build_graph()
