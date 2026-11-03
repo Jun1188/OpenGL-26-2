@@ -3,6 +3,13 @@
 
 class Console {
     graphics::Application& app_;
+    std::optional<int> initialMode_;
+    int activeMode_ = 1;
+    bool activateMode(int mode);
+    bool initMotion(int kind);
+    bool updateGrid();
+    bool updateRoom(float dt);
+    bool updateAnimation();
     std::optional<graphics::MotionId> pathId_;
     std::optional<graphics::MotionId> spinId_;
     std::optional<graphics::MotionId> globalId_;
@@ -76,7 +83,8 @@ class Console {
 
 public:
     /// 애플리케이션 참조를 보관한다.
-    explicit Console(graphics::Application& app) : app_(app) {
+    explicit Console(graphics::Application& app, std::optional<int> initialMode = std::nullopt)
+        : app_(app), initialMode_(initialMode) {
     }
 
 

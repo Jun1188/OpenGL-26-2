@@ -3,6 +3,8 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="modes\*.cpp" />
+    <ClInclude Include="modes\*.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="framework\Framework.h" />
     <ClInclude Include="framework\include\Motion.h" />
