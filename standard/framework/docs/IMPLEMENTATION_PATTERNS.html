@@ -1,4 +1,4 @@
-﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>응용패턴 통합: 흐름도와 실제 코드</title><style>*{box-sizing:border-box}body{margin:0;color:#1d2c40;background:#f4f6fa;font:16px/1.85 "Malgun Gothic",sans-serif}main{max-width:1160px;margin:auto;padding:40px 28px}h1{font-size:32px}h2{margin-top:48px;border-bottom:2px solid #c8d6e7;padding-bottom:10px}h3{margin-top:30px}a{color:#215b99}nav{display:flex;gap:14px;flex-wrap:wrap}section,article{scroll-margin-top:20px}pre{background:#17253a;color:#edf4ff;padding:20px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 Consolas,"Malgun Gothic",monospace}details{background:white;border:1px solid #ccd8e5;margin:16px 0;padding:12px 18px;border-radius:10px}summary{cursor:pointer;font-weight:bold}table{border-collapse:collapse;width:100%;background:white}td,th{border:1px solid #ccd8e5;text-align:left;padding:10px;vertical-align:top}.note{background:#e7effa;padding:16px 20px;border-left:4px solid #477bb9}.flow{overflow:auto;margin:18px 0}svg{display:block;max-width:100%;min-width:680px;height:auto}.badge{font-size:13px;color:#4e637e}input{font:inherit;width:100%;padding:12px;border:1px solid #99adc5;border-radius:6px}article{padding:12px 20px;margin:16px 0;background:white;border-radius:10px}.roles{color:#325578}@media print{body{background:white}main{padding:0}details{break-inside:avoid}pre{color:black;background:#f2f2f2}nav,input{display:none}svg{min-width:0}}</style></head><body><main><h1>응용패턴 통합: 흐름도와 실제 코드</h1><nav><a href="API_REFERENCE.html">공통 구현·전체 API 사례</a><a href="IMPLEMENTATION_PATTERNS.html">응용패턴·그네 통합</a></nav><p><a href="MODE_ACTIONS.md">의미 동작·육면체 모드</a> · <a href="RENDER_CONFIGURATION.md">정점 입력·내부 수정 순서</a> · <a href="PATTERN_COMPOSITION.md">패턴 조립·API 압축</a></p><p>함수 이름을 외우는 대신 실제 상황에서 무엇을 저장하고 무엇을 바꾸는지 읽는다. 공개 함수·오버로드·생성자·소멸자·삭제된 복사 연산을 현재 framework/include 헤더에서 수록했다. graphics::detail 및 private 구현은 공개 호출 대상으로 나열하지 않고 공통 구현 설명에서 다룬다.</p><p class="note">모든 코드는 현재 선언·구현에 근거한 문서다. 새 사용 사례는 함께 쓸 API를 묶은 함수 단편이며, 독립 main인 예제는 별도로 표시한다. 실행 성공을 확인한 코드라는 뜻은 아니다. 외부 자산 경로는 사용자가 준비한다.</p><p>응용패턴은 목적 → 변수 역할 → 흐름도 → 응용 코드 → 예상 결과 순으로 짧게 읽는다. 반복되는 렌더링 루프·GPU 자원 구현은 API 문서의 공통 구현 절에서 자세히 설명한다.</p><nav><a href="#pattern-bootstrap">콜백으로 응용 상태 연결</a><a href="#pattern-spin-orbit">자전과 공전을 분리</a><a href="#pattern-path">경로 전환·왕복</a><a href="#pattern-sequence">순차 동작과 끝 자세 유지</a><a href="#pattern-shared">모션 공유와 대칭 분기</a><a href="#pattern-pause">시간 정지와 변환 기여 끄기</a><a href="#pattern-insert">바인딩을 유지한 레이어 삽입</a><a href="#pattern-parts">부품 계층과 소유자 기저선</a><a href="#pattern-hinge">면 힌지와 추가 로컬 행렬</a><a href="#pattern-pick">클릭 선택과 바닥 배치</a><a href="#pattern-mesh">메시·UV·재질 편집</a><a href="#pattern-assets">선택적 OBJ·텍스처</a><a href="#pattern-linear">두 위치 사이 선형보간</a><a href="#pattern-pendulum">지정 주기의 진자 운동</a><a href="#pattern-grid">격자 비율·셀·지그재그 배치</a><a href="#pattern-conveyor">거리 기반 컨베이어와 코너 방향</a><a href="#pattern-room">회전하는 방과 이탈 후 낙하</a><a href="#pattern-walker">보행·점프·장애물 착지</a><a href="#pattern-wall">카메라 방향의 벽 개방</a><a href="#pattern-humanoid">편집 가능한 사람형·관절 트랙</a><a href="#pattern-jointedit">관절 선택·SRT·피벗 편집</a><a href="#pattern-swing">그네(진자) → 좌석 → 사람</a><a href="#pattern-views">여러 카메라로 같은 Scene 표시</a><a href="#pattern-editable">의미 동작·육면체 모드·정점 입력 편집</a></nav><section id="pattern-bootstrap"><h2>콜백으로 응용 상태 연결</h2><p>회전하는 상자를 만들고 Esc로 종료하는 상황이다. Application은 창과 루프를 소유하고, box는 Scene 안의 상자를 다시 찾는 번호다. 콜백은 등록할 때 실행되지 않는다. run이 초기화·이벤트·프레임 시점에 각각 실행한다.</p><p>주요 상태: app은 run 종료까지 살아 있는 소유 객체다. box는 초기화 콜백에서 채우는 optional ID다. dt는 이번 프레임 경과 초이며 angle은 누적 각도다. camera와 options는 Application 내부 상태를 수정하는 참조다.</p><div class="flow"><svg viewBox="0 0 1020 620" role="img" aria-label="pattern-bootstrap 흐름도"><title>pattern-bootstrap 흐름도</title><defs><marker id="pattern-bootstrap-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#4d688a"/></marker></defs><rect x="70" y="30" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="74" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">상태와 ID 보관</text><path d="M510 102 V134" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="134" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="178" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">init에서 Scene 생성</text><path d="M510 206 V238" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="238" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="282" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">입력으로 상태 변경</text><path d="M510 310 V342" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="342" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="386" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">update로 변환 반영</text><path d="M510 414 V446" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="446" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="490" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">렌더·종료는 Application에 위임</text></svg></div><h3>실제 응용 코드 묶음</h3><p class="badge">새로 작성한 사용 사례. 같은 API를 쓰는 기존 실행 소스도 아래에 전체 첨부한다.</p><pre><code>#include &quot;framework/Framework.h&quot;
+﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>응용패턴 통합: 흐름도와 실제 코드</title><style>*{box-sizing:border-box}body{margin:0;color:#1d2c40;background:#f4f6fa;font:16px/1.85 "Malgun Gothic",sans-serif}main{max-width:1160px;margin:auto;padding:40px 28px}h1{font-size:32px}h2{margin-top:48px;border-bottom:2px solid #c8d6e7;padding-bottom:10px}h3{margin-top:30px}a{color:#215b99}nav{display:flex;gap:14px;flex-wrap:wrap}section,article{scroll-margin-top:20px}pre{background:#17253a;color:#edf4ff;padding:20px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 Consolas,"Malgun Gothic",monospace}details{background:white;border:1px solid #ccd8e5;margin:16px 0;padding:12px 18px;border-radius:10px}summary{cursor:pointer;font-weight:bold}table{border-collapse:collapse;width:100%;background:white}td,th{border:1px solid #ccd8e5;text-align:left;padding:10px;vertical-align:top}.note{background:#e7effa;padding:16px 20px;border-left:4px solid #477bb9}.flow{overflow:auto;margin:18px 0}svg{display:block;max-width:100%;min-width:680px;height:auto}.badge{font-size:13px;color:#4e637e}input{font:inherit;width:100%;padding:12px;border:1px solid #99adc5;border-radius:6px}article{padding:12px 20px;margin:16px 0;background:white;border-radius:10px}.roles{color:#325578}@media print{body{background:white}main{padding:0}details{break-inside:avoid}pre{color:black;background:#f2f2f2}nav,input{display:none}svg{min-width:0}}</style></head><body><main><h1>응용패턴 통합: 흐름도와 실제 코드</h1><nav><a href="API_REFERENCE.html">공통 구현·전체 API 사례</a><a href="IMPLEMENTATION_PATTERNS.html">응용패턴·그네 통합</a></nav><p><a href="MODE_ACTIONS.md">의미 동작·육면체 모드</a> · <a href="RENDER_CONFIGURATION.md">정점 입력·내부 수정 순서</a> · <a href="PATTERN_COMPOSITION.md">패턴 조립·API 압축</a></p><p>함수 이름을 외우는 대신 실제 상황에서 무엇을 저장하고 무엇을 바꾸는지 읽는다. 공개 함수·오버로드·생성자·소멸자·삭제된 복사 연산을 현재 framework/include 헤더에서 수록했다. graphics::detail 및 private 구현은 공개 호출 대상으로 나열하지 않고 공통 구현 설명에서 다룬다.</p><p class="note">모든 코드는 현재 선언·구현에 근거한 문서다. 새 사용 사례는 함께 쓸 API를 묶은 함수 단편이며, 독립 main인 예제는 별도로 표시한다. 실행 성공을 확인한 코드라는 뜻은 아니다. 외부 자산 경로는 사용자가 준비한다.</p><p>응용패턴은 목적 → 변수 역할 → 흐름도 → 응용 코드 → 예상 결과 순으로 짧게 읽는다. 반복되는 렌더링 루프·GPU 자원 구현은 API 문서의 공통 구현 절에서 자세히 설명한다.</p><nav><a href="#pattern-bootstrap">콜백으로 응용 상태 연결</a><a href="#pattern-spin-orbit">자전과 공전을 분리</a><a href="#pattern-path">경로 전환·왕복</a><a href="#pattern-sequence">순차 동작과 끝 자세 유지</a><a href="#pattern-shared">모션 공유와 대칭 분기</a><a href="#pattern-pause">시간 정지와 변환 기여 끄기</a><a href="#pattern-insert">바인딩을 유지한 레이어 삽입</a><a href="#pattern-parts">부품 계층과 소유자 기저선</a><a href="#pattern-hinge">면 힌지와 추가 로컬 행렬</a><a href="#pattern-pick">클릭 선택과 바닥 배치</a><a href="#pattern-mesh">메시·UV·재질 편집</a><a href="#pattern-assets">선택적 OBJ·텍스처</a><a href="#pattern-linear">두 위치 사이 선형보간</a><a href="#pattern-pendulum">지정 주기의 진자 운동</a><a href="#pattern-grid">격자 비율·셀·지그재그 배치</a><a href="#pattern-conveyor">거리 기반 컨베이어와 코너 방향</a><a href="#pattern-room">회전하는 방과 이탈 후 낙하</a><a href="#pattern-walker">보행·점프·장애물 착지</a><a href="#pattern-wall">카메라 방향의 벽 개방</a><a href="#pattern-humanoid">편집 가능한 사람형·관절 트랙</a><a href="#pattern-jointedit">관절 선택·SRT·피벗 편집</a><a href="#pattern-swing">그네(진자) → 좌석 → 사람</a><a href="#pattern-views">여러 카메라로 같은 Scene 표시</a><a href="#pattern-editable">의미 동작·육면체 모드·정점 입력 편집</a><a href="#pattern-face-modes">면의 독립·계층과 힌지·자전·공전</a></nav><section id="pattern-bootstrap"><h2>콜백으로 응용 상태 연결</h2><p>회전하는 상자를 만들고 Esc로 종료하는 상황이다. Application은 창과 루프를 소유하고, box는 Scene 안의 상자를 다시 찾는 번호다. 콜백은 등록할 때 실행되지 않는다. run이 초기화·이벤트·프레임 시점에 각각 실행한다.</p><p>주요 상태: app은 run 종료까지 살아 있는 소유 객체다. box는 초기화 콜백에서 채우는 optional ID다. dt는 이번 프레임 경과 초이며 angle은 누적 각도다. camera와 options는 Application 내부 상태를 수정하는 참조다.</p><div class="flow"><svg viewBox="0 0 1020 620" role="img" aria-label="pattern-bootstrap 흐름도"><title>pattern-bootstrap 흐름도</title><defs><marker id="pattern-bootstrap-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#4d688a"/></marker></defs><rect x="70" y="30" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="74" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">상태와 ID 보관</text><path d="M510 102 V134" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="134" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="178" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">init에서 Scene 생성</text><path d="M510 206 V238" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="238" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="282" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">입력으로 상태 변경</text><path d="M510 310 V342" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="342" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="386" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">update로 변환 반영</text><path d="M510 414 V446" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-bootstrap-arrow)"/><rect x="70" y="446" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="490" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">렌더·종료는 Application에 위임</text></svg></div><h3>실제 응용 코드 묶음</h3><p class="badge">새로 작성한 사용 사례. 같은 API를 쓰는 기존 실행 소스도 아래에 전체 첨부한다.</p><pre><code>#include &quot;framework/Framework.h&quot;
 #include &lt;iostream&gt;
 int main() {
     graphics::Application app;
@@ -5617,14 +5617,16 @@ bool Scene::setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode) {
     return true;
 }
 
-bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix) {
-    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)) {
+bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix, FaceAnimationSpace space) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix) ||
+        (space != FaceAnimationSpace::Local &amp;&amp; space != FaceAnimationSpace::Model)) {
         return Diagnostics::failAt(
             __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceLocalMatrix&quot;,
             &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)&quot;,
             &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
     }
     components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
+    components_[id].polyhedron.faces[faceIndex].animationSpace = space;
 
     return true;
 }
@@ -5820,7 +5822,9 @@ std::optional&lt;glm::mat4&gt; Scene::faceWorldMatrix(EntityId id, std::size_t f
                 &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
             std::nullopt);
 
-    const auto world = worldMatrix(id);
+    const auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    const auto world = face.transformMode == FaceTransformMode::Hierarchy
+                           ? worldMatrix(id) : std::optional&lt;glm::mat4&gt;(glm::mat4(1));
 
     if (!world)
         return (Diagnostics::failAt(
@@ -5828,13 +5832,7 @@ std::optional&lt;glm::mat4&gt; Scene::faceWorldMatrix(EntityId id, std::size_t f
                     &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
                 std::nullopt);
 
-    const auto&amp; face = components_[id].polyhedron.faces[faceIndex];
-    glm::mat4 child(1);
-
-    if (face.independence)
-        child = glm::translate(glm::mat4(1), face.transform.localBasis) * detail::transformMatrix(face.transform);
-
-    const auto result = *world * child * face.localAnimationMatrix;
+    const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);
 
     if (!detail::finiteMatrix(result)) {
         Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;Scene::faceWorldMatrix&quot;,
@@ -5906,6 +5904,32 @@ bool Scene::setTransform(EntityId id, const Transform3D&amp; transform) {
     }
     components_[id].transform = transform;
 
+    return true;
+}
+
+bool Scene::setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld) {
+    if (!getMesh(id, faceIndex) || (mode != FaceTransformMode::Hierarchy &amp;&amp; mode != FaceTransformMode::Independent))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                   &quot;Invalid entity, face index or transform mode.&quot;);
+    auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    glm::mat4 frame(1);
+    if (preserveWorld) {
+        if (mode == face.transformMode) return true;
+        const auto world = worldMatrix(id);
+        if (!world) return false;
+        const auto oldParent = face.transformMode == FaceTransformMode::Hierarchy ? *world : glm::mat4(1);
+        frame = oldParent * face.transformFrame;
+        if (mode == FaceTransformMode::Hierarchy) {
+            const float determinant = glm::determinant(*world);
+            if (!std::isfinite(determinant) || std::abs(determinant) &lt; 1e-12f)
+                return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                           &quot;Cannot preserve world pose under a singular parent transform.&quot;);
+            frame = glm::inverse(*world) * frame;
+        }
+    }
+    if (!TransformSystem::validAffine(frame)) return false;
+    face.transformMode = mode;
+    face.transformFrame = frame;
     return true;
 }
 
@@ -7837,14 +7861,16 @@ bool Scene::setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode) {
     return true;
 }
 
-bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix) {
-    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)) {
+bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix, FaceAnimationSpace space) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix) ||
+        (space != FaceAnimationSpace::Local &amp;&amp; space != FaceAnimationSpace::Model)) {
         return Diagnostics::failAt(
             __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceLocalMatrix&quot;,
             &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)&quot;,
             &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
     }
     components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
+    components_[id].polyhedron.faces[faceIndex].animationSpace = space;
 
     return true;
 }
@@ -8040,7 +8066,9 @@ std::optional&lt;glm::mat4&gt; Scene::faceWorldMatrix(EntityId id, std::size_t f
                 &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
             std::nullopt);
 
-    const auto world = worldMatrix(id);
+    const auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    const auto world = face.transformMode == FaceTransformMode::Hierarchy
+                           ? worldMatrix(id) : std::optional&lt;glm::mat4&gt;(glm::mat4(1));
 
     if (!world)
         return (Diagnostics::failAt(
@@ -8048,13 +8076,7 @@ std::optional&lt;glm::mat4&gt; Scene::faceWorldMatrix(EntityId id, std::size_t f
                     &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
                 std::nullopt);
 
-    const auto&amp; face = components_[id].polyhedron.faces[faceIndex];
-    glm::mat4 child(1);
-
-    if (face.independence)
-        child = glm::translate(glm::mat4(1), face.transform.localBasis) * detail::transformMatrix(face.transform);
-
-    const auto result = *world * child * face.localAnimationMatrix;
+    const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);
 
     if (!detail::finiteMatrix(result)) {
         Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;Scene::faceWorldMatrix&quot;,
@@ -8126,6 +8148,32 @@ bool Scene::setTransform(EntityId id, const Transform3D&amp; transform) {
     }
     components_[id].transform = transform;
 
+    return true;
+}
+
+bool Scene::setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld) {
+    if (!getMesh(id, faceIndex) || (mode != FaceTransformMode::Hierarchy &amp;&amp; mode != FaceTransformMode::Independent))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                   &quot;Invalid entity, face index or transform mode.&quot;);
+    auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    glm::mat4 frame(1);
+    if (preserveWorld) {
+        if (mode == face.transformMode) return true;
+        const auto world = worldMatrix(id);
+        if (!world) return false;
+        const auto oldParent = face.transformMode == FaceTransformMode::Hierarchy ? *world : glm::mat4(1);
+        frame = oldParent * face.transformFrame;
+        if (mode == FaceTransformMode::Hierarchy) {
+            const float determinant = glm::determinant(*world);
+            if (!std::isfinite(determinant) || std::abs(determinant) &lt; 1e-12f)
+                return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                           &quot;Cannot preserve world pose under a singular parent transform.&quot;);
+            frame = glm::inverse(*world) * frame;
+        }
+    }
+    if (!TransformSystem::validAffine(frame)) return false;
+    face.transformMode = mode;
+    face.transformFrame = frame;
     return true;
 }
 
@@ -16104,7 +16152,7 @@ struct RenderConfig {
     std::function&lt;bool(const DrawUniformContext&amp;)&gt; bindUniforms;
 };
 } // namespace graphics</code></pre></details><details><summary>실제 저장소 소스 · framework/include/Actions.h</summary><pre><code>#pragma once
-#include &quot;Application.h&quot;
+#include &quot;Patterns.h&quot;
 
 namespace graphics {
 // Value-configured operations. Scene and camera references are non-owning.
@@ -16148,6 +16196,17 @@ public:
     static MotionAction faceVisible(Scene&amp; scene, EntityId id, std::size_t face, bool value) {
         return [&amp;scene, id, face, value](double, const MotionSample&amp;) { return scene.setFaceVisible(id, face, value); };
     }
+    static MotionAction faceRotation(Scene&amp; scene, EntityId id, std::size_t face, FaceRotationConfig config) {
+        return [&amp;scene, id, face, config](double, const MotionSample&amp;) {
+            return PatternSystem::rotateFace(scene, id, face, config);
+        };
+    }
+    static MotionAction faceMode(Scene&amp; scene, EntityId id, std::size_t face, FaceTransformMode mode,
+                                 bool preserveWorld = true) {
+        return [&amp;scene, id, face, mode, preserveWorld](double, const MotionSample&amp;) {
+            return scene.setFaceTransformMode(id, face, mode, preserveWorld);
+        };
+    }
     static MotionAction layer(Scene&amp; scene, EntityId id, std::optional&lt;LayerId&gt; value) {
         return [&amp;scene, id, value](double, const MotionSample&amp;) {
             return value ? scene.bindEntity(id, *value) : scene.unbindEntity(id);
@@ -16175,6 +16234,8 @@ struct CuboidFaceConfig {
     GlColor color;
     bool visible = true;
     CullMode cull = CullMode::Inherit;
+    FaceTransformMode mode = FaceTransformMode::Hierarchy;
+    std::optional&lt;FaceRotationConfig&gt; rotation;
 };
 struct CuboidConfig {
     std::string name;
@@ -16248,12 +16309,20 @@ bool bindCuboidMode(Application&amp; app, std::shared_ptr&lt;CuboidMode&gt; mode
 
 namespace graphics {
 namespace {
+bool validFaceRotation(const std::optional&lt;FaceRotationConfig&gt;&amp; rotation) {
+    if (!rotation) return true;
+    if (!std::isfinite(rotation-&gt;degrees)) return false;
+    if (rotation-&gt;kind == FaceRotationKind::EdgeHinge) return rotation-&gt;edge &lt; 4;
+    return (rotation-&gt;kind == FaceRotationKind::SelfSpin || rotation-&gt;kind == FaceRotationKind::ModelOrbit) &amp;&amp;
+           detail::finiteVector(rotation-&gt;axis) &amp;&amp; glm::length(glm::dvec3(rotation-&gt;axis)) &gt; 1e-12;
+}
 bool validCuboid(const CuboidConfig&amp; c) {
     if (c.name.empty() || !detail::finiteVector(c.size) || c.size.x &lt;= 0 || c.size.y &lt;= 0 || c.size.z &lt;= 0 ||
         !detail::validColor(c.color) || !DiagramSystem::validTransform(c.transform))
         return false;
     for (const auto&amp; face : c.faces)
-        if (!DiagramSystem::validTransform(face.transform) || !detail::validColor(face.color) ||
+        if (!DiagramSystem::validTransform(face.transform) || !detail::validColor(face.color) || !validFaceRotation(face.rotation) ||
+            (face.mode != FaceTransformMode::Hierarchy &amp;&amp; face.mode != FaceTransformMode::Independent) ||
             (face.cull != CullMode::Inherit &amp;&amp; face.cull != CullMode::None &amp;&amp;
              face.cull != CullMode::Back &amp;&amp; face.cull != CullMode::Front))
             return false;
@@ -16327,9 +16396,10 @@ bool CuboidMode::apply(Application&amp; app) {
         if (!id || !staged.setTransform(*id, c.transform) || !staged.setTint(*id, c.color) ||
             !staged.setVisible(*id, c.visible)) return false;
         for (std::size_t face = 0; face &lt; c.faces.size(); ++face)
-            if (!staged.setFaceTransform(*id, face, c.faces[face].transform, false) ||
+            if (!staged.setFaceTransform(*id, face, c.faces[face].transform, true) ||
                 !staged.setFaceVisible(*id, face, c.faces[face].visible) ||
-                !staged.setFaceCullMode(*id, face, c.faces[face].cull)) return false;
+                !staged.setFaceCullMode(*id, face, c.faces[face].cull) ||
+                (c.faces[face].rotation &amp;&amp; !PatternSystem::rotateFace(staged, *id, face, *c.faces[face].rotation))) return false;
         entities.emplace(c.name, *id);
         if (c.motion) {
             const auto motion = staged.getMotions().createMotion(*c.motion);
@@ -16341,6 +16411,9 @@ bool CuboidMode::apply(Application&amp; app) {
             layers.emplace(c.name, *idLayer);
             motions.emplace(c.name, *motion);
         }
+        // Freeze independent faces only after the initial motion/layer binding exists.
+        for (std::size_t face = 0; face &lt; c.faces.size(); ++face)
+            if (!staged.setFaceTransformMode(*id, face, c.faces[face].mode)) return false;
     }
     app.getScene() = std::move(staged);
     app.getCamera() = config_.camera;
@@ -16413,7 +16486,2602 @@ bool bindCuboidMode(Application&amp; app, std::shared_ptr&lt;CuboidMode&gt; mode
     });
     return true;
 }
-} // namespace graphics</code></pre></details><p><a href="API_REFERENCE.html#case-editable">함수·반환값·실패 조건과 함께 읽기</a></p></section><section id="sample"><h2>standard 전체 연결: main → Console 상태 → 콜백 구현</h2><p>9번이 그네·사람형·선형보간의 실제 실행 경로다. clock과 animation_은 Console 멤버이며 초기화 때 만들고 프레임 update에서 재사용한다. 아래 세 파일은 서로 연결되는 실제 소스다.</p><details><summary>실제 저장소 소스 · standard/main.cpp</summary><pre><code>#include &quot;Console.h&quot;
+} // namespace graphics</code></pre></details><p><a href="API_REFERENCE.html#case-editable">함수·반환값·실패 조건과 함께 읽기</a></p></section><section id="pattern-face-modes"><h2>면의 독립·계층과 힌지·자전·공전</h2><p>육면체의 변환 상속과 면 자체의 회전 중심을 별도 설정으로 조합한다.</p><p>주요 상태: FaceTransformMode는 상속, FaceRotationKind는 축의 위치/방향, FaceAnimationSpace는 면 SRT와 추가 행렬의 적용 순서다.</p><div class="flow"><svg viewBox="0 0 1020 516" role="img" aria-label="pattern-face-modes 흐름도"><title>pattern-face-modes 흐름도</title><defs><marker id="pattern-face-modes-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#4d688a"/></marker></defs><rect x="70" y="30" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="74" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">변환 상속 모드 선택</text><path d="M510 102 V134" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-face-modes-arrow)"/><rect x="70" y="134" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="178" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">면 SRT 설정</text><path d="M510 206 V238" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-face-modes-arrow)"/><rect x="70" y="238" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="282" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">회전 종류와 축 설정</text><path d="M510 310 V342" stroke="#4d688a" stroke-width="2" marker-end="url(#pattern-face-modes-arrow)"/><rect x="70" y="342" width="880" height="72" rx="10" fill="#e8f0fb" stroke="#6a8ebc"/><text x="510" y="386" text-anchor="middle" font-size="20" font-family="Malgun Gothic,sans-serif" fill="#1d2c40">본체 변환과 면 변환을 합성</text></svg></div><h3>실제 응용 코드 묶음</h3><p class="badge">새로 작성한 사용 사례. 같은 API를 쓰는 기존 실행 소스도 아래에 전체 첨부한다.</p><pre><code>bool faceMotion(graphics::Scene&amp; scene,graphics::EntityId box,std::size_t face) {
+    graphics::Transform3D pose; pose.basis={0,.2f,0};
+    if(!scene.setFaceSRT(box,face,pose)) return false;
+    if(!scene.setFaceTransformMode(box,face,graphics::FaceTransformMode::Independent)) return false;
+    graphics::FaceRotationConfig rotation;
+    rotation.kind=graphics::FaceRotationKind::EdgeHinge;
+    rotation.edge=0; rotation.degrees=90;
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    rotation.kind=graphics::FaceRotationKind::SelfSpin; rotation.axis={0,1,0};
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    rotation.kind=graphics::FaceRotationKind::ModelOrbit;
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    graphics::Motion actions;
+    if(!actions.append(graphics::Motion::action(graphics::SceneActions::faceRotation(scene,box,face,rotation)))) return false;
+    return actions.insertAction(1,graphics::SceneActions::faceMode(scene,box,face,graphics::FaceTransformMode::Hierarchy));
+}</code></pre><p>독립 면은 전환 순간의 기준을 고정하며 기본 계층 모드는 본체 변환을 따른다. 위 회전 호출은 각 종류의 시연이며 마지막 행렬이 최종 값이다. 자세 보존과 적용 순서는 FACE_TRANSFORMS.md를 읽는다.</p><details><summary>실제 저장소 소스 · framework/include/Model.h</summary><pre><code>#pragma once
+
+#include &quot;Diagnostics.h&quot;
+#include &quot;../dependencies/glm/glm/glm.hpp&quot;
+#include &quot;../dependencies/glm/glm/gtc/matrix_transform.hpp&quot;
+#include &lt;array&gt;
+#include &lt;cmath&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;limits&gt;
+#include &lt;memory&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;utility&gt;
+
+namespace graphics {
+
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 600;
+// Initial allocation hints, not scene capacity limits.
+constexpr std::size_t MAX_ENTITIES = 50;
+constexpr std::size_t MAX_LINES = 500;
+
+using EntityId = std::size_t;
+using LineId = std::size_t;
+
+struct GlColor {
+    float red = 1.0f, green = 1.0f, blue = 1.0f;
+};
+enum class GLShape { None, Cube, Tetra, Pyramid, Custom, Imported };
+enum class GLFace { None, Rect, Triangle, Mesh };
+enum class PivotMode { Preserve, BottomCenter, Custom };
+enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
+enum class CullMode { Inherit, None, Back, Front };
+enum class FaceTransformMode { Hierarchy, Independent };
+enum class FaceAnimationSpace { Local, Model };
+
+struct Transform3D {
+    glm::vec3 basis{0.0f};
+    glm::vec3 localBasis{0.0f};
+    glm::mat3 rotation{1.0f};
+    glm::vec3 scale{1.0f};
+};
+
+struct TextureImage {
+    std::uint32_t width = 0, height = 0;
+    std::vector&lt;std::uint8_t&gt; rgba;
+
+    // Row zero maps to UV v=0. File decoding flips top-down images by default.
+    /// [API] 이미지 너비·높이와 RGBA 바이트 수가 맞는지 검사한다.
+    bool valid() const {
+        return width &amp;&amp; height &amp;&amp; width &lt;= 16384 &amp;&amp; height &lt;= 16384 &amp;&amp; rgba.size() == std::size_t(width) * height * 4;
+    }
+};
+
+struct Material {
+    GlColor color;
+    std::shared_ptr&lt;const TextureImage&gt; texture;
+    bool useTexture = false;
+    bool repeatTexture = true;
+};
+
+struct Vertex {
+    glm::vec3 position{0.0f};
+    glm::vec3 normal{0.0f};
+    glm::vec2 uv{0.0f};
+    GlColor color;
+};
+
+struct PlaneFigure {
+    GLFace shape = GLFace::Mesh;
+    std::vector&lt;glm::vec3&gt; localVertices;
+    GlColor color;
+    glm::vec3 normal{0.0f};
+    // Compatibility flag: true enables child-local SRT, never world detachment.
+    bool independence = false;
+    Transform3D transform;
+    bool visible = true;
+    glm::mat4 localAnimationMatrix{1.0f};
+    std::vector&lt;GlColor&gt; vertexColors;
+    std::vector&lt;glm::vec3&gt; vertexNormals;
+    std::vector&lt;glm::vec2&gt; texcoords;
+    std::vector&lt;std::uint32_t&gt; triangleIndices;
+    std::vector&lt;std::uint32_t&gt; outlineIndices; // GL_LINES pairs, mesh-local indices.
+    Material material;
+    OutlineMode outline = OutlineMode::None;
+    float creaseAngleDegrees = 1.0f;
+    std::string name;
+    CullMode cull = CullMode::Inherit;
+    FaceTransformMode transformMode = FaceTransformMode::Hierarchy;
+    glm::mat4 transformFrame{1.0f}; // Parent-local correction, or a frozen world frame.
+    FaceAnimationSpace animationSpace = FaceAnimationSpace::Local;
+
+    /// [API] 정점 목록에서 하나의 면 데이터를 만든다. 모델/Scene 등록은 수행하지 않는다.
+    static PlaneFigure fromVertices(const std::vector&lt;Vertex&gt;&amp; vertices, const std::vector&lt;std::uint32_t&gt;&amp; triangles) {
+        PlaneFigure mesh;
+
+        mesh.triangleIndices = triangles;
+
+        for (const auto&amp; vertex : vertices) {
+            mesh.localVertices.push_back(vertex.position);
+            mesh.vertexNormals.push_back(vertex.normal);
+            mesh.texcoords.push_back(vertex.uv);
+            mesh.vertexColors.push_back(vertex.color);
+        }
+
+        return mesh;
+    }
+};
+
+using Mesh = PlaneFigure;
+
+struct Polyhedron {
+    GLShape shape = GLShape::Custom;
+    std::vector&lt;PlaneFigure&gt; faces;
+    std::string name;
+
+    /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
+    std::vector&lt;Mesh&gt;&amp; meshes() {
+        return faces;
+    }
+
+    /// [API] 모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.
+    const std::vector&lt;Mesh&gt;&amp; meshes() const {
+        return faces;
+    }
+};
+
+using Model = Polyhedron;
+
+struct Component_Poly {
+    Polyhedron polyhedron;
+    Transform3D transform;
+    glm::vec3 sideLengths{1.0f};
+    bool visible = true;
+    PivotMode pivotMode = PivotMode::Preserve;
+    std::optional&lt;EntityId&gt; parent; // Local SRT is relative to this entity.
+    GlColor tint;                   // Per-entity multiplier; does not propagate to children.
+    bool transformOnly = false;
+};
+
+struct FaceId {
+    EntityId entityId = 0;
+    std::size_t faceIndex = 0;
+};
+
+struct Line3D {
+    glm::vec3 start{0.0f}, end{0.0f};
+    GlColor color;
+    std::optional&lt;EntityId&gt; owner;
+};
+
+namespace detail {
+inline bool finiteVector(const glm::vec3&amp; v) {
+    return std::isfinite(v.x) &amp;&amp; std::isfinite(v.y) &amp;&amp; std::isfinite(v.z);
+}
+
+inline bool finiteMatrix(const glm::mat4&amp; m) {
+    for (int c = 0; c &lt; 4; ++c)
+        for (int r = 0; r &lt; 4; ++r)
+            if (!std::isfinite(m[c][r]))
+                return false;
+
+    return true;
+}
+
+inline bool validColor(GlColor c) {
+    return std::isfinite(c.red) &amp;&amp; std::isfinite(c.green) &amp;&amp; std::isfinite(c.blue);
+}
+
+inline std::vector&lt;std::uint32_t&gt; triangles(const Mesh&amp; mesh) {
+    if (!mesh.triangleIndices.empty())
+        return mesh.triangleIndices;
+
+    if (mesh.shape == GLFace::Triangle)
+        return {0, 1, 2};
+
+    if (mesh.shape == GLFace::Rect)
+        return {0, 1, 2, 0, 2, 3};
+
+    return {};
+}
+
+inline bool validMesh(const Mesh&amp; m) {
+    if (m.cull != CullMode::Inherit &amp;&amp; m.cull != CullMode::None &amp;&amp; m.cull != CullMode::Back &amp;&amp;
+        m.cull != CullMode::Front)
+        return false;
+
+    if ((m.transformMode != FaceTransformMode::Hierarchy &amp;&amp; m.transformMode != FaceTransformMode::Independent) ||
+        !finiteMatrix(m.transformFrame) ||
+        (m.animationSpace != FaceAnimationSpace::Local &amp;&amp; m.animationSpace != FaceAnimationSpace::Model))
+        return false;
+
+    if (m.localVertices.size() &lt; 3 || !validColor(m.color) || !validColor(m.material.color) ||
+        !finiteVector(m.normal) || !finiteMatrix(m.localAnimationMatrix) || !std::isfinite(m.creaseAngleDegrees) ||
+        m.creaseAngleDegrees &lt; 0 || m.creaseAngleDegrees &gt; 180)
+        return false;
+
+    const auto count = m.localVertices.size();
+
+    if (count &gt; std::numeric_limits&lt;std::uint32_t&gt;::max())
+        return false;
+
+    if ((!m.vertexColors.empty() &amp;&amp; m.vertexColors.size() != count) ||
+        (!m.vertexNormals.empty() &amp;&amp; m.vertexNormals.size() != count) ||
+        (!m.texcoords.empty() &amp;&amp; m.texcoords.size() != count) || (m.material.texture &amp;&amp; !m.material.texture-&gt;valid()) ||
+        (m.material.useTexture &amp;&amp; (!m.material.texture || m.texcoords.empty())))
+        return false;
+
+    for (const auto&amp; v : m.localVertices)
+        if (!finiteVector(v))
+            return false;
+
+    for (const auto&amp; v : m.vertexNormals)
+        if (!finiteVector(v))
+            return false;
+
+    for (const auto&amp; v : m.texcoords)
+        if (!std::isfinite(v.x) || !std::isfinite(v.y))
+            return false;
+
+    for (auto c : m.vertexColors)
+        if (!validColor(c))
+            return false;
+
+    const auto indices = triangles(m);
+
+    if (indices.empty() || indices.size() % 3 || m.outlineIndices.size() % 2)
+        return false;
+
+    for (auto i : indices)
+        if (i &gt;= count)
+            return false;
+
+    for (auto i : m.outlineIndices)
+        if (i &gt;= count)
+            return false;
+
+    for (std::size_t i = 0; i &lt; indices.size(); i += 3) {
+        const auto a = glm::dvec3(m.localVertices[indices[i]]);
+        const auto b = glm::dvec3(m.localVertices[indices[i + 1]]);
+        const auto c = glm::dvec3(m.localVertices[indices[i + 2]]);
+        const auto normal = glm::cross(b - a, c - a);
+        const double area = glm::dot(normal, normal);
+
+        if (!std::isfinite(area) || area &lt;= 0)
+            return false;
+    }
+
+    return true;
+}
+
+inline std::pair&lt;glm::vec3, glm::vec3&gt; bounds(const Model&amp; model) {
+    glm::vec3 low(std::numeric_limits&lt;float&gt;::max()), high(-std::numeric_limits&lt;float&gt;::max());
+
+    for (const auto&amp; face : model.faces)
+        for (const auto&amp; p : face.localVertices) {
+            low = glm::min(low, p);
+            high = glm::max(high, p);
+        }
+
+    return {low, high};
+}
+
+inline glm::vec3 bottomCenter(const Model&amp; model) {
+    const auto box = bounds(model);
+
+    return {box.first.x * .5f + box.second.x * .5f, box.first.y, box.first.z * .5f + box.second.z * .5f};
+}
+
+inline glm::mat4 transformMatrix(const Transform3D&amp; t) {
+    glm::mat4 m = glm::translate(glm::mat4(1), t.basis);
+
+    m *= glm::mat4(t.rotation);
+
+    return glm::translate(glm::scale(m, t.scale), -t.localBasis);
+}
+
+inline glm::mat4 faceSrtMatrix(const Mesh&amp; face) {
+    return face.independence
+        ? glm::translate(glm::mat4(1), face.transform.localBasis) * transformMatrix(face.transform)
+        : glm::mat4(1);
+}
+
+inline glm::mat4 faceLocalMatrix(const Mesh&amp; face) {
+    const auto child = faceSrtMatrix(face);
+    return face.animationSpace == FaceAnimationSpace::Model
+        ? face.localAnimationMatrix * child : child * face.localAnimationMatrix;
+}
+
+inline glm::mat4 faceMatrix(const Component_Poly&amp; c, const Mesh&amp; face) {
+    const auto parent = face.transformMode == FaceTransformMode::Hierarchy ? transformMatrix(c.transform) : glm::mat4(1);
+    return parent * face.transformFrame * faceLocalMatrix(face);
+}
+
+} // namespace detail
+} // namespace graphics</code></pre></details><details><summary>실제 저장소 소스 · framework/detail/Scene.cpp</summary><pre><code>#include &quot;../Framework.h&quot;
+#include &quot;Internal.h&quot;
+#include &lt;fstream&gt;
+#include &lt;initializer_list&gt;
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;utility&gt;
+
+namespace graphics {
+namespace detail {
+
+bool positiveLengths(const glm::vec3&amp; value) {
+    return finiteVector(value) &amp;&amp; value.x &gt; 0.0f &amp;&amp; value.y &gt; 0.0f &amp;&amp; value.z &gt; 0.0f;
+}
+
+std::uint64_t nextGeometryRevision() {
+    // 장면 복사·교체 시에도 다른 형상에 같은 revision을 부여하지 않는다.
+    // Scene과 Renderer는 한 렌더링 스레드에서 사용한다.
+    static std::uint64_t revision = 0;
+
+    return ++revision;
+}
+
+void appendFace(Polyhedron&amp; polyhedron, GLFace shape, std::initializer_list&lt;glm::vec3&gt; vertices, GlColor color) {
+    PlaneFigure face;
+
+    face.shape = shape;
+    face.localVertices = vertices;
+    face.color = color;
+    face.normal = glm::normalize(
+        glm::cross(face.localVertices[1] - face.localVertices[0], face.localVertices[2] - face.localVertices[0]));
+    polyhedron.faces.push_back(face);
+}
+
+} // namespace detail
+
+using detail::finiteVector;
+using detail::finiteMatrix;
+using detail::validColor;
+using detail::positiveLengths;
+using detail::nextGeometryRevision;
+using detail::appendFace;
+
+Scene::Scene() {
+    geometryRevision_ = nextGeometryRevision();
+    polyId_.reserve(MAX_ENTITIES);
+    components_.reserve(MAX_ENTITIES);
+    tetraFaceId_.reserve(MAX_ENTITIES * 4);
+    cubeFaceId_.reserve(MAX_ENTITIES * 6);
+    pyramidFaceId_.reserve(MAX_ENTITIES * 5);
+    lines_.reserve(MAX_LINES);
+}
+
+std::optional&lt;EntityId&gt; Scene::addGroup(const Transform3D&amp; transform) {
+    if (!DiagramSystem::validTransform(transform))
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::addGroup&quot;,
+                                &quot;Rejected condition: !DiagramSystem::validTransform(transform)&quot;,
+                                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+            std::nullopt);
+
+    const auto id = components_.size();
+    Component_Poly group;
+
+    group.polyhedron.shape = GLShape::None;
+    group.transform = transform;
+    group.sideLengths = glm::vec3(0);
+    group.transformOnly = true;
+    components_.push_back(group);
+    polyId_.push_back(id);
+    geometryRevision_ = nextGeometryRevision();
+
+    return id;
+}
+
+bool Scene::setTint(EntityId id, GlColor color) {
+    if (id &gt;= components_.size() || !validColor(color))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setTint&quot;,
+            &quot;Rejected condition: id&gt;=components_.size() || !validColor(color)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    components_[id].tint = color;
+
+    return true;
+}
+
+std::optional&lt;EntityId&gt; Scene::addSphere(float radius, const glm::vec3&amp; position, unsigned slices, unsigned stacks) {
+    Transform3D transform;
+
+    transform.basis = position;
+
+    return push_entity(DiagramSystem::makeSphere(radius, slices, stacks), transform);
+}
+
+std::optional&lt;EntityId&gt; Scene::addCone(float radius, float height, const glm::vec3&amp; position, unsigned slices) {
+    Transform3D transform;
+
+    transform.basis = position;
+
+    return push_entity(DiagramSystem::makeCone(radius, height, slices), transform);
+}
+
+std::optional&lt;EntityId&gt; Scene::push_entity(const Polyhedron&amp; polyhedron, const Transform3D&amp; transform) {
+    if (!DiagramSystem::validPolyhedron(polyhedron) || !DiagramSystem::validTransform(transform)) {
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::push_entity&quot;,
+                &quot;Rejected condition: !DiagramSystem::validPolyhedron(polyhedron) || !DiagramSystem::validTransform(transform)&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+            std::nullopt);
+    }
+
+    glm::vec3 minimum = polyhedron.faces[0].localVertices[0];
+    glm::vec3 maximum = minimum;
+
+    for (const PlaneFigure&amp; face : polyhedron.faces) {
+        for (const glm::vec3&amp; vertex : face.localVertices) {
+            minimum = glm::min(minimum, vertex);
+            maximum = glm::max(maximum, vertex);
+        }
+    }
+
+    if (!finiteVector(maximum - minimum))
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::push_entity&quot;,
+                                &quot;Rejected condition: !finiteVector(maximum - minimum)&quot;,
+                                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+            std::nullopt);
+
+    const EntityId id = components_.size();
+
+    components_.push_back({polyhedron, transform, maximum - minimum});
+    polyId_.push_back(id);
+
+    std::vector&lt;FaceId&gt;* faceIds = nullptr;
+
+    if (polyhedron.shape == GLShape::Cube)
+        faceIds = &amp;cubeFaceId_;
+
+    if (polyhedron.shape == GLShape::Tetra)
+        faceIds = &amp;tetraFaceId_;
+
+    if (polyhedron.shape == GLShape::Pyramid)
+        faceIds = &amp;pyramidFaceId_;
+
+    if (faceIds)
+        for (std::size_t i = 0; i &lt; polyhedron.faces.size(); ++i)
+            faceIds-&gt;push_back({id, i});
+    geometryRevision_ = nextGeometryRevision();
+
+    return id;
+}
+
+std::optional&lt;EntityId&gt; Scene::addCuboid(const glm::vec3&amp; sideLengths, const glm::vec3&amp; worldPosition) {
+    Transform3D transform;
+
+    transform.basis = worldPosition;
+
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Cube, sideLengths), transform);
+}
+
+std::optional&lt;EntityId&gt; Scene::addRightTetrahedron(const glm::vec3&amp; edgeLengths, const glm::vec3&amp; worldPosition) {
+    Transform3D transform;
+
+    transform.basis = worldPosition;
+
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Tetra, edgeLengths), transform);
+}
+
+std::optional&lt;EntityId&gt; Scene::addPyramid(const glm::vec3&amp; sideLengths, const glm::vec3&amp; worldPosition) {
+    Transform3D transform;
+
+    transform.basis = worldPosition;
+
+    return push_entity(DiagramSystem::makePolyhedron(GLShape::Pyramid, sideLengths), transform);
+}
+
+bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visible) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size()) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceVisible&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+    components_[id].polyhedron.faces[faceIndex].visible = visible;
+
+    return true;
+}
+
+bool Scene::setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() ||
+        (mode != CullMode::Inherit &amp;&amp; mode != CullMode::None &amp;&amp; mode != CullMode::Back &amp;&amp; mode != CullMode::Front))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Raster, &quot;Scene::setFaceCullMode&quot;,
+                                   &quot;Invalid entity, face index or culling mode.&quot;,
+                                   &quot;Check the model&#x27;s face list and CullMode enum.&quot;, id);
+    components_[id].polyhedron.faces[faceIndex].cull = mode;
+
+    return true;
+}
+
+bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4&amp; matrix, FaceAnimationSpace space) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix) ||
+        (space != FaceAnimationSpace::Local &amp;&amp; space != FaceAnimationSpace::Model)) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceLocalMatrix&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+    components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
+    components_[id].polyhedron.faces[faceIndex].animationSpace = space;
+
+    return true;
+}
+
+bool Scene::setFaceVertexColors(EntityId id, std::size_t faceIndex, const std::vector&lt;GlColor&gt;&amp; colors) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size()) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceVertexColors&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+
+    PlaneFigure&amp; face = components_[id].polyhedron.faces[faceIndex];
+
+    if (!colors.empty() &amp;&amp; colors.size() != face.localVertices.size()) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceVertexColors&quot;,
+            &quot;Rejected condition: !colors.empty() &amp;&amp; colors.size() != face.localVertices.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+
+    for (GlColor color : colors) {
+        if (!validColor(color)) {
+            return Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceVertexColors&quot;,
+                &quot;Rejected condition: !validColor(color)&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+        }
+    }
+    face.vertexColors = colors;
+    geometryRevision_ = nextGeometryRevision();
+
+    return true;
+}
+
+const Component_Poly* Scene::getComponent(EntityId id) const {
+    return id &lt; components_.size() ? &amp;components_[id] : nullptr;
+}
+
+bool Scene::setPosition(EntityId id, const glm::vec3&amp; worldPosition) {
+    // For a parented entity this position is in parent coordinates.
+    if (id &gt;= components_.size() || !finiteVector(worldPosition)) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setPosition&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || !finiteVector(worldPosition)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+
+    auto candidate = components_[id].transform;
+
+    candidate.basis = worldPosition;
+
+    return setTransform(id, candidate);
+}
+
+bool Scene::setSideLengths(EntityId id, const glm::vec3&amp; sideLengths) {
+    if (id &gt;= components_.size() || !positiveLengths(sideLengths))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setSideLengths&quot;,
+            &quot;Rejected condition: id&gt;=components_.size()||!positiveLengths(sideLengths)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    const auto&amp; c = components_[id];
+
+    if (c.transformOnly)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setSideLengths&quot;, &quot;Rejected condition: c.transformOnly&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = c.polyhedron;
+    const auto box = detail::bounds(replacement);
+    const auto oldSize = box.second - box.first;
+
+    if (!positiveLengths(oldSize))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setSideLengths&quot;,
+            &quot;Rejected condition: !positiveLengths(oldSize)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    const auto ratio = sideLengths / oldSize;
+
+    if (!finiteVector(ratio))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setSideLengths&quot;,
+            &quot;Rejected condition: !finiteVector(ratio)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    // Preserve topology/materials. Resize mesh coordinates around the model pivot.
+    for (auto&amp; face : replacement.faces) {
+        for (auto&amp; vertex : face.localVertices)
+            vertex = c.transform.localBasis + (vertex - c.transform.localBasis) * ratio;
+        face.transform.localBasis =
+            c.transform.localBasis + (face.transform.localBasis - c.transform.localBasis) * ratio;
+        recalculateNormals(face);
+    }
+
+    return setModel(id, replacement);
+}
+
+bool Scene::setParent(EntityId id, std::optional&lt;EntityId&gt; parent) {
+    if (id &gt;= components_.size())
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setParent&quot;,
+            &quot;Rejected condition: id &gt;= components_.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto ancestor = parent;
+    std::size_t remaining = components_.size();
+
+    while (ancestor) {
+        if (*ancestor &gt;= components_.size() || *ancestor == id || remaining-- == 0)
+            return Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setParent&quot;,
+                &quot;Rejected condition: *ancestor &gt;= components_.size() || *ancestor == id || remaining-- == 0&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+        ancestor = components_[*ancestor].parent;
+    }
+    components_[id].parent = parent;
+
+    return true;
+}
+
+std::optional&lt;glm::mat4&gt; Scene::worldMatrix(EntityId id) const {
+    if (id &gt;= components_.size())
+        return (Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::worldMatrix&quot;,
+                    &quot;Rejected condition: id &gt;= components_.size()&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+                std::nullopt);
+
+    std::vector&lt;EntityId&gt; chain;
+    std::optional&lt;EntityId&gt; current = id;
+
+    while (current) {
+        if (*current &gt;= components_.size() || chain.size() &gt;= components_.size())
+            return (Diagnostics::failAt(
+                        __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::worldMatrix&quot;,
+                        &quot;Rejected condition: *current &gt;= components_.size() || chain.size() &gt;= components_.size()&quot;,
+                        &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+                    std::nullopt);
+        chain.push_back(*current);
+        current = components_[*current].parent;
+    }
+    std::reverse(chain.begin(), chain.end());
+
+    LayerId layer = MotionSystem::rootLayer();
+    std::size_t anchor = chain.size() - 1;
+
+    for (std::size_t i = chain.size(); i &gt; 0; --i) {
+        const auto binding = getEntityLayer(chain[i - 1]);
+
+        if (binding) {
+            layer = *binding;
+            anchor = i - 1;
+            break;
+        }
+    }
+
+    const auto motion = motions_.layerMatrices(layer);
+
+    if (!motion)
+        return (Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::worldMatrix&quot;, &quot;Rejected condition: !motion&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+                std::nullopt);
+
+    glm::mat4 prefix(1), suffix(1);
+
+    for (std::size_t i = 0; i &lt; chain.size(); ++i) {
+        auto&amp; matrix = i &lt;= anchor ? prefix : suffix;
+
+        matrix *= detail::transformMatrix(components_[chain[i]].transform);
+    }
+
+    const auto result = motion-&gt;parent * prefix * motion-&gt;local * suffix;
+
+    if (!detail::finiteMatrix(result)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;Scene::worldMatrix&quot;,
+                            &quot;World transform overflow after parent and motion composition.&quot;,
+                            &quot;Reduce coordinate/scale magnitudes and inspect the parent/layer chain.&quot;, id);
+
+        return {};
+    }
+
+    return result;
+}
+
+std::optional&lt;glm::mat4&gt; Scene::faceWorldMatrix(EntityId id, std::size_t faceIndex) const {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size())
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::faceWorldMatrix&quot;,
+                &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size()&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+            std::nullopt);
+
+    const auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    const auto world = face.transformMode == FaceTransformMode::Hierarchy
+                           ? worldMatrix(id) : std::optional&lt;glm::mat4&gt;(glm::mat4(1));
+
+    if (!world)
+        return (Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::faceWorldMatrix&quot;, &quot;Rejected condition: !world&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+                std::nullopt);
+
+    const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);
+
+    if (!detail::finiteMatrix(result)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;Scene::faceWorldMatrix&quot;,
+                            &quot;Face world transform overflow.&quot;, &quot;Inspect local face animation and entity transforms.&quot;,
+                            id);
+
+        return {};
+    }
+
+    return result;
+}
+
+std::optional&lt;glm::mat4&gt; Scene::lineWorldMatrix(LineId id) const {
+    if (id &gt;= lines_.size())
+        return (Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::lineWorldMatrix&quot;,
+                    &quot;Rejected condition: id &gt;= lines_.size()&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id),
+                std::nullopt);
+
+    if (lines_[id].owner)
+        return worldMatrix(*lines_[id].owner);
+
+    const auto global = motions_.layerMatrices(MotionSystem::rootLayer());
+
+    return global ? std::optional&lt;glm::mat4&gt;(global-&gt;parent * global-&gt;local) : std::nullopt;
+}
+
+bool Scene::bindEntity(EntityId id, LayerId layer) {
+    if (id &gt;= components_.size() || !motions_.getLayer(layer))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::bindEntity&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || !motions_.getLayer(layer)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    entityLayers_[id] = layer;
+
+    return true;
+}
+
+bool Scene::unbindEntity(EntityId id) {
+    if (id &gt;= components_.size())
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::unbindEntity&quot;,
+            &quot;Rejected condition: id &gt;= components_.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    entityLayers_.erase(id);
+
+    return true;
+}
+
+std::optional&lt;LayerId&gt; Scene::getEntityLayer(EntityId id) const {
+    if (id &gt;= components_.size())
+        return {};
+
+    const auto found = entityLayers_.find(id);
+
+    if (found == entityLayers_.end() || !motions_.getLayer(found-&gt;second))
+        return {};
+
+    return found-&gt;second;
+}
+
+bool Scene::setTransform(EntityId id, const Transform3D&amp; transform) {
+    if (id &gt;= components_.size() || !DiagramSystem::validTransform(transform)) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setTransform&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || !DiagramSystem::validTransform(transform)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+    components_[id].transform = transform;
+
+    return true;
+}
+
+bool Scene::setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld) {
+    if (!getMesh(id, faceIndex) || (mode != FaceTransformMode::Hierarchy &amp;&amp; mode != FaceTransformMode::Independent))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                   &quot;Invalid entity, face index or transform mode.&quot;);
+    auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+    glm::mat4 frame(1);
+    if (preserveWorld) {
+        if (mode == face.transformMode) return true;
+        const auto world = worldMatrix(id);
+        if (!world) return false;
+        const auto oldParent = face.transformMode == FaceTransformMode::Hierarchy ? *world : glm::mat4(1);
+        frame = oldParent * face.transformFrame;
+        if (mode == FaceTransformMode::Hierarchy) {
+            const float determinant = glm::determinant(*world);
+            if (!std::isfinite(determinant) || std::abs(determinant) &lt; 1e-12f)
+                return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;setFaceTransformMode&quot;,
+                                           &quot;Cannot preserve world pose under a singular parent transform.&quot;);
+            frame = glm::inverse(*world) * frame;
+        }
+    }
+    if (!TransformSystem::validAffine(frame)) return false;
+    face.transformMode = mode;
+    face.transformFrame = frame;
+    return true;
+}
+
+bool Scene::setFaceTransform(EntityId id, std::size_t faceIndex, const Transform3D&amp; transform, bool independence) {
+    if (id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() ||
+        !DiagramSystem::validTransform(transform)) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setFaceTransform&quot;,
+            &quot;Rejected condition: id &gt;= components_.size() || faceIndex &gt;= components_[id].polyhedron.faces.size() || !DiagramSystem::validTransform(transform)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+
+    PlaneFigure&amp; face = components_[id].polyhedron.faces[faceIndex];
+
+    face.transform = transform;
+    face.independence = independence;
+
+    return true;
+}
+
+std::optional&lt;LineId&gt; Scene::addLine(const glm::vec3&amp; start, const glm::vec3&amp; end, GlColor color,
+                                     std::optional&lt;EntityId&gt; owner) {
+    if (!finiteVector(start) || !finiteVector(end) || !validColor(color) ||
+        (owner &amp;&amp; getComponent(*owner) == nullptr)) {
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::addLine&quot;,
+                &quot;Rejected condition: !finiteVector(start) || !finiteVector(end) || !validColor(color) || (owner &amp;&amp; getComponent(*owner) == nullptr)&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+            std::nullopt);
+    }
+
+    const LineId id = lines_.size();
+
+    lines_.push_back({start, end, color, owner});
+    geometryRevision_ = nextGeometryRevision();
+
+    return id;
+}
+
+std::optional&lt;LineId&gt; Scene::addVector(const glm::vec3&amp; origin, const glm::vec3&amp; vector, GlColor color,
+                                       std::optional&lt;EntityId&gt; owner) {
+    return addLine(origin, origin + vector, color, owner);
+}
+
+std::optional&lt;std::array&lt;LineId, 3&gt;&gt; Scene::addBasis(const glm::vec3&amp; origin, const glm::mat3&amp; basisVectors,
+                                                     const glm::vec3&amp; axisLengths, std::optional&lt;EntityId&gt; owner) {
+    if (!finiteVector(origin) || !positiveLengths(axisLengths) || (owner &amp;&amp; getComponent(*owner) == nullptr)) {
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::addBasis&quot;,
+                &quot;Rejected condition: !finiteVector(origin) || !positiveLengths(axisLengths) || (owner &amp;&amp; getComponent(*owner) == nullptr)&quot;,
+                &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+            std::nullopt);
+    }
+
+    for (int i = 0; i &lt; 3; ++i) {
+        if (!finiteVector(basisVectors[i]) || glm::dot(basisVectors[i], basisVectors[i]) &lt;= 0.0f ||
+            !finiteVector(origin + basisVectors[i] * axisLengths[i])) {
+            return (
+                Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::addBasis&quot;,
+                    &quot;Rejected condition: !finiteVector(basisVectors[i]) || glm::dot(basisVectors[i], basisVectors[i]) &lt;= 0.0f || !finiteVector(origin + basisVectors[i] * axisLengths[i])&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+                std::nullopt);
+        }
+    }
+    // 사전 검증 후 세 선을 함께 등록한다. 실패 입력은 장면을 변경하지 않는다.
+    const std::array&lt;GlColor, 3&gt; colors{GlColor{1.0f, 0.2f, 0.2f}, GlColor{0.2f, 1.0f, 0.2f},
+                                        GlColor{0.2f, 0.4f, 1.0f}};
+    std::array&lt;LineId, 3&gt; ids{};
+
+    for (int i = 0; i &lt; 3; ++i) {
+        ids[i] = lines_.size();
+        lines_.push_back({origin, origin + basisVectors[i] * axisLengths[i], colors[i], owner});
+    }
+    geometryRevision_ = nextGeometryRevision();
+
+    return ids;
+}
+
+bool Scene::setVector(LineId id, const glm::vec3&amp; origin, const glm::vec3&amp; vector) {
+    if (id &gt;= lines_.size() || !finiteVector(origin) || !finiteVector(origin + vector)) {
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setVector&quot;,
+            &quot;Rejected condition: id &gt;= lines_.size() || !finiteVector(origin) || !finiteVector(origin + vector)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    }
+    lines_[id].start = origin;
+    lines_[id].end = origin + vector;
+    geometryRevision_ = nextGeometryRevision();
+
+    return true;
+}
+
+void Scene::clear() {
+    motions_.clear();
+    entityLayers_.clear();
+
+    if (components_.empty() &amp;&amp; lines_.empty()) {
+        return;
+    }
+    polyId_.clear();
+    components_.clear();
+    cubeFaceId_.clear();
+    tetraFaceId_.clear();
+    pyramidFaceId_.clear();
+    lines_.clear();
+    geometryRevision_ = nextGeometryRevision();
+}
+
+bool DiagramSystem::validTransform(const Transform3D&amp; transform) {
+    return finiteVector(transform.basis) &amp;&amp; finiteVector(transform.localBasis) &amp;&amp; finiteVector(transform.scale) &amp;&amp;
+           finiteVector(transform.rotation[0]) &amp;&amp; finiteVector(transform.rotation[1]) &amp;&amp;
+           finiteVector(transform.rotation[2]) &amp;&amp; std::abs(glm::determinant(transform.rotation) - 1.0f) &lt; 0.01f &amp;&amp;
+           glm::length(glm::transpose(transform.rotation) * transform.rotation[0] - glm::vec3(1, 0, 0)) &lt; 0.01f &amp;&amp;
+           glm::length(glm::transpose(transform.rotation) * transform.rotation[1] - glm::vec3(0, 1, 0)) &lt; 0.01f &amp;&amp;
+           glm::length(glm::transpose(transform.rotation) * transform.rotation[2] - glm::vec3(0, 0, 1)) &lt; 0.01f &amp;&amp;
+           finiteMatrix(detail::transformMatrix(transform));
+}
+
+bool DiagramSystem::validPolyhedron(const Polyhedron&amp; polyhedron) {
+    if (polyhedron.faces.empty())
+        return false;
+
+    for (const auto&amp; face : polyhedron.faces)
+        if (!detail::validMesh(face) || !validTransform(face.transform))
+            return false;
+
+    return true;
+}
+
+Polyhedron DiagramSystem::makePolyhedron(GLShape shape, const glm::vec3&amp; sideLengths) {
+    Polyhedron polyhedron;
+
+    if (!positiveLengths(sideLengths)) {
+        return polyhedron;
+    }
+    polyhedron.shape = shape;
+
+    if (shape == GLShape::Cube) {
+        const float x = sideLengths.x * 0.5f;
+        const float y = sideLengths.y * 0.5f;
+        const float z = sideLengths.z * 0.5f;
+
+        polyhedron.faces.reserve(6);
+        appendFace(polyhedron, GLFace::Rect, {{-x, -y, z}, {x, -y, z}, {x, y, z}, {-x, y, z}}, {.9f, .3f, .3f});
+        appendFace(polyhedron, GLFace::Rect, {{x, -y, -z}, {-x, -y, -z}, {-x, y, -z}, {x, y, -z}}, {.3f, .8f, .4f});
+        appendFace(polyhedron, GLFace::Rect, {{-x, -y, -z}, {-x, -y, z}, {-x, y, z}, {-x, y, -z}}, {.3f, .5f, .9f});
+        appendFace(polyhedron, GLFace::Rect, {{x, -y, z}, {x, -y, -z}, {x, y, -z}, {x, y, z}}, {.9f, .8f, .3f});
+        appendFace(polyhedron, GLFace::Rect, {{-x, y, z}, {x, y, z}, {x, y, -z}, {-x, y, -z}}, {.3f, .8f, .9f});
+        appendFace(polyhedron, GLFace::Rect, {{-x, -y, -z}, {x, -y, -z}, {x, -y, z}, {-x, -y, z}}, {.8f, .3f, .9f});
+    } else if (shape == GLShape::Pyramid) {
+        const float x = sideLengths.x * 0.5f;
+        const float y = sideLengths.y * 0.5f;
+        const float z = sideLengths.z * 0.5f;
+        const glm::vec3 frontLeft{-x, -y, z};
+        const glm::vec3 frontRight{x, -y, z};
+        const glm::vec3 backRight{x, -y, -z};
+        const glm::vec3 backLeft{-x, -y, -z};
+        const glm::vec3 apex{0.0f, y, 0.0f};
+
+        polyhedron.faces.reserve(5);
+        // 앞, 오른쪽, 뒤, 왼쪽, 바닥. 삼각형과 사각형은 바깥쪽 winding이다.
+        appendFace(polyhedron, GLFace::Triangle, {frontLeft, frontRight, apex}, {.9f, .3f, .3f});
+        appendFace(polyhedron, GLFace::Triangle, {frontRight, backRight, apex}, {.3f, .5f, .9f});
+        appendFace(polyhedron, GLFace::Triangle, {backRight, backLeft, apex}, {.3f, .8f, .4f});
+        appendFace(polyhedron, GLFace::Triangle, {backLeft, frontLeft, apex}, {.9f, .8f, .3f});
+        appendFace(polyhedron, GLFace::Rect, {backLeft, backRight, frontRight, frontLeft}, {.8f, .3f, .9f});
+    } else if (shape == GLShape::Tetra) {
+        // 원점에서 직교하는 세 모서리를 만들고, 무게중심을 로컬 원점으로 옮긴다.
+        const glm::vec3 center = sideLengths * 0.25f;
+        const glm::vec3 origin = -center;
+        const glm::vec3 x = glm::vec3(sideLengths.x, 0.0f, 0.0f) - center;
+        const glm::vec3 y = glm::vec3(0.0f, sideLengths.y, 0.0f) - center;
+        const glm::vec3 z = glm::vec3(0.0f, 0.0f, sideLengths.z) - center;
+
+        polyhedron.faces.reserve(4);
+        appendFace(polyhedron, GLFace::Triangle, {origin, y, x}, {.9f, .4f, .3f});
+        appendFace(polyhedron, GLFace::Triangle, {origin, x, z}, {.3f, .8f, .4f});
+        appendFace(polyhedron, GLFace::Triangle, {origin, z, y}, {.3f, .5f, .9f});
+        appendFace(polyhedron, GLFace::Triangle, {x, y, z}, {.9f, .8f, .3f});
+    }
+
+    return polyhedron;
+}
+
+Model DiagramSystem::makeSphere(float radius, unsigned slices, unsigned stacks) {
+    Model model;
+
+    if (!std::isfinite(radius) || radius &lt;= 0 || slices &lt; 3 || slices &gt; 512 || stacks &lt; 2 || stacks &gt; 256)
+        return model;
+
+    Mesh mesh;
+
+    mesh.localVertices.push_back({0, radius, 0});
+
+    constexpr double pi = 3.14159265358979323846;
+
+    for (unsigned row = 1; row &lt; stacks; ++row) {
+        const double latitude = pi * row / stacks;
+
+        for (unsigned col = 0; col &lt; slices; ++col) {
+            const double longitude = 2 * pi * col / slices;
+
+            mesh.localVertices.push_back(radius * glm::vec3(std::sin(latitude) * std::cos(longitude),
+                                                            std::cos(latitude),
+                                                            std::sin(latitude) * std::sin(longitude)));
+        }
+    }
+
+    const auto bottom = std::uint32_t(mesh.localVertices.size());
+
+    mesh.localVertices.push_back({0, -radius, 0});
+
+    for (unsigned col = 0; col &lt; slices; ++col) {
+        const auto next = (col + 1) % slices;
+
+        mesh.triangleIndices.insert(mesh.triangleIndices.end(), {0, 1 + next, 1 + col});
+
+        for (unsigned row = 0; row + 2 &lt; stacks; ++row) {
+            const auto a = 1 + row * slices + col, b = 1 + row * slices + next, c = a + slices, d = b + slices;
+
+            mesh.triangleIndices.insert(mesh.triangleIndices.end(), {a, b, c, b, d, c});
+        }
+
+        const auto a = 1 + (stacks - 2) * slices + col, b = 1 + (stacks - 2) * slices + next;
+
+        mesh.triangleIndices.insert(mesh.triangleIndices.end(), {a, b, bottom});
+    }
+
+    for (const auto&amp; p : mesh.localVertices)
+        mesh.vertexNormals.push_back(glm::normalize(p));
+    model.faces.push_back(std::move(mesh));
+
+    return validPolyhedron(model) ? model : Model{};
+}
+
+Model DiagramSystem::makeCone(float radius, float height, unsigned slices) {
+    Model model;
+
+    if (!std::isfinite(radius) || !std::isfinite(height) || radius &lt;= 0 || height &lt;= 0 || slices &lt; 3 || slices &gt; 512)
+        return model;
+
+    constexpr double pi = 3.14159265358979323846;
+    // Separate sides/base keep the bottom rim sharp for normals and outlines.
+    Mesh sides, base;
+
+    sides.localVertices.push_back({0, height * .5f, 0});
+    base.localVertices.push_back({0, -height * .5f, 0});
+
+    for (unsigned i = 0; i &lt; slices; ++i) {
+        const double a = 2 * pi * i / slices;
+        const glm::vec3 p{radius * float(std::cos(a)), -height * .5f, radius * float(std::sin(a))};
+
+        sides.localVertices.push_back(p);
+        base.localVertices.push_back(p);
+    }
+
+    for (unsigned i = 0; i &lt; slices; ++i) {
+        const auto a = 1 + i, b = 1 + (i + 1) % slices;
+
+        sides.triangleIndices.insert(sides.triangleIndices.end(), {0, b, a});
+        base.triangleIndices.insert(base.triangleIndices.end(), {0, a, b});
+    }
+    recalculateNormals(sides);
+    recalculateNormals(base);
+    model.faces = {std::move(sides), std::move(base)};
+
+    return validPolyhedron(model) ? model : Model{};
+}
+
+glm::mat4 DiagramSystem::modelMatrix(const Transform3D&amp; transform) {
+    return detail::transformMatrix(transform);
+}
+
+glm::mat4 DiagramSystem::faceModelMatrix(const Component_Poly&amp; component, const PlaneFigure&amp; face) {
+    return detail::faceMatrix(component, face);
+}
+
+bool CameraSystem::validCamera(const Camera&amp; camera) {
+    const glm::vec3 direction = camera.target - camera.position;
+    const glm::vec3 right = glm::cross(direction, camera.up);
+
+    return finiteVector(camera.position) &amp;&amp; finiteVector(camera.target) &amp;&amp; finiteVector(camera.up) &amp;&amp;
+           finiteVector(direction) &amp;&amp; finiteVector(right) &amp;&amp; std::isfinite(glm::dot(direction, direction)) &amp;&amp;
+           std::isfinite(glm::dot(right, right)) &amp;&amp; glm::dot(direction, direction) &gt; 0.000001f &amp;&amp;
+           glm::dot(right, right) &gt; 0.000001f &amp;&amp; std::isfinite(camera.fieldOfViewDegrees) &amp;&amp;
+           camera.fieldOfViewDegrees &gt; 0.0f &amp;&amp; camera.fieldOfViewDegrees &lt; 180.0f &amp;&amp; std::isfinite(camera.nearPlane) &amp;&amp;
+           std::isfinite(camera.farPlane) &amp;&amp; camera.nearPlane &gt; 0.0f &amp;&amp; camera.farPlane &gt; camera.nearPlane &amp;&amp;
+           std::isfinite(camera.orthographicHalfExtent) &amp;&amp; camera.orthographicHalfExtent &gt; 0.0f;
+}
+
+glm::mat4 CameraSystem::viewMatrix(const Camera&amp; camera) {
+    return glm::lookAt(camera.position, camera.target, camera.up);
+}
+
+glm::mat4 CameraSystem::projectionMatrix(const Camera&amp; camera, float aspect) {
+    if (camera.orthographic) {
+        const float halfWidth = camera.orthographicHalfExtent * (aspect &gt;= 1.0f ? aspect : 1.0f);
+        const float halfHeight = camera.orthographicHalfExtent / (aspect &lt; 1.0f ? aspect : 1.0f);
+
+        return glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, camera.nearPlane, camera.farPlane);
+    }
+
+    return glm::perspective(glm::radians(camera.fieldOfViewDegrees), aspect, camera.nearPlane, camera.farPlane);
+}
+
+void Scene::rebuildFaceIds() {
+    cubeFaceId_.clear();
+    tetraFaceId_.clear();
+    pyramidFaceId_.clear();
+
+    for (EntityId id : polyId_) {
+        const auto&amp; model = components_[id].polyhedron;
+        auto* ids = model.shape == GLShape::Cube      ? &amp;cubeFaceId_
+                    : model.shape == GLShape::Tetra   ? &amp;tetraFaceId_
+                    : model.shape == GLShape::Pyramid ? &amp;pyramidFaceId_
+                                                      : nullptr;
+
+        if (ids)
+            for (std::size_t f = 0; f &lt; model.faces.size(); ++f)
+                ids-&gt;push_back({id, f});
+    }
+}
+
+std::optional&lt;EntityId&gt; Scene::addModel(const Model&amp; model, const Transform3D&amp; transform, PivotMode pivot,
+                                        const glm::vec3&amp; customPivot) {
+    if (!DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot))
+        return (Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::addModel&quot;,
+                    &quot;Rejected condition: !DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot)&quot;,
+                    &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;),
+                std::nullopt);
+
+    auto initial = transform;
+
+    if (pivot == PivotMode::BottomCenter)
+        initial.localBasis = detail::bottomCenter(model);
+    else if (pivot == PivotMode::Custom)
+        initial.localBasis = customPivot;
+
+    auto id = push_entity(model, initial);
+
+    if (id)
+        components_[*id].pivotMode = pivot;
+
+    return id;
+}
+
+bool Scene::setModel(EntityId id, const Model&amp; model) {
+    if (id &gt;= components_.size() || !DiagramSystem::validPolyhedron(model))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setModel&quot;,
+            &quot;Rejected condition: id&gt;=components_.size() || !DiagramSystem::validPolyhedron(model)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    const auto box = detail::bounds(model);
+
+    if (!detail::finiteVector(box.second - box.first))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setModel&quot;,
+            &quot;Rejected condition: !detail::finiteVector(box.second-box.first)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = components_[id];
+
+    replacement.polyhedron = model;
+    replacement.sideLengths = box.second - box.first;
+    replacement.transformOnly = false;
+
+    if (replacement.pivotMode == PivotMode::BottomCenter)
+        replacement.transform.localBasis = detail::bottomCenter(model);
+    components_[id] = std::move(replacement);
+    rebuildFaceIds();
+    geometryRevision_ = nextGeometryRevision();
+
+    return true;
+}
+
+const Mesh* Scene::getMesh(EntityId id, std::size_t meshIndex) const {
+    const auto* c = getComponent(id);
+
+    return c &amp;&amp; meshIndex &lt; c-&gt;polyhedron.faces.size() ? &amp;c-&gt;polyhedron.faces[meshIndex] : nullptr;
+}
+
+bool Scene::setMesh(EntityId id, std::size_t meshIndex, const Mesh&amp; mesh) {
+    if (!getMesh(id, meshIndex))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setMesh&quot;, &quot;Rejected condition: !getMesh(id,meshIndex)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    Model replacement = components_[id].polyhedron;
+
+    replacement.faces[meshIndex] = mesh;
+
+    return setModel(id, replacement);
+}
+
+bool Scene::setMeshVertices(EntityId id, std::size_t meshIndex, const std::vector&lt;Vertex&gt;&amp; vertices,
+                            const std::vector&lt;std::uint32_t&gt;&amp; triangles) {
+    const auto* original = getMesh(id, meshIndex);
+
+    if (!original)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setMeshVertices&quot;, &quot;Rejected condition: !original&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *original;
+    const auto geometry = Mesh::fromVertices(vertices, triangles);
+
+    replacement.localVertices = geometry.localVertices;
+    replacement.vertexNormals = geometry.vertexNormals;
+    replacement.texcoords = geometry.texcoords;
+    replacement.vertexColors = geometry.vertexColors;
+    replacement.triangleIndices = triangles;
+    replacement.shape = GLFace::Mesh;
+    replacement.outlineIndices.clear();
+
+    if (replacement.outline == OutlineMode::Explicit)
+        replacement.outline = OutlineMode::None;
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setVertexPosition(EntityId id, std::size_t meshIndex, std::size_t vertexIndex, const glm::vec3&amp; position) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh || vertexIndex &gt;= mesh-&gt;localVertices.size() || !detail::finiteVector(position))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setVertexPosition&quot;,
+            &quot;Rejected condition: !mesh||vertexIndex&gt;=mesh-&gt;localVertices.size()||!detail::finiteVector(position)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.localVertices[vertexIndex] = position;
+    recalculateNormals(replacement);
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setTriangleIndices(EntityId id, std::size_t meshIndex, const std::vector&lt;std::uint32_t&gt;&amp; indices) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setTriangleIndices&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.shape = GLFace::Mesh;
+    replacement.triangleIndices = indices;
+
+    if (!detail::validMesh(replacement))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setTriangleIndices&quot;,
+            &quot;Rejected condition: !detail::validMesh(replacement)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    recalculateNormals(replacement);
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions&amp; options) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::generateTexcoords&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    return graphics::generateTexcoords(replacement, options) &amp;&amp; setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2&amp; scale, const glm::vec2&amp; offset,
+                               float rotationDegrees) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::transformTexcoords&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    return graphics::transformTexcoords(replacement, scale, offset, rotationDegrees) &amp;&amp;
+           setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setTexcoords(EntityId id, std::size_t meshIndex, const std::vector&lt;glm::vec2&gt;&amp; uvs) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setTexcoords&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.texcoords = uvs;
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector&lt;glm::vec3&gt;&amp; normals) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setVertexNormals&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.vertexNormals = normals;
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setMaterial(EntityId id, std::size_t meshIndex, const Material&amp; material) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setMaterial&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.material = material;
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode,
+                       const std::vector&lt;std::uint32_t&gt;&amp; explicitEdges) {
+    const auto* mesh = getMesh(id, meshIndex);
+
+    if (!mesh)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setOutline&quot;, &quot;Rejected condition: !mesh&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto replacement = *mesh;
+
+    replacement.outline = mode;
+    replacement.outlineIndices = explicitEdges;
+
+    return setMesh(id, meshIndex, replacement);
+}
+
+bool Scene::setLocalBasis(EntityId id, PivotMode mode, const glm::vec3&amp; customPivot) {
+    if (id &gt;= components_.size() || !detail::finiteVector(customPivot))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setLocalBasis&quot;,
+            &quot;Rejected condition: id&gt;=components_.size()||!detail::finiteVector(customPivot)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    auto&amp; c = components_[id];
+
+    if (c.transformOnly &amp;&amp; mode == PivotMode::BottomCenter)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setLocalBasis&quot;,
+            &quot;Rejected condition: c.transformOnly &amp;&amp; mode==PivotMode::BottomCenter&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+
+    if (mode == PivotMode::BottomCenter)
+        c.transform.localBasis = detail::bottomCenter(c.polyhedron);
+    else if (mode == PivotMode::Custom)
+        c.transform.localBasis = customPivot;
+    c.pivotMode = mode;
+
+    return true;
+}
+
+bool Scene::setVisible(EntityId id, bool visible) {
+    if (id &gt;= components_.size())
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::setVisible&quot;, &quot;Rejected condition: id&gt;=components_.size()&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    components_[id].visible = visible;
+
+    return true;
+}
+
+bool Scene::splitFace(EntityId id, std::size_t faceIndex) {
+    if (!getMesh(id, faceIndex))
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Scene, &quot;Scene::splitFace&quot;, &quot;Rejected condition: !getMesh(id,faceIndex)&quot;,
+            &quot;Check finite values, valid IDs, dimensions, indices and parent/layer relationships.&quot;, id);
+    // The same face remains under its parent; vertices and indices are already face-local storage.
+    auto&amp; face = components_[id].polyhedron.faces[faceIndex];
+
+    if (!face.independence) {
+        face.transform = Transform3D{};
+        face.independence = true;
+    }
+
+    return true;
+}
+
+bool Scene::setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D&amp; transform) {
+    return setFaceTransform(id, faceIndex, transform, true);
+}
+} // namespace graphics</code></pre></details><details><summary>실제 저장소 소스 · framework/include/Patterns.h</summary><pre><code>#pragma once
+#include &quot;Application.h&quot;
+#include &quot;GridLayout.h&quot;
+#include &lt;random&gt;
+
+namespace graphics {
+struct Bounds3 {
+    glm::vec3 minimum{-1}, maximum{1};
+    /// [API] 해당 데이터가 계산에 필요한 유효 범위와 유한성 조건을 만족하는지 반환한다.
+    bool valid() const;
+    /// [API] 점이 margin만큼 안쪽으로 줄인 Bounds3 안에 있는지 검사한다.
+    bool contains(const glm::vec3&amp; point, const glm::vec3&amp; margin = glm::vec3(0)) const;
+    /// [API] 두 축 정렬 경계 상자가 겹치는지 검사한다.
+    bool overlaps(const Bounds3&amp; other) const;
+};
+
+struct PathPose {
+    glm::vec3 position{0}, tangent{0, 0, 1};
+    float yawDegrees = 0;
+};
+
+class DistancePath {
+    std::vector&lt;glm::vec3&gt; points_;
+    std::vector&lt;double&gt; distances_;
+
+public:
+    /// [API] 연속 점들의 누적 거리 경로를 구성한다. closed면 마지막에서 처음으로 연결한다.
+    bool setPoints(const std::vector&lt;glm::vec3&gt;&amp; points, bool closed = false);
+
+    /// [API] 경로 전체 누적 길이를 반환한다. 경로가 비어 있으면 0이다.
+    double length() const {
+        return distances_.empty() ? 0 : distances_.back();
+    }
+
+    /// [API] 누적 거리와 Once/Loop/PingPong 정책에서 위치·접선·yaw를 샘플링한다.
+    std::optional&lt;PathPose&gt; sample(double distance, Playback playback = Playback::Loop) const;
+};
+
+struct AnimationClock {
+    double seconds = 0;
+    bool playing = true;
+    /// [API] playing일 때만 누적 시간을 늘린다. dt와 누적 값의 유한성·범위를 검사한다.
+    bool advance(double dt);
+
+    /// [API] 누적 시간을 0으로 되돌리고 재생 상태를 켠다.
+    void reset() {
+        seconds = 0;
+        playing = true;
+    }
+};
+
+struct RoomBody {
+    glm::vec3 localPosition{0}, localVelocity{0}, halfExtent{.2f};
+    glm::vec3 worldPosition{0}, worldVelocity{0};
+    bool released = false;
+
+    /// [API] 이탈 전에는 roomWorld로 로컬 중심을 월드로 변환하고 이탈 후에는 worldPosition을 반환한다.
+    glm::vec3 position(const glm::mat4&amp; roomWorld) const {
+        return released ? worldPosition : glm::vec3(roomWorld * glm::vec4(localPosition, 1));
+    }
+};
+
+struct CharacterBody {
+    glm::vec3 feet{0}, direction{0, 0, 1};
+    glm::vec2 halfWidth{.25f};
+    float height = 1.6f, speed = 1, verticalSpeed = 0;
+    double walkDistance = 0;
+    bool grounded = true;
+};
+
+struct CharacterStep {
+    bool blocked = false, turned = false, landed = false;
+};
+
+class CollisionSystem {
+public:
+    // Rigid, kinematic room. Boxes stay aligned to its axes until release.
+    /// [API] 방 내부에서는 로컬 반사/중력을 계산하고 released 뒤에는 월드 중력으로 적분한다.
+    static bool stepRoomBody(RoomBody&amp; body, const Bounds3&amp; room, const glm::mat4&amp; roomWorld, float dt, bool floorOpen,
+                             bool elastic, const glm::vec3&amp; gravity = glm::vec3(0, -9.8f, 0),
+                             const glm::vec3&amp; angularVelocity = glm::vec3(0));
+    /// [API] 접지 상태에서만 위쪽 속도를 설정한다. 공중 입력 거절은 정상적인 false다.
+    static bool jump(CharacterBody&amp; body, float speed);
+    /// [API] 수평 이동·장애물/경계 반전·중력·윗면 착지·지지면 이탈을 하위 단계로 계산한다.
+    static std::optional&lt;CharacterStep&gt; stepCharacter(CharacterBody&amp; body, const Bounds3&amp; stage,
+                                                      const std::vector&lt;Bounds3&gt;&amp; obstacles, float dt,
+                                                      float gravity = 9.8f);
+    /// [API] 제한 횟수 안에서 occupied와 겹치지 않는 배치를 찾는다. 난수 엔진의 시드·수명은 호출자가 관리한다.
+    static std::optional&lt;Bounds3&gt; randomFreeBox(const Bounds3&amp; area, const glm::vec3&amp; size,
+                                                const std::vector&lt;Bounds3&gt;&amp; occupied, std::mt19937&amp; random,
+                                                unsigned attempts = 128);
+};
+
+struct JointRig {
+    EntityId root = 0, head = 0;
+    std::array&lt;EntityId, 2&gt; shoulders{}, hips{};
+};
+
+enum class FaceRotationKind { EdgeHinge, SelfSpin, ModelOrbit };
+struct FaceRotationConfig {
+    FaceRotationKind kind = FaceRotationKind::EdgeHinge;
+    std::size_t edge = 0; // Cyclic boundary edge of the original polygon.
+    glm::vec3 axis{0, 1, 0}; // Model-local direction for self spin / model orbit.
+    double degrees = 0; // Absolute angle, not a frame increment.
+};
+
+class PatternSystem {
+public:
+    /// [API] 직선 → 안쪽 코너 중심 원호 → 직선의 거리에서 위치·접선·yaw를 계산한다. 끝에서 처음으로 순환한다.
+    static std::optional&lt;PathPose&gt; conveyorCornerPose(double distance, const glm::vec3&amp; start, const glm::vec3&amp; pivot,
+                                                      float radius, float endZ);
+    /// [API] 양수 크기의 중심 기준 모델을 만들고 부모 로컬 위치·색·부모 관계를 설정한다.
+    static std::optional&lt;EntityId&gt; addBox(Scene&amp; scene, const glm::vec3&amp; size, const glm::vec3&amp; position, GlColor color,
+                                          std::optional&lt;EntityId&gt; parent = std::nullopt);
+    /// [API] 점 목록으로 단일 다각형 면을 만들고 색·부모 관계와 함께 Scene에 등록한다. 오목 다각형의 자동 분할을 가정하지 않는다.
+    static std::optional&lt;EntityId&gt; addPolygon(Scene&amp; scene, const std::vector&lt;glm::vec3&gt;&amp; points, GlColor color,
+                                              std::optional&lt;EntityId&gt; parent = std::nullopt);
+    /// [API] 여섯 면의 방을 만들고 바깥 winding에 Front cull, 안쪽 조명 법선을 적용한다. face 0..3은 옆벽, 4 천장, 5 바닥이다.
+    static std::optional&lt;EntityId&gt; addRoom(Scene&amp; scene, const Bounds3&amp; bounds, bool frontOpen = true);
+    /// [API] 부모에 부착된 transform-only 그룹을 만든다. 표시 메시 크기와 회전 연결 위치를 분리한다.
+    static std::optional&lt;EntityId&gt; addJoint(Scene&amp; scene, EntityId parent, const glm::vec3&amp; anchor);
+    /// [API] 연결 위치와 크기를 유지하면서 회전 기저를 변경한다.
+    static bool rotateJoint(Scene&amp; scene, EntityId joint, const glm::vec3&amp; axis, float degrees);
+    /// [API] DistancePath 샘플을 엔티티 위치와 +Z 기준 Y 회전에 반영한다.
+    static bool follow(Scene&amp; scene, EntityId entity, const DistancePath&amp; path, double distance,
+                       const glm::vec3&amp; offset = glm::vec3(0), bool orient = true);
+    /// [API] 0~9를 선분으로 구성한다. 부모 로컬 XY 평면의 표시이며 일반 폰트/텍스트 렌더러는 아니다.
+    static bool addNumber(Scene&amp; scene, unsigned digit, const glm::vec3&amp; position, float height, GlColor color,
+                          std::optional&lt;EntityId&gt; parent = std::nullopt);
+    /// [API] 지정 회전축을 중심으로 면 로컬 애니메이션 행렬을 계산한다.
+    static bool foldFace(Scene&amp; scene, EntityId entity, std::size_t face, const AxisLine&amp; hinge, float degrees);
+    /// [API] 원래 모서리 힌지·면 중심 자전·원본 모델 중심 공전을 구분하여 면 회전 행렬을 설정한다.
+    static bool rotateFace(Scene&amp; scene, EntityId entity, std::size_t face, const FaceRotationConfig&amp; config);
+    /// [API] 진행률 [0,1]로 이동 또는 상단 피벗 Y축 축소를 적용한다. 완전 개방은 숨기고 0 배율 특이행렬을 피한다.
+    static bool openFace(Scene&amp; scene, EntityId entity, std::size_t face, float progress, const glm::vec3&amp; displacement,
+                         const glm::vec3&amp; topPivot, bool scaleOpen);
+    /// [API] 시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.
+    static std::optional&lt;std::size_t&gt; cameraFacingWall(const Scene&amp; scene, EntityId room, const Camera&amp; camera);
+    /// [API] 선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
+    static bool openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress);
+    /// [API] 셀 격자를 지그재그 순서로 방문하는 정수 인덱스 목록을 만든다.
+    static std::vector&lt;glm::ivec3&gt; snakeCells(const glm::ivec3&amp; cells);
+    /// [API] 두 값의 차이가 허용 오차 이하인지 검사한다.
+    static bool aligned(float first, float second, float tolerance);
+    /// [API] 좌표를 양수 간격으로 반올림한다. 실패 시 입력 점을 그대로 유지한다.
+    static glm::vec3 snap(const glm::vec3&amp; point, float spacing);
+    /// [API] 화면 픽셀을 ray로 바꾸어 평면 교차 위치를 얻는다. 평행/뒤쪽 교차는 빈 결과다.
+    static std::optional&lt;glm::vec3&gt; screenOnPlane(const Camera&amp; camera, double x, double y,
+                                                  const PickViewport&amp; viewport, const glm::vec3&amp; planePoint,
+                                                  const glm::vec3&amp; normal);
+    /// [API] 시점과 주목점을 동일하게 이동해 시선 방향을 보존한다.
+    static bool moveCamera(Camera&amp; camera, const glm::vec3&amp; offset);
+    /// [API] 시점은 고정하고 카메라 로컬 up축을 기준으로 시선을 회전한다.
+    static bool yawCamera(Camera&amp; camera, float degrees);
+    /// [API] 월드 축에 대해 시점·주목점·up을 함께 변환한다. 축을 target에 두면 target은 고정된다.
+    static bool orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees);
+    /// [API] 원근은 target까지 거리, 직각은 orthographicHalfExtent를 배율로 바꾼다.
+    static bool zoomCamera(Camera&amp; camera, float factor);
+    /// [API] 원근·XZ 평면도·XY 정면도 카메라와 픽셀 영역을 구성한다. 상단 뷰의 up은 -Z다.
+    static std::vector&lt;RenderPass&gt; threeViews(const Camera&amp; perspective, int width, int height,
+                                              const RenderOptions&amp; options = RenderOptions{});
+    /// [API] 그리드 비율로 머리·코·몸통·어깨·엉덩이·팔·다리 계층을 조립하고 ID 묶음을 반환한다.
+    static std::optional&lt;JointRig&gt; addWalkingRig(Scene&amp; scene, const GridLayout&amp; bodyGrid);
+    /// [API] 루트 이동/yaw와 실제 이동 거리 기반 팔다리 반대 위상을 적용한다. 속도는 보행 진폭에 반영한다.
+    static bool poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
+                               double walkDistance, float speed);
+};
+} // namespace graphics</code></pre></details><details><summary>실제 저장소 소스 · framework/detail/Patterns.cpp</summary><pre><code>#include &quot;../Framework.h&quot;
+#include &quot;Internal.h&quot;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+
+namespace graphics {
+std::optional&lt;PathPose&gt; PatternSystem::conveyorCornerPose(double distance, const glm::vec3&amp; start,
+                                                          const glm::vec3&amp; pivot, float radius, float endZ) {
+    const double straight = double(pivot.x) - start.x, arc = 1.5707963267948966 * radius, last = double(endZ) - pivot.z;
+
+    if (!detail::finiteVector(start) || !detail::finiteVector(pivot) || !std::isfinite(distance) ||
+        !std::isfinite(radius) || radius &lt;= 0 || !std::isfinite(endZ) || straight &lt;= 0 || last &lt;= 0 ||
+        std::abs(start.z - (pivot.z - radius)) &gt; 1e-4f) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;conveyorCornerPose&quot;,
+                            &quot;Invalid XZ conveyor geometry.&quot;);
+
+        return {};
+    }
+
+    double d = std::fmod(distance, straight + arc + last);
+
+    if (d &lt; 0)
+        d += straight + arc + last;
+
+    PathPose p;
+
+    if (d &lt; straight) {
+        p.position = start + glm::vec3(float(d), 0, 0);
+        p.tangent = {1, 0, 0};
+    } else if (d &lt; straight + arc) {
+        const float a = float((d - straight) / radius);
+
+        p.position = {pivot.x + radius * std::sin(a), start.y, pivot.z - radius * std::cos(a)};
+        p.tangent = {std::cos(a), 0, std::sin(a)};
+    } else {
+        p.position = {pivot.x + radius, start.y, pivot.z + float(d - straight - arc)};
+        p.tangent = {0, 0, 1};
+    }
+    p.yawDegrees = glm::degrees(std::atan2(p.tangent.x, p.tangent.z));
+
+    return p;
+}
+
+bool Bounds3::valid() const {
+    return detail::finiteVector(minimum) &amp;&amp; detail::finiteVector(maximum) &amp;&amp; maximum.x &gt; minimum.x &amp;&amp;
+           maximum.y &gt; minimum.y &amp;&amp; maximum.z &gt; minimum.z;
+}
+
+bool Bounds3::contains(const glm::vec3&amp; p, const glm::vec3&amp; margin) const {
+    return valid() &amp;&amp; detail::finiteVector(p) &amp;&amp; detail::finiteVector(margin) &amp;&amp; margin.x &gt;= 0 &amp;&amp; margin.y &gt;= 0 &amp;&amp;
+           margin.z &gt;= 0 &amp;&amp; p.x &gt;= minimum.x + margin.x &amp;&amp; p.x &lt;= maximum.x - margin.x &amp;&amp; p.y &gt;= minimum.y + margin.y &amp;&amp;
+           p.y &lt;= maximum.y - margin.y &amp;&amp; p.z &gt;= minimum.z + margin.z &amp;&amp; p.z &lt;= maximum.z - margin.z;
+}
+
+bool Bounds3::overlaps(const Bounds3&amp; b) const {
+    return valid() &amp;&amp; b.valid() &amp;&amp; minimum.x &lt; b.maximum.x &amp;&amp; maximum.x &gt; b.minimum.x &amp;&amp; minimum.y &lt; b.maximum.y &amp;&amp;
+           maximum.y &gt; b.minimum.y &amp;&amp; minimum.z &lt; b.maximum.z &amp;&amp; maximum.z &gt; b.minimum.z;
+}
+
+bool DistancePath::setPoints(const std::vector&lt;glm::vec3&gt;&amp; points, bool closed) {
+    if (points.size() &lt; 2)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;DistancePath::setPoints&quot;,
+                                   &quot;Need at least two points.&quot;);
+
+    auto candidate = points;
+
+    for (const auto&amp; p : candidate)
+        if (!detail::finiteVector(p))
+            return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;DistancePath::setPoints&quot;,
+                                       &quot;Path contains NaN/Inf.&quot;);
+
+    if (closed &amp;&amp; glm::length(glm::dvec3(candidate.front()) - glm::dvec3(candidate.back())) &gt; 1e-10)
+        candidate.push_back(candidate.front());
+
+    std::vector&lt;double&gt; distances{0};
+
+    for (std::size_t i = 1; i &lt; candidate.size(); ++i) {
+        const double segment = glm::length(glm::dvec3(candidate[i]) - glm::dvec3(candidate[i - 1]));
+
+        if (!std::isfinite(segment) || segment &lt;= 1e-10 || !std::isfinite(distances.back() + segment))
+            return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;DistancePath::setPoints&quot;,
+                                       &quot;Zero-length, repeated or overflowing path segment.&quot;);
+        distances.push_back(distances.back() + segment);
+    }
+    points_ = std::move(candidate);
+    distances_ = std::move(distances);
+
+    return true;
+}
+
+std::optional&lt;PathPose&gt; DistancePath::sample(double distance, Playback playback) const {
+    const double total = length();
+
+    if (total &lt;= 0 || !std::isfinite(distance)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;DistancePath::sample&quot;,
+                            &quot;Configure a nonempty path and finite distance.&quot;);
+
+        return {};
+    }
+
+    double sign = 1;
+
+    if (playback == Playback::Once)
+        distance = std::clamp(distance, 0.0, total);
+    else if (playback == Playback::Loop) {
+        distance = std::fmod(distance, total);
+
+        if (distance &lt; 0)
+            distance += total;
+    } else if (playback == Playback::PingPong) {
+        distance = std::fmod(distance, 2 * total);
+
+        if (distance &lt; 0)
+            distance += 2 * total;
+
+        if (distance &gt; total) {
+            distance = 2 * total - distance;
+            sign = -1;
+        }
+    } else {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;DistancePath::sample&quot;,
+                            &quot;Invalid Playback value.&quot;);
+
+        return {};
+    }
+
+    const auto end = std::upper_bound(distances_.begin(), distances_.end(), distance);
+    const std::size_t i = end == distances_.end() ? distances_.size() - 1 : std::size_t(end - distances_.begin());
+    const float weight = float((distance - distances_[i - 1]) / (distances_[i] - distances_[i - 1]));
+    PathPose pose;
+
+    pose.position = glm::mix(points_[i - 1], points_[i], weight);
+    pose.tangent = glm::vec3(glm::normalize(glm::dvec3(points_[i]) - glm::dvec3(points_[i - 1])) * sign);
+    pose.yawDegrees = glm::degrees(std::atan2(pose.tangent.x, pose.tangent.z));
+
+    return pose;
+}
+
+bool AnimationClock::advance(double dt) {
+    if (!std::isfinite(dt) || dt &lt; 0 || !std::isfinite(seconds) || seconds &lt; 0 || !std::isfinite(seconds + dt))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;AnimationClock::advance&quot;,
+                                   &quot;Time must be finite, nonnegative and within range.&quot;);
+
+    if (playing)
+        seconds += dt;
+
+    return true;
+}
+
+namespace detail {
+bool rigidRoom(const glm::mat4&amp; matrix) {
+    const auto r = glm::mat3(matrix), identity = glm::transpose(r) * r;
+
+    return TransformSystem::validAffine(matrix) &amp;&amp; std::abs(glm::determinant(r) - 1) &lt; .001f &amp;&amp;
+           glm::length(identity[0] - glm::vec3(1, 0, 0)) &lt; .001f &amp;&amp;
+           glm::length(identity[1] - glm::vec3(0, 1, 0)) &lt; .001f &amp;&amp;
+           glm::length(identity[2] - glm::vec3(0, 0, 1)) &lt; .001f;
+}
+
+bool horizontalOverlap(const CharacterBody&amp; b, const glm::vec3&amp; feet, const Bounds3&amp; box) {
+    return feet.x + b.halfWidth.x &gt; box.minimum.x &amp;&amp; feet.x - b.halfWidth.x &lt; box.maximum.x &amp;&amp;
+           feet.z + b.halfWidth.y &gt; box.minimum.z &amp;&amp; feet.z - b.halfWidth.y &lt; box.maximum.z;
+}
+}
+
+bool CollisionSystem::stepRoomBody(RoomBody&amp; body, const Bounds3&amp; room, const glm::mat4&amp; roomWorld, float dt,
+                                   bool floorOpen, bool elastic, const glm::vec3&amp; gravity,
+                                   const glm::vec3&amp; angularVelocity) {
+    if (!room.valid() || !detail::rigidRoom(roomWorld) || !detail::finiteVector(gravity) ||
+        !detail::finiteVector(angularVelocity) || !detail::finiteVector(body.localPosition) ||
+        !detail::finiteVector(body.localVelocity) || !detail::positiveLengths(body.halfExtent) ||
+        !detail::finiteVector(body.worldPosition) || !detail::finiteVector(body.worldVelocity) || !std::isfinite(dt) ||
+        dt &lt; 0 || dt &gt; .25f)
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepRoomBody&quot;,
+            &quot;Need a rigid room transform, finite body state, positive half extents and dt in [0,.25].&quot;);
+
+    const auto low = room.minimum + body.halfExtent, high = room.maximum - body.halfExtent;
+
+    if (low.x &gt;= high.x || low.y &gt;= high.y || low.z &gt;= high.z)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepRoomBody&quot;,
+                                   &quot;Body does not fit inside the room.&quot;);
+
+    auto next = body;
+    const int steps = std::max(1, int(std::ceil(dt * 120)));
+    const float h = dt / steps;
+    const auto rotation = glm::mat3(roomWorld);
+    const auto localGravity = glm::transpose(rotation) * gravity;
+
+    for (int s = 0; s &lt; steps; ++s) {
+        if (next.released) {
+            next.worldVelocity += gravity * h;
+            next.worldPosition += next.worldVelocity * h;
+            continue;
+        }
+
+        if (!elastic)
+            next.localVelocity += localGravity * h;
+        next.localPosition += next.localVelocity * h;
+
+        if (floorOpen &amp;&amp; next.localPosition.y &lt; low.y) {
+            next.released = true;
+            next.worldPosition = glm::vec3(roomWorld * glm::vec4(next.localPosition, 1));
+            next.worldVelocity = rotation * next.localVelocity +
+                                 glm::cross(angularVelocity, next.worldPosition - glm::vec3(roomWorld[3]));
+            continue;
+        }
+
+        for (int axis = 0; axis &lt; 3; ++axis) {
+            if (elastic &amp;&amp; !(floorOpen &amp;&amp; axis == 1)) {
+                const double width = double(high[axis]) - low[axis];
+                const double p = double(next.localPosition[axis]) - low[axis];
+                double folded = std::fmod(p, 2 * width);
+
+                if (folded &lt; 0)
+                    folded += 2 * width;
+
+                const bool reflected = folded &gt; width;
+
+                next.localPosition[axis] = float(low[axis] + (reflected ? 2 * width - folded : folded));
+
+                if (reflected)
+                    next.localVelocity[axis] = -next.localVelocity[axis];
+
+                if (next.localPosition[axis] &lt;= low[axis])
+                    next.localVelocity[axis] = std::abs(next.localVelocity[axis]);
+
+                if (next.localPosition[axis] &gt;= high[axis])
+                    next.localVelocity[axis] = -std::abs(next.localVelocity[axis]);
+            } else {
+                if (next.localPosition[axis] &lt; low[axis] &amp;&amp; !(floorOpen &amp;&amp; axis == 1)) {
+                    next.localPosition[axis] = low[axis];
+                    next.localVelocity[axis] =
+                        elastic ? std::abs(next.localVelocity[axis]) : std::max(0.0f, next.localVelocity[axis]);
+                }
+
+                if (next.localPosition[axis] &gt; high[axis]) {
+                    next.localPosition[axis] = high[axis];
+                    next.localVelocity[axis] =
+                        elastic ? -std::abs(next.localVelocity[axis]) : std::min(0.0f, next.localVelocity[axis]);
+                }
+            }
+        }
+    }
+
+    if (!detail::finiteVector(next.localPosition) || !detail::finiteVector(next.localVelocity) ||
+        !detail::finiteVector(next.worldPosition) || !detail::finiteVector(next.worldVelocity))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepRoomBody&quot;,
+                                   &quot;Simulation overflow; original state was preserved.&quot;);
+    body = next;
+
+    return true;
+}
+
+bool CollisionSystem::jump(CharacterBody&amp; body, float speed) {
+    if (!std::isfinite(speed) || speed &lt;= 0)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::jump&quot;,
+                                   &quot;Jump speed must be positive and finite.&quot;);
+
+    if (!body.grounded)
+        return false; // Normal input rejection, not an API error.
+    body.verticalSpeed = speed;
+    body.grounded = false;
+
+    return true;
+}
+
+std::optional&lt;CharacterStep&gt; CollisionSystem::stepCharacter(CharacterBody&amp; body, const Bounds3&amp; stage,
+                                                            const std::vector&lt;Bounds3&gt;&amp; obstacles, float dt,
+                                                            float gravity) {
+    if (!stage.valid() || !detail::finiteVector(body.feet) || !detail::finiteVector(body.direction) ||
+        !std::isfinite(body.speed) || body.speed &lt; 0 || !std::isfinite(body.height) || body.height &lt;= 0 ||
+        !std::isfinite(body.halfWidth.x) || !std::isfinite(body.halfWidth.y) || body.halfWidth.x &lt;= 0 ||
+        body.halfWidth.y &lt;= 0 || !std::isfinite(body.verticalSpeed) || !std::isfinite(body.walkDistance) ||
+        !std::isfinite(dt) || dt &lt; 0 || dt &gt; .25f || !std::isfinite(gravity) || gravity &lt;= 0) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepCharacter&quot;,
+                            &quot;Invalid bounds, body dimensions, speed, gravity or dt.&quot;);
+
+        return {};
+    }
+
+    if (stage.maximum.x - stage.minimum.x &lt;= 2 * body.halfWidth.x ||
+        stage.maximum.z - stage.minimum.z &lt;= 2 * body.halfWidth.y) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepCharacter&quot;,
+                            &quot;Character does not fit on the stage.&quot;);
+
+        return {};
+    }
+
+    float spacing = std::min(body.halfWidth.x, body.halfWidth.y) * .5f;
+
+    for (const auto&amp; box : obstacles) {
+        if (!box.valid()) {
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepCharacter&quot;,
+                                &quot;Invalid obstacle bounds.&quot;);
+
+            return {};
+        }
+        spacing = std::min(spacing, std::min(box.maximum.x - box.minimum.x, box.maximum.z - box.minimum.z) * .5f);
+    }
+
+    const double count =
+        std::ceil(std::max(double(dt) * 120, double(body.speed) * dt / std::max(double(spacing), 1e-9)));
+
+    if (count &gt; 4096) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepCharacter&quot;,
+                            &quot;Motion exceeds the substep budget; reduce speed or dt.&quot;);
+
+        return {};
+    }
+
+    auto next = body;
+    CharacterStep event;
+
+    next.direction.y = 0;
+
+    const double directionLength = glm::length(glm::dvec3(next.direction));
+
+    next.direction = directionLength &gt; 1e-10 ? glm::vec3(glm::dvec3(next.direction) / directionLength) : glm::vec3(0);
+
+    const int steps = std::max(1, int(count));
+    const float h = dt / steps;
+
+    for (int i = 0; i &lt; steps; ++i) {
+        const auto previous = next.feet;
+        auto candidate = previous + next.direction * (next.speed * h);
+        bool blocked =
+            candidate.x - next.halfWidth.x &lt; stage.minimum.x || candidate.x + next.halfWidth.x &gt; stage.maximum.x ||
+            candidate.z - next.halfWidth.y &lt; stage.minimum.z || candidate.z + next.halfWidth.y &gt; stage.maximum.z;
+
+        for (const auto&amp; box : obstacles)
+            if (previous.y &lt; box.maximum.y - 1e-4f &amp;&amp; previous.y + next.height &gt; box.minimum.y + 1e-4f &amp;&amp;
+                detail::horizontalOverlap(next, candidate, box))
+                blocked = true;
+
+        if (blocked) {
+            next.direction = -next.direction;
+            candidate = previous;
+            event.blocked = event.turned = true;
+        }
+        next.feet = candidate;
+        next.walkDistance += glm::length(glm::dvec2(candidate.x - previous.x, candidate.z - previous.z));
+
+        bool supported = std::abs(next.feet.y - stage.minimum.y) &lt; 1e-4f;
+
+        for (const auto&amp; box : obstacles)
+            if (detail::horizontalOverlap(next, next.feet, box) &amp;&amp; std::abs(next.feet.y - box.maximum.y) &lt; 1e-4f)
+                supported = true;
+
+        if (next.grounded &amp;&amp; !supported)
+            next.grounded = false;
+
+        if (!next.grounded) {
+            const float oldY = next.feet.y;
+
+            next.verticalSpeed -= gravity * h;
+
+            float newY = oldY + next.verticalSpeed * h;
+            float landing = stage.minimum.y;
+
+            for (const auto&amp; box : obstacles)
+                if (detail::horizontalOverlap(next, next.feet, box)) {
+                    if (next.verticalSpeed &lt;= 0 &amp;&amp; oldY &gt;= box.maximum.y - 1e-4f &amp;&amp; newY &lt;= box.maximum.y)
+                        landing = std::max(landing, box.maximum.y);
+
+                    if (next.verticalSpeed &gt; 0 &amp;&amp; oldY + next.height &lt;= box.minimum.y &amp;&amp;
+                        newY + next.height &gt;= box.minimum.y) {
+                        newY = box.minimum.y - next.height;
+                        next.verticalSpeed = 0;
+                    }
+                }
+
+            if (next.verticalSpeed &lt;= 0 &amp;&amp; newY &lt;= landing &amp;&amp; oldY &gt;= landing - 1e-4f) {
+                newY = landing;
+                next.verticalSpeed = 0;
+                next.grounded = true;
+                event.landed = true;
+            }
+            next.feet.y = newY;
+        }
+    }
+
+    if (!detail::finiteVector(next.feet) || !std::isfinite(next.walkDistance) || !std::isfinite(next.verticalSpeed)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;CollisionSystem::stepCharacter&quot;,
+                            &quot;Simulation overflow; original state was preserved.&quot;);
+
+        return {};
+    }
+    body = next;
+
+    return event;
+}
+
+std::optional&lt;Bounds3&gt; CollisionSystem::randomFreeBox(const Bounds3&amp; area, const glm::vec3&amp; size,
+                                                      const std::vector&lt;Bounds3&gt;&amp; occupied, std::mt19937&amp; random,
+                                                      unsigned attempts) {
+    if (!area.valid() || !detail::positiveLengths(size) || attempts == 0 || attempts &gt; 100000 ||
+        size.x &gt; area.maximum.x - area.minimum.x || size.y &gt; area.maximum.y - area.minimum.y ||
+        size.z &gt; area.maximum.z - area.minimum.z) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;CollisionSystem::randomFreeBox&quot;,
+                            &quot;Box must fit in the area; attempts must be in [1,100000].&quot;);
+
+        return {};
+    }
+
+    for (const auto&amp; box : occupied)
+        if (!box.valid()) {
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;CollisionSystem::randomFreeBox&quot;,
+                                &quot;Invalid occupied bounds.&quot;);
+
+            return {};
+        }
+
+    for (unsigned i = 0; i &lt; attempts; ++i) {
+        Bounds3 box;
+
+        for (int axis = 0; axis &lt; 3; ++axis)
+            box.minimum[axis] =
+                std::uniform_real_distribution&lt;float&gt;(area.minimum[axis], area.maximum[axis] - size[axis])(random);
+        box.maximum = box.minimum + size;
+
+        if (std::none_of(occupied.begin(), occupied.end(), [&amp;](const Bounds3&amp; other) {
+                return box.overlaps(other);
+            }))
+            return box;
+    }
+    Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;CollisionSystem::randomFreeBox&quot;,
+                        &quot;No free placement within the attempt budget.&quot;,
+                        &quot;Use smaller objects, fewer occupied regions or a larger placement area.&quot;);
+
+    return {};
+}
+
+std::optional&lt;EntityId&gt; PatternSystem::addBox(Scene&amp; scene, const glm::vec3&amp; size, const glm::vec3&amp; position,
+                                              GlColor color, std::optional&lt;EntityId&gt; parent) {
+    if (!detail::positiveLengths(size) || !detail::finiteVector(position) || !detail::validColor(color) ||
+        (parent &amp;&amp; !scene.getComponent(*parent))) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addBox&quot;,
+                            &quot;Need positive dimensions, finite position/color and an existing parent.&quot;);
+
+        return {};
+    }
+
+    auto model = DiagramSystem::makePolyhedron(GLShape::Cube, size);
+
+    for (auto&amp; face : model.faces)
+        face.color = color;
+
+    Transform3D transform;
+
+    transform.basis = position;
+
+    const auto entity = scene.addModel(model, transform, PivotMode::Preserve);
+
+    if (!entity || !scene.setParent(*entity, parent))
+        return {};
+
+    return entity;
+}
+
+std::optional&lt;EntityId&gt; PatternSystem::addPolygon(Scene&amp; scene, const std::vector&lt;glm::vec3&gt;&amp; points, GlColor color,
+                                                  std::optional&lt;EntityId&gt; parent) {
+    if (points.size() &lt; 3 || !detail::validColor(color) || (parent &amp;&amp; !scene.getComponent(*parent))) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addPolygon&quot;,
+                            &quot;Need a convex polygon (&gt;=3 points), valid color and parent.&quot;);
+
+        return {};
+    }
+
+    Mesh face;
+
+    face.localVertices = points;
+    face.color = color;
+
+    for (std::size_t i = 1; i + 1 &lt; points.size(); ++i)
+        face.triangleIndices.insert(face.triangleIndices.end(), {0, std::uint32_t(i), std::uint32_t(i + 1)});
+    recalculateNormals(face);
+
+    Model model;
+
+    model.faces.push_back(face);
+
+    const auto entity = scene.addModel(model, Transform3D{}, PivotMode::Preserve);
+
+    if (!entity || !scene.setParent(*entity, parent))
+        return {};
+
+    return entity;
+}
+
+std::optional&lt;EntityId&gt; PatternSystem::addRoom(Scene&amp; scene, const Bounds3&amp; bounds, bool frontOpen) {
+    if (!bounds.valid()) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addRoom&quot;,
+                            &quot;Room bounds must have positive finite extents.&quot;);
+
+        return {};
+    }
+
+    auto model = DiagramSystem::makePolyhedron(GLShape::Cube, bounds.maximum - bounds.minimum);
+
+    for (auto&amp; face : model.faces) {
+        face.cull = CullMode::Front;
+        recalculateNormals(face);
+
+        for (auto&amp; normal : face.vertexNormals)
+            normal = -normal;
+    }
+    model.faces[0].visible = !frontOpen;
+
+    Transform3D transform;
+
+    transform.basis = (bounds.minimum + bounds.maximum) * .5f;
+
+    return scene.addModel(model, transform, PivotMode::Preserve);
+}
+
+std::optional&lt;EntityId&gt; PatternSystem::addJoint(Scene&amp; scene, EntityId parent, const glm::vec3&amp; anchor) {
+    if (!scene.getComponent(parent) || !detail::finiteVector(anchor)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addJoint&quot;,
+                            &quot;Missing parent or non-finite anchor.&quot;);
+
+        return {};
+    }
+
+    Transform3D transform;
+
+    transform.basis = anchor;
+
+    const auto joint = scene.addGroup(transform);
+
+    if (!joint || !scene.setParent(*joint, parent))
+        return {};
+
+    return joint;
+}
+
+bool PatternSystem::rotateJoint(Scene&amp; scene, EntityId joint, const glm::vec3&amp; axis, float degrees) {
+    const auto* component = scene.getComponent(joint);
+    const auto rotation = TransformSystem::rotation({{0, 0, 0}, axis}, degrees);
+
+    if (!component || !rotation)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::rotateJoint&quot;,
+                                   &quot;Missing joint or invalid rotation.&quot;);
+
+    auto transform = component-&gt;transform;
+
+    transform.rotation = glm::mat3(*rotation);
+
+    return scene.setTransform(joint, transform);
+}
+
+bool PatternSystem::follow(Scene&amp; scene, EntityId entity, const DistancePath&amp; path, double distance,
+                           const glm::vec3&amp; offset, bool orient) {
+    const auto pose = path.sample(distance);
+    const auto* component = scene.getComponent(entity);
+
+    if (!pose || !component || !detail::finiteVector(offset))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::follow&quot;,
+                                   &quot;Invalid path sample, entity or offset.&quot;);
+
+    auto transform = component-&gt;transform;
+
+    transform.basis = pose-&gt;position + offset;
+
+    if (orient)
+        transform.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(pose-&gt;yawDegrees), glm::vec3(0, 1, 0)));
+
+    return scene.setTransform(entity, transform);
+}
+
+bool PatternSystem::addNumber(Scene&amp; scene, unsigned digit, const glm::vec3&amp; position, float height, GlColor color,
+                              std::optional&lt;EntityId&gt; parent) {
+    if (digit &gt; 9 || !detail::finiteVector(position) || !std::isfinite(height) || height &lt;= 0 ||
+        !detail::validColor(color) || (parent &amp;&amp; !scene.getComponent(*parent)))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addNumber&quot;,
+                                   &quot;Need digit 0-9, positive height, finite values and a valid parent.&quot;);
+    constexpr unsigned masks[10] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f};
+
+    const glm::vec2 endpoints[7][2] = {{{0, 1}, {.5f, 1}},    {{.5f, 1}, {.5f, .5f}}, {{.5f, .5f}, {.5f, 0}},
+                                       {{0, 0}, {.5f, 0}},    {{0, .5f}, {0, 0}},     {{0, 1}, {0, .5f}},
+                                       {{0, .5f}, {.5f, .5f}}};
+
+    for (unsigned i = 0; i &lt; 7; ++i)
+        if (masks[digit] &amp; (1u &lt;&lt; i)) {
+            const auto a = position + glm::vec3(endpoints[i][0] * height, 0),
+                       b = position + glm::vec3(endpoints[i][1] * height, 0);
+
+            if (!scene.addLine(a, b, color, parent))
+                return false;
+        }
+
+    return true;
+}
+
+bool PatternSystem::rotateFace(Scene&amp; scene, EntityId entity, std::size_t face, const FaceRotationConfig&amp; config) {
+    const auto* component = scene.getComponent(entity);
+    const auto* mesh = scene.getMesh(entity, face);
+    if (!component || !mesh || mesh-&gt;localVertices.size() &lt; 3 || !std::isfinite(config.degrees))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;rotateFace&quot;,
+                                   &quot;Need a valid polygon face and finite angle.&quot;);
+    const auto srt = detail::faceSrtMatrix(*mesh);
+    auto point = [&amp;](const glm::vec3&amp; vertex) { return glm::vec3(srt * glm::vec4(vertex, 1)); };
+    AxisLine axis;
+    switch (config.kind) {
+    case FaceRotationKind::EdgeHinge:
+        if (config.edge &gt;= mesh-&gt;localVertices.size()) return false;
+        axis.point = point(mesh-&gt;localVertices[config.edge]);
+        axis.direction = point(mesh-&gt;localVertices[(config.edge + 1) % mesh-&gt;localVertices.size()]) - axis.point;
+        break;
+    case FaceRotationKind::SelfSpin:
+        for (const auto&amp; vertex : mesh-&gt;localVertices) axis.point += point(vertex);
+        axis.point /= float(mesh-&gt;localVertices.size());
+        axis.direction = config.axis;
+        break;
+    case FaceRotationKind::ModelOrbit: {
+        const auto bounds = detail::bounds(component-&gt;polyhedron);
+        axis.point = bounds.first*.5f + bounds.second*.5f;
+        axis.direction = config.axis;
+        break;
+    }
+    default: return false;
+    }
+    const auto matrix = TransformSystem::rotation(axis, config.degrees);
+    return matrix &amp;&amp; scene.setFaceLocalMatrix(entity, face, *matrix, FaceAnimationSpace::Model);
+}
+
+bool PatternSystem::foldFace(Scene&amp; scene, EntityId entity, std::size_t face, const AxisLine&amp; hinge, float degrees) {
+    const auto matrix = TransformSystem::rotation(hinge, degrees);
+
+    return matrix &amp;&amp; scene.setFaceLocalMatrix(entity, face, *matrix);
+}
+
+bool PatternSystem::openFace(Scene&amp; scene, EntityId entity, std::size_t face, float progress,
+                             const glm::vec3&amp; displacement, const glm::vec3&amp; topPivot, bool scaleOpen) {
+    if (!std::isfinite(progress) || progress &lt; 0 || progress &gt; 1 || !detail::finiteVector(displacement) ||
+        !detail::finiteVector(topPivot))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::openFace&quot;,
+                                   &quot;Need progress in [0,1] and finite vectors.&quot;);
+
+    if (scaleOpen) {
+        // Fully open faces are hidden; retain a nonsingular matrix for normals/picking.
+        const auto scale = TransformSystem::scaling({1, std::max(1e-4f, 1 - progress), 1}, topPivot);
+
+        return scale &amp;&amp; scene.setFaceLocalMatrix(entity, face, *scale) &amp;&amp;
+               scene.setFaceVisible(entity, face, progress &lt; 1);
+    }
+
+    return scene.setFaceLocalMatrix(entity, face, glm::translate(glm::mat4(1), displacement * progress)) &amp;&amp;
+           scene.setFaceVisible(entity, face, true);
+}
+
+std::optional&lt;std::size_t&gt; PatternSystem::cameraFacingWall(const Scene&amp; scene, EntityId room, const Camera&amp; camera) {
+    const auto* component = scene.getComponent(room);
+    const auto world = scene.worldMatrix(room);
+
+    if (!component || component-&gt;polyhedron.faces.size() != 6 || !world || !CameraSystem::validCamera(camera) ||
+        std::abs(glm::determinant(glm::mat3(*world))) &lt; 1e-8f) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;cameraFacingWall&quot;,
+                            &quot;Need a six-face room, invertible world transform and valid camera.&quot;);
+
+        return {};
+    }
+
+    const auto view = glm::normalize(camera.target - camera.position);
+    const auto normals = glm::transpose(glm::inverse(glm::mat3(*world)));
+    float best = 0;
+    std::optional&lt;std::size_t&gt; selected;
+
+    for (std::size_t i = 0; i &lt; 4; ++i) {
+        const auto&amp; vertices = component-&gt;polyhedron.faces[i].localVertices;
+
+        if (vertices.size() &lt; 3)
+            return {};
+
+        const auto n = glm::normalize(normals * glm::cross(vertices[1] - vertices[0], vertices[2] - vertices[0]));
+        const float score = glm::dot(n, view);
+
+        if (score &gt; best + 1e-6f) {
+            best = score;
+            selected = i;
+        }
+    }
+
+    return selected; // Select the far interior wall visible along the viewing direction.
+}
+
+bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress) {
+    const auto* mesh = scene.getMesh(room, face);
+
+    if (!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;,
+                                   &quot;Select one of the four side walls of addRoom().&quot;);
+
+    glm::vec3 pivot(0);
+    float top = mesh-&gt;localVertices.front().y;
+
+    for (const auto&amp; vertex : mesh-&gt;localVertices) {
+        pivot += vertex;
+        top = std::max(top, vertex.y);
+    }
+    pivot /= float(mesh-&gt;localVertices.size());
+    pivot.y = top;
+
+    return openFace(scene, room, face, progress, glm::vec3(0), pivot, true);
+}
+
+std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells) {
+    std::vector&lt;glm::ivec3&gt; result;
+
+    if (cells.x &lt;= 0 || cells.y != 1 || cells.z &lt;= 0 || std::uint64_t(cells.x) * cells.z &gt; 1000000) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::snakeCells&quot;,
+                            &quot;Need an XZ grid with y=1 and at most 1,000,000 cells.&quot;);
+
+        return result;
+    }
+
+    for (int z = 0; z &lt; cells.z; ++z)
+        for (int x = 0; x &lt; cells.x; ++x)
+            result.push_back({z % 2 ? cells.x - 1 - x : x, 0, z});
+
+    return result;
+}
+
+bool PatternSystem::aligned(float first, float second, float tolerance) {
+    if (!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;,
+                                   &quot;Need finite heights and nonnegative tolerance.&quot;);
+
+    return std::abs(double(first) - second) &lt;= tolerance;
+}
+
+glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing) {
+    if (!detail::finiteVector(point) || !std::isfinite(spacing) || spacing &lt;= 0) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::snap&quot;,
+                            &quot;Need finite point and positive spacing.&quot;);
+
+        return point;
+    }
+
+    const auto result = glm::vec3(glm::round(glm::dvec3(point) / double(spacing)) * double(spacing));
+
+    if (!detail::finiteVector(result)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::snap&quot;, &quot;Snap overflow.&quot;);
+
+        return point;
+    }
+
+    return result;
+}
+
+std::optional&lt;glm::vec3&gt; PatternSystem::screenOnPlane(const Camera&amp; camera, double x, double y,
+                                                      const PickViewport&amp; viewport, const glm::vec3&amp; planePoint,
+                                                      const glm::vec3&amp; normal) {
+    const auto ray = screenRay(camera, x, y, viewport);
+    const auto n = detail::motionUnitVector(normal);
+
+    if (!ray || !n || !detail::finiteVector(planePoint)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Input, &quot;PatternSystem::screenOnPlane&quot;,
+                            &quot;Invalid camera, viewport, pointer or plane.&quot;);
+
+        return {};
+    }
+
+    const double denominator = glm::dot(glm::dvec3(ray-&gt;direction), glm::dvec3(*n));
+
+    if (std::abs(denominator) &lt; 1e-10)
+        return {};
+
+    const double t = glm::dot(glm::dvec3(planePoint) - glm::dvec3(ray-&gt;origin), glm::dvec3(*n)) / denominator;
+
+    if (t &lt; 0 || t &gt; ray-&gt;maxDistance)
+        return {};
+
+    return glm::vec3(glm::dvec3(ray-&gt;origin) + glm::dvec3(ray-&gt;direction) * t);
+}
+
+bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset) {
+    auto next = camera;
+
+    next.position += offset;
+    next.target += offset;
+
+    if (!CameraSystem::validCamera(next))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::moveCamera&quot;,
+                                   &quot;Camera translation creates an invalid camera.&quot;);
+    camera = next;
+
+    return true;
+}
+
+bool PatternSystem::yawCamera(Camera&amp; camera, float degrees) {
+    if (!CameraSystem::validCamera(camera))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::yawCamera&quot;,
+                                   &quot;Invalid camera.&quot;);
+
+    const auto forward = glm::normalize(camera.target - camera.position),
+               right = glm::normalize(glm::cross(forward, camera.up));
+    const auto up = glm::normalize(glm::cross(right, forward));
+    const auto rotation = TransformSystem::rotation({camera.position, up}, degrees);
+
+    if (!rotation)
+        return false;
+
+    auto next = camera;
+
+    next.target = glm::vec3(*rotation * glm::vec4(camera.target, 1));
+    next.up = glm::mat3(*rotation) * up;
+
+    if (!CameraSystem::validCamera(next))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::yawCamera&quot;,
+                                   &quot;Rotation creates an invalid camera.&quot;);
+    camera = next;
+
+    return true;
+}
+
+bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees) {
+    const auto rotation = TransformSystem::rotation(axis, degrees);
+
+    if (!rotation)
+        return false;
+
+    auto next = camera;
+
+    next.position = glm::vec3(*rotation * glm::vec4(camera.position, 1));
+    next.target = glm::vec3(*rotation * glm::vec4(camera.target, 1));
+    next.up = glm::mat3(*rotation) * camera.up;
+
+    if (!CameraSystem::validCamera(next))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::orbitCamera&quot;,
+                                   &quot;Orbit creates an invalid camera.&quot;);
+    camera = next;
+
+    return true;
+}
+
+bool PatternSystem::zoomCamera(Camera&amp; camera, float factor) {
+    if (!std::isfinite(factor) || factor &lt;= 0)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;,
+                                   &quot;Zoom factor must be positive and finite.&quot;);
+
+    auto next = camera;
+
+    if (next.orthographic)
+        next.orthographicHalfExtent *= factor;
+    else
+        next.position = next.target + (next.position - next.target) * factor;
+
+    if (!CameraSystem::validCamera(next))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;,
+                                   &quot;Zoom creates an invalid camera.&quot;);
+    camera = next;
+
+    return true;
+}
+
+std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
+                                                  const RenderOptions&amp; options) {
+    if (width &lt; 3 || height &lt; 2 || !CameraSystem::validCamera(perspective)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Framebuffer, &quot;PatternSystem::threeViews&quot;,
+                            &quot;Need a valid camera and framebuffer of at least 3x2 pixels.&quot;);
+
+        return {};
+    }
+
+    const int left = width * 2 / 3, right = width - left, bottom = height / 2;
+    RenderPass main;
+
+    main.camera = perspective;
+    main.camera.orthographic = false;
+    main.options = options;
+    main.viewport = {0, 0, left, height};
+
+    RenderPass top = main;
+
+    top.viewport = {left, bottom, right, height - bottom};
+    top.camera.orthographic = true;
+    top.camera.position = perspective.target + glm::vec3(0, 20, 0);
+    top.camera.target = perspective.target;
+    top.camera.up = {0, 0, -1};
+    top.camera.orthographicHalfExtent = std::max(6.5f, perspective.orthographicHalfExtent);
+
+    RenderPass front = top;
+
+    front.viewport = {left, 0, right, bottom};
+    front.camera.position = perspective.target + glm::vec3(0, 0, 20);
+    front.camera.up = {0, 1, 0};
+
+    return {main, top, front};
+}
+
+std::optional&lt;JointRig&gt; PatternSystem::addWalkingRig(Scene&amp; scene, const GridLayout&amp; grid) {
+    if (!grid.valid() || !detail::rigidRoom(grid.frame)) {
+        Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::addWalkingRig&quot;,
+                            &quot;Need a valid grid with a rigid frame.&quot;);
+
+        return {};
+    }
+
+    JointRig rig;
+    const auto root = scene.addGroup();
+
+    if (!root)
+        return {};
+    rig.root = *root;
+
+    auto point = [&amp;](glm::vec3 ratio) {
+        return grid.origin + grid.extent * ratio;
+    };
+
+    const auto torso =
+        addBox(scene, grid.extent * glm::vec3(.45f, .35f, .7f), point({.5f, .58f, .5f}), {.65f, .65f, .7f}, rig.root);
+    const auto head = addJoint(scene, rig.root, point({.5f, .8f, .5f}));
+
+    if (!torso || !head)
+        return {};
+    rig.head = *head;
+
+    if (!addBox(scene, grid.extent * glm::vec3(.3f, .2f, .6f), {0, grid.extent.y * .1f, 0}, {1, .8f, .5f}, rig.head) ||
+        !addBox(scene, grid.extent * glm::vec3(.1f, .05f, .2f), {0, grid.extent.y * .1f, grid.extent.z * .4f},
+                {1, .2f, .2f}, rig.head))
+        return {};
+
+    for (std::size_t i = 0; i &lt; 2; ++i) {
+        const float x = i == 0 ? .2f : .8f;
+        const GlColor color = i == 0 ? GlColor{.2f, .6f, 1} : GlColor{1, .4f, .2f};
+        const auto shoulder = addJoint(scene, rig.root, point({x, .72f, .5f})),
+                   hip = addJoint(scene, rig.root, point({i == 0 ? .35f : .65f, .4f, .5f}));
+
+        if (!shoulder || !hip)
+            return {};
+        rig.shoulders[i] = *shoulder;
+        rig.hips[i] = *hip;
+
+        if (!addBox(scene, grid.extent * glm::vec3(.15f, .32f, .3f), {0, -grid.extent.y * .16f, 0}, color, *shoulder) ||
+            !addBox(scene, grid.extent * glm::vec3(.18f, .4f, .4f), {0, -grid.extent.y * .2f, 0}, color, *hip))
+            return {};
+    }
+
+    Transform3D transform;
+
+    transform.rotation = glm::mat3(grid.frame);
+    transform.basis = glm::vec3(grid.frame[3]);
+
+    if (!scene.setTransform(rig.root, transform))
+        return {};
+
+    return rig;
+}
+
+bool PatternSystem::poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
+                                   double distance, float speed) {
+    if (!detail::finiteVector(feet) || !std::isfinite(yawDegrees) || !std::isfinite(distance) ||
+        !std::isfinite(speed) || speed &lt; 0)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::poseWalkingRig&quot;,
+                                   &quot;Need finite pose values and nonnegative speed.&quot;);
+
+    const auto* root = scene.getComponent(rig.root);
+
+    if (!root || !scene.getComponent(rig.head))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::poseWalkingRig&quot;,
+                                   &quot;Rig IDs are missing or stale.&quot;);
+
+    for (auto id : rig.shoulders)
+        if (!scene.getComponent(id))
+            return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::poseWalkingRig&quot;,
+                                       &quot;Shoulder joint is missing.&quot;);
+
+    for (auto id : rig.hips)
+        if (!scene.getComponent(id))
+            return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSystem::poseWalkingRig&quot;,
+                                       &quot;Hip joint is missing.&quot;);
+
+    auto transform = root-&gt;transform;
+
+    transform.basis = feet;
+    transform.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(yawDegrees), glm::vec3(0, 1, 0)));
+
+    if (!scene.setTransform(rig.root, transform))
+        return false;
+
+    const float angle =
+        std::min(50.0f, 15 + speed * 12) * float(std::sin(std::remainder(distance, 1.0) * 6.283185307179586));
+
+    for (std::size_t i = 0; i &lt; 2; ++i) {
+        const float sign = i == 0 ? 1.0f : -1.0f;
+
+        if (!rotateJoint(scene, rig.hips[i], {1, 0, 0}, sign * angle) ||
+            !rotateJoint(scene, rig.shoulders[i], {1, 0, 0}, -sign * angle))
+            return false;
+    }
+
+    return true;
+}
+} // namespace graphics</code></pre></details><p><a href="API_REFERENCE.html#case-face-modes">함수·반환값·실패 조건과 함께 읽기</a></p></section><section id="sample"><h2>standard 전체 연결: main → Console 상태 → 콜백 구현</h2><p>9번이 그네·사람형·선형보간의 실제 실행 경로다. clock과 animation_은 Console 멤버이며 초기화 때 만들고 프레임 update에서 재사용한다. 아래 세 파일은 서로 연결되는 실제 소스다.</p><details><summary>실제 저장소 소스 · standard/main.cpp</summary><pre><code>#include &quot;Console.h&quot;
 
 /// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() {

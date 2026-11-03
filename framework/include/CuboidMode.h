@@ -7,6 +7,8 @@ struct CuboidFaceConfig {
     GlColor color;
     bool visible = true;
     CullMode cull = CullMode::Inherit;
+    FaceTransformMode mode = FaceTransformMode::Hierarchy;
+    std::optional<FaceRotationConfig> rotation;
 };
 struct CuboidConfig {
     std::string name;

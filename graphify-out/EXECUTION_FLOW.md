@@ -69,3 +69,11 @@ WarmUp2의 wmain은 warmup::Console과 warmup::Application을 만들고 run(argu
 컨텍스트 실패 경로는 Renderer::abandon으로 삭제 호출을 피한다.
 AST의 동적 콜백/같은 이름 함수 연결은 후보 관계다. GRAPH_HEALTH.md의 dangling endpoint와 관계 병합 수치를 함께 읽는다.
 빌드·테스트·앱·브라우저 실행은 하지 않았다. 사용자 확인은 framework/docs/USER_CHECKS.md를 따른다.
+
+## 면의 변환과 회전 의미
+
+Scene::setFaceTransformMode는 Hierarchy/Independent와 전환 시 자세 보존을 설정한다.
+Scene::faceWorldMatrix는 상속/고정 기준 F와 면 SRT·추가 애니메이션을 합성한다. 기본 계층 모드는 기존 결과를 유지한다.
+PatternSystem::rotateFace는 EdgeHinge/SelfSpin/ModelOrbit의 축을 계산하고 Model 순서의 애니메이션 행렬을 설정한다.
+CuboidMode는 초기 SRT·모션/레이어 연결 뒤 독립 면의 기준을 고정한다. 렌더러와 피킹은 같은 faceWorldMatrix를 소비한다.
+수학 계약과 실제 사용자 확인 절차는 framework/docs/FACE_TRANSFORMS.md를 읽는다.

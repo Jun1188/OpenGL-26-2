@@ -96,6 +96,14 @@ struct JointRig {
     std::array<EntityId, 2> shoulders{}, hips{};
 };
 
+enum class FaceRotationKind { EdgeHinge, SelfSpin, ModelOrbit };
+struct FaceRotationConfig {
+    FaceRotationKind kind = FaceRotationKind::EdgeHinge;
+    std::size_t edge = 0; // Cyclic boundary edge of the original polygon.
+    glm::vec3 axis{0, 1, 0}; // Model-local direction for self spin / model orbit.
+    double degrees = 0; // Absolute angle, not a frame increment.
+};
+
 class PatternSystem {
 public:
     /// [API] 직선 → 안쪽 코너 중심 원호 → 직선의 거리에서 위치·접선·yaw를 계산한다. 끝에서 처음으로 순환한다.
@@ -121,6 +129,8 @@ public:
                           std::optional<EntityId> parent = std::nullopt);
     /// [API] 지정 회전축을 중심으로 면 로컬 애니메이션 행렬을 계산한다.
     static bool foldFace(Scene& scene, EntityId entity, std::size_t face, const AxisLine& hinge, float degrees);
+    /// [API] 원래 모서리 힌지·면 중심 자전·원본 모델 중심 공전을 구분하여 면 회전 행렬을 설정한다.
+    static bool rotateFace(Scene& scene, EntityId entity, std::size_t face, const FaceRotationConfig& config);
     /// [API] 진행률 [0,1]로 이동 또는 상단 피벗 Y축 축소를 적용한다. 완전 개방은 숨기고 0 배율 특이행렬을 피한다.
     static bool openFace(Scene& scene, EntityId entity, std::size_t face, float progress, const glm::vec3& displacement,
                          const glm::vec3& topPivot, bool scaleOpen);

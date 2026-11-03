@@ -10,7 +10,7 @@ if (!motion.insertAction(1, graphics::SceneActions::visible(scene, box, true))) 
 if (!motion.append(graphics::Motion::linear({}))) return false;
 ```
 
-SceneActions는 transform/position/rotation/scale/pivot/tint/visible/faceVisible/layer/motion/parent/camera를 의미 단위로 제공한다.
+SceneActions는 transform/position/rotation/scale/pivot/tint/visible/faceVisible/faceRotation/faceMode/layer/motion/parent/camera를 의미 단위로 제공한다.
 값 설정은 절대값이다. 반복 실행에도 같은 값을 설정한다. 계층이 있는 position은 부모 좌표다.
 layer/motion에 nullopt를 주면 연결을 해제한다. 연결 자체의 유효성 검사는 기존 Scene/MotionSystem API를 따른다.
 반환값은 MotionAction이며 append(Motion::action(...)), insertAction, replace, then에 사용할 수 있다.
@@ -91,3 +91,7 @@ GL 자원 소유권은 Renderer, 장면 데이터는 Scene, 동작 실행은 Mot
 같은 키 재등록·해제, 설정 변경 후 apply, 잘못된 이름·크기·빈 콜백의 거절을 확인한다.
 육면체 모드에서도 기존 Scene과 MotionSystem API로 계층과 모션을 편집할 수 있어야 한다.
 빌드·실행·테스트는 수행하지 않았다.
+
+## 면의 독립·계층과 회전 의미
+
+[면 변환과 회전 분류](FACE_TRANSFORMS.md): 가장자리 힌지·면 자전·원본 모델 중심 공전을 독립/계층 모드와 조합한다. 기존 independence 플래그는 면 SRT 활성화이며 월드 독립과 구분한다.

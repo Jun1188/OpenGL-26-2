@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Application.h"
+#include "Patterns.h"
 
 namespace graphics {
 // Value-configured operations. Scene and camera references are non-owning.
@@ -42,6 +42,17 @@ public:
     }
     static MotionAction faceVisible(Scene& scene, EntityId id, std::size_t face, bool value) {
         return [&scene, id, face, value](double, const MotionSample&) { return scene.setFaceVisible(id, face, value); };
+    }
+    static MotionAction faceRotation(Scene& scene, EntityId id, std::size_t face, FaceRotationConfig config) {
+        return [&scene, id, face, config](double, const MotionSample&) {
+            return PatternSystem::rotateFace(scene, id, face, config);
+        };
+    }
+    static MotionAction faceMode(Scene& scene, EntityId id, std::size_t face, FaceTransformMode mode,
+                                 bool preserveWorld = true) {
+        return [&scene, id, face, mode, preserveWorld](double, const MotionSample&) {
+            return scene.setFaceTransformMode(id, face, mode, preserveWorld);
+        };
     }
     static MotionAction layer(Scene& scene, EntityId id, std::optional<LayerId> value) {
         return [&scene, id, value](double, const MotionSample&) {

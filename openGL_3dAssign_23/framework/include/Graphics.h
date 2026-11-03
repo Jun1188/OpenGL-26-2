@@ -56,7 +56,8 @@ public:
     /// [API] 해당 면의 앞면/뒷면 제거 정책을 설정한다. 조명 법선과 삼각형 winding을 구분한다.
     bool setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode);
     /// [API] 해당 면에 적용할 추가 로컬 애니메이션 행렬을 설정한다.
-    bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix);
+    bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix,
+                            FaceAnimationSpace space = FaceAnimationSpace::Local);
     /// [API] 면의 정점별 색 배열을 교체한다. 정점 수와 색 배열 길이를 맞춰야 한다.
     bool setFaceVertexColors(EntityId id, std::size_t faceIndex, const std::vector<GlColor>& colors);
     /// [API] basis를 바꾸고 setTransform으로 유효성을 확인한다. 부모가 있으면 worldPosition이라는 매개변수 이름과 달리 부모 좌표다.
@@ -98,6 +99,8 @@ public:
 
     /// [API] 면 변환과 독립 변환 여부를 함께 설정한다. 부모 모델 변환과의 합성 정책을 바꾼다.
     bool setFaceTransform(EntityId id, std::size_t faceIndex, const Transform3D& transform, bool independence);
+    /// [API] 면이 모델·계층을 따르거나 월드에 독립하도록 설정한다. 기본값은 전환 시 현재 자세 유지다.
+    bool setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld = true);
 
     /// [API] CPU 모델을 Scene에 등록한다. 피벗 모드와 사용자 기준점으로 localBasis를 결정한다.
     std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = Transform3D{},

@@ -27,36 +27,19 @@ def source(p):
     return '<details><summary>실제 저장소 소스 · '+esc(p)+'</summary>'+code(read(p))+'</details>'
 
 def apis():
+    # Reuse the public-declaration extractor so inline APIs without generated comments are included.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('framework_api_catalog', ROOT/'tools/Write-ApiKo.py')
+    catalog = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(catalog)
     result = []
-    for p in sorted((ROOT/'framework/include').glob('*.h')):
-        s = p.read_text(encoding='utf-8-sig')
-        mask = re.sub(r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"', lambda m: ''.join('\n' if c=='\n' else ' ' for c in m.group()), s)
-        spans = []
-        for m in re.finditer(r'\b(?:class|struct)\s+(\w+)\s*\{', mask):
-            start=m.end()-1; depth=1; end=start+1
-            while end<len(mask) and depth:
-                depth += (mask[end]=='{')-(mask[end]=='}'); end+=1
-            spans.append((start,end,m.group(1)))
-        for m in re.finditer(r'^[ \t]*///\s*\[API\]\s*(.+)\n',s,re.M):
-            start=m.end(); i=start; parens=0
-            while i<len(s):
-                c=s[i]
-                if c=='(': parens+=1
-                elif c==')': parens-=1
-                elif c in ';{' and parens==0: break
-                i+=1
-            signature=' '.join(s[start:i].strip().split())
-            if '(' not in signature: continue
-            prefix=signature.split('(',1)[0]
-            nm=re.search(r'(operator\s+bool|operator\s*=|~?\w+)\s*$',prefix)
-            if not nm: continue
-            name=nm.group(1)
-            if re.search(r'\w+::'+re.escape(name)+r'\s*$',prefix):continue
-            enclosing=[v for v in spans if v[0]<start<v[1]]
-            owner=min(enclosing,key=lambda v:v[1]-v[0])[2] if enclosing else ''
-            result.append(dict(owner=owner,name=name,signature=signature,file=p.relative_to(ROOT).as_posix(),line=s[:start].count('\n')+1,description=m.group(1)))
-            if name=='readTextFile': result[-1]['description']='파일을 문자열로 읽고 UTF-8 BOM을 제거한다. 파일을 열지 못하면 빈 문자열을 반환한다.'
+    for path in sorted((ROOT/'framework/include').glob('*.h')):
+        for record in catalog.declarations(path):
+            record['description'] = catalog.description(record)
+            record['result'] = catalog.result_contract(record)
+            result.append(record)
     return result
+
 
 GROUPS={}
 def group(key,title,story,roles,code_text,after,files=()):
@@ -602,8 +585,31 @@ bool configureEditable(graphics::Application& app) {
 ''','sample/seek는 의미 동작을 실행하지 않는다. 모션 갱신은 활성 동작을 실행한다. mode.apply는 Scene 전체를 교체한다. 사용자 셰이더 입력은 실제 바이트와 맞춰야 한다.',
  ('framework/include/RenderConfig.h','framework/include/Actions.h','framework/include/CuboidMode.h','framework/detail/CuboidMode.cpp'))
 
+group('face-modes','면의 독립·계층과 힌지·자전·공전',
+ '육면체의 변환 상속과 면 자체의 회전 중심을 별도 설정으로 조합한다.',
+ 'FaceTransformMode는 상속, FaceRotationKind는 축의 위치/방향, FaceAnimationSpace는 면 SRT와 추가 행렬의 적용 순서다.',r'''
+bool faceMotion(graphics::Scene& scene,graphics::EntityId box,std::size_t face) {
+    graphics::Transform3D pose; pose.basis={0,.2f,0};
+    if(!scene.setFaceSRT(box,face,pose)) return false;
+    if(!scene.setFaceTransformMode(box,face,graphics::FaceTransformMode::Independent)) return false;
+    graphics::FaceRotationConfig rotation;
+    rotation.kind=graphics::FaceRotationKind::EdgeHinge;
+    rotation.edge=0; rotation.degrees=90;
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    rotation.kind=graphics::FaceRotationKind::SelfSpin; rotation.axis={0,1,0};
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    rotation.kind=graphics::FaceRotationKind::ModelOrbit;
+    if(!graphics::PatternSystem::rotateFace(scene,box,face,rotation)) return false;
+    graphics::Motion actions;
+    if(!actions.append(graphics::Motion::action(graphics::SceneActions::faceRotation(scene,box,face,rotation)))) return false;
+    return actions.insertAction(1,graphics::SceneActions::faceMode(scene,box,face,graphics::FaceTransformMode::Hierarchy));
+}
+''','독립 면은 전환 순간의 기준을 고정하며 기본 계층 모드는 본체 변환을 따른다. 위 회전 호출은 각 종류의 시연이며 마지막 행렬이 최종 값이다. 자세 보존과 적용 순서는 FACE_TRANSFORMS.md를 읽는다.',
+ ('framework/include/Model.h','framework/detail/Scene.cpp','framework/include/Patterns.h','framework/detail/Patterns.cpp'))
+
 def choose(a):
     o,n=a['owner'],a['name']
+    if (o=='Scene' and n=='setFaceTransformMode') or (o=='PatternSystem' and n=='rotateFace') or (o=='SceneActions' and n in ('faceMode','faceRotation')):return 'face-modes'
     if o=='Application': return 'editable' if n=='configureRenderer' else ('assets' if n=='getAssets' else 'app')
     if o=='Scene':
         if n in 'setFaceVisible setFaceCullMode setFaceLocalMatrix setPosition setTransform setParent worldMatrix faceWorldMatrix setFaceTransform setLocalBasis splitFace setFaceSRT addGroup'.split():return 'transform'
@@ -720,6 +726,8 @@ PATTERNS=[
  ('views','여러 카메라로 같은 Scene 표시','parts',['update에서 Scene 상태 한 번 갱신','threeViews로 카메라·픽셀 영역 구성','Application.renderViews 호출','패스마다 같은 시간의 장면 표시'])]
 
 PATTERNS.append(('editable','의미 동작·육면체 모드·정점 입력 편집','editable',['초기 설정과 의미 동작 구성','이름 기반 키 바인딩 등록','프레임당 모션 갱신과 동작 실행','RenderConfig로 정점 입력·uniform 연결']))
+
+PATTERNS.append(('face-modes','면의 독립·계층과 힌지·자전·공전','face-modes',['변환 상속 모드 선택','면 SRT 설정','회전 종류와 축 설정','본체 변환과 면 변환을 합성']))
 
 def main():
     entries=apis()

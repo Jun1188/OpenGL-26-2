@@ -2,7 +2,7 @@
 
 현재 include 헤더의 공개 선언을 읽어 갱신했다. 빌드·테스트는 하지 않았다.
 
-[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립·제거 API 대체법](PATTERN_COMPOSITION.md)
+[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립](PATTERN_COMPOSITION.md) · [면 독립·계층·회전 분류](FACE_TRANSFORMS.md)
 
 ## SceneActions::transform
 
@@ -100,6 +100,30 @@ static MotionAction faceVisible(Scene& scene, EntityId id, std::size_t face, boo
 
 소스: [framework/include/Actions.h:43](../framework/include/Actions.h)
 
+## SceneActions::faceRotation
+
+```cpp
+static MotionAction faceRotation(Scene& scene, EntityId id, std::size_t face, FaceRotationConfig config);
+```
+
+지정 값과 대상 ID를 기존 API에 전달하는 faceRotation 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.
+
+반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
+
+소스: [framework/include/Actions.h:46](../framework/include/Actions.h)
+
+## SceneActions::faceMode
+
+```cpp
+static MotionAction faceMode(Scene& scene, EntityId id, std::size_t face, FaceTransformMode mode, bool preserveWorld = true);
+```
+
+지정 값과 대상 ID를 기존 API에 전달하는 faceMode 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.
+
+반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
+
+소스: [framework/include/Actions.h:51](../framework/include/Actions.h)
+
 ## SceneActions::layer
 
 ```cpp
@@ -110,7 +134,7 @@ static MotionAction layer(Scene& scene, EntityId id, std::optional<LayerId> valu
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Actions.h:46](../framework/include/Actions.h)
+소스: [framework/include/Actions.h:57](../framework/include/Actions.h)
 
 ## SceneActions::motion
 
@@ -122,7 +146,7 @@ static MotionAction motion(Scene& scene, LayerId layer, std::optional<MotionId> 
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Actions.h:51](../framework/include/Actions.h)
+소스: [framework/include/Actions.h:62](../framework/include/Actions.h)
 
 ## SceneActions::parent
 
@@ -134,7 +158,7 @@ static MotionAction parent(Scene& scene, EntityId id, std::optional<EntityId> va
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Actions.h:54](../framework/include/Actions.h)
+소스: [framework/include/Actions.h:65](../framework/include/Actions.h)
 
 ## SceneActions::camera
 
@@ -146,7 +170,7 @@ static MotionAction camera(Camera& camera, Camera value);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Actions.h:57](../framework/include/Actions.h)
+소스: [framework/include/Actions.h:68](../framework/include/Actions.h)
 
 ## HumanoidPose::seated
 
@@ -530,7 +554,7 @@ bool setConfig(const CuboidModeConfig& config);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:56](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:58](../framework/include/CuboidMode.h)
 
 ## CuboidMode::getConfig
 
@@ -542,7 +566,7 @@ const CuboidModeConfig& getConfig() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/CuboidMode.h:57](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:59](../framework/include/CuboidMode.h)
 
 ## CuboidMode::setCuboid
 
@@ -554,7 +578,7 @@ bool setCuboid(const CuboidConfig& config);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:59](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:61](../framework/include/CuboidMode.h)
 
 ## CuboidMode::bindKey
 
@@ -566,7 +590,7 @@ bool bindKey(const CuboidKeyBinding& binding);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:61](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:63](../framework/include/CuboidMode.h)
 
 ## CuboidMode::unbindKey
 
@@ -578,7 +602,7 @@ bool unbindKey(int key, int action = GLFW_PRESS, int mods = 0);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:62](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:64](../framework/include/CuboidMode.h)
 
 ## CuboidMode::getBindings
 
@@ -590,7 +614,7 @@ const std::vector<CuboidKeyBinding>& getBindings() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/CuboidMode.h:63](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:65](../framework/include/CuboidMode.h)
 
 ## CuboidMode::setSetupHandler
 
@@ -602,7 +626,7 @@ void setSetupHandler(CuboidHandler handler);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/CuboidMode.h:64](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:66](../framework/include/CuboidMode.h)
 
 ## CuboidMode::setUpdateHandler
 
@@ -614,7 +638,7 @@ void setUpdateHandler(std::function<bool(Application&, CuboidMode&, float)> hand
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/CuboidMode.h:65](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:67](../framework/include/CuboidMode.h)
 
 ## CuboidMode::apply
 
@@ -626,7 +650,7 @@ bool apply(Application& app);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:67](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:69](../framework/include/CuboidMode.h)
 
 ## CuboidMode::update
 
@@ -638,7 +662,7 @@ bool update(Application& app, float dt);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:68](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:70](../framework/include/CuboidMode.h)
 
 ## CuboidMode::dispatch
 
@@ -650,7 +674,7 @@ bool dispatch(Application& app, int key, int action, int mods);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:69](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:71](../framework/include/CuboidMode.h)
 
 ## CuboidMode::entity
 
@@ -662,7 +686,7 @@ std::optional<EntityId> entity(const std::string& name) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/CuboidMode.h:70](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:72](../framework/include/CuboidMode.h)
 
 ## CuboidMode::layer
 
@@ -674,7 +698,7 @@ std::optional<LayerId> layer(const std::string& name) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/CuboidMode.h:71](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:73](../framework/include/CuboidMode.h)
 
 ## CuboidMode::motion
 
@@ -686,7 +710,7 @@ std::optional<MotionId> motion(const std::string& name) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/CuboidMode.h:72](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:74](../framework/include/CuboidMode.h)
 
 ## CuboidMode::action
 
@@ -698,7 +722,7 @@ static CuboidHandler action(std::string name, CuboidCommand command);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/CuboidMode.h:74](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:76](../framework/include/CuboidMode.h)
 
 ## bindCuboidMode
 
@@ -710,7 +734,7 @@ bool bindCuboidMode(Application& app, std::shared_ptr<CuboidMode> mode);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/CuboidMode.h:77](../framework/include/CuboidMode.h)
+소스: [framework/include/CuboidMode.h:79](../framework/include/CuboidMode.h)
 
 ## Diagnostics::context
 
@@ -1003,7 +1027,7 @@ bool setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode);
 ## Scene::setFaceLocalMatrix
 
 ```cpp
-bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix);
+bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix, FaceAnimationSpace space = FaceAnimationSpace::Local);
 ```
 
 해당 면에 적용할 추가 로컬 애니메이션 행렬을 설정한다.
@@ -1022,7 +1046,7 @@ bool setFaceVertexColors(EntityId id, std::size_t faceIndex, const std::vector<G
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:61](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:62](../framework/include/Graphics.h)
 
 ## Scene::setPosition
 
@@ -1034,7 +1058,7 @@ basis를 바꾸고 setTransform으로 유효성을 확인한다. 부모가 있�
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:63](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:64](../framework/include/Graphics.h)
 
 ## Scene::setSideLengths
 
@@ -1046,7 +1070,7 @@ bool setSideLengths(EntityId id, const glm::vec3& sideLengths);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:65](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:66](../framework/include/Graphics.h)
 
 ## Scene::setTransform
 
@@ -1058,7 +1082,7 @@ bool setTransform(EntityId id, const Transform3D& transform);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:67](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:68](../framework/include/Graphics.h)
 
 ## Scene::setParent
 
@@ -1070,7 +1094,7 @@ bool setParent(EntityId id, std::optional<EntityId> parent);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:69](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:70](../framework/include/Graphics.h)
 
 ## Scene::worldMatrix
 
@@ -1082,7 +1106,7 @@ std::optional<glm::mat4> worldMatrix(EntityId id) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:71](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:72](../framework/include/Graphics.h)
 
 ## Scene::faceWorldMatrix
 
@@ -1094,7 +1118,7 @@ std::optional<glm::mat4> faceWorldMatrix(EntityId id, std::size_t faceIndex) con
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:73](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:74](../framework/include/Graphics.h)
 
 ## Scene::lineWorldMatrix
 
@@ -1106,7 +1130,7 @@ std::optional<glm::mat4> lineWorldMatrix(LineId id) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:75](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:76](../framework/include/Graphics.h)
 
 ## Scene::getMotions
 
@@ -1118,7 +1142,7 @@ Scene이 소유한 MotionSystem의 참조를 반환한다. const 오버로드는
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:78](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:79](../framework/include/Graphics.h)
 
 ## Scene::getMotions
 
@@ -1130,7 +1154,7 @@ Scene이 소유한 MotionSystem의 참조를 반환한다. const 오버로드는
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:83](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:84](../framework/include/Graphics.h)
 
 ## Scene::bindEntity
 
@@ -1142,7 +1166,7 @@ bool bindEntity(EntityId id, LayerId layer);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:88](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:89](../framework/include/Graphics.h)
 
 ## Scene::unbindEntity
 
@@ -1154,7 +1178,7 @@ bool unbindEntity(EntityId id);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:90](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:91](../framework/include/Graphics.h)
 
 ## Scene::getEntityLayer
 
@@ -1166,7 +1190,7 @@ std::optional<LayerId> getEntityLayer(EntityId id) const;
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:92](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:93](../framework/include/Graphics.h)
 
 ## Scene::updateMotions
 
@@ -1178,7 +1202,7 @@ Scene의 모션 시스템에 dt(초)를 전달한다. Application 루프에서�
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:95](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:96](../framework/include/Graphics.h)
 
 ## Scene::setFaceTransform
 
@@ -1190,7 +1214,19 @@ bool setFaceTransform(EntityId id, std::size_t faceIndex, const Transform3D& tra
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:100](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:101](../framework/include/Graphics.h)
+
+## Scene::setFaceTransformMode
+
+```cpp
+bool setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld = true);
+```
+
+면이 모델·계층을 따르거나 월드에 독립하도록 설정한다. 기본값은 전환 시 현재 자세 유지다.
+
+반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
+
+소스: [framework/include/Graphics.h:103](../framework/include/Graphics.h)
 
 ## Scene::addModel
 
@@ -1202,7 +1238,7 @@ CPU 모델을 Scene에 등록한다. 피벗 모드와 사용자 기준점으로 
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:103](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:106](../framework/include/Graphics.h)
 
 ## Scene::setModel
 
@@ -1214,7 +1250,7 @@ bool setModel(EntityId id, const Model& model);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:107](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:110](../framework/include/Graphics.h)
 
 ## Scene::setMesh
 
@@ -1226,7 +1262,7 @@ bool setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:109](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:112](../framework/include/Graphics.h)
 
 ## Scene::getMesh
 
@@ -1238,7 +1274,7 @@ const Mesh* getMesh(EntityId id, std::size_t meshIndex) const;
 
 반환·실패: 비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.
 
-소스: [framework/include/Graphics.h:111](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:114](../framework/include/Graphics.h)
 
 ## Scene::setMeshVertices
 
@@ -1250,7 +1286,7 @@ bool setMeshVertices(EntityId id, std::size_t meshIndex, const std::vector<Verte
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:113](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:116](../framework/include/Graphics.h)
 
 ## Scene::setVertexPosition
 
@@ -1262,7 +1298,7 @@ bool setVertexPosition(EntityId id, std::size_t meshIndex, std::size_t vertexInd
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:116](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:119](../framework/include/Graphics.h)
 
 ## Scene::setTriangleIndices
 
@@ -1274,7 +1310,7 @@ bool setTriangleIndices(EntityId id, std::size_t meshIndex, const std::vector<st
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:118](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:121](../framework/include/Graphics.h)
 
 ## Scene::generateTexcoords
 
@@ -1286,7 +1322,7 @@ bool generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& opti
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:120](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:123](../framework/include/Graphics.h)
 
 ## Scene::transformTexcoords
 
@@ -1298,7 +1334,7 @@ bool transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& sca
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:122](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:125](../framework/include/Graphics.h)
 
 ## Scene::setTexcoords
 
@@ -1310,7 +1346,7 @@ bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector<glm::vec
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:125](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:128](../framework/include/Graphics.h)
 
 ## Scene::setVertexNormals
 
@@ -1322,7 +1358,7 @@ bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm:
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:127](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:130](../framework/include/Graphics.h)
 
 ## Scene::setMaterial
 
@@ -1334,7 +1370,7 @@ bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:129](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:132](../framework/include/Graphics.h)
 
 ## Scene::setOutline
 
@@ -1346,7 +1382,7 @@ bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode, const std:
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:131](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:134](../framework/include/Graphics.h)
 
 ## Scene::setLocalBasis
 
@@ -1358,7 +1394,7 @@ bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3& customPivot = g
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:134](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:137](../framework/include/Graphics.h)
 
 ## Scene::setVisible
 
@@ -1370,7 +1406,7 @@ bool setVisible(EntityId id, bool visible);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:136](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:139](../framework/include/Graphics.h)
 
 ## Scene::splitFace
 
@@ -1382,7 +1418,7 @@ bool splitFace(EntityId id, std::size_t faceIndex);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:138](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:141](../framework/include/Graphics.h)
 
 ## Scene::setFaceSRT
 
@@ -1394,7 +1430,7 @@ bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D& transform
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:140](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:143](../framework/include/Graphics.h)
 
 ## Scene::addLine
 
@@ -1406,7 +1442,7 @@ std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end, GlCo
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:143](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:146](../framework/include/Graphics.h)
 
 ## Scene::addVector
 
@@ -1418,7 +1454,7 @@ std::optional<LineId> addVector(const glm::vec3& origin, const glm::vec3& vector
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:146](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:149](../framework/include/Graphics.h)
 
 ## Scene::addBasis
 
@@ -1430,7 +1466,7 @@ std::optional<std::array<LineId, 3>> addBasis(const glm::vec3& origin, const glm
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Graphics.h:150](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:153](../framework/include/Graphics.h)
 
 ## Scene::setVector
 
@@ -1442,7 +1478,7 @@ bool setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:155](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:158](../framework/include/Graphics.h)
 
 ## Scene::clear
 
@@ -1454,7 +1490,7 @@ Scene의 모델·선·연결·모션을 초기화한다. 엔티티 ID는 재사�
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:157](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:160](../framework/include/Graphics.h)
 
 ## Scene::getIds
 
@@ -1466,7 +1502,7 @@ const std::vector<EntityId>& getIds() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:160](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:163](../framework/include/Graphics.h)
 
 ## Scene::getComponent
 
@@ -1478,7 +1514,7 @@ const Component_Poly* getComponent(EntityId id) const;
 
 반환·실패: 비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.
 
-소스: [framework/include/Graphics.h:165](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:168](../framework/include/Graphics.h)
 
 ## Scene::getCubeFaceIds
 
@@ -1490,7 +1526,7 @@ const std::vector<FaceId>& getCubeFaceIds() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:168](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:171](../framework/include/Graphics.h)
 
 ## Scene::getTetraFaceIds
 
@@ -1502,7 +1538,7 @@ const std::vector<FaceId>& getTetraFaceIds() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:173](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:176](../framework/include/Graphics.h)
 
 ## Scene::getPyramidFaceIds
 
@@ -1514,7 +1550,7 @@ const std::vector<FaceId>& getPyramidFaceIds() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:178](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:181](../framework/include/Graphics.h)
 
 ## Scene::getLines
 
@@ -1526,7 +1562,7 @@ Scene의 선 데이터 배열을 읽기 전용 참조로 반환한다.
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Graphics.h:183](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:186](../framework/include/Graphics.h)
 
 ## Scene::getGeometryRevision
 
@@ -1538,7 +1574,7 @@ std::uint64_t getGeometryRevision() const;
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:188](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:191](../framework/include/Graphics.h)
 
 ## DiagramSystem::makePolyhedron
 
@@ -1550,7 +1586,7 @@ static Polyhedron makePolyhedron(GLShape shape, const glm::vec3& sideLengths = g
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:196](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:199](../framework/include/Graphics.h)
 
 ## DiagramSystem::makeSphere
 
@@ -1562,7 +1598,7 @@ static Model makeSphere(float radius, unsigned slices = 32, unsigned stacks = 16
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:198](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:201](../framework/include/Graphics.h)
 
 ## DiagramSystem::makeCone
 
@@ -1574,7 +1610,7 @@ static Model makeCone(float radius, float height, unsigned slices = 32);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:200](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:203](../framework/include/Graphics.h)
 
 ## DiagramSystem::validPolyhedron
 
@@ -1586,7 +1622,7 @@ static bool validPolyhedron(const Polyhedron& polyhedron);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:202](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:205](../framework/include/Graphics.h)
 
 ## DiagramSystem::validTransform
 
@@ -1598,7 +1634,7 @@ static bool validTransform(const Transform3D& transform);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:204](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:207](../framework/include/Graphics.h)
 
 ## DiagramSystem::modelMatrix
 
@@ -1610,7 +1646,7 @@ T(basis)·R·S·T(-localBasis) 순서로 로컬 모델 행렬을 계산한다.
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:206](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:209](../framework/include/Graphics.h)
 
 ## DiagramSystem::faceModelMatrix
 
@@ -1622,7 +1658,7 @@ static glm::mat4 faceModelMatrix(const Component_Poly& component, const PlaneFig
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:208](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:211](../framework/include/Graphics.h)
 
 ## CameraSystem::validCamera
 
@@ -1634,7 +1670,7 @@ static bool validCamera(const Camera& camera);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:225](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:228](../framework/include/Graphics.h)
 
 ## CameraSystem::viewMatrix
 
@@ -1646,7 +1682,7 @@ static glm::mat4 viewMatrix(const Camera& camera);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:227](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:230](../framework/include/Graphics.h)
 
 ## CameraSystem::projectionMatrix
 
@@ -1658,7 +1694,7 @@ static glm::mat4 projectionMatrix(const Camera& camera, float aspect);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:229](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:232](../framework/include/Graphics.h)
 
 ## readTextFile
 
@@ -1670,7 +1706,7 @@ std::string readTextFile(const std::filesystem::path& path);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:233](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:236](../framework/include/Graphics.h)
 
 ## Renderer::Renderer
 
@@ -1682,7 +1718,7 @@ GPU 핸들을 0과 미업로드 상태로 준비한다. 실제 GL 생성은 init
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:289](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:292](../framework/include/Graphics.h)
 
 ## Renderer::Renderer
 
@@ -1694,7 +1730,7 @@ Renderer(const Renderer&) = delete;
 
 반환·실패: 호출 불가(복사 금지 선언).
 
-소스: [framework/include/Graphics.h:291](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:294](../framework/include/Graphics.h)
 
 ## Renderer::operator=
 
@@ -1706,7 +1742,7 @@ Renderer& operator=(const Renderer&) = delete;
 
 반환·실패: 호출 불가(복사 금지 선언).
 
-소스: [framework/include/Graphics.h:293](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:296](../framework/include/Graphics.h)
 
 ## Renderer::initialize
 
@@ -1718,7 +1754,7 @@ bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:296](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:299](../framework/include/Graphics.h)
 
 ## Renderer::render
 
@@ -1730,7 +1766,7 @@ Scene을 카메라와 전체 화면 크기로 렌더링한다. 유효한 현재 
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:300](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:303](../framework/include/Graphics.h)
 
 ## Renderer::renderPass
 
@@ -1742,7 +1778,7 @@ viewport·scissor·깊이·컬링·clear를 설정하고 pass 크기로 aspect�
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:303](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:306](../framework/include/Graphics.h)
 
 ## Renderer::renderViews
 
@@ -1754,7 +1790,7 @@ bool renderViews(const Scene& scene, const std::vector<RenderPass>& passes, int 
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Graphics.h:305](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:308](../framework/include/Graphics.h)
 
 ## Renderer::destroy
 
@@ -1766,7 +1802,7 @@ GPU 핸들을 삭제하고 캐시를 비운다. 컨텍스트가 유효해야 한
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:307](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:310](../framework/include/Graphics.h)
 
 ## Renderer::abandon
 
@@ -1778,7 +1814,7 @@ void abandon();
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Graphics.h:310](../framework/include/Graphics.h)
+소스: [framework/include/Graphics.h:313](../framework/include/Graphics.h)
 
 ## GridLayout::valid
 
@@ -1862,7 +1898,7 @@ bool valid() const;
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Model.h:51](../framework/include/Model.h)
+소스: [framework/include/Model.h:53](../framework/include/Model.h)
 
 ## PlaneFigure::fromVertices
 
@@ -1874,7 +1910,7 @@ static PlaneFigure fromVertices(const std::vector<Vertex>& vertices, const std::
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Model.h:92](../framework/include/Model.h)
+소스: [framework/include/Model.h:97](../framework/include/Model.h)
 
 ## Polyhedron::meshes
 
@@ -1886,7 +1922,7 @@ std::vector<Mesh>& meshes();
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Model.h:116](../framework/include/Model.h)
+소스: [framework/include/Model.h:121](../framework/include/Model.h)
 
 ## Polyhedron::meshes
 
@@ -1898,7 +1934,7 @@ const std::vector<Mesh>& meshes() const;
 
 반환·실패: 비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.
 
-소스: [framework/include/Model.h:121](../framework/include/Model.h)
+소스: [framework/include/Model.h:126](../framework/include/Model.h)
 
 ## ModelResult::operator bool
 
@@ -2618,7 +2654,7 @@ static std::optional<PathPose> conveyorCornerPose(double distance, const glm::ve
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:102](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:110](../framework/include/Patterns.h)
 
 ## PatternSystem::addBox
 
@@ -2630,7 +2666,7 @@ static std::optional<EntityId> addBox(Scene& scene, const glm::vec3& size, const
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:105](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:113](../framework/include/Patterns.h)
 
 ## PatternSystem::addPolygon
 
@@ -2642,7 +2678,7 @@ static std::optional<EntityId> addPolygon(Scene& scene, const std::vector<glm::v
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:108](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:116](../framework/include/Patterns.h)
 
 ## PatternSystem::addRoom
 
@@ -2654,7 +2690,7 @@ static std::optional<EntityId> addRoom(Scene& scene, const Bounds3& bounds, bool
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:111](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:119](../framework/include/Patterns.h)
 
 ## PatternSystem::addJoint
 
@@ -2666,7 +2702,7 @@ static std::optional<EntityId> addJoint(Scene& scene, EntityId parent, const glm
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:113](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:121](../framework/include/Patterns.h)
 
 ## PatternSystem::rotateJoint
 
@@ -2678,7 +2714,7 @@ static bool rotateJoint(Scene& scene, EntityId joint, const glm::vec3& axis, flo
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:115](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:123](../framework/include/Patterns.h)
 
 ## PatternSystem::follow
 
@@ -2690,7 +2726,7 @@ DistancePath 샘플을 엔티티 위치와 +Z 기준 Y 회전에 반영한다.
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:117](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:125](../framework/include/Patterns.h)
 
 ## PatternSystem::addNumber
 
@@ -2702,7 +2738,7 @@ static bool addNumber(Scene& scene, unsigned digit, const glm::vec3& position, f
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:120](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:128](../framework/include/Patterns.h)
 
 ## PatternSystem::foldFace
 
@@ -2714,7 +2750,19 @@ static bool foldFace(Scene& scene, EntityId entity, std::size_t face, const Axis
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:123](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:131](../framework/include/Patterns.h)
+
+## PatternSystem::rotateFace
+
+```cpp
+static bool rotateFace(Scene& scene, EntityId entity, std::size_t face, const FaceRotationConfig& config);
+```
+
+원래 모서리 힌지·면 중심 자전·원본 모델 중심 공전을 구분하여 면 회전 행렬을 설정한다.
+
+반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
+
+소스: [framework/include/Patterns.h:133](../framework/include/Patterns.h)
 
 ## PatternSystem::openFace
 
@@ -2726,7 +2774,7 @@ static bool openFace(Scene& scene, EntityId entity, std::size_t face, float prog
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:125](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:135](../framework/include/Patterns.h)
 
 ## PatternSystem::cameraFacingWall
 
@@ -2738,7 +2786,7 @@ static std::optional<std::size_t> cameraFacingWall(const Scene& scene, EntityId 
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:128](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:138](../framework/include/Patterns.h)
 
 ## PatternSystem::openRoomWall
 
@@ -2750,7 +2798,7 @@ static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float pr
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:130](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:140](../framework/include/Patterns.h)
 
 ## PatternSystem::snakeCells
 
@@ -2762,7 +2810,7 @@ static std::vector<glm::ivec3> snakeCells(const glm::ivec3& cells);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Patterns.h:132](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:142](../framework/include/Patterns.h)
 
 ## PatternSystem::aligned
 
@@ -2774,7 +2822,7 @@ static bool aligned(float first, float second, float tolerance);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:134](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:144](../framework/include/Patterns.h)
 
 ## PatternSystem::snap
 
@@ -2786,7 +2834,7 @@ static glm::vec3 snap(const glm::vec3& point, float spacing);
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Patterns.h:136](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:146](../framework/include/Patterns.h)
 
 ## PatternSystem::screenOnPlane
 
@@ -2798,7 +2846,7 @@ static std::optional<glm::vec3> screenOnPlane(const Camera& camera, double x, do
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:138](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:148](../framework/include/Patterns.h)
 
 ## PatternSystem::moveCamera
 
@@ -2810,7 +2858,7 @@ static bool moveCamera(Camera& camera, const glm::vec3& offset);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:142](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:152](../framework/include/Patterns.h)
 
 ## PatternSystem::yawCamera
 
@@ -2822,7 +2870,7 @@ static bool yawCamera(Camera& camera, float degrees);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:144](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:154](../framework/include/Patterns.h)
 
 ## PatternSystem::orbitCamera
 
@@ -2834,7 +2882,7 @@ static bool orbitCamera(Camera& camera, const AxisLine& axis, float degrees);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:146](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:156](../framework/include/Patterns.h)
 
 ## PatternSystem::zoomCamera
 
@@ -2846,7 +2894,7 @@ static bool zoomCamera(Camera& camera, float factor);
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:148](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:158](../framework/include/Patterns.h)
 
 ## PatternSystem::threeViews
 
@@ -2858,7 +2906,7 @@ static std::vector<RenderPass> threeViews(const Camera& perspective, int width, 
 
 반환·실패: 반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.
 
-소스: [framework/include/Patterns.h:150](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:160](../framework/include/Patterns.h)
 
 ## PatternSystem::addWalkingRig
 
@@ -2870,7 +2918,7 @@ static std::optional<JointRig> addWalkingRig(Scene& scene, const GridLayout& bod
 
 반환·실패: 값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.
 
-소스: [framework/include/Patterns.h:153](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:163](../framework/include/Patterns.h)
 
 ## PatternSystem::poseWalkingRig
 
@@ -2882,7 +2930,7 @@ static bool poseWalkingRig(Scene& scene, const JointRig& rig, const glm::vec3& f
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 
-소스: [framework/include/Patterns.h:155](../framework/include/Patterns.h)
+소스: [framework/include/Patterns.h:165](../framework/include/Patterns.h)
 
 ## screenRay
 

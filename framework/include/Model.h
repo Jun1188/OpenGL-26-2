@@ -34,6 +34,8 @@ enum class GLFace { None, Rect, Triangle, Mesh };
 enum class PivotMode { Preserve, BottomCenter, Custom };
 enum class OutlineMode { None, FeatureEdges, AllTriangleEdges, Explicit };
 enum class CullMode { Inherit, None, Back, Front };
+enum class FaceTransformMode { Hierarchy, Independent };
+enum class FaceAnimationSpace { Local, Model };
 
 struct Transform3D {
     glm::vec3 basis{0.0f};
@@ -87,6 +89,9 @@ struct PlaneFigure {
     float creaseAngleDegrees = 1.0f;
     std::string name;
     CullMode cull = CullMode::Inherit;
+    FaceTransformMode transformMode = FaceTransformMode::Hierarchy;
+    glm::mat4 transformFrame{1.0f}; // Parent-local correction, or a frozen world frame.
+    FaceAnimationSpace animationSpace = FaceAnimationSpace::Local;
 
     /// [API] 정점 목록에서 하나의 면 데이터를 만든다. 모델/Scene 등록은 수행하지 않는다.
     static PlaneFigure fromVertices(const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& triangles) {
@@ -183,6 +188,11 @@ inline bool validMesh(const Mesh& m) {
         m.cull != CullMode::Front)
         return false;
 
+    if ((m.transformMode != FaceTransformMode::Hierarchy && m.transformMode != FaceTransformMode::Independent) ||
+        !finiteMatrix(m.transformFrame) ||
+        (m.animationSpace != FaceAnimationSpace::Local && m.animationSpace != FaceAnimationSpace::Model))
+        return false;
+
     if (m.localVertices.size() < 3 || !validColor(m.color) || !validColor(m.material.color) ||
         !finiteVector(m.normal) || !finiteMatrix(m.localAnimationMatrix) || !std::isfinite(m.creaseAngleDegrees) ||
         m.creaseAngleDegrees < 0 || m.creaseAngleDegrees > 180)
@@ -268,15 +278,22 @@ inline glm::mat4 transformMatrix(const Transform3D& t) {
     return glm::translate(glm::scale(m, t.scale), -t.localBasis);
 }
 
-inline glm::mat4 faceMatrix(const Component_Poly& c, const Mesh& face) {
-    glm::mat4 child(1);
-
-    if (face.independence) {
-        // Rotate/scale around a face pivot without moving an identity child.
-        child = glm::translate(glm::mat4(1), face.transform.localBasis) * transformMatrix(face.transform);
-    }
-
-    return transformMatrix(c.transform) * child * face.localAnimationMatrix;
+inline glm::mat4 faceSrtMatrix(const Mesh& face) {
+    return face.independence
+        ? glm::translate(glm::mat4(1), face.transform.localBasis) * transformMatrix(face.transform)
+        : glm::mat4(1);
 }
+
+inline glm::mat4 faceLocalMatrix(const Mesh& face) {
+    const auto child = faceSrtMatrix(face);
+    return face.animationSpace == FaceAnimationSpace::Model
+        ? face.localAnimationMatrix * child : child * face.localAnimationMatrix;
+}
+
+inline glm::mat4 faceMatrix(const Component_Poly& c, const Mesh& face) {
+    const auto parent = face.transformMode == FaceTransformMode::Hierarchy ? transformMatrix(c.transform) : glm::mat4(1);
+    return parent * face.transformFrame * faceLocalMatrix(face);
+}
+
 } // namespace detail
 } // namespace graphics

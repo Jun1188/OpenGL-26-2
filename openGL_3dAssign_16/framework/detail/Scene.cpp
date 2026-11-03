@@ -198,14 +198,16 @@ bool Scene::setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode) {
     return true;
 }
 
-bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix) {
-    if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)) {
+bool Scene::setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix, FaceAnimationSpace space) {
+    if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix) ||
+        (space != FaceAnimationSpace::Local && space != FaceAnimationSpace::Model)) {
         return Diagnostics::failAt(
             __FILE__, __LINE__, PipelineStage::Scene, "Scene::setFaceLocalMatrix",
             "Rejected condition: id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size() || !finiteMatrix(matrix)",
             "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     }
     components_[id].polyhedron.faces[faceIndex].localAnimationMatrix = matrix;
+    components_[id].polyhedron.faces[faceIndex].animationSpace = space;
 
     return true;
 }
@@ -401,7 +403,9 @@ std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceInd
                 "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id),
             std::nullopt);
 
-    const auto world = worldMatrix(id);
+    const auto& face = components_[id].polyhedron.faces[faceIndex];
+    const auto world = face.transformMode == FaceTransformMode::Hierarchy
+                           ? worldMatrix(id) : std::optional<glm::mat4>(glm::mat4(1));
 
     if (!world)
         return (Diagnostics::failAt(
@@ -409,13 +413,7 @@ std::optional<glm::mat4> Scene::faceWorldMatrix(EntityId id, std::size_t faceInd
                     "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id),
                 std::nullopt);
 
-    const auto& face = components_[id].polyhedron.faces[faceIndex];
-    glm::mat4 child(1);
-
-    if (face.independence)
-        child = glm::translate(glm::mat4(1), face.transform.localBasis) * detail::transformMatrix(face.transform);
-
-    const auto result = *world * child * face.localAnimationMatrix;
+    const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);
 
     if (!detail::finiteMatrix(result)) {
         Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, "Scene::faceWorldMatrix",
@@ -487,6 +485,32 @@ bool Scene::setTransform(EntityId id, const Transform3D& transform) {
     }
     components_[id].transform = transform;
 
+    return true;
+}
+
+bool Scene::setFaceTransformMode(EntityId id, std::size_t faceIndex, FaceTransformMode mode, bool preserveWorld) {
+    if (!getMesh(id, faceIndex) || (mode != FaceTransformMode::Hierarchy && mode != FaceTransformMode::Independent))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, "setFaceTransformMode",
+                                   "Invalid entity, face index or transform mode.");
+    auto& face = components_[id].polyhedron.faces[faceIndex];
+    glm::mat4 frame(1);
+    if (preserveWorld) {
+        if (mode == face.transformMode) return true;
+        const auto world = worldMatrix(id);
+        if (!world) return false;
+        const auto oldParent = face.transformMode == FaceTransformMode::Hierarchy ? *world : glm::mat4(1);
+        frame = oldParent * face.transformFrame;
+        if (mode == FaceTransformMode::Hierarchy) {
+            const float determinant = glm::determinant(*world);
+            if (!std::isfinite(determinant) || std::abs(determinant) < 1e-12f)
+                return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, "setFaceTransformMode",
+                                           "Cannot preserve world pose under a singular parent transform.");
+            frame = glm::inverse(*world) * frame;
+        }
+    }
+    if (!TransformSystem::validAffine(frame)) return false;
+    face.transformMode = mode;
+    face.transformFrame = frame;
     return true;
 }
 

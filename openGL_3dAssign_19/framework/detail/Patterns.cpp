@@ -592,6 +592,38 @@ bool PatternSystem::addNumber(Scene& scene, unsigned digit, const glm::vec3& pos
     return true;
 }
 
+bool PatternSystem::rotateFace(Scene& scene, EntityId entity, std::size_t face, const FaceRotationConfig& config) {
+    const auto* component = scene.getComponent(entity);
+    const auto* mesh = scene.getMesh(entity, face);
+    if (!component || !mesh || mesh->localVertices.size() < 3 || !std::isfinite(config.degrees))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, "rotateFace",
+                                   "Need a valid polygon face and finite angle.");
+    const auto srt = detail::faceSrtMatrix(*mesh);
+    auto point = [&](const glm::vec3& vertex) { return glm::vec3(srt * glm::vec4(vertex, 1)); };
+    AxisLine axis;
+    switch (config.kind) {
+    case FaceRotationKind::EdgeHinge:
+        if (config.edge >= mesh->localVertices.size()) return false;
+        axis.point = point(mesh->localVertices[config.edge]);
+        axis.direction = point(mesh->localVertices[(config.edge + 1) % mesh->localVertices.size()]) - axis.point;
+        break;
+    case FaceRotationKind::SelfSpin:
+        for (const auto& vertex : mesh->localVertices) axis.point += point(vertex);
+        axis.point /= float(mesh->localVertices.size());
+        axis.direction = config.axis;
+        break;
+    case FaceRotationKind::ModelOrbit: {
+        const auto bounds = detail::bounds(component->polyhedron);
+        axis.point = bounds.first*.5f + bounds.second*.5f;
+        axis.direction = config.axis;
+        break;
+    }
+    default: return false;
+    }
+    const auto matrix = TransformSystem::rotation(axis, config.degrees);
+    return matrix && scene.setFaceLocalMatrix(entity, face, *matrix, FaceAnimationSpace::Model);
+}
+
 bool PatternSystem::foldFace(Scene& scene, EntityId entity, std::size_t face, const AxisLine& hinge, float degrees) {
     const auto matrix = TransformSystem::rotation(hinge, degrees);
 

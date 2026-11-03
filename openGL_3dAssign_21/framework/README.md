@@ -582,3 +582,7 @@ M_face = M_entity * 면의 기존 추가 SRT * localAnimationMatrix
 ## OBJ 로더 변경 (2026-10-22)
 
 Assimp 의존성을 제거했다. loadObj(path, options)를 사용하며 loadPrimitive/loadModel도 같은 OBJ 텍스트 로더를 호출한다. [표기·호환 재시도·제한·직접 확인](docs/OBJ_LOADING.md)을 참고한다.
+
+## 면 변환 편집
+
+[독립·계층 모드와 힌지·자전·공전](docs/FACE_TRANSFORMS.md)을 읽는다. 기존 실습은 계층 모드를 유지한다.

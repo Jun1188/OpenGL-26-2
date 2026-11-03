@@ -208,6 +208,17 @@ def description(r):
     if name==owner:return {'Application':'초기 창 포인터와 콜백·CPU 장면 상태를 준비한다. 실제 창은 run에서 생성한다.','Scene':'빈 CPU 장면과 ID·형상 변경 상태를 초기화한다.','Renderer':'GPU 핸들을 0과 미업로드 상태로 준비한다. 실제 GL 생성은 initialize에서 수행한다.','AssetLoader':'프로젝트 루트와 기능 옵션을 보관하고 상대경로 자산 로딩을 준비한다.'}[owner]
     if name.startswith('~'):return '실행 자원을 정리한다. GPU 해제는 창의 컨텍스트가 유효한 동안 수행한다.'
     if name=='operator bool':return '모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.'
+    additions={
+        ('HumanoidPose','seated'):'허벅지를 앞으로 뻗고 무릎을 굽힌 앉은 자세를 반환한다.',
+        ('AnimationSystem','createJointAnimation'):'관절의 기준 SRT와 강체 모션을 보관한다. 기준 배율은 양수 균일 배율이다.',
+        ('AnimationSystem','poseHierarchy'):'기준 SRT와 모션을 합성하고 모든 관절이 유효하면 자세를 반영한다.',
+        ('AnimationSystem','addHumanoid'):'편집 가능한 사람형 관절·메시 계층을 만든다. 구성 실패는 기존 Scene을 유지한다.',
+        ('AnimationSystem','poseHumanoid'):'각 관절 위치를 유지하며 로컬 Euler 자세를 적용한다.',
+        ('AnimationSystem','addSwingWithRider'):'고정 프레임·진자 관절·좌석·앉은 사람과 모션을 구성한다.',
+        ('Motion','pendulum'):'축·진폭·주기·위상의 사인 진자 회전 단계를 만든다.',
+        ('Scene','setFaceTransformMode'):'면의 계층 상속·월드 독립을 전환한다. 기본값은 현재 자세 보존이다.',
+        ('PatternSystem','rotateFace'):'현재 면의 모서리 힌지·중심 자전·원본 모델 중심 공전을 구분해 회전을 설정한다.'}
+    if (owner,name) in additions:return additions[owner,name]
     if owner=='SceneActions':return '지정 값과 대상 ID를 기존 API에 전달하는 '+name+' 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.'
     if owner=='DrawUniformContext':return '현재 바인딩된 program의 추가 uniform을 설정한다. 이름·GLSL 자료형과 값의 유한성을 맞춘다.'
     if owner=='CuboidMode':return {

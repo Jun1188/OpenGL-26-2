@@ -3,12 +3,20 @@
 
 namespace graphics {
 namespace {
+bool validFaceRotation(const std::optional<FaceRotationConfig>& rotation) {
+    if (!rotation) return true;
+    if (!std::isfinite(rotation->degrees)) return false;
+    if (rotation->kind == FaceRotationKind::EdgeHinge) return rotation->edge < 4;
+    return (rotation->kind == FaceRotationKind::SelfSpin || rotation->kind == FaceRotationKind::ModelOrbit) &&
+           detail::finiteVector(rotation->axis) && glm::length(glm::dvec3(rotation->axis)) > 1e-12;
+}
 bool validCuboid(const CuboidConfig& c) {
     if (c.name.empty() || !detail::finiteVector(c.size) || c.size.x <= 0 || c.size.y <= 0 || c.size.z <= 0 ||
         !detail::validColor(c.color) || !DiagramSystem::validTransform(c.transform))
         return false;
     for (const auto& face : c.faces)
-        if (!DiagramSystem::validTransform(face.transform) || !detail::validColor(face.color) ||
+        if (!DiagramSystem::validTransform(face.transform) || !detail::validColor(face.color) || !validFaceRotation(face.rotation) ||
+            (face.mode != FaceTransformMode::Hierarchy && face.mode != FaceTransformMode::Independent) ||
             (face.cull != CullMode::Inherit && face.cull != CullMode::None &&
              face.cull != CullMode::Back && face.cull != CullMode::Front))
             return false;
@@ -82,9 +90,10 @@ bool CuboidMode::apply(Application& app) {
         if (!id || !staged.setTransform(*id, c.transform) || !staged.setTint(*id, c.color) ||
             !staged.setVisible(*id, c.visible)) return false;
         for (std::size_t face = 0; face < c.faces.size(); ++face)
-            if (!staged.setFaceTransform(*id, face, c.faces[face].transform, false) ||
+            if (!staged.setFaceTransform(*id, face, c.faces[face].transform, true) ||
                 !staged.setFaceVisible(*id, face, c.faces[face].visible) ||
-                !staged.setFaceCullMode(*id, face, c.faces[face].cull)) return false;
+                !staged.setFaceCullMode(*id, face, c.faces[face].cull) ||
+                (c.faces[face].rotation && !PatternSystem::rotateFace(staged, *id, face, *c.faces[face].rotation))) return false;
         entities.emplace(c.name, *id);
         if (c.motion) {
             const auto motion = staged.getMotions().createMotion(*c.motion);
@@ -96,6 +105,9 @@ bool CuboidMode::apply(Application& app) {
             layers.emplace(c.name, *idLayer);
             motions.emplace(c.name, *motion);
         }
+        // Freeze independent faces only after the initial motion/layer binding exists.
+        for (std::size_t face = 0; face < c.faces.size(); ++face)
+            if (!staged.setFaceTransformMode(*id, face, c.faces[face].mode)) return false;
     }
     app.getScene() = std::move(staged);
     app.getCamera() = config_.camera;
