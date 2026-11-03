@@ -73,6 +73,12 @@ void Console::onKey(int key, int action, int mods) {
         practiceMode_->onKey(key, action, mods);
         return;
     }
+    if (key == GLFW_KEY_HOME && action == GLFW_PRESS) {
+        pathId_.reset();
+        if (!activateMode(activeMode_))
+            app_.requestClose();
+        return;
+    }
     if (action == GLFW_REPEAT) {
         handleJointKey(key);
         return;
@@ -215,7 +221,7 @@ void Console::printHelp() const {
         << "왼쪽 클릭: 사람·그네·상자 전체 선택 / 빈 공간: 선택 해제\n"
         << "7 Grid/거리 기반 배치 / 8 실내 미끄럼·낙하 / 0 기존 Motion 예제\n"
         << "9 선형보간·진자·사람형·그네→사람 계층 애니메이션\n"
-        << "전체 모드: Tab/Backspace 객체·관절 선택, X/Y/Z 축, 좌우 회전, 상하 이동, PageUp/Down 피벗, +/- 균일 배율, R 복원\n"
+        << "1~9: Home 전체 복원 / Tab/Backspace 객체·관절 선택, X/Y/Z 축, 좌우 회전, 상하 이동, PageUp/Down 피벗, +/- 균일 배율, R 복원\n"
         << "V 3뷰 전환 / D 단계 추적 로그 / F 실내 예제 바닥 개방 / Space 정지·재개\n";
 }
 

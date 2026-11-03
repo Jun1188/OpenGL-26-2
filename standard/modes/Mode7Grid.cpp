@@ -48,6 +48,7 @@ bool Console::initGrid() {
     app_.getCamera().target = {0, 0, 0};
     app_.getCamera().orthographicHalfExtent = 4;
 
+    selectedJoint_ = 24; // 처음에는 첫 이동 상자를 조작한다.
     return true;
 }
 
