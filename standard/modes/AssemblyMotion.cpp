@@ -5,11 +5,31 @@
 namespace assembly {
 bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
     const auto& command = a[0];
+    if (command == "body" || command == "release") {
+        require(a.size() >= 2, "body <물리ID> velocity/gravity/bounce ... 또는 release <물리ID>");
+        const auto it = std::find_if(state_.behaviors.begin(), state_.behaviors.end(), [&](const Behavior& b) {
+            return b.name == a[1] && b.effect == Effect::Body;
+        });
+        require(it != state_.behaviors.end(), "물리 동작 ID가 필요합니다.");
+        if (command == "release") { require(a.size() == 2, "release <물리ID>"); it->releaseRequested = true; }
+        else {
+            require(a.size() >= 4, "body <물리ID> velocity/gravity <XYZ> 또는 bounce on/off");
+            if (a[2] == "bounce") { require(a.size() == 4, "body <ID> bounce on/off"); it->elastic = boolean(a[3]); }
+            else {
+                require(a.size() == 6 && (a[2] == "velocity" || a[2] == "gravity"), "body <ID> velocity/gravity <XYZ>");
+                const auto value = vector(a, 3);
+                if (a[2] == "gravity") it->gravity = value;
+                else if (it->body.released) it->body.worldVelocity = value;
+                else it->body.localVelocity = value;
+            }
+        }
+        return true;
+    }
     if (command == "remove") {
         require(a.size() == 2, "remove <동작 이름>");
         const auto it = std::find_if(state_.behaviors.begin(), state_.behaviors.end(), [&](const Behavior& b) { return b.name == a[1]; });
         require(it != state_.behaviors.end(), "없는 동작입니다: " + a[1]);
-        if ((it->effect == Effect::Face || it->effect == Effect::Wall) && node(it->target).mesh) {
+        if (faceEffect(it->effect) && node(it->target).mesh) {
             const auto mesh = *node(it->target).mesh;
             require(app_.getScene().setFaceLocalMatrix(mesh, it->faceIndex, it->initialFaceMatrix, it->initialFaceSpace) &&
                     app_.getScene().setFaceVisible(mesh, it->faceIndex, it->initialFaceVisible), "면 동작 복원 실패.");
@@ -38,7 +58,10 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         require(it != state_.behaviors.end(), "보행 동작 이름이 필요합니다.");
         if (command == "obstacle") {
             require(a.size() == 3 && node(a[2]).mesh.has_value(), "obstacle <보행 동작> <메시 객체>");
-            require(a[2] != it->target && a[2] != it->reference, "자신이나 방을 장애물로 등록할 수 없습니다.");
+            require(node(a[2]).mesh != node(it->reference).mesh, "방 walls를 장애물로 중복 등록할 수 없습니다.");
+            std::optional<graphics::EntityId> ancestor = *node(a[2]).mesh;
+            while (ancestor && *ancestor != node(it->target).id) ancestor = app_.getScene().getComponent(*ancestor)->parent;
+            require(!ancestor, "보행 리그 자신의 부품을 장애물로 등록할 수 없습니다.");
             require(std::find(it->obstacles.begin(), it->obstacles.end(), a[2]) == it->obstacles.end(), "이미 등록한 장애물입니다.");
             it->obstacles.push_back(a[2]);
         } else if (command == "direction") {
@@ -151,7 +174,8 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
                 "강체 방과 부모 없는 물리 루트가 필요합니다.");
         b.previousRoom = *matrix; b.positionDriver = true;
         if (command == "physics") {
-            require(object.kind == "box", "physics는 중심 기준 box를 지원합니다.");
+            require(object.kind == "box" || object.kind == "sphere", "physics는 중심 기준 box/sphere를 지원합니다.");
+            b.elastic = object.kind == "sphere";
             const auto* mesh = object.mesh ? app_.getScene().getComponent(*object.mesh) : nullptr;
             require(mesh && glm::length(object.rest.localBasis) < .0001f &&
                     glm::length(mesh->transform.basis) < .0001f && glm::length(mesh->transform.localBasis) < .0001f &&
@@ -166,6 +190,8 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
             require(object.rest.scale == glm::vec3(1) && glm::length(object.rest.localBasis) < .0001f && rigid(*world),
                     "보행 리그는 배율 1과 중심 피벗을 유지해야 합니다.");
             b.effect = Effect::Walk;
+            require(std::abs(object.rest.rotation[1].y - 1) < .001f, "보행 루트의 초기 회전은 Y축 회전만 지원합니다.");
+            b.character.direction = object.rest.rotation * glm::vec3(0, 0, 1);
             b.character.feet = glm::vec3((*world)[3]); b.character.height = 1.8f;
             b.character.speed = float(number(a[4]));
             require(b.character.speed >= 0 && b.character.speed <= 10, "보행 속도는 0~10입니다.");

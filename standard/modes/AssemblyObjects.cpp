@@ -28,7 +28,7 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
     require(name.front() != '.' && name.back() != '.' && name.find("..") == std::string::npos, "이름의 각 구간은 비어 있으면 안 됩니다.");
     require(state_.nodes.size() < 1000, "객체/부품 이름 1000개 한도입니다.");
     require(graphics::detail::finiteVector(position) && graphics::detail::finiteVector(size) && glm::all(glm::greaterThan(size, glm::vec3(0))), "위치와 양수 크기를 확인하세요.");
-    const bool sized = kind == "box" || kind == "pyramid" || kind == "sphere" || kind == "cone";
+    const bool sized = kind == "box" || kind == "pyramid" || kind == "sphere" || kind == "cone" || kind == "tetra";
     require(sized || size == glm::vec3(1), "복합 객체는 크기 인자 대신 scale 명령을 사용하세요.");
     auto& scene = app_.getScene();
     const auto entity = [](std::optional<graphics::EntityId> id) {
@@ -93,9 +93,9 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
         }
         return;
     }
-    const bool primitive = kind == "box" || kind == "pyramid" || kind == "sphere" || kind == "cone";
+    const bool primitive = kind == "box" || kind == "pyramid" || kind == "sphere" || kind == "cone" || kind == "tetra";
     require(primitive || kind == "room" || kind == "grid" || kind == "joint" || kind == "conveyor" || kind == "planets",
-            "지원 종류: box pyramid sphere cone humanoid swing tank walker room grid joint conveyor planets");
+            "지원 종류: box pyramid sphere cone tetra humanoid swing tank walker room grid joint conveyor planets");
     graphics::Transform3D rest;
     rest.basis = position;
     const auto root = entity(scene.addGroup(rest));
@@ -104,6 +104,8 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
         graphics::EntityId mesh;
         if (kind == "box")
             mesh = entity(scene.addCuboid(size, {0, 0, 0}));
+        else if (kind == "tetra")
+            mesh = entity(scene.addRightTetrahedron(size, {0, 0, 0}));
         else if (kind == "pyramid")
             mesh = entity(scene.addPyramid(size, {0, 0, 0}));
         else if (kind == "sphere") {

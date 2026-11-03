@@ -12,6 +12,7 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
     if (command == "parent") {
         require(a.size() == 3, "parent <자식> <부모 또는 none>. 좌표는 부모 로컬 값으로 유지합니다.");
         auto& child = node(a[1]);
+        require(!child.mount, "면 부착 관절은 unmount 후 부모를 바꾸세요.");
         auto* driver = positionDriver(a[1]);
         require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk), "물리 루트에는 부모를 추가할 수 없습니다.");
         for (const auto& behavior : state_.behaviors) {
@@ -40,25 +41,6 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         }
         return true;
     }
-    if (command == "visible" || command == "cull") {
-        require(a.size() == 4, "visible <대상> <면> <on/off> 또는 cull <대상> <면> <none/back/front>");
-        const auto& object = node(a[1]);
-        require(object.mesh.has_value(), "메시가 필요합니다.");
-        const double face = number(a[2]);
-        const auto* component = app_.getScene().getComponent(*object.mesh);
-        require(face >= 0 && face == std::floor(face) && face < component->polyhedron.faces.size(), "면 번호 범위를 확인하세요.");
-        if (command == "visible") {
-            for (const auto& b : state_.behaviors)
-                require(!((b.effect == Effect::Wall || b.effect == Effect::Face) && node(b.target).mesh == object.mesh && b.faceIndex == std::size_t(face)),
-                        "면 동작이 가시성을 소유하고 있습니다. remove 후 변경하세요.");
-            require(app_.getScene().setFaceVisible(*object.mesh, std::size_t(face), boolean(a[3])), "면 가시성 변경 실패.");
-        } else {
-            require(a[3] == "none" || a[3] == "back" || a[3] == "front", "컬링은 none/back/front입니다.");
-            require(app_.getScene().setFaceCullMode(*object.mesh, std::size_t(face), a[3] == "none" ? graphics::CullMode::None :
-                a[3] == "back" ? graphics::CullMode::Back : graphics::CullMode::Front), "컬링 변경 실패.");
-        }
-        return true;
-    }
     if (command == "move") {
         require(a.size() == 5, "move <대상> <DX> <DY> <DZ>");
         move(a[1], vector(a, 2));
@@ -69,20 +51,20 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         rotate(a[1], axis(a[2]), float(number(a[3])));
         return true;
     }
-    if (command == "scale" || command == "pivot" || command == "position" || command == "rest") {
+    if (command == "scale" || command == "pivot" || command == "position" || command == "rest" || command == "rest3") {
         require(a.size() >= 3, command + " <대상> <값>");
         auto rest = node(a[1]).rest;
         if (command == "scale") {
             require(a.size() == 3, "scale <대상> <양수 균일 배율>");
             rest.scale = glm::vec3(float(number(a[2])));
-        } else if (command == "rest") {
-            require(a.size() == 18, "rest <대상> <위치3> <회전행렬 열우선9> <균일배율> <피벗3>");
+        } else if (command == "rest" || command == "rest3") {
+            require(command == "rest" ? a.size() == 18 : a.size() == 20, "rest <대상> <위치3> <회전행렬 열우선9> <균일배율> <피벗3>");
             rest.basis = vector(a, 2);
             for (int c = 0; c < 3; ++c)
                 for (int r = 0; r < 3; ++r)
                     rest.rotation[c][r] = float(number(a[5 + c * 3 + r]));
-            rest.scale = glm::vec3(float(number(a[14])));
-            rest.localBasis = vector(a, 15);
+            rest.scale = command == "rest3" ? vector(a, 14) : glm::vec3(float(number(a[14])));
+            rest.localBasis = vector(a, command == "rest3" ? 17 : 15);
         } else {
             require(a.size() == 5, command + " <대상> <X> <Y> <Z>");
             if (command == "pivot") rest.localBasis = vector(a, 2);
@@ -128,7 +110,7 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
         require(a.size() == 2 && !replaying_, "save/load <파일>. 레시피 안에서 파일 명령을 중첩할 수 없습니다.");
         return a[0] == "save" ? save(a[1], out) : load(a[1], out);
     }
-    if (hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
+    if (surfaceCommand(a, out) || trackCommand(a, out) || hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
         return true;
     if (const auto handled = customCommand(*this, a, out))
         return *handled;

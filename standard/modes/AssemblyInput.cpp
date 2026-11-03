@@ -46,6 +46,15 @@ void Assembly::bind(Binding binding) {
 }
 
 bool Assembly::inputCommand(const Tokens& a, std::ostream&) {
+    if (a[0] == "drag") {
+        require((a.size() == 2 && a[1] == "off") || a.size() == 4, "drag <객체> <축> <도/픽셀> 또는 drag off");
+        state_.dragging = false; state_.dragX.reset();
+        if (a.size() == 2) state_.dragTarget.clear();
+        else {
+            node(a[1]); state_.dragTarget = a[1]; state_.dragAxis = axis(a[2]); state_.dragSensitivity = float(number(a[3]));
+        }
+        return true;
+    }
     if (a[0] == "bind") {
         require(a.size() == 4 && (a[2] == "press" || a[2] == "hold"), "bind <키> <press/hold> \"명령\"");
         const auto key = keyCode(a[1]);
@@ -74,9 +83,28 @@ bool Assembly::inputCommand(const Tokens& a, std::ostream&) {
         return true;
     }
     if (a[0] == "render") {
+        require(a.size() >= 3, "render <wire/lighting/depth/cull/light-direction/light-color/background> ...");
+        auto& options = app_.getRenderOptions();
+        if (a[1] == "cull") {
+            require(a.size() == 3 && (a[2] == "none" || a[2] == "back" || a[2] == "front"), "render cull none/back/front");
+            options.cull = a[2] == "none" ? graphics::CullMode::None : a[2] == "back" ? graphics::CullMode::Back : graphics::CullMode::Front;
+            return true;
+        }
+        if (a[1] == "light-direction" || a[1] == "light-color" || a[1] == "background") {
+            require(a.size() == 5, "render light-direction/light-color/background <값3>");
+            const auto value = vector(a, 2);
+            if (a[1] == "light-direction") {
+                require(glm::length(value) > .0001f, "광원 방향은 0일 수 없습니다.");
+                options.lightDirection = glm::normalize(value);
+            } else {
+                require(glm::all(glm::greaterThanEqual(value, glm::vec3(0))) && glm::all(glm::lessThanEqual(value, glm::vec3(1))), "색은 0~1입니다.");
+                if (a[1] == "background") options.background = glm::vec4(value, 1);
+                else options.lightColor = {value.x, value.y, value.z};
+            }
+            return true;
+        }
         require(a.size() == 3, "render <wire/lighting/depth> <on/off>");
         const bool enabled = boolean(a[2]);
-        auto& options = app_.getRenderOptions();
         if (a[1] == "wire") options.wireframe = enabled;
         else if (a[1] == "lighting") options.lighting = enabled;
         else if (a[1] == "depth") options.depthTest = enabled;
@@ -162,11 +190,18 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
 }
 
 void Assembly::onFocus(bool focused) {
-    if (!focused)
+    if (!focused) {
         for (auto& binding : state_.bindings) binding.down = false;
+        state_.dragging = false; state_.dragX.reset();
+    }
 }
 
 void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
+    if (event.button == GLFW_MOUSE_BUTTON_RIGHT && !state_.dragTarget.empty()) {
+        state_.dragging = event.action == GLFW_PRESS;
+        state_.dragX.reset();
+        return;
+    }
     if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) return;
     std::optional<graphics::PickResult> hit;
     if (state_.threeViews) {
@@ -195,5 +230,15 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
         return;
     }
     out << "선택 해제\n";
+}
+void Assembly::onCursor(double x, double, std::ostream& out) {
+    if (!state_.dragging || !std::isfinite(x)) return;
+    try {
+        if (state_.dragX) rotate(state_.dragTarget, state_.dragAxis, float(x - *state_.dragX) * state_.dragSensitivity);
+        state_.dragX = x;
+    } catch (const std::exception& error) {
+        state_.dragging = false; state_.dragX.reset();
+        out << "드래그 거절: " << error.what() << '\n';
+    }
 }
 } // namespace assembly

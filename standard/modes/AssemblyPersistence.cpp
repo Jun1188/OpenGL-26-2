@@ -17,11 +17,13 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
         stream << "# @state-begin\n";
         for (const auto& item : state_.nodes) {
             const auto& t = item.second.rest;
-            stream << "rest " << quote(item.first) << ' ' << t.basis.x << ' ' << t.basis.y << ' ' << t.basis.z;
+            stream << (item.second.affineGroup ? "rest3 " : "rest ") << quote(item.first) << ' ' << t.basis.x << ' ' << t.basis.y << ' ' << t.basis.z;
             for (int c = 0; c < 3; ++c)
                 for (int r = 0; r < 3; ++r)
                     stream << ' ' << t.rotation[c][r];
-            stream << ' ' << t.scale.x << ' ' << t.localBasis.x << ' ' << t.localBasis.y << ' ' << t.localBasis.z << '\n';
+            stream << ' ' << t.scale.x;
+            if (item.second.affineGroup) stream << ' ' << t.scale.y << ' ' << t.scale.z;
+            stream << ' ' << t.localBasis.x << ' ' << t.localBasis.y << ' ' << t.localBasis.z << '\n';
         }
         const auto& c = app_.getCamera();
         const auto& r = app_.getRenderOptions();
@@ -32,7 +34,11 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
                << "\ncamera clip " << c.nearPlane << ' ' << c.farPlane << '\n'
                << "render wire " << (r.wireframe ? "on" : "off") << "\nrender lighting " << (r.lighting ? "on" : "off")
                << "\nrender depth " << (r.depthTest ? "on" : "off") << "\nview " << (state_.threeViews ? 3 : 1)
-               << "\npause " << (state_.paused ? "on" : "off") << '\n';
+               << "\npause " << (state_.paused ? "on" : "off") << '\n'
+               << "render cull " << (r.cull == graphics::CullMode::Front ? "front" : r.cull == graphics::CullMode::Back ? "back" : "none") << '\n'
+               << "render light-direction " << r.lightDirection.x << ' ' << r.lightDirection.y << ' ' << r.lightDirection.z << '\n'
+               << "render light-color " << r.lightColor.red << ' ' << r.lightColor.green << ' ' << r.lightColor.blue << '\n'
+               << "render background " << r.background.r << ' ' << r.background.g << ' ' << r.background.b << '\n';
         stream.flush();
         require(bool(stream), "레시피 쓰기에 실패했습니다.");
         stream.close();

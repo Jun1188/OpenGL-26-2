@@ -54,14 +54,18 @@ bool Assembly::applyPoses(float dt) {
     std::vector<graphics::JointAnimation> tracks;
     for (const auto& item : state_.nodes) {
         auto* driver = positionDriver(item.first);
-        if (driver && (driver->effect == Effect::Body || driver->effect == Effect::Walk))
+        if (driver && (driver->effect == Effect::Body || driver->effect == Effect::Walk || driver->effect == Effect::Custom))
             continue;
+        if (item.second.affineGroup) {
+            require(scene.setTransform(item.second.id, item.second.rest), "정적 warp 그룹 적용 실패.");
+            continue;
+        }
         tracks.push_back({item.second.id, item.second.rest, motionFor(item.first)});
     }
     require(graphics::AnimationSystem::poseHierarchy(scene, tracks, 0), "기준 자세와 동작 합성 실패.");
-    for (int phase = 0; phase < 3; ++phase) {
+    for (int phase = 0; phase < 4; ++phase) {
     for (auto& b : state_.behaviors) {
-        const int order = b.effect == Effect::Body ? 1 : b.effect == Effect::Walk ? 2 : 0;
+        const int order = b.effect == Effect::Body ? 1 : b.effect == Effect::Walk ? 2 : b.effect == Effect::Custom ? 3 : 0;
         if (phase != order)
             continue;
         auto& target = node(b.target);
@@ -76,14 +80,21 @@ bool Assembly::applyPoses(float dt) {
             rest.basis = pose->position + glm::vec3(0, b.height, 0) + turn * rest.basis;
             rest.rotation = turn * rest.rotation;
             require(graphics::AnimationSystem::poseHierarchy(scene, {{target.id, rest, motionFor(b.target)}}, 0), "컨베이어 자세 적용 실패.");
-        } else if (b.effect == Effect::Face || b.effect == Effect::Wall) {
+        } else if (faceEffect(b.effect)) {
             require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
             if (!b.enabled) {
                 require(scene.setFaceLocalMatrix(*target.mesh, b.faceIndex, b.initialFaceMatrix, b.initialFaceSpace) &&
                         scene.setFaceVisible(*target.mesh, b.faceIndex, b.initialFaceVisible), "면 기준값 복원 실패.");
                 continue;
             }
-            if (b.effect == Effect::Face) {
+            if (b.effect == Effect::FaceTrack) {
+                const auto sample = b.motion.sample(b.seconds);
+                require(sample.has_value(), "면 트랙 샘플 실패.");
+                const auto matrix = sample->parent * b.faceTrackBase * sample->local;
+                require(std::abs(glm::determinant(glm::mat3(matrix))) > 1e-18f &&
+                        scene.setFaceLocalMatrix(*target.mesh, b.faceIndex, matrix, graphics::FaceAnimationSpace::Model),
+                        "면 트랙이 특이하거나 유효하지 않습니다.");
+            } else if (b.effect == Effect::Face) {
                 auto config = b.face;
                 config.degrees = b.enabled ? b.seconds * b.rate : 0;
                 require(graphics::PatternSystem::rotateFace(scene, *target.mesh, b.faceIndex, config), "면 회전 실패.");
@@ -91,6 +102,9 @@ bool Assembly::applyPoses(float dt) {
                 const float u = b.enabled ? float(std::clamp(b.seconds / b.rate, 0.0, 1.0)) : 0;
                 require(graphics::PatternSystem::openRoomWall(scene, *target.mesh, b.faceIndex, u), "벽 개방 실패.");
             }
+        } else if (b.effect == Effect::Custom) {
+            const float stepTime = b.enabled && b.playing && !state_.paused ? dt : 0;
+            if (b.enabled) require(b.custom && b.custom(scene, target.rest, b.seconds, stepTime), "C++ 사용자 동작 실패: " + b.name);
         } else if (b.effect == Effect::Body) {
             const auto& room = node(b.reference);
             const auto matrix = scene.worldMatrix(room.id);
@@ -104,6 +118,12 @@ bool Assembly::applyPoses(float dt) {
             for (const auto& face : mesh->polyhedron.faces)
                 for (const auto& vertex : face.localVertices)
                     half = glm::max(half, glm::abs(target.rest.rotation * (vertex * target.rest.scale)));
+            if (target.kind == "sphere") {
+                float radius = 0;
+                for (const auto& face : mesh->polyhedron.faces)
+                    for (const auto& vertex : face.localVertices) radius = std::max(radius, glm::length(vertex));
+                half = glm::vec3(radius * target.rest.scale.x);
+            }
             b.body.halfExtent = half;
             if (!b.body.released) {
                 b.releasedRotation = glm::mat3(*matrix);
@@ -120,8 +140,16 @@ bool Assembly::applyPoses(float dt) {
                 omega = (glm::cross(previous[0], current[0]) + glm::cross(previous[1], current[1]) +
                          glm::cross(previous[2], current[2])) / (2 * dt);
             }
+            if (dt > 0) b.angularVelocity = omega;
+            if (b.releaseRequested && !b.body.released) {
+                b.body.worldPosition = b.body.position(*matrix);
+                b.body.worldVelocity = glm::mat3(*matrix) * b.body.localVelocity +
+                    glm::cross(b.angularVelocity, b.body.worldPosition - glm::vec3((*matrix)[3]));
+                b.body.released = true;
+            }
+            b.releaseRequested = false;
             require(graphics::CollisionSystem::stepRoomBody(b.body, *room.room, *matrix,
-                b.enabled && b.playing && !state_.paused ? dt : 0, open, false, {0, -9.8f, 0}, omega), "방 충돌 계산 실패.");
+                b.enabled && b.playing && !state_.paused ? dt : 0, open, b.elastic, b.gravity, b.angularVelocity), "방 충돌 계산 실패.");
             b.previousRoom = *matrix;
             auto rest = target.rest;
             rest.basis = b.body.position(*matrix);
@@ -178,6 +206,7 @@ bool Assembly::applyPoses(float dt) {
         }
     }
     }
+    applyMounts();
     return true;
 }
 

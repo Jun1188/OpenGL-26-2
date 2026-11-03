@@ -44,6 +44,9 @@ void show(const Location& location, std::ostream& out) {
 void Assembly::help(std::ostream& out) const {
     out << "0번 조립 콘솔. 명세: docs/assembly/SPEC.md, 사용법: docs/assembly/USER_GUIDE.md\n"
         << "build tank/truck/person <이름> : C++ 예제 생성. 확장은 guide tank/truck/person으로 직접 편집\n"
+        << "surface <객체> <면/all> | mount <객체> <관절> 면 삼각형 U V 거리 | anchor <객체> <관절> 면 XYZ\n"
+        << "normal <객체> <면/all> XYZ 또는 auto/flip | winding <객체> <면/all> flip | warp <group> SX SY SZ\n"
+        << "face-track <id> <객체> 면 시간 지연 once/loop/pingpong move/scale/turn ... | guide face-track\n"
         << "group <이름> X Y Z | part box <부모> <부품> 위치3 크기3 | joint <부모> <관절> 위치3\n"
         << "srt <그룹> 위치3 회전도3 균일배율 | pivot <그룹> center 또는 위치3 [keep/raw]\n"
         << "add <종류> <이름> X Y Z [크기3] | list | inspect <이름> | select <이름>\n"
@@ -55,13 +58,14 @@ void Assembly::help(std::ostream& out) const {
         << "bind RIGHT hold \"move hero 1 0 0\" | bind J press \"jump walking 5.5\" | unbind RIGHT\n"
         << "play/enable <id> on/off | seek <id> 초 | remove <id> | pause on/off | view 1/3\n"
         << "camera ... | render wire/lighting/depth on/off | save/load \"파일.assembly\" | clear\n"
-        << "guide objects/motion/face/physics/input/camera/recipe/custom 또는 guide <객체이름>\n"
+        << "guide mount/normal/warp/face-track/cpp-effect/practice13~23 또는 guide <객체이름>, guide feature:<기능>\n"
         << "창: 클릭 선택, Tab/Backspace 부품, XYZ 축, 방향키 편집, Space 정지, Home 기본 레시피 복원\n";
 }
 
 void Assembly::guide(const std::string& requested, std::ostream& out) const {
-    std::string topic = requested;
-    if (const auto found = state_.nodes.find(topic); found != state_.nodes.end()) {
+    const bool feature = requested.compare(0, 8, "feature:") == 0;
+    std::string topic = feature ? requested.substr(8) : requested;
+    if (const auto found = state_.nodes.find(topic); !feature && found != state_.nodes.end()) {
         inspect(topic, out);
         std::optional<graphics::EntityId> id = found->second.id;
         topic = "objects";
@@ -83,6 +87,12 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
         }
     }
     const std::map<std::string, Location> locations{
+        {"mount", {"modes/AssemblySurface.cpp", "std::string Assembly::mount(", "객체·면·삼각형 좌표 관절 부착과 프레임 추적"}},
+        {"normal", {"modes/AssemblySurface.cpp", "if (command == \"normal\")", "조명 노멀·winding·면별 정점 데이터"}},
+        {"geometry", {"modes/AssemblySurface.cpp", "void Assembly::model(", "사용자 Model 등록, 삼각형·정점·면 변환"}},
+        {"warp", {"modes/AssemblySurface.cpp", "if (command == \"warp\")", "외곽 group의 비균일 배율과 반사"}},
+        {"face-track", {"modes/AssemblyTracks.cpp", "bool Assembly::trackCommand(", "지연·반복·왕복 면 이동/축소/임의 축 회전"}},
+        {"cpp-effect", {"modes/AssemblyRuntime.cpp", "} else if (b.effect == Effect::Custom)", "사용자 C++ 프레임 동작과 기준 SRT 합성"}},
         {"objects", {"modes/AssemblyObjects.cpp", "void Assembly::add(", "객체 종류 분기와 크기·색·부품 등록"}},
         {"humanoid", {"framework/detail/Animation.cpp", "std::optional<HumanoidRig> AnimationSystem::addHumanoid", "사람 비율·관절 연결점·머리/팔/다리 생성"}},
         {"swing", {"framework/detail/Animation.cpp", "std::optional<SwingRig> AnimationSystem::addSwingWithRider", "그네 지지대·줄·좌석·탑승자 연결"}},
@@ -107,6 +117,25 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
         {"custom", {"modes/AssemblyExtensions.cpp", "USER_COMMAND_BEGIN", "새 명령 분기와 typed Assembly API 호출"}},
         {"runtime", {"modes/AssemblyRuntime.cpp", "bool Assembly::applyPoses(", "프레임별 합성 순서와 기능 업데이트"}},
         {"save", {"modes/AssemblyPersistence.cpp", "bool Assembly::save(", "레시피 기록과 기준 SRT 저장 형식"}}};
+    if (topic == "anchor" || topic == "unmount") topic = "mount";
+    if (topic == "winding" || topic == "orient") topic = "normal";
+    if (topic == "triangle" || topic == "triangle-add" || topic == "surface" || topic == "vertex" || topic == "face-srt" || topic == "face-mode" || topic == "facecolor" || topic == "outline" || topic == "line" || topic == "digit") topic = "geometry";
+    if (topic == "effects" || topic == "render") topic = "input";
+    if (topic.size() == 10 && topic.compare(0, 8, "practice") == 0) {
+        const std::map<std::string, Location> practices{
+            {"practice13", {"modes/Mode10Practice13.cpp", "bool Practice13::initScene()", "면 선택·무작위 선택 상태를 customCommand/Custom 동작으로 옮기기"}},
+            {"practice14", {"modes/Mode11Practice14.cpp", "void Practice14::onUpdate(", "입력 상태·형상 교체·로컬 회전"}},
+            {"practice15", {"modes/FaceCommon.cpp", "void FaceMode::applyFaceMotion()", "한 면의 복합 행렬을 하나의 FaceTrack Motion에 조립"}},
+            {"practice16", {"modes/Mode13Practice16.cpp", "void Practice16::applyPyramid(", "순차 펼침과 다중 면 동기화"}},
+            {"practice17", {"modes/Mode14Practice17.cpp", "void Practice17::onUpdate(", "교환·우회·사인 배율·조건 전이"}},
+            {"practice18", {"modes/Mode15Practice18.cpp", "void Practice18::onUpdate(", "기울어진 궤도·달 중심·축과 반지름"}},
+            {"practice19", {"modes/TankCommon.cpp", "void TankMode::onUpdate(", "탱크 부품·이동 상태·카메라 추적"}},
+            {"practice20", {"modes/Mode17Practice20.cpp", "void Practice20::onUpdate(", "거리 기반 컨베이어·택배 간격·접선 자세"}},
+            {"practice21", {"modes/Mode18Practice21.cpp", "void Practice21::onUpdate(", "드래그 방 회전·다중 상자/공 이탈 상태"}},
+            {"practice22", {"modes/TankCommon.cpp", "bool TankMode::onRender()", "동일 상태의 3뷰 렌더와 카메라"}},
+            {"practice23", {"modes/Mode20Practice23.cpp", "void Practice23::onUpdate(", "보행 충돌·장애물 난수 배치·벽 개방 상태"}}};
+        if (const auto found = practices.find(topic); found != practices.end()) { show(found->second, out); return; }
+    }
     if (topic == "truck-pattern") topic = "truck";
     if (topic == "tank-pattern") topic = "tank";
     if (topic == "person-pattern") topic = "person";
@@ -114,8 +143,8 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
     if (topic == "add" || topic == "parent" || topic == "color" || topic == "show") topic = "objects";
     if (topic == "spin" || topic == "orbit" || topic == "path" || topic == "linear" || topic == "pendulum" || topic == "remove") topic = "motion";
     if (topic == "wall") topic = "face";
-    if (topic == "walk" || topic == "jump" || topic == "obstacle") topic = "physics";
-    if (topic == "bind" || topic == "unbind") topic = "input";
+    if (topic == "walk" || topic == "jump" || topic == "obstacle" || topic == "body" || topic == "release") topic = "physics";
+    if (topic == "bind" || topic == "unbind" || topic == "drag") topic = "input";
     if (topic == "load") topic = "save";
     const auto found = locations.find(topic);
     if (found == locations.end()) {

@@ -57,6 +57,12 @@ double number(const std::string& text) {
     return value;
 }
 
+std::size_t indexNumber(const std::string& text) {
+    const auto value = number(text);
+    require(value >= 0 && value == std::floor(value), "0 이상 정수 인덱스가 필요합니다.");
+    return std::size_t(value);
+}
+
 glm::vec3 vector(const Tokens& args, std::size_t offset) {
     require(offset + 3 <= args.size(), "XYZ 값 3개가 필요합니다.");
     return {float(number(args[offset])), float(number(args[offset + 1])), float(number(args[offset + 2]))};
@@ -120,14 +126,20 @@ Behavior* Assembly::positionDriver(const std::string& target) {
 
 void Assembly::attach(Behavior behavior) {
     require(!behavior.name.empty(), "동작 이름이 필요합니다.");
-    node(behavior.target);
+    const auto& targetNode = node(behavior.target);
+    require(!targetNode.affineGroup || behavior.effect == Effect::Custom,
+            "비균일/반사 그룹은 정적 계층입니다. 자식 group/joint에 모션을 붙이세요.");
+    if (behavior.effect == Effect::Custom) {
+        require(bool(behavior.custom), "Custom 동작 함수가 필요합니다.");
+        behavior.positionDriver = true;
+    }
     if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor)
         behavior.positionDriver = true;
     const auto checkGeometryOwner = [&](const Behavior& physics, const Behavior& other) {
         if (physics.effect != Effect::Body && physics.effect != Effect::Walk) return;
         const auto& object = node(other.target);
         const auto& room = node(physics.reference);
-        const bool face = other.effect == Effect::Face || other.effect == Effect::Wall;
+        const bool face = faceEffect(other.effect);
         if (physics.effect == Effect::Body && face)
             require(object.mesh != node(physics.target).mesh, "물리 상자 면은 별도로 변형할 수 없습니다.");
         if (!face)
@@ -140,29 +152,28 @@ void Assembly::attach(Behavior behavior) {
         require(!(current.effect == Effect::Body && behavior.target == current.target + ".mesh") &&
                 !(behavior.effect == Effect::Body && current.target == behavior.target + ".mesh"),
                 "물리 메시에는 별도 동작을 붙일 수 없습니다. 상자 루트를 사용하세요.");
-        const bool currentFace = current.effect == Effect::Face || current.effect == Effect::Wall;
-        const bool newFace = behavior.effect == Effect::Face || behavior.effect == Effect::Wall;
+        const bool currentFace = faceEffect(current.effect);
+        const bool newFace = faceEffect(behavior.effect);
         if (currentFace && newFace)
             require(node(current.target).mesh != node(behavior.target).mesh || current.faceIndex != behavior.faceIndex,
                     "같은 메시의 같은 면에 동작이 이미 있습니다.");
         if (current.target != behavior.target)
             continue;
         require(!(current.positionDriver && behavior.positionDriver), "위치 제어가 충돌합니다. 기존 동작을 remove 하거나 자식 부품에 붙이세요.");
-        const bool currentPhysics = current.effect == Effect::Body || current.effect == Effect::Walk;
-        const bool newPhysics = behavior.effect == Effect::Body || behavior.effect == Effect::Walk;
+        const bool currentPhysics = current.effect == Effect::Body || current.effect == Effect::Walk || current.effect == Effect::Custom;
+        const bool newPhysics = behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Custom;
         require(!((currentPhysics && behavior.effect == Effect::Motion) || (newPhysics && current.effect == Effect::Motion)),
                 "물리 루트와 Motion은 같은 SRT를 소유할 수 없습니다. 자식 부품에 동작을 붙이세요.");
-        require(!((current.effect == Effect::Face || current.effect == Effect::Wall) &&
-                  (behavior.effect == Effect::Face || behavior.effect == Effect::Wall) &&
-                  current.faceIndex == behavior.faceIndex), "같은 면에 동작이 이미 있습니다.");
     }
-    if (behavior.effect == Effect::Motion) {
+    if (behavior.effect == Effect::Motion || behavior.effect == Effect::FaceTrack) {
         for (const auto& step : behavior.motion.getSteps())
             require(!step.action, "변환 모션에 action을 넣을 수 없습니다. bind 명령 또는 customCommand를 사용하세요.");
         const auto sample = behavior.motion.sample(0);
-        require(sample && rigid(sample->parent) && rigid(sample->local), "Motion은 유효한 강체 변환이어야 합니다.");
+        require(sample.has_value(), "유효한 모션 샘플이 필요합니다.");
+        if (behavior.effect == Effect::Motion)
+            require(rigid(sample->parent) && rigid(sample->local), "객체 Motion은 유효한 강체 변환이어야 합니다.");
     }
-    if (behavior.effect == Effect::Face || behavior.effect == Effect::Wall) {
+    if (faceEffect(behavior.effect)) {
         const auto& target = node(behavior.target);
         require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
         const auto* component = app_.getScene().getComponent(*target.mesh);
@@ -171,6 +182,10 @@ void Assembly::attach(Behavior behavior) {
         behavior.initialFaceMatrix = face.localAnimationMatrix;
         behavior.initialFaceSpace = face.animationSpace;
         behavior.initialFaceVisible = face.visible;
+        const auto srt = graphics::detail::faceSrtMatrix(face);
+        behavior.faceTrackBase = face.animationSpace == graphics::FaceAnimationSpace::Model
+            ? face.localAnimationMatrix : srt * face.localAnimationMatrix * glm::inverse(srt);
+        require(graphics::TransformSystem::validAffine(behavior.faceTrackBase), "면의 기준 행렬이 특이합니다.");
     }
     state_.behaviors.push_back(std::move(behavior));
 }
@@ -193,9 +208,13 @@ void Assembly::setRest(const std::string& target, const graphics::Transform3D& r
     }
     require(glm::all(glm::lessThanEqual(glm::abs(rest.basis), glm::vec3(1000000))) &&
             glm::all(glm::lessThanEqual(glm::abs(rest.localBasis), glm::vec3(1000000))), "위치/피벗 범위는 ±1000000입니다.");
-    require(graphics::DiagramSystem::validTransform(rest) && rest.scale.x > .0001f &&
-        rest.scale.x <= 100 && std::abs(rest.scale.x - rest.scale.y) < .0001f &&
-        std::abs(rest.scale.x - rest.scale.z) < .0001f, "양수 균일 배율(.0001~100)의 유효한 SRT가 필요합니다.");
+    const bool validScale = value.affineGroup
+        ? glm::all(glm::greaterThan(glm::abs(rest.scale), glm::vec3(.0001f))) &&
+          glm::all(glm::lessThanEqual(glm::abs(rest.scale), glm::vec3(100)))
+        : rest.scale.x > .0001f && rest.scale.x <= 100 && std::abs(rest.scale.x - rest.scale.y) < .0001f &&
+          std::abs(rest.scale.x - rest.scale.z) < .0001f;
+    require(graphics::DiagramSystem::validTransform(rest) && validScale,
+            "유효한 SRT가 필요합니다. 기본은 양수 균일 배율이며 warp 그룹은 0이 아닌 축별 배율(.0001~100)을 씁니다.");
     for (const auto& behavior : state_.behaviors) {
         if ((behavior.effect == Effect::Body || behavior.effect == Effect::Walk) && behavior.reference == target)
             require(rigid(graphics::DiagramSystem::modelMatrix(rest)), "물리 공간은 강체 변환을 유지해야 합니다.");
@@ -267,13 +286,12 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
     const auto savedCamera = app_.getCamera();
     const auto savedOptions = app_.getRenderOptions();
     const bool savedFault = faulted_;
-    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect";
+    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface";
     try {
         require(dispatch(args, out), "지원하지 않는 명령입니다. help 또는 guide custom을 사용하세요.");
-        if (args[0] != "save" && args[0] != "guide" && args[0] != "help" && args[0] != "list" && args[0] != "inspect")
+        if (!readOnly)
             require(applyPoses(0), "조립 결과의 상태/변환이 유효하지 않습니다.");
-        if (!replaying_ && args[0] != "save" && args[0] != "load" && args[0] != "guide" && args[0] != "help" &&
-            args[0] != "list" && args[0] != "inspect" && args[0] != "select" && args[0] != "jump")
+        if (!replaying_ && !readOnly && args[0] != "load" && args[0] != "select" && args[0] != "jump" && args[0] != "release")
             state_.recipe.push_back(line);
         if (!readOnly) faulted_ = false;
         return true;

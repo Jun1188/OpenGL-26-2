@@ -1,10 +1,18 @@
 ﻿#pragma once
 #include "PracticeMode.h"
+#include <functional>
 #include <map>
 #include <ostream>
 
 namespace assembly {
 using Tokens = std::vector<std::string>;
+
+struct FaceMount {
+    graphics::EntityId mesh = 0;
+    std::size_t face = 0, triangle = 0;
+    glm::vec3 coordinate{0};
+    bool barycentric = true;
+};
 
 struct Node {
     graphics::EntityId id = 0;
@@ -15,9 +23,12 @@ struct Node {
     std::optional<graphics::Bounds3> room;
     std::optional<graphics::JointRig> walker;
     std::string guideTopic;
+    std::optional<FaceMount> mount;
+    bool affineGroup = false;
 };
 
-enum class Effect { Motion, Face, Wall, Body, Walk, Conveyor };
+enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom };
+inline bool faceEffect(Effect effect) { return effect == Effect::Face || effect == Effect::FaceTrack || effect == Effect::Wall; }
 struct Behavior {
     std::string name, target, reference;
     Effect effect = Effect::Motion;
@@ -30,12 +41,16 @@ struct Behavior {
     glm::mat4 initialFaceMatrix{1};
     graphics::FaceAnimationSpace initialFaceSpace = graphics::FaceAnimationSpace::Local;
     bool initialFaceVisible = true;
+    glm::mat4 faceTrackBase{1};
     float rate = 1, phase = 0, height = .455f;
     graphics::RoomBody body;
+    glm::vec3 gravity{0, -9.8f, 0}, angularVelocity{0};
+    bool elastic = false, releaseRequested = false;
     glm::mat3 releasedRotation{1};
     graphics::CharacterBody character;
     std::vector<std::string> obstacles;
     glm::mat4 previousRoom{1};
+    std::function<bool(graphics::Scene&, const graphics::Transform3D&, double, float)> custom;
 };
 
 struct Binding {
@@ -53,6 +68,11 @@ class Assembly {
         std::vector<std::string> recipe;
         std::string selected;
         int axis = 0;
+        std::string dragTarget;
+        glm::vec3 dragAxis{0, 1, 0};
+        float dragSensitivity = .35f;
+        bool dragging = false;
+        std::optional<double> dragX;
         bool paused = false, threeViews = false;
     } state_;
     graphics::Application& app_;
@@ -62,8 +82,11 @@ class Assembly {
     bool motionCommand(const Tokens& args, std::ostream& out);
     bool objectCommand(const Tokens& args, std::ostream& out);
     bool hierarchyCommand(const Tokens& args, std::ostream& out);
+    bool surfaceCommand(const Tokens& args, std::ostream& out);
+    bool trackCommand(const Tokens& args, std::ostream& out);
     bool inputCommand(const Tokens& args, std::ostream& out);
     bool applyPoses(float dt);
+    void applyMounts();
     void registerNode(const std::string& name, graphics::EntityId id, bool whole,
                       const std::string& kind = "part", std::optional<graphics::EntityId> mesh = std::nullopt);
     void registerPerson(const std::string& prefix, const graphics::HumanoidRig& rig);
@@ -90,6 +113,11 @@ public:
     void move(const std::string& target, glm::vec3 delta);
     void rotate(const std::string& target, glm::vec3 axis, float degrees);
     void setRest(const std::string& target, const graphics::Transform3D& rest);
+    graphics::EntityId meshEntity(const std::string& target) const;
+    void requireGeometryEditable(graphics::EntityId mesh) const;
+    void requireFaceEditable(graphics::EntityId mesh, std::size_t face) const;
+    void model(const std::string& name, const graphics::Model& model, glm::vec3 position = glm::vec3(0));
+    std::string mount(const std::string& parent, const std::string& localName, FaceMount attachment);
     void bind(Binding binding);
     bool execute(const std::string& line, std::ostream& out);
     bool update(float dt, std::ostream& out);
@@ -97,6 +125,7 @@ public:
     void onKey(int key, int action, int mods, std::ostream& out);
     void onMouse(const graphics::MouseEvent& event, std::ostream& out);
     void onFocus(bool focused);
+    void onCursor(double x, double y, std::ostream& out);
     void guide(const std::string& topic, std::ostream& out) const;
     void help(std::ostream& out) const;
     void inspect(const std::string& target, std::ostream& out) const;
@@ -105,6 +134,7 @@ public:
 Tokens tokenize(const std::string& line);
 std::string quote(const std::string& text);
 double number(const std::string& text);
+std::size_t indexNumber(const std::string& text);
 glm::vec3 vector(const Tokens& args, std::size_t offset);
 glm::vec3 axis(const std::string& text);
 bool boolean(const std::string& text);

@@ -24,6 +24,7 @@ public:
         scene_.onKey(key, action, mods, std::cout);
     }
     void onMouse(const graphics::MouseEvent& event) override { scene_.onMouse(event, std::cout); }
+    void onCursor(double x, double y) override { scene_.onCursor(x, y, std::cout); }
     void onFocus(bool focused) override { scene_.onFocus(focused); }
     void onUpdate(float dt) override {
         for (unsigned i = 0; i < 8; ++i) {
