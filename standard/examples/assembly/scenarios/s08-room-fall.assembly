@@ -4,15 +4,27 @@
 # @keys: F 바닥 열기 · G 바닥 닫기 · 오른쪽 버튼 드래그 방 회전 · Ctrl+F5 다시 불러오기
 # @check: 바닥을 다시 닫아도 이미 빠진 객체는 돌아오지 않는다. 처음부터 보려면 Ctrl+F5로 다시 불러온다.
 # @vary: body ballBody velocity로 처음 속도를, body ballBody bounce off로 튕김을 바꾼다.
+#: 장면을 비운다.
 clear
+#: 방 lab을 만든다. 경계는 (-2,0,-2)~(2,3,2), 면 0 앞(열림) · 1 뒤 · 2 왼쪽 · 3 오른쪽 · 4 천장 · 5 바닥이다.
 add room lab 0 0 0
+#: 상자 cargo를 방 안 높이 2에 만든다.
 add box cargo 0 2 0 0.6 0.6 0.6
+#: 공 ball을 지름 0.5로 만든다.
 add sphere ball 1 2.5 0.5 0.5 0.5 0.5
+#: 공을 주황색으로 칠한다.
 color ball 1 0.5 0.2
+#: 동작 cargoBody: cargo를 방 lab 안의 물리 물체로 등록한다. 중력과 벽 충돌(AABB)을 받는다. 상자는 기본으로 튕기지 않는다.
 physics cargoBody cargo lab
+#: 공도 물리 물체로 등록한다. 구는 기본으로 튕긴다(bounce on).
 physics ballBody ball lab
+#: 공의 처음 속도를 방 좌표 (1.5,0,0.8)로 준다. 옆으로 던진 것처럼 움직인다.
 body ballBody velocity 1.5 0 0.8
+#: 오른쪽 버튼을 누르고 가로로 끌면 방을 Z축으로 픽셀당 0.3° 돌린다. 방이 기울면 안의 물체도 방 좌표에서 중력을 받아 움직인다.
 drag lab z 0.3
+#: F: 바닥(면 5)을 숨긴다. 바닥이 숨겨지면 물체가 방 밖으로 빠져 떨어진다.
 bind F press "visible lab 5 off"
+#: G: 바닥을 다시 보이게 한다. 이미 빠진 물체는 돌아오지 않는다.
 bind G press "visible lab 5 on"
+#: 카메라를 방 오른쪽 위 앞에 둔다.
 camera pose 7 6 9 0 1 0 0 1 0

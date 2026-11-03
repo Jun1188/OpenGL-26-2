@@ -1,20 +1,42 @@
 ﻿# @title: 두 객체 자리 교환
 # @practice: 실습 17
 # @goal: 왼쪽 상자와 오른쪽 구가 서로의 자리로 갔다가 돌아온다. 이동하는 동안 각자 자전한다.
-# @keys: B 상자 정지 · V 재개 · N 구 정지 · M 재개 · 클릭 후 방향키로 수동 편집
-# @check: linear는 기준 자세에 더해지는 변위라서 방향키로 옮긴 값과 합쳐진다.
-# @vary: 위로 돌아서 가려면 linear 대신 path 1~6 경로를 쓰거나 Y 변위를 넣은 부모 그룹을 둔다.
+# @keys: B 상자 이동 정지 · V 재개 · N 구 이동 정지 · M 재개 · 클릭 후 방향키로 수동 편집
+# @check: 이동은 부모 그룹, 자전은 자식에 건다. 한 노드에 둘 다 걸면 회전한 축 방향으로 이동해 직선을 벗어난다.
+# @vary: 위로 돌아서 가려면 linear에 Y 변위를 넣거나 path 1~6 경로를 쓴다. 시간 3을 바꾸면 교환 속도가 바뀐다.
+#: 장면을 비운다.
 clear
-add box left -2 0.5 0 1 1 1
-add sphere right 2 0.5 0 1 1 1
+#: 왼쪽 객체를 옮길 빈 그룹 carrierA를 (-2,0.5,0)에 둔다.
+group carrierA -2 0.5 0
+#: 상자 left를 크기 1로 만든다.
+add box left 0 0 0 1 1 1
+#: left를 carrierA 원점에 붙인다. carrierA가 움직이면 따라간다.
+parent left carrierA
+#: 오른쪽 객체를 옮길 빈 그룹 carrierB를 (2,0.5,0)에 둔다.
+group carrierB 2 0.5 0
+#: 구 right를 지름 1로 만든다.
+add sphere right 0 0 0 1 1 1
+#: right를 carrierB 원점에 붙인다.
+parent right carrierB
+#: 상자를 주황색으로 칠한다.
 color left 1 0.4 0.3
+#: 구를 하늘색으로 칠한다.
 color right 0.3 0.7 1
-linear swapA left 4 0 0 3 pingpong
-linear swapB right -4 0 0 3 pingpong
+#: carrierA를 3초 동안 +X로 4 이동한다. pingpong이라 끝에서 되돌아온다. 오른쪽 객체의 자리까지 간다.
+linear swapA carrierA 4 0 0 3 pingpong
+#: carrierB를 같은 시간 동안 -X로 4 이동한다. 두 객체가 같은 순간에 자리를 바꾼다.
+linear swapB carrierB -4 0 0 3 pingpong
+#: 상자만 Y축으로 초당 90° 자전시킨다. 그룹이 아니라 자식에 걸어 이동 방향에 영향을 주지 않는다.
 spin spinA left y 90
+#: 구를 X축으로 초당 90° 자전시킨다.
 spin spinB right x 90
+#: B: 상자 이동을 멈춘다. 자전은 계속된다.
 bind B press "play swapA off"
+#: V: 상자 이동을 다시 재생한다.
 bind V press "play swapA on"
+#: N: 구 이동을 멈춘다.
 bind N press "play swapB off"
+#: M: 구 이동을 다시 재생한다.
 bind M press "play swapB on"
+#: 카메라를 정면 위에서 두 객체를 보게 둔다.
 camera pose 0 4 8 0 0.5 0 0 1 0

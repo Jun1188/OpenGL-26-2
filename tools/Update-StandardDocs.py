@@ -4,13 +4,21 @@ import html
 import json
 import os
 import re
+import time
 ROOT = Path(__file__).resolve().parents[1]
 STANDARD = ROOT / 'standard'
 START = '<!-- current-assembly-api:start -->'
 END = '<!-- current-assembly-api:end -->'
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(value, encoding='utf-8-sig')
+    # Large HTML files are sometimes briefly locked on Windows (scanner/preview); retry before failing.
+    for attempt in range(5):
+        try:
+            path.write_text(value, encoding='utf-8-sig')
+            return
+        except OSError:
+            if attempt == 4: raise
+            time.sleep(.5)
 def code(value): return '<pre><code>'+html.escape(value)+'</code></pre>'
 def excerpt(path, start, end=None):
     text=path.read_text(encoding='utf-8-sig')
@@ -104,16 +112,21 @@ def load_catalog(docs):
     return catalog
 
 def collect_scenarios():
-    """Scenario cards come from the '# @key: value' headers of the recipe files."""
+    """Scenario cards come from the '# @key: value' headers; each command needs a '#: note' line above it."""
     scenarios = []
     for p in sorted(SCENARIOS.glob('*.assembly')):
-        meta, commands = {}, []
+        meta, commands, note = {}, [], None
         for line in p.read_text(encoding='utf-8-sig').splitlines():
-            match = re.match(r'#\s*@(\w+):\s*(.*)', line)
-            if match: meta[match[1]] = match[2].strip()
-            elif line.strip() and not line.startswith('#'): commands.append(line)
+            header = re.match(r'#\s*@(\w+):\s*(.*)', line)
+            if header: meta[header[1]] = header[2].strip()
+            elif line.startswith('#:'): note = line[2:].strip()
+            elif line.strip() and not line.startswith('#'):
+                if not note: raise SystemExit(p.name + ': missing "#:" note above: ' + line)
+                commands.append({'command': line, 'note': note})
+                note = None
         if 'title' not in meta: raise SystemExit(p.name + ': # @title header required')
-        scenarios.append({'id': p.stem, 'file': p.relative_to(STANDARD).as_posix(), **meta, 'commands': '\n'.join(commands)})
+        scenarios.append({'id': p.stem, 'file': p.relative_to(STANDARD).as_posix(), **meta,
+                          'commands': '\n'.join(c['command'] for c in commands), 'lines': commands})
     return scenarios
 
 def write_document_index(docs, catalog):
@@ -155,6 +168,33 @@ def add_navigation(docs, catalog):
         text = re.sub(r'(<body\b[^>]*>)', lambda m: m[0] + bar, text, count=1)
         if text != current: write(page, text)
 
+SIZE_LIMIT = 30_000_000
+SIZE_EXCLUDED = ('x64', '.vs')
+
+def write_size_report():
+    """Logical file sizes of standard without build output and IDE cache. Written last; its own size is the previous run's."""
+    files = [p for p in STANDARD.rglob('*') if p.is_file() and not p.is_symlink()
+             and p.relative_to(STANDARD).parts[0] not in SIZE_EXCLUDED]
+    tops = {}
+    for p in files:
+        top = p.relative_to(STANDARD).parts[0]
+        tops[top] = tops.get(top, 0) + p.stat().st_size
+    total = sum(tops.values())
+    largest = sorted(files, key=lambda p: p.stat().st_size, reverse=True)[:10]
+    lines = ['# standard 전체 폴더 용량', '',
+             '`python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 '
+             '지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.', '',
+             f'- 파일 수: {len(files)}',
+             f'- 전체: **{total:,}바이트** = {total / 1e6:.2f} MB = {total / 1048576:.2f} MiB',
+             f'- 한도 30 MB(30,000,000바이트) 대비: **{"초과" if total > SIZE_LIMIT else "이하"}**, 남은 여유 {(SIZE_LIMIT - total) / 1e6:.2f} MB', '',
+             '| 최상위 항목 | 바이트 |', '|---|---:|']
+    lines += [f'| {name} | {size:,} |' for name, size in sorted(tops.items(), key=lambda item: -item[1])]
+    lines += ['', '## 큰 파일 10개', '', '지우기 전에 다른 문서나 도구가 참조하는지 확인한다. 예: graph.json은 GRAPH_REPORT.md가, framework/ 아래는 Sync-Framework.ps1 -Standard가 루트 framework에서 다시 복사한다.', '',
+              '| 파일 | 바이트 |', '|---|---:|']
+    lines += [f'| {p.relative_to(STANDARD).as_posix()} | {p.stat().st_size:,} |' for p in largest]
+    write(STANDARD / 'SIZE_REPORT.md', '\n'.join(lines) + '\n')
+    if total > SIZE_LIMIT: print(f'WARNING: standard is {total / 1e6:.2f} MB, over the 30 MB limit.')
+
 def refresh_index():
     docs = collect_documents()
     catalog = load_catalog(docs)
@@ -166,6 +206,7 @@ def refresh_index():
                          ('preview.js', 'docs/viewer/preview.js'), ('index.html', 'index.html'), ('document.html', 'document.html')):
         write(STANDARD / target, (VIEWER_TEMPLATES / name).read_text(encoding='utf-8-sig'))
     write_document_index(docs, catalog)
+    write_size_report()
     print('Indexed', len(docs), 'documents in', len(catalog['categories']), 'categories; scenarios bundled. No browser/tests run.')
 
 def main():

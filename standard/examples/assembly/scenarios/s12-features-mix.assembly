@@ -4,13 +4,23 @@
 # @keys: K 탱크에 입력 · L 행성에 입력 · 이후 각 실습의 원래 키
 # @check: 기능마다 독립된 상태와 시계를 가진다. 키 입력은 focus된 기능 하나에만 전달된다.
 # @vary: feature parts tankLab으로 내부 부품 ID를 보고, feature port로 일부만 꺼내 붙일 수 있다.
+#: 장면을 비운다.
 clear
+#: 모드 16(실습 19 탱크)을 기능 컨테이너 tankLab으로 통째로 넣는다. 원래 상태·시계·입력 처리를 그대로 가진다.
 feature add tankLab 16
+#: 탱크 컨테이너 전체를 왼쪽으로 5 옮긴다.
 move tankLab -5 0 0
+#: 모드 15(실습 18 행성)를 solarLab으로 넣는다.
 feature add solarLab 15
+#: 행성 컨테이너를 오른쪽으로 5 옮긴다.
 move solarLab 5 0 0
+#: 행성 컨테이너 전체를 0.6배로 줄인다.
 scale solarLab 0.6
+#: 키·마우스 입력을 tankLab에 보낸다. 방향키가 탱크를 움직인다.
 feature focus tankLab
+#: K: 입력 대상을 탱크로 바꾼다.
 bind K press "feature focus tankLab"
+#: L: 입력 대상을 행성 장면으로 바꾼다.
 bind L press "feature focus solarLab"
+#: 두 장면이 함께 보이게 카메라를 멀리 둔다.
 camera pose 0 12 22 0 1 0 0 1 0

@@ -4,15 +4,27 @@
 # @keys: Space 전체 정지 · U 첫 면 처음부터
 # @check: 지연 0 · 0.5 · 1 · 1.5초 순서로 옆면이 펼쳐지고, pingpong이라 다시 접힌다.
 # @vary: turn의 축(AX AY AZ)과 중심(CX CY CZ)이 각 면의 밑변이다. 각도 120을 바꾸면 펼침 정도가 바뀐다.
+#: 장면을 비운다.
 clear
+#: 크기 1.5인 사각뿔 pyr을 만든다. 메시 정점은 ±0.75라서 밑면이 바닥(y=0)에 닿는다.
 add pyramid pyr 0 0.75 0 1.5 1.5 1.5
+#: 옆면 0번(앞, +Z)을 빨간색으로 칠한다.
 facecolor pyr 0 1 0.4 0.4
+#: 옆면 1번(오른쪽, +X)을 초록색으로 칠한다.
 facecolor pyr 1 0.4 1 0.4
+#: 옆면 2번(뒤, -Z)을 파란색으로 칠한다.
 facecolor pyr 2 0.4 0.6 1
+#: 옆면 3번(왼쪽, -X)을 노란색으로 칠한다. 4번은 밑면이다.
 facecolor pyr 3 1 1 0.4
-face-track open0 pyr 0 2 0 pingpong turn 1 0 0 0 -0.5 0.5 120
-face-track open1 pyr 1 2 0.5 pingpong turn 0 0 -1 0.5 -0.5 0 120
-face-track open2 pyr 2 2 1 pingpong turn -1 0 0 0 -0.5 -0.5 120
-face-track open3 pyr 3 2 1.5 pingpong turn 0 0 1 -0.5 -0.5 0 120
+#: 앞면을 축 (1,0,0), 중심 (0,-0.75,0.75)인 앞쪽 밑변 둘레로 2초 동안 120° 돌린다. 지연 0초, 왕복.
+face-track open0 pyr 0 2 0 pingpong turn 1 0 0 0 -0.75 0.75 120
+#: 오른쪽 면을 오른쪽 밑변(축 -Z) 둘레로 120° 돌린다. 0.5초 늦게 시작한다.
+face-track open1 pyr 1 2 0.5 pingpong turn 0 0 -1 0.75 -0.75 0 120
+#: 뒷면을 뒤쪽 밑변(축 -X) 둘레로 120° 돌린다. 1초 늦게 시작한다.
+face-track open2 pyr 2 2 1 pingpong turn -1 0 0 0 -0.75 -0.75 120
+#: 왼쪽 면을 왼쪽 밑변(축 +Z) 둘레로 120° 돌린다. 1.5초 늦게 시작한다. 축 방향이 바깥으로 펼쳐지는 쪽이 되도록 면마다 부호를 맞췄다.
+face-track open3 pyr 3 2 1.5 pingpong turn 0 0 1 -0.75 -0.75 0 120
+#: U: open0의 시각을 0초로 되돌린다. 다른 면은 각자 시계를 가진다.
 bind U press "seek open0 0"
+#: 카메라를 비스듬히 위에서 사각뿔을 보게 둔다.
 camera pose 4 5 6 0 0.5 0 0 1 0

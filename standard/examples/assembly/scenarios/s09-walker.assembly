@@ -2,18 +2,31 @@
 # @practice: 실습 23
 # @goal: 로봇이 방 안을 걸으며 장애물을 피하고, 키로 점프하고 벽을 연다.
 # @keys: J 점프 · ↑ 빠르게 · ↓ 느리게 · O 왼쪽 벽 열기 · F 바닥 열기
-# @check: walker는 장애물의 현재 AABB를 읽는다. 바닥을 열면 로봇도 떨어진다.
+# @check: walker는 장애물의 현재 AABB를 읽는다. 바닥을 열면 로봇도 떨어진다. O는 한 번만 누른다(같은 동작 이름은 두 번 만들 수 없다).
 # @vary: direction walking X Z로 진행 방향을, speed walking 값으로 속도를 바꾼다.
+#: 장면을 비운다.
 clear
+#: 방 lab을 만든다. 면 0 앞(열림) · 1 뒤 · 2 왼쪽 · 3 오른쪽 · 4 천장 · 5 바닥.
 add room lab 0 0 0
+#: 보행 리그 robot을 방 안 바닥에 만든다. 관절이 있는 사람형 로봇이다.
 add walker robot 0.5 0 -0.5
+#: 동작 walking: robot을 방 lab 안에서 초당 0.7 속도로 걷게 한다. 방의 벽 안쪽에서만 움직인다.
 walk walking robot lab 0.7
+#: 장애물 상자 crate를 만든다.
 add box crate -1 0.3 1 0.6 0.6 0.6
+#: crate를 방의 물리 물체로 등록한다. 바닥에 놓이고 바닥을 열면 떨어진다.
 physics crateBody crate lab
+#: 보행 동작 walking이 crate를 장애물로 인식해 피하게 한다.
 obstacle walking crate
+#: J: 위로 속도 5.5로 점프한다.
 bind J press "jump walking 5.5"
+#: ↑: 걷는 속도를 1.4로 바꾼다.
 bind UP press "speed walking 1.4"
+#: ↓: 걷는 속도를 0.4로 바꾼다.
 bind DOWN press "speed walking 0.4"
-bind O press "wall leftWall lab 1 1"
+#: O: 동작 leftWall을 만들어 왼쪽 벽(면 2)을 1초에 걸쳐 연다. 같은 이름을 다시 만들 수 없으므로 한 번만 동작한다.
+bind O press "wall leftWall lab 2 1"
+#: F: 바닥을 숨겨 로봇과 상자를 떨어뜨린다.
 bind F press "visible lab 5 off"
+#: 카메라를 방 오른쪽 위 앞에 둔다.
 camera pose 7 6 9 0 1 0 0 1 0

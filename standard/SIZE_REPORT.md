@@ -1,30 +1,46 @@
 ﻿# standard 전체 폴더 용량
 
-최종 문서 작성 후의 논리 파일 크기를 합산했다. SDK·DLL·문서·프로젝트·현재 존재하는 산출물을 포함하며 파일을 제외해 한도에 맞추지 않았다. 심볼릭 링크를 따라 다른 폴더를 중복 합산하지 않는다. 디스크 할당 크기·압축 ZIP 크기와 다르다.
+`python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.
 
-- 파일 수: 531
-- 전체: **10,936,925바이트**
-- MB (1 MB=1,000,000바이트): **10.936925 MB**
-- MiB (1 MiB=1,048,576바이트): **10.430264 MiB**
-- 30 MB 초과 여부: **초과하지 않음**
-- 30 MiB 초과 여부: **초과하지 않음**
+- 파일 수: 708
+- 전체: **28,313,465바이트** = 28.31 MB = 27.00 MiB
+- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 1.69 MB
 
 | 최상위 항목 | 바이트 |
 |---|---:|
-| framework | 8,571,889 |
-| docs | 2,247,002 |
-| BEFORE_AFTER.md | 75,741 |
-| Console.cpp | 23,475 |
-| USER_CHECKS.md | 3,036 |
-| README.md | 2,966 |
-| standard.vcxproj | 2,679 |
-| Console.h | 2,642 |
-| DOCUMENT_INDEX.md | 2,395 |
-| PORTABLE.md | 1,586 |
-| SIZE_REPORT.md | 1,208 |
-| main.cpp | 876 |
-| standard.sln | 827 |
-| standard.vcxproj.filters | 430 |
-| standard.slnx | 173 |
+| docs | 16,681,710 |
+| framework | 11,119,453 |
+| modes | 353,086 |
+| BEFORE_AFTER.md | 75,914 |
+| examples | 33,148 |
+| Console.cpp | 9,758 |
+| DOCUMENT_INDEX.md | 9,408 |
+| README.md | 8,707 |
+| USER_CHECKS.md | 5,978 |
+| Console.h | 3,754 |
+| standard.vcxproj | 3,403 |
+| SIZE_REPORT.md | 1,796 |
+| main.cpp | 1,762 |
+| PORTABLE.md | 1,597 |
+| index.html | 1,557 |
+| document.html | 889 |
+| standard.sln | 845 |
+| standard.vcxproj.filters | 521 |
+| standard.slnx | 179 |
 
-빌드·앱 실행은 하지 않았다. 사용자가 나중에 빌드해 x64/.vs 등이 추가되면 합계가 바뀐다. 삭제로 회수한 용량은 0바이트다.
+## 큰 파일 10개
+
+지우기 전에 다른 문서나 도구가 참조하는지 확인한다. 예: graph.json은 GRAPH_REPORT.md가, framework/ 아래는 Sync-Framework.ps1 -Standard가 루트 framework에서 다시 복사한다.
+
+| 파일 | 바이트 |
+|---|---:|
+| docs/assembly/architecture/graph.json | 4,396,326 |
+| docs/assembly/architecture/graph.html | 3,550,496 |
+| docs/API_REFERENCE.html | 2,479,939 |
+| framework/docs/API_REFERENCE.html | 2,442,005 |
+| docs/viewer/documents.js | 2,245,886 |
+| framework/dependencies/glew-2.3.1/include/GL/glew.h | 1,362,237 |
+| framework/docs/IMPLEMENTATION_PATTERNS.html | 897,775 |
+| docs/IMPLEMENTATION_PATTERNS.html | 897,737 |
+| docs/API_CASE_MAP.json | 883,991 |
+| framework/docs/API_CASE_MAP.json | 883,991 |

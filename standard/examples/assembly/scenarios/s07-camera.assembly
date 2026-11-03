@@ -4,22 +4,41 @@
 # @keys: A/D 공전 · W/S 줌 · I/K 위아래 이동 · O 직교 · P 원근 · H 3뷰 · J 1뷰
 # @check: 카메라 명령은 누를 때마다 한 번씩 실행된다. 계속 돌리려면 여러 번 누른다.
 # @vary: 각도·배율 값을 바꾼다. 누르고 있는 동안 계속 도는 카메라는 C++ Custom이나 실습 19의 카메라 코드를 참고한다.
+#: 장면을 비운다.
 clear
+#: 바닥 격자를 만든다.
 add grid floor -3 0 -2
+#: 기준 물체 상자 a를 만든다.
 add box a -1 0.5 0 1 1 1
+#: 기준 물체 사각뿔 b를 만든다.
 add pyramid b 1 0.5 0 1 1 1
+#: 기준 물체 구 c를 만든다.
 add sphere c 0 0.5 1.5 0.8 0.8 0.8
+#: 상자를 빨간색으로 칠한다.
 color a 1 0.4 0.3
+#: 사각뿔을 초록색으로 칠한다.
 color b 0.4 1 0.4
+#: 구를 파란색으로 칠한다.
 color c 0.3 0.6 1
+#: A: 카메라 위치를 원점을 지나는 Y축 둘레로 -10° 돌린다.
 bind A press "camera orbit y -10 0 0 0"
+#: D: 반대로 10° 돌린다.
 bind D press "camera orbit y 10 0 0 0"
+#: W: 카메라와 바라보는 점 사이 거리를 0.9배로 줄인다(확대).
 bind W press "camera zoom 0.9"
+#: S: 거리를 1.1배로 늘린다(축소).
 bind S press "camera zoom 1.1"
+#: I: 카메라를 위로 0.3 평행 이동한다.
 bind I press "camera move 0 0.3 0"
+#: K: 카메라를 아래로 0.3 평행 이동한다.
 bind K press "camera move 0 -0.3 0"
+#: O: 직교 투영으로 바꾼다. 멀어도 크기가 줄지 않는다.
 bind O press "camera projection ortho"
+#: P: 원근 투영으로 되돌린다.
 bind P press "camera projection perspective"
+#: H: 같은 장면을 세 뷰포트로 나눠 그린다.
 bind H press "view 3"
+#: J: 한 화면으로 되돌린다.
 bind J press "view 1"
+#: 처음 카메라 자세를 정한다.
 camera pose 6 5 8 0 0.5 0 0 1 0

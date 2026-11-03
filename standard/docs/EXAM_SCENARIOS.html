@@ -71,7 +71,8 @@ camera pose 0 5 9 0 1 0 0 1 0</code></pre>
   </ol>
 
   <h2 id="scenarios">시나리오</h2>
-  <p>각 카드의 <strong>복사</strong> 버튼은 콘솔에 붙여 넣을 <code>load</code> 명령을 복사합니다. <strong>레시피 보기</strong>를 펼치면 파일 전체가 보입니다. 카드 내용은 레시피 파일의 <code># @</code> 머리말에서 자동으로 만들어집니다.</p>
+  <p>각 카드의 <strong>복사</strong> 버튼은 콘솔에 붙여 넣을 <code>load</code> 명령을 복사합니다. <strong>줄별 명령 설명</strong>을 펼치면 레시피의 모든 명령이 무엇을 하는지 한 줄씩 볼 수 있습니다. 카드 내용은 레시피 파일의 <code># @</code> 머리말과 각 명령 위의 <code>#:</code> 주석에서 자동으로 만들어지므로, 메모장으로 레시피를 열어도 같은 설명이 보입니다.</p>
+  <p><button type="button" id="expand-all">줄별 설명 모두 펼치기</button></p>
   <ul class="toc-grid" id="scenario-index"></ul>
   <div id="scenario-list"><p class="muted">시나리오 데이터(viewer/scenarios.js)를 읽지 못했습니다. 저장소에서 <code>python tools/Update-StandardDocs.py</code>를 실행하세요.</p></div>
 
@@ -219,15 +220,43 @@ const char* commands[] = {
       setTimeout(() => { done.textContent = ''; }, 2000);
     };
     actions.append(code, copy, done);
-    const details = document.createElement('details');
-    const summary = document.createElement('summary');
-    summary.textContent = '레시피 보기 (' + s.commands.split('\n').length + '줄)';
+    const explain = document.createElement('details');
+    explain.className = 'explain';
+    const explainSummary = document.createElement('summary');
+    explainSummary.textContent = '줄별 명령 설명 (' + s.lines.length + '줄)';
+    const table = document.createElement('table');
+    table.className = 'recipe-table';
+    const head = table.insertRow();
+    for (const label of ['#', '명령', '의미']) {
+      const th = document.createElement('th');
+      th.textContent = label;
+      head.append(th);
+    }
+    s.lines.forEach((line, i) => {
+      const row = table.insertRow();
+      row.insertCell().textContent = i + 1;
+      const cmd = document.createElement('code');
+      cmd.textContent = line.command;
+      row.insertCell().append(cmd);
+      row.insertCell().textContent = line.note;
+    });
+    explain.append(explainSummary, table);
+    const raw = document.createElement('details');
+    const rawSummary = document.createElement('summary');
+    rawSummary.textContent = '레시피 원문 (주석 제외, 복사용)';
     const pre = document.createElement('pre');
     pre.textContent = s.commands;
-    details.append(summary, pre);
-    box.append(h3, practice, dl, actions, details);
+    raw.append(rawSummary, pre);
+    box.append(h3, practice, dl, actions, explain, raw);
     list.append(box);
   }
+  const expand = document.getElementById('expand-all');
+  expand.onclick = () => {
+    const all = [...document.querySelectorAll('details.explain')];
+    const open = !all.every(d => d.open);
+    for (const d of all) d.open = open;
+    expand.textContent = open ? '줄별 설명 모두 접기' : '줄별 설명 모두 펼치기';
+  };
 })();
 </script>
 </body>

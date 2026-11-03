@@ -4,16 +4,29 @@
 # @keys: ↑↓ 앞뒤 이동 · ←→ 차체 회전 · Q/E 포탑 좌우 · C 카메라 공전
 # @check: hold 바인딩은 값에 dt를 곱한 속도 입력이다. 포탑은 차체를 따라 움직인다.
 # @vary: 부품 치수는 guide tank가 알려주는 AssemblyExamples.cpp의 buildTankExample에서 고친다.
+#: 장면을 비운다.
 clear
+#: 바닥 격자 floor를 (-3,0,-2)에 만든다. 기본 6×1×4 칸이다.
 add grid floor -3 0 -2
+#: C++ 예제 buildTankExample로 탱크 rover를 만든다. 차체·궤도·포탑(rover.turret)·포신(rover.turret.gun)과 기본 모터가 생긴다.
 build tank rover
+#: 예제에 들어 있는 포탑 자동 회전 동작을 지운다. 키로 직접 돌리기 위해서다.
 remove rover.turretMotor
+#: 포신 자동 끄덕임 동작을 지운다.
 remove rover.gunMotor
+#: ↑를 누르고 있는 동안 rover를 초당 (0,0,-2)씩 옮긴다. 탱크가 바라보는 방향이 아니라 부모(월드) 좌표의 -Z다.
 bind UP hold "move rover 0 0 -2"
+#: ↓: 월드 +Z로 초당 2씩 옮긴다.
 bind DOWN hold "move rover 0 0 2"
+#: ←: 차체를 로컬 Y축으로 초당 60° 돌린다.
 bind LEFT hold "rotate rover y 60"
+#: →: 반대 방향으로 초당 60° 돌린다.
 bind RIGHT hold "rotate rover y -60"
+#: Q: 포탑 관절만 초당 60° 돌린다. 자식인 포신도 따라 돈다.
 bind Q hold "rotate rover.turret y 60"
+#: E: 포탑을 반대로 돌린다.
 bind E hold "rotate rover.turret y -60"
+#: C: 카메라를 원점을 지나는 Y축 둘레로 15° 돌린다. 누를 때마다 한 번.
 bind C press "camera orbit y 15 0 0 0"
+#: 카메라를 오른쪽 위 앞에서 탱크를 보게 둔다.
 camera pose 5 4 6 0 0.5 0 0 1 0

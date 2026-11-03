@@ -4,27 +4,51 @@
 # @keys: P 행성 공전 정지 · O 재개 · M 달 공전 정지 · N 재개 · W 와이어 켜기 · E 끄기
 # @check: 달은 행성을 따라 이동하면서 행성 주위를 돈다. 행성 공전을 멈춰도 달은 계속 돈다.
 # @vary: 궤도를 기울이려면 rotate planetOrbit z 20을 추가한다. 달 거리는 moon의 X 위치다.
+#: 장면을 비운다.
 clear
+#: 태양 sun을 원점에 지름 1.6으로 만든다.
 add sphere sun 0 0 0 1.6 1.6 1.6
+#: 태양을 주황색으로 칠한다.
 color sun 1 0.7 0.1
+#: 태양을 Y축으로 초당 10° 자전시킨다.
 spin sunSpin sun y 10
+#: 행성 공전용 빈 그룹을 원점에 둔다. 이 그룹이 돌면 자식 전체가 태양 둘레를 돈다.
 group planetOrbit 0 0 0
+#: 행성 위치를 잡는 그룹 planet을 만든다. (4,0,0)이 공전 반지름이 된다.
 group planet 4 0 0
+#: planet을 planetOrbit의 자식으로 붙인다. 로컬 위치 (4,0,0)이 유지된다.
 parent planet planetOrbit
+#: 행성 메시 earth를 지름 0.7로 만든다.
 add sphere earth 0 0 0 0.7 0.7 0.7
+#: earth를 planet 그룹 원점에 붙인다. 행성 그룹 = 위치, earth = 보이는 몸체.
 parent earth planet
+#: 행성을 파란색으로 칠한다.
 color earth 0.2 0.5 1
+#: 달 공전용 빈 그룹을 만든다.
 group moonOrbit 0 0 0
+#: moonOrbit을 planet의 자식으로 붙인다. 달 궤도의 중심이 행성이 된다.
 parent moonOrbit planet
+#: 달 moon을 지름 0.3으로 만든다. (1.2,0,0)은 다음 줄의 부모 기준 거리다.
 add sphere moon 1.2 0 0 0.3 0.3 0.3
+#: moon을 moonOrbit의 자식으로 붙인다. 행성에서 1.2 떨어진 위치가 된다.
 parent moon moonOrbit
+#: 달을 회색으로 칠한다.
 color moon 0.8 0.8 0.8
+#: planetOrbit을 원점을 지나는 Y축 둘레로 초당 25° 돌린다. 행성과 달이 함께 태양을 돈다.
 orbit planetMotion planetOrbit y 25 0 0 0
+#: moonOrbit을 자기 부모(행성) 좌표의 원점, 즉 행성 중심 둘레로 초당 90° 돌린다.
 orbit moonMotion moonOrbit y 90 0 0 0
+#: P: 행성 공전을 멈춘다.
 bind P press "play planetMotion off"
+#: O: 행성 공전을 다시 재생한다.
 bind O press "play planetMotion on"
+#: M: 달 공전을 멈춘다.
 bind M press "play moonMotion off"
+#: N: 달 공전을 다시 재생한다.
 bind N press "play moonMotion on"
+#: W: 와이어프레임(선)으로 그린다.
 bind W press "render wire on"
+#: E: 면으로 채워 그린다.
 bind E press "render wire off"
+#: 카메라를 위쪽 앞에서 원점을 내려다보게 둔다.
 camera pose 0 5 7.5 0 0 0 0 1 0

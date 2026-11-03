@@ -175,6 +175,10 @@ article#content > :first-child { margin-top: 0; }
 .scenario .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 8px; }
 .scenario .actions code { flex: 1; min-width: 0; }
 .copied { color: var(--ok); font-size: 13px; }
+.recipe-table { display: table; font-size: 14px; }
+.recipe-table td:first-child { color: var(--muted); text-align: right; width: 2.5em; }
+.recipe-table td:nth-child(2) { width: 42%; }
+.recipe-table td code { font-size: 13.5px; background: none; padding: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; padding: 0; list-style: none; }
 .toc-grid li { max-width: none; }
 .toc-grid a {

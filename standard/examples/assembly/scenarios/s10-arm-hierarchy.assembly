@@ -4,18 +4,33 @@
 # @keys: Tab 부품 순환 · X/Y/Z 축 · ←→ 회전 · ↑↓ 이동 · A 어깨 정지 · S 재개
 # @check: 어깨가 돌면 아래팔과 손이 따라온다. 팔꿈치만 돌면 아래팔과 손만 움직인다.
 # @vary: joint의 위치가 회전 중심이고, part의 위치는 그 관절에서 떨어진 거리다.
+#: 장면을 비운다.
 clear
+#: 로봇 전체를 묶는 최상위 그룹 robot을 만든다. 이 그룹을 옮기면 모든 부품이 따라간다.
 group robot 0 0 0
+#: robot 아래에 몸통 상자 robot.torso를 위치 (0,1.2,0), 크기 0.8×1×0.5로 만든다.
 part box robot torso 0 1.2 0 0.8 1 0.5
+#: robot 아래 (0.55,1.6,0)에 보이지 않는 관절 robot.shoulder를 둔다. 어깨 회전 중심이다.
 joint robot shoulder 0.55 1.6 0
+#: 어깨 관절 아래에 위팔을 단다. 관절에서 0.35 아래가 위팔 중심이라 위팔 윗끝이 관절에 붙는다.
 part box robot.shoulder upper 0 -0.35 0 0.25 0.7 0.25
+#: 어깨에서 0.7 아래(위팔 끝)에 팔꿈치 관절을 둔다.
 joint robot.shoulder elbow 0 -0.7 0
+#: 팔꿈치 아래에 아래팔을 단다.
 part box robot.shoulder.elbow lower 0 -0.3 0 0.2 0.6 0.2
+#: 팔꿈치에서 0.65 아래에 손(구)을 단다.
 part sphere robot.shoulder.elbow hand 0 -0.65 0 0.25 0.25 0.25
+#: 어깨 관절을 Z축으로 ±40°, 3초 주기로 흔든다. 위팔·팔꿈치·손이 모두 따라온다.
 pendulum shoulderSwing robot.shoulder z 40 3
+#: 팔꿈치를 X축으로 ±30°, 1.5초 주기로 흔든다. 어깨 흔들림 위에 합성된다.
 pendulum elbowSwing robot.shoulder.elbow x 30 1.5
+#: 로봇 전체를 Y축으로 초당 15° 자전시킨다.
 spin robotTurn robot y 15
+#: A: 어깨 흔들기를 멈춘다.
 bind A press "play shoulderSwing off"
+#: S: 어깨 흔들기를 다시 재생한다.
 bind S press "play shoulderSwing on"
+#: 어깨 관절을 편집 대상으로 고른다. 창에서 X/Y/Z와 방향키로 바로 편집할 수 있다.
 select robot.shoulder
+#: 카메라를 로봇 오른쪽 앞에 둔다.
 camera pose 3 3 5 0 1 0 0 1 0

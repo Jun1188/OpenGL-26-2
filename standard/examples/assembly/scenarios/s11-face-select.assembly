@@ -4,16 +4,29 @@
 # @keys: Q 모두 숨김 · W 윗면 · E 아랫면 · R 오른쪽 면 · A 모두 보이기 · C/V 색 변경
 # @check: bind에는 숫자 키를 쓸 수 없어서 실습의 1~0 대신 문자 키에 연결했다.
 # @vary: 난수로 면을 고르는 것처럼 조건이 필요한 동작은 guide practice13으로 C++ 함수를 옮긴다.
+#: 장면을 비운다.
 clear
+#: 한 변이 2인 육면체를 만든다.
 add box cube 0 1 0 2 2 2
+#: 모든 면의 뒷면 컬링을 끈다. 면을 몇 개만 보여도 안쪽 면이 사라지지 않는다.
 cull cube all none
+#: 모든 면을 숨긴다.
 visible cube all off
+#: 앞면(0번)만 보이게 한다.
 visible cube 0 on
+#: Q: 모든 면을 숨긴다.
 bind Q press "visible cube all off"
+#: W: 윗면(4번)을 보이게 한다. 이미 보이는 면은 그대로다.
 bind W press "visible cube 4 on"
+#: E: 아랫면(5번)을 보이게 한다.
 bind E press "visible cube 5 on"
+#: R: 오른쪽 면(3번)을 보이게 한다.
 bind R press "visible cube 3 on"
+#: A: 모든 면을 보이게 한다.
 bind A press "visible cube all on"
+#: C: 모든 면을 분홍색으로 칠한다.
 bind C press "facecolor cube all 0.9 0.3 0.6"
+#: V: 모든 면을 초록색으로 칠한다.
 bind V press "facecolor cube all 0.3 0.8 0.5"
+#: 카메라를 오른쪽 위 앞에 둔다.
 camera pose 4 4 6 0 1 0 0 1 0
