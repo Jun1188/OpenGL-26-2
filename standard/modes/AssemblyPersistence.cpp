@@ -72,6 +72,7 @@ bool Assembly::load(const std::string& path, std::ostream& out) {
     std::vector<std::string> lines;
     std::string line;
     while (std::getline(stream, line)) {
+        if (!line.empty() && line.back() == '\r') line.pop_back();
         if (lines.empty() && line.compare(0, 3, "\xEF\xBB\xBF") == 0)
             line.erase(0, 3);
         require(line.size() <= 4096 && lines.size() < 10000, "명령은 4096바이트 이하, 레시피는 10000줄 미만입니다.");

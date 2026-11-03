@@ -148,7 +148,9 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
     if (topic == "load") topic = "save";
     const auto found = locations.find(topic);
     if (found == locations.end()) {
-        out << "지원 항목: objects humanoid swing tank walker grid room hierarchy patterns truck person motion face physics input camera recipe custom runtime save\n";
+        out << "지원 항목:";
+        for (const auto& item : locations) out << ' ' << item.first;
+        out << " practice13~23\n";
         return;
     }
     show(found->second, out);

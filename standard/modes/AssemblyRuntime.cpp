@@ -231,6 +231,7 @@ bool Assembly::update(float dt, std::ostream& out) {
     } catch (const std::exception& error) {
         faulted_ = true;
         state_.paused = true;
+        state_.dragging = false; state_.dragX.reset();
         for (auto& binding : state_.bindings)
             binding.down = false;
         out << "업데이트 정지: " << error.what() << "\nremove <동작> 또는 clear로 조립을 수정하세요. guide physics\n";
