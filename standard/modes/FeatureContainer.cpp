@@ -58,6 +58,7 @@ void FeatureContainer::step(float dt) {
     context.check();
 }
 void FeatureContainer::key(int key, int action, int mods) {
+    require(!(key == GLFW_KEY_F5 && (mods & GLFW_MOD_CONTROL)), "컨테이너 내부에서는 작업공간을 재귀 생성하지 않습니다. 상위 Ctrl+F5를 사용하세요.");
     require(key != GLFW_KEY_Q && key != GLFW_KEY_ESCAPE, "Q/Esc는 컨테이너에 전달하지 않습니다. feature enable 또는 focus none을 사용하세요.");
     Impl::Context context(*impl_);
     impl_->controller.onKey(key, action, mods);
