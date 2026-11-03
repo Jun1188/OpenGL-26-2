@@ -107,6 +107,7 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
         {"custom", {"modes/AssemblyExtensions.cpp", "USER_COMMAND_BEGIN", "새 명령 분기와 typed Assembly API 호출"}},
         {"runtime", {"modes/AssemblyRuntime.cpp", "bool Assembly::applyPoses(", "프레임별 합성 순서와 기능 업데이트"}},
         {"save", {"modes/AssemblyPersistence.cpp", "bool Assembly::save(", "레시피 기록과 기준 SRT 저장 형식"}}};
+    if (topic == "truck-pattern") topic = "truck";
     if (topic == "tank-pattern") topic = "tank";
     if (topic == "person-pattern") topic = "person";
     if (topic == "group" || topic == "joint" || topic == "part") topic = "hierarchy";

@@ -123,7 +123,19 @@ void Assembly::attach(Behavior behavior) {
     node(behavior.target);
     if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor)
         behavior.positionDriver = true;
+    const auto checkGeometryOwner = [&](const Behavior& physics, const Behavior& other) {
+        if (physics.effect != Effect::Body && physics.effect != Effect::Walk) return;
+        const auto& object = node(other.target);
+        const auto& room = node(physics.reference);
+        const bool face = other.effect == Effect::Face || other.effect == Effect::Wall;
+        if (physics.effect == Effect::Body && face)
+            require(object.mesh != node(physics.target).mesh, "물리 상자 면은 별도로 변형할 수 없습니다.");
+        if (!face)
+            require(!room.mesh || object.id != *room.mesh, "물리 방 walls에는 별도 이동/회전을 붙일 수 없습니다. 방 루트를 사용하세요.");
+    };
     for (const auto& current : state_.behaviors) {
+        checkGeometryOwner(current, behavior);
+        checkGeometryOwner(behavior, current);
         require(current.name != behavior.name, "중복 동작 이름입니다: " + behavior.name);
         require(!(current.effect == Effect::Body && behavior.target == current.target + ".mesh") &&
                 !(behavior.effect == Effect::Body && current.target == behavior.target + ".mesh"),

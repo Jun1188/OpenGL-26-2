@@ -49,7 +49,17 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
 }
 
 bool Assembly::load(const std::string& path, std::ostream& out) {
-    const auto file = std::filesystem::absolute(std::filesystem::u8path(path));
+    const auto requested = std::filesystem::u8path(path);
+    auto file = std::filesystem::absolute(requested);
+    if (!requested.is_absolute() && !std::filesystem::exists(file)) {
+        std::wstring binary(32768, L'\0');
+        const DWORD count = GetModuleFileNameW(nullptr, binary.data(), DWORD(binary.size()));
+        if (count > 0 && count < binary.size()) {
+            binary.resize(count);
+            const auto deployed = std::filesystem::path(binary).parent_path() / requested;
+            if (std::filesystem::is_regular_file(deployed)) file = deployed;
+        }
+    }
     require(std::filesystem::file_size(file) <= 2 * 1024 * 1024, "레시피는 2MiB 이하입니다.");
     std::ifstream stream(file, std::ios::binary);
     require(bool(stream), "레시피 파일을 열 수 없습니다.");

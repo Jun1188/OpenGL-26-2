@@ -58,4 +58,12 @@
   </ItemGroup>
   <Import Project="framework\Framework.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemGroup>
+    <AssemblyRecipe Include="examples\assembly\**\*.assembly" />
+    <AssemblyDocument Include="docs\assembly\**\*.md" />
+  </ItemGroup>
+  <Target Name="CopyAssemblyLearningFiles" AfterTargets="Build">
+    <Copy SourceFiles="@(AssemblyRecipe)" DestinationFiles="@(AssemblyRecipe->'$(TargetDir)examples\assembly\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(AssemblyDocument)" DestinationFiles="@(AssemblyDocument->'$(TargetDir)docs\assembly\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

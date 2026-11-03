@@ -24,6 +24,13 @@ bool Assembly::applyPoses(float dt) {
     auto& scene = app_.getScene();
     const auto motionFor = [&](const std::string& name) {
         graphics::Motion motion;
+        glm::mat3 parentRotation(1);
+        for (const auto& b : state_.behaviors) {
+            if (!b.enabled || b.target != name || b.effect != Effect::Motion || b.parentSpin) continue;
+            const auto sample = b.motion.sample(b.seconds);
+            require(sample.has_value(), "부모 공간 모션 샘플 실패: " + b.name);
+            parentRotation = glm::mat3(sample->parent) * parentRotation;
+        }
         for (const auto& b : state_.behaviors) {
             if (!b.enabled || b.target != name || b.effect != Effect::Motion)
                 continue;
@@ -34,7 +41,7 @@ bool Assembly::applyPoses(float dt) {
             const auto inversePivot = glm::translate(glm::mat4(1), -rest.localBasis);
             auto parent = sample->parent, local = sample->local;
             if (b.parentSpin) {
-                const auto rotation = glm::mat4(rest.rotation);
+                const auto rotation = glm::mat4(parentRotation * rest.rotation);
                 local = glm::transpose(rotation) * parent * rotation;
                 parent = glm::mat4(1);
             }
