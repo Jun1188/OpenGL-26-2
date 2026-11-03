@@ -1,0 +1,19 @@
+﻿# @title: 자전과 공전을 분리한 두 객체
+# @practice: 실습 14 · 실습 18
+# @goal: 가운데 구는 제자리에서 자전하고, 바깥 상자는 중심을 공전하면서 스스로도 자전한다.
+# @keys: S 공전 정지 · D 공전 재개 · Space 전체 정지
+# @check: 바깥 상자가 원을 그리며 돌고 자기 축으로도 돈다. S를 누르면 공전만 멈추고 자전은 계속된다.
+# @vary: 공전 속도는 orbit의 도/초 값, 반지름은 satellite의 X 위치, 회전축은 y를 x나 z로 바꾼다.
+clear
+add sphere core 0 1 0 1 1 1
+color core 1 0.8 0.2
+spin coreSpin core y 30
+group orbitFrame 0 1 0
+add box satellite 3 0 0 0.6 0.6 0.6
+parent satellite orbitFrame
+color satellite 0.3 0.6 1
+orbit satOrbit orbitFrame y 40 0 0 0
+spin satSpin satellite y 120
+bind S press "play satOrbit off"
+bind D press "play satOrbit on"
+camera pose 0 3.5 6 0 1 0 0 1 0

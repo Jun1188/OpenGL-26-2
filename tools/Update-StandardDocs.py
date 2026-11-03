@@ -63,41 +63,111 @@ def refresh_api():
         current=re.sub(r'(<body\b[^>]*>)',lambda m:m[0]+insertion,current,count=1)
         write(page,current)
 
-def refresh_index():
-    docs=[]
+VIEWER_TEMPLATES = ROOT / 'tools/templates/standard-viewer'
+CATALOG = STANDARD / 'docs/DOCUMENT_CATALOG.json'
+SCENARIOS = STANDARD / 'examples/assembly/scenarios'
+NAV_START = '<!-- standard-nav:start -->'
+NAV_END = '<!-- standard-nav:end -->'
+
+def js_data(name, value):
+    data = json.dumps(value, ensure_ascii=False).replace('<', '\\u003c').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
+    return 'window.' + name + ' = ' + data + ';\n'
+
+def collect_documents():
+    docs = []
     for p in sorted(STANDARD.rglob('*')):
-        rel=p.relative_to(STANDARD)
-        if not p.is_file() or p.suffix.lower() not in ('.md','.html'): continue
-        if any(part in ('.vs','x64','dependencies','viewer') for part in rel.parts): continue
-        if rel.as_posix() in ('index.html','document.html'): continue
-        text=p.read_text(encoding='utf-8-sig')
-        if p.suffix.lower()=='.md':
-            match=re.search(r'^#\s+(.+)',text,re.M)
-        else: match=re.search(r'<title[^>]*>(.*?)</title>',text,re.S|re.I)
-        docs.append({'path':rel.as_posix(),'title':html.unescape(match[1].strip()) if match else p.stem,'markdown':text if p.suffix.lower()=='.md' else None})
-    data=json.dumps(docs,ensure_ascii=False).replace('<','\\u003c').replace('\u2028','\\u2028').replace('\u2029','\\u2029')
-    write(STANDARD/'docs/viewer/documents.js','window.STANDARD_DOCUMENTS = '+data+';\n')
-    style='''*{box-sizing:border-box}body{margin:0;background:#1e1e1e;color:#ddd;font:16px/1.7 system-ui,"Malgun Gothic",sans-serif}header{padding:18px 28px;background:#252526;position:sticky;top:0;border-bottom:1px solid #444}a{color:#73bdff}main{max-width:1100px;margin:auto;padding:28px}input,button,select{background:#303033;color:#eee;border:1px solid #666;padding:9px;border-radius:5px}input{width:min(600px,90%)}pre{background:#141414;padding:18px;overflow:auto;border:1px solid #444;border-radius:6px;tab-size:4}code{font-family:Consolas,monospace;font-size:.9em}p code,li code,td code{background:#303033;padding:2px 4px}table{border-collapse:collapse;display:block;overflow:auto}th,td{border:1px solid #555;padding:9px 14px}blockquote{border-left:4px solid #777;margin-left:0;padding-left:20px;color:#bbb}h1,h2,h3{line-height:1.4;border-bottom:1px solid #444;padding-bottom:8px;scroll-margin-top:110px}img{max-width:100%}.doc{padding:14px;border-bottom:1px solid #444}.path{color:#aaa;font-size:.85em}#toc{border:1px solid #555;padding:14px}#source{white-space:pre-wrap}button{cursor:pointer}a:focus,button:focus{outline:2px solid #73bdff}'''
-    write(STANDARD/'docs/viewer/style.css',style)
-    head='<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="docs/viewer/style.css">'
-    write(STANDARD/'index.html',head+'''<title>standard 문서 목차</title></head><body><header><strong>standard · 전체 문서</strong><p><input id="search" type="search" placeholder="제목·경로 검색" aria-label="문서 검색"> <select id="kind" aria-label="문서 형식"><option value="all">전체</option><option value="md">Markdown</option><option value="html">HTML</option></select></p></header><main><h1>OpenGL standard 문서</h1><p>API · 0~22 실습 · 기능 조립 · 직접 편집 · 사용자 확인. Markdown은 오프라인 미리보기로 연다.</p><p><a href="docs/API_REFERENCE.html#current-assembly-api">최신 API Reference</a> · <a href="document.html?doc=docs/assembly/README.md">조립 문서 시작</a></p><p id="count"></p><div id="list"></div></main><script src="docs/viewer/documents.js"></script><script src="docs/viewer/index.js"></script></body></html>''')
-    write(STANDARD/'docs/viewer/index.js','''const records=window.STANDARD_DOCUMENTS;
-function render(){const query=document.querySelector('#search').value.toLocaleLowerCase();const kind=document.querySelector('#kind').value;const rows=records.filter(d=>(d.title+' '+d.path).toLocaleLowerCase().includes(query)&&(kind==='all'||(kind==='md')===(d.markdown!==null)));const list=document.querySelector('#list');list.replaceChildren();for(const d of rows){const box=document.createElement('div');box.className='doc';const link=document.createElement('a');link.textContent=d.title;link.href=d.markdown===null?d.path:'document.html?doc='+encodeURIComponent(d.path);const path=document.createElement('div');path.className='path';path.textContent=d.path;box.append(link,path);list.append(box)}document.querySelector('#count').textContent=rows.length+' / '+records.length+'개 문서'}
-document.querySelector('#search').addEventListener('input',render);document.querySelector('#kind').addEventListener('change',render);render();''')
-    write(STANDARD/'document.html',head+'''<title>Markdown 미리보기</title></head><body><header><a href="index.html">전체 문서</a> · <a id="original">원본 Markdown</a> <button id="toggle">원문 보기</button><div id="path" class="path"></div></header><main><nav id="toc" aria-label="문서 목차"></nav><article id="content"></article><pre id="source" hidden></pre></main><script src="docs/viewer/vendor/marked.umd.js"></script><script src="docs/viewer/documents.js"></script><script src="docs/viewer/preview.js"></script></body></html>''')
-    write(STANDARD/'docs/viewer/preview.js','''const root=new URL('./',location.href);const docs=window.STANDARD_DOCUMENTS;const path=new URLSearchParams(location.search).get('doc')||'README.md';const record=docs.find(d=>d.path===path&&d.markdown!==null);const content=document.querySelector('#content');
-if(!record){content.textContent='문서를 찾을 수 없습니다. 전체 목차에서 선택하세요.'}else{
- document.title=record.title+' · Markdown';document.querySelector('#path').textContent=path;document.querySelector('#original').href=new URL(path,root).href;document.querySelector('#source').textContent=record.markdown;
- const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const renderer=new marked.Renderer();renderer.html=token=>escape(token.text);content.innerHTML=marked.parse(record.markdown,{gfm:true,renderer});
- for(const a of content.querySelectorAll('a[href]')){const raw=a.getAttribute('href');if(raw.startsWith('#'))continue;const url=new URL(raw,new URL(path,root));if(!['file:','http:','https:','mailto:'].includes(url.protocol)){a.removeAttribute('href');continue}const relative=decodeURIComponent(url.pathname.slice(root.pathname.length));const md=docs.find(d=>d.path===relative&&d.markdown!==null);if(url.origin===root.origin&&url.pathname.startsWith(root.pathname)&&md){a.href=new URL('document.html?doc='+encodeURIComponent(relative)+url.hash,root).href}else a.href=url.href}
- for(const img of content.querySelectorAll('img[src]')){const url=new URL(img.getAttribute('src'),new URL(path,root));if(['file:','http:','https:'].includes(url.protocol))img.src=url.href;else img.removeAttribute('src')}
- const toc=document.querySelector('#toc');let count=0;for(const h of content.querySelectorAll('h1,h2,h3,h4,h5,h6')){const slug=h.textContent.trim().toLowerCase().replace(/[^\\p{L}\\p{N}_ -]/gu,'').replace(/ /g,'-');h.id=slug||'heading-'+(++count);if(document.getElementById(h.id)!==h)h.id+='-'+(++count);const a=document.createElement('a');a.href='#'+encodeURIComponent(h.id);a.textContent=h.textContent;const item=document.createElement('div');item.style.paddingLeft=(Number(h.tagName[1])-1)*12+'px';item.append(a);toc.append(item)}
- document.querySelector('#toggle').onclick=()=>{const source=document.querySelector('#source');source.hidden=!source.hidden;content.hidden=!source.hidden;toc.hidden=!source.hidden;document.querySelector('#toggle').textContent=source.hidden?'원문 보기':'미리보기'};
- if(location.hash){const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(target)target.scrollIntoView()}
-}
-''')
-    print('Indexed',len(docs),'documents; Markdown text bundled for file:// use. No browser/tests run.')
+        rel = p.relative_to(STANDARD)
+        if not p.is_file() or p.suffix.lower() not in ('.md', '.html'): continue
+        if any(part in ('.vs', 'x64', 'dependencies', 'viewer') for part in rel.parts): continue
+        if rel.as_posix() in ('index.html', 'document.html'): continue
+        text = p.read_text(encoding='utf-8-sig')
+        if p.suffix.lower() == '.md':
+            match = re.search(r'^#\s+(.+)', text, re.M)
+        else: match = re.search(r'<title[^>]*>(.*?)</title>', text, re.S | re.I)
+        docs.append({'path': rel.as_posix(), 'title': html.unescape(match[1].strip()) if match else p.stem,
+                     'markdown': text if p.suffix.lower() == '.md' else None})
+    return docs
+
+def load_catalog(docs):
+    """Validate DOCUMENT_CATALOG.json and append the documents it does not list."""
+    catalog = json.loads(CATALOG.read_text(encoding='utf-8-sig'))
+    if catalog.get('schemaVersion') != 1: raise SystemExit('DOCUMENT_CATALOG.json: schemaVersion 1 expected')
+    paths = {d['path'] for d in docs}
+    listed = set()
+    for category in catalog['categories']:
+        for entry in category['documents']:
+            if entry['path'] not in paths: raise SystemExit('DOCUMENT_CATALOG.json: missing document ' + entry['path'])
+            if entry['path'] in listed: raise SystemExit('DOCUMENT_CATALOG.json: listed twice ' + entry['path'])
+            listed.add(entry['path'])
+    rest = [{'path': d['path']} for d in docs if d['path'] not in listed]
+    if rest: catalog['categories'].append({**catalog['uncategorized'], 'documents': rest})
+    return catalog
+
+def collect_scenarios():
+    """Scenario cards come from the '# @key: value' headers of the recipe files."""
+    scenarios = []
+    for p in sorted(SCENARIOS.glob('*.assembly')):
+        meta, commands = {}, []
+        for line in p.read_text(encoding='utf-8-sig').splitlines():
+            match = re.match(r'#\s*@(\w+):\s*(.*)', line)
+            if match: meta[match[1]] = match[2].strip()
+            elif line.strip() and not line.startswith('#'): commands.append(line)
+        if 'title' not in meta: raise SystemExit(p.name + ': # @title header required')
+        scenarios.append({'id': p.stem, 'file': p.relative_to(STANDARD).as_posix(), **meta, 'commands': '\n'.join(commands)})
+    return scenarios
+
+def write_document_index(docs, catalog):
+    """Markdown version of the catalog; keeps the flowchart block that author_framework_guides.py maintains."""
+    titles = {d['path']: d['title'] for d in docs}
+    old = (STANDARD / 'DOCUMENT_INDEX.md').read_text(encoding='utf-8-sig')
+    begin, end = '<!-- flowchart-index:start -->', '<!-- flowchart-index:end -->'
+    flow = old[old.index(begin):old.index(end) + len(end)] if begin in old and end in old else ''
+    lines = ['[브라우저 목차](index.html) · [시험 시나리오](docs/EXAM_SCENARIOS.html) · [README](README.md)', '',
+             '# standard 문서 목차', '',
+             '분류와 순서는 docs/DOCUMENT_CATALOG.json에서 정한다. 이 파일과 index.html은 `python tools/Update-StandardDocs.py`가 함께 다시 만든다.', '']
+    for category in catalog['categories']:
+        lines += ['## ' + category['title'], '', category['description'], '']
+        for entry in category['documents']:
+            path = entry['path']
+            summary = ' — ' + entry['summary'] if entry.get('summary') else ''
+            lines.append('- [' + entry.get('title', titles[path]) + '](' + path + ')' + summary)
+        lines.append('')
+    if flow: lines += ['## 흐름도', '', flow, '']
+    write(STANDARD / 'DOCUMENT_INDEX.md', '\n'.join(lines))
+
+def add_navigation(docs, catalog):
+    """Give standalone HTML documents the viewer's top bar. Idempotent through the markers."""
+    category_of = {e['path']: c for c in catalog['categories'] for e in c['documents']}
+    for d in docs:
+        if d['markdown'] is not None or d['path'] in ('docs/EXAM_SCENARIOS.html', 'docs/assembly/architecture/graph.html'): continue
+        page = STANDARD / d['path']
+        up = os.path.relpath(STANDARD, page.parent).replace('\\', '/')
+        category = category_of.get(d['path'])
+        crumb = ('<a href="' + up + '/index.html#cat-' + category['id'] + '" style="color:#cfe3ff;text-decoration:none">'
+                 + html.escape(category['title']) + '</a>') if category else ''
+        bar = (NAV_START + '<nav style="position:sticky;top:0;z-index:50;display:flex;gap:18px;flex-wrap:wrap;align-items:center;'
+               'padding:10px 24px;background:#142c43;color:#fff;font:15px/1.6 \'Malgun Gothic\',sans-serif">'
+               '<a href="' + up + '/index.html" style="color:#fff;font-weight:700;text-decoration:none">← 전체 문서</a>' + crumb +
+               '<span style="flex:1"></span><span style="color:#9fb6cf;font:13px Consolas,monospace">' + html.escape(d['path'])
+               + '</span></nav>' + NAV_END)
+        current = page.read_text(encoding='utf-8-sig')
+        text = re.sub(re.escape(NAV_START) + r'.*?' + re.escape(NAV_END), '', current, flags=re.S)
+        text = re.sub(r'(<body\b[^>]*>)', lambda m: m[0] + bar, text, count=1)
+        if text != current: write(page, text)
+
+def refresh_index():
+    docs = collect_documents()
+    catalog = load_catalog(docs)
+    add_navigation(docs, catalog)
+    docs = collect_documents()
+    write(STANDARD / 'docs/viewer/documents.js', js_data('STANDARD_DOCUMENTS', docs) + js_data('STANDARD_CATALOG', catalog))
+    write(STANDARD / 'docs/viewer/scenarios.js', js_data('STANDARD_SCENARIOS', collect_scenarios()))
+    for name, target in (('style.css', 'docs/viewer/style.css'), ('index.js', 'docs/viewer/index.js'),
+                         ('preview.js', 'docs/viewer/preview.js'), ('index.html', 'index.html'), ('document.html', 'document.html')):
+        write(STANDARD / target, (VIEWER_TEMPLATES / name).read_text(encoding='utf-8-sig'))
+    write_document_index(docs, catalog)
+    print('Indexed', len(docs), 'documents in', len(catalog['categories']), 'categories; scenarios bundled. No browser/tests run.')
+
 def main():
     refresh_api()
     refresh_index()

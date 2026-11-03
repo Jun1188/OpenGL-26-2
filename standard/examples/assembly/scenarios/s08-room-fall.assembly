@@ -1,0 +1,18 @@
+﻿# @title: 방 안의 공·상자와 바닥 개방
+# @practice: 실습 21 · 모드 8
+# @goal: 방 안의 상자와 공이 중력으로 움직이고, 바닥을 열면 방 밖으로 떨어진다.
+# @keys: F 바닥 열기 · G 바닥 닫기 · 오른쪽 버튼 드래그 방 회전 · Ctrl+F5 다시 불러오기
+# @check: 바닥을 다시 닫아도 이미 빠진 객체는 돌아오지 않는다. 처음부터 보려면 Ctrl+F5로 다시 불러온다.
+# @vary: body ballBody velocity로 처음 속도를, body ballBody bounce off로 튕김을 바꾼다.
+clear
+add room lab 0 0 0
+add box cargo 0 2 0 0.6 0.6 0.6
+add sphere ball 1 2.5 0.5 0.5 0.5 0.5
+color ball 1 0.5 0.2
+physics cargoBody cargo lab
+physics ballBody ball lab
+body ballBody velocity 1.5 0 0.8
+drag lab z 0.3
+bind F press "visible lab 5 off"
+bind G press "visible lab 5 on"
+camera pose 7 6 9 0 1 0 0 1 0

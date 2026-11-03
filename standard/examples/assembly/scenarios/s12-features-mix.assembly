@@ -1,0 +1,16 @@
+﻿# @title: 기존 실습 두 개를 한 장면에 조합
+# @practice: 실습 19 + 실습 18
+# @goal: 실습 19 탱크와 실습 18 행성 장면을 원래 동작·입력 그대로 한 창에 놓는다.
+# @keys: K 탱크에 입력 · L 행성에 입력 · 이후 각 실습의 원래 키
+# @check: 기능마다 독립된 상태와 시계를 가진다. 키 입력은 focus된 기능 하나에만 전달된다.
+# @vary: feature parts tankLab으로 내부 부품 ID를 보고, feature port로 일부만 꺼내 붙일 수 있다.
+clear
+feature add tankLab 16
+move tankLab -5 0 0
+feature add solarLab 15
+move solarLab 5 0 0
+scale solarLab 0.6
+feature focus tankLab
+bind K press "feature focus tankLab"
+bind L press "feature focus solarLab"
+camera pose 0 12 22 0 1 0 0 1 0

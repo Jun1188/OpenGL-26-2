@@ -1,0 +1,19 @@
+﻿# @title: 면 선택·표시와 색 변경
+# @practice: 실습 13
+# @goal: 육면체의 앞면만 보이게 시작하고, 키로 보이는 면과 색을 바꾼다.
+# @keys: Q 모두 숨김 · W 윗면 · E 아랫면 · R 오른쪽 면 · A 모두 보이기 · C/V 색 변경
+# @check: bind에는 숫자 키를 쓸 수 없어서 실습의 1~0 대신 문자 키에 연결했다.
+# @vary: 난수로 면을 고르는 것처럼 조건이 필요한 동작은 guide practice13으로 C++ 함수를 옮긴다.
+clear
+add box cube 0 1 0 2 2 2
+cull cube all none
+visible cube all off
+visible cube 0 on
+bind Q press "visible cube all off"
+bind W press "visible cube 4 on"
+bind E press "visible cube 5 on"
+bind R press "visible cube 3 on"
+bind A press "visible cube all on"
+bind C press "facecolor cube all 0.9 0.3 0.6"
+bind V press "facecolor cube all 0.3 0.8 0.5"
+camera pose 4 4 6 0 1 0 0 1 0

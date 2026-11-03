@@ -1,0 +1,18 @@
+﻿# @title: 사각뿔 순차 펼침
+# @practice: 실습 16
+# @goal: 사각뿔 옆면 네 개가 밑변을 축으로 차례로 펼쳐졌다가 다시 닫힌다.
+# @keys: Space 전체 정지 · U 첫 면 처음부터
+# @check: 지연 0 · 0.5 · 1 · 1.5초 순서로 옆면이 펼쳐지고, pingpong이라 다시 접힌다.
+# @vary: turn의 축(AX AY AZ)과 중심(CX CY CZ)이 각 면의 밑변이다. 각도 120을 바꾸면 펼침 정도가 바뀐다.
+clear
+add pyramid pyr 0 0.75 0 1.5 1.5 1.5
+facecolor pyr 0 1 0.4 0.4
+facecolor pyr 1 0.4 1 0.4
+facecolor pyr 2 0.4 0.6 1
+facecolor pyr 3 1 1 0.4
+face-track open0 pyr 0 2 0 pingpong turn 1 0 0 0 -0.5 0.5 120
+face-track open1 pyr 1 2 0.5 pingpong turn 0 0 -1 0.5 -0.5 0 120
+face-track open2 pyr 2 2 1 pingpong turn -1 0 0 0 -0.5 -0.5 120
+face-track open3 pyr 3 2 1.5 pingpong turn 0 0 1 -0.5 -0.5 0 120
+bind U press "seek open0 0"
+camera pose 4 5 6 0 0.5 0 0 1 0

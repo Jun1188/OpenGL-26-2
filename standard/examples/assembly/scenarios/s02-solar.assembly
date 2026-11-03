@@ -1,0 +1,30 @@
+﻿# @title: 태양·행성·달 계층
+# @practice: 실습 18
+# @goal: 태양을 도는 행성을 만들고, 그 행성을 다시 도는 달을 계층으로 붙인다.
+# @keys: P 행성 공전 정지 · O 재개 · M 달 공전 정지 · N 재개 · W 와이어 켜기 · E 끄기
+# @check: 달은 행성을 따라 이동하면서 행성 주위를 돈다. 행성 공전을 멈춰도 달은 계속 돈다.
+# @vary: 궤도를 기울이려면 rotate planetOrbit z 20을 추가한다. 달 거리는 moon의 X 위치다.
+clear
+add sphere sun 0 0 0 1.6 1.6 1.6
+color sun 1 0.7 0.1
+spin sunSpin sun y 10
+group planetOrbit 0 0 0
+group planet 4 0 0
+parent planet planetOrbit
+add sphere earth 0 0 0 0.7 0.7 0.7
+parent earth planet
+color earth 0.2 0.5 1
+group moonOrbit 0 0 0
+parent moonOrbit planet
+add sphere moon 1.2 0 0 0.3 0.3 0.3
+parent moon moonOrbit
+color moon 0.8 0.8 0.8
+orbit planetMotion planetOrbit y 25 0 0 0
+orbit moonMotion moonOrbit y 90 0 0 0
+bind P press "play planetMotion off"
+bind O press "play planetMotion on"
+bind M press "play moonMotion off"
+bind N press "play moonMotion on"
+bind W press "render wire on"
+bind E press "render wire off"
+camera pose 0 5 7.5 0 0 0 0 1 0

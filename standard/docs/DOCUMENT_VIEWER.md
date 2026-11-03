@@ -1,11 +1,41 @@
 ﻿# 브라우저 문서 목차와 Markdown 미리보기
 
-standard/index.html을 브라우저에서 직접 연다. 제목/경로 검색과 Markdown/HTML 필터를 지원한다. Markdown은 document.html?doc=저장소상대경로로 표시한다. 제목별 목차, 표, 중첩 목록, 인용, fenced 코드, 이미지, 링크와 원문 전환을 제공한다. 편집은 원본 .md를 VS Code에서 수행한다.
+`standard/index.html`을 브라우저에서 파일로 바로 연다. 서버나 인터넷이 없어도 된다. 대화형 구조 그래프(graph.html)만 외부 스크립트를 읽는다.
 
-Marked 16.4.2를 docs/viewer/vendor에 라이선스와 함께 보관한다. 인터넷·서버·fetch 없이 documents.js의 문서를 읽는다. Markdown의 raw HTML은 텍스트로 표시하고 실행하지 않는다. 코드 블록은 읽기용이며 구문 색상, Mermaid/수식 확장 및 VS Code 편집 기능은 제공하지 않는다.
+## 화면 구성
 
-소스 문서를 고친 뒤 저장소에서 python tools/Update-StandardDocs.py를 실행하면 API의 최신 조립 API 절, 전체 목차, Markdown 스냅샷을 함께 갱신한다. API Reference 본문 전체를 다시 생성하지 않고 기존 편집을 보존한다. Refresh-ApiCatalog.py의 정상 생성 경로도 이 단계를 마지막에 호출한다. docs/viewer/documents.js를 직접 편집하지 않는다.
+- **목차(index.html)**: 문서를 분류별 카드로 보여 준다. 맨 위 강조 카드, 분류 바로가기, 제목·설명·경로 검색, Markdown/HTML 필터가 있다. 사본과 변경 기록 분류는 접혀 있고, 검색하면 펼쳐진다.
+- **Markdown 미리보기(document.html?doc=경로)**: 왼쪽에 문서 목차, 오른쪽에 본문을 보여 준다. 상단 막대에서 전체 목차, 문서가 속한 분류, 원본 파일로 이동하고 원문 보기로 전환한다. 문서 안의 저장소 상대 링크는 미리보기 링크로 바뀐다. Markdown의 raw HTML은 실행하지 않고 텍스트로 표시한다.
+- **HTML 문서**: API Reference 같은 독립 HTML 문서 맨 위에도 같은 색의 막대(전체 문서 · 분류 · 경로)를 넣는다.
+- **시험 시나리오(docs/EXAM_SCENARIOS.html)**: `examples/assembly/scenarios/*.assembly` 레시피의 `# @` 머리말로 카드를 만든다.
 
-API Reference 세 사본의 최신 절은 setFaceFrame을 설명한다. standard/docs/API_REFERENCE.html은 Assembly의 공개 선언 전체, FeatureContainer/GuideRecipe, 컨테이너/피킹/합성/핫로드·실패 계약과 사용 예를 추가한다. 기존 본문·API ID는 보존한다.
+## 분류를 고치는 방법
 
-빌드·테스트·브라우저 확인은 수행하지 않았다. 사용자는 index.html을 파일로 열고 검색 → API Reference → 조립 README 미리보기 → 표/코드 블록/문서 내 링크 → 원문 전환을 확인한다. 인터넷이 꺼진 상태에서도 문서를 읽을 수 있어야 한다. 원본 .md에 줄을 추가한 뒤 갱신 도구를 실행하고 미리보기에 반영되는지 확인한다.
+분류와 순서, 목차에 보일 제목과 한 줄 설명은 `docs/DOCUMENT_CATALOG.json` 한 곳에서 정한다.
+
+```json
+{ "path": "docs/assembly/SPEC.md", "title": "생략하면 문서 첫 제목", "summary": "한 줄 설명", "featured": false }
+```
+
+카탈로그에 없는 새 문서는 자동으로 **기타 문서** 분류에 들어간다. 카탈로그에 적었는데 파일이 없거나, 같은 문서를 두 번 적으면 갱신 도구가 오류로 멈춘다.
+
+## 갱신
+
+소스 문서나 카탈로그를 고친 뒤 저장소 루트에서 실행한다.
+
+```bash
+python tools/Update-StandardDocs.py
+```
+
+이 도구가 함께 다시 만드는 파일:
+
+| 파일 | 내용 |
+|---|---|
+| `docs/viewer/documents.js` | 모든 문서 원문과 카탈로그 데이터 |
+| `docs/viewer/scenarios.js` | 시나리오 레시피 데이터 |
+| `index.html`, `document.html`, `docs/viewer/*.js`, `docs/viewer/style.css` | `tools/templates/standard-viewer/`의 템플릿 사본 |
+| `DOCUMENT_INDEX.md` | 카탈로그의 Markdown 판(흐름도 목록 블록은 보존) |
+| 독립 HTML 문서의 상단 막대 | `<!-- standard-nav:start -->` 표식 사이만 교체 |
+| API Reference의 최신 조립 API 절 | `<!-- current-assembly-api:start -->` 표식 사이만 교체 |
+
+생성된 파일을 직접 고치지 않는다. 화면 모양은 템플릿을, 분류는 카탈로그를, 시나리오는 레시피 파일을 고친다. Marked 16.4.2는 `docs/viewer/vendor`에 라이선스와 함께 들어 있다.

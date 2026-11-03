@@ -1,0 +1,21 @@
+﻿# @title: 관절 계층 로봇 팔
+# @practice: 모드 9 · 실습 19 포신
+# @goal: 몸통-어깨-팔꿈치-손 계층을 만들고 어깨와 팔꿈치를 각각 흔든다.
+# @keys: Tab 부품 순환 · X/Y/Z 축 · ←→ 회전 · ↑↓ 이동 · A 어깨 정지 · S 재개
+# @check: 어깨가 돌면 아래팔과 손이 따라온다. 팔꿈치만 돌면 아래팔과 손만 움직인다.
+# @vary: joint의 위치가 회전 중심이고, part의 위치는 그 관절에서 떨어진 거리다.
+clear
+group robot 0 0 0
+part box robot torso 0 1.2 0 0.8 1 0.5
+joint robot shoulder 0.55 1.6 0
+part box robot.shoulder upper 0 -0.35 0 0.25 0.7 0.25
+joint robot.shoulder elbow 0 -0.7 0
+part box robot.shoulder.elbow lower 0 -0.3 0 0.2 0.6 0.2
+part sphere robot.shoulder.elbow hand 0 -0.65 0 0.25 0.25 0.25
+pendulum shoulderSwing robot.shoulder z 40 3
+pendulum elbowSwing robot.shoulder.elbow x 30 1.5
+spin robotTurn robot y 15
+bind A press "play shoulderSwing off"
+bind S press "play shoulderSwing on"
+select robot.shoulder
+camera pose 3 3 5 0 1 0 0 1 0

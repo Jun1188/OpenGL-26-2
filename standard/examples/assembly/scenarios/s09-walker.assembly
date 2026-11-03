@@ -1,0 +1,19 @@
+﻿# @title: 방 안을 걷는 로봇과 점프·벽
+# @practice: 실습 23
+# @goal: 로봇이 방 안을 걸으며 장애물을 피하고, 키로 점프하고 벽을 연다.
+# @keys: J 점프 · ↑ 빠르게 · ↓ 느리게 · O 왼쪽 벽 열기 · F 바닥 열기
+# @check: walker는 장애물의 현재 AABB를 읽는다. 바닥을 열면 로봇도 떨어진다.
+# @vary: direction walking X Z로 진행 방향을, speed walking 값으로 속도를 바꾼다.
+clear
+add room lab 0 0 0
+add walker robot 0.5 0 -0.5
+walk walking robot lab 0.7
+add box crate -1 0.3 1 0.6 0.6 0.6
+physics crateBody crate lab
+obstacle walking crate
+bind J press "jump walking 5.5"
+bind UP press "speed walking 1.4"
+bind DOWN press "speed walking 0.4"
+bind O press "wall leftWall lab 1 1"
+bind F press "visible lab 5 off"
+camera pose 7 6 9 0 1 0 0 1 0

@@ -1,0 +1,19 @@
+﻿# @title: 키로 조종하는 탱크
+# @practice: 실습 19
+# @goal: 방향키로 탱크 전체를 이동·회전하고, 포탑은 다른 키로 따로 돌린다.
+# @keys: ↑↓ 앞뒤 이동 · ←→ 차체 회전 · Q/E 포탑 좌우 · C 카메라 공전
+# @check: hold 바인딩은 값에 dt를 곱한 속도 입력이다. 포탑은 차체를 따라 움직인다.
+# @vary: 부품 치수는 guide tank가 알려주는 AssemblyExamples.cpp의 buildTankExample에서 고친다.
+clear
+add grid floor -3 0 -2
+build tank rover
+remove rover.turretMotor
+remove rover.gunMotor
+bind UP hold "move rover 0 0 -2"
+bind DOWN hold "move rover 0 0 2"
+bind LEFT hold "rotate rover y 60"
+bind RIGHT hold "rotate rover y -60"
+bind Q hold "rotate rover.turret y 60"
+bind E hold "rotate rover.turret y -60"
+bind C press "camera orbit y 15 0 0 0"
+camera pose 5 4 6 0 0.5 0 0 1 0

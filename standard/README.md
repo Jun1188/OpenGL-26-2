@@ -1,4 +1,4 @@
-﻿[브라우저 전체 문서 목차](index.html) · [Markdown 미리보기](document.html?doc=README.md)
+﻿[브라우저 전체 문서 목차](index.html) · [시험 시나리오 튜토리얼](docs/EXAM_SCENARIOS.html) · [Markdown 미리보기](document.html?doc=README.md)
 
 # standard: 모드별 입력·피킹·실습 패턴
 

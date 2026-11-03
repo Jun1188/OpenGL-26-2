@@ -1,0 +1,25 @@
+﻿# @title: 카메라 이동·회전·투영
+# @practice: 실습 19 · 실습 20 · 부록 21
+# @goal: 고정된 장면에서 카메라를 키로 공전·확대·축소·이동하고, 투영과 뷰 수를 바꾼다.
+# @keys: A/D 공전 · W/S 줌 · I/K 위아래 이동 · O 직교 · P 원근 · H 3뷰 · J 1뷰
+# @check: 카메라 명령은 누를 때마다 한 번씩 실행된다. 계속 돌리려면 여러 번 누른다.
+# @vary: 각도·배율 값을 바꾼다. 누르고 있는 동안 계속 도는 카메라는 C++ Custom이나 실습 19의 카메라 코드를 참고한다.
+clear
+add grid floor -3 0 -2
+add box a -1 0.5 0 1 1 1
+add pyramid b 1 0.5 0 1 1 1
+add sphere c 0 0.5 1.5 0.8 0.8 0.8
+color a 1 0.4 0.3
+color b 0.4 1 0.4
+color c 0.3 0.6 1
+bind A press "camera orbit y -10 0 0 0"
+bind D press "camera orbit y 10 0 0 0"
+bind W press "camera zoom 0.9"
+bind S press "camera zoom 1.1"
+bind I press "camera move 0 0.3 0"
+bind K press "camera move 0 -0.3 0"
+bind O press "camera projection ortho"
+bind P press "camera projection perspective"
+bind H press "view 3"
+bind J press "view 1"
+camera pose 6 5 8 0 0.5 0 0 1 0

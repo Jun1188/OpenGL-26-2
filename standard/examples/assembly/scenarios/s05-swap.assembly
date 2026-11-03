@@ -1,0 +1,20 @@
+﻿# @title: 두 객체 자리 교환
+# @practice: 실습 17
+# @goal: 왼쪽 상자와 오른쪽 구가 서로의 자리로 갔다가 돌아온다. 이동하는 동안 각자 자전한다.
+# @keys: B 상자 정지 · V 재개 · N 구 정지 · M 재개 · 클릭 후 방향키로 수동 편집
+# @check: linear는 기준 자세에 더해지는 변위라서 방향키로 옮긴 값과 합쳐진다.
+# @vary: 위로 돌아서 가려면 linear 대신 path 1~6 경로를 쓰거나 Y 변위를 넣은 부모 그룹을 둔다.
+clear
+add box left -2 0.5 0 1 1 1
+add sphere right 2 0.5 0 1 1 1
+color left 1 0.4 0.3
+color right 0.3 0.7 1
+linear swapA left 4 0 0 3 pingpong
+linear swapB right -4 0 0 3 pingpong
+spin spinA left y 90
+spin spinB right x 90
+bind B press "play swapA off"
+bind V press "play swapA on"
+bind N press "play swapB off"
+bind M press "play swapB on"
+camera pose 0 4 8 0 0.5 0 0 1 0
