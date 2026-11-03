@@ -1,4 +1,6 @@
-﻿# 현재 standard 변경 전후
+﻿2026-11-03 최신: [모드 분리·입력·피킹·추가 실습의 전체 변경 전후](docs/input-modes/BEFORE_AFTER.md). 아래는 2026-11-02의 보존 기록이다.
+
+# 현재 standard 변경 전후
 
 2026-11-02. 과거 최초 생성 기록 대신 현재 착석·관절 조작 변경을 보여준다. 빌드·테스트는 수행하지 않았다. 문서의 일반 구현·API 사례는 docs/API_REFERENCE.html, 응용 사례는 docs/IMPLEMENTATION_PATTERNS.html을 따른다.
 

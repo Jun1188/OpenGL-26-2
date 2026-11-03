@@ -1,0 +1,919 @@
+﻿{
+  "deleted": [],
+  "reclaimed_bytes": 0,
+  "total_bytes": 4153460,
+  "files": [
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\03cb4592fc5fa667db2dedd7e578ffdd608154ed05869bb99641c7a292dc8173.json",
+      "bytes": 17445,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\077bfe611b023e70b40f95ca0d55167157e51116ad7204a6627a921941373c30.json",
+      "bytes": 22202,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0877ba8afffc0894ad2139a8150996152c10d51a599f91b36ff57e1f9f98f7ff.json",
+      "bytes": 31304,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\096d6bc6290936395898f9c51765a3b0c1dd763b6b6799d1713ac15b6acc201e.json",
+      "bytes": 75487,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\09da82f0f6a256a939321871e2bc10a0e95ab58ba7a9b22a00564e68c688a2ef.json",
+      "bytes": 13518,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0cec89df6ac7751d1f7338fa8e532212173686028ae50a4cac1664d542bdebff.json",
+      "bytes": 2485,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0d79a99b7e33feec520f9c6edfa6c898667068ab3f238ace33dc2297b074cc0f.json",
+      "bytes": 5733,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0dcf05927e2242c48a5bfae7dcf3119efac4a60fc91d239709d2513929239721.json",
+      "bytes": 11019,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0defb9ba26a1d7b7fde8a0270d8cd34b8c6b4ed612996fe5897952e2effaaff3.json",
+      "bytes": 20481,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0e963728980fed02766040e476661bec7118ce155e442c6dadbd796ee3f458f0.json",
+      "bytes": 3125,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\0f8f3c6b7de89aee7c661d59ea5423a57a726ef3e0243e06c56de8fce6f8facd.json",
+      "bytes": 13501,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\1144701d6b92fe0941a7b6b706ef8cf1ce354fd536f77ab9997fd44bfa34987e.json",
+      "bytes": 215,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\14d3fea2f7d293b4f1f9e8a8c887cb0997d566fec194b94c6a57e86fa6ee288e.json",
+      "bytes": 21131,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\175703e142eff0a1efe7d6db39b090fd5ec03bcd3ce22576f980aae866c4e0cc.json",
+      "bytes": 4010,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\191a64706c106829e4bd752fa6fff901a9b869b16148bde1a7616c0adb16f691.json",
+      "bytes": 3397,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\1a8030971cdaf150698fc38fa809c8a4beb08de261c563170d3b6b812f188952.json",
+      "bytes": 17017,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\1c4b212eafe1242271e6715b967ea9c995dbc91714c6441545a6824956a1c981.json",
+      "bytes": 70542,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\204cd7a92c62bce0d2c12e76593e7dd60c0c8b78a22b43fc8c413a6499aafb41.json",
+      "bytes": 27015,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\20797f8983a4abf69aac685ff6a9566f7094ddac0f6de54d07773015f3660d3b.json",
+      "bytes": 12380,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\24453017f2dd6b6a8edc9573db3d9a0aa3ae81466879bcbc9a2a75bf51752277.json",
+      "bytes": 550,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\26a1f6fb45a35212eb68db44df07bbf739071d48a1b4e58aaee7c60bda04a89d.json",
+      "bytes": 1860,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\2796377e0ae368d55b674c1e51f81ab979efe3be897575a1c2ed218d58c50a33.json",
+      "bytes": 48188,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\28432b11dcbb7aa3741646cfcc59d1de579e4e138cfd338a3c31053ff8f6ab25.json",
+      "bytes": 77927,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\297eb4a898c500397280b82ae7fc1e7547218dbec7b63b54cf409b76c2a9ce77.json",
+      "bytes": 1877,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\2a8dc1da2ae7dd5b992f1f84253fbfd402100c0e8db7c9ef47e617f0b0884d85.json",
+      "bytes": 7025,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\2e81d0e4266f6f966670f51239d05107bd2ae84ef598a9c65e6c5f608964738c.json",
+      "bytes": 26690,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\300deb1c9d1eeb994b2de0e50641ea5cd98212fde108a3f034a20f9d95dd88f0.json",
+      "bytes": 65691,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\30f7dd8fbb7f342baa3dcbd4c50dd2d06f84d32a482d5ec28e39247613bed4b4.json",
+      "bytes": 27723,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\310ac53a681f00cbaeec17de3160b4baf135f40ac27c234143c40c9cd7b59d4a.json",
+      "bytes": 23521,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\329b03ccba7ec8246cde773f7238e404a0f8a032b828af763b2f45928858e39b.json",
+      "bytes": 86287,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\335b253cda0358fe5d53ed360b34e1e7b187f3f7f30c4c9c133ec4afa0e405e5.json",
+      "bytes": 16938,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\384b704e2e9b37f64bc4186746e9497a1777503f9aa2809e15abff8d76661192.json",
+      "bytes": 37941,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\38ff82f075f391f1f8da5ec3535e4b95865964c15a3f26fc3d82a0f4e9cba5b5.json",
+      "bytes": 48725,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\3a553254b83287aa885620d28836ab1378ea320847d6337221a09803b4f0a54e.json",
+      "bytes": 1894,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\3e38e7c2ce2784241abeeb277940ddaea4596ee5c1eb417a46f4a4e284f0251e.json",
+      "bytes": 2719,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\40e528dfb1f3e849802251947ff8e3b6a6d2f61369b35bf3f382c91a2e642012.json",
+      "bytes": 19438,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\453e004dd430d76cd7373d3d30582f0a318ae210d7eaaa7a040e65260d5c17cc.json",
+      "bytes": 2710,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\45ece7e5ebd5eb531c129e73ed766e98f1c2eef7228d5940f10d289e6831435d.json",
+      "bytes": 30426,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\46c098493dfde7191430c5f9521971479e25054ccdc9feaf8328a7b88c4fd774.json",
+      "bytes": 19623,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\48f66c43cd0004dcd425603a67b241b4cccf24ed21faddf73447473e4aa323b8.json",
+      "bytes": 45577,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\4b5b53f0fe57e36777781b0281f650c8cc9e58e31b0fff44a6f2eb33989e55ac.json",
+      "bytes": 1877,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\4c21a5b4fa30e910eeb7d0c7d0ec39bf6ed8af4743c0aaec91186a44769fafbf.json",
+      "bytes": 213,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\4e6696de12094d63183f931c81b7773bcdb5596428573879d85b3183e312c609.json",
+      "bytes": 13572,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\4f1aaef299ea15bb2e3b7f883aec5145e6013e23ae9a4eca43c48451df5fbbc4.json",
+      "bytes": 13016,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\4f811df5583a905f3e7675472b49c1cdbddd0dc5b5fc36d94aa86188d23b5ecb.json",
+      "bytes": 40524,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\50815d57d5670023b3ddb1cc1c71c2892439e2095f5a5923ad169c9df707c23b.json",
+      "bytes": 37458,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\53b780f6dc6b277463c78b267b3877ec0aba4bbe43e5a82159a11ecffb93efb0.json",
+      "bytes": 50195,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\5603018b8bde3f6af949c180fc139c8199e5ac4c4da6f53f7672a5290ab4fde2.json",
+      "bytes": 17386,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\5ab491ec6fa9d4e59818a4dabfae5622e1c8b8fd14d9c53a80b0ca5e91d0abf7.json",
+      "bytes": 29392,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\5ee42dbab7f6e23217a0045fe9b7e609c846fea500669dcc7e4616eb72d6606b.json",
+      "bytes": 42601,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\6053f0ace50d3d535c0c9a0381d850563b4ae3ed3ee7cb0c345f4ba0229fd609.json",
+      "bytes": 592,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\6170059af975e1de00c8dc0bc98e914f9c183aa9e0bb9d197bef4e77f5a2c899.json",
+      "bytes": 2560,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\628857f505af7b12a8ac35c6f3cf7648ae2dd8233808ac34efded71053b34fbd.json",
+      "bytes": 61149,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\66e83ba2ec0d2954b573aef482b3d8635841c3eda2cfa0fa00536c5b685ab8f1.json",
+      "bytes": 592,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\675552c852d6be12e699c24d889a7d64790d6592e6e5482c6adcbfc69069a398.json",
+      "bytes": 2710,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\676284ffd38f9074afaee5ee0f09c75b0d2f4bb60bc7a4529023d80a8853a281.json",
+      "bytes": 208,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\682b9774f5fd4b41e404ed68d37413346449e249d3eacb514fd5442ac4ba700e.json",
+      "bytes": 22030,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\69490769484c37d67fbf13916ae2630535ca89355ff6600a195847b148ca2948.json",
+      "bytes": 13296,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\6aaf3bdfaff4ecc1a46fa3debab502c7c79f11bf6abfa9134c3d5355debd8d0b.json",
+      "bytes": 3802,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\6b1c12528a51a54e975d6dcd31fafa7d3d654926a2dd4d1bd1025ec522eee809.json",
+      "bytes": 65045,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\6f0f9a1ace8bb19b894453ea16add57dc76756a6ba5e81572328dabee47328fb.json",
+      "bytes": 30067,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\70336213533d86fbcfad11d38143b25c55572da23ea24f02c676c87c80d9f91b.json",
+      "bytes": 215,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\73de9e7d84793c64064c84240b5856b406e69894f5ca77d0f429eaaca3372753.json",
+      "bytes": 4495,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\765a0b164aca015ef15e19f6ca7c5a6836da82d8410d27ad44c7335485383413.json",
+      "bytes": 35321,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\77669aedfa8300dd2f8a248f57b5dcfa79078338983d418dba76dca0352c5d5e.json",
+      "bytes": 1833,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\77c35594e74c02dd73c46f9b49eb97281f38b904754daef5ca98159da9b12ff7.json",
+      "bytes": 3582,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7b778d11f1a9806f0f21d039c1a6dd9919dce9b22410ff688acf828e50b2776b.json",
+      "bytes": 7506,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7bef35b85c114599587e4dbc6d278dd18aaa9a34c49d00e91265f7c22116cf52.json",
+      "bytes": 61164,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7de3c95e3641595e4d13d9159752740ee8ce3a1266f5ff344c311021a2ee843e.json",
+      "bytes": 31854,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7e9d2092f50c5523d2b1d34377de2327e95b0bdffb7c17e6ff0f38d1affb4e36.json",
+      "bytes": 17540,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7ee6ca951729cf3d65a2e6926ee76d22991ac5a4f5d9fe177206ced0fcac20b3.json",
+      "bytes": 2938,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\7f5dedcc21b5dee9c8edbc61b025e51e870714c52816dc0f45d22ff01f02e29e.json",
+      "bytes": 215,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\818648118c1307219a8242ea948412264b287be05d55009ead785fb1f32abf54.json",
+      "bytes": 106140,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8504589486c21e37cf410a210c3052e69a0dc32b6057576d4fab0a3425919e19.json",
+      "bytes": 10422,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\86e7a8488890a22eb75380973aa0ceb74ab215b2e56b11b3e5cef36fb8f85487.json",
+      "bytes": 35617,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8907dd2c83222f5b77818891d2cc5e3f49d94a6e76fb76f05f91537b5ea03c32.json",
+      "bytes": 15507,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8a51be269a67bce986ca324b721e615524003f1c544352250b55faaacf952a21.json",
+      "bytes": 786,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8c59d2551a5891edb20c0b6581b6790569dfba741c8d0b674fcfd4ac695f2240.json",
+      "bytes": 165730,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8c65bd6e7a46db07b95bcdc217a85c59a1c603b1126105b3de44d1ef505b144f.json",
+      "bytes": 3109,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\8fe40666dd2aac2ef5c61ad71f7363b06c3487f667b40948aeb9a58a6ff9fd7d.json",
+      "bytes": 20947,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\90f539fdb88df0e0fc7f56c759a52c4095b94c04b8f48523057284ea549cbf1e.json",
+      "bytes": 43662,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\91caaa9001a259215e89f5732c0034a103e6d476ab0f2801ec08a1e4a8230b40.json",
+      "bytes": 142729,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\9392f4dd688bc1fc48e745a11a012c331cabab29a7d6bc427d956e41034a1160.json",
+      "bytes": 4247,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\94f579b370542bde6b2977bb491f036cb59506fc88266c434e5255acd5ec79bb.json",
+      "bytes": 25542,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\976b56077e4247a18ad7b8c3adbdaab24a37c106ffb90106bc289fe17cf61684.json",
+      "bytes": 35629,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\97b58744260798751e78f7ac87f64e72dda164d9524ef53b23f32aeb5b6fdf37.json",
+      "bytes": 24632,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\98ad73cfcad158df9deeb4320f8b6c5cfbbf24070cd5c1ccaeefc077d793c1ec.json",
+      "bytes": 26342,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\98c313933a74ac955b05f5d42a884db507f804a52591f9eb51129361f95a8958.json",
+      "bytes": 36954,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\9dedfa57573673eb130ac3a539b77d7a6763af168206fde76a083b4ad60e66de.json",
+      "bytes": 21810,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\9eb7375775539201aa26bdf231bf87eee1a7bc21e87ee5e4791438fbfe086481.json",
+      "bytes": 6713,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\a2b82d962eb157416a14164c59b38757656e53db4d772ec931ceaaacf6c4c193.json",
+      "bytes": 21547,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\a68be4b3483d6390aa952aed0a4419da298fd8343b40071f3bfb1cef9acdf3ba.json",
+      "bytes": 10054,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\a8fb33be0970b368671c827e63b290abae4b39c9be903a5f7b805f3d45a7808e.json",
+      "bytes": 28785,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\a9f124feebf2410cf363a474470219a1566b3fcccf058803762da20367c07fa3.json",
+      "bytes": 64194,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\aed0132572b0de9d373fc380d71397e10b5ab5b776ddb6cad07bc4b75bcde7a4.json",
+      "bytes": 29069,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\afeb62350c4eb09c2b231cc1f309bdbb4d70f59ed944024ab9d93fc0392c1300.json",
+      "bytes": 20291,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b06017bced53cca5267f00491d93d1c0adfca976236092748e12450e53496e90.json",
+      "bytes": 22618,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b164c54f54b8f49329191a50d1cbe803988830716a96d7ceee1b01c2823af7a8.json",
+      "bytes": 11848,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b30f685a237efeeade5c5b63386e8973ba9b1ae77d60ca12dd3200116e095004.json",
+      "bytes": 40003,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b342c094bd63665d1b09d157d3e9424fef2e0fa240e626c26a7bcd2f8fa63c7b.json",
+      "bytes": 31544,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b62593a4dabbe92f738ee2e3d20b7a4a5f98b32c8266878481d63b2c330c9388.json",
+      "bytes": 92613,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b8456a468ac5b7fa20603461b0e1642231723bcaf0a0e941a95e334b29b8fddc.json",
+      "bytes": 40042,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\b8ad1465161c04a083852a9efe9bd0e0a1e6a07eb4760107c6fd0b129f5c7822.json",
+      "bytes": 527,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\bbdd96e646b2a3ed19334637d078cef5a4ac8b35a532d195963e10c84afab954.json",
+      "bytes": 12560,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\c04f6c0f3e007057f09c52ee1aabc810fc87f1edd374c0dfebccef6d19caeb4b.json",
+      "bytes": 2938,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\c426ded020a39f68552ae116467ad010679c590ae6d29fb578a586efb7fa98c4.json",
+      "bytes": 4641,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\c4e357caaac3f06623516f192492531efc9adc862aeb9237c82707f6c31f473d.json",
+      "bytes": 7506,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ce85e82863df55a84cb72e7aea0da24a75fce7403d398d9523e5f577a66a256b.json",
+      "bytes": 44342,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\cf416ac330468a6bad929b56dd776cd98c44d5682ee487d4f9cbee456403d506.json",
+      "bytes": 17799,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\d6d3acb4f4dda5ac551ffd81c7b00fae3cb336dfd70a8b93edf7668890d20094.json",
+      "bytes": 18255,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\d77005267a0e978f1bb6e9efc63e3da2d2cc698219b2e83b49c205d77ed1a9bf.json",
+      "bytes": 24504,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\d773bfee2df32067aa751cd9e0d7fd13c115f97deecbb60907bbdd26763b6e2a.json",
+      "bytes": 13163,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\d8c0d5be22dc3a91f5130e79403f46aac7a8dc40e9315ebb9d345172f8a199c4.json",
+      "bytes": 14653,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\d9be8b62474518bd273f765190583729f6617610eb8e0b87fa38f79f4436a53d.json",
+      "bytes": 17682,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\dba067a9230aca7d1e34a46637dadba8e8f109c3477cd86443ef62658936e3dc.json",
+      "bytes": 18065,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\dbee90b9c596d92ead9e68bd4e59756d02277d8d5a521170d942e722791408b0.json",
+      "bytes": 13246,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\dde2cb24dd56090a7df1737e9fb59d885cdf00a2bd98a5dceb2c5f9b307b5a40.json",
+      "bytes": 25148,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\de0d63b259c4935f656929ad9e69f17940684c9494b086052ff5252c51b7bc99.json",
+      "bytes": 23972,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\dfbe9cbfdf2221e9a4cdf647c89e7bc2c67410e9513edc5f6f08383ef77aff8b.json",
+      "bytes": 592,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e19bd5cb358557260b69c670ed99763f886da262cc3be29c55317c2b3e3baf6e.json",
+      "bytes": 21473,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e23892861b5a4eed0ac995ebb51662ed274c93ba1d418ded3efd1c82afe3b328.json",
+      "bytes": 75187,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e34b36e513b1be54d8c30452041290c921ddd4bf8959bf4f45990cdcdd5b1a45.json",
+      "bytes": 54723,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e3c546b4a02ec843cefa4a7a09e4992eba43b0a8276a5fa05ad71ca3e5e3e908.json",
+      "bytes": 8458,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e43bd34257b52e3feb3fd4e34ee0f1b16772ac95c0b6a57d20cbc5fd047d94e1.json",
+      "bytes": 30155,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e4ec53b42b68c48a8b8b80f37d6918410b2aaa1af2183b07188ff1213449dc39.json",
+      "bytes": 47248,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\e8877b4aa742515318c40e74adb89fcf3bf9d88447ad243cead17845dbf16549.json",
+      "bytes": 16970,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ea1311289d2bd67adb2b204980427f67a1eabd08cb3f38434ea432e89bff20f9.json",
+      "bytes": 71654,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\eae398ded597a880de779407a0508fe0af3e125eca600c2d7e797226ca5e73ea.json",
+      "bytes": 217,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ecb604f1b7b72d76acde09db4c8e448c05b52a00822039d8eed454cc4fccf617.json",
+      "bytes": 142118,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ececfe3731facc5d600c2ac30b2d290b8c84f8d4a014c181e0a14d4c259fd3c4.json",
+      "bytes": 52305,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ee5225454e98806189643d1938310f72bdf38f4092cdb5c68f93bef696b10207.json",
+      "bytes": 58677,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\eea211ae888eaff4768e66a5cd2219dc6f79194d218d1efbc659e58f523ec129.json",
+      "bytes": 22922,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\efa309f4dfc23ecaa90e63b1ebe8f76f4172ddf4a0dd1956f4f002ef6f97dae7.json",
+      "bytes": 6780,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f009f22916e85db03499206ff6592f42877a0b3243aa32fc13a4a977d20e43da.json",
+      "bytes": 4678,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f0e33c4920669cfb8e4c552fc257fab0fbc4e3cd95533d4429e0fb648693eb87.json",
+      "bytes": 38861,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f26914ca5a65a052c2aadb88fabf33447c693f5214f1ae70e657497359f2eea8.json",
+      "bytes": 90587,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f3563335edae558d74468c10a544c5d5c22a4820698298f4ead1f7d503b27c78.json",
+      "bytes": 48167,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f46183bfe350c2708a5fa3d8814e65644d3334ac7ed69ea2fbba6cc309517ee3.json",
+      "bytes": 48487,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f6db484c065456c2da00e32f7ad6ad9a98ace2cb7b006eb1674a29ca934e219e.json",
+      "bytes": 3109,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f7119efe46a96134950b0deb84004410f268c64f1ae7c0b23feb69df19a8a987.json",
+      "bytes": 24840,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\f7ddc4474a8dd754721a6d7d301a900010c6cc6781c641caf30df4a8ef617004.json",
+      "bytes": 48312,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fa1e7f07197b9868a843adefc7878c58937487a1370e51dde1d31040397e1a68.json",
+      "bytes": 27902,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fb3b02e979bb3197ad4814bed7dd94f78251842dc1992589852e5de36f4a5110.json",
+      "bytes": 3109,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fba5f1809ca88646477a1b81968b254bbb438dd0a55dd6196968cffd1ade9010.json",
+      "bytes": 1911,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fc24ecdd330d8e01ed1a91e60dfa10dcc0eac083c447e7bf065d2d6f3320abfa.json",
+      "bytes": 18969,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fce9ecd0ba9caee41c416be203096724848ed7bba437cc8d447042af3b78430e.json",
+      "bytes": 40509,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fe15bfc8fb324da90042ef003932e1fefdb6d8b7a58705414f335a6c742aa48b.json",
+      "bytes": 213,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\fe97a86201dde864bf39895e29a796158843d7eb348975f1af64bfba04e5d0ae.json",
+      "bytes": 215,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\febda442c956c26e3744a7d6190bcba6aba00f9166839efa3d9d834e411e535e.json",
+      "bytes": 39644,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ff580c897ac5d191e1d74d6563b12f44b1652ef509008ba4a081f698f7286a1d.json",
+      "bytes": 13697,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\ast\\v0.9.53-s2\\ff5bb9b490dc9f81ad3b3570bb2bfe3942b040ddc439f7097995c691c17df871.json",
+      "bytes": 79223,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    },
+    {
+      "path": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\graphify-out\\standard-input\\graphify-out\\cache\\stat-index.json",
+      "bytes": 33136,
+      "action": "preserve",
+      "reason": "AST 재생성 캐시. 런타임 기능에는 불필요하지만 후속 그래프 갱신에 재사용한다. 삭제 승인 없음."
+    }
+  ]
+}
