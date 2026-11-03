@@ -53,7 +53,7 @@ void showRecipe(const GuideRecipe& recipe, std::ostream& out) {
         << "\n디버깅-수정 순서:\n" << recipe.debug << "\n예상 관찰:\n" << recipe.expected << '\n';
     const auto root = projectRoot();
     out << "참고: " << (root.empty() ? std::filesystem::u8path(recipe.document) : root / recipe.document).u8string() << '\n'
-        << "예시는 자동 패치가 아닙니다. C++ 수정 후 빌드·실행 확인은 사용자가 수행합니다.\n";
+        << "예시는 자동 패치가 아닙니다. 명령 예시는 콘솔/.assembly에서 실행합니다. C++ 예시는 표시한 함수/삽입 문맥에 맞춰 편집합니다.\nC++ 수정 후 빌드·실행 확인은 사용자가 수행합니다.\n";
 }
 }
 
