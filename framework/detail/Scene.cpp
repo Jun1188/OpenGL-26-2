@@ -175,6 +175,13 @@ std::optional<EntityId> Scene::addPyramid(const glm::vec3& sideLengths, const gl
     return push_entity(DiagramSystem::makePolyhedron(GLShape::Pyramid, sideLengths), transform);
 }
 
+bool Scene::setFaceFrame(EntityId id, std::size_t faceIndex, const glm::mat4& matrix) {
+    if (!getMesh(id, faceIndex) || !TransformSystem::validAffine(matrix))
+        return false;
+    components_[id].polyhedron.faces[faceIndex].transformFrame = matrix;
+    return true;
+}
+
 bool Scene::setFaceVisible(EntityId id, std::size_t faceIndex, bool visible) {
     if (id >= components_.size() || faceIndex >= components_[id].polyhedron.faces.size()) {
         return Diagnostics::failAt(

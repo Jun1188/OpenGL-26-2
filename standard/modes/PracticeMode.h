@@ -14,6 +14,7 @@ public:
     virtual void onMouse(const graphics::MouseEvent&) {}
     virtual void onCursor(double, double) {}
     virtual void onFocus(bool) {}
+    virtual bool capturesNumericKeys() const { return false; }
     virtual bool onRender() { return host_.renderScene(); }
 };
 

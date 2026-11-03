@@ -20,7 +20,14 @@ graphics::EntityId Assembly::meshEntity(const std::string& name) const {
     return *object.mesh;
 }
 
+void Assembly::requireFeatureEditable(graphics::EntityId mesh) const {
+    for (const auto& f : state_.features)
+        for (const auto& part : f.entities)
+            require(part.second.mesh != mesh, "라이브 기능의 형상/면 속성은 native 컨트롤러 소유입니다. feature snapshot으로 독립 복사 후 편집하세요.");
+}
+
 void Assembly::requireGeometryEditable(graphics::EntityId mesh) const {
+    requireFeatureEditable(mesh);
     for (const auto& b : state_.behaviors) {
         if (b.effect != Effect::Body && b.effect != Effect::Walk) continue;
         require(node(b.reference).mesh != mesh && (b.effect != Effect::Body || node(b.target).mesh != mesh),
@@ -198,6 +205,7 @@ bool Assembly::surfaceCommand(const Tokens& a, std::ostream& out) {
             }
             continue;
         }
+        requireFeatureEditable(id);
         if (command == "cull" || command == "visible") {
             require(a.size() == 4, "cull/visible <객체> <면/all> <값>");
             if (command == "visible") {

@@ -36,8 +36,11 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
             std::optional<graphics::EntityId> ancestor = id;
             while (ancestor && *ancestor != root)
                 ancestor = scene.getComponent(*ancestor)->parent;
-            if (ancestor)
+            if (ancestor) {
                 require(command == "color" ? scene.setTint(id, {color.x, color.y, color.z}) : scene.setVisible(id, visible), "색/가시성 적용 실패.");
+                if (command == "color") featureAppearance(id, graphics::GlColor{color.x, color.y, color.z}, {});
+                else featureAppearance(id, {}, visible);
+            }
         }
         return true;
     }
@@ -95,6 +98,11 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
             out << "binding key=" << binding.key << " mods=" << binding.mods << (binding.hold ? " hold " : " press ") << binding.command << '\n';
         return true;
     }
+    if (a[0] == "diagnose") {
+        require(a.size() == 2, "diagnose <객체 또는 부품>");
+        diagnose(a[1], out);
+        return true;
+    }
     if (a[0] == "inspect" || a[0] == "select") {
         require(a.size() == 2, a[0] + " <객체/부품 이름>");
         inspect(a[1], out);
@@ -106,11 +114,21 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
         clear();
         return true;
     }
+    if (a[0] == "hotload") {
+        require(a.size() == 2, "hotload <파일>. Ctrl+F5 또는 reload로 다시 읽습니다.");
+        state_.reloadPath = a[1];
+        return true;
+    }
+    if (a[0] == "reload") {
+        require(a.size() == 1 && !replaying_, "reload. 레시피 안에서 파일 명령을 중첩하지 않습니다.");
+        const auto path = state_.reloadPath;
+        return load(path, out);
+    }
     if (a[0] == "save" || a[0] == "load") {
         require(a.size() == 2 && !replaying_, "save/load <파일>. 레시피 안에서 파일 명령을 중첩할 수 없습니다.");
         return a[0] == "save" ? save(a[1], out) : load(a[1], out);
     }
-    if (surfaceCommand(a, out) || trackCommand(a, out) || hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
+    if (featureCommand(a, out) || surfaceCommand(a, out) || trackCommand(a, out) || hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
         return true;
     if (const auto handled = customCommand(*this, a, out))
         return *handled;

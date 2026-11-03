@@ -74,6 +74,9 @@ public:
     /// [API] 해당 엔티티의 한 면을 표시하거나 숨긴다. 컬링 조건과 별개의 가시성 상태다.
     bool setFaceVisible(EntityId id, std::size_t faceIndex, bool visible);
 
+    /// [API] 형상 재업로드 없이 면 앞쪽의 부모 프레임을 설정한다. 렌더·피킹·법선 변환에 함께 반영한다.
+    bool setFaceFrame(EntityId id, std::size_t faceIndex, const glm::mat4& matrix);
+
 
     /// [API] 해당 면의 앞면/뒷면 제거 정책을 설정한다. 조명 법선과 삼각형 winding을 구분한다.
     bool setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode);

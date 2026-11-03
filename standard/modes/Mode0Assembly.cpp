@@ -16,7 +16,12 @@ public:
         input_.prompt();
         return true;
     }
+    bool capturesNumericKeys() const override { return scene_.capturesNumericKeys(); }
     void onKey(int key, int action, int mods) override {
+        if (key == GLFW_KEY_F5 && action == GLFW_PRESS && (mods & GLFW_MOD_CONTROL)) {
+            scene_.execute("reload", std::cout);
+            return;
+        }
         if (key == GLFW_KEY_HOME && action == GLFW_PRESS) {
             assembly::defaultRecipe(scene_, std::cout);
             return;

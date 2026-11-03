@@ -45,6 +45,14 @@ bool Console::activateMode(int mode) {
 
 /// 키 입력에 따라 동작을 변경한다.
 void Console::onKey(int key, int action, int mods) {
+    if (key == GLFW_KEY_F5 && action == GLFW_PRESS && (mods & GLFW_MOD_CONTROL)) {
+        if (activeMode_ != 0 && !activateMode(0)) {
+            std::cerr << "조립 작업공간 초기화 실패.\n";
+            return;
+        }
+        if (practiceMode_) practiceMode_->onKey(key, action, mods);
+        return;
+    }
     if (!initialMode_ && action == GLFW_PRESS) {
         int next = -1;
         if (key >= GLFW_KEY_F1 && key <= GLFW_KEY_F11)
@@ -53,7 +61,7 @@ void Console::onKey(int key, int action, int mods) {
             next = activeMode_ == 0 ? lastStandardMode : activeMode_ - 1;
         else if (key == GLFW_KEY_RIGHT_BRACKET)
             next = activeMode_ == lastStandardMode ? 0 : activeMode_ + 1;
-        else if ((activeMode_ <= 9 || (mods & GLFW_MOD_ALT)) && key >= GLFW_KEY_0 && key <= GLFW_KEY_9)
+        else if (((activeMode_ <= 9 && !(activeMode_ == 0 && practiceMode_ && practiceMode_->capturesNumericKeys())) || (mods & GLFW_MOD_ALT)) && key >= GLFW_KEY_0 && key <= GLFW_KEY_9)
             next = key - GLFW_KEY_0;
         if (next >= 0) {
             if (!activateMode(next))
@@ -205,6 +213,7 @@ void Console::printHelp() const {
     std::cout
         << "standard: initialMode=nullopt이면 모드 전환, 정수이면 해당 모드 고정\n"
         << "[ / ] 전체 0~22 모드 순환, Alt+0~9 데모 선택, F12 공통 도움말\n"
+        << "Ctrl+F5: 조립 작업공간 진입/외부 레시피 재로드 (고정 모드에서도 사용)\n"
         << "F1~F11: 모드 10~20 = 실습 13~23 (각 실습의 기존 키 사용)\n"
         << "모드 21: WASD 카메라 충돌 / 모드 22: 내장 3D 메시 입력 처리\n"
         << "1 타원 / 2 사각형 / 3 다각형 / 4 사용자 3D 경로+보간 / 5 원 / 6 왕복 꺾은선\n"

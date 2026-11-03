@@ -5,8 +5,7 @@
 #include <iostream>
 
 namespace assembly {
-namespace {
-std::pair<int, int> keyCode(std::string text) {
+std::pair<int, int> keyCode(std::string text, bool modeKeys) {
     std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) { return char(std::toupper(c)); });
     int mods = 0;
     for (;;) {
@@ -24,10 +23,10 @@ std::pair<int, int> keyCode(std::string text) {
         {"BACKSPACE", GLFW_KEY_BACKSPACE}, {"ENTER", GLFW_KEY_ENTER}, {"PLUS", GLFW_KEY_EQUAL},
         {"MINUS", GLFW_KEY_MINUS}, {"PAGEUP", GLFW_KEY_PAGE_UP}, {"PAGEDOWN", GLFW_KEY_PAGE_DOWN}};
     int key = text.size() == 1 && text[0] >= 'A' && text[0] <= 'Z' ? int(text[0]) : 0;
+    if (modeKeys && text.size() == 1 && text[0] >= '0' && text[0] <= '9') key = int(text[0]);
     if (const auto found = keys.find(text); found != keys.end()) key = found->second;
     require(key != 0, "키는 영문자·방향키·SPACE·TAB·BACKSPACE·ENTER·PLUS·MINUS·PAGEUP·PAGEDOWN입니다.");
     return {key, mods};
-}
 }
 
 void Assembly::bind(Binding binding) {
@@ -168,6 +167,7 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
         for (auto& binding : state_.bindings)
             if (binding.key == key) binding.down = false;
     }
+    if (routeFeatureKey(key, action, mods, out)) return;
     if (dispatchInput([&](const Behavior& b) { return b.key && b.key(*this, key, action, mods); }, out)) return;
     if (action == GLFW_RELEASE) return;
     const int physicalMods = mods & (GLFW_MOD_SHIFT | GLFW_MOD_CONTROL | GLFW_MOD_ALT);
@@ -211,6 +211,7 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
 }
 
 void Assembly::onFocus(bool focused) {
+    queueFeatureFocus(focused);
     if (!focused) {
         for (auto& binding : state_.bindings) binding.down = false;
         state_.dragging = false; state_.dragX.reset();
@@ -219,6 +220,7 @@ void Assembly::onFocus(bool focused) {
 }
 
 void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
+    if (routeFeatureMouse(event, out)) return;
     if (event.button == GLFW_MOUSE_BUTTON_RIGHT && event.action == GLFW_RELEASE) {
         state_.dragging = false; state_.dragX.reset();
     }
@@ -258,6 +260,7 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
     out << "선택 해제\n";
 }
 void Assembly::onCursor(double x, double y, std::ostream& out) {
+    if (routeFeatureCursor(x, y)) return;
     if (dispatchInput([&](const Behavior& b) { return b.cursor && b.cursor(*this, x, y); }, out)) return;
     if (!state_.dragging || !std::isfinite(x)) return;
     try {

@@ -88,10 +88,11 @@ bool Assembly::load(const std::string& path, std::ostream& out) {
             if (lines[i] == "# @state-begin") snapshot = true;
             if (!snapshot) authored.push_back(lines[i]);
             const auto tokens = tokenize(lines[i]);
-            require(tokens.empty() || (tokens[0] != "save" && tokens[0] != "load"), "레시피 안의 save/load는 허용하지 않습니다.");
+            require(tokens.empty() || (tokens[0] != "save" && tokens[0] != "load" && tokens[0] != "reload"), "레시피 안의 save/load는 허용하지 않습니다.");
             require(execute(lines[i], out), "레시피 " + std::to_string(i + 1) + "줄 적용 실패.");
         }
         state_.recipe = std::move(authored);
+        state_.reloadPath = file.u8string();
         replaying_ = false;
         out << "조립 레시피 불러오기: " << file.u8string() << '\n';
         return true;
