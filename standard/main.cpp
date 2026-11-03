@@ -1,7 +1,9 @@
 ﻿#include "Console.h"
+#include <exception>
+#include <iostream>
 
 /// 콜백을 등록하고 애플리케이션을 실행한다.
-int main() {
+int main() try {
     graphics::Application app;
     // nullopt: 숫자 키로 전환. 1~9: 기본 데모 고정. 10~22: 추가 실습·부록 고정.
     constexpr std::optional<int> initialMode = std::nullopt;
@@ -35,4 +37,10 @@ int main() {
     config.title = "standard - Modes 1..22, input, picking and practice patterns";
 
     return app.run(config);
+} catch (const std::exception& error) {
+    std::cerr << "standard 실행 실패: " << error.what() << '\n';
+    return 1;
+} catch (...) {
+    std::cerr << "standard 실행 실패: 앞선 프레임워크 진단을 확인하세요.\n";
+    return 1;
 }
