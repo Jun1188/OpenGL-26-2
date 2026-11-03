@@ -2,25 +2,25 @@
 input: <in-memory>
 input_stage: provided JSON (normal graph.json is post-build)
 effective_directed: <direct-call>
-nodes: 1272
+nodes: 1578
 unverified_code_nodes: 0
-raw_edges: 2174
-valid_candidate_edges: 2119
+raw_edges: 3015
+valid_candidate_edges: 2954
 missing_endpoint_edges: 0
-dangling_endpoint_edges: 55
+dangling_endpoint_edges: 61
 self_loop_edges: 0
-exact_duplicate_edges: 41
-directed_unique_endpoint_pairs: 1958
-directed_same_endpoint_collapsed_edges: 161
-undirected_unique_endpoint_pairs: 1952
-undirected_same_endpoint_collapsed_edges: 167
-same_endpoint_group_count: 119
+exact_duplicate_edges: 42
+directed_unique_endpoint_pairs: 2753
+directed_same_endpoint_collapsed_edges: 201
+undirected_unique_endpoint_pairs: 2747
+undirected_same_endpoint_collapsed_edges: 207
+same_endpoint_group_count: 144
 relation_variant_groups: 31
 source_file_variant_groups: 0
-source_location_variant_groups: 38
-context_variant_groups: 34
+source_location_variant_groups: 58
+context_variant_groups: 41
 post_build_graph_type: DiGraph
-post_build_edges: 1956
+post_build_edges: 2749
 producer_suppression_sites: 12
 producer_suppression_examples:
   - L1204 seen_ids arity=unknown
@@ -32,10 +32,10 @@ producer_suppression_examples:
   - L2839 seen_keys arity=unknown
   - L4436 seen_ids arity=unknown
 examples:
-  - include_application_application -> include_application_h_function edges=8 relations=['references'] locations=['L47', 'L48', 'L53', 'L54', 'L55', 'L56', 'L57', 'L58'] contexts=['field']
-  - include_graphics_scene -> include_graphics_h_vector edges=6 relations=['references'] locations=['L21', 'L22', 'L23', 'L24', 'L25', 'L26'] contexts=['field']
-  - include_model_planefigure -> include_model_h_vector edges=6 relations=['references'] locations=['L69', 'L77', 'L78', 'L79', 'L80', 'L81'] contexts=['field']
-  - include_graphics_renderer -> glint edges=4 relations=['references'] locations=['L245', 'L246', 'L247', 'L248'] contexts=['field']
-  - detail_objloader_objresolve -> size_t edges=4 relations=['calls', 'references'] locations=['L51', 'L55'] contexts=['call', 'parameter_type', 'return_type']
+  - include_application_application -> include_application_h_function edges=8 relations=['references'] locations=['L52', 'L53', 'L67', 'L68', 'L69', 'L70', 'L71', 'L72'] contexts=['field']
+  - include_graphics_scene -> include_graphics_h_vector edges=6 relations=['references'] locations=['L22', 'L23', 'L24', 'L25', 'L26', 'L27'] contexts=['field']
+  - include_model_planefigure -> include_model_h_vector edges=6 relations=['references'] locations=['L72', 'L80', 'L81', 'L82', 'L83', 'L84'] contexts=['field']
+  - include_animation_humanoidpose -> include_animation_h_vec3 edges=5 relations=['references'] locations=['L26', 'L27', 'L28', 'L29', 'L30'] contexts=['field', 'generic_arg']
+  - detail_objloader_objresolve -> detail_objloader_cpp_size_t edges=4 relations=['calls', 'references'] locations=['L77', 'L83'] contexts=['call', 'parameter_type', 'return_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
-Cross-program calls marked AMBIGUOUS: 0. Source anchors: 174.
+Cross-program calls marked AMBIGUOUS: 0. Source anchors: 196.

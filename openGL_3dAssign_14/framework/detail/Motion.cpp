@@ -674,66 +674,20 @@ std::optional<MotionSample> MotionSystem::layerMatrices(LayerId leaf) const {
     return result;
 }
 
+std::optional<MotionId> MotionSystem::createMotion(std::initializer_list<MotionStep> steps) {
+    Motion motion;
+    for (const auto& step : steps)
+        if (!motion.append(step)) return std::nullopt;
+    return createMotion(motion);
+}
+
 std::optional<MotionId> MotionSystem::createSpin(RotationMotion config) {
     config.space = TransformSpace::Local;
-
-    Motion motion;
-
-    if (!motion.append(Motion::rotation(config)))
-        return (
-            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createSpin",
-                                "Rejected condition: !motion.append(Motion::rotation(config))",
-                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
-            std::nullopt);
-
-    return createMotion(motion);
+    return createMotion({Motion::rotation(config)});
 }
 
 std::optional<MotionId> MotionSystem::createOrbit(RotationMotion config) {
     config.space = TransformSpace::World;
-
-    Motion motion;
-
-    if (!motion.append(Motion::rotation(config)))
-        return (
-            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createOrbit",
-                                "Rejected condition: !motion.append(Motion::rotation(config))",
-                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
-            std::nullopt);
-
-    return createMotion(motion);
-}
-
-std::optional<MotionId> MotionSystem::createOrbitAndSpin(RotationMotion orbit, RotationMotion spin) {
-    orbit.space = TransformSpace::World;
-    spin.space = TransformSpace::Local;
-
-    Motion motion;
-
-    if (!motion.append(Motion::rotation(orbit)) || !motion.append(Motion::rotation(spin)))
-        return (
-            Diagnostics::failAt(
-                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createOrbitAndSpin",
-                "Rejected condition: !motion.append(Motion::rotation(orbit)) || !motion.append(Motion::rotation(spin))",
-                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
-            std::nullopt);
-
-    return createMotion(motion);
-}
-
-std::optional<MotionId> MotionSystem::createPathAndSpin(const PathMotion& path, RotationMotion spin) {
-    spin.space = TransformSpace::Local;
-
-    Motion motion;
-
-    if (!motion.append(Motion::followPath(path)) || !motion.append(Motion::rotation(spin)))
-        return (
-            Diagnostics::failAt(
-                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createPathAndSpin",
-                "Rejected condition: !motion.append(Motion::followPath(path)) || !motion.append(Motion::rotation(spin))",
-                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
-            std::nullopt);
-
-    return createMotion(motion);
+    return createMotion({Motion::rotation(config)});
 }
 } // namespace graphics

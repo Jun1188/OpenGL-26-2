@@ -268,7 +268,6 @@ bool CollisionSystem::jump(CharacterBody& body, float speed) {
 std::optional<CharacterStep> CollisionSystem::stepCharacter(CharacterBody& body, const Bounds3& stage,
                                                             const std::vector<Bounds3>& obstacles, float dt,
                                                             float gravity) {
-
     if (!stage.valid() || !detail::finiteVector(body.feet) || !detail::finiteVector(body.direction) ||
         !std::isfinite(body.speed) || body.speed < 0 || !std::isfinite(body.height) || body.height <= 0 ||
         !std::isfinite(body.halfWidth.x) || !std::isfinite(body.halfWidth.y) || body.halfWidth.x <= 0 ||
@@ -660,42 +659,17 @@ bool PatternSystem::openRoomWall(Scene& scene, EntityId room, std::size_t face, 
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, "openRoomWall",
                                    "Select one of the four side walls of addRoom().");
 
-    if (!std::isfinite(progress) || progress < 0 || progress > 1)
-        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, "openRoomWall",
-                                   "Need progress in [0,1].");
-
     glm::vec3 pivot(0);
+    float top = mesh->localVertices.front().y;
 
-    for (const auto& vertex : mesh->localVertices)
+    for (const auto& vertex : mesh->localVertices) {
         pivot += vertex;
-    pivot /= float(mesh->localVertices.size());
-    // Fully open faces are hidden; retain a nonsingular matrix for normals/picking.
-    const float factor = std::max(1e-3f, 1 - progress);
-    const auto scale = TransformSystem::scaling(glm::vec3(factor), pivot);
-
-    return scale && scene.setFaceLocalMatrix(room, face, *scale) && scene.setFaceVisible(room, face, progress < 1);
-}
-
-bool PatternSystem::swapModels(Scene& scene, EntityId first, EntityId second) {
-    const auto* a = scene.getComponent(first);
-    const auto* b = scene.getComponent(second);
-
-    if (!a || !b || a->transformOnly || b->transformOnly)
-        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, "PatternSystem::swapModels",
-                                   "Both entities must contain a model.");
-
-    const auto firstModel = a->polyhedron, secondModel = b->polyhedron;
-
-    if (!scene.setModel(first, secondModel))
-        return false;
-
-    if (!scene.setModel(second, firstModel)) {
-        scene.setModel(first, firstModel);
-
-        return false;
+        top = std::max(top, vertex.y);
     }
+    pivot /= float(mesh->localVertices.size());
+    pivot.y = top;
 
-    return true;
+    return openFace(scene, room, face, progress, glm::vec3(0), pivot, true);
 }
 
 std::vector<glm::ivec3> PatternSystem::snakeCells(const glm::ivec3& cells) {

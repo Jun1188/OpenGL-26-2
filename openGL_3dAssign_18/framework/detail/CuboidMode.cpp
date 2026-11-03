@@ -8,7 +8,7 @@ bool validCuboid(const CuboidConfig& c) {
         !detail::validColor(c.color) || !DiagramSystem::validTransform(c.transform))
         return false;
     for (const auto& face : c.faces)
-        if (!DiagramSystem::validTransform(face.transform) ||
+        if (!DiagramSystem::validTransform(face.transform) || !detail::validColor(face.color) ||
             (face.cull != CullMode::Inherit && face.cull != CullMode::None &&
              face.cull != CullMode::Back && face.cull != CullMode::Front))
             return false;
@@ -75,7 +75,10 @@ bool CuboidMode::apply(Application& app) {
     std::map<std::string, MotionId> motions;
     for (const auto& c : config_.cuboids) {
         if (!validCuboid(c)) return false;
-        const auto id = staged.addCuboid(c.size, c.transform.basis);
+        auto model = DiagramSystem::makePolyhedron(GLShape::Cube, c.size);
+        for (std::size_t face = 0; face < c.faces.size(); ++face)
+            model.faces[face].color = c.faces[face].color;
+        const auto id = staged.addModel(model, c.transform, PivotMode::Preserve);
         if (!id || !staged.setTransform(*id, c.transform) || !staged.setTint(*id, c.color) ||
             !staged.setVisible(*id, c.visible)) return false;
         for (std::size_t face = 0; face < c.faces.size(); ++face)

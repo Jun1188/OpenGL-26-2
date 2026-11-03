@@ -1,5 +1,11 @@
 ﻿# 응용패턴·그네 통합 설명
 
+## 편집 가능한 API와 패턴 조립 (2026-11-03)
+
+[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·셰이더 연결과 내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립·API 압축 기준](PATTERN_COMPOSITION.md)
+
+sample/seek는 동작을 실행하지 않는다. 자동 모션 갱신은 활성 모션의 동작을 실행한다. 기존 공전+자전·경로+자전 전용 함수는 createMotion 단계 목록으로 대체했다. 모델 교환은 조립 문서를 따른다.
+
 <!-- doc-flowcharts:start -->
 
 ![이미지: 프레임 루프·조건 분기](flowcharts/frame-loop.svg)
@@ -74,7 +80,7 @@ int main() {
 
 두 물체에 같은 경로 시계를 연결하되 한 분기만 반사시키는 경우다. MotionId는 시간 상태를 찾고 LayerId는 변환 합성 경로를 찾는다. 같은 모션을 공유하면 위상도 공유한다.
 
-공전축·자전축 지정 → createOrbitAndSpin으로 모션 등록 → 레이어에 모션 연결 → 객체 바인딩 → 자동 시간 진행
+공전축·자전축 지정 → createMotion 단계 목록으로 모션 등록 → 레이어에 모션 연결 → 객체 바인딩 → 자동 시간 진행
 
 ```cpp
 bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
@@ -103,9 +109,11 @@ bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
     if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;
     auto spin=system.createSpin(rotation);
     auto orbit=system.createOrbit(rotation);
-    auto combined=system.createOrbitAndSpin(rotation,rotation);
+    auto orbitConfig=rotation; orbitConfig.space=graphics::TransformSpace::World;
+    auto spinConfig=rotation; spinConfig.space=graphics::TransformSpace::Local;
+    auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});
     graphics::PathMotion path; path.path=graphics::PathSystem::circle({0,0,0},1);
-    auto moving=system.createPathAndSpin(path,rotation);
+    auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});
     if(!spin||!orbit||!combined||!moving) return false;
     system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점
     return true;
@@ -208,9 +216,11 @@ bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
     if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;
     auto spin=system.createSpin(rotation);
     auto orbit=system.createOrbit(rotation);
-    auto combined=system.createOrbitAndSpin(rotation,rotation);
+    auto orbitConfig=rotation; orbitConfig.space=graphics::TransformSpace::World;
+    auto spinConfig=rotation; spinConfig.space=graphics::TransformSpace::Local;
+    auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});
     graphics::PathMotion path; path.path=graphics::PathSystem::circle({0,0,0},1);
-    auto moving=system.createPathAndSpin(path,rotation);
+    auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});
     if(!spin||!orbit||!combined||!moving) return false;
     system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점
     return true;
@@ -252,9 +262,11 @@ bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
     if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;
     auto spin=system.createSpin(rotation);
     auto orbit=system.createOrbit(rotation);
-    auto combined=system.createOrbitAndSpin(rotation,rotation);
+    auto orbitConfig=rotation; orbitConfig.space=graphics::TransformSpace::World;
+    auto spinConfig=rotation; spinConfig.space=graphics::TransformSpace::Local;
+    auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});
     graphics::PathMotion path; path.path=graphics::PathSystem::circle({0,0,0},1);
-    auto moving=system.createPathAndSpin(path,rotation);
+    auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});
     if(!spin||!orbit||!combined||!moving) return false;
     system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점
     return true;
@@ -296,9 +308,11 @@ bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
     if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;
     auto spin=system.createSpin(rotation);
     auto orbit=system.createOrbit(rotation);
-    auto combined=system.createOrbitAndSpin(rotation,rotation);
+    auto orbitConfig=rotation; orbitConfig.space=graphics::TransformSpace::World;
+    auto spinConfig=rotation; spinConfig.space=graphics::TransformSpace::Local;
+    auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});
     graphics::PathMotion path; path.path=graphics::PathSystem::circle({0,0,0},1);
-    auto moving=system.createPathAndSpin(path,rotation);
+    auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});
     if(!spin||!orbit||!combined||!moving) return false;
     system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점
     return true;
@@ -353,7 +367,11 @@ bool editParts(graphics::Scene& scene,graphics::EntityId body,graphics::EntityId
     auto selected=graphics::PatternSystem::cameraFacingWall(scene,room,camera);
     if(selected&&!graphics::PatternSystem::openRoomWall(scene,room,*selected,.5f)) return false;
     auto other=scene.addCuboid({1,1,1},{2,0,0}); if(!other) return false;
-    if(!graphics::PatternSystem::swapModels(scene,body,*other)) return false;
+    auto staged=scene;
+    const auto firstModel=scene.getComponent(body)->polyhedron;
+    const auto secondModel=scene.getComponent(*other)->polyhedron;
+    if(!staged.setModel(body,secondModel)||!staged.setModel(*other,firstModel)) return false;
+    scene=std::move(staged);
     if(!graphics::PatternSystem::moveCamera(camera,{.2f,0,0})
        ||!graphics::PatternSystem::yawCamera(camera,5)
        ||!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},5)
@@ -634,7 +652,11 @@ bool editParts(graphics::Scene& scene,graphics::EntityId body,graphics::EntityId
     auto selected=graphics::PatternSystem::cameraFacingWall(scene,room,camera);
     if(selected&&!graphics::PatternSystem::openRoomWall(scene,room,*selected,.5f)) return false;
     auto other=scene.addCuboid({1,1,1},{2,0,0}); if(!other) return false;
-    if(!graphics::PatternSystem::swapModels(scene,body,*other)) return false;
+    auto staged=scene;
+    const auto firstModel=scene.getComponent(body)->polyhedron;
+    const auto secondModel=scene.getComponent(*other)->polyhedron;
+    if(!staged.setModel(body,secondModel)||!staged.setModel(*other,firstModel)) return false;
+    scene=std::move(staged);
     if(!graphics::PatternSystem::moveCamera(camera,{.2f,0,0})
        ||!graphics::PatternSystem::yawCamera(camera,5)
        ||!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},5)
@@ -756,7 +778,11 @@ bool editParts(graphics::Scene& scene,graphics::EntityId body,graphics::EntityId
     auto selected=graphics::PatternSystem::cameraFacingWall(scene,room,camera);
     if(selected&&!graphics::PatternSystem::openRoomWall(scene,room,*selected,.5f)) return false;
     auto other=scene.addCuboid({1,1,1},{2,0,0}); if(!other) return false;
-    if(!graphics::PatternSystem::swapModels(scene,body,*other)) return false;
+    auto staged=scene;
+    const auto firstModel=scene.getComponent(body)->polyhedron;
+    const auto secondModel=scene.getComponent(*other)->polyhedron;
+    if(!staged.setModel(body,secondModel)||!staged.setModel(*other,firstModel)) return false;
+    scene=std::move(staged);
     if(!graphics::PatternSystem::moveCamera(camera,{.2f,0,0})
        ||!graphics::PatternSystem::yawCamera(camera,5)
        ||!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},5)

@@ -128,8 +128,6 @@ public:
     static std::optional<std::size_t> cameraFacingWall(const Scene& scene, EntityId room, const Camera& camera);
     /// [API] 선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
     static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float progress);
-    /// [API] 두 ID의 위치는 유지하고 모델을 교환한다.
-    static bool swapModels(Scene& scene, EntityId first, EntityId second);
     /// [API] 셀 격자를 지그재그 순서로 방문하는 정수 인덱스 목록을 만든다.
     static std::vector<glm::ivec3> snakeCells(const glm::ivec3& cells);
     /// [API] 두 값의 차이가 허용 오차 이하인지 검사한다.

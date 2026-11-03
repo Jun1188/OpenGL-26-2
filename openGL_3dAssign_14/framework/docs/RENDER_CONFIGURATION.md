@@ -27,7 +27,8 @@ packVertices(input, output)는 RenderVertex 배열을 받아 input.size()*stride
 새 데이터가 Scene에 영속적으로 저장돼야 하면 아래 내부 수정 순서를 따른다.
 기본 packer가 없으면 RenderVertex 바이트를 그대로 복사한다. 자료형/offset을 바꿨다면 해당 바이트 해석도 반드시 일치시킨다.
 
-uniforms는 기본 uniform의 이름 매핑이다. mvp는 활성 mat4 uniform으로 존재해야 한다.
+uniforms는 기본 uniform의 이름 매핑이다. mvp에 이름을 지정하면 활성 mat4 uniform으로 존재해야 한다.
+사용자 셰이더가 view/projection 등 별도 행렬을 사용하면 uniforms.mvp를 빈 문자열로 두고 bindUniforms에서 필요한 uniform을 모두 설정한다.
 추가 uniform은 bindUniforms(context)에 등록한다. program/scene/entity/line/face/model/view/projection/depthOnly를 받는다.
 현재 program이 바인딩되고 기본 uniform을 설정한 뒤 호출한다. 이 핸들러에서는 추가 uniform만 설정하고 program/VAO/VBO를 교체하지 않는다.
 깊이 전용 패스에서도 호출되므로 변형에 필요한 uniform을 동일하게 설정한다. 윤곽선은 기본 렌더 정책을 사용한다.
@@ -52,3 +53,44 @@ uniforms는 기본 uniform의 이름 매핑이다. mvp는 활성 mat4 uniform으
 11. 사용자가 빌드하고 기본 셰이더·변경 셰이더, 면·선·윤곽선·다중 뷰를 확인한다. location 변경, 새 속성, 잘못된 stride를 각각 확인한다.
 
 핸들러가 캡처한 참조는 run과 해당 핸들러의 사용 기간 동안 유효해야 한다. GL 자원의 소유권은 Renderer에 남는다.
+
+## 사용자 데이터 구성과 추가 uniform 예
+
+다음 코드는 run 전에 config.renderConfig에 설정한다. include <cstring>을 추가한다.
+float4 position과 unsigned int 태그를 출력하고, GLSL에서 위치는 location=5의 vec4, 태그는 location=6의 uint로 선언한다.
+태그는 여기서는 정점 인덱스이며 영속적인 엔티티 ID가 아니다.
+
+```cpp
+struct CustomVertex { float position[4]; unsigned int tag; };
+auto& render = config.renderConfig;
+render.vertexLayout.stride = sizeof(CustomVertex);
+render.vertexLayout.attributes = {
+    {5, 4, GL_FLOAT, false, offsetof(CustomVertex, position), false},
+    {6, 1, GL_UNSIGNED_INT, false, offsetof(CustomVertex, tag), true}};
+render.packVertices = [](const std::vector<graphics::RenderVertex>& source,
+                         std::vector<std::uint8_t>& bytes) {
+    bytes.resize(source.size()*sizeof(CustomVertex));
+    for (std::size_t i = 0; i < source.size(); ++i) {
+        CustomVertex v{{source[i].position[0], source[i].position[1], source[i].position[2], 1},
+                       static_cast<unsigned int>(i)};
+        std::memcpy(bytes.data()+i*sizeof(CustomVertex), &v, sizeof(v));
+    }
+    return true;
+};
+render.bindUniforms = [](const graphics::DrawUniformContext& context) {
+    return context.setUniform("uAmplitude", .1f);
+};
+```
+
+uniform helper는 float/int/vec3/mat4를 제공한다. 해당 uniform은 실제로 사용되어 활성화돼 있어야 한다.
+GLSL 자료형도 일치시킨다. helper는 이름 존재와 값의 유한성을 검사하며 전체 GLSL 타입을 자동 변환하지 않는다.
+사용자 셰이더는 지정한 행렬 uniform과 fragment 연결 계약도 유지한다. MVP 이름을 비우면 bindUniforms가 필수다. 없는 기본 선택 uniform은 GL의 -1 위치로 무시된다.
+
+```cpp
+render.uniforms.mvp.clear(); // 기본 uMVP 대신 view/projection을 사용하는 GLSL.
+render.bindUniforms = [](const graphics::DrawUniformContext& context) {
+    return context.setUniform("uView", context.view)
+        && context.setUniform("uProjection", context.projection)
+        && context.setUniform("uObject", context.model);
+};
+```

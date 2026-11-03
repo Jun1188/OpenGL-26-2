@@ -43,8 +43,11 @@ def project_inventory():
                 line=text[:m.start()].count('\n')+1
                 item={'file':relative,'line':line,'name':m.group(1)}
                 if 'computer_graphics_warmUp1/' in relative:
-                    problem=1 if line<550 else 2 if line<765 else 3 if line<876 else 4
-                    item.update(condition=f'PROB == {problem}',active_by_source_default=problem==2)
+                    branches=list(re.finditer(r'^\s*#(?:if|elif)\s+PROB\s*==\s*(\d+)',text[:m.start()],re.M))
+                    default=re.search(r'^\s*#define\s+PROB\s+(\d+)',text,re.M)
+                    problem=int(branches[-1].group(1)) if branches else None
+                    item.update(condition=f'PROB == {problem}',
+                                active_by_source_default=bool(default and problem==int(default.group(1))))
                 entries.append(item)
         projects.append({'project':p.relative_to(REPOSITORY).as_posix(),'sources':sources,'entrypoints':entries})
     for name in ['basic','assets','motion']:

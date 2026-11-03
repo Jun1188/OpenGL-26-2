@@ -199,8 +199,8 @@ bool Renderer::initShader(const std::filesystem::path& vertexPath, const std::fi
     outlineColorLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.outlineColor.c_str());
     tintLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.tint.c_str());
 
-    return mvpLocation_ >= 0 || Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Shader, "glGetUniformLocation",
-                                                    "Required uMVP uniform is missing or optimized away.");
+    return mvpLocation_ >= 0 || (config_.uniforms.mvp.empty() && bool(config_.bindUniforms)) || Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Shader, "glGetUniformLocation",
+                                                    "Required MVP uniform is missing or optimized away: " + config_.uniforms.mvp);
 }
 
 bool Renderer::initialize(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath,

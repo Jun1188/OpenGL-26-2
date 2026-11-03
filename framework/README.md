@@ -1,5 +1,11 @@
 ﻿# 재사용 가능한 OpenGL 프레임워크 사용설명서
 
+## 편집 가능한 API와 패턴 조립 (2026-11-03)
+
+[의미 동작·육면체 모드](docs/MODE_ACTIONS.md) · [정점 입력·셰이더 연결과 내부 수정 순서](docs/RENDER_CONFIGURATION.md) · [패턴 조립·API 압축 기준](docs/PATTERN_COMPOSITION.md)
+
+sample/seek는 동작을 실행하지 않는다. 자동 모션 갱신은 활성 모션의 동작을 실행한다. 기존 공전+자전·경로+자전 전용 함수는 createMotion 단계 목록으로 대체했다. 모델 교환은 조립 문서를 따른다.
+
 이 프레임워크는 Windows x64, C++17, OpenGL 3.3 Core Profile용이다. 창·입력·렌더링·자산 로드를 공통 코드로 제공한다. 응용 프로그램은 장면을 만들고 입력에 따라 상태를 바꾼다.
 
 - 처음 사용: 1~4절을 읽고 최소 예제로 시작한다.
@@ -8,7 +14,7 @@
 - 실제 실습을 응용: [응용 패턴 설명서](docs/APPLICATION_PATTERNS.md)를 읽는다.
 - 직접 실행 확인: [사용자 확인 항목](docs/USER_CHECKS.md)을 참고한다.
 
-문서 기준은 2026-10-20의 로컬 소스다. 설명은 소스 읽기에 근거한다. 빌드·실행·화면 검증 결과를 뜻하지 않는다. 실습 13~19는 각각 독립 실행 프로그램이며 자체 framework 사본을 사용한다. 이 문서는 저장소 루트 framework를 기준으로 한다.
+문서 기준은 2026-11-03의 로컬 소스다. 설명은 소스 읽기에 근거한다. 빌드·실행·화면 검증 결과를 뜻하지 않는다. 실습 13~23과 standard는 각각 독립 실행 프로그램이며 자체 framework 사본을 사용한다. 이 문서는 저장소 루트 framework를 기준으로 한다.
 
 ## 1. 폴더와 책임
 
@@ -501,8 +507,8 @@ MotionSystem의 편의 생성 API는 기본 Step 합성을 재사용한다.
 | createMotion(motion) | 사용자 조합 |
 | createSpin(rotation) | space를 Local로 지정한 자전 |
 | createOrbit(rotation) | space를 World로 지정한 공전 |
-| createOrbitAndSpin(orbit, spin) | World 공전과 Local 자전의 독립 축·각속도 |
-| createPathAndSpin(path, spin) | 사용자 경로의 이동과 Local 자전 |
+| createMotion({rotation(orbit), rotation(spin)}) | World 공전과 Local 자전을 단계로 조립 |
+| createMotion({followPath(path), rotation(spin)}) | 경로 이동과 Local 자전을 단계로 조립 |
 
 createSpin의 기본 축은 모델 원점을 지나는 Y축이다. 모델의 localBasis를 중심으로 자전하려면 axis.point에도 같은 모델 좌표를 지정한다. createOrbit은 기존 모델 배치 전체를 지정 월드 직선 주위로 회전시킨다.
 

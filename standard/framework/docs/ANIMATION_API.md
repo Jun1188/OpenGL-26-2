@@ -1,5 +1,11 @@
 ﻿# 그네·사람형·계층 SRT 빠른 참조
 
+## 편집 가능한 API와 패턴 조립 (2026-11-03)
+
+[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·셰이더 연결과 내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립·API 압축 기준](PATTERN_COMPOSITION.md)
+
+sample/seek는 동작을 실행하지 않는다. 자동 모션 갱신은 활성 모션의 동작을 실행한다. 기존 공전+자전·경로+자전 전용 함수는 createMotion 단계 목록으로 대체했다. 모델 교환은 조립 문서를 따른다.
+
 <!-- doc-flowcharts:start -->
 
 ![이미지: 프레임 루프·조건 분기](flowcharts/frame-loop.svg)

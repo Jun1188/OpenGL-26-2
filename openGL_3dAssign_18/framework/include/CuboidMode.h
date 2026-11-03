@@ -4,6 +4,7 @@
 namespace graphics {
 struct CuboidFaceConfig {
     Transform3D transform;
+    GlColor color;
     bool visible = true;
     CullMode cull = CullMode::Inherit;
 };

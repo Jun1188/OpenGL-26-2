@@ -226,6 +226,7 @@ struct GlApi {
     PFNGLUNIFORMMATRIX3FVPROC UniformMatrix3fv = nullptr;
     PFNGLUNIFORM3FPROC Uniform3f = nullptr;
     PFNGLUNIFORM1IPROC Uniform1i = nullptr;
+    PFNGLUNIFORM1FPROC Uniform1f = nullptr;
     PFNGLACTIVETEXTUREPROC ActiveTexture = nullptr;
 
     template <class T> T resolve(const char* name) {
@@ -298,6 +299,7 @@ struct GlApi {
         UniformMatrix3fv = resolve<decltype(UniformMatrix3fv)>("glUniformMatrix3fv");
         Uniform3f = resolve<decltype(Uniform3f)>("glUniform3f");
         Uniform1i = resolve<decltype(Uniform1i)>("glUniform1i");
+        Uniform1f = resolve<decltype(Uniform1f)>("glUniform1f");
         ActiveTexture = resolve<decltype(ActiveTexture)>("glActiveTexture");
     }
 };

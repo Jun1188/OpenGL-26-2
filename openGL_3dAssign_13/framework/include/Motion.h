@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Transform.h"
 #include <map>
+#include <initializer_list>
 
 namespace graphics {
 using MotionId = std::uint64_t;
@@ -84,7 +85,7 @@ public:
         return steps_;
     }
 
-    /// [API] 절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성하여 MotionSample을 반환한다.
+    /// [API] 절대 시간(초)에서 활성 단계의 월드/로컬 행렬을 합성한다. 의미 동작은 실행하지 않는다.
     std::optional<MotionSample> sample(double seconds) const;
     /// [API] 변환을 평가하며 동작을 순서대로 실행한다. 실패한 외부 부수 효과는 복구하지 않는다.
     std::optional<MotionSample> execute(double seconds) const;
@@ -139,6 +140,8 @@ public:
 
     /// [API] 모션을 시스템에 등록하고 새 MotionId를 반환한다.
     std::optional<MotionId> createMotion(const Motion& motion);
+    /// [API] 의미 단계 목록을 검사·조립하여 하나의 모션으로 등록한다.
+    std::optional<MotionId> createMotion(std::initializer_list<MotionStep> steps);
     /// [API] 기존 MotionId의 모션 데이터를 교체하고 현재 시각의 샘플을 갱신한다.
     bool setMotion(MotionId id, const Motion& motion);
     /// [API] 모션 상태의 읽기 전용 비소유 포인터를 반환한다. 없는 ID면 nullptr이다.
@@ -177,9 +180,6 @@ public:
     std::optional<MotionId> createSpin(RotationMotion config);
     /// [API] 월드 공간 회전 모션을 등록하여 축 주위 공전에 사용한다.
     std::optional<MotionId> createOrbit(RotationMotion config);
-    /// [API] 월드 공전과 로컬 자전을 하나의 모션에 등록한다.
-    std::optional<MotionId> createOrbitAndSpin(RotationMotion orbit, RotationMotion spin);
-    /// [API] 경로 이동과 로컬 자전을 하나의 모션에 등록한다.
-    std::optional<MotionId> createPathAndSpin(const PathMotion& path, RotationMotion spin);
+
 };
 } // namespace graphics

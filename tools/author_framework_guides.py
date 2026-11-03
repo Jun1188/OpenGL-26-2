@@ -292,9 +292,11 @@ bool connectMotion(graphics::Scene& scene,graphics::EntityId entity) {
     if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;
     auto spin=system.createSpin(rotation);
     auto orbit=system.createOrbit(rotation);
-    auto combined=system.createOrbitAndSpin(rotation,rotation);
+    auto orbitConfig=rotation; orbitConfig.space=graphics::TransformSpace::World;
+    auto spinConfig=rotation; spinConfig.space=graphics::TransformSpace::Local;
+    auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});
     graphics::PathMotion path; path.path=graphics::PathSystem::circle({0,0,0},1);
-    auto moving=system.createPathAndSpin(path,rotation);
+    auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});
     if(!spin||!orbit||!combined||!moving) return false;
     system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점
     return true;
@@ -498,7 +500,11 @@ bool editParts(graphics::Scene& scene,graphics::EntityId body,graphics::EntityId
     auto selected=graphics::PatternSystem::cameraFacingWall(scene,room,camera);
     if(selected&&!graphics::PatternSystem::openRoomWall(scene,room,*selected,.5f)) return false;
     auto other=scene.addCuboid({1,1,1},{2,0,0}); if(!other) return false;
-    if(!graphics::PatternSystem::swapModels(scene,body,*other)) return false;
+    auto staged=scene;
+    const auto firstModel=scene.getComponent(body)->polyhedron;
+    const auto secondModel=scene.getComponent(*other)->polyhedron;
+    if(!staged.setModel(body,secondModel)||!staged.setModel(*other,firstModel)) return false;
+    scene=std::move(staged);
     if(!graphics::PatternSystem::moveCamera(camera,{.2f,0,0})
        ||!graphics::PatternSystem::yawCamera(camera,5)
        ||!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},5)
@@ -566,9 +572,39 @@ bool rotateSelected(graphics::Scene& scene,std::vector<graphics::JointAnimation>
 // 실제 키 선택·배율 제한·복원은 아래 standard::Console 소스를 따른다.
 ''','시계를 정지해도 seconds는 유지되므로 같은 시각에서 편집 결과를 즉시 볼 수 있다. 입력 후 재생을 재개해도 rest가 남는다. standard의 handleJointKey는 실패 시 rest를 복원하고, R은 선택 관절의 최초 rest를 복원한다.',('standard/Console.h','standard/Console.cpp'))
 
+group('editable','의미 동작·육면체 모드·셰이더 연결 편집',
+ '설정과 작은 핸들러를 편집하여 기존 Scene/ECS에 동작을 연결한다. 세부 계약과 내부 코드 수정 순서는 MODE_ACTIONS.md, RENDER_CONFIGURATION.md, PATTERN_COMPOSITION.md를 읽는다.',
+ 'mode는 설정과 이름 바인딩을 보관한다. Scene은 컴포넌트 데이터, MotionSystem은 시간, Renderer는 GPU 자원을 소유한다.',r'''
+bool configureEditable(graphics::Application& app) {
+    auto mode=std::make_shared<graphics::CuboidMode>();
+    graphics::CuboidConfig box; box.name="box"; box.size={1,2,1};
+    if(!mode->setCuboid(box)) return false;
+    graphics::CuboidCommand command;
+    command.operation=graphics::CuboidOperation::Translate; command.value={.1f,0,0};
+    if(!mode->bindKey({GLFW_KEY_RIGHT,GLFW_PRESS,0,graphics::CuboidMode::action("box",command)})) return false;
+    mode->setSetupHandler([](graphics::Application& app,graphics::CuboidMode& mode) {
+        const auto id=mode.entity("box"); if(!id) return false;
+        graphics::Motion motion;
+        graphics::RotationMotion spin;
+        if(!motion.append(graphics::Motion::rotation(spin))) return false;
+        if(!motion.insertAction(1,graphics::SceneActions::visible(app.getScene(),*id,true))) return false;
+        const auto track=app.getScene().getMotions().createMotion(motion); if(!track) return false;
+        graphics::LayerConfig layer; layer.motion=*track;
+        const auto binding=app.getScene().getMotions().pushLayer(graphics::MotionSystem::rootLayer(),layer);
+        return binding && app.getScene().bindEntity(*id,*binding);
+    });
+    return graphics::bindCuboidMode(app,mode);
+}
+// Run before app.run(config), not inside an existing init callback.
+// config.renderConfig.bindUniforms = [](const graphics::DrawUniformContext& context) {
+//     return context.setUniform("uAmplitude", .1f);
+// };
+''','sample/seek는 의미 동작을 실행하지 않는다. 모션 갱신은 활성 동작을 실행한다. mode.apply는 Scene 전체를 교체한다. 사용자 셰이더 입력은 실제 바이트와 맞춰야 한다.',
+ ('framework/include/RenderConfig.h','framework/include/Actions.h','framework/include/CuboidMode.h','framework/detail/CuboidMode.cpp'))
+
 def choose(a):
     o,n=a['owner'],a['name']
-    if o=='Application': return 'assets' if n=='getAssets' else 'app'
+    if o=='Application': return 'editable' if n=='configureRenderer' else ('assets' if n=='getAssets' else 'app')
     if o=='Scene':
         if n in 'setFaceVisible setFaceCullMode setFaceLocalMatrix setPosition setTransform setParent worldMatrix faceWorldMatrix setFaceTransform setLocalBasis splitFace setFaceSRT addGroup'.split():return 'transform'
         if n in 'setMesh getMesh setMeshVertices setVertexPosition setTriangleIndices generateTexcoords transformTexcoords setTexcoords setVertexNormals setMaterial setOutline setFaceVertexColors'.split():return 'mesh'
@@ -579,6 +615,7 @@ def choose(a):
     if o in ('CameraSystem','Renderer'):return 'render'
     if o in ('AssetLoader','ModelResult','TextureResult','TextureImage'):return 'assets'
     if o in ('PlaneFigure','Polyhedron'):return 'mesh'
+    if o in ('SceneActions','CuboidMode','DrawUniformContext') or n in ('bindCuboidMode','configureRenderer'):return 'editable'
     if o=='Motion':return 'motion'
     if o=='MotionSystem':return 'layers'
     if o=='Diagnostics':return 'diagnostics'
@@ -659,7 +696,7 @@ def runtime():
 
 PATTERNS=[
  ('bootstrap','콜백으로 응용 상태 연결','app',['상태와 ID 보관','init에서 Scene 생성','입력으로 상태 변경','update로 변환 반영','렌더·종료는 Application에 위임']),
- ('spin-orbit','자전과 공전을 분리','layers',['공전축·자전축 지정','createOrbitAndSpin으로 모션 등록','레이어에 모션 연결','객체 바인딩 → 자동 시간 진행']),
+ ('spin-orbit','자전과 공전을 분리','layers',['공전축·자전축 지정','createMotion 단계 목록으로 모션 등록','레이어에 모션 연결','객체 바인딩 → 자동 시간 진행']),
  ('path','경로 전환·왕복','math',['PathSystem으로 경로 생성','PathMotion의 기간·재생 정책 지정','Motion.followPath 구성','MotionSystem.setMotion → seekMotion(0)']),
  ('sequence','순차 동작과 끝 자세 유지','motion',['유한 duration의 단계 생성','append로 첫 단계 등록','then으로 다음 시작 시각 배치','sample이 종료 자세를 유지']),
  ('shared','모션 공유와 대칭 분기','layers',['공통 MotionId 생성','정상·반사 레이어 분기','동일 MotionId 연결','같은 시각을 서로 다른 변환으로 표시']),
@@ -682,9 +719,11 @@ PATTERNS=[
  ('swing','그네(진자) → 좌석 → 사람','animation',['addSwingWithRider 설정','고정 frame → hinge → seat → person.root','앉은 자세와 그네·상체 트랙 구성','update: 누적 시간으로 poseHierarchy','부모 변환이 사람의 전체 관절에 전달']),
  ('views','여러 카메라로 같은 Scene 표시','parts',['update에서 Scene 상태 한 번 갱신','threeViews로 카메라·픽셀 영역 구성','Application.renderViews 호출','패스마다 같은 시간의 장면 표시'])]
 
+PATTERNS.append(('editable','의미 동작·육면체 모드·정점 입력 편집','editable',['초기 설정과 의미 동작 구성','이름 기반 키 바인딩 등록','프레임당 모션 갱신과 동작 실행','RenderConfig로 정점 입력·uniform 연결']))
+
 def main():
     entries=apis()
-    intro=para('함수 이름을 외우는 대신 실제 상황에서 무엇을 저장하고 무엇을 바꾸는지 읽는다. 공개 함수·오버로드·생성자·소멸자·삭제된 복사 연산을 현재 framework/include 헤더에서 수록했다. graphics::detail 및 private 구현은 공개 호출 대상으로 나열하지 않고 공통 구현 설명에서 다룬다.')
+    intro='<p><a href="MODE_ACTIONS.md">의미 동작·육면체 모드</a> · <a href="RENDER_CONFIGURATION.md">정점 입력·내부 수정 순서</a> · <a href="PATTERN_COMPOSITION.md">패턴 조립·API 압축</a></p>'+para('함수 이름을 외우는 대신 실제 상황에서 무엇을 저장하고 무엇을 바꾸는지 읽는다. 공개 함수·오버로드·생성자·소멸자·삭제된 복사 연산을 현재 framework/include 헤더에서 수록했다. graphics::detail 및 private 구현은 공개 호출 대상으로 나열하지 않고 공통 구현 설명에서 다룬다.')
     intro+='<p class="note">모든 코드는 현재 선언·구현에 근거한 문서다. 새 사용 사례는 함께 쓸 API를 묶은 함수 단편이며, 독립 main인 예제는 별도로 표시한다. 실행 성공을 확인한 코드라는 뜻은 아니다. 외부 자산 경로는 사용자가 준비한다.</p>'
     body=intro+runtime()+'<section id="cases"><h2>함께 사용하는 API의 실제 사례 코드</h2>'+para('기본 포함은 framework/Framework.h다. 출력 사례는 iostream, 예외 처리는 stdexcept를 추가한다. 아래 독립 함수들은 graphics 이름을 완전히 적었고, 입력 Scene/ID/컨텍스트의 전제는 각 사례에 명시한다.')+'</section>'
     body+=''.join(case(k) for k in GROUPS)

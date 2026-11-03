@@ -672,28 +672,6 @@ bool PatternSystem::openRoomWall(Scene& scene, EntityId room, std::size_t face, 
     return openFace(scene, room, face, progress, glm::vec3(0), pivot, true);
 }
 
-bool PatternSystem::swapModels(Scene& scene, EntityId first, EntityId second) {
-    const auto* a = scene.getComponent(first);
-    const auto* b = scene.getComponent(second);
-
-    if (!a || !b || a->transformOnly || b->transformOnly)
-        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, "PatternSystem::swapModels",
-                                   "Both entities must contain a model.");
-
-    const auto firstModel = a->polyhedron, secondModel = b->polyhedron;
-
-    if (!scene.setModel(first, secondModel))
-        return false;
-
-    if (!scene.setModel(second, firstModel)) {
-        scene.setModel(first, firstModel);
-
-        return false;
-    }
-
-    return true;
-}
-
 std::vector<glm::ivec3> PatternSystem::snakeCells(const glm::ivec3& cells) {
     std::vector<glm::ivec3> result;
 

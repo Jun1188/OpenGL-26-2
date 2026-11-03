@@ -19,10 +19,10 @@ struct ApplicationConfig {
     std::filesystem::path projectRoot = ".";              // Relative to the executable.
     std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
 
-    RenderConfig renderConfig;
     FeatureOptions features;
     bool verticalSync = true;
     DiagnosticOptions diagnostics;
+    RenderConfig renderConfig;
 };
 
 struct MouseEvent {

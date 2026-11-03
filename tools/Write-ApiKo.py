@@ -120,8 +120,6 @@ DESCRIPTIONS={
 'getLayer':'레이어 상태의 읽기 전용 비소유 포인터를 반환한다. 없는 ID면 nullptr이다.',
 'createSpin':'로컬 공간 회전 모션을 등록하여 자전에 사용한다.',
 'createOrbit':'월드 공간 회전 모션을 등록하여 축 주위 공전에 사용한다.',
-'createOrbitAndSpin':'월드 공전과 로컬 자전을 하나의 모션에 등록한다.',
-'createPathAndSpin':'경로 이동과 로컬 자전을 하나의 모션에 등록한다.',
 'contains':'점이 margin만큼 안쪽으로 줄인 Bounds3 안에 있는지 검사한다.',
 'overlaps':'두 축 정렬 경계 상자가 겹치는지 검사한다.',
 'setPoints':'연속 점들의 누적 거리 경로를 구성한다. closed면 마지막에서 처음으로 연결한다.',
@@ -158,7 +156,7 @@ SPECIAL={
 ('Diagnostics','clear'):'마지막 오류 기록을 지운다. 진단 설정과 현재 위치 문맥은 유지한다.',
 ('Scene','clear'):'Scene의 모델·선·연결·모션을 초기화한다. 엔티티 ID는 재사용되므로 저장한 ID를 갱신한다.',
 ('MotionSystem','clear'):'모션과 레이어를 비우고 루트 레이어를 복구한다. 다음 ID 카운터는 되돌리지 않는다.',
-('Motion','sample'):'절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성하여 MotionSample을 반환한다.',
+('Motion','sample'):'절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성한다. 의미 동작은 실행하지 않는다.',
 ('DistancePath','sample'):'누적 거리와 Once/Loop/PingPong 정책에서 위치·접선·yaw를 샘플링한다.',
 ('Motion','rotation'):'축·초당 각속도·초기 각도·합성 공간으로 회전 모션 단계를 만든다.',
 ('TransformSystem','rotation'):'직선 위 점·축 방향과 도 단위 각도로 축 주위 회전 행렬을 만든다.',
@@ -202,10 +200,38 @@ def declarations(path):
     walk(PARSER.parse(b).root_node);return out
 def description(r):
     owner,name=r['owner'],r['name']
+    source_lines=(ROOT/r['file']).read_text(encoding='utf-8-sig').splitlines()
+    preceding=r['line']-2
+    if preceding>=0 and '/// [API]' in source_lines[preceding]:
+        return source_lines[preceding].split('/// [API]',1)[1].strip()
     if '= delete' in r['signature']:return '이 자원 소유 타입의 복사 생성/대입을 금지한다. 창·GPU 핸들을 중복 소유하지 않게 한다.'
     if name==owner:return {'Application':'초기 창 포인터와 콜백·CPU 장면 상태를 준비한다. 실제 창은 run에서 생성한다.','Scene':'빈 CPU 장면과 ID·형상 변경 상태를 초기화한다.','Renderer':'GPU 핸들을 0과 미업로드 상태로 준비한다. 실제 GL 생성은 initialize에서 수행한다.','AssetLoader':'프로젝트 루트와 기능 옵션을 보관하고 상대경로 자산 로딩을 준비한다.'}[owner]
     if name.startswith('~'):return '실행 자원을 정리한다. GPU 해제는 창의 컨텍스트가 유효한 동안 수행한다.'
     if name=='operator bool':return '모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.'
+    if owner=='SceneActions':return '지정 값과 대상 ID를 기존 API에 전달하는 '+name+' 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.'
+    if owner=='DrawUniformContext':return '현재 바인딩된 program의 추가 uniform을 설정한다. 이름·GLSL 자료형과 값의 유한성을 맞춘다.'
+    if owner=='CuboidMode':return {
+        'setConfig':'초기 설정만 교체한다. 현재 Scene은 apply를 호출할 때 갱신된다.',
+        'getConfig':'초기 설정의 읽기 전용 참조를 반환한다.',
+        'setCuboid':'이름별 육면체 초기 설정을 교체하거나 추가한다.',
+        'bindKey':'같은 key/action/mods 바인딩을 교체하거나 추가한다.',
+        'unbindKey':'같은 key/action/mods 바인딩을 해제한다.',
+        'getBindings':'키 바인딩 목록의 읽기 전용 참조를 반환한다.',
+        'setSetupHandler':'새 장면 구성 후 실행할 설정 핸들러를 교체한다.',
+        'setUpdateHandler':'프레임별 응용 갱신 핸들러를 교체한다.',
+        'apply':'임시 CPU Scene에 육면체를 구성하고 성공하면 장면 전체를 교체한다.',
+        'update':'등록된 모드 프레임 핸들러를 호출한다.',
+        'dispatch':'일치하는 키 바인딩을 실행한다. 없는 키는 정상 처리한다.',
+        'entity':'이름에 대응하는 마지막 생성 엔티티 ID를 조회한다.',
+        'layer':'이름에 대응하는 초기 생성 레이어 ID를 조회한다.',
+        'motion':'이름에 대응하는 초기 생성 모션 ID를 조회한다.',
+        'action':'실행 시 육면체 이름을 해석하는 의미 명령 핸들러를 만든다.'}[name]
+    if name=='bindCuboidMode':return '육면체 모드의 init/update/수정키 핸들러를 설치한다. 기존 해당 핸들러를 교체한다.'
+    if name=='configureRenderer':return '현재 컨텍스트에서 셰이더·정점 입력을 재생성한다. 실패하면 종료를 요청한다.'
+    if owner=='Motion' and name in ('action','insertAction','execute'):
+        return {'action':'다른 단계와 조립할 의미 동작 단계를 만든다.',
+                'insertAction':'주어진 인덱스에 람다·함수 포인터·의미 동작을 삽입한다.',
+                'execute':'변환과 동작을 순서대로 평가한다. 외부 부수 효과는 복구하지 않는다.'}[name]
     if (owner,name) in SPECIAL:return SPECIAL[owner,name]
     if name in DESCRIPTIONS:return DESCRIPTIONS[name]
     if name in guide.PURPOSE:return guide.PURPOSE[name]

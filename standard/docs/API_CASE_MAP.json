@@ -1,11 +1,160 @@
 ﻿[
   {
+    "owner": "SceneActions",
+    "name": "transform",
+    "signature": "static MotionAction transform(Scene& scene, EntityId id, Transform3D value)",
+    "file": "framework/include/Actions.h",
+    "line": 8,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 transform 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "position",
+    "signature": "static MotionAction position(Scene& scene, EntityId id, glm::vec3 value)",
+    "file": "framework/include/Actions.h",
+    "line": 11,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 position 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "scale",
+    "signature": "static MotionAction scale(Scene& scene, EntityId id, glm::vec3 value)",
+    "file": "framework/include/Actions.h",
+    "line": 14,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 scale 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "rotation",
+    "signature": "static MotionAction rotation(Scene& scene, EntityId id, glm::mat3 value)",
+    "file": "framework/include/Actions.h",
+    "line": 23,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 rotation 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [
+      "if(!motion.append(graphics::Motion::rotation(spin))) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "tint",
+    "signature": "static MotionAction tint(Scene& scene, EntityId id, GlColor value)",
+    "file": "framework/include/Actions.h",
+    "line": 32,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 tint 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "pivot",
+    "signature": "static MotionAction pivot(Scene& scene, EntityId id, glm::vec3 value)",
+    "file": "framework/include/Actions.h",
+    "line": 35,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 pivot 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "visible",
+    "signature": "static MotionAction visible(Scene& scene, EntityId id, bool value)",
+    "file": "framework/include/Actions.h",
+    "line": 40,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 visible 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [
+      "if(!motion.insertAction(1,graphics::SceneActions::visible(app.getScene(),*id,true))) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "faceVisible",
+    "signature": "static MotionAction faceVisible(Scene& scene, EntityId id, std::size_t face, bool value)",
+    "file": "framework/include/Actions.h",
+    "line": 43,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 faceVisible 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "layer",
+    "signature": "static MotionAction layer(Scene& scene, EntityId id, std::optional<LayerId> value)",
+    "file": "framework/include/Actions.h",
+    "line": 46,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 layer 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "motion",
+    "signature": "static MotionAction motion(Scene& scene, LayerId layer, std::optional<MotionId> value)",
+    "file": "framework/include/Actions.h",
+    "line": 51,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 motion 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "parent",
+    "signature": "static MotionAction parent(Scene& scene, EntityId id, std::optional<EntityId> value)",
+    "file": "framework/include/Actions.h",
+    "line": 54,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 parent 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "SceneActions",
+    "name": "camera",
+    "signature": "static MotionAction camera(Camera& camera, Camera value)",
+    "file": "framework/include/Actions.h",
+    "line": 57,
+    "description": "지정 값과 대상 ID를 기존 API에 전달하는 camera 의미 동작을 만든다. 참조 대상은 실행 동안 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
     "owner": "HumanoidPose",
     "name": "seated",
     "signature": "static HumanoidPose seated()",
     "file": "framework/include/Animation.h",
-    "line": 29,
+    "line": 32,
     "description": "허벅지를 앞으로 뻗고 무릎을 굽힌 앉은 자세를 반환한다. 회전 단위는 도다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "animation",
     "example_lines": [
       "auto pose=graphics::HumanoidPose::seated();"
@@ -17,8 +166,9 @@
     "name": "createJointAnimation",
     "signature": "static std::optional<JointAnimation> createJointAnimation(const Scene& scene, EntityId joint, const Motion& motion)",
     "file": "framework/include/Animation.h",
-    "line": 47,
+    "line": 53,
     "description": "관절의 현재 SRT와 강체 모션을 보관한다. 기준 배율은 양수 균일 배율만 허용한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "animation",
     "example_lines": [
       "auto track=graphics::AnimationSystem::createJointAnimation(scene,swing->person.elbows[0],motion);"
@@ -30,8 +180,9 @@
     "name": "poseHierarchy",
     "signature": "static bool poseHierarchy(Scene& scene, const std::vector<JointAnimation>& animation, double seconds)",
     "file": "framework/include/Animation.h",
-    "line": 49,
+    "line": 55,
     "description": "기준 SRT·피벗과 강체 모션을 합성해 모두 유효할 때 반영한다. 부모 계층과 균일 배율을 유지한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "animation",
     "example_lines": [
       "return clock.advance(dt)&&graphics::AnimationSystem::poseHierarchy(scene,animation,clock.seconds);"
@@ -43,8 +194,9 @@
     "name": "addHumanoid",
     "signature": "static std::optional<HumanoidRig> addHumanoid(Scene& scene, const HumanoidConfig& config = HumanoidConfig{}, std::optional<EntityId> parent = std::nullopt)",
     "file": "framework/include/Animation.h",
-    "line": 51,
+    "line": 57,
     "description": "실습 23 비율의 사람형을 만든다. 부모가 있으면 grid.frame은 부모 로컬 변환이다. 실패 시 Scene을 보존한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "animation",
     "example_lines": [
       "auto person=graphics::AnimationSystem::addHumanoid(scene,personConfig); if(!person) return false;"
@@ -56,8 +208,9 @@
     "name": "poseHumanoid",
     "signature": "static bool poseHumanoid(Scene& scene, const HumanoidRig& rig, const HumanoidPose& pose)",
     "file": "framework/include/Animation.h",
-    "line": 54,
+    "line": 60,
     "description": "관절 위치를 유지하며 XYZ 순서의 로컬 Euler 회전을 적용한다. 오류가 있으면 전체 자세를 보존한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "animation",
     "example_lines": [
       "if(!graphics::AnimationSystem::poseHumanoid(scene,*person,pose)) return false;"
@@ -69,8 +222,9 @@
     "name": "addSwingWithRider",
     "signature": "static std::optional<SwingRig> addSwingWithRider(Scene& scene, const SwingConfig& config = SwingConfig{}, std::optional<EntityId> parent = std::nullopt)",
     "file": "framework/include/Animation.h",
-    "line": 56,
+    "line": 62,
     "description": "고정 프레임→진자 관절→좌석→앉은 사람 계층과 진자·상체 모션을 만든다. 실패 시 Scene을 보존한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "animation",
     "example_lines": [
       "auto swing=graphics::AnimationSystem::addSwingWithRider(scene,config); if(!swing) return false;"
@@ -82,8 +236,9 @@
     "name": "Application",
     "signature": "Application() = default",
     "file": "framework/include/Application.h",
-    "line": 65,
+    "line": 80,
     "description": "초기 창 포인터와 콜백·CPU 장면 상태를 준비한다. 실제 창은 run에서 생성한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "graphics::Application app;"
@@ -95,8 +250,9 @@
     "name": "~Application",
     "signature": "~Application()",
     "file": "framework/include/Application.h",
-    "line": 67,
+    "line": 82,
     "description": "실행 자원을 정리한다. GPU 해제는 창의 컨텍스트가 유효한 동안 수행한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "// 소멸은 스코프 종료로 발생하며, =delete 복사 연산은 호출할 수 없다."
@@ -108,8 +264,9 @@
     "name": "Application",
     "signature": "Application(const Application&) = delete",
     "file": "framework/include/Application.h",
-    "line": 69,
+    "line": 84,
     "description": "이 자원 소유 타입의 복사 생성/대입을 금지한다. 창·GPU 핸들을 중복 소유하지 않게 한다.",
+    "result": "호출 불가(복사 금지 선언).",
     "case": "app",
     "example_lines": [
       "// 소멸은 스코프 종료로 발생하며, =delete 복사 연산은 호출할 수 없다."
@@ -121,8 +278,9 @@
     "name": "operator=",
     "signature": "Application& operator=(const Application&) = delete",
     "file": "framework/include/Application.h",
-    "line": 71,
+    "line": 86,
     "description": "이 자원 소유 타입의 복사 생성/대입을 금지한다. 창·GPU 핸들을 중복 소유하지 않게 한다.",
+    "result": "호출 불가(복사 금지 선언).",
     "case": "app",
     "example_lines": [
       "// 소멸은 스코프 종료로 발생하며, =delete 복사 연산은 호출할 수 없다."
@@ -134,8 +292,9 @@
     "name": "setInitHandler",
     "signature": "void setInitHandler(std::function<bool(Application&)> handler)",
     "file": "framework/include/Application.h",
-    "line": 73,
+    "line": 88,
     "description": "장면 초기화 콜백을 등록한다. run의 창·렌더러 초기화 후 한 번 호출하며 false면 실행을 종료한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setInitHandler([&](graphics::Application& current) {"
@@ -147,8 +306,9 @@
     "name": "setUpdateHandler",
     "signature": "void setUpdateHandler(std::function<void(Application&, float)> handler)",
     "file": "framework/include/Application.h",
-    "line": 75,
+    "line": 90,
     "description": "매 프레임 dt(초)를 받는 갱신 콜백을 등록한다. 렌더 패스마다 중복 갱신하지 않는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setUpdateHandler([&](graphics::Application& current,float dt) {"
@@ -160,8 +320,9 @@
     "name": "setKeyHandler",
     "signature": "void setKeyHandler(std::function<void(Application&, int key, int action)> handler)",
     "file": "framework/include/Application.h",
-    "line": 77,
+    "line": 92,
     "description": "키와 action을 받는 콜백을 등록한다. 수정키 콜백이 있으면 그 콜백을 우선한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setKeyHandler([](graphics::Application& current,int key,int action) {"
@@ -171,10 +332,11 @@
   {
     "owner": "Application",
     "name": "setModifiedKeyHandler",
-    "signature": "void setModifiedKeyHandler( std::function<void(Application&, int key, int action, int mods)> handler)",
+    "signature": "void setModifiedKeyHandler(std::function<void(Application&, int key, int action, int mods)> handler)",
     "file": "framework/include/Application.h",
-    "line": 80,
+    "line": 95,
     "description": "키·action·mods를 받는 콜백을 등록하여 Shift 등 수정키를 처리한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setModifiedKeyHandler([](graphics::Application& current,int key,int action,int mods) {"
@@ -186,8 +348,9 @@
     "name": "setFocusHandler",
     "signature": "void setFocusHandler(std::function<void(Application&, bool focused)> handler)",
     "file": "framework/include/Application.h",
-    "line": 83,
+    "line": 97,
     "description": "창 포커스 변경 콜백을 등록한다. 지속 입력 상태 해제 등에 사용한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setFocusHandler([](graphics::Application&,bool focused) {"
@@ -199,8 +362,9 @@
     "name": "setRenderHandler",
     "signature": "void setRenderHandler(std::function<bool(Application&)> handler)",
     "file": "framework/include/Application.h",
-    "line": 86,
+    "line": 100,
     "description": "사용자 렌더 콜백을 등록한다. 등록하면 기본 renderScene 대신 호출한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setRenderHandler([](graphics::Application& current) {"
@@ -212,8 +376,9 @@
     "name": "setMouseHandler",
     "signature": "void setMouseHandler(std::function<void(Application&, const MouseEvent&)> handler)",
     "file": "framework/include/Application.h",
-    "line": 88,
+    "line": 102,
     "description": "마우스 버튼과 창/프레임버퍼 좌표를 받는 콜백을 등록한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setMouseHandler([](graphics::Application& current,const graphics::MouseEvent& e) {"
@@ -225,8 +390,9 @@
     "name": "setCursorHandler",
     "signature": "void setCursorHandler(std::function<void(Application&, double x, double y)> handler)",
     "file": "framework/include/Application.h",
-    "line": 90,
+    "line": 104,
     "description": "창 좌표의 커서 이동 콜백을 등록한다. 드래그에는 이전 좌표와의 차이를 사용한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "app.setCursorHandler([](graphics::Application& current,double x,double y) {"
@@ -238,8 +404,9 @@
     "name": "pickAt",
     "signature": "std::optional<PickResult> pickAt(double windowX, double windowY) const",
     "file": "framework/include/Application.h",
-    "line": 92,
+    "line": 106,
     "description": "창 좌표를 framebuffer 좌표로 보정하고 기본 카메라의 전체 viewport로 ray picking을 수행한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "app",
     "example_lines": [
       "if(auto hit=current.pickAt(e.windowX,e.windowY)) std::cout << hit->entityId << '\\n';"
@@ -251,8 +418,9 @@
     "name": "pickAtCursor",
     "signature": "std::optional<PickResult> pickAtCursor() const",
     "file": "framework/include/Application.h",
-    "line": 94,
+    "line": 108,
     "description": "현재 커서 위치를 읽어 기본 카메라의 장면 피킹 결과를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "app",
     "example_lines": [
       "auto hit=current.pickAtCursor();"
@@ -264,8 +432,9 @@
     "name": "getAssets",
     "signature": "AssetLoader& getAssets()",
     "file": "framework/include/Application.h",
-    "line": 96,
+    "line": 110,
     "description": "실행 중 사용하는 AssetLoader 참조를 반환한다. run 콜백 밖에서는 예외를 발생시킨다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "assets",
     "example_lines": [
       "auto& loader=app.getAssets();"
@@ -277,8 +446,9 @@
     "name": "run",
     "signature": "int run(const ApplicationConfig& config = ApplicationConfig{})",
     "file": "framework/include/Application.h",
-    "line": 98,
+    "line": 112,
     "description": "초기화 → 이벤트 → 사용자 update → Scene 모션 → 렌더 → swap을 소유하고 정상/예외 종료에서 정리한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "return app.run(config);"
@@ -287,11 +457,24 @@
   },
   {
     "owner": "Application",
+    "name": "configureRenderer",
+    "signature": "bool configureRenderer(const RenderConfig& config, const std::filesystem::path& vertexPath = {}, const std::filesystem::path& fragmentPath = {})",
+    "file": "framework/include/Application.h",
+    "line": 114,
+    "description": "현재 컨텍스트에서 셰이더·정점 입력을 재생성한다. 실패하면 종료를 요청한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "Application",
     "name": "requestClose",
     "signature": "void requestClose()",
     "file": "framework/include/Application.h",
-    "line": 100,
+    "line": 117,
     "description": "창 닫기 플래그를 설정하여 이벤트 루프의 정상 종료를 요청한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "if(key==GLFW_KEY_ESCAPE && action==GLFW_PRESS) current.requestClose();",
@@ -305,8 +488,9 @@
     "name": "renderScene",
     "signature": "bool renderScene()",
     "file": "framework/include/Application.h",
-    "line": 102,
+    "line": 119,
     "description": "기본 카메라와 현재 프레임버퍼 크기로 Scene을 한 번 렌더링한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "app",
     "example_lines": [
       "// 단일 뷰로 교체할 때는 return current.renderScene();"
@@ -318,8 +502,9 @@
     "name": "renderViews",
     "signature": "bool renderViews(const std::vector<RenderPass>& passes)",
     "file": "framework/include/Application.h",
-    "line": 104,
+    "line": 121,
     "description": "현재 창의 한 컨텍스트에서 여러 카메라 패스를 렌더링한다. 시간은 진행시키지 않는다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "app",
     "example_lines": [
       "return current.renderViews(graphics::PatternSystem::threeViews("
@@ -329,10 +514,11 @@
   {
     "owner": "Application",
     "name": "getFramebufferSize",
-    "signature": "std::array<int,2> getFramebufferSize() const",
+    "signature": "std::array<int, 2> getFramebufferSize() const",
     "file": "framework/include/Application.h",
-    "line": 106,
+    "line": 123,
     "description": "현재 창의 실제 픽셀 크기를 반환한다. DPI 배율이 있으면 창 좌표 크기와 다를 수 있다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "app",
     "example_lines": [
       "const auto size=current.getFramebufferSize();"
@@ -344,8 +530,9 @@
     "name": "getRenderOptions",
     "signature": "RenderOptions& getRenderOptions()",
     "file": "framework/include/Application.h",
-    "line": 108,
+    "line": 126,
     "description": "애플리케이션의 렌더 옵션을 수정할 수 있는 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "app",
     "example_lines": [
       "current.getRenderOptions().depthTest = true;",
@@ -358,8 +545,9 @@
     "name": "getScene",
     "signature": "Scene& getScene()",
     "file": "framework/include/Application.h",
-    "line": 110,
+    "line": 131,
     "description": "애플리케이션이 소유한 CPU Scene의 수정 가능한 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "app",
     "example_lines": [
       "box = current.getScene().addCuboid({1,1,1}, {0,0,0});",
@@ -372,8 +560,9 @@
     "name": "getCamera",
     "signature": "Camera& getCamera()",
     "file": "framework/include/Application.h",
-    "line": 112,
+    "line": 136,
     "description": "기본 카메라의 수정 가능한 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "app",
     "example_lines": [
       "auto& camera = current.getCamera(); camera.position = {4,3,6};",
@@ -386,11 +575,216 @@
     "name": "getWindow",
     "signature": "GLFWwindow* getWindow() const",
     "file": "framework/include/Application.h",
-    "line": 114,
+    "line": 141,
     "description": "GLFW 창의 비소유 포인터를 반환한다. 창 수명 밖에서는 사용할 수 없다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "app",
     "example_lines": [
       "GLFWwindow* window=current.getWindow(); (void)window;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "setConfig",
+    "signature": "bool setConfig(const CuboidModeConfig& config)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 56,
+    "description": "초기 설정만 교체한다. 현재 Scene은 apply를 호출할 때 갱신된다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "getConfig",
+    "signature": "const CuboidModeConfig& getConfig() const",
+    "file": "framework/include/CuboidMode.h",
+    "line": 57,
+    "description": "초기 설정의 읽기 전용 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "setCuboid",
+    "signature": "bool setCuboid(const CuboidConfig& config)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 59,
+    "description": "같은 이름의 육면체 초기 설정을 교체하거나 새로 등록한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "if(!mode->setCuboid(box)) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "bindKey",
+    "signature": "bool bindKey(const CuboidKeyBinding& binding)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 61,
+    "description": "같은 key/action/mods 바인딩을 교체하거나 추가한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "if(!mode->bindKey({GLFW_KEY_RIGHT,GLFW_PRESS,0,graphics::CuboidMode::action(\"box\",command)})) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "unbindKey",
+    "signature": "bool unbindKey(int key, int action = GLFW_PRESS, int mods = 0)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 62,
+    "description": "같은 key/action/mods 바인딩을 해제한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "getBindings",
+    "signature": "const std::vector<CuboidKeyBinding>& getBindings() const",
+    "file": "framework/include/CuboidMode.h",
+    "line": 63,
+    "description": "키 바인딩 목록의 읽기 전용 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "setSetupHandler",
+    "signature": "void setSetupHandler(CuboidHandler handler)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 64,
+    "description": "새 장면 구성 후 실행할 설정 핸들러를 교체한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [
+      "mode->setSetupHandler([](graphics::Application& app,graphics::CuboidMode& mode) {"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "setUpdateHandler",
+    "signature": "void setUpdateHandler(std::function<bool(Application&, CuboidMode&, float)> handler)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 65,
+    "description": "프레임별 응용 갱신 핸들러를 교체한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "apply",
+    "signature": "bool apply(Application& app)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 67,
+    "description": "별도 CPU Scene에 육면체와 모션을 구성하고 성공하면 장면 전체를 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "update",
+    "signature": "bool update(Application& app, float dt)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 68,
+    "description": "등록된 모드 프레임 핸들러를 호출한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "dispatch",
+    "signature": "bool dispatch(Application& app, int key, int action, int mods)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 69,
+    "description": "일치하는 키 바인딩을 실행한다. 없는 키는 정상 처리한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "entity",
+    "signature": "std::optional<EntityId> entity(const std::string& name) const",
+    "file": "framework/include/CuboidMode.h",
+    "line": 70,
+    "description": "이름에 대응하는 마지막 생성 엔티티 ID를 조회한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
+    "case": "editable",
+    "example_lines": [
+      "const auto id=mode.entity(\"box\"); if(!id) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "layer",
+    "signature": "std::optional<LayerId> layer(const std::string& name) const",
+    "file": "framework/include/CuboidMode.h",
+    "line": 71,
+    "description": "이름에 대응하는 초기 생성 레이어 ID를 조회한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "motion",
+    "signature": "std::optional<MotionId> motion(const std::string& name) const",
+    "file": "framework/include/CuboidMode.h",
+    "line": 72,
+    "description": "이름에 대응하는 초기 생성 모션 ID를 조회한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
+    "case": "editable",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "CuboidMode",
+    "name": "action",
+    "signature": "static CuboidHandler action(std::string name, CuboidCommand command)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 74,
+    "description": "실행 시 이름을 해석하므로 초기 설정 재적용 뒤에도 같은 바인딩을 사용한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "editable",
+    "example_lines": [
+      "if(!mode->bindKey({GLFW_KEY_RIGHT,GLFW_PRESS,0,graphics::CuboidMode::action(\"box\",command)})) return false;"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "",
+    "name": "bindCuboidMode",
+    "signature": "bool bindCuboidMode(Application& app, std::shared_ptr<CuboidMode> mode)",
+    "file": "framework/include/CuboidMode.h",
+    "line": 77,
+    "description": "육면체 모드의 init/update/수정키 콜백을 설치한다. 기존 해당 핸들러를 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "return graphics::bindCuboidMode(app,mode);"
     ],
     "callable": true
   },
@@ -399,8 +793,9 @@
     "name": "context",
     "signature": "static Diagnostic& context()",
     "file": "framework/include/Diagnostics.h",
-    "line": 22,
+    "line": 38,
     "description": "진단에 첨부할 현재 파일·줄·호출 경로 문맥의 참조를 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "diagnostics",
     "example_lines": [
       "auto operation=graphics::Diagnostics::context().operation;"
@@ -410,10 +805,11 @@
   {
     "owner": "Diagnostics",
     "name": "locate",
-    "signature": "static void locate(const char* file,int line,const char* operation)",
+    "signature": "static void locate(const char* file, int line, const char* operation)",
     "file": "framework/include/Diagnostics.h",
-    "line": 24,
+    "line": 45,
     "description": "다음 진단에 사용할 소스 파일·줄 번호·호출 경로를 설정한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "diagnostics",
     "example_lines": [
       "graphics::Diagnostics::locate(__FILE__,__LINE__,\"robot initialization\");"
@@ -423,10 +819,11 @@
   {
     "owner": "Diagnostics",
     "name": "failAt",
-    "signature": "static bool failAt(const char* file,int line,PipelineStage stage,const char* api,const std::string& cause, const std::string& action=\"소스 위치와 해당 API의 입력 조건을 확인하세요.\", std::optional<std::uint64_t> object=std::nullopt)",
+    "signature": "static bool failAt(const char* file, int line, PipelineStage stage, const char* api, const std::string& cause, const std::string& action = \"소스 위치와 해당 API의 입력 조건을 확인하세요.\", std::optional<std::uint64_t> object = std::nullopt)",
     "file": "framework/include/Diagnostics.h",
-    "line": 26,
+    "line": 52,
     "description": "주어진 소스 위치와 API 오류를 기록·출력하고 이전 진단 문맥을 복원한 뒤 false를 반환한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "diagnostics",
     "example_lines": [
       "bool accepted=graphics::Diagnostics::failAt(__FILE__,__LINE__,graphics::PipelineStage::Scene,"
@@ -438,8 +835,9 @@
     "name": "stageName",
     "signature": "static const char* stageName(PipelineStage stage)",
     "file": "framework/include/Diagnostics.h",
-    "line": 34,
+    "line": 70,
     "description": "파이프라인 단계 열거값에 대응하는 로그용 문자열을 반환한다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "diagnostics",
     "example_lines": [
       "if(last) std::cerr<<graphics::Diagnostics::stageName(last->stage)<<\": \"<<last->cause;"
@@ -451,8 +849,9 @@
     "name": "configure",
     "signature": "static void configure(DiagnosticOptions value)",
     "file": "framework/include/Diagnostics.h",
-    "line": 50,
+    "line": 98,
     "description": "오류 출력과 단계 추적 출력의 사용 여부를 설정한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "diagnostics",
     "example_lines": [
       "graphics::Diagnostics::configure({true,true});"
@@ -464,8 +863,9 @@
     "name": "lastError",
     "signature": "static const std::optional<Diagnostic>& lastError()",
     "file": "framework/include/Diagnostics.h",
-    "line": 52,
+    "line": 103,
     "description": "마지막으로 기록한 오류의 optional 참조를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "diagnostics",
     "example_lines": [
       "const auto& last=graphics::Diagnostics::lastError();"
@@ -477,8 +877,9 @@
     "name": "clear",
     "signature": "static void clear()",
     "file": "framework/include/Diagnostics.h",
-    "line": 54,
+    "line": 108,
     "description": "마지막 오류 기록을 지운다. 진단 설정과 현재 위치 문맥은 유지한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "diagnostics",
     "example_lines": [
       "graphics::Diagnostics::clear();"
@@ -490,8 +891,9 @@
     "name": "trace",
     "signature": "static void trace(PipelineStage stage, const char* api)",
     "file": "framework/include/Diagnostics.h",
-    "line": 56,
+    "line": 113,
     "description": "추적 옵션이 켜져 있으면 해당 단계·API의 시작을 콘솔에 출력한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "diagnostics",
     "example_lines": [
       "graphics::Diagnostics::trace(graphics::PipelineStage::Scene,\"attach head\");"
@@ -501,10 +903,11 @@
   {
     "owner": "Diagnostics",
     "name": "fail",
-    "signature": "static bool fail(PipelineStage stage, const char* api, const std::string& cause, const std::string& action = \"framework/docs/API_KO.md에서 해당 API의 입력 조건과 반환값을 확인하세요.\", std::optional<std::uint64_t> object = std::nullopt)",
+    "signature": "static bool fail( PipelineStage stage, const char* api, const std::string& cause, const std::string& action = \"framework/docs/API_KO.md에서 해당 API의 입력 조건과 반환값을 확인하세요.\", std::optional<std::uint64_t> object = std::nullopt)",
     "file": "framework/include/Diagnostics.h",
-    "line": 60,
+    "line": 119,
     "description": "현재 진단 문맥에서 원인·조치·객체 ID를 저장하고 출력한 뒤 false를 반환한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "diagnostics",
     "example_lines": [
       "accepted=graphics::Diagnostics::fail(graphics::PipelineStage::Motion,\"walk\",\"주기가 0\",\"양수 주기 지정\");"
@@ -516,8 +919,9 @@
     "name": "transformTexcoords",
     "signature": "inline bool transformTexcoords(Mesh& mesh, const glm::vec2& scale, const glm::vec2& offset, float rotationDegrees = 0)",
     "file": "framework/include/Geometry.h",
-    "line": 18,
+    "line": 20,
     "description": "메시 UV에 배율→회전→이동을 적용한다. 회전 입력 단위는 도다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "||!graphics::transformTexcoords(mesh,{2,2},{0,0},0)) return false;",
@@ -530,8 +934,9 @@
     "name": "generateTexcoords",
     "signature": "inline bool generateTexcoords(Mesh& mesh, const UVOptions& options = UVOptions{})",
     "file": "framework/include/Geometry.h",
-    "line": 36,
+    "line": 44,
     "description": "평면·박스·원통·구 투영 옵션으로 메시 UV를 생성한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!graphics::generateTexcoords(mesh,uv)",
@@ -544,8 +949,9 @@
     "name": "recalculateNormals",
     "signature": "inline void recalculateNormals(Mesh& mesh)",
     "file": "framework/include/Geometry.h",
-    "line": 119,
+    "line": 179,
     "description": "메시의 삼각형 기하로 정점 법선을 다시 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "mesh",
     "example_lines": [
       "graphics::recalculateNormals(mesh);"
@@ -557,8 +963,9 @@
     "name": "meshOutline",
     "signature": "inline std::vector<std::uint32_t> meshOutline(const Mesh& mesh, OutlineMode mode = OutlineMode::FeatureEdges)",
     "file": "framework/include/Geometry.h",
-    "line": 136,
+    "line": 203,
     "description": "메시의 윤곽 모드에 따라 선으로 그릴 정점 인덱스 쌍 목록을 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "mesh",
     "example_lines": [
       "auto edges=graphics::meshOutline(mesh); (void)edges;"
@@ -570,8 +977,9 @@
     "name": "Scene",
     "signature": "Scene()",
     "file": "framework/include/Graphics.h",
-    "line": 34,
+    "line": 36,
     "description": "빈 CPU 장면과 ID·형상 변경 상태를 초기화한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "scene",
     "example_lines": [
       "graphics::Scene scene;"
@@ -583,8 +991,9 @@
     "name": "addGroup",
     "signature": "std::optional<EntityId> addGroup(const Transform3D& transform = Transform3D{})",
     "file": "framework/include/Graphics.h",
-    "line": 36,
+    "line": 38,
     "description": "메시 없는 변환 전용 엔티티를 생성하여 부모·관절 노드로 사용한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "transform",
     "example_lines": [
       "auto root=scene.addGroup();"
@@ -596,8 +1005,9 @@
     "name": "addSphere",
     "signature": "std::optional<EntityId> addSphere(float radius, const glm::vec3& position, unsigned slices = 32, unsigned stacks = 16)",
     "file": "framework/include/Graphics.h",
-    "line": 38,
+    "line": 40,
     "description": "반지름과 분할 수로 구 모델을 생성하고 지정 위치에 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto ball=scene.addSphere(.4f,{2,.4f,0});"
@@ -609,8 +1019,9 @@
     "name": "addCone",
     "signature": "std::optional<EntityId> addCone(float radius, float height, const glm::vec3& position, unsigned slices = 32)",
     "file": "framework/include/Graphics.h",
-    "line": 41,
+    "line": 43,
     "description": "반지름·높이·분할 수로 원뿔을 생성하고 지정 위치에 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto cone=scene.addCone(.4f,1,{3,0,0});"
@@ -622,8 +1033,9 @@
     "name": "setTint",
     "signature": "bool setTint(EntityId id, GlColor color)",
     "file": "framework/include/Graphics.h",
-    "line": 44,
+    "line": 45,
     "description": "엔티티 전체에 곱할 색상 계수를 설정한다. 정점 자체의 색 배열과 구분한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "scene",
     "example_lines": [
       "if(!scene.setTint(*box,{1,.4f,.2f}) || !scene.setVisible(*ball,true)) return false;"
@@ -635,8 +1047,9 @@
     "name": "push_entity",
     "signature": "std::optional<EntityId> push_entity(const Polyhedron& polyhedron, const Transform3D& transform = Transform3D{})",
     "file": "framework/include/Graphics.h",
-    "line": 46,
+    "line": 47,
     "description": "주어진 다면체와 변환을 Scene에 등록하고 새 EntityId를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto first=scene.push_entity(model);"
@@ -650,6 +1063,7 @@
     "file": "framework/include/Graphics.h",
     "line": 49,
     "description": "중심 기준 직육면체를 변 길이와 위치로 생성하여 Scene에 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto box=scene.addCuboid({1,1,1},{0,.5f,0});"
@@ -661,8 +1075,9 @@
     "name": "addRightTetrahedron",
     "signature": "std::optional<EntityId> addRightTetrahedron(const glm::vec3& edgeLengths, const glm::vec3& worldPosition)",
     "file": "framework/include/Graphics.h",
-    "line": 52,
+    "line": 51,
     "description": "세 축의 모서리 길이로 직각 사면체를 생성하여 Scene에 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto tetra=scene.addRightTetrahedron({1,1,1},{-2,0,0});"
@@ -674,8 +1089,9 @@
     "name": "addPyramid",
     "signature": "std::optional<EntityId> addPyramid(const glm::vec3& sideLengths, const glm::vec3& worldPosition)",
     "file": "framework/include/Graphics.h",
-    "line": 55,
+    "line": 53,
     "description": "가로·높이·깊이에 맞는 피라미드를 생성하여 Scene에 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto pyramid=scene.addPyramid({1,1,1},{-3,0,0});"
@@ -687,8 +1103,9 @@
     "name": "setFaceVisible",
     "signature": "bool setFaceVisible(EntityId id, std::size_t faceIndex, bool visible)",
     "file": "framework/include/Graphics.h",
-    "line": 58,
+    "line": 55,
     "description": "해당 엔티티의 한 면을 표시하거나 숨긴다. 컬링 조건과 별개의 가시성 상태다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setFaceVisible(*body,0,true)"
@@ -700,8 +1117,9 @@
     "name": "setFaceCullMode",
     "signature": "bool setFaceCullMode(EntityId id, std::size_t faceIndex, CullMode mode)",
     "file": "framework/include/Graphics.h",
-    "line": 60,
+    "line": 57,
     "description": "해당 면의 앞면/뒷면 제거 정책을 설정한다. 조명 법선과 삼각형 winding을 구분한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "||!scene.setFaceCullMode(*body,0,graphics::CullMode::Back)) return false;"
@@ -713,8 +1131,9 @@
     "name": "setFaceLocalMatrix",
     "signature": "bool setFaceLocalMatrix(EntityId id, std::size_t faceIndex, const glm::mat4& matrix)",
     "file": "framework/include/Graphics.h",
-    "line": 62,
+    "line": 59,
     "description": "해당 면에 적용할 추가 로컬 애니메이션 행렬을 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setFaceLocalMatrix(*body,0,glm::mat4(1))) return false;"
@@ -726,8 +1145,9 @@
     "name": "setFaceVertexColors",
     "signature": "bool setFaceVertexColors(EntityId id, std::size_t faceIndex, const std::vector<GlColor>& colors)",
     "file": "framework/include/Graphics.h",
-    "line": 64,
+    "line": 61,
     "description": "면의 정점별 색 배열을 교체한다. 정점 수와 색 배열 길이를 맞춰야 한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setFaceVertexColors(*id,0,{{1,0,0},{0,1,0},{0,0,1}})) return false;"
@@ -739,8 +1159,9 @@
     "name": "setPosition",
     "signature": "bool setPosition(EntityId id, const glm::vec3& worldPosition)",
     "file": "framework/include/Graphics.h",
-    "line": 67,
+    "line": 63,
     "description": "basis를 바꾸고 setTransform으로 유효성을 확인한다. 부모가 있으면 worldPosition이라는 매개변수 이름과 달리 부모 좌표다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setTransform(*body,pose) || !scene.setPosition(*body,{0,.6f,0})) return false;"
@@ -752,8 +1173,9 @@
     "name": "setSideLengths",
     "signature": "bool setSideLengths(EntityId id, const glm::vec3& sideLengths)",
     "file": "framework/include/Graphics.h",
-    "line": 69,
+    "line": 65,
     "description": "기존 모델의 bounds와 새 크기 비율로 정점·면 피벗을 재계산한다. 모델 수정이므로 geometry revision이 바뀐다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "scene",
     "example_lines": [
       "if(!scene.setSideLengths(*box,{1,2,1}) || !scene.setModel(*second,model)) return false;"
@@ -765,8 +1187,9 @@
     "name": "setTransform",
     "signature": "bool setTransform(EntityId id, const Transform3D& transform)",
     "file": "framework/include/Graphics.h",
-    "line": 71,
+    "line": 67,
     "description": "기존 엔티티의 최종 SRT를 바꾼다. 형상 정점 재생성과 GPU 재업로드는 별개의 작업이다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setTransform(*body,pose) || !scene.setPosition(*body,{0,.6f,0})) return false;"
@@ -778,8 +1201,9 @@
     "name": "setParent",
     "signature": "bool setParent(EntityId id, std::optional<EntityId> parent)",
     "file": "framework/include/Graphics.h",
-    "line": 73,
+    "line": 69,
     "description": "부모 ID가 존재하고 순환이 없는지 확인한 뒤 계층 관계를 바꾼다. 월드 자세 보존 reparent 기능은 아니다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!root||!body||!scene.setParent(*body,*root)) return false;",
@@ -792,8 +1216,9 @@
     "name": "worldMatrix",
     "signature": "std::optional<glm::mat4> worldMatrix(EntityId id) const",
     "file": "framework/include/Graphics.h",
-    "line": 75,
+    "line": 71,
     "description": "부모 체인과 모션 레이어를 합성한다. parent/prefix/local/suffix 순서를 실제 소스와 함께 읽는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "transform",
     "example_lines": [
       "auto world=scene.worldMatrix(*body);"
@@ -805,8 +1230,9 @@
     "name": "faceWorldMatrix",
     "signature": "std::optional<glm::mat4> faceWorldMatrix(EntityId id, std::size_t faceIndex) const",
     "file": "framework/include/Graphics.h",
-    "line": 77,
+    "line": 73,
     "description": "엔티티의 월드 행렬 뒤에 face SRT와 localAnimationMatrix를 합성한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "transform",
     "example_lines": [
       "auto faceWorld=scene.faceWorldMatrix(*body,0);"
@@ -818,8 +1244,9 @@
     "name": "lineWorldMatrix",
     "signature": "std::optional<glm::mat4> lineWorldMatrix(LineId id) const",
     "file": "framework/include/Graphics.h",
-    "line": 79,
+    "line": 75,
     "description": "선의 owner 엔티티를 따라 로컬 끝점을 월드로 옮길 행렬을 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "lines",
     "example_lines": [
       "auto world=scene.lineWorldMatrix(*line);"
@@ -831,8 +1258,9 @@
     "name": "getMotions",
     "signature": "MotionSystem& getMotions()",
     "file": "framework/include/Graphics.h",
-    "line": 81,
+    "line": 78,
     "description": "Scene이 소유한 MotionSystem의 참조를 반환한다. const 오버로드는 읽기 전용이다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "layers",
     "example_lines": [
       "auto& system=scene.getMotions();",
@@ -847,6 +1275,7 @@
     "file": "framework/include/Graphics.h",
     "line": 83,
     "description": "Scene이 소유한 MotionSystem의 참조를 반환한다. const 오버로드는 읽기 전용이다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "layers",
     "example_lines": [
       "auto& system=scene.getMotions();",
@@ -859,8 +1288,9 @@
     "name": "bindEntity",
     "signature": "bool bindEntity(EntityId id, LayerId layer)",
     "file": "framework/include/Graphics.h",
-    "line": 85,
+    "line": 88,
     "description": "엔티티를 기존 모션 레이어에 연결하여 월드 행렬 합성에 반영한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!scene.bindEntity(entity,*layer)) return false;"
@@ -872,8 +1302,9 @@
     "name": "unbindEntity",
     "signature": "bool unbindEntity(EntityId id)",
     "file": "framework/include/Graphics.h",
-    "line": 87,
+    "line": 90,
     "description": "엔티티와 모션 레이어의 연결을 해제한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!scene.unbindEntity(entity)||!system.bindMotion(*layer,std::nullopt)) return false;"
@@ -885,8 +1316,9 @@
     "name": "getEntityLayer",
     "signature": "std::optional<LayerId> getEntityLayer(EntityId id) const",
     "file": "framework/include/Graphics.h",
-    "line": 89,
+    "line": 92,
     "description": "엔티티에 연결된 레이어 ID를 반환한다. 연결이 없으면 빈 optional이다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto binding=scene.getEntityLayer(entity); (void)binding;"
@@ -898,8 +1330,9 @@
     "name": "updateMotions",
     "signature": "bool updateMotions(double deltaSeconds)",
     "file": "framework/include/Graphics.h",
-    "line": 91,
+    "line": 95,
     "description": "Scene의 모션 시스템에 dt(초)를 전달한다. Application 루프에서는 자동 호출된다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.update(.016)||!scene.updateMotions(.016)) return false;"
@@ -911,8 +1344,9 @@
     "name": "setFaceTransform",
     "signature": "bool setFaceTransform(EntityId id, std::size_t faceIndex, const Transform3D& transform, bool independence)",
     "file": "framework/include/Graphics.h",
-    "line": 93,
+    "line": 100,
     "description": "면 변환과 독립 변환 여부를 함께 설정한다. 부모 모델 변환과의 합성 정책을 바꾼다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setFaceTransform(*body,0,facePose,true)"
@@ -924,8 +1358,9 @@
     "name": "addModel",
     "signature": "std::optional<EntityId> addModel(const Model& model, const Transform3D& transform = Transform3D{}, PivotMode pivot = PivotMode::BottomCenter, const glm::vec3& customPivot = glm::vec3(0))",
     "file": "framework/include/Graphics.h",
-    "line": 97,
+    "line": 103,
     "description": "CPU 모델을 Scene에 등록한다. 피벗 모드와 사용자 기준점으로 localBasis를 결정한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "scene",
     "example_lines": [
       "auto second=scene.addModel(model,{},graphics::PivotMode::Preserve);"
@@ -937,8 +1372,9 @@
     "name": "setModel",
     "signature": "bool setModel(EntityId id, const Model& model)",
     "file": "framework/include/Graphics.h",
-    "line": 101,
+    "line": 107,
     "description": "기존 엔티티의 모델을 교체한다. 형상 revision을 갱신한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "scene",
     "example_lines": [
       "if(!scene.setSideLengths(*box,{1,2,1}) || !scene.setModel(*second,model)) return false;"
@@ -950,8 +1386,9 @@
     "name": "setMesh",
     "signature": "bool setMesh(EntityId id, std::size_t meshIndex, const Mesh& mesh)",
     "file": "framework/include/Graphics.h",
-    "line": 103,
+    "line": 109,
     "description": "기존 모델의 지정 메시를 교체한다. 정점·인덱스 등 메시 유효성을 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setMesh(*id,0,mesh)) return false;"
@@ -963,8 +1400,9 @@
     "name": "getMesh",
     "signature": "const Mesh* getMesh(EntityId id, std::size_t meshIndex) const",
     "file": "framework/include/Graphics.h",
-    "line": 105,
+    "line": 111,
     "description": "지정 메시의 읽기 전용 비소유 포인터를 반환한다. 잘못된 ID/인덱스면 nullptr이다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "mesh",
     "example_lines": [
       "const auto* current=scene.getMesh(*id,0); return current!=nullptr;"
@@ -976,8 +1414,9 @@
     "name": "setMeshVertices",
     "signature": "bool setMeshVertices(EntityId id, std::size_t meshIndex, const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& triangles)",
     "file": "framework/include/Graphics.h",
-    "line": 107,
+    "line": 113,
     "description": "메시의 정점과 삼각형 인덱스를 함께 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setMeshVertices(*id,0,{{0,0,0},{1,0,0},{0,0,1}},{0,1,2})) return false;"
@@ -989,8 +1428,9 @@
     "name": "setVertexPosition",
     "signature": "bool setVertexPosition(EntityId id, std::size_t meshIndex, std::size_t vertexIndex, const glm::vec3& position)",
     "file": "framework/include/Graphics.h",
-    "line": 111,
+    "line": 116,
     "description": "메시의 지정 정점 위치를 수정하고 형상 변경을 알린다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setVertexPosition(*id,0,1,{2,0,0})||!scene.setTriangleIndices(*id,0,{0,1,2})) return false;"
@@ -1002,8 +1442,9 @@
     "name": "setTriangleIndices",
     "signature": "bool setTriangleIndices(EntityId id, std::size_t meshIndex, const std::vector<std::uint32_t>& indices)",
     "file": "framework/include/Graphics.h",
-    "line": 114,
+    "line": 118,
     "description": "메시의 삼각형 인덱스 배열을 교체한다. 범위와 세 개 단위 구성을 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setVertexPosition(*id,0,1,{2,0,0})||!scene.setTriangleIndices(*id,0,{0,1,2})) return false;"
@@ -1015,8 +1456,9 @@
     "name": "generateTexcoords",
     "signature": "bool generateTexcoords(EntityId id, std::size_t meshIndex, const UVOptions& options = UVOptions{})",
     "file": "framework/include/Graphics.h",
-    "line": 117,
+    "line": 120,
     "description": "평면·박스·원통·구 투영 옵션으로 메시 UV를 생성한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!graphics::generateTexcoords(mesh,uv)",
@@ -1029,8 +1471,9 @@
     "name": "transformTexcoords",
     "signature": "bool transformTexcoords(EntityId id, std::size_t meshIndex, const glm::vec2& scale, const glm::vec2& offset, float rotationDegrees = 0)",
     "file": "framework/include/Graphics.h",
-    "line": 119,
+    "line": 122,
     "description": "메시 UV에 배율→회전→이동을 적용한다. 회전 입력 단위는 도다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "||!graphics::transformTexcoords(mesh,{2,2},{0,0},0)) return false;",
@@ -1043,8 +1486,9 @@
     "name": "setTexcoords",
     "signature": "bool setTexcoords(EntityId id, std::size_t meshIndex, const std::vector<glm::vec2>& uvs)",
     "file": "framework/include/Graphics.h",
-    "line": 122,
+    "line": 125,
     "description": "메시의 정점별 UV 배열을 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setTexcoords(*id,0,{{0,0},{1,0},{0,1}})"
@@ -1056,8 +1500,9 @@
     "name": "setVertexNormals",
     "signature": "bool setVertexNormals(EntityId id, std::size_t meshIndex, const std::vector<glm::vec3>& normals)",
     "file": "framework/include/Graphics.h",
-    "line": 124,
+    "line": 127,
     "description": "메시의 정점별 조명 법선 배열을 교체한다. 컬링 winding은 바뀌지 않는다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "||!scene.setVertexNormals(*id,0,{{0,-1,0},{0,-1,0},{0,-1,0}})) return false;"
@@ -1069,8 +1514,9 @@
     "name": "setMaterial",
     "signature": "bool setMaterial(EntityId id, std::size_t meshIndex, const Material& material)",
     "file": "framework/include/Graphics.h",
-    "line": 126,
+    "line": 129,
     "description": "메시의 색상·텍스처 등 재질 데이터를 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "if(!scene.setMaterial(*id,0,material)"
@@ -1082,8 +1528,9 @@
     "name": "setOutline",
     "signature": "bool setOutline(EntityId id, std::size_t meshIndex, OutlineMode mode, const std::vector<std::uint32_t>& explicitEdges = std::vector<std::uint32_t>{})",
     "file": "framework/include/Graphics.h",
-    "line": 128,
+    "line": 131,
     "description": "윤곽선 생성 방식과 선택적 명시 인덱스를 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "mesh",
     "example_lines": [
       "||!scene.setOutline(*id,0,graphics::OutlineMode::Explicit,{0,1,1,2,2,0})) return false;"
@@ -1095,8 +1542,9 @@
     "name": "setLocalBasis",
     "signature": "bool setLocalBasis(EntityId id, PivotMode mode, const glm::vec3& customPivot = glm::vec3(0))",
     "file": "framework/include/Graphics.h",
-    "line": 131,
+    "line": 134,
     "description": "피벗 정책과 로컬 기준점을 설정한다. 위치 이동과 메시 자체 크기 변경을 구분한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "if(!scene.setLocalBasis(*body,graphics::PivotMode::Custom,{0,0,0})) return false;"
@@ -1108,8 +1556,9 @@
     "name": "setVisible",
     "signature": "bool setVisible(EntityId id, bool visible)",
     "file": "framework/include/Graphics.h",
-    "line": 133,
+    "line": 136,
     "description": "엔티티의 표시 여부를 바꾼다. 엔티티나 충돌 데이터를 삭제하지 않는다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "scene",
     "example_lines": [
       "if(!scene.setTint(*box,{1,.4f,.2f}) || !scene.setVisible(*ball,true)) return false;"
@@ -1121,8 +1570,9 @@
     "name": "splitFace",
     "signature": "bool splitFace(EntityId id, std::size_t faceIndex)",
     "file": "framework/include/Graphics.h",
-    "line": 135,
+    "line": 138,
     "description": "지정 면을 독립 변환 가능한 면으로 분리한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "||!scene.splitFace(*body,0)||!scene.setFaceSRT(*body,0,facePose)) return false;"
@@ -1134,8 +1584,9 @@
     "name": "setFaceSRT",
     "signature": "bool setFaceSRT(EntityId id, std::size_t faceIndex, const Transform3D& transform)",
     "file": "framework/include/Graphics.h",
-    "line": 137,
+    "line": 140,
     "description": "면의 크기·회전·이동 변환을 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "transform",
     "example_lines": [
       "||!scene.splitFace(*body,0)||!scene.setFaceSRT(*body,0,facePose)) return false;"
@@ -1147,8 +1598,9 @@
     "name": "addLine",
     "signature": "std::optional<LineId> addLine(const glm::vec3& start, const glm::vec3& end, GlColor color, std::optional<EntityId> owner = std::nullopt)",
     "file": "framework/include/Graphics.h",
-    "line": 140,
+    "line": 143,
     "description": "두 끝점의 선을 추가한다. owner가 있으면 해당 엔티티 변환을 따른다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "lines",
     "example_lines": [
       "auto line=scene.addLine({0,0,0},{1,0,0},{1,0,0},owner);"
@@ -1160,8 +1612,9 @@
     "name": "addVector",
     "signature": "std::optional<LineId> addVector(const glm::vec3& origin, const glm::vec3& vector, GlColor color, std::optional<EntityId> owner = std::nullopt)",
     "file": "framework/include/Graphics.h",
-    "line": 143,
+    "line": 146,
     "description": "시작점과 방향/길이 벡터를 선의 두 끝점으로 변환하여 추가한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "lines",
     "example_lines": [
       "auto vector=scene.addVector({0,0,0},{0,1,0},{0,1,0},owner);"
@@ -1171,10 +1624,11 @@
   {
     "owner": "Scene",
     "name": "addBasis",
-    "signature": "std::optional<std::array<LineId, 3>> addBasis( const glm::vec3& origin, const glm::mat3& basisVectors = glm::mat3(1.0f), const glm::vec3& axisLengths = glm::vec3(1.0f), std::optional<EntityId> owner = std::nullopt)",
+    "signature": "std::optional<std::array<LineId, 3>> addBasis(const glm::vec3& origin, const glm::mat3& basisVectors = glm::mat3(1.0f), const glm::vec3& axisLengths = glm::vec3(1.0f), std::optional<EntityId> owner = std::nullopt)",
     "file": "framework/include/Graphics.h",
-    "line": 147,
+    "line": 150,
     "description": "기저 행렬의 열 벡터로 X/Y/Z 선 세 개를 추가하고 LineId 묶음을 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "lines",
     "example_lines": [
       "auto axes=scene.addBasis({0,0,0},glm::mat3(1),{1,1,1},owner);"
@@ -1186,8 +1640,9 @@
     "name": "setVector",
     "signature": "bool setVector(LineId id, const glm::vec3& origin, const glm::vec3& vector)",
     "file": "framework/include/Graphics.h",
-    "line": 152,
+    "line": 155,
     "description": "기존 선을 시작점과 방향/길이 벡터로 갱신한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "lines",
     "example_lines": [
       "if(!line||!vector||!axes||!scene.setVector(*line,{0,0,0},{2,0,0})) return false;"
@@ -1199,8 +1654,9 @@
     "name": "clear",
     "signature": "void clear()",
     "file": "framework/include/Graphics.h",
-    "line": 154,
+    "line": 157,
     "description": "Scene의 모델·선·연결·모션을 초기화한다. 엔티티 ID는 재사용되므로 저장한 ID를 갱신한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "scene",
     "example_lines": [
       "scene.clear(); // 이전 ID는 버리고 다시 populate한다."
@@ -1212,8 +1668,9 @@
     "name": "getIds",
     "signature": "const std::vector<EntityId>& getIds() const",
     "file": "framework/include/Graphics.h",
-    "line": 157,
+    "line": 160,
     "description": "현재 Scene의 엔티티 ID 배열을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "scene",
     "example_lines": [
       "for(auto id:scene.getIds()) {"
@@ -1225,8 +1682,9 @@
     "name": "getComponent",
     "signature": "const Component_Poly* getComponent(EntityId id) const",
     "file": "framework/include/Graphics.h",
-    "line": 159,
+    "line": 165,
     "description": "엔티티 컴포넌트의 비소유 포인터를 반환한다. 유효하지 않은 ID면 nullptr이다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "scene",
     "example_lines": [
       "const auto* component=scene.getComponent(id);"
@@ -1238,8 +1696,9 @@
     "name": "getCubeFaceIds",
     "signature": "const std::vector<FaceId>& getCubeFaceIds() const",
     "file": "framework/include/Graphics.h",
-    "line": 161,
+    "line": 168,
     "description": "직육면체 면 ID 목록을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "scene",
     "example_lines": [
       "const auto& cubes=scene.getCubeFaceIds();"
@@ -1251,8 +1710,9 @@
     "name": "getTetraFaceIds",
     "signature": "const std::vector<FaceId>& getTetraFaceIds() const",
     "file": "framework/include/Graphics.h",
-    "line": 163,
+    "line": 173,
     "description": "사면체 면 ID 목록을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "scene",
     "example_lines": [
       "const auto& tetras=scene.getTetraFaceIds();"
@@ -1264,8 +1724,9 @@
     "name": "getPyramidFaceIds",
     "signature": "const std::vector<FaceId>& getPyramidFaceIds() const",
     "file": "framework/include/Graphics.h",
-    "line": 165,
+    "line": 178,
     "description": "피라미드 면 ID 목록을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "scene",
     "example_lines": [
       "const auto& pyramids=scene.getPyramidFaceIds();"
@@ -1277,8 +1738,9 @@
     "name": "getLines",
     "signature": "const std::vector<Line3D>& getLines() const",
     "file": "framework/include/Graphics.h",
-    "line": 167,
+    "line": 183,
     "description": "Scene의 선 데이터 배열을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "lines",
     "example_lines": [
       "const auto& lines=scene.getLines(); (void)lines;"
@@ -1290,8 +1752,9 @@
     "name": "getGeometryRevision",
     "signature": "std::uint64_t getGeometryRevision() const",
     "file": "framework/include/Graphics.h",
-    "line": 169,
+    "line": 188,
     "description": "렌더러가 GPU 재업로드 필요성을 비교하는 형상 변경 번호를 반환한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "scene",
     "example_lines": [
       "auto revision=scene.getGeometryRevision();"
@@ -1303,8 +1766,9 @@
     "name": "makePolyhedron",
     "signature": "static Polyhedron makePolyhedron(GLShape shape, const glm::vec3& sideLengths = glm::vec3(1.0f))",
     "file": "framework/include/Graphics.h",
-    "line": 175,
+    "line": 196,
     "description": "형상 종류와 변 길이로 CPU 다면체를 만든다. Scene 등록은 별도로 수행한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "geometry",
     "example_lines": [
       "auto cube=graphics::DiagramSystem::makePolyhedron(graphics::GLShape::Cube,{1,1,1});"
@@ -1316,8 +1780,9 @@
     "name": "makeSphere",
     "signature": "static Model makeSphere(float radius, unsigned slices = 32, unsigned stacks = 16)",
     "file": "framework/include/Graphics.h",
-    "line": 178,
+    "line": 198,
     "description": "반지름·분할 수로 CPU 구 메시 모델을 생성한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "geometry",
     "example_lines": [
       "auto sphere=graphics::DiagramSystem::makeSphere(.5f);"
@@ -1329,8 +1794,9 @@
     "name": "makeCone",
     "signature": "static Model makeCone(float radius, float height, unsigned slices = 32)",
     "file": "framework/include/Graphics.h",
-    "line": 180,
+    "line": 200,
     "description": "반지름·높이·분할 수로 CPU 원뿔 모델을 생성한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "geometry",
     "example_lines": [
       "auto cone=graphics::DiagramSystem::makeCone(.5f,1);"
@@ -1342,8 +1808,9 @@
     "name": "validPolyhedron",
     "signature": "static bool validPolyhedron(const Polyhedron& polyhedron)",
     "file": "framework/include/Graphics.h",
-    "line": 182,
+    "line": 202,
     "description": "다면체의 면·정점·인덱스 등 렌더 입력 조건을 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "geometry",
     "example_lines": [
       "bool valid=graphics::DiagramSystem::validPolyhedron(cube);"
@@ -1355,8 +1822,9 @@
     "name": "validTransform",
     "signature": "static bool validTransform(const Transform3D& transform)",
     "file": "framework/include/Graphics.h",
-    "line": 184,
+    "line": 204,
     "description": "변환의 유한성·회전 기저·배율 등 허용 조건을 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "geometry",
     "example_lines": [
       "valid=graphics::DiagramSystem::validTransform(transform)&&valid;"
@@ -1368,8 +1836,9 @@
     "name": "modelMatrix",
     "signature": "static glm::mat4 modelMatrix(const Transform3D& transform)",
     "file": "framework/include/Graphics.h",
-    "line": 186,
+    "line": 206,
     "description": "T(basis)·R·S·T(-localBasis) 순서로 로컬 모델 행렬을 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "geometry",
     "example_lines": [
       "auto matrix=graphics::DiagramSystem::modelMatrix(transform);"
@@ -1381,8 +1850,9 @@
     "name": "faceModelMatrix",
     "signature": "static glm::mat4 faceModelMatrix(const Component_Poly& component, const PlaneFigure& face)",
     "file": "framework/include/Graphics.h",
-    "line": 188,
+    "line": 208,
     "description": "컴포넌트와 면의 변환·독립성 정책에 따라 면 모델 행렬을 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "geometry",
     "example_lines": [
       "auto face=graphics::DiagramSystem::faceModelMatrix(component,component.polyhedron.faces[0]);"
@@ -1394,8 +1864,9 @@
     "name": "validCamera",
     "signature": "static bool validCamera(const Camera& camera)",
     "file": "framework/include/Graphics.h",
-    "line": 206,
+    "line": 225,
     "description": "시점·주목점·up·투영/클립 범위가 유효한 카메라인지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "render",
     "example_lines": [
       "if(!graphics::CameraSystem::validCamera(camera)||width<1||height<1) return false;"
@@ -1407,8 +1878,9 @@
     "name": "viewMatrix",
     "signature": "static glm::mat4 viewMatrix(const Camera& camera)",
     "file": "framework/include/Graphics.h",
-    "line": 208,
+    "line": 227,
     "description": "카메라 시점·주목점·up으로 월드→뷰 행렬을 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "render",
     "example_lines": [
       "auto view=graphics::CameraSystem::viewMatrix(camera);"
@@ -1420,8 +1892,9 @@
     "name": "projectionMatrix",
     "signature": "static glm::mat4 projectionMatrix(const Camera& camera, float aspect)",
     "file": "framework/include/Graphics.h",
-    "line": 210,
+    "line": 229,
     "description": "카메라의 원근/직각 모드와 주어진 aspect로 투영 행렬을 계산한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "render",
     "example_lines": [
       "auto projection=graphics::CameraSystem::projectionMatrix(camera,float(width)/height);"
@@ -1433,8 +1906,9 @@
     "name": "readTextFile",
     "signature": "std::string readTextFile(const std::filesystem::path& path)",
     "file": "framework/include/Graphics.h",
-    "line": 214,
-    "description": "파일을 문자열로 읽고 UTF-8 BOM을 제거한다. 파일을 열지 못하면 빈 문자열을 반환한다.",
+    "line": 233,
+    "description": "지정 경로의 파일을 문자열로 읽는다. 읽기에 실패하면 예외를 전달한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "text",
     "example_lines": [
       "auto contents=graphics::readTextFile(path);"
@@ -1446,8 +1920,9 @@
     "name": "Renderer",
     "signature": "Renderer() = default",
     "file": "framework/include/Graphics.h",
-    "line": 262,
+    "line": 289,
     "description": "GPU 핸들을 0과 미업로드 상태로 준비한다. 실제 GL 생성은 initialize에서 수행한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "render",
     "example_lines": [
       "graphics::Renderer renderer;",
@@ -1460,8 +1935,9 @@
     "name": "Renderer",
     "signature": "Renderer(const Renderer&) = delete",
     "file": "framework/include/Graphics.h",
-    "line": 264,
+    "line": 291,
     "description": "이 자원 소유 타입의 복사 생성/대입을 금지한다. 창·GPU 핸들을 중복 소유하지 않게 한다.",
+    "result": "호출 불가(복사 금지 선언).",
     "case": "render",
     "example_lines": [
       "// 소멸은 스코프 종료로 발생하며, =delete 복사 연산은 호출할 수 없다."
@@ -1473,8 +1949,9 @@
     "name": "operator=",
     "signature": "Renderer& operator=(const Renderer&) = delete",
     "file": "framework/include/Graphics.h",
-    "line": 266,
+    "line": 293,
     "description": "이 자원 소유 타입의 복사 생성/대입을 금지한다. 창·GPU 핸들을 중복 소유하지 않게 한다.",
+    "result": "호출 불가(복사 금지 선언).",
     "case": "render",
     "example_lines": [
       "// 소멸은 스코프 종료로 발생하며, =delete 복사 연산은 호출할 수 없다."
@@ -1484,10 +1961,11 @@
   {
     "owner": "Renderer",
     "name": "initialize",
-    "signature": "bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{}, const std::filesystem::path& fragmentPath = std::filesystem::path{})",
+    "signature": "bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{}, const std::filesystem::path& fragmentPath = std::filesystem::path{}, const RenderConfig& config = RenderConfig{})",
     "file": "framework/include/Graphics.h",
-    "line": 269,
+    "line": 296,
     "description": "현재 OpenGL 3.3 컨텍스트에서 셰이더·프로그램·버퍼를 생성한다. 빈 경로면 내장 GLSL을 사용한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "render",
     "example_lines": [
       "if(!renderer.initialize()) return false;"
@@ -1499,8 +1977,9 @@
     "name": "render",
     "signature": "bool render(const Scene& scene, const Camera& camera, int width, int height, const RenderOptions& options = RenderOptions{})",
     "file": "framework/include/Graphics.h",
-    "line": 271,
+    "line": 300,
     "description": "Scene을 카메라와 전체 화면 크기로 렌더링한다. 유효한 현재 GL 컨텍스트가 필요하다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "render",
     "example_lines": [
       "bool ok=renderer.render(scene,camera,width,height,options);"
@@ -1510,10 +1989,11 @@
   {
     "owner": "Renderer",
     "name": "renderPass",
-    "signature": "bool renderPass(const Scene& scene,const RenderPass& pass,int framebufferWidth,int framebufferHeight)",
+    "signature": "bool renderPass(const Scene& scene, const RenderPass& pass, int framebufferWidth, int framebufferHeight)",
     "file": "framework/include/Graphics.h",
-    "line": 274,
+    "line": 303,
     "description": "viewport·scissor·깊이·컬링·clear를 설정하고 pass 크기로 aspect를 계산해 draw로 전달한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "render",
     "example_lines": [
       "ok=renderer.renderPass(scene,pass,width,height)&&ok;"
@@ -1523,10 +2003,11 @@
   {
     "owner": "Renderer",
     "name": "renderViews",
-    "signature": "bool renderViews(const Scene& scene,const std::vector<RenderPass>& passes,int width,int height)",
+    "signature": "bool renderViews(const Scene& scene, const std::vector<RenderPass>& passes, int width, int height)",
     "file": "framework/include/Graphics.h",
-    "line": 276,
+    "line": 305,
     "description": "프레임 전체를 초기화한 뒤 여러 pass를 순서대로 그린다. 한 Scene과 한 WGL 컨텍스트를 공유한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "render",
     "example_lines": [
       "ok=renderer.renderViews(scene,{pass},width,height)&&ok;"
@@ -1538,8 +2019,9 @@
     "name": "destroy",
     "signature": "void destroy()",
     "file": "framework/include/Graphics.h",
-    "line": 278,
+    "line": 307,
     "description": "GPU 핸들을 삭제하고 캐시를 비운다. 컨텍스트가 유효해야 한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "render",
     "example_lines": [
       "renderer.destroy(); // 현재 컨텍스트가 유효한 정상 종료 경로"
@@ -1551,8 +2033,9 @@
     "name": "abandon",
     "signature": "void abandon()",
     "file": "framework/include/Graphics.h",
-    "line": 280,
+    "line": 310,
     "description": "컨텍스트 실패 후 GL 삭제 호출을 피하고 CPU 핸들/캐시를 비운다. 창 파괴가 컨텍스트 자원을 회수한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "render",
     "example_lines": [
       "renderer.abandon(); // GL 호출이 불가능한 별도 실패 경로: GPU delete를 호출하지 않는다."
@@ -1564,8 +2047,9 @@
     "name": "valid",
     "signature": "bool valid() const",
     "file": "framework/include/GridLayout.h",
-    "line": 11,
+    "line": 12,
     "description": "origin·extent·셀 개수와 frame의 유한성·양수 크기·가역성을 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "grid",
     "example_lines": [
       "if(!grid.valid()) return false;"
@@ -1577,8 +2061,9 @@
     "name": "position",
     "signature": "std::optional<glm::vec3> position(const glm::vec3& ratio) const",
     "file": "framework/include/GridLayout.h",
-    "line": 19,
+    "line": 21,
     "description": "[0,1] 비율을 origin+extent*ratio로 바꾼 뒤 frame으로 월드 위치를 계산한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "auto middle=grid.position({.5f,0,.5f});"
@@ -1590,8 +2075,9 @@
     "name": "cellCenter",
     "signature": "std::optional<glm::vec3> cellCenter(const glm::ivec3& index) const",
     "file": "framework/include/GridLayout.h",
-    "line": 32,
+    "line": 43,
     "description": "0부터 시작하는 셀 인덱스를 해당 셀 중심의 월드 위치로 변환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "auto cell=grid.cellCenter({2,0,3});"
@@ -1603,8 +2089,9 @@
     "name": "relativeSize",
     "signature": "std::optional<glm::vec3> relativeSize(const glm::vec3& ratio) const",
     "file": "framework/include/GridLayout.h",
-    "line": 40,
+    "line": 56,
     "description": "양수 비율과 extent를 곱해 그리드 로컬 크기를 반환한다. frame 회전/배율은 적용하지 않는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "auto size=grid.relativeSize({.1f,.25f,.1f});"
@@ -1614,10 +2101,11 @@
   {
     "owner": "GridLayout",
     "name": "positionInParent",
-    "signature": "std::optional<glm::vec3> positionInParent(const glm::vec3& ratio,const glm::mat4& parentWorld) const",
+    "signature": "std::optional<glm::vec3> positionInParent(const glm::vec3& ratio, const glm::mat4& parentWorld) const",
     "file": "framework/include/GridLayout.h",
-    "line": 51,
+    "line": 77,
     "description": "비율 위치를 월드로 계산한 뒤 parentWorld의 역행렬로 부모 로컬 위치를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "auto local=grid.positionInParent({.5f,0,.5f},glm::mat4(1));"
@@ -1629,8 +2117,9 @@
     "name": "cellAt",
     "signature": "std::optional<glm::ivec3> cellAt(const glm::vec3& world) const",
     "file": "framework/include/GridLayout.h",
-    "line": 62,
+    "line": 102,
     "description": "월드 점을 frame 역변환으로 그리드 셀 인덱스에 대응시킨다. 그리드 밖이면 빈 결과다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "auto index=grid.cellAt(*cell); if(!index) return false;"
@@ -1642,8 +2131,9 @@
     "name": "valid",
     "signature": "bool valid() const",
     "file": "framework/include/Model.h",
-    "line": 47,
+    "line": 51,
     "description": "이미지 너비·높이와 RGBA 바이트 수가 맞는지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "assets",
     "example_lines": [
       "if(!texture.image->valid()) return false;",
@@ -1656,8 +2146,9 @@
     "name": "fromVertices",
     "signature": "static PlaneFigure fromVertices(const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& triangles)",
     "file": "framework/include/Model.h",
-    "line": 88,
+    "line": 92,
     "description": "정점 목록에서 하나의 면 데이터를 만든다. 모델/Scene 등록은 수행하지 않는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "mesh",
     "example_lines": [
       "auto mesh=graphics::PlaneFigure::fromVertices(vertices,{0,1,2});"
@@ -1669,8 +2160,9 @@
     "name": "meshes",
     "signature": "std::vector<Mesh>& meshes()",
     "file": "framework/include/Model.h",
-    "line": 108,
+    "line": 116,
     "description": "모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "mesh",
     "example_lines": [
       "graphics::Model model; model.meshes().push_back(mesh);",
@@ -1683,8 +2175,9 @@
     "name": "meshes",
     "signature": "const std::vector<Mesh>& meshes() const",
     "file": "framework/include/Model.h",
-    "line": 110,
+    "line": 121,
     "description": "모델이 보관한 면/메시 배열의 참조를 반환한다. const 오버로드는 읽기 전용이다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "mesh",
     "example_lines": [
       "graphics::Model model; model.meshes().push_back(mesh);",
@@ -1697,8 +2190,9 @@
     "name": "operator bool",
     "signature": "explicit operator bool() const",
     "file": "framework/include/ModelLoader.h",
-    "line": 24,
+    "line": 31,
     "description": "모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "assets",
     "example_lines": [
       "if (!loaded) { std::cerr << loaded.error; return false; }"
@@ -1710,8 +2204,9 @@
     "name": "operator bool",
     "signature": "explicit operator bool() const",
     "file": "framework/include/ModelLoader.h",
-    "line": 30,
+    "line": 41,
     "description": "모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "assets",
     "example_lines": [
       "if (!texture) { std::cerr << texture.error; return false; }"
@@ -1721,10 +2216,11 @@
   {
     "owner": "AssetLoader",
     "name": "AssetLoader",
-    "signature": "explicit AssetLoader(std::filesystem::path projectRoot=detail::executableDirectory(), FeatureOptions features=FeatureOptions{}) : projectRoot_(std::filesystem::absolute(projectRoot)),features_(features)",
+    "signature": "explicit AssetLoader(std::filesystem::path projectRoot = detail::executableDirectory(), FeatureOptions features = FeatureOptions{}) : projectRoot_(std::filesystem::absolute(projectRoot)), features_(features)",
     "file": "framework/include/ModelLoader.h",
-    "line": 76,
+    "line": 116,
     "description": "프로젝트 루트와 기능 옵션을 보관하고 상대경로 자산 로딩을 준비한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "assets",
     "example_lines": [
       "graphics::AssetLoader loader(\".\",features);"
@@ -1736,8 +2232,9 @@
     "name": "features",
     "signature": "const FeatureOptions& features() const",
     "file": "framework/include/ModelLoader.h",
-    "line": 80,
+    "line": 122,
     "description": "로더의 텍스처 등 기능 사용 옵션을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "assets",
     "example_lines": [
       "const auto& features=loader.features(); (void)features;"
@@ -1747,10 +2244,11 @@
   {
     "owner": "AssetLoader",
     "name": "loadTexture",
-    "signature": "TextureResult loadTexture(const std::filesystem::path& relative,bool flipRows=true) const",
+    "signature": "TextureResult loadTexture(const std::filesystem::path& relative, bool flipRows = true) const",
     "file": "framework/include/ModelLoader.h",
-    "line": 82,
+    "line": 127,
     "description": "프로젝트 상대경로의 이미지를 읽어 TextureResult로 반환한다. 실패 원인은 error에 담는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "assets",
     "example_lines": [
       "auto texture=loader.loadTexture(\"textures/robot.png\");"
@@ -1760,10 +2258,11 @@
   {
     "owner": "AssetLoader",
     "name": "loadObj",
-    "signature": "ModelResult loadObj(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const",
+    "signature": "ModelResult loadObj(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const",
     "file": "framework/include/ModelLoader.h",
-    "line": 87,
+    "line": 136,
     "description": "프로젝트 상대경로의 OBJ를 직접 파싱하여 모델·피벗·경고·오류 결과를 반환한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "assets",
     "example_lines": [
       "auto loaded=loader.loadObj(\"models/robot.obj\",options);"
@@ -1773,10 +2272,11 @@
   {
     "owner": "AssetLoader",
     "name": "loadPrimitive",
-    "signature": "ModelResult loadPrimitive(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const",
+    "signature": "ModelResult loadPrimitive(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const",
     "file": "framework/include/ModelLoader.h",
-    "line": 89,
+    "line": 138,
     "description": "기본 도형 OBJ를 읽는 호환 진입점이다. OBJ 로더로 처리를 위임한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "assets",
     "example_lines": [
       "auto a=loader.loadPrimitive(\"models/cube.obj\");"
@@ -1786,10 +2286,25 @@
   {
     "owner": "AssetLoader",
     "name": "loadModel",
-    "signature": "ModelResult loadModel(const std::filesystem::path& relative,const LoadOptions& options=LoadOptions{}) const",
+    "signature": "ModelResult loadModel(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const",
     "file": "framework/include/ModelLoader.h",
-    "line": 91,
+    "line": 140,
     "description": "모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "assets",
+    "example_lines": [
+      "auto b=loader.loadModel(\"models/robot.obj\");"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "AssetLoader",
+    "name": "loadModel",
+    "signature": "inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative, const LoadOptions& options) const",
+    "file": "framework/include/ModelLoader.h",
+    "line": 146,
+    "description": "모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "assets",
     "example_lines": [
       "auto b=loader.loadModel(\"models/robot.obj\");"
@@ -1801,8 +2316,9 @@
     "name": "append",
     "signature": "bool append(const MotionStep& step)",
     "file": "framework/include/Motion.h",
-    "line": 59,
+    "line": 70,
     "description": "모션 단계 배열의 끝에 유효한 단계를 추가한다. 자동 순차 배치는 then을 사용한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.append(graphics::Motion::linear(move))) return {};",
@@ -1816,8 +2332,9 @@
     "name": "insert",
     "signature": "bool insert(std::size_t index, const MotionStep& step)",
     "file": "framework/include/Motion.h",
-    "line": 61,
+    "line": 72,
     "description": "주어진 인덱스에 모션 단계를 삽입한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.insert(0,fixed)||!motion.replace(0,fixed)||!motion.erase(0)) return {};"
@@ -1826,11 +2343,24 @@
   },
   {
     "owner": "Motion",
+    "name": "insertAction",
+    "signature": "bool insertAction(std::size_t index, MotionAction action, double startSeconds = 0, std::optional<double> durationSeconds = std::nullopt)",
+    "file": "framework/include/Motion.h",
+    "line": 74,
+    "description": "변환 사이의 인덱스에 의미 동작 또는 람다·함수 포인터를 삽입한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "motion",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "Motion",
     "name": "replace",
     "signature": "bool replace(std::size_t index, const MotionStep& step)",
     "file": "framework/include/Motion.h",
-    "line": 63,
+    "line": 77,
     "description": "주어진 인덱스의 모션 단계를 새 단계로 교체한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.insert(0,fixed)||!motion.replace(0,fixed)||!motion.erase(0)) return {};"
@@ -1842,8 +2372,9 @@
     "name": "erase",
     "signature": "bool erase(std::size_t index)",
     "file": "framework/include/Motion.h",
-    "line": 65,
+    "line": 79,
     "description": "주어진 인덱스의 모션 단계를 삭제한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.insert(0,fixed)||!motion.replace(0,fixed)||!motion.erase(0)) return {};"
@@ -1855,8 +2386,9 @@
     "name": "then",
     "signature": "bool then(MotionStep step)",
     "file": "framework/include/Motion.h",
-    "line": 67,
+    "line": 81,
     "description": "모든 앞 단계의 유한 종료 시각을 구한 뒤 새 단계의 시작을 그 뒤로 이동해 순차 실행을 만든다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.then(rotate)) return {};"
@@ -1868,8 +2400,9 @@
     "name": "getSteps",
     "signature": "const std::vector<MotionStep>& getSteps() const",
     "file": "framework/include/Motion.h",
-    "line": 69,
+    "line": 84,
     "description": "등록된 모션 단계 배열을 읽기 전용 참조로 반환한다.",
+    "result": "비소유 참조다. 반환한 Scene/배열/상태의 수명 동안만 사용한다.",
     "case": "motion",
     "example_lines": [
       "const auto& steps=motion.getSteps(); (void)steps;"
@@ -1881,8 +2414,9 @@
     "name": "sample",
     "signature": "std::optional<MotionSample> sample(double seconds) const",
     "file": "framework/include/Motion.h",
-    "line": 71,
-    "description": "절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성하여 MotionSample을 반환한다.",
+    "line": 89,
+    "description": "절대 시간(초)에서 활성 단계의 월드/로컬 행렬을 합성한다. 의미 동작은 실행하지 않는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "motion",
     "example_lines": [
       "auto pose=motion.sample(2.5); if(!pose) return {};"
@@ -1891,11 +2425,36 @@
   },
   {
     "owner": "Motion",
+    "name": "execute",
+    "signature": "std::optional<MotionSample> execute(double seconds) const",
+    "file": "framework/include/Motion.h",
+    "line": 91,
+    "description": "변환을 평가하며 동작을 순서대로 실행한다. 실패한 외부 부수 효과는 복구하지 않는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
+    "case": "motion",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "Motion",
+    "name": "action",
+    "signature": "static MotionStep action(MotionAction action, double startSeconds = 0, std::optional<double> durationSeconds = std::nullopt)",
+    "file": "framework/include/Motion.h",
+    "line": 93,
+    "description": "기존 append/insert/then/replace와 조립하는 비변환 동작 단계를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
+    "case": "motion",
+    "example_lines": [],
+    "callable": true
+  },
+  {
+    "owner": "Motion",
     "name": "fixed",
     "signature": "static MotionStep fixed(const glm::mat4& matrix, TransformSpace space = TransformSpace::World)",
     "file": "framework/include/Motion.h",
-    "line": 73,
+    "line": 96,
     "description": "고정 행렬을 반환하는 모션 단계를 만든다. 합성 공간을 함께 지정한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "motion",
     "example_lines": [
       "auto fixed=graphics::Motion::fixed(glm::mat4(1));"
@@ -1907,8 +2466,9 @@
     "name": "rotation",
     "signature": "static MotionStep rotation(const RotationMotion& config)",
     "file": "framework/include/Motion.h",
-    "line": 76,
+    "line": 98,
     "description": "축·초당 각속도·초기 각도·합성 공간으로 회전 모션 단계를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "motion",
     "example_lines": [
       "auto rotate=graphics::Motion::rotation(spin); rotate.durationSeconds=1;"
@@ -1920,8 +2480,9 @@
     "name": "followPath",
     "signature": "static MotionStep followPath(const PathMotion& config)",
     "file": "framework/include/Motion.h",
-    "line": 78,
+    "line": 100,
     "description": "경로·보간·재생 설정으로 시간에 따른 위치 이동 모션 단계를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "motion",
     "example_lines": [
       "if(!looping.append(graphics::Motion::followPath(path))) return {};"
@@ -1933,8 +2494,9 @@
     "name": "linear",
     "signature": "static MotionStep linear(const LinearMotion& config)",
     "file": "framework/include/Motion.h",
-    "line": 80,
+    "line": 102,
     "description": "시작·끝 위치를 지정 시간 동안 선형보간한다. Once·Loop·PingPong을 지원한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "motion",
     "example_lines": [
       "if(!motion.append(graphics::Motion::linear(move))) return {};"
@@ -1946,8 +2508,9 @@
     "name": "pendulum",
     "signature": "static MotionStep pendulum(const PendulumMotion& config)",
     "file": "framework/include/Motion.h",
-    "line": 82,
+    "line": 104,
     "description": "지정 축에서 offset + amplitude*sin(위상)의 도 단위 회전을 반복한다. 물리 적분은 아니다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "motion",
     "example_lines": [
       "if(!pendulum.append(graphics::Motion::pendulum(sway))) return {};"
@@ -1959,8 +2522,9 @@
     "name": "rootLayer",
     "signature": "static constexpr LayerId rootLayer()",
     "file": "framework/include/Motion.h",
-    "line": 113,
+    "line": 137,
     "description": "삭제할 수 없는 루트 레이어의 ID 0을 반환한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "layers",
     "example_lines": [
       "auto layer=system.pushLayer(graphics::MotionSystem::rootLayer()); if(!layer) return false;",
@@ -1973,11 +2537,30 @@
     "name": "createMotion",
     "signature": "std::optional<MotionId> createMotion(const Motion& motion)",
     "file": "framework/include/Motion.h",
-    "line": 115,
+    "line": 142,
     "description": "모션을 시스템에 등록하고 새 MotionId를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
-      "auto id=system.createMotion(motion); if(!id) return false;"
+      "auto id=system.createMotion(motion); if(!id) return false;",
+      "auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});",
+      "auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "MotionSystem",
+    "name": "createMotion",
+    "signature": "std::optional<MotionId> createMotion(std::initializer_list<MotionStep> steps)",
+    "file": "framework/include/Motion.h",
+    "line": 144,
+    "description": "의미 단계 목록을 검사·조립하여 하나의 모션으로 등록한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
+    "case": "layers",
+    "example_lines": [
+      "auto id=system.createMotion(motion); if(!id) return false;",
+      "auto combined=system.createMotion({graphics::Motion::rotation(orbitConfig), graphics::Motion::rotation(spinConfig)});",
+      "auto moving=system.createMotion({graphics::Motion::followPath(path), graphics::Motion::rotation(spinConfig)});"
     ],
     "callable": true
   },
@@ -1986,8 +2569,9 @@
     "name": "setMotion",
     "signature": "bool setMotion(MotionId id, const Motion& motion)",
     "file": "framework/include/Motion.h",
-    "line": 117,
+    "line": 146,
     "description": "기존 MotionId의 모션 데이터를 교체하고 현재 시각의 샘플을 갱신한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.setMotion(*id,motion)||!system.seekMotion(*id,1)"
@@ -1999,8 +2583,9 @@
     "name": "getMotion",
     "signature": "const MotionState* getMotion(MotionId id) const",
     "file": "framework/include/Motion.h",
-    "line": 119,
+    "line": 148,
     "description": "모션 상태의 읽기 전용 비소유 포인터를 반환한다. 없는 ID면 nullptr이다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "layers",
     "example_lines": [
       "const auto* state=system.getMotion(*id); if(!state) return false;"
@@ -2012,8 +2597,9 @@
     "name": "setMotionPlaying",
     "signature": "bool setMotionPlaying(MotionId id, bool playing)",
     "file": "framework/include/Motion.h",
-    "line": 121,
+    "line": 150,
     "description": "모션의 시간 진행을 정지하거나 재개한다. 모션 기여 자체의 사용 여부와 구분한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "||!system.setMotionPlaying(*id,false)||!system.setMotionEnabled(*id,true)) return false;"
@@ -2025,8 +2611,9 @@
     "name": "setMotionEnabled",
     "signature": "bool setMotionEnabled(MotionId id, bool enabled)",
     "file": "framework/include/Motion.h",
-    "line": 123,
+    "line": 152,
     "description": "모션 샘플의 기여 여부를 설정한다. playing과 별도 상태다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "||!system.setMotionPlaying(*id,false)||!system.setMotionEnabled(*id,true)) return false;"
@@ -2038,8 +2625,9 @@
     "name": "seekMotion",
     "signature": "bool seekMotion(MotionId id, double seconds)",
     "file": "framework/include/Motion.h",
-    "line": 125,
+    "line": 154,
     "description": "지정 시각을 샘플링하고 유효할 때 모션의 시간과 샘플을 함께 바꾼다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.setMotion(*id,motion)||!system.seekMotion(*id,1)"
@@ -2051,8 +2639,9 @@
     "name": "removeMotion",
     "signature": "bool removeMotion(MotionId id)",
     "file": "framework/include/Motion.h",
-    "line": 127,
+    "line": 156,
     "description": "모션을 제거하고 연결된 레이어의 해당 모션 연결을 해제한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;"
@@ -2064,8 +2653,9 @@
     "name": "update",
     "signature": "bool update(double deltaSeconds)",
     "file": "framework/include/Motion.h",
-    "line": 129,
-    "description": "시간 또는 프레임 상태를 진행한다. MotionSystem은 임시 샘플을 모은 뒤 성공한 경우 반영한다.",
+    "line": 158,
+    "description": "모든 샘플 성공 후 시간·샘플을 확정하고 활성 모션의 동작을 실행한다. 동작 실패는 외부 상태를 복구하지 않는다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.update(.016)||!scene.updateMotions(.016)) return false;"
@@ -2077,8 +2667,9 @@
     "name": "clear",
     "signature": "void clear()",
     "file": "framework/include/Motion.h",
-    "line": 131,
+    "line": 160,
     "description": "모션과 레이어를 비우고 루트 레이어를 복구한다. 다음 ID 카운터는 되돌리지 않는다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "layers",
     "example_lines": [
       "system.clear(); // 기존 레이어 연결을 사용하지 않는 별도 예제 종료 지점"
@@ -2090,8 +2681,9 @@
     "name": "pushLayer",
     "signature": "std::optional<LayerId> pushLayer(LayerId parent, const LayerConfig& config = LayerConfig{})",
     "file": "framework/include/Motion.h",
-    "line": 133,
+    "line": 162,
     "description": "유효한 부모 아래 새 자식 레이어를 추가한다. 복사한 임시 맵에 반영한 뒤 swap하여 상태를 확정한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto layer=system.pushLayer(graphics::MotionSystem::rootLayer()); if(!layer) return false;"
@@ -2103,8 +2695,9 @@
     "name": "insertLayer",
     "signature": "std::optional<LayerId> insertLayer(LayerId child, const LayerConfig& config = LayerConfig{})",
     "file": "framework/include/Motion.h",
-    "line": 135,
+    "line": 164,
     "description": "기존 child와 그 parent 사이에 새 레이어를 끼운다. root 위 삽입은 허용하지 않는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto inserted=system.insertLayer(*layer); if(!inserted) return false;"
@@ -2116,8 +2709,9 @@
     "name": "popLayer",
     "signature": "std::optional<LayerId> popLayer(LayerId top)",
     "file": "framework/include/Motion.h",
-    "line": 137,
+    "line": 166,
     "description": "자식이 없는 비root leaf만 제거하고 그 부모 ID를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.popLayer(*layer)||!system.removeMotion(*id)) return false;"
@@ -2129,8 +2723,9 @@
     "name": "removeLayer",
     "signature": "bool removeLayer(LayerId id)",
     "file": "framework/include/Motion.h",
-    "line": 139,
+    "line": 168,
     "description": "root 이외 레이어를 제거하며 자식들을 부모의 해당 위치로 승격한다. 월드 자세 보존을 자동 약속하지 않는다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "||!system.removeLayer(*inserted)) return false;"
@@ -2142,8 +2737,9 @@
     "name": "reparentLayer",
     "signature": "bool reparentLayer(LayerId id, LayerId parent)",
     "file": "framework/include/Motion.h",
-    "line": 141,
+    "line": 170,
     "description": "레이어의 부모를 바꾸며 자신의 자손으로 연결되는 순환을 거부한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.reparentLayer(*layer,graphics::MotionSystem::rootLayer())"
@@ -2155,8 +2751,9 @@
     "name": "setLayer",
     "signature": "bool setLayer(LayerId id, const LayerConfig& config)",
     "file": "framework/include/Motion.h",
-    "line": 143,
+    "line": 172,
     "description": "기존 레이어의 고정 변환·합성 공간·모션 연결·활성 상태를 바꾼다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.setLayer(*layer,config)||!system.bindMotion(*layer,*id)) return false;"
@@ -2168,8 +2765,9 @@
     "name": "getLayer",
     "signature": "const LayerState* getLayer(LayerId id) const",
     "file": "framework/include/Motion.h",
-    "line": 145,
+    "line": 174,
     "description": "레이어 상태의 읽기 전용 비소유 포인터를 반환한다. 없는 ID면 nullptr이다.",
+    "result": "비소유 포인터다. nullptr과 원본 객체 수명·컨테이너 변경을 확인한다.",
     "case": "layers",
     "example_lines": [
       "const auto* layerState=system.getLayer(*layer); (void)layerState;"
@@ -2181,8 +2779,9 @@
     "name": "bindMotion",
     "signature": "bool bindMotion(LayerId layer, std::optional<MotionId> motion)",
     "file": "framework/include/Motion.h",
-    "line": 147,
+    "line": 176,
     "description": "기존 레이어에 모션 ID를 연결하거나 해제한다. 모션과 레이어가 존재하는지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "layers",
     "example_lines": [
       "if(!system.setLayer(*layer,config)||!system.bindMotion(*layer,*id)) return false;",
@@ -2195,8 +2794,9 @@
     "name": "layerMatrices",
     "signature": "std::optional<MotionSample> layerMatrices(LayerId leaf) const",
     "file": "framework/include/Motion.h",
-    "line": 149,
+    "line": 178,
     "description": "leaf까지의 계층을 따라 transform과 motion 샘플을 World/Local 공간에 맞게 parent/local 행렬로 합성한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto matrices=system.layerMatrices(*layer); if(!matrices) return false;"
@@ -2208,8 +2808,9 @@
     "name": "createSpin",
     "signature": "std::optional<MotionId> createSpin(RotationMotion config)",
     "file": "framework/include/Motion.h",
-    "line": 151,
+    "line": 180,
     "description": "로컬 공간 회전 모션을 등록하여 자전에 사용한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto spin=system.createSpin(rotation);"
@@ -2221,37 +2822,12 @@
     "name": "createOrbit",
     "signature": "std::optional<MotionId> createOrbit(RotationMotion config)",
     "file": "framework/include/Motion.h",
-    "line": 153,
+    "line": 182,
     "description": "월드 공간 회전 모션을 등록하여 축 주위 공전에 사용한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "layers",
     "example_lines": [
       "auto orbit=system.createOrbit(rotation);"
-    ],
-    "callable": true
-  },
-  {
-    "owner": "MotionSystem",
-    "name": "createOrbitAndSpin",
-    "signature": "std::optional<MotionId> createOrbitAndSpin(RotationMotion orbit, RotationMotion spin)",
-    "file": "framework/include/Motion.h",
-    "line": 155,
-    "description": "월드 공전과 로컬 자전을 하나의 모션에 등록한다.",
-    "case": "layers",
-    "example_lines": [
-      "auto combined=system.createOrbitAndSpin(rotation,rotation);"
-    ],
-    "callable": true
-  },
-  {
-    "owner": "MotionSystem",
-    "name": "createPathAndSpin",
-    "signature": "std::optional<MotionId> createPathAndSpin(const PathMotion& path, RotationMotion spin)",
-    "file": "framework/include/Motion.h",
-    "line": 157,
-    "description": "경로 이동과 로컬 자전을 하나의 모션에 등록한다.",
-    "case": "layers",
-    "example_lines": [
-      "auto moving=system.createPathAndSpin(path,rotation);"
     ],
     "callable": true
   },
@@ -2262,6 +2838,7 @@
     "file": "framework/include/Patterns.h",
     "line": 10,
     "description": "해당 데이터가 계산에 필요한 유효 범위와 유한성 조건을 만족하는지 반환한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "room",
     "example_lines": [
       "if(!bounds.valid()||!bounds.contains({0,0,0},{.2f,.2f,.2f})) return false;"
@@ -2271,10 +2848,11 @@
   {
     "owner": "Bounds3",
     "name": "contains",
-    "signature": "bool contains(const glm::vec3& point,const glm::vec3& margin=glm::vec3(0)) const",
+    "signature": "bool contains(const glm::vec3& point, const glm::vec3& margin = glm::vec3(0)) const",
     "file": "framework/include/Patterns.h",
     "line": 12,
     "description": "점이 margin만큼 안쪽으로 줄인 Bounds3 안에 있는지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "room",
     "example_lines": [
       "if(!bounds.valid()||!bounds.contains({0,0,0},{.2f,.2f,.2f})) return false;"
@@ -2288,6 +2866,7 @@
     "file": "framework/include/Patterns.h",
     "line": 14,
     "description": "두 축 정렬 경계 상자가 겹치는지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "room",
     "example_lines": [
       "bool overlap=bounds.overlaps(other); (void)overlap;"
@@ -2297,10 +2876,11 @@
   {
     "owner": "DistancePath",
     "name": "setPoints",
-    "signature": "bool setPoints(const std::vector<glm::vec3>& points,bool closed=false)",
+    "signature": "bool setPoints(const std::vector<glm::vec3>& points, bool closed = false)",
     "file": "framework/include/Patterns.h",
-    "line": 22,
+    "line": 28,
     "description": "연속 점들의 누적 거리 경로를 구성한다. closed면 마지막에서 처음으로 연결한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "distance",
     "example_lines": [
       "return path.setPoints({{-2,0,0},{2,0,0},{2,0,3}},false);"
@@ -2312,8 +2892,9 @@
     "name": "length",
     "signature": "double length() const",
     "file": "framework/include/Patterns.h",
-    "line": 24,
+    "line": 31,
     "description": "경로 전체 누적 길이를 반환한다. 경로가 비어 있으면 0이다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "distance",
     "example_lines": [
       "double distance=clock.seconds+path.length()/5;"
@@ -2323,10 +2904,11 @@
   {
     "owner": "DistancePath",
     "name": "sample",
-    "signature": "std::optional<PathPose> sample(double distance,Playback playback=Playback::Loop) const",
+    "signature": "std::optional<PathPose> sample(double distance, Playback playback = Playback::Loop) const",
     "file": "framework/include/Patterns.h",
-    "line": 26,
+    "line": 36,
     "description": "누적 거리와 Once/Loop/PingPong 정책에서 위치·접선·yaw를 샘플링한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "distance",
     "example_lines": [
       "auto pose=path.sample(distance,graphics::Playback::Loop); if(!pose) return false;"
@@ -2338,8 +2920,9 @@
     "name": "advance",
     "signature": "bool advance(double dt)",
     "file": "framework/include/Patterns.h",
-    "line": 32,
+    "line": 43,
     "description": "playing일 때만 누적 시간을 늘린다. dt와 누적 값의 유한성·범위를 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "distance",
     "example_lines": [
       "if(!clock.advance(dt)) return false;"
@@ -2351,8 +2934,9 @@
     "name": "reset",
     "signature": "void reset()",
     "file": "framework/include/Patterns.h",
-    "line": 34,
+    "line": 46,
     "description": "누적 시간을 0으로 되돌리고 재생 상태를 켠다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "distance",
     "example_lines": [
       "clock.reset();"
@@ -2364,8 +2948,9 @@
     "name": "position",
     "signature": "glm::vec3 position(const glm::mat4& roomWorld) const",
     "file": "framework/include/Patterns.h",
-    "line": 41,
+    "line": 58,
     "description": "이탈 전에는 roomWorld로 로컬 중심을 월드로 변환하고 이탈 후에는 worldPosition을 반환한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "room",
     "example_lines": [
       "return scene.setPosition(*box,body.position(roomWorld));"
@@ -2375,10 +2960,11 @@
   {
     "owner": "CollisionSystem",
     "name": "stepRoomBody",
-    "signature": "static bool stepRoomBody(RoomBody& body,const Bounds3& room,const glm::mat4& roomWorld, float dt,bool floorOpen,bool elastic, const glm::vec3& gravity=glm::vec3(0,-9.8f,0), const glm::vec3& angularVelocity=glm::vec3(0))",
+    "signature": "static bool stepRoomBody(RoomBody& body, const Bounds3& room, const glm::mat4& roomWorld, float dt, bool floorOpen, bool elastic, const glm::vec3& gravity = glm::vec3(0, -9.8f, 0), const glm::vec3& angularVelocity = glm::vec3(0))",
     "file": "framework/include/Patterns.h",
-    "line": 57,
+    "line": 79,
     "description": "방 내부에서는 로컬 반사/중력을 계산하고 released 뒤에는 월드 중력으로 적분한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "room",
     "example_lines": [
       "if(!graphics::CollisionSystem::stepRoomBody(body,bounds,roomWorld,.016f,false,false)) return false;"
@@ -2388,10 +2974,11 @@
   {
     "owner": "CollisionSystem",
     "name": "jump",
-    "signature": "static bool jump(CharacterBody& body,float speed)",
+    "signature": "static bool jump(CharacterBody& body, float speed)",
     "file": "framework/include/Patterns.h",
-    "line": 62,
+    "line": 83,
     "description": "접지 상태에서만 위쪽 속도를 설정한다. 공중 입력 거절은 정상적인 false다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "character",
     "example_lines": [
       "bool accepted=graphics::CollisionSystem::jump(body,4); (void)accepted;"
@@ -2401,10 +2988,11 @@
   {
     "owner": "CollisionSystem",
     "name": "stepCharacter",
-    "signature": "static std::optional<CharacterStep> stepCharacter(CharacterBody& body,const Bounds3& stage, const std::vector<Bounds3>& obstacles,float dt,float gravity=9.8f)",
+    "signature": "static std::optional<CharacterStep> stepCharacter(CharacterBody& body, const Bounds3& stage, const std::vector<Bounds3>& obstacles, float dt, float gravity = 9.8f)",
     "file": "framework/include/Patterns.h",
-    "line": 64,
+    "line": 85,
     "description": "수평 이동·장애물/경계 반전·중력·윗면 착지·지지면 이탈을 하위 단계로 계산한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "character",
     "example_lines": [
       "auto result=graphics::CollisionSystem::stepCharacter(body,stage,obstacles,dt);"
@@ -2414,10 +3002,11 @@
   {
     "owner": "CollisionSystem",
     "name": "randomFreeBox",
-    "signature": "static std::optional<Bounds3> randomFreeBox(const Bounds3& area,const glm::vec3& size, const std::vector<Bounds3>& occupied,std::mt19937& random,unsigned attempts=128)",
+    "signature": "static std::optional<Bounds3> randomFreeBox(const Bounds3& area, const glm::vec3& size, const std::vector<Bounds3>& occupied, std::mt19937& random, unsigned attempts = 128)",
     "file": "framework/include/Patterns.h",
-    "line": 67,
+    "line": 89,
     "description": "제한 횟수 안에서 occupied와 겹치지 않는 배치를 찾는다. 난수 엔진의 시드·수명은 호출자가 관리한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "character",
     "example_lines": [
       "auto obstacle=graphics::CollisionSystem::randomFreeBox({{-4,0,-4},{4,2,4}},{1,1,1},occupied,random);"
@@ -2427,10 +3016,11 @@
   {
     "owner": "PatternSystem",
     "name": "conveyorCornerPose",
-    "signature": "static std::optional<PathPose> conveyorCornerPose(double distance,const glm::vec3& start,const glm::vec3& pivot,float radius,float endZ)",
+    "signature": "static std::optional<PathPose> conveyorCornerPose(double distance, const glm::vec3& start, const glm::vec3& pivot, float radius, float endZ)",
     "file": "framework/include/Patterns.h",
-    "line": 77,
+    "line": 102,
     "description": "직선 → 안쪽 코너 중심 원호 → 직선의 거리에서 위치·접선·yaw를 계산한다. 끝에서 처음으로 순환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "distance",
     "example_lines": [
       "auto corner=graphics::PatternSystem::conveyorCornerPose(1,{-2,1,-2},{1,1,-1},1,3);"
@@ -2440,10 +3030,11 @@
   {
     "owner": "PatternSystem",
     "name": "addBox",
-    "signature": "static std::optional<EntityId> addBox(Scene& scene,const glm::vec3& size,const glm::vec3& position, GlColor color,std::optional<EntityId> parent=std::nullopt)",
+    "signature": "static std::optional<EntityId> addBox(Scene& scene, const glm::vec3& size, const glm::vec3& position, GlColor color, std::optional<EntityId> parent = std::nullopt)",
     "file": "framework/include/Patterns.h",
-    "line": 79,
+    "line": 105,
     "description": "양수 크기의 중심 기준 모델을 만들고 부모 로컬 위치·색·부모 관계를 설정한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "grid",
     "example_lines": [
       "return graphics::PatternSystem::addBox(scene,*size,*cell,{.6f,.7f,.8f}).has_value();"
@@ -2453,10 +3044,11 @@
   {
     "owner": "PatternSystem",
     "name": "addPolygon",
-    "signature": "static std::optional<EntityId> addPolygon(Scene& scene,const std::vector<glm::vec3>& points, GlColor color,std::optional<EntityId> parent=std::nullopt)",
+    "signature": "static std::optional<EntityId> addPolygon(Scene& scene, const std::vector<glm::vec3>& points, GlColor color, std::optional<EntityId> parent = std::nullopt)",
     "file": "framework/include/Patterns.h",
-    "line": 82,
+    "line": 108,
     "description": "점 목록으로 단일 다각형 면을 만들고 색·부모 관계와 함께 Scene에 등록한다. 오목 다각형의 자동 분할을 가정하지 않는다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "parts",
     "example_lines": [
       "auto polygon=graphics::PatternSystem::addPolygon(scene,{{0,0,0},{1,0,0},{0,1,0}},{1,1,0},body);"
@@ -2466,10 +3058,11 @@
   {
     "owner": "PatternSystem",
     "name": "addRoom",
-    "signature": "static std::optional<EntityId> addRoom(Scene& scene,const Bounds3& bounds,bool frontOpen=true)",
+    "signature": "static std::optional<EntityId> addRoom(Scene& scene, const Bounds3& bounds, bool frontOpen = true)",
     "file": "framework/include/Patterns.h",
-    "line": 85,
+    "line": 111,
     "description": "여섯 면의 방을 만들고 바깥 winding에 Front cull, 안쪽 조명 법선을 적용한다. face 0..3은 옆벽, 4 천장, 5 바닥이다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "room",
     "example_lines": [
       "auto room=graphics::PatternSystem::addRoom(scene,bounds,true);"
@@ -2479,10 +3072,11 @@
   {
     "owner": "PatternSystem",
     "name": "addJoint",
-    "signature": "static std::optional<EntityId> addJoint(Scene& scene,EntityId parent,const glm::vec3& anchor)",
+    "signature": "static std::optional<EntityId> addJoint(Scene& scene, EntityId parent, const glm::vec3& anchor)",
     "file": "framework/include/Patterns.h",
-    "line": 87,
+    "line": 113,
     "description": "부모에 부착된 transform-only 그룹을 만든다. 표시 메시 크기와 회전 연결 위치를 분리한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "parts",
     "example_lines": [
       "auto joint=graphics::PatternSystem::addJoint(scene,body,{0,.5f,0});"
@@ -2492,10 +3086,11 @@
   {
     "owner": "PatternSystem",
     "name": "rotateJoint",
-    "signature": "static bool rotateJoint(Scene& scene,EntityId joint,const glm::vec3& axis,float degrees)",
+    "signature": "static bool rotateJoint(Scene& scene, EntityId joint, const glm::vec3& axis, float degrees)",
     "file": "framework/include/Patterns.h",
-    "line": 89,
+    "line": 115,
     "description": "연결 위치와 크기를 유지하면서 회전 기저를 변경한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(!joint||!graphics::PatternSystem::rotateJoint(scene,*joint,{1,0,0},30)) return false;"
@@ -2505,10 +3100,11 @@
   {
     "owner": "PatternSystem",
     "name": "follow",
-    "signature": "static bool follow(Scene& scene,EntityId entity,const DistancePath& path,double distance, const glm::vec3& offset=glm::vec3(0),bool orient=true)",
+    "signature": "static bool follow(Scene& scene, EntityId entity, const DistancePath& path, double distance, const glm::vec3& offset = glm::vec3(0), bool orient = true)",
     "file": "framework/include/Patterns.h",
-    "line": 91,
+    "line": 117,
     "description": "DistancePath 샘플을 엔티티 위치와 +Z 기준 Y 회전에 반영한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "distance",
     "example_lines": [
       "if(!graphics::PatternSystem::follow(scene,entity,path,distance)) return false;"
@@ -2518,10 +3114,11 @@
   {
     "owner": "PatternSystem",
     "name": "addNumber",
-    "signature": "static bool addNumber(Scene& scene,unsigned digit,const glm::vec3& position,float height, GlColor color,std::optional<EntityId> parent=std::nullopt)",
+    "signature": "static bool addNumber(Scene& scene, unsigned digit, const glm::vec3& position, float height, GlColor color, std::optional<EntityId> parent = std::nullopt)",
     "file": "framework/include/Patterns.h",
-    "line": 94,
+    "line": 120,
     "description": "0~9를 선분으로 구성한다. 부모 로컬 XY 평면의 표시이며 일반 폰트/텍스트 렌더러는 아니다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(!polygon||!graphics::PatternSystem::addNumber(scene,3,{0,1,0},.2f,{1,1,1},body)) return false;"
@@ -2531,10 +3128,11 @@
   {
     "owner": "PatternSystem",
     "name": "foldFace",
-    "signature": "static bool foldFace(Scene& scene,EntityId entity,std::size_t face,const AxisLine& hinge,float degrees)",
+    "signature": "static bool foldFace(Scene& scene, EntityId entity, std::size_t face, const AxisLine& hinge, float degrees)",
     "file": "framework/include/Patterns.h",
-    "line": 97,
+    "line": 123,
     "description": "지정 회전축을 중심으로 면 로컬 애니메이션 행렬을 계산한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(!graphics::PatternSystem::foldFace(scene,body,0,{{0,.5f,0},{1,0,0}},45)) return false;"
@@ -2544,10 +3142,11 @@
   {
     "owner": "PatternSystem",
     "name": "openFace",
-    "signature": "static bool openFace(Scene& scene,EntityId entity,std::size_t face,float progress, const glm::vec3& displacement,const glm::vec3& topPivot,bool scaleOpen)",
+    "signature": "static bool openFace(Scene& scene, EntityId entity, std::size_t face, float progress, const glm::vec3& displacement, const glm::vec3& topPivot, bool scaleOpen)",
     "file": "framework/include/Patterns.h",
-    "line": 99,
+    "line": 125,
     "description": "진행률 [0,1]로 이동 또는 상단 피벗 Y축 축소를 적용한다. 완전 개방은 숨기고 0 배율 특이행렬을 피한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(!graphics::PatternSystem::openFace(scene,body,0,.5f,{0,1,0},{0,.5f,0},true)) return false;"
@@ -2557,10 +3156,11 @@
   {
     "owner": "PatternSystem",
     "name": "cameraFacingWall",
-    "signature": "static std::optional<std::size_t> cameraFacingWall(const Scene& scene,EntityId room,const Camera& camera)",
+    "signature": "static std::optional<std::size_t> cameraFacingWall(const Scene& scene, EntityId room, const Camera& camera)",
     "file": "framework/include/Patterns.h",
-    "line": 102,
+    "line": 128,
     "description": "시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "parts",
     "example_lines": [
       "auto selected=graphics::PatternSystem::cameraFacingWall(scene,room,camera);"
@@ -2570,10 +3170,11 @@
   {
     "owner": "PatternSystem",
     "name": "openRoomWall",
-    "signature": "static bool openRoomWall(Scene& scene,EntityId room,std::size_t face,float progress)",
+    "signature": "static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float progress)",
     "file": "framework/include/Patterns.h",
-    "line": 104,
+    "line": 130,
     "description": "선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(selected&&!graphics::PatternSystem::openRoomWall(scene,room,*selected,.5f)) return false;"
@@ -2582,24 +3183,12 @@
   },
   {
     "owner": "PatternSystem",
-    "name": "swapModels",
-    "signature": "static bool swapModels(Scene& scene,EntityId first,EntityId second)",
-    "file": "framework/include/Patterns.h",
-    "line": 106,
-    "description": "두 ID의 위치는 유지하고 모델을 교환한다.",
-    "case": "parts",
-    "example_lines": [
-      "if(!graphics::PatternSystem::swapModels(scene,body,*other)) return false;"
-    ],
-    "callable": true
-  },
-  {
-    "owner": "PatternSystem",
     "name": "snakeCells",
     "signature": "static std::vector<glm::ivec3> snakeCells(const glm::ivec3& cells)",
     "file": "framework/include/Patterns.h",
-    "line": 108,
+    "line": 132,
     "description": "셀 격자를 지그재그 순서로 방문하는 정수 인덱스 목록을 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "grid",
     "example_lines": [
       "auto order=graphics::PatternSystem::snakeCells({10,1,10}); (void)order;"
@@ -2609,10 +3198,11 @@
   {
     "owner": "PatternSystem",
     "name": "aligned",
-    "signature": "static bool aligned(float first,float second,float tolerance)",
+    "signature": "static bool aligned(float first, float second, float tolerance)",
     "file": "framework/include/Patterns.h",
-    "line": 110,
+    "line": 134,
     "description": "두 값의 차이가 허용 오차 이하인지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "grid",
     "example_lines": [
       "bool aligned=graphics::PatternSystem::aligned(snapped.x,cell->x,.01f); (void)aligned;"
@@ -2622,10 +3212,11 @@
   {
     "owner": "PatternSystem",
     "name": "snap",
-    "signature": "static glm::vec3 snap(const glm::vec3& point,float spacing)",
+    "signature": "static glm::vec3 snap(const glm::vec3& point, float spacing)",
     "file": "framework/include/Patterns.h",
-    "line": 112,
+    "line": 136,
     "description": "좌표를 양수 간격으로 반올림한다. 실패 시 입력 점을 그대로 유지한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "grid",
     "example_lines": [
       "auto snapped=graphics::PatternSystem::snap(*cell,1);"
@@ -2635,10 +3226,11 @@
   {
     "owner": "PatternSystem",
     "name": "screenOnPlane",
-    "signature": "static std::optional<glm::vec3> screenOnPlane(const Camera& camera,double x,double y, const PickViewport& viewport,const glm::vec3& planePoint,const glm::vec3& normal)",
+    "signature": "static std::optional<glm::vec3> screenOnPlane(const Camera& camera, double x, double y, const PickViewport& viewport, const glm::vec3& planePoint, const glm::vec3& normal)",
     "file": "framework/include/Patterns.h",
-    "line": 114,
+    "line": 138,
     "description": "화면 픽셀을 ray로 바꾸어 평면 교차 위치를 얻는다. 평행/뒤쪽 교차는 빈 결과다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "pick",
     "example_lines": [
       "auto floor=graphics::PatternSystem::screenOnPlane(camera,x,y,viewport,{0,0,0},{0,1,0});"
@@ -2648,10 +3240,11 @@
   {
     "owner": "PatternSystem",
     "name": "moveCamera",
-    "signature": "static bool moveCamera(Camera& camera,const glm::vec3& offset)",
+    "signature": "static bool moveCamera(Camera& camera, const glm::vec3& offset)",
     "file": "framework/include/Patterns.h",
-    "line": 117,
+    "line": 142,
     "description": "시점과 주목점을 동일하게 이동해 시선 방향을 보존한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "if(!graphics::PatternSystem::moveCamera(camera,{.2f,0,0})"
@@ -2661,10 +3254,11 @@
   {
     "owner": "PatternSystem",
     "name": "yawCamera",
-    "signature": "static bool yawCamera(Camera& camera,float degrees)",
+    "signature": "static bool yawCamera(Camera& camera, float degrees)",
     "file": "framework/include/Patterns.h",
-    "line": 119,
+    "line": 144,
     "description": "시점은 고정하고 카메라 로컬 up축을 기준으로 시선을 회전한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "||!graphics::PatternSystem::yawCamera(camera,5)"
@@ -2674,10 +3268,11 @@
   {
     "owner": "PatternSystem",
     "name": "orbitCamera",
-    "signature": "static bool orbitCamera(Camera& camera,const AxisLine& axis,float degrees)",
+    "signature": "static bool orbitCamera(Camera& camera, const AxisLine& axis, float degrees)",
     "file": "framework/include/Patterns.h",
-    "line": 121,
+    "line": 146,
     "description": "월드 축에 대해 시점·주목점·up을 함께 변환한다. 축을 target에 두면 target은 고정된다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "||!graphics::PatternSystem::orbitCamera(camera,{{0,0,0},{0,1,0}},5)"
@@ -2687,10 +3282,11 @@
   {
     "owner": "PatternSystem",
     "name": "zoomCamera",
-    "signature": "static bool zoomCamera(Camera& camera,float factor)",
+    "signature": "static bool zoomCamera(Camera& camera, float factor)",
     "file": "framework/include/Patterns.h",
-    "line": 123,
+    "line": 148,
     "description": "원근은 target까지 거리, 직각은 orthographicHalfExtent를 배율로 바꾼다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [
       "||!graphics::PatternSystem::zoomCamera(camera,.9f)) return false;"
@@ -2700,10 +3296,11 @@
   {
     "owner": "PatternSystem",
     "name": "threeViews",
-    "signature": "static std::vector<RenderPass> threeViews(const Camera& perspective,int width,int height, const RenderOptions& options=RenderOptions{})",
+    "signature": "static std::vector<RenderPass> threeViews(const Camera& perspective, int width, int height, const RenderOptions& options = RenderOptions{})",
     "file": "framework/include/Patterns.h",
-    "line": 125,
+    "line": 150,
     "description": "원근·XZ 평면도·XY 정면도 카메라와 픽셀 영역을 구성한다. 상단 뷰의 up은 -Z다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "parts",
     "example_lines": [
       "auto views=graphics::PatternSystem::threeViews(camera,1100,800); return !views.empty();"
@@ -2713,10 +3310,11 @@
   {
     "owner": "PatternSystem",
     "name": "addWalkingRig",
-    "signature": "static std::optional<JointRig> addWalkingRig(Scene& scene,const GridLayout& bodyGrid)",
+    "signature": "static std::optional<JointRig> addWalkingRig(Scene& scene, const GridLayout& bodyGrid)",
     "file": "framework/include/Patterns.h",
-    "line": 128,
+    "line": 153,
     "description": "그리드 비율로 머리·코·몸통·어깨·엉덩이·팔·다리 계층을 조립하고 ID 묶음을 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "character",
     "example_lines": [
       "auto rig=graphics::PatternSystem::addWalkingRig(scene,grid); if(!rig) return false;"
@@ -2726,10 +3324,11 @@
   {
     "owner": "PatternSystem",
     "name": "poseWalkingRig",
-    "signature": "static bool poseWalkingRig(Scene& scene,const JointRig& rig,const glm::vec3& feet,float yawDegrees, double walkDistance,float speed)",
+    "signature": "static bool poseWalkingRig(Scene& scene, const JointRig& rig, const glm::vec3& feet, float yawDegrees, double walkDistance, float speed)",
     "file": "framework/include/Patterns.h",
-    "line": 130,
+    "line": 155,
     "description": "루트 이동/yaw와 실제 이동 거리 기반 팔다리 반대 위상을 적용한다. 속도는 보행 진폭에 반영한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "character",
     "example_lines": [
       "return graphics::PatternSystem::poseWalkingRig(scene,rig,body.feet,yaw,body.walkDistance,body.speed);"
@@ -2739,10 +3338,11 @@
   {
     "owner": "",
     "name": "screenRay",
-    "signature": "inline std::optional<Ray> screenRay(const Camera& camera,double x,double y,const PickViewport& viewport)",
+    "signature": "inline std::optional<Ray> screenRay(const Camera& camera, double x, double y, const PickViewport& viewport)",
     "file": "framework/include/Picking.h",
-    "line": 20,
+    "line": 24,
     "description": "왼쪽 위 기준 프레임버퍼 픽셀을 카메라 ray로 역투영한다. 영역 밖/잘못된 투영이면 빈 결과다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "pick",
     "example_lines": [
       "auto ray=graphics::screenRay(camera,x,y,viewport);"
@@ -2752,10 +3352,11 @@
   {
     "owner": "",
     "name": "pick",
-    "signature": "inline std::optional<PickResult> pick(const Scene& scene,const Ray& input)",
+    "signature": "inline std::optional<PickResult> pick(const Scene& scene, const Ray& input)",
     "file": "framework/include/Picking.h",
-    "line": 39,
+    "line": 59,
     "description": "ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "pick",
     "example_lines": [
       "auto first=graphics::pick(scene,*ray);",
@@ -2766,14 +3367,71 @@
   {
     "owner": "",
     "name": "pick",
-    "signature": "inline std::optional<PickResult> pick(const Scene& scene,const Camera& camera,double x,double y, const PickViewport& viewport)",
+    "signature": "inline std::optional<PickResult> pick(const Scene& scene, const Camera& camera, double x, double y, const PickViewport& viewport)",
     "file": "framework/include/Picking.h",
-    "line": 82,
+    "line": 156,
     "description": "ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "pick",
     "example_lines": [
       "auto first=graphics::pick(scene,*ray);",
       "auto second=graphics::pick(scene,camera,x,y,viewport);"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "DrawUniformContext",
+    "name": "setUniform",
+    "signature": "bool setUniform(const std::string& name, float value) const",
+    "file": "framework/include/RenderConfig.h",
+    "line": 48,
+    "description": "현재 program의 추가 float uniform을 설정한다. 없는 이름이나 비유한 값은 거부한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "//     return context.setUniform(\"uAmplitude\", .1f);"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "DrawUniformContext",
+    "name": "setUniform",
+    "signature": "bool setUniform(const std::string& name, int value) const",
+    "file": "framework/include/RenderConfig.h",
+    "line": 54,
+    "description": "현재 program의 추가 int/bool/sampler uniform을 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "//     return context.setUniform(\"uAmplitude\", .1f);"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "DrawUniformContext",
+    "name": "setUniform",
+    "signature": "bool setUniform(const std::string& name, const glm::vec3& value) const",
+    "file": "framework/include/RenderConfig.h",
+    "line": 60,
+    "description": "현재 program의 추가 vec3 uniform을 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "//     return context.setUniform(\"uAmplitude\", .1f);"
+    ],
+    "callable": true
+  },
+  {
+    "owner": "DrawUniformContext",
+    "name": "setUniform",
+    "signature": "bool setUniform(const std::string& name, const glm::mat4& value) const",
+    "file": "framework/include/RenderConfig.h",
+    "line": 66,
+    "description": "현재 program의 추가 mat4 uniform을 설정한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
+    "case": "editable",
+    "example_lines": [
+      "//     return context.setUniform(\"uAmplitude\", .1f);"
     ],
     "callable": true
   },
@@ -2784,6 +3442,7 @@
     "file": "framework/include/Transform.h",
     "line": 19,
     "description": "행렬 원소가 유한하고 마지막 행이 아핀 변환 형식인지 검사한다.",
+    "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "math",
     "example_lines": [
       "bool affine=graphics::TransformSystem::validAffine(*t * *r * *s); (void)affine;"
@@ -2797,6 +3456,7 @@
     "file": "framework/include/Transform.h",
     "line": 21,
     "description": "이동 벡터로 아핀 이동 행렬을 만든다. 유효하지 않으면 빈 optional이다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto t=graphics::TransformSystem::translation({1,0,0});"
@@ -2810,6 +3470,7 @@
     "file": "framework/include/Transform.h",
     "line": 23,
     "description": "중심점 주위의 축별 배율 행렬 T(C)·S·T(-C)를 만든다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto s=graphics::TransformSystem::scaling({2,1,1},{0,0,0});"
@@ -2821,8 +3482,9 @@
     "name": "rotation",
     "signature": "static std::optional<glm::mat4> rotation(const AxisLine& axis, double degrees)",
     "file": "framework/include/Transform.h",
-    "line": 26,
+    "line": 25,
     "description": "직선 위 점·축 방향과 도 단위 각도로 축 주위 회전 행렬을 만든다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto r=graphics::TransformSystem::rotation(axis,90);"
@@ -2834,8 +3496,9 @@
     "name": "reflectPoint",
     "signature": "static std::optional<glm::mat4> reflectPoint(const glm::vec3& center)",
     "file": "framework/include/Transform.h",
-    "line": 28,
+    "line": 27,
     "description": "주어진 점을 중심으로 세 축을 반전하는 점 반사 행렬을 만든다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto point=graphics::TransformSystem::reflectPoint({0,0,0});"
@@ -2847,8 +3510,9 @@
     "name": "reflectLine",
     "signature": "static std::optional<glm::mat4> reflectLine(const AxisLine& line)",
     "file": "framework/include/Transform.h",
-    "line": 30,
+    "line": 29,
     "description": "주어진 직선을 기준으로 선 반사 행렬을 만든다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto line=graphics::TransformSystem::reflectLine(axis);"
@@ -2860,8 +3524,9 @@
     "name": "reflectPlane",
     "signature": "static std::optional<glm::mat4> reflectPlane(const glm::vec3& point, const glm::vec3& normal)",
     "file": "framework/include/Transform.h",
-    "line": 32,
+    "line": 31,
     "description": "평면의 점과 법선으로 평면 반사 행렬을 만든다.",
+    "result": "값이 있으면 사용한다. 빈 optional은 실패 또는 선택/교차 결과 없음이다. 정상적인 빈 결과도 있으므로 호출부 조건을 확인한다.",
     "case": "math",
     "example_lines": [
       "auto plane=graphics::TransformSystem::reflectPlane({0,0,0},{1,0,0});"
@@ -2873,8 +3538,9 @@
     "name": "ellipse",
     "signature": "static PathFunction ellipse(const glm::vec3& center, const glm::vec3& axisU, const glm::vec3& axisV)",
     "file": "framework/include/Transform.h",
-    "line": 40,
+    "line": 38,
     "description": "중심과 두 반축 벡터로 매개변수 타원 경로 함수를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto ellipse=graphics::PathSystem::ellipse({0,0,0},{2,0,0},{0,0,1});"
@@ -2886,8 +3552,9 @@
     "name": "circle",
     "signature": "static PathFunction circle(const glm::vec3& center, float radius, const glm::vec3& normal = glm::vec3(0, 1, 0))",
     "file": "framework/include/Transform.h",
-    "line": 43,
+    "line": 40,
     "description": "중심·반지름·평면 법선으로 원 경로 함수를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto circle=graphics::PathSystem::circle({0,0,0},2);",
@@ -2900,8 +3567,9 @@
     "name": "polyline",
     "signature": "static PathFunction polyline(std::vector<glm::vec3> points, bool closed = false)",
     "file": "framework/include/Transform.h",
-    "line": 46,
+    "line": 42,
     "description": "점 목록을 따라가는 꺾은선 경로 함수를 만든다. closed로 순환 여부를 정한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto polyline=graphics::PathSystem::polyline({{0,0,0},{1,0,0},{1,0,1}});"
@@ -2913,8 +3581,9 @@
     "name": "polygon",
     "signature": "static PathFunction polygon(std::vector<glm::vec3> points)",
     "file": "framework/include/Transform.h",
-    "line": 48,
+    "line": 44,
     "description": "마지막 점과 첫 점이 연결되는 닫힌 꺾은선 경로 함수를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto polygon=graphics::PathSystem::polygon({{0,0,0},{1,0,0},{0,0,1}});"
@@ -2926,8 +3595,9 @@
     "name": "rectangle",
     "signature": "static PathFunction rectangle(const glm::vec3& center, const glm::vec3& halfU, const glm::vec3& halfV)",
     "file": "framework/include/Transform.h",
-    "line": 50,
+    "line": 46,
     "description": "중심과 두 반변 벡터로 직사각형 테두리 경로 함수를 만든다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto rectangle=graphics::PathSystem::rectangle({0,0,0},{1,0,0},{0,0,1});"
@@ -2939,8 +3609,9 @@
     "name": "linear",
     "signature": "static double linear(double progress)",
     "file": "framework/include/Transform.h",
-    "line": 53,
+    "line": 48,
     "description": "입력 진행률을 선형 보간 진행률로 반환한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto u=graphics::PathSystem::linear(.25);"
@@ -2952,8 +3623,9 @@
     "name": "smoothStep",
     "signature": "static double smoothStep(double progress)",
     "file": "framework/include/Transform.h",
-    "line": 55,
+    "line": 50,
     "description": "진행률에 3t²-2t³ 완화 곡선을 적용한다.",
+    "result": "반환형과 위 기능 설명을 따른다. 이 호출만으로 Scene 표시나 시간 진행이 자동 발생한다고 가정하지 않는다.",
     "case": "math",
     "example_lines": [
       "auto eased=graphics::PathSystem::smoothStep(u);"
