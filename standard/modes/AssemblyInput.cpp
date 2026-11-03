@@ -184,13 +184,15 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
     std::optional<graphics::EntityId> entity = hit ? std::optional<graphics::EntityId>{hit->entityId} : std::nullopt;
     while (entity) {
         for (const auto& item : state_.nodes)
-            if (item.second.id == *entity && item.second.whole) {
+            if (item.second.id == *entity && item.second.whole &&
+                (state_.selected.empty() || item.second.kind == "group"))
                 state_.selected = item.first;
-                inspect(item.first, out);
-                return;
-            }
         const auto* component = app_.getScene().getComponent(*entity);
         entity = component ? component->parent : std::nullopt;
+    }
+    if (!state_.selected.empty()) {
+        inspect(state_.selected, out);
+        return;
     }
     out << "선택 해제\n";
 }

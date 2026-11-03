@@ -11,8 +11,8 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         require(it != state_.behaviors.end(), "없는 동작입니다: " + a[1]);
         if ((it->effect == Effect::Face || it->effect == Effect::Wall) && node(it->target).mesh) {
             const auto mesh = *node(it->target).mesh;
-            require(app_.getScene().setFaceLocalMatrix(mesh, it->faceIndex, glm::mat4(1)) &&
-                    app_.getScene().setFaceVisible(mesh, it->faceIndex, true), "면 동작 복원 실패.");
+            require(app_.getScene().setFaceLocalMatrix(mesh, it->faceIndex, it->initialFaceMatrix, it->initialFaceSpace) &&
+                    app_.getScene().setFaceVisible(mesh, it->faceIndex, it->initialFaceVisible), "면 동작 복원 실패.");
         }
         state_.behaviors.erase(it);
         return true;
@@ -75,7 +75,7 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         } else if (a.size() == 6) {
             require(a[5] == "local" || a[5] == "world", "공간은 local/world입니다.");
             config.space = a[5] == "local" ? graphics::TransformSpace::Local : graphics::TransformSpace::World;
-            b.positionDriver = config.space == graphics::TransformSpace::World;
+            b.parentSpin = config.space == graphics::TransformSpace::World;
         }
         require(b.motion.append(graphics::Motion::rotation(config)), "회전 동작 생성 실패.");
     } else if (command == "path") {

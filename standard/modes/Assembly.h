@@ -14,6 +14,7 @@ struct Node {
     bool whole = false;
     std::optional<graphics::Bounds3> room;
     std::optional<graphics::JointRig> walker;
+    std::string guideTopic;
 };
 
 enum class Effect { Motion, Face, Wall, Body, Walk, Conveyor };
@@ -23,9 +24,12 @@ struct Behavior {
     graphics::Motion motion;
     double seconds = 0;
     bool playing = true, enabled = true, released = false;
-    bool positionDriver = false;
+    bool positionDriver = false, parentSpin = false;
     graphics::FaceRotationConfig face;
     std::size_t faceIndex = 0;
+    glm::mat4 initialFaceMatrix{1};
+    graphics::FaceAnimationSpace initialFaceSpace = graphics::FaceAnimationSpace::Local;
+    bool initialFaceVisible = true;
     float rate = 1, phase = 0, height = .455f;
     graphics::RoomBody body;
     glm::mat3 releasedRotation{1};
@@ -57,6 +61,7 @@ class Assembly {
     bool dispatch(const Tokens& args, std::ostream& out);
     bool motionCommand(const Tokens& args, std::ostream& out);
     bool objectCommand(const Tokens& args, std::ostream& out);
+    bool hierarchyCommand(const Tokens& args, std::ostream& out);
     bool inputCommand(const Tokens& args, std::ostream& out);
     bool applyPoses(float dt);
     void registerNode(const std::string& name, graphics::EntityId id, bool whole,
@@ -75,6 +80,12 @@ public:
     void clear();
     void add(const std::string& kind, const std::string& name, glm::vec3 position,
              glm::vec3 size = glm::vec3(1));
+    void group(const std::string& name, glm::vec3 position);
+    std::string part(const std::string& kind, const std::string& parent, const std::string& localName,
+                     glm::vec3 position, glm::vec3 size = glm::vec3(1));
+    void srt(const std::string& target, glm::vec3 position, glm::vec3 degrees, float scale);
+    void pivot(const std::string& target, glm::vec3 point, bool keep = true);
+    glm::vec3 center(const std::string& target) const;
     void attach(Behavior behavior);
     void move(const std::string& target, glm::vec3 delta);
     void rotate(const std::string& target, glm::vec3 axis, float degrees);

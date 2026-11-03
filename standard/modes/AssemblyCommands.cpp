@@ -128,7 +128,7 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
         require(a.size() == 2 && !replaying_, "save/load <파일>. 레시피 안에서 파일 명령을 중첩할 수 없습니다.");
         return a[0] == "save" ? save(a[1], out) : load(a[1], out);
     }
-    if (objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
+    if (hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
         return true;
     if (const auto handled = customCommand(*this, a, out))
         return *handled;

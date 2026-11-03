@@ -150,6 +150,16 @@ void Assembly::attach(Behavior behavior) {
         const auto sample = behavior.motion.sample(0);
         require(sample && rigid(sample->parent) && rigid(sample->local), "Motion은 유효한 강체 변환이어야 합니다.");
     }
+    if (behavior.effect == Effect::Face || behavior.effect == Effect::Wall) {
+        const auto& target = node(behavior.target);
+        require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
+        const auto* component = app_.getScene().getComponent(*target.mesh);
+        require(component && behavior.faceIndex < component->polyhedron.faces.size(), "면 번호 범위를 확인하세요.");
+        const auto& face = component->polyhedron.faces[behavior.faceIndex];
+        behavior.initialFaceMatrix = face.localAnimationMatrix;
+        behavior.initialFaceSpace = face.animationSpace;
+        behavior.initialFaceVisible = face.visible;
+    }
     state_.behaviors.push_back(std::move(behavior));
 }
 

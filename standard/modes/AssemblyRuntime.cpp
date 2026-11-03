@@ -29,8 +29,17 @@ bool Assembly::applyPoses(float dt) {
                 continue;
             const auto sample = b.motion.sample(b.seconds);
             require(sample.has_value(), "Motion 샘플 실패: " + b.name);
-            require(motion.append(graphics::Motion::fixed(sample->parent, graphics::TransformSpace::World)) &&
-                    motion.append(graphics::Motion::fixed(sample->local, graphics::TransformSpace::Local)),
+            const auto& rest = node(name).rest;
+            const auto pivot = glm::translate(glm::mat4(1), rest.localBasis);
+            const auto inversePivot = glm::translate(glm::mat4(1), -rest.localBasis);
+            auto parent = sample->parent, local = sample->local;
+            if (b.parentSpin) {
+                const auto rotation = glm::mat4(rest.rotation);
+                local = glm::transpose(rotation) * parent * rotation;
+                parent = glm::mat4(1);
+            }
+            require(motion.append(graphics::Motion::fixed(parent, graphics::TransformSpace::World)) &&
+                    motion.append(graphics::Motion::fixed(pivot * local * inversePivot, graphics::TransformSpace::Local)),
                     "Motion 합성 실패: " + b.name);
         }
         return motion;
@@ -56,11 +65,17 @@ bool Assembly::applyPoses(float dt) {
                 {-4, 1, -2}, {2.2f, 1, -1.2f}, .8f, 3);
             require(pose.has_value(), "컨베이어 경로 계산 실패.");
             auto rest = target.rest;
-            rest.basis += pose->position + glm::vec3(0, b.height, 0);
-            rest.rotation = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(pose->yawDegrees), glm::vec3(0, 1, 0))) * rest.rotation;
+            const auto turn = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(pose->yawDegrees), glm::vec3(0, 1, 0)));
+            rest.basis = pose->position + glm::vec3(0, b.height, 0) + turn * rest.basis;
+            rest.rotation = turn * rest.rotation;
             require(graphics::AnimationSystem::poseHierarchy(scene, {{target.id, rest, motionFor(b.target)}}, 0), "컨베이어 자세 적용 실패.");
         } else if (b.effect == Effect::Face || b.effect == Effect::Wall) {
             require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
+            if (!b.enabled) {
+                require(scene.setFaceLocalMatrix(*target.mesh, b.faceIndex, b.initialFaceMatrix, b.initialFaceSpace) &&
+                        scene.setFaceVisible(*target.mesh, b.faceIndex, b.initialFaceVisible), "면 기준값 복원 실패.");
+                continue;
+            }
             if (b.effect == Effect::Face) {
                 auto config = b.face;
                 config.degrees = b.enabled ? b.seconds * b.rate : 0;
@@ -138,13 +153,18 @@ bool Assembly::applyPoses(float dt) {
             require(graphics::PatternSystem::poseWalkingRig(scene, *target.walker, b.character.feet, yaw,
                 b.character.walkDistance, b.character.speed), "보행 자세 적용 실패.");
             for (const auto& part : state_.nodes) {
-                if (part.first.compare(0, b.target.size() + 1, b.target + ".") != 0)
+                const auto id = part.second.id;
+                const auto& rig = *target.walker;
+                if (id != rig.head && id != rig.shoulders[0] && id != rig.shoulders[1] && id != rig.hips[0] && id != rig.hips[1])
                     continue;
-                auto rest = scene.getComponent(part.second.id)->transform;
-                rest.basis += part.second.rest.basis - part.second.initial.basis;
-                rest.rotation *= glm::transpose(part.second.initial.rotation) * part.second.rest.rotation;
+                auto rest = scene.getComponent(id)->transform;
+                const auto matrix = graphics::DiagramSystem::modelMatrix(rest) *
+                    glm::inverse(graphics::DiagramSystem::modelMatrix(part.second.initial)) *
+                    graphics::DiagramSystem::modelMatrix(part.second.rest);
                 rest.scale = part.second.rest.scale;
                 rest.localBasis = part.second.rest.localBasis;
+                rest.rotation = glm::mat3(matrix) / rest.scale.x;
+                rest.basis = glm::vec3(matrix[3]) + rest.rotation * (rest.scale * rest.localBasis);
                 const std::vector<graphics::JointAnimation> edited{{part.second.id, rest, motionFor(part.first)}};
                 require(graphics::AnimationSystem::poseHierarchy(scene, edited, 0), "보행과 부품 동작 합성 실패.");
             }

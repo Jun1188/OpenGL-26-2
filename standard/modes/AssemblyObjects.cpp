@@ -24,7 +24,8 @@ void Assembly::registerPerson(const std::string& name, const graphics::HumanoidR
 void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 position, glm::vec3 size) {
     require(!name.empty() && name.size() <= 64 && !state_.nodes.count(name), "사용하지 않은 객체 이름(1~64바이트)이 필요합니다.");
     for (unsigned char c : name)
-        require(c > 32 && c != '.' && c != '"' && c != '#' && c != '\\', "이름에는 공백·점·따옴표·#·역슬래시를 쓰지 마세요.");
+        require(c > 32 && c != '"' && c != '#' && c != '\\', "이름에는 공백·따옴표·#·역슬래시를 쓰지 마세요.");
+    require(name.front() != '.' && name.back() != '.' && name.find("..") == std::string::npos, "이름의 각 구간은 비어 있으면 안 됩니다.");
     require(state_.nodes.size() < 1000, "객체/부품 이름 1000개 한도입니다.");
     require(graphics::detail::finiteVector(position) && graphics::detail::finiteVector(size) && glm::all(glm::greaterThan(size, glm::vec3(0))), "위치와 양수 크기를 확인하세요.");
     const bool sized = kind == "box" || kind == "pyramid" || kind == "sphere" || kind == "cone";
@@ -66,6 +67,7 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
         rest.basis = position;
         require(scene.setTransform(rig.root, rest), "탱크 위치 설정 실패.");
         registerNode(name, rig.root, true, kind);
+        node(name).guideTopic = "tank-preset";
         registerNode(name + ".central", rig.central, false);
         for (std::size_t i = 0; i < 2; ++i) {
             const auto prefix = name + (i == 0 ? ".left" : ".right");
