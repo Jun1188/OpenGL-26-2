@@ -136,7 +136,7 @@ public:
                          const glm::vec3& topPivot, bool scaleOpen);
     /// [API] 시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.
     static std::optional<std::size_t> cameraFacingWall(const Scene& scene, EntityId room, const Camera& camera);
-    /// [API] 선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
+    /// [API] 선택 옆벽의 원래 중심을 기준으로 모든 축을 균등 축소/복원하며 완전 개방 시 숨긴다.
     static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float progress);
     /// [API] 셀 격자를 지그재그 순서로 방문하는 정수 인덱스 목록을 만든다.
     static std::vector<glm::ivec3> snakeCells(const glm::ivec3& cells);
