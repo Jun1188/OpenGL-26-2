@@ -54,6 +54,15 @@ camera pose 0 5 9 0 1 0 0 1 0</code></pre>
       <h3>저장</h3>
       <pre><code>save "examples/assembly/exam.assembly"</code></pre>
       <p>저장 파일에는 입력한 명령과 현재 편집값이 들어갑니다. 저장 위치의 절대 경로가 콘솔에 나옵니다. 애니메이션의 현재 시각이나 물리 속도는 저장되지 않으므로, 다시 불러오면 처음 상태부터 다시 시작합니다.</p>
+      <div class="note">
+        <p><strong>저장 위치를 확인하세요.</strong> <code>save</code>의 상대 경로는 실행할 때의 작업 폴더를 기준으로 합니다.</p>
+        <ul>
+          <li>Visual Studio에서 F5로 실행하면 작업 폴더가 <code>standard/</code>입니다. 파일이 소스 폴더에 저장되므로 <code>x64</code>를 지워도 안전합니다.</li>
+          <li><code>x64\Debug\standard.exe</code>를 더블클릭해 실행하면 작업 폴더가 <code>x64\Debug</code>입니다. 이때 저장한 파일은 <code>x64\Debug\examples\...</code>에 생기므로 <strong><code>x64</code>를 지우면 함께 사라집니다.</strong> 다시 빌드할 때도 소스 쪽 파일로 덮어써질 수 있습니다.</li>
+          <li>exe를 직접 실행했다면 절대 경로로 저장합니다. 예: <code>save "C:/Users/User/Desktop/Git/GitHub/OpenGL-26-2/standard/examples/assembly/exam.assembly"</code></li>
+        </ul>
+        <p>저장한 뒤 콘솔에 출력된 경로가 <code>\x64\</code>가 아닌 소스 폴더인지 확인하세요.</p>
+      </div>
     </li>
     <li>
       <h3>모드 확정</h3>
@@ -151,6 +160,7 @@ const char* commands[] = {
     <tr><td>회전 중심이 이상하다</td><td><code>pivot 대상 center keep</code>으로 중심을 맞추거나, 회전 중심 자리에 <code>joint</code>를 두고 그 아래에 부품을 붙인다.</td></tr>
     <tr><td>면 번호를 모르겠다</td><td><code>surface 대상 all</code>이 면별 정점과 삼각형을 출력한다. 육면체는 0 앞, 1 뒤, 2 왼쪽, 3 오른쪽, 4 위, 5 아래다.</td></tr>
     <tr><td>바닥을 닫았는데 공이 안 돌아온다</td><td>이미 빠진 객체는 돌아오지 않는 것이 정상이다. <kbd>Ctrl</kbd>+<kbd>F5</kbd>나 <code>load</code>로 다시 만든다.</td></tr>
+    <tr><td>저장한 레시피가 사라졌다</td><td>exe를 직접 실행해 <code>x64\Debug</code>에 저장한 뒤 <code>x64</code>를 지웠거나 다시 빌드한 경우다. 소스 폴더(<code>standard/examples/assembly/</code>)에 저장하고, 저장 후 출력된 경로를 확인한다.</td></tr>
     <tr><td>C++를 고쳤는데 그대로다</td><td><kbd>Ctrl</kbd>+<kbd>F5</kbd>는 레시피만 다시 읽는다. C++ 변경은 Visual Studio에서 다시 빌드해야 반영된다.</td></tr>
   </table>
   <p>더 읽을 문서: <a href="../document.html?doc=docs/assembly/USER_GUIDE.md">0번 시작 안내</a> · <a href="../document.html?doc=docs/assembly/REQUIREMENT_AUDIT.md">실습별로 명령만으로 되는 범위</a> · <a href="../document.html?doc=docs/assembly/FEATURE_CONTAINERS.md">기존 실습 조합</a> · <a href="EXAM_IMPLEMENTATION_ORDER.html">처음부터 구현하는 순서</a></p>
