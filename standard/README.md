@@ -1,4 +1,6 @@
-﻿# standard: 모드별 입력·피킹·실습 패턴
+﻿[브라우저 전체 문서 목차](index.html) · [Markdown 미리보기](document.html?doc=README.md)
+
+# standard: 모드별 입력·피킹·실습 패턴
 
 2026-11-03. Windows x64, C++17, OpenGL 3.3 Core. 빌드·테스트·앱 실행은 사용자가 수행한다.
 

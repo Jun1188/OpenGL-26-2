@@ -300,6 +300,9 @@ def main():
           '- 실제 소스 블록은 문서가 속한 framework 사본에서 다시 읽는다. 선언 줄 번호와 JSON도 갱신했다.\n' +
           '- 호출 구문 목록은 제한된 정적 연결이며 오버로드·동적 호출을 완전히 해석하지 않는다.\n' +
           '- 빌드·테스트·브라우저·IDE hover 확인은 사용자에게 맡긴다.\n')
+    # Preserve the current assembly API and regenerate offline document navigation.
+    import runpy
+    runpy.run_path(str(ROOT / 'tools/Update-StandardDocs.py'))['main']()
     print('Refreshed', count, 'API declarations in 3 document locations, plus embedded source blocks.')
 
 

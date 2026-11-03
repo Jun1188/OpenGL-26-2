@@ -11,6 +11,7 @@ spec=importlib.util.spec_from_file_location('guide',ROOT/'tools/Write-CodeGuide.
 guide=importlib.util.module_from_spec(spec);spec.loader.exec_module(guide)
 PARSER=Parser(Language(tree_sitter_cpp.language()))
 DESCRIPTIONS={
+'setFaceFrame':'면의 별도 affine 변환 프레임을 설정한다. 없는 메시/면 또는 유효하지 않은 affine 행렬이면 false를 반환한다. 추가 면 로컬 모션과 합성한다.',
 'addPolygon':'점 목록으로 단일 다각형 면을 만들고 색·부모 관계와 함께 Scene에 등록한다. 오목 다각형의 자동 분할을 가정하지 않는다.',
 'lineWorldMatrix':'선의 owner 엔티티를 따라 로컬 끝점을 월드로 옮길 행렬을 반환한다.',
 'setInitHandler':'장면 초기화 콜백을 등록한다. run의 창·렌더러 초기화 후 한 번 호출하며 false면 실행을 종료한다.',
