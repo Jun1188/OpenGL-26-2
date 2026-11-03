@@ -1,0 +1,51 @@
+﻿# 모든1~22 모드를 한 장면에 배치. 성능/시각 확인은 사용자 수행.
+clear
+feature add m01 1
+move m01 0 0 0
+feature add m02 2
+move m02 10 0 0
+feature add m03 3
+move m03 20 0 0
+feature add m04 4
+move m04 30 0 0
+feature add m05 5
+move m05 40 0 0
+feature add m06 6
+move m06 0 0 10
+feature add m07 7
+move m07 10 0 10
+feature add m08 8
+move m08 20 0 10
+feature add m09 9
+move m09 30 0 10
+feature add m10 10
+move m10 40 0 10
+feature add m11 11
+move m11 0 0 20
+feature add m12 12
+move m12 10 0 20
+feature add m13 13
+move m13 20 0 20
+feature add m14 14
+move m14 30 0 20
+feature add m15 15
+move m15 40 0 20
+feature add m16 16
+move m16 0 0 30
+feature add m17 17
+move m17 10 0 30
+feature add m18 18
+move m18 20 0 30
+feature add m19 19
+move m19 30 0 30
+feature add m20 20
+move m20 40 0 30
+feature add m21 21
+move m21 0 0 40
+feature add m22 22
+move m22 10 0 40
+feature focus none
+feature camera none
+camera pose 45 42 75 20 0 20 0 1 0
+camera clip 0.1 200
+view 1

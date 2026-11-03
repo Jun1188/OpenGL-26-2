@@ -207,3 +207,13 @@ callback은 받은 기준 SRT를 합성하고 Scene을 유효하게 유지해야
 Effect::Input과 Behavior.key/mouse/cursor/focus는 입력 전용 확장점이다. key/mouse/cursor는 처리했으면 true, 전달할 때 false를 반환한다. focus는 모든 활성 훅에 알린다. 입력 전용 동작은 자체 위치 제어 소유권을 잡지 않는다. disabled는 이벤트를 받지 않고 play는 입력 비활성화가 아니다.
 
 기본 release/focus 해제 → C++ 활성 입력 훅 → 일반 바인딩/편집/피킹 순서다. 구성 변경은 토폴로지 번호를 증가시켜 이전 목록의 후속 이벤트 실행을 중단한다. 예외는 갱신을 정지하고 기본 hold/drag를 해제한다. 콜백 내부의 외부 부수효과까지 되돌리지는 않는다. 구현 예와 수명 조건은 CODE_GUIDE.md를 따른다.
+
+## 1~22 기능 컨테이너와 핫로드 추가
+
+feature add/port/snapshot/list/parts/focus/camera/play/enable/reset/key, hotload/reload, diagnose를 지원한다. 상세 계약은 FEATURE_CONTAINERS.md와 EDIT_DEBUG_GUIDE.md를 따른다. 최대64개 인스턴스/포트이며 기존 이름1000개 한도와 함께 적용한다.
+
+각 컨테이너는 원본 실습 상태/CPU Scene/카메라/옵션을 보관하고 하나의 Application 안에서 RAII로 교환한다. 외부 조립 Scene을 지우지 않는다. 같은 프로그램을 공유하는 라이브 포트는 update/Scene.updateMotions를 한 번만 실행한다. 원본 자세는 face.transformFrame, 추가 편집은 그룹 SRT/face local motion으로 분리하여 렌더·피킹·법선에 함께 반영한다. Scene::setFaceFrame은 형상 재업로드 없이 이 프레임을 갱신한다.
+
+라이브 포트의 형상/면 속성은 원본 소유다. 직접 편집은 snapshot으로 독립 복사한다. 공통 color/show는 원본 색/표시에 조립용 배율/가시성 층을 유지한다. 충돌은 각 컨테이너 내부에 있으며 다른 컨테이너 물리와 자동 통합하지 않는다. 공통 월드 물리는 기존 Assembly Body/Walk 기능을 사용한다.
+
+Ctrl+F5는 고정 모드에서도 조립 작업공간으로 들어가는 전용 키다. 기존 숫자/F키 고정 규칙과 구분한다. 원본 실습 안에서는 Ctrl+F5 재귀 전달을 막는다. hotload/load 파일은 외부 레시피이며 C++ 함수 구현을 실행 중 재컴파일하지 않는다. guide는 등록된55개 가이드와 별칭의 실제 위치/예시/진단 절차를 제공한다.

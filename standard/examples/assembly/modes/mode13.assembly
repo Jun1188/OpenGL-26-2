@@ -1,0 +1,6 @@
+﻿# 모드13 원본 상태를 기능 컨테이너로 조립
+clear
+feature add sample 13
+feature focus sample
+feature camera sample
+view 1

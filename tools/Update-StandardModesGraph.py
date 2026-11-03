@@ -75,8 +75,9 @@ def main():
         if 'framework' in rel.parts and rel.parts[0] != 'framework':
             continue
         files.append(path)
-    # Include the two owning standard copies changed in this task, rather than every SDK distribution.
-    files += [ROOT / 'standard/framework/include/Picking.h', ROOT / 'standard/framework/detail/Application.cpp']
+    # Include the owning standard API copies changed in this task, rather than every SDK distribution.
+    files += [ROOT / 'standard/framework/include/Picking.h', ROOT / 'standard/framework/detail/Application.cpp',
+              ROOT / 'standard/framework/include/Graphics.h', ROOT / 'standard/framework/detail/Scene.cpp']
     files = sorted(set(files))
     extraction = extract(files, cache_root=OUT, root=ROOT)
     node_sources = {n['id']: n.get('source_file', '').replace('\\', '/') for n in extraction['nodes']}
