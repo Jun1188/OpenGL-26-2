@@ -46,7 +46,7 @@ void Assembly::help(std::ostream& out) const {
         << "move/position <이름> X Y Z | rotate <이름> x/y/z 도 | scale <이름> 값 | parent <자식> <부모/none>\n"
         << "spin <id> <대상> 축 도/초 | path <id> <대상> 1~6 초 | pendulum <id> <대상> 축 진폭 초\n"
         << "linear <id> <대상> DX DY DZ 초 [once/loop/pingpong] | orbit <id> <대상> 축 도/초 중심3\n"
-        << "face <id> <대상> 면 hinge/spin/orbit 축 도/초 [모서리] | wall <id> <방> 면0~3 초\n"
+        << "face <id> <대상> 면 spin/orbit 축 도/초 또는 face <id> <대상> 면 hinge 모서리 도/초 | wall <id> <방> 면0~3 초\n"
         << "physics <id> <상자> <방> | walk <id> <walker> <방> 속도 | jump <보행id> 속도\n"
         << "bind RIGHT hold \"move hero 1 0 0\" | bind J press \"jump walking 5.5\" | unbind RIGHT\n"
         << "play/enable <id> on/off | seek <id> 초 | remove <id> | pause on/off | view 1/3\n"
@@ -59,10 +59,32 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
     std::string topic = requested;
     if (const auto found = state_.nodes.find(topic); found != state_.nodes.end()) {
         inspect(topic, out);
-        topic = found->second.kind == "joint" || found->second.kind == "part" ? "motion" : "objects";
+        std::optional<graphics::EntityId> id = found->second.id;
+        topic = "objects";
+        while (id) {
+            bool matched = false;
+            for (const auto& item : state_.nodes) {
+                if (item.second.id == *id && item.second.whole) {
+                    const auto& kind = item.second.kind;
+                    if (kind == "humanoid" || kind == "swing" || kind == "tank" || kind == "walker" || kind == "grid" || kind == "room")
+                        topic = kind;
+                    matched = true;
+                    break;
+                }
+            }
+            if (matched) break;
+            const auto* component = app_.getScene().getComponent(*id);
+            id = component ? component->parent : std::nullopt;
+        }
     }
     const std::map<std::string, Location> locations{
         {"objects", {"modes/AssemblyObjects.cpp", "void Assembly::add(", "객체 종류 분기와 크기·색·부품 등록"}},
+        {"humanoid", {"framework/detail/Animation.cpp", "std::optional<HumanoidRig> AnimationSystem::addHumanoid", "사람 비율·관절 연결점·머리/팔/다리 생성"}},
+        {"swing", {"framework/detail/Animation.cpp", "std::optional<SwingRig> AnimationSystem::addSwingWithRider", "그네 지지대·줄·좌석·탑승자 연결"}},
+        {"tank", {"modes/AssemblyParts.cpp", "TankParts addTankParts(", "중앙 몸체·상부·포신·깃대 크기와 연결점"}},
+        {"walker", {"framework/detail/Patterns.cpp", "std::optional<JointRig> PatternSystem::addWalkingRig", "보행 리그의 몸체 비율·관절 연결점"}},
+        {"grid", {"modes/AssemblyParts.cpp", "std::vector<graphics::EntityId> addGridParts(", "셀 배치·크기 비율·교대 색"}},
+        {"room", {"modes/AssemblyObjects.cpp", "} else if (kind == \"room\")", "방 경계와 벽 메시 생성"}},
         {"motion", {"modes/AssemblyMotion.cpp", "bool Assembly::motionCommand(", "경로·회전·진자·면 동작 설정"}},
         {"face", {"modes/AssemblyMotion.cpp", "} else if (command == \"face\"", "힌지·자전·공전 종류, 면/모서리, 속도"}},
         {"physics", {"modes/AssemblyRuntime.cpp", "} else if (b.effect == Effect::Body)", "중력·충돌 경계·이탈/보행 계산"}},
@@ -80,7 +102,7 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
     if (topic == "load") topic = "save";
     const auto found = locations.find(topic);
     if (found == locations.end()) {
-        out << "지원 항목: objects motion face physics input camera recipe custom runtime save\n";
+        out << "지원 항목: objects humanoid swing tank walker grid room motion face physics input camera recipe custom runtime save\n";
         return;
     }
     show(found->second, out);

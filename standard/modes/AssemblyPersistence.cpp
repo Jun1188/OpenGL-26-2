@@ -5,7 +5,7 @@
 
 namespace assembly {
 bool Assembly::save(const std::string& path, std::ostream& out) const {
-    const auto file = std::filesystem::u8path(path);
+    const auto file = std::filesystem::absolute(std::filesystem::u8path(path));
     auto temporary = file;
     temporary += L".saving-" + std::to_wstring(GetCurrentProcessId()) + L"-" + std::to_wstring(GetTickCount64());
     try {
@@ -49,7 +49,7 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
 }
 
 bool Assembly::load(const std::string& path, std::ostream& out) {
-    const auto file = std::filesystem::u8path(path);
+    const auto file = std::filesystem::absolute(std::filesystem::u8path(path));
     require(std::filesystem::file_size(file) <= 2 * 1024 * 1024, "레시피는 2MiB 이하입니다.");
     std::ifstream stream(file, std::ios::binary);
     require(bool(stream), "레시피 파일을 열 수 없습니다.");

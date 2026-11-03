@@ -133,7 +133,7 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
         }
     } else if (kind == "conveyor") {
         for (const auto& spec : std::vector<std::pair<glm::vec3, glm::vec3>>{
-            {{7.2f, .15f, 1.6f}, {-.8f, .9f, -2}}, {{1.6f, .15f, 5}, {3, .9f, 1.3f}}})
+            {{7.2f, .15f, 1.6f}, {-.8f, .925f, -2}}, {{1.6f, .15f, 5}, {3, .925f, 1.3f}}})
             entity(graphics::PatternSystem::addBox(scene, spec.first, spec.second, {.15f, .2f, .25f}, root));
         for (unsigned i = 0; i < 5; ++i) {
             const auto parcel = entity(scene.addGroup());
@@ -150,7 +150,9 @@ void Assembly::add(const std::string& kind, const std::string& name, glm::vec3 p
             attach(std::move(b));
         }
     } else if (kind == "planets") {
-        entity(graphics::PatternSystem::addBox(scene, {.2f, .2f, .2f}, {0, 0, 0}, {1, .8f, .2f}, root));
+        const auto sun = entity(scene.addSphere(.55f, {0, 0, 0}));
+        require(scene.setParent(sun, root) && scene.setTint(sun, {1, .8f, .2f}), "태양 생성 실패.");
+        registerNode(name + ".sun", sun, true, "sun", sun);
         for (unsigned i = 0; i < 3; ++i) {
             const auto planet = entity(scene.addGroup());
             const auto mesh = entity(scene.addSphere(.25f, {0, 0, 0}));

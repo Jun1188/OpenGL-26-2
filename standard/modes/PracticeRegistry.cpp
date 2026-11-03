@@ -2,6 +2,7 @@
 
 std::unique_ptr<PracticeMode> makePracticeMode(int mode, graphics::Application& app) {
     switch (mode) {
+    case 0: return makeAssemblyMode(app);
     case 10: return makePractice13(app);
     case 11: return makePractice14(app);
     case 12: return makePractice15(app);

@@ -32,3 +32,5 @@ std::unique_ptr<PracticeMode> makePractice22(graphics::Application& app);
 std::unique_ptr<PracticeMode> makePractice23(graphics::Application& app);
 std::unique_ptr<PracticeMode> makeCameraCollision(graphics::Application& app);
 std::unique_ptr<PracticeMode> makeEmbeddedMesh(graphics::Application& app);
+
+std::unique_ptr<PracticeMode> makeAssemblyMode(graphics::Application& app);

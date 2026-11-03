@@ -110,8 +110,8 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         require(b.motion.append(graphics::Motion::pendulum(config)), "진자 생성 실패.");
     } else if (command == "face" || command == "wall") {
         require(object.mesh.has_value(), "면을 가진 대상이 필요합니다.");
-        require(command == "face" ? (a.size() == 7 || a.size() == 8) : a.size() == 5,
-                "face <id> <대상> <면> <hinge/spin/orbit> <축> <도/초> [모서리] 또는 wall <id> <방> <면0~3> <초>");
+        require(command == "face" ? a.size() == 7 : a.size() == 5,
+                "face <id> <대상> <면> <spin/orbit> <축> <도/초> 또는 face <id> <대상> <면> hinge <모서리> <도/초> 또는 wall <id> <방> <면0~3> <초>");
         const double face = number(a[3]);
         const auto* mesh = app_.getScene().getComponent(*object.mesh);
         require(face >= 0 && face == std::floor(face) && face < mesh->polyhedron.faces.size(), "면 번호 범위를 확인하세요.");
@@ -125,12 +125,12 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
             require(a[4] == "hinge" || a[4] == "spin" || a[4] == "orbit", "면 동작은 hinge/spin/orbit입니다.");
             b.face.kind = a[4] == "hinge" ? graphics::FaceRotationKind::EdgeHinge :
                 a[4] == "spin" ? graphics::FaceRotationKind::SelfSpin : graphics::FaceRotationKind::ModelOrbit;
-            b.face.axis = axis(a[5]); b.rate = float(number(a[6]));
-            if (a.size() == 8) {
-                const double edge = number(a[7]);
+            b.rate = float(number(a[6]));
+            if (a[4] == "hinge") {
+                const double edge = number(a[5]);
                 require(edge >= 0 && edge == std::floor(edge) && edge < mesh->polyhedron.faces[b.faceIndex].localVertices.size(), "모서리 범위를 확인하세요.");
                 b.face.edge = std::size_t(edge);
-            }
+            } else b.face.axis = axis(a[5]);
         }
     } else if (command == "physics" || command == "walk") {
         require(command == "physics" ? a.size() == 4 : a.size() == 5,

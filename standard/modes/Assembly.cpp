@@ -121,6 +121,8 @@ Behavior* Assembly::positionDriver(const std::string& target) {
 void Assembly::attach(Behavior behavior) {
     require(!behavior.name.empty(), "동작 이름이 필요합니다.");
     node(behavior.target);
+    if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor)
+        behavior.positionDriver = true;
     for (const auto& current : state_.behaviors) {
         require(current.name != behavior.name, "중복 동작 이름입니다: " + behavior.name);
         if (current.target != behavior.target)
@@ -135,6 +137,8 @@ void Assembly::attach(Behavior behavior) {
                   current.faceIndex == behavior.faceIndex), "같은 면에 동작이 이미 있습니다.");
     }
     if (behavior.effect == Effect::Motion) {
+        for (const auto& step : behavior.motion.getSteps())
+            require(!step.action, "변환 모션에 action을 넣을 수 없습니다. bind 명령 또는 customCommand를 사용하세요.");
         const auto sample = behavior.motion.sample(0);
         require(sample && rigid(sample->parent) && rigid(sample->local), "Motion은 유효한 강체 변환이어야 합니다.");
     }
@@ -221,6 +225,8 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
     const auto savedState = state_;
     const auto savedCamera = app_.getCamera();
     const auto savedOptions = app_.getRenderOptions();
+    const bool savedFault = faulted_;
+    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect";
     try {
         require(dispatch(args, out), "지원하지 않는 명령입니다. help 또는 guide custom을 사용하세요.");
         if (args[0] != "save" && args[0] != "guide" && args[0] != "help" && args[0] != "list" && args[0] != "inspect")
@@ -228,11 +234,12 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
         if (!replaying_ && args[0] != "save" && args[0] != "load" && args[0] != "guide" && args[0] != "help" &&
             args[0] != "list" && args[0] != "inspect" && args[0] != "select")
             state_.recipe.push_back(line);
-        faulted_ = false;
+        if (!readOnly) faulted_ = false;
         return true;
     } catch (const std::exception& error) {
         app_.getScene() = std::move(savedScene);
         state_ = savedState;
+        faulted_ = savedFault;
         app_.getCamera() = savedCamera;
         app_.getRenderOptions() = savedOptions;
         out << "명령 거절: " << error.what() << "\n이전 조립 상태를 유지했습니다. guide " << args[0] << '\n';
