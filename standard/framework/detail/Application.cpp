@@ -428,7 +428,8 @@ std::optional<PickResult> Application::pickAt(double x, double y) const {
     if (ww <= 0 || wh <= 0 || fw <= 0 || fh <= 0)
         return {};
 
-    return graphics::pick(scene_, camera_, x * fw / ww, y * fh / wh, {0, 0, double(fw), double(fh)});
+    return graphics::pick(scene_, camera_, x * fw / ww, y * fh / wh, {0, 0, double(fw), double(fh)},
+                          renderOptions_.cull);
 }
 
 std::optional<PickResult> Application::pickAtCursor() const {

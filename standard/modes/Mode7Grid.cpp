@@ -19,10 +19,11 @@ bool Console::initGrid() {
         for (int x = 0; x < 6; ++x) {
             const auto center = grid.cellCenter({x, 0, z}), size = grid.relativeSize({.15f, 1, .22f});
 
-            if (!center || !size ||
-                !graphics::PatternSystem::addBox(scene, *size, *center,
-                                                 (x + z) % 2 ? graphics::GlColor{.25f, .3f, .4f}
-                                                             : graphics::GlColor{.4f, .45f, .55f}))
+            if (!center || !size)
+                return false;
+            const auto tile = graphics::PatternSystem::addBox(scene, *size, *center,
+                (x + z) % 2 ? graphics::GlColor{.25f, .3f, .4f} : graphics::GlColor{.4f, .45f, .55f});
+            if (!tile || !addControl(*tile, "grid tile " + std::to_string(z * 6 + x + 1)))
                 return false;
         }
 
@@ -30,12 +31,17 @@ bool Console::initGrid() {
         return false;
 
     for (unsigned i = 0; i < 5; ++i) {
-        const auto box =
-            graphics::PatternSystem::addBox(scene, {.4f, .5f, .4f}, {0, 0, 0}, {.25f + .14f * i, .7f - .1f * i, .3f});
+        const auto frame = scene.addGroup();
+        if (!frame)
+            return false;
+        const auto box = graphics::PatternSystem::addBox(scene, {.4f, .5f, .4f}, {0, 0, 0},
+            {.25f + .14f * i, .7f - .1f * i, .3f}, *frame);
 
         if (!box || !graphics::PatternSystem::addNumber(scene, i + 1, {-.07f, -.1f, .205f}, .2f, {1, 1, 1}, *box))
             return false;
-        gridBoxes_.push_back(*box);
+        if (!addControl(*box, "moving box " + std::to_string(i + 1)))
+            return false;
+        gridBoxes_.push_back(*frame);
     }
     app_.getCamera() = graphics::Camera{};
     app_.getCamera().position = {7, 6, 8};
@@ -48,9 +54,8 @@ bool Console::initGrid() {
 bool Console::updateGrid() {
     auto& scene = app_.getScene();
     bool ok = true;
-        for (std::size_t i = 0; i < gridBoxes_.size(); ++i)
-            ok = graphics::PatternSystem::follow(scene, gridBoxes_[i], distancePath_,
-                                                 clock_.seconds + distancePath_.length() * i / 5) &&
-                 ok;
+    for (std::size_t i = 0; i < gridBoxes_.size(); ++i)
+        ok = graphics::PatternSystem::follow(scene, gridBoxes_[i], distancePath_,
+            clock_.seconds + distancePath_.length() * i / gridBoxes_.size()) && ok;
     return ok;
 }

@@ -31,13 +31,22 @@ class Console {
     graphics::EntityId room_ = 0, roomCube_ = 0;
     std::vector<graphics::JointAnimation> animation_;
 
+    enum class ControlKind { Object, Joint, RoomFrame, RoomBody };
+
     struct JointControl {
         std::size_t track = 0;
         std::string name;
         graphics::Transform3D initialRest;
+        ControlKind kind = ControlKind::Object;
     };
 
     std::vector<JointControl> jointControls_;
+    std::optional<std::size_t> roomControl_, bodyControl_;
+    graphics::EntityId roomFrame_ = 0, bodyFrame_ = 0;
+    glm::mat3 releasedRotation_{1};
+    bool addControl(graphics::EntityId id, const std::string& name, ControlKind kind = ControlKind::Object);
+    bool applyControls();
+    void selectPicked(std::optional<graphics::PickResult> hit);
     std::size_t selectedJoint_ = 0;
     int selectedAxis_ = 0;
 

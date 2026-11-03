@@ -87,26 +87,12 @@ bool Console::initAnimation() {
         return false;
     animation_.push_back(*track);
 
-    const auto control = [&](graphics::EntityId id, const std::string& name) {
-        std::size_t index = 0;
-
-        while (index < animation_.size() && animation_[index].joint != id)
-            ++index;
-
-        if (index == animation_.size()) {
-            auto fixed = graphics::AnimationSystem::createJointAnimation(scene, id, graphics::Motion{});
-
-            if (!fixed)
-                return false;
-            animation_.push_back(*fixed);
-        }
-        jointControls_.push_back({index, name, animation_[index].rest});
-
-        return true;
+    const auto control = [&](graphics::EntityId id, const std::string& name, bool whole = false) {
+        return addControl(id, name, whole ? ControlKind::Object : ControlKind::Joint);
     };
 
     const auto personControls = [&](const graphics::HumanoidRig& rig, const std::string& prefix) {
-        if (!control(rig.root, prefix + " root") || !control(rig.pelvis, prefix + " pelvis") ||
+        if (!control(rig.root, prefix + " root", true) || !control(rig.pelvis, prefix + " pelvis") ||
             !control(rig.torso, prefix + " torso") || !control(rig.neck, prefix + " neck"))
             return false;
 
@@ -122,15 +108,14 @@ bool Console::initAnimation() {
         return true;
     };
 
-    if (!control(swing->frame, "swing frame") || !control(swing->hinge, "swing hinge") ||
+    if (!control(swing->frame, "swing frame", true) || !control(swing->hinge, "swing hinge") ||
         !control(swing->seat, "swing seat") || !personControls(swing->person, "rider") ||
-        !personControls(*person, "standing"))
+        !personControls(*person, "standing") || !control(*marker, "linear marker", true))
         return false;
     app_.getCamera() = graphics::Camera{};
     app_.getCamera().position = {8, 5, 10};
     app_.getCamera().target = {0, 1.4f, 0};
     std::cout << "9: 노란 상자는 4초 편도 선형보간, 그네는 3초 주기 진자, 좌석의 사람은 계층 변환을 따릅니다.\n";
-    printSelectedJoint();
 
     return graphics::AnimationSystem::poseHierarchy(scene, animation_, 0);
 }

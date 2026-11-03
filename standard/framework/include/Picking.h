@@ -58,7 +58,7 @@ inline std::optional<Ray> screenRay(const Camera& camera, double x, double y, co
 
 
 /// [API] ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.
-inline std::optional<PickResult> pick(const Scene& scene, const Ray& input) {
+inline std::optional<PickResult> pick(const Scene& scene, const Ray& input, CullMode inheritedCull = CullMode::None) {
     if (!detail::finiteVector(input.origin) || !detail::finiteVector(input.direction) ||
         !std::isfinite(glm::length(input.direction)) || glm::length(input.direction) < 1e-12f ||
         std::isnan(input.maxDistance) || input.maxDistance < 0)
@@ -87,6 +87,8 @@ inline std::optional<PickResult> pick(const Scene& scene, const Ray& input) {
                 continue;
 
             const auto matrix = *world;
+            const auto cull = face.cull == CullMode::Inherit ? inheritedCull : face.cull;
+            const bool mirrored = glm::determinant(glm::mat3(matrix)) < 0;
             const auto indices = detail::triangles(face);
 
             for (std::size_t t = 0; t < indices.size(); t += 3) {
@@ -104,6 +106,10 @@ inline std::optional<PickResult> pick(const Scene& scene, const Ray& input) {
                 const auto tolerance = 1e-12 * glm::length(edge1) * glm::length(edge2);
 
                 if (!std::isfinite(determinant) || std::abs(determinant) <= tolerance)
+                    continue;
+
+                const bool frontFacing = (determinant > 0) != mirrored;
+                if ((cull == CullMode::Front && frontFacing) || (cull == CullMode::Back && !frontFacing))
                     continue;
 
                 const auto relative = origin - a;
@@ -157,9 +163,9 @@ inline std::optional<PickResult> pick(const Scene& scene, const Ray& input) {
 
 /// [API] ray 또는 화면 좌표로 보이는 삼각형의 최근접 교차를 찾아 객체·면·위치·UV를 반환한다.
 inline std::optional<PickResult> pick(const Scene& scene, const Camera& camera, double x, double y,
-                                      const PickViewport& viewport) {
+                                      const PickViewport& viewport, CullMode inheritedCull = CullMode::None) {
     const auto ray = screenRay(camera, x, y, viewport);
 
-    return ray ? pick(scene, *ray) : std::nullopt;
+    return ray ? pick(scene, *ray, inheritedCull) : std::nullopt;
 }
 } // namespace graphics

@@ -100,12 +100,14 @@ bool Console::initMotion(int kind) {
         return false;
     }
 
+    if (!addControl(*first, "original box") || !addControl(*second, "reflected box"))
+        return false;
+
     auto& camera = app_.getCamera();
 
     camera.position = {5, 3, 8};
     camera.target = {0, 0, 0};
     camera.up = {0, 1, 0};
-    printHelp();
 
     return true;
 }
