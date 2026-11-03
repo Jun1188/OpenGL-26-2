@@ -1,10 +1,10 @@
 ﻿#include "Assembly.h"
+#include "GuideRecipes.h"
+#include <algorithm>
 #include <fstream>
 
 namespace assembly {
 namespace {
-struct Location { const char* file; const char* marker; const char* edit; };
-
 std::filesystem::path projectRoot() {
     std::wstring binary(32768, L'\0');
     const DWORD count = GetModuleFileNameW(nullptr, binary.data(), DWORD(binary.size()));
@@ -19,25 +19,41 @@ std::filesystem::path projectRoot() {
     return {};
 }
 
-void show(const Location& location, std::ostream& out) {
+void showSite(const GuideSite& site, std::ostream& out) {
     const auto root = projectRoot();
-    const auto path = root.empty() ? std::filesystem::u8path(location.file) : root / location.file;
-    out << "문서: " << (root.empty() ? std::filesystem::path("docs/assembly/CODE_GUIDE.md") : root / "docs/assembly/CODE_GUIDE.md").u8string() << '\n';
-    std::ifstream source(path, std::ios::binary);
+    const auto path = root.empty() ? std::filesystem::u8path(site.file) : root / site.file;
+    std::ifstream input(path, std::ios::binary);
+    if (!input) { out << path.u8string() << " : 소스가 없어 현재 줄 확인 불가. 표식=" << site.marker << '\n'; return; }
+    std::vector<std::string> lines;
     std::string line;
-    std::size_t number = 0;
-    bool found = false;
-    while (std::getline(source, line)) {
-        ++number;
-        if (line.find(location.marker) != std::string::npos) {
-            out << path.u8string() << ':' << number << "\n  " << line << '\n';
-            found = true;
-            break;
-        }
+    while (std::getline(input, line)) {
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        if (lines.empty() && line.compare(0, 3, "\xEF\xBB\xBF") == 0) line.erase(0, 3);
+        lines.push_back(line);
     }
-    if (!found) out << path.u8string() << " : 소스/표식을 찾지 못해 현재 줄 번호를 확인할 수 없습니다.\n";
-    out << "응용 조합: docs/assembly/PATTERN_COMBINATIONS.md\n";
-    out << "수정 항목: " << location.edit << "\n레시피는 다시 load하고, C++ 수정 후 빌드·실행은 사용자가 수행하세요.\n";
+    out << "편집 위치: " << site.purpose << '\n';
+    std::size_t matches = 0;
+    for (std::size_t i = 0; i < lines.size(); ++i) {
+        if (lines[i].find(site.marker) == std::string::npos) continue;
+        ++matches;
+        if (matches > 4) continue;
+        out << path.u8string() << ':' << i + 1 << '\n';
+        const auto begin = i > 1 ? i - 2 : 0;
+        const auto end = std::min(lines.size(), i + 4);
+        for (auto n = begin; n < end; ++n) out << (n == i ? " > " : "   ") << n + 1 << " | " << lines[n] << '\n';
+    }
+    if (!matches) out << path.u8string() << " : 표식이 바뀌었습니다. 현재 줄을 추정하지 않습니다. 검색어=" << site.marker << '\n';
+    if (matches > 1) out << "동일 표식 " << matches << "곳. 함수/부모 문맥을 비교하세요(최대4곳 표시).\n";
+}
+void showRecipe(const GuideRecipe& recipe, std::ostream& out) {
+    out << "guide " << recipe.topic << ": " << recipe.goal << '\n';
+    for (const auto& site : recipe.sites) showSite(site, out);
+    out << "\n변경 예시 before (작성 기준값; 현재 코드는 위 출력 우선):\n" << recipe.before
+        << "\nafter 예시:\n" << recipe.after << "\n변경 이유/단위/제약:\n" << recipe.reason
+        << "\n디버깅-수정 순서:\n" << recipe.debug << "\n예상 관찰:\n" << recipe.expected << '\n';
+    const auto root = projectRoot();
+    out << "참고: " << (root.empty() ? std::filesystem::u8path(recipe.document) : root / recipe.document).u8string() << '\n'
+        << "예시는 자동 패치가 아닙니다. C++ 수정 후 빌드·실행 확인은 사용자가 수행합니다.\n";
 }
 }
 
@@ -47,6 +63,9 @@ void Assembly::help(std::ostream& out) const {
         << "surface <객체> <면/all> | mount <객체> <관절> 면 삼각형 U V 거리 | anchor <객체> <관절> 면 XYZ\n"
         << "normal <객체> <면/all> XYZ 또는 auto/flip | winding <객체> <면/all> flip | warp <group> SX SY SZ\n"
         << "face-track <id> <객체> 면 시간 지연 once/loop/pingpong move/scale/turn ... | guide face-track\n"
+        << "feature add <이름> 1~22 | feature parts <이름> | feature port <원본> <nativeID> <이름> | feature snapshot ...\n"
+        << "feature focus/camera <이름/none> | feature play/enable <이름> on/off | Ctrl+F5 / hotload <파일> / reload\n"
+        << "diagnose <객체> | guide <기능> : 현재 줄·변경 전후 예·이유·디버깅 단계\n"
         << "group <이름> X Y Z | part box <부모> <부품> 위치3 크기3 | joint <부모> <관절> 위치3\n"
         << "srt <그룹> 위치3 회전도3 균일배율 | pivot <그룹> center 또는 위치3 [keep/raw]\n"
         << "add <종류> <이름> X Y Z [크기3] | list | inspect <이름> | select <이름>\n"
@@ -62,6 +81,7 @@ void Assembly::help(std::ostream& out) const {
         << "창: 클릭 선택, Tab/Backspace 부품, XYZ 축, 방향키 편집, Space 정지, Home 기본 레시피 복원\n";
 }
 
+
 void Assembly::guide(const std::string& requested, std::ostream& out) const {
     const bool feature = requested.compare(0, 8, "feature:") == 0;
     std::string topic = feature ? requested.substr(8) : requested;
@@ -71,88 +91,19 @@ void Assembly::guide(const std::string& requested, std::ostream& out) const {
         topic = "objects";
         while (id) {
             bool matched = false;
-            for (const auto& item : state_.nodes) {
-                if (item.second.id == *id && item.second.whole) {
-                    const auto& kind = item.second.kind;
-                    if (!item.second.guideTopic.empty()) { topic = item.second.guideTopic; matched = true; break; }
-                    if (kind == "humanoid" || kind == "swing" || kind == "tank" || kind == "walker" || kind == "grid" || kind == "room" || kind == "group" || kind == "joint")
-                        topic = kind;
-                    matched = true;
-                    break;
-                }
+            for (const auto& item : state_.nodes) if (item.second.id == *id && item.second.whole) {
+                topic = !item.second.guideTopic.empty() ? item.second.guideTopic :
+                    findGuideRecipe(item.second.kind) ? item.second.kind : "objects";
+                matched = true; break;
             }
             if (matched) break;
             const auto* component = app_.getScene().getComponent(*id);
             id = component ? component->parent : std::nullopt;
         }
     }
-    const std::map<std::string, Location> locations{
-        {"mount", {"modes/AssemblySurface.cpp", "std::string Assembly::mount(", "객체·면·삼각형 좌표 관절 부착과 프레임 추적"}},
-        {"normal", {"modes/AssemblySurface.cpp", "if (command == \"normal\")", "조명 노멀·winding·면별 정점 데이터"}},
-        {"geometry", {"modes/AssemblySurface.cpp", "void Assembly::model(", "사용자 Model 등록, 삼각형·정점·면 변환"}},
-        {"warp", {"modes/AssemblySurface.cpp", "if (command == \"warp\")", "외곽 group의 비균일 배율과 반사"}},
-        {"face-track", {"modes/AssemblyTracks.cpp", "bool Assembly::trackCommand(", "지연·반복·왕복 면 이동/축소/임의 축 회전"}},
-        {"cpp-effect", {"modes/AssemblyRuntime.cpp", "} else if (b.effect == Effect::Custom)", "사용자 C++ 프레임 동작과 기준 SRT 합성"}},
-        {"objects", {"modes/AssemblyObjects.cpp", "void Assembly::add(", "객체 종류 분기와 크기·색·부품 등록"}},
-        {"humanoid", {"framework/detail/Animation.cpp", "std::optional<HumanoidRig> AnimationSystem::addHumanoid", "사람 비율·관절 연결점·머리/팔/다리 생성"}},
-        {"swing", {"framework/detail/Animation.cpp", "std::optional<SwingRig> AnimationSystem::addSwingWithRider", "그네 지지대·줄·좌석·탑승자 연결"}},
-        {"tank", {"modes/AssemblyExamples.cpp", "void buildTankExample(", "육면체 기반 차체·궤도·포탑·포신의 계층과 동작"}},
-        {"tank-preset", {"modes/AssemblyParts.cpp", "TankParts addTankParts(", "기존 실습19·22와 공유하는 탱크 부품"}},
-        {"walker", {"framework/detail/Patterns.cpp", "std::optional<JointRig> PatternSystem::addWalkingRig", "보행 리그의 몸체 비율·관절 연결점"}},
-        {"grid", {"modes/AssemblyParts.cpp", "std::vector<graphics::EntityId> addGridParts(", "셀 배치·크기 비율·교대 색"}},
-        {"room", {"modes/AssemblyObjects.cpp", "} else if (kind == \"room\")", "방 경계와 벽 메시 생성"}},
-        {"hierarchy", {"modes/AssemblyHierarchy.cpp", "void Assembly::group(", "group/part/joint 조립 API와 최상위 변환"}},
-        {"srt", {"modes/AssemblyHierarchy.cpp", "void Assembly::srt(", "최상위 위치·회전·균일배율을 한 번에 설정"}},
-        {"pivot", {"modes/AssemblyHierarchy.cpp", "void Assembly::pivot(", "중심점 변경과 기준 배치 보존"}},
-        {"center", {"modes/AssemblyHierarchy.cpp", "glm::vec3 Assembly::center(", "하위 메시 전체의 로컬 AABB 중심 계산"}},
-        {"patterns", {"docs/assembly/PATTERN_COMBINATIONS.md", "# 기능 조합 패턴", "탱크·트럭·사람의 계층 조립과 C++ 수정 위치"}},
-        {"truck", {"modes/AssemblyExamples.cpp", "void buildTruckExample(", "차체·바퀴·컨테이너·문 관절 조합"}},
-        {"person", {"modes/AssemblyExamples.cpp", "void buildPersonExample(", "육면체·관절로 몸체·팔·다리 조합"}},
-        {"motion", {"modes/AssemblyMotion.cpp", "bool Assembly::motionCommand(", "경로·회전·진자·면 동작 설정"}},
-        {"face", {"modes/AssemblyMotion.cpp", "} else if (command == \"face\"", "힌지·자전·공전 종류, 면/모서리, 속도"}},
-        {"physics", {"modes/AssemblyRuntime.cpp", "} else if (b.effect == Effect::Body)", "중력·충돌 경계·이탈/보행 계산"}},
-        {"input", {"modes/AssemblyInput.cpp", "bool Assembly::inputCommand(", "키 이름·수정키·press/hold 문법과 동작"}},
-        {"camera", {"modes/AssemblyInput.cpp", "if (a[1] == \"pose\")", "카메라 이동·투영·시야각과 줌"}},
-        {"recipe", {"modes/Mode0Recipe.cpp", "USER_RECIPE_BEGIN", "기본 조립 명령 문자열을 추가·수정"}},
-        {"custom", {"modes/AssemblyExtensions.cpp", "USER_COMMAND_BEGIN", "새 명령 분기와 typed Assembly API 호출"}},
-        {"runtime", {"modes/AssemblyRuntime.cpp", "bool Assembly::applyPoses(", "프레임별 합성 순서와 기능 업데이트"}},
-        {"save", {"modes/AssemblyPersistence.cpp", "bool Assembly::save(", "레시피 기록과 기준 SRT 저장 형식"}}};
-    if (topic == "anchor" || topic == "unmount") topic = "mount";
-    if (topic == "winding" || topic == "orient") topic = "normal";
-    if (topic == "triangle" || topic == "triangle-add" || topic == "surface" || topic == "vertex" || topic == "face-srt" || topic == "face-mode" || topic == "facecolor" || topic == "outline" || topic == "line" || topic == "digit") topic = "geometry";
-    if (topic == "effects" || topic == "render") topic = "input";
-    if (topic.size() == 10 && topic.compare(0, 8, "practice") == 0) {
-        const std::map<std::string, Location> practices{
-            {"practice13", {"modes/Mode10Practice13.cpp", "bool Practice13::initScene()", "면 선택·무작위 선택 상태를 customCommand/Custom 동작으로 옮기기"}},
-            {"practice14", {"modes/Mode11Practice14.cpp", "void Practice14::onUpdate(", "입력 상태·형상 교체·로컬 회전"}},
-            {"practice15", {"modes/FaceCommon.cpp", "void FaceMode::applyFaceMotion()", "한 면의 복합 행렬을 하나의 FaceTrack Motion에 조립"}},
-            {"practice16", {"modes/Mode13Practice16.cpp", "void Practice16::applyPyramid(", "순차 펼침과 다중 면 동기화"}},
-            {"practice17", {"modes/Mode14Practice17.cpp", "void Practice17::onUpdate(", "교환·우회·사인 배율·조건 전이"}},
-            {"practice18", {"modes/Mode15Practice18.cpp", "void Practice18::onUpdate(", "기울어진 궤도·달 중심·축과 반지름"}},
-            {"practice19", {"modes/TankCommon.cpp", "void TankMode::onUpdate(", "탱크 부품·이동 상태·카메라 추적"}},
-            {"practice20", {"modes/Mode17Practice20.cpp", "void Practice20::onUpdate(", "거리 기반 컨베이어·택배 간격·접선 자세"}},
-            {"practice21", {"modes/Mode18Practice21.cpp", "void Practice21::onUpdate(", "드래그 방 회전·다중 상자/공 이탈 상태"}},
-            {"practice22", {"modes/TankCommon.cpp", "bool TankMode::onRender()", "동일 상태의 3뷰 렌더와 카메라"}},
-            {"practice23", {"modes/Mode20Practice23.cpp", "void Practice23::onUpdate(", "보행 충돌·장애물 난수 배치·벽 개방 상태"}}};
-        if (const auto found = practices.find(topic); found != practices.end()) { show(found->second, out); return; }
-    }
-    if (topic == "truck-pattern") topic = "truck";
-    if (topic == "tank-pattern") topic = "tank";
-    if (topic == "person-pattern") topic = "person";
-    if (topic == "group" || topic == "joint" || topic == "part") topic = "hierarchy";
-    if (topic == "add" || topic == "parent" || topic == "color" || topic == "show") topic = "objects";
-    if (topic == "spin" || topic == "orbit" || topic == "path" || topic == "linear" || topic == "pendulum" || topic == "remove") topic = "motion";
-    if (topic == "wall") topic = "face";
-    if (topic == "walk" || topic == "jump" || topic == "obstacle" || topic == "body" || topic == "release") topic = "physics";
-    if (topic == "bind" || topic == "unbind" || topic == "drag") topic = "input";
-    if (topic == "load") topic = "save";
-    const auto found = locations.find(topic);
-    if (found == locations.end()) {
-        out << "지원 항목:";
-        for (const auto& item : locations) out << ' ' << item.first;
-        out << " practice13~23\n";
-        return;
-    }
-    show(found->second, out);
+    if (const auto* recipe = findGuideRecipe(topic)) { showRecipe(*recipe, out); return; }
+    out << "지원 항목:";
+    for (const auto& recipe : guideRecipes()) out << ' ' << recipe.topic;
+    out << "\n객체 이름과 충돌하면 guide feature:<기능>을 사용하세요.\n";
 }
 } // namespace assembly
