@@ -125,6 +125,14 @@ void Assembly::attach(Behavior behavior) {
         behavior.positionDriver = true;
     for (const auto& current : state_.behaviors) {
         require(current.name != behavior.name, "중복 동작 이름입니다: " + behavior.name);
+        require(!(current.effect == Effect::Body && behavior.target == current.target + ".mesh") &&
+                !(behavior.effect == Effect::Body && current.target == behavior.target + ".mesh"),
+                "물리 메시에는 별도 동작을 붙일 수 없습니다. 상자 루트를 사용하세요.");
+        const bool currentFace = current.effect == Effect::Face || current.effect == Effect::Wall;
+        const bool newFace = behavior.effect == Effect::Face || behavior.effect == Effect::Wall;
+        if (currentFace && newFace)
+            require(node(current.target).mesh != node(behavior.target).mesh || current.faceIndex != behavior.faceIndex,
+                    "같은 메시의 같은 면에 동작이 이미 있습니다.");
         if (current.target != behavior.target)
             continue;
         require(!(current.positionDriver && behavior.positionDriver), "위치 제어가 충돌합니다. 기존 동작을 remove 하거나 자식 부품에 붙이세요.");
@@ -147,9 +155,20 @@ void Assembly::attach(Behavior behavior) {
 
 void Assembly::setRest(const std::string& target, const graphics::Transform3D& rest) {
     auto& value = node(target);
-    for (const auto& behavior : state_.behaviors)
-        require(!(behavior.effect == Effect::Body && target == behavior.target + ".mesh"),
-                "물리 메시 대신 상자 루트를 편집하세요.");
+    bool immutable = false;
+    for (const auto& behavior : state_.behaviors) {
+        immutable = immutable || (behavior.effect == Effect::Body && target == behavior.target + ".mesh");
+        if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk) {
+            const auto& room = node(behavior.reference);
+            immutable = immutable || (room.mesh && value.id == *room.mesh);
+        }
+    }
+    if (immutable) {
+        require(rest.basis == value.rest.basis && rest.localBasis == value.rest.localBasis && rest.scale == value.rest.scale &&
+            rest.rotation[0] == value.rest.rotation[0] && rest.rotation[1] == value.rest.rotation[1] &&
+            rest.rotation[2] == value.rest.rotation[2], "물리 메시/walls 대신 객체 루트를 편집하세요.");
+        return;
+    }
     require(glm::all(glm::lessThanEqual(glm::abs(rest.basis), glm::vec3(1000000))) &&
             glm::all(glm::lessThanEqual(glm::abs(rest.localBasis), glm::vec3(1000000))), "위치/피벗 범위는 ±1000000입니다.");
     require(graphics::DiagramSystem::validTransform(rest) && rest.scale.x > .0001f &&
@@ -232,7 +251,7 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
         if (args[0] != "save" && args[0] != "guide" && args[0] != "help" && args[0] != "list" && args[0] != "inspect")
             require(applyPoses(0), "조립 결과의 상태/변환이 유효하지 않습니다.");
         if (!replaying_ && args[0] != "save" && args[0] != "load" && args[0] != "guide" && args[0] != "help" &&
-            args[0] != "list" && args[0] != "inspect" && args[0] != "select")
+            args[0] != "list" && args[0] != "inspect" && args[0] != "select" && args[0] != "jump")
             state_.recipe.push_back(line);
         if (!readOnly) faulted_ = false;
         return true;

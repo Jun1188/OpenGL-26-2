@@ -138,6 +138,13 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         b.reference = a[3];
         const auto& room = node(b.reference);
         require(room.room.has_value(), "add room으로 만든 방이 필요합니다.");
+        require(room.mesh.has_value(), "방 메시가 필요합니다.");
+        const auto& wall = node(b.reference + ".walls");
+        const auto originalWalls = graphics::DiagramSystem::modelMatrix(wall.initial);
+        const auto currentWalls = graphics::DiagramSystem::modelMatrix(wall.rest);
+        for (int c = 0; c < 4; ++c)
+            require(glm::length(originalWalls[c] - currentWalls[c]) < .000001f,
+                    "방 walls의 초기 변환을 유지한 뒤 물리를 붙이세요. 방 루트를 조작하세요.");
         const auto matrix = app_.getScene().worldMatrix(room.id);
         const auto world = app_.getScene().worldMatrix(object.id);
         require(matrix && world && rigid(*matrix) && !app_.getScene().getComponent(object.id)->parent,
@@ -145,10 +152,19 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         b.previousRoom = *matrix; b.positionDriver = true;
         if (command == "physics") {
             require(object.kind == "box", "physics는 중심 기준 box를 지원합니다.");
+            const auto* mesh = object.mesh ? app_.getScene().getComponent(*object.mesh) : nullptr;
+            require(mesh && glm::length(object.rest.localBasis) < .0001f &&
+                    glm::length(mesh->transform.basis) < .0001f && glm::length(mesh->transform.localBasis) < .0001f &&
+                    glm::length(mesh->transform.scale - glm::vec3(1)) < .0001f &&
+                    glm::length(mesh->transform.rotation[0] - glm::vec3(1, 0, 0)) < .0001f &&
+                    glm::length(mesh->transform.rotation[1] - glm::vec3(0, 1, 0)) < .0001f,
+                    "상자의 중심 피벗과 초기 mesh 변환을 유지한 뒤 physics를 붙이세요.");
             b.effect = Effect::Body;
             b.body.localPosition = glm::vec3(glm::inverse(*matrix) * (*world)[3]);
         } else {
             require(object.walker.has_value(), "add walker로 만든 리그가 필요합니다.");
+            require(object.rest.scale == glm::vec3(1) && glm::length(object.rest.localBasis) < .0001f && rigid(*world),
+                    "보행 리그는 배율 1과 중심 피벗을 유지해야 합니다.");
             b.effect = Effect::Walk;
             b.character.feet = glm::vec3((*world)[3]); b.character.height = 1.8f;
             b.character.speed = float(number(a[4]));

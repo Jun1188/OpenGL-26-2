@@ -14,6 +14,12 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         auto& child = node(a[1]);
         auto* driver = positionDriver(a[1]);
         require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk), "물리 루트에는 부모를 추가할 수 없습니다.");
+        for (const auto& behavior : state_.behaviors) {
+            if (behavior.effect != Effect::Body && behavior.effect != Effect::Walk) continue;
+            const auto& room = node(behavior.reference);
+            require((!room.mesh || child.id != *room.mesh) && a[1] != behavior.target + ".mesh",
+                    "물리 메시/방 walls의 부모를 바꿀 수 없습니다.");
+        }
         const auto parent = a[2] == "none" ? std::optional<graphics::EntityId>{} : std::optional<graphics::EntityId>{node(a[2]).id};
         require(app_.getScene().setParent(child.id, parent), "부모 연결 실패. 순환 여부를 확인하세요.");
         return true;
@@ -43,7 +49,7 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         require(face >= 0 && face == std::floor(face) && face < component->polyhedron.faces.size(), "면 번호 범위를 확인하세요.");
         if (command == "visible") {
             for (const auto& b : state_.behaviors)
-                require(!((b.effect == Effect::Wall || b.effect == Effect::Face) && b.target == a[1] && b.faceIndex == std::size_t(face)),
+                require(!((b.effect == Effect::Wall || b.effect == Effect::Face) && node(b.target).mesh == object.mesh && b.faceIndex == std::size_t(face)),
                         "면 동작이 가시성을 소유하고 있습니다. remove 후 변경하세요.");
             require(app_.getScene().setFaceVisible(*object.mesh, std::size_t(face), boolean(a[3])), "면 가시성 변경 실패.");
         } else {
