@@ -1,15 +1,15 @@
 ﻿# Graph Report - OpenGL-26-2  (2026-11-03)
 
 ## Corpus Check
-- Large corpus: 904 files · ~6,382,959 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
+- Large corpus: 938 files · ~6,710,771 words. Semantic extraction will be expensive (many Claude tokens). Consider running on a subfolder.
 
 ## Summary
 - 4212 nodes · 7000 edges · 300 communities (205 shown, 23 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 469 edges (avg confidence: 0.84)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 468 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9410b43f`
+- Built from commit: `ea1ebb7d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -350,7 +350,7 @@ Nodes (37): Motion::followPath, Motion::evaluate, MotionSystem::createMotion, Mo
 
 ### Community 19 - "framework 코드 구조"
 Cohesion: 0.06
-Nodes (35): PatternSystem::screenOnPlane, Bounds3::valid, CollisionSystem::stepCharacter, PatternSystem::orbitCamera, PatternSystem::conveyorCornerPose, DistancePath::setPoints, PatternSystem::threeViews, PatternSystem::snakeCells (+27 more)
+Nodes (35): PatternSystem::snap, Bounds3::valid, CollisionSystem::stepCharacter, PatternSystem::conveyorCornerPose, DistancePath::setPoints, PatternSystem::addRoom, PatternSystem::openFace, PatternSystem::moveCamera (+27 more)
 
 ### Community 20 - "Computer-Graphics_WarmmingUp2 코드 구조"
 Cohesion: 0.11
@@ -1101,8 +1101,8 @@ Nodes (3): BoardFrame::at, BoardRenderer::project, BoardRenderer::draw
   framework/include/Geometry.h · relation: calls
 
 ## Knowledge Gaps
-- **1854 isolated node(s):** `console_`, `commandParser_`, `boardRenderer_`, `meshParser_`, `meshValidator_` (+1849 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2369 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **1855 isolated node(s):** `console_`, `commandParser_`, `boardRenderer_`, `meshParser_`, `meshValidator_` (+1850 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2370 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -1121,7 +1121,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `Practice4RectState` connect `openGL_assign123456 코드 구조` to `openGL_assign123456 코드 구조`, `openGL_assign123456 코드 구조`, `openGL_assign123456 코드 구조`?**
   _High betweenness centrality (0.000) - this node is a cross-community bridge._
 - **What connects `console_`, `commandParser_`, `boardRenderer_` to the rest of the system?**
-  _1854 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1855 weakly-connected nodes found - possible documentation gaps or missing edges._
 ## 해석 범위
 
 코드 AST와 소스 정의·콜백 등록 위치를 분석했다. 빌드·테스트·실행은 하지 않았다. SDK와 과제별 프레임워크 복사본은 제외했다. 프로젝트별 실제 컴파일은 동일한 배포본을 사용한다. 동적 디스패치와 같은 이름의 메서드 연결은 소스와 대조해야 한다.

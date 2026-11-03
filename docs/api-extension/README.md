@@ -14,3 +14,9 @@
 루트 framework와 standard/실습 13~23의 관련 framework 파일만 동기화했다. 사용자 실습 Console 코드는 바꾸지 않았다.
 정적 소스·graphify 분석을 수행했으며 빌드·테스트·앱·브라우저 실행은 사용자에게 맡긴다.
 세 전용 조합 API 제거는 저장소 외부의 호출부에는 수정이 필요하다. sample/seek의 동작 실행과 일회 이벤트를 혼동하지 않는다.
+
+## 후속: 실습 세부 요구사항 코드
+
+[실습 13~23 코드 모음](../../standard/docs/practice-cookbook/README.md): 세부 116개, 공통 10묶음, 이전 3D 10개. 외부 소스 경로 없이 standard 내부 파일로 구성한다.
+
+[벽 균등 축소 복원](WALL_VARIANT_RESTORE.md): 기존 실습 23의 동작은 후속 커밋 ea1ebb7에서 루트와 사본에 복원했다.

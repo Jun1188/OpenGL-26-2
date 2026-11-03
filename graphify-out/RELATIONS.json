@@ -5615,7 +5615,7 @@
       "label": "PatternSystem::snakeCells()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5632,7 +5632,7 @@
       "label": "PatternSystem::aligned()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L724",
+      "source_location": "L727",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5641,7 +5641,7 @@
       "label": "PatternSystem::snap()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732",
+      "source_location": "L735",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5650,7 +5650,7 @@
       "label": "PatternSystem::screenOnPlane()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5659,7 +5659,7 @@
       "label": "PatternSystem::moveCamera()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777",
+      "source_location": "L780",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5668,7 +5668,7 @@
       "label": "PatternSystem::yawCamera()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L791",
+      "source_location": "L794",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5677,7 +5677,7 @@
       "label": "PatternSystem::orbitCamera()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817",
+      "source_location": "L820",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5686,7 +5686,7 @@
       "label": "PatternSystem::zoomCamera()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L837",
+      "source_location": "L840",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5695,7 +5695,7 @@
       "label": "PatternSystem::threeViews()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5704,7 +5704,7 @@
       "label": "PatternSystem::addWalkingRig()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5713,7 +5713,7 @@
       "label": "PatternSystem::poseWalkingRig()",
       "file_type": "code",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "_callable": true,
       "_origin": "ast"
     },
@@ -30794,100 +30794,100 @@
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_2e8d1ba06959d1308572",
+      "id": "source_887f961ef03b77072e7d",
       "label": "PatternSystem::snakeCells",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_d7a41aca07c4c28ef4b1",
+      "id": "source_c9b0424a520e519f8259",
       "label": "PatternSystem::aligned",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L724",
+      "source_location": "L727",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_558ada88cddcfa681cd1",
+      "id": "source_002c01014f0fcc68f539",
       "label": "PatternSystem::snap",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732",
+      "source_location": "L735",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_00d0b4fce1fc2e0628b1",
+      "id": "source_61a6b3b955b1333835a3",
       "label": "PatternSystem::screenOnPlane",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_a8af626f5486d6714231",
+      "id": "source_414a8fa8829a5c4d65e0",
       "label": "PatternSystem::moveCamera",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777",
+      "source_location": "L780",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_d0848db3c0ca3d5d0ef8",
+      "id": "source_ffca9c316de7feb949cd",
       "label": "PatternSystem::yawCamera",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L791",
+      "source_location": "L794",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_1b90b6dad6a6fe505ffe",
+      "id": "source_4cf3dd3571d444bbb8d4",
       "label": "PatternSystem::orbitCamera",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817",
+      "source_location": "L820",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_7f82b2b84a9b9d0d773e",
+      "id": "source_694023a5fd2fd178d563",
       "label": "PatternSystem::zoomCamera",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L837",
+      "source_location": "L840",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_269c69028605436cb5be",
+      "id": "source_8eb440d2cf7c933c0833",
       "label": "PatternSystem::threeViews",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_cb3d7d9103678adbf881",
+      "id": "source_738b9e8e0f9b9a2bcc8d",
       "label": "PatternSystem::addWalkingRig",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
     },
     {
-      "id": "source_56b1c669610284d4acb5",
+      "id": "source_ae32d489f78ee48ba3c7",
       "label": "PatternSystem::poseWalkingRig",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "file_type": "code",
       "_callable": true,
       "_origin": "source_definition_review"
@@ -50127,7 +50127,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50137,7 +50137,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -50148,7 +50148,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -50159,7 +50159,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707",
+      "source_location": "L710",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50170,7 +50170,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L724",
+      "source_location": "L727",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50180,7 +50180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732",
+      "source_location": "L735",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50190,7 +50190,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732",
+      "source_location": "L735",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -50201,7 +50201,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732",
+      "source_location": "L735",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50212,7 +50212,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50222,7 +50222,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -50233,7 +50233,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -50244,7 +50244,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50255,7 +50255,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50266,7 +50266,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751",
+      "source_location": "L754",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50277,7 +50277,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777",
+      "source_location": "L780",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50287,7 +50287,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777",
+      "source_location": "L780",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50298,7 +50298,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777",
+      "source_location": "L780",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50309,7 +50309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L791",
+      "source_location": "L794",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50319,7 +50319,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L791",
+      "source_location": "L794",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50330,7 +50330,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817",
+      "source_location": "L820",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50340,7 +50340,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817",
+      "source_location": "L820",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50351,7 +50351,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817",
+      "source_location": "L820",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50362,7 +50362,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L837",
+      "source_location": "L840",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50372,7 +50372,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L837",
+      "source_location": "L840",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50383,7 +50383,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50393,7 +50393,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -50404,7 +50404,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -50415,7 +50415,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50426,7 +50426,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857",
+      "source_location": "L860",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50437,7 +50437,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50447,7 +50447,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast"
@@ -50458,7 +50458,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "weight": 1.0,
       "context": "generic_arg",
       "_origin": "ast"
@@ -50469,7 +50469,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50480,7 +50480,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892",
+      "source_location": "L895",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50491,7 +50491,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50501,7 +50501,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50512,7 +50512,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50523,7 +50523,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951",
+      "source_location": "L954",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast"
@@ -50678,7 +50678,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L704",
+      "source_location": "L705",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50689,7 +50689,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L740",
+      "source_location": "L743",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50700,7 +50700,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L774",
+      "source_location": "L777",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50711,7 +50711,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L806",
+      "source_location": "L809",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50722,7 +50722,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L825",
+      "source_location": "L828",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50733,7 +50733,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L878",
+      "source_location": "L881",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50744,7 +50744,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L893",
+      "source_location": "L896",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50755,7 +50755,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L912",
+      "source_location": "L915",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50766,7 +50766,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L977",
+      "source_location": "L980",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -50777,7 +50777,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L977",
+      "source_location": "L980",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -102424,18 +102424,6 @@
       "_origin": "ast"
     },
     {
-      "source": "framework_detail_patterns_patternsystem_openroomwall",
-      "target": "framework_include_patterns_patternsystem_openface",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L704",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
       "source": "framework_detail_patterns_patternsystem_screenonplane",
       "target": "framework_include_picking_screenray",
       "relation": "calls",
@@ -102443,7 +102431,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L754",
+      "source_location": "L757",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -102455,7 +102443,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L912",
+      "source_location": "L915",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -102467,7 +102455,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L912",
+      "source_location": "L915",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -102479,7 +102467,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L913",
+      "source_location": "L916",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -102491,7 +102479,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L988",
+      "source_location": "L991",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108030,6 +108018,18 @@
       "_origin": "ast"
     },
     {
+      "source": "framework_detail_patterns_patternsystem_openroomwall",
+      "target": "framework_include_transform_transformsystem_scaling",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "framework/detail/Patterns.cpp",
+      "source_location": "L705",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "framework_detail_patterns_patternsystem_snakecells",
       "target": "framework_include_diagnostics_diagnostics_failat",
       "relation": "calls",
@@ -108037,7 +108037,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L711",
+      "source_location": "L714",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108049,7 +108049,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L726",
+      "source_location": "L729",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108061,7 +108061,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L734",
+      "source_location": "L737",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108073,7 +108073,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L758",
+      "source_location": "L761",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108085,7 +108085,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L783",
+      "source_location": "L786",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108097,7 +108097,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L784",
+      "source_location": "L787",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108109,7 +108109,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L792",
+      "source_location": "L795",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108121,7 +108121,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L793",
+      "source_location": "L796",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108133,7 +108133,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L799",
+      "source_location": "L802",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108145,7 +108145,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L818",
+      "source_location": "L821",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108157,7 +108157,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L829",
+      "source_location": "L832",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108169,7 +108169,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L830",
+      "source_location": "L833",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108181,7 +108181,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L839",
+      "source_location": "L842",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108193,7 +108193,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L849",
+      "source_location": "L852",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108205,7 +108205,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L859",
+      "source_location": "L862",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108217,7 +108217,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L860",
+      "source_location": "L863",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108229,7 +108229,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L894",
+      "source_location": "L897",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108241,7 +108241,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L955",
+      "source_location": "L958",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -111211,91 +111211,91 @@
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_2e8d1ba06959d1308572",
+      "target": "source_887f961ef03b77072e7d",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L707"
+      "source_location": "L710"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_d7a41aca07c4c28ef4b1",
+      "target": "source_c9b0424a520e519f8259",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L724"
+      "source_location": "L727"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_558ada88cddcfa681cd1",
+      "target": "source_002c01014f0fcc68f539",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L732"
+      "source_location": "L735"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_00d0b4fce1fc2e0628b1",
+      "target": "source_61a6b3b955b1333835a3",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L751"
+      "source_location": "L754"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_a8af626f5486d6714231",
+      "target": "source_414a8fa8829a5c4d65e0",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L777"
+      "source_location": "L780"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_d0848db3c0ca3d5d0ef8",
+      "target": "source_ffca9c316de7feb949cd",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L791"
+      "source_location": "L794"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_1b90b6dad6a6fe505ffe",
+      "target": "source_4cf3dd3571d444bbb8d4",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L817"
+      "source_location": "L820"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_7f82b2b84a9b9d0d773e",
+      "target": "source_694023a5fd2fd178d563",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L837"
+      "source_location": "L840"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_269c69028605436cb5be",
+      "target": "source_8eb440d2cf7c933c0833",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L857"
+      "source_location": "L860"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_cb3d7d9103678adbf881",
+      "target": "source_738b9e8e0f9b9a2bcc8d",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L892"
+      "source_location": "L895"
     },
     {
       "source": "review_file_aacf8de4977ed0f4bc6c",
-      "target": "source_56b1c669610284d4acb5",
+      "target": "source_ae32d489f78ee48ba3c7",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "framework/detail/Patterns.cpp",
-      "source_location": "L951"
+      "source_location": "L954"
     },
     {
       "source": "review_file_83af0457140c6a78e945",

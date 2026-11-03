@@ -5537,45 +5537,55 @@ selected</td></tr><tr><td>그래프의 직접 호출 후보</td><td>validCamera 
                             &quot;Need a six-face room, invertible world transform and valid camera.&quot;);
 
         return {};
-    }</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::openRoomWall"><summary>PatternSystem::openRoomWall · 함수/선언</summary><p>선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L687">framework/detail/Patterns.cpp:687</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;, &quot;Select one of the four side walls of addRoom().&quot;)
-openFace(scene, room, face, progress, glm::vec3(0), pivot, true)</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress) {
+    }</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::openRoomWall"><summary>PatternSystem::openRoomWall · 함수/선언</summary><p>선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L687">framework/detail/Patterns.cpp:687</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())
+!std::isfinite(progress) || progress &lt; 0 || progress &gt; 1)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;, &quot;Select one of the four side walls of addRoom().&quot;)
+Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;openRoomWall&quot;, &quot;Need progress in [0,1].&quot;)
+scale &amp;&amp; scene.setFaceLocalMatrix(room, face, *scale) &amp;&amp; scene.setFaceVisible(room, face, progress &lt; 1)</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress) {
     const auto* mesh = scene.getMesh(room, face);
 
     if (!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;,
                                    &quot;Select one of the four side walls of addRoom().&quot;);
 
+    if (!std::isfinite(progress) || progress &lt; 0 || progress &gt; 1)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;openRoomWall&quot;,
+                                   &quot;Need progress in [0,1].&quot;);
+
     glm::vec3 pivot(0);
-    float top = mesh-&gt;localVertices.front().y;
 
-    for (const auto&amp; vertex : mesh-&gt;localVertices) {
+    for (const auto&amp; vertex : mesh-&gt;localVertices)
         pivot += vertex;
-        top = std::max(top, vertex.y);
-    }
     pivot /= float(mesh-&gt;localVertices.size());
-    pivot.y = top;
+    // Fully open faces are hidden; retain a nonsingular matrix for normals/picking.
+    const float factor = std::max(1e-3f, 1 - progress);
+    const auto scale = TransformSystem::scaling(glm::vec3(factor), pivot);
 
-    return openFace(scene, room, face, progress, glm::vec3(0), pivot, true);
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::openRoomWall()"><summary>PatternSystem::openRoomWall() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L687">framework/detail/Patterns.cpp:687</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;, &quot;Select one of the four side walls of addRoom().&quot;)
-openFace(scene, room, face, progress, glm::vec3(0), pivot, true)</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class="tag">EXTRACTED</span> · openFace <span class="tag">INFERRED</span> · .failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress) {
+    return scale &amp;&amp; scene.setFaceLocalMatrix(room, face, *scale) &amp;&amp; scene.setFaceVisible(room, face, progress &lt; 1);
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::openRoomWall()"><summary>PatternSystem::openRoomWall() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L687">framework/detail/Patterns.cpp:687</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())
+!std::isfinite(progress) || progress &lt; 0 || progress &gt; 1)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;, &quot;Select one of the four side walls of addRoom().&quot;)
+Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;openRoomWall&quot;, &quot;Need progress in [0,1].&quot;)
+scale &amp;&amp; scene.setFaceLocalMatrix(room, face, *scale) &amp;&amp; scene.setFaceVisible(room, face, progress &lt; 1)</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class="tag">EXTRACTED</span> · .failAt() <span class="tag">EXTRACTED</span> · scaling <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress) {
     const auto* mesh = scene.getMesh(room, face);
 
     if (!mesh || face &gt;= 4 || mesh-&gt;localVertices.empty())
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;openRoomWall&quot;,
                                    &quot;Select one of the four side walls of addRoom().&quot;);
 
+    if (!std::isfinite(progress) || progress &lt; 0 || progress &gt; 1)
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;openRoomWall&quot;,
+                                   &quot;Need progress in [0,1].&quot;);
+
     glm::vec3 pivot(0);
-    float top = mesh-&gt;localVertices.front().y;
 
-    for (const auto&amp; vertex : mesh-&gt;localVertices) {
+    for (const auto&amp; vertex : mesh-&gt;localVertices)
         pivot += vertex;
-        top = std::max(top, vertex.y);
-    }
     pivot /= float(mesh-&gt;localVertices.size());
-    pivot.y = top;
+    // Fully open faces are hidden; retain a nonsingular matrix for normals/picking.
+    const float factor = std::max(1e-3f, 1 - progress);
+    const auto scale = TransformSystem::scaling(glm::vec3(factor), pivot);
 
-    return openFace(scene, room, face, progress, glm::vec3(0), pivot, true);
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snakeCells"><summary>PatternSystem::snakeCells · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L707">framework/detail/Patterns.cpp:707</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>cells.x &lt;= 0 || cells.y != 1 || cells.z &lt;= 0 || std::uint64_t(cells.x) * cells.z &gt; 1000000) {</td></tr><tr><td>반환식 발췌</td><td>result
+    return scale &amp;&amp; scene.setFaceLocalMatrix(room, face, *scale) &amp;&amp; scene.setFaceVisible(room, face, progress &lt; 1);
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snakeCells"><summary>PatternSystem::snakeCells · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L710">framework/detail/Patterns.cpp:710</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>cells.x &lt;= 0 || cells.y != 1 || cells.z &lt;= 0 || std::uint64_t(cells.x) * cells.z &gt; 1000000) {</td></tr><tr><td>반환식 발췌</td><td>result
 result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells) {
     std::vector&lt;glm::ivec3&gt; result;
 
@@ -5591,7 +5601,7 @@ result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 
             result.push_back({z % 2 ? cells.x - 1 - x : x, 0, z});
 
     return result;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snakeCells()"><summary>PatternSystem::snakeCells() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L707">framework/detail/Patterns.cpp:707</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>cells.x &lt;= 0 || cells.y != 1 || cells.z &lt;= 0 || std::uint64_t(cells.x) * cells.z &gt; 1000000) {</td></tr><tr><td>반환식 발췌</td><td>result
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snakeCells()"><summary>PatternSystem::snakeCells() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L710">framework/detail/Patterns.cpp:710</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>cells.x &lt;= 0 || cells.y != 1 || cells.z &lt;= 0 || std::uint64_t(cells.x) * cells.z &gt; 1000000) {</td></tr><tr><td>반환식 발췌</td><td>result
 result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>std::vector&lt;glm::ivec3&gt; PatternSystem::snakeCells(const glm::ivec3&amp; cells) {
     std::vector&lt;glm::ivec3&gt; result;
 
@@ -5607,21 +5617,21 @@ result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <spa
             result.push_back({z % 2 ? cells.x - 1 - x : x, 0, z});
 
     return result;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::aligned"><summary>PatternSystem::aligned · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L724">framework/detail/Patterns.cpp:724</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::aligned(float first, float second, float tolerance)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;, &quot;Need finite heights and nonnegative tolerance.&quot;)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::aligned"><summary>PatternSystem::aligned · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L727">framework/detail/Patterns.cpp:727</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::aligned(float first, float second, float tolerance)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;, &quot;Need finite heights and nonnegative tolerance.&quot;)
 std::abs(double(first) - second) &lt;= tolerance</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::aligned(float first, float second, float tolerance) {
     if (!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;,
                                    &quot;Need finite heights and nonnegative tolerance.&quot;);
 
     return std::abs(double(first) - second) &lt;= tolerance;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::aligned()"><summary>PatternSystem::aligned() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L724">framework/detail/Patterns.cpp:724</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::aligned(float first, float second, float tolerance)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;, &quot;Need finite heights and nonnegative tolerance.&quot;)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::aligned()"><summary>PatternSystem::aligned() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L727">framework/detail/Patterns.cpp:727</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::aligned(float first, float second, float tolerance)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;, &quot;Need finite heights and nonnegative tolerance.&quot;)
 std::abs(double(first) - second) &lt;= tolerance</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::aligned(float first, float second, float tolerance) {
     if (!std::isfinite(first) || !std::isfinite(second) || !std::isfinite(tolerance) || tolerance &lt; 0)
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, &quot;PatternSystem::aligned&quot;,
                                    &quot;Need finite heights and nonnegative tolerance.&quot;);
 
     return std::abs(double(first) - second) &lt;= tolerance;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snap"><summary>PatternSystem::snap · 함수/선언</summary><p>좌표를 양수 간격으로 반올림한다. 실패 시 입력 점을 그대로 유지한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L732">framework/detail/Patterns.cpp:732</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(point) || !std::isfinite(spacing) || spacing &lt;= 0) {
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snap"><summary>PatternSystem::snap · 함수/선언</summary><p>좌표를 양수 간격으로 반올림한다. 실패 시 입력 점을 그대로 유지한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L735">framework/detail/Patterns.cpp:735</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(point) || !std::isfinite(spacing) || spacing &lt;= 0) {
 !detail::finiteVector(result)) {</td></tr><tr><td>반환식 발췌</td><td>point
 point
 result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing) {
@@ -5641,7 +5651,7 @@ result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 
     }
 
     return result;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snap()"><summary>PatternSystem::snap() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L732">framework/detail/Patterns.cpp:732</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(point) || !std::isfinite(spacing) || spacing &lt;= 0) {
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::snap()"><summary>PatternSystem::snap() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L735">framework/detail/Patterns.cpp:735</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(point) || !std::isfinite(spacing) || spacing &lt;= 0) {
 !detail::finiteVector(result)) {</td></tr><tr><td>반환식 발췌</td><td>point
 point
 result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class="tag">EXTRACTED</span> · .failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>glm::vec3 PatternSystem::snap(const glm::vec3&amp; point, float spacing) {
@@ -5661,7 +5671,7 @@ result</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span cla
     }
 
     return result;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::screenOnPlane"><summary>PatternSystem::screenOnPlane · 함수/선언</summary><p>화면 픽셀을 ray로 바꾸어 평면 교차 위치를 얻는다. 평행/뒤쪽 교차는 빈 결과다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L751">framework/detail/Patterns.cpp:751</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;glm::vec3&gt; PatternSystem::screenOnPlane(const Camera&amp; camera, double x, double y,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::screenOnPlane"><summary>PatternSystem::screenOnPlane · 함수/선언</summary><p>화면 픽셀을 ray로 바꾸어 평면 교차 위치를 얻는다. 평행/뒤쪽 교차는 빈 결과다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L754">framework/detail/Patterns.cpp:754</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;glm::vec3&gt; PatternSystem::screenOnPlane(const Camera&amp; camera, double x, double y,
                                                       const PickViewport&amp; viewport, const glm::vec3&amp; planePoint,
                                                       const glm::vec3&amp; normal)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!ray || !n || !detail::finiteVector(planePoint)) {
 std::abs(denominator) &lt; 1e-10)
@@ -5692,7 +5702,7 @@ glm::vec3(glm::dvec3(ray-&gt;origin) + glm::dvec3(ray-&gt;direction) * t)</td></
         return {};
 
     return glm::vec3(glm::dvec3(ray-&gt;origin) + glm::dvec3(ray-&gt;direction) * t);
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::screenOnPlane()"><summary>PatternSystem::screenOnPlane() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L751">framework/detail/Patterns.cpp:751</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;glm::vec3&gt; PatternSystem::screenOnPlane(const Camera&amp; camera, double x, double y,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::screenOnPlane()"><summary>PatternSystem::screenOnPlane() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L754">framework/detail/Patterns.cpp:754</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;glm::vec3&gt; PatternSystem::screenOnPlane(const Camera&amp; camera, double x, double y,
                                                       const PickViewport&amp; viewport, const glm::vec3&amp; planePoint,
                                                       const glm::vec3&amp; normal)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!ray || !n || !detail::finiteVector(planePoint)) {
 std::abs(denominator) &lt; 1e-10)
@@ -5723,7 +5733,7 @@ glm::vec3(glm::dvec3(ray-&gt;origin) + glm::dvec3(ray-&gt;direction) * t)</td></
         return {};
 
     return glm::vec3(glm::dvec3(ray-&gt;origin) + glm::dvec3(ray-&gt;direction) * t);
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::moveCamera"><summary>PatternSystem::moveCamera · 함수/선언</summary><p>시점과 주목점을 동일하게 이동해 시선 방향을 보존한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L777">framework/detail/Patterns.cpp:777</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::moveCamera&quot;, &quot;Camera translation creates an invalid camera.&quot;)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::moveCamera"><summary>PatternSystem::moveCamera · 함수/선언</summary><p>시점과 주목점을 동일하게 이동해 시선 방향을 보존한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L780">framework/detail/Patterns.cpp:780</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::moveCamera&quot;, &quot;Camera translation creates an invalid camera.&quot;)
 true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset) {
     auto next = camera;
 
@@ -5736,7 +5746,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 �
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::moveCamera()"><summary>PatternSystem::moveCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L777">framework/detail/Patterns.cpp:777</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::moveCamera&quot;, &quot;Camera translation creates an invalid camera.&quot;)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::moveCamera()"><summary>PatternSystem::moveCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L780">framework/detail/Patterns.cpp:780</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::moveCamera&quot;, &quot;Camera translation creates an invalid camera.&quot;)
 true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>validCamera <span class="tag">EXTRACTED</span> · .failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::moveCamera(Camera&amp; camera, const glm::vec3&amp; offset) {
     auto next = camera;
 
@@ -5749,7 +5759,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>validCamera <spa
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::yawCamera"><summary>PatternSystem::yawCamera · 함수/선언</summary><p>시점은 고정하고 카메라 로컬 up축을 기준으로 시선을 회전한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L791">framework/detail/Patterns.cpp:791</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::yawCamera(Camera&amp; camera, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(camera))
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::yawCamera"><summary>PatternSystem::yawCamera · 함수/선언</summary><p>시점은 고정하고 카메라 로컬 up축을 기준으로 시선을 회전한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L794">framework/detail/Patterns.cpp:794</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::yawCamera(Camera&amp; camera, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(camera))
 !rotation)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::yawCamera&quot;, &quot;Invalid camera.&quot;)
 false
@@ -5778,7 +5788,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 �
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::yawCamera()"><summary>PatternSystem::yawCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L791">framework/detail/Patterns.cpp:791</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::yawCamera(Camera&amp; camera, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(camera))
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::yawCamera()"><summary>PatternSystem::yawCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L794">framework/detail/Patterns.cpp:794</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::yawCamera(Camera&amp; camera, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!CameraSystem::validCamera(camera))
 !rotation)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::yawCamera&quot;, &quot;Invalid camera.&quot;)
 false
@@ -5807,7 +5817,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::orbitCamera"><summary>PatternSystem::orbitCamera · 함수/선언</summary><p>월드 축에 대해 시점·주목점·up을 함께 변환한다. 축을 target에 두면 target은 고정된다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L817">framework/detail/Patterns.cpp:817</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!rotation)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::orbitCamera"><summary>PatternSystem::orbitCamera · 함수/선언</summary><p>월드 축에 대해 시점·주목점·up을 함께 변환한다. 축을 target에 두면 target은 고정된다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L820">framework/detail/Patterns.cpp:820</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!rotation)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>false
 Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::orbitCamera&quot;, &quot;Orbit creates an invalid camera.&quot;)
 true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees) {
@@ -5828,7 +5838,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 �
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::orbitCamera()"><summary>PatternSystem::orbitCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L817">framework/detail/Patterns.cpp:817</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!rotation)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::orbitCamera()"><summary>PatternSystem::orbitCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L820">framework/detail/Patterns.cpp:820</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!rotation)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>false
 Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::orbitCamera&quot;, &quot;Orbit creates an invalid camera.&quot;)
 true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class="tag">EXTRACTED</span> · rotation <span class="tag">EXTRACTED</span> · validCamera <span class="tag">EXTRACTED</span> · .failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>bool PatternSystem::orbitCamera(Camera&amp; camera, const AxisLine&amp; axis, float degrees) {
@@ -5849,7 +5859,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::zoomCamera"><summary>PatternSystem::zoomCamera · 함수/선언</summary><p>원근은 target까지 거리, 직각은 orthographicHalfExtent를 배율로 바꾼다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L837">framework/detail/Patterns.cpp:837</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::zoomCamera(Camera&amp; camera, float factor)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(factor) || factor &lt;= 0)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::zoomCamera"><summary>PatternSystem::zoomCamera · 함수/선언</summary><p>원근은 target까지 거리, 직각은 orthographicHalfExtent를 배율로 바꾼다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L840">framework/detail/Patterns.cpp:840</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::zoomCamera(Camera&amp; camera, float factor)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(factor) || factor &lt;= 0)
 next.orthographic)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;, &quot;Zoom factor must be positive and finite.&quot;)
 Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;, &quot;Zoom creates an invalid camera.&quot;)
@@ -5871,7 +5881,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 �
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::zoomCamera()"><summary>PatternSystem::zoomCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L837">framework/detail/Patterns.cpp:837</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::zoomCamera(Camera&amp; camera, float factor)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(factor) || factor &lt;= 0)
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::zoomCamera()"><summary>PatternSystem::zoomCamera() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L840">framework/detail/Patterns.cpp:840</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::zoomCamera(Camera&amp; camera, float factor)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!std::isfinite(factor) || factor &lt;= 0)
 next.orthographic)
 !CameraSystem::validCamera(next))</td></tr><tr><td>반환식 발췌</td><td>Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;, &quot;Zoom factor must be positive and finite.&quot;)
 Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Transform, &quot;PatternSystem::zoomCamera&quot;, &quot;Zoom creates an invalid camera.&quot;)
@@ -5893,7 +5903,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <span 
     camera = next;
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::threeViews"><summary>PatternSystem::threeViews · 함수/선언</summary><p>원근·XZ 평면도·XY 정면도 카메라와 픽셀 영역을 구성한다. 상단 뷰의 up은 -Z다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L857">framework/detail/Patterns.cpp:857</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::threeViews"><summary>PatternSystem::threeViews · 함수/선언</summary><p>원근·XZ 평면도·XY 정면도 카메라와 픽셀 영역을 구성한다. 상단 뷰의 up은 -Z다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L860">framework/detail/Patterns.cpp:860</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
                                                   const RenderOptions&amp; options)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>width &lt; 3 || height &lt; 2 || !CameraSystem::validCamera(perspective)) {</td></tr><tr><td>반환식 발췌</td><td>{}
 {main, top, front}</td></tr><tr><td>그래프의 직접 호출 후보</td><td>이 앵커의 직접 호출 간선이 없음. 아래 본문과 pipeline의 콜백 흐름을 확인한다.</td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
                                                   const RenderOptions&amp; options) {
@@ -5928,7 +5938,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <span 
     front.camera.up = {0, 1, 0};
 
     return {main, top, front};
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::threeViews()"><summary>PatternSystem::threeViews() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L857">framework/detail/Patterns.cpp:857</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::threeViews()"><summary>PatternSystem::threeViews() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L860">framework/detail/Patterns.cpp:860</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
                                                   const RenderOptions&amp; options)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>width &lt; 3 || height &lt; 2 || !CameraSystem::validCamera(perspective)) {</td></tr><tr><td>반환식 발췌</td><td>{}
 {main, top, front}</td></tr><tr><td>그래프의 직접 호출 후보</td><td>vec3 <span class="tag">EXTRACTED</span> · validCamera <span class="tag">EXTRACTED</span> · .failAt() <span class="tag">EXTRACTED</span></td></tr></tbody></table><h3>정의/선언 원문</h3><pre><code>std::vector&lt;RenderPass&gt; PatternSystem::threeViews(const Camera&amp; perspective, int width, int height,
                                                   const RenderOptions&amp; options) {
@@ -5963,7 +5973,7 @@ true</td></tr><tr><td>그래프의 직접 호출 후보</td><td>.failAt() <span 
     front.camera.up = {0, 1, 0};
 
     return {main, top, front};
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::addWalkingRig"><summary>PatternSystem::addWalkingRig · 함수/선언</summary><p>그리드 비율로 머리·코·몸통·어깨·엉덩이·팔·다리 계층을 조립하고 ID 묶음을 반환한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L892">framework/detail/Patterns.cpp:892</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;JointRig&gt; PatternSystem::addWalkingRig(Scene&amp; scene, const GridLayout&amp; grid)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!grid.valid() || !detail::rigidRoom(grid.frame)) {
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::addWalkingRig"><summary>PatternSystem::addWalkingRig · 함수/선언</summary><p>그리드 비율로 머리·코·몸통·어깨·엉덩이·팔·다리 계층을 조립하고 ID 묶음을 반환한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L895">framework/detail/Patterns.cpp:895</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;JointRig&gt; PatternSystem::addWalkingRig(Scene&amp; scene, const GridLayout&amp; grid)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!grid.valid() || !detail::rigidRoom(grid.frame)) {
 !root)
 !torso || !head)
 !addBox(scene, grid.extent * glm::vec3(.3f, .2f, .6f), {0, grid.extent.y * .1f, 0}, {1, .8f, .5f}, rig.head) ||</td></tr><tr><td>반환식 발췌</td><td>{}
@@ -6026,7 +6036,7 @@ grid.origin + grid.extent * ratio
         return {};
 
     return rig;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::addWalkingRig()"><summary>PatternSystem::addWalkingRig() · 함수/선언</summary><p>새 도형·모션·레이어·구성요소를 만든다. 아래 반환 ID/optional과 실제 저장 컨테이너, 실패 분기를 연결해 읽는다. ID를 객체 소유 포인터로 해석하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L892">framework/detail/Patterns.cpp:892</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;JointRig&gt; PatternSystem::addWalkingRig(Scene&amp; scene, const GridLayout&amp; grid)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!grid.valid() || !detail::rigidRoom(grid.frame)) {
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::addWalkingRig()"><summary>PatternSystem::addWalkingRig() · 함수/선언</summary><p>새 도형·모션·레이어·구성요소를 만든다. 아래 반환 ID/optional과 실제 저장 컨테이너, 실패 분기를 연결해 읽는다. ID를 객체 소유 포인터로 해석하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L895">framework/detail/Patterns.cpp:895</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>std::optional&lt;JointRig&gt; PatternSystem::addWalkingRig(Scene&amp; scene, const GridLayout&amp; grid)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!grid.valid() || !detail::rigidRoom(grid.frame)) {
 !root)
 !torso || !head)
 !addBox(scene, grid.extent * glm::vec3(.3f, .2f, .6f), {0, grid.extent.y * .1f, 0}, {1, .8f, .5f}, rig.head) ||</td></tr><tr><td>반환식 발췌</td><td>{}
@@ -6089,7 +6099,7 @@ grid.origin + grid.extent * ratio
         return {};
 
     return rig;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::poseWalkingRig"><summary>PatternSystem::poseWalkingRig · 함수/선언</summary><p>루트 이동/yaw와 실제 이동 거리 기반 팔다리 반대 위상을 적용한다. 속도는 보행 진폭에 반영한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L951">framework/detail/Patterns.cpp:951</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::poseWalkingRig"><summary>PatternSystem::poseWalkingRig · 함수/선언</summary><p>루트 이동/yaw와 실제 이동 거리 기반 팔다리 반대 위상을 적용한다. 속도는 보행 진폭에 반영한다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L954">framework/detail/Patterns.cpp:954</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
                                    double distance, float speed)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(feet) || !std::isfinite(yawDegrees) || !std::isfinite(distance) ||
 !root || !scene.getComponent(rig.head))
 !scene.getComponent(id))
@@ -6139,7 +6149,7 @@ Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Scene, &quot;PatternSyste
     }
 
     return true;
-}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::poseWalkingRig()"><summary>PatternSystem::poseWalkingRig() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L951">framework/detail/Patterns.cpp:951</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
+}</code></pre></details><details data-symbol="framework/detail/Patterns.cpp PatternSystem::poseWalkingRig()"><summary>PatternSystem::poseWalkingRig() · 함수/선언</summary><p>아래 실제 정의에서 인자 → 조건 분기 → 상태 변경/하위 호출 → 반환을 따라 읽는다. 인접 호출 관계는 graphify의 정적 후보이며 런타임 실행을 보장하지 않는다.</p><p><a href="../sources.html#framework_detail_Patterns_cpp_L954">framework/detail/Patterns.cpp:954</a></p><table><thead><tr><th>읽을 단위</th><th>현재 소스에서 확인할 내용</th></tr></thead><tbody><tr><td>인자·반환 선언</td><td>bool PatternSystem::poseWalkingRig(Scene&amp; scene, const JointRig&amp; rig, const glm::vec3&amp; feet, float yawDegrees,
                                    double distance, float speed)</td></tr><tr><td>관련 상태 멤버</td><td>__FILE__, __LINE__</td></tr><tr><td>분기/거부 조건 발췌</td><td>!detail::finiteVector(feet) || !std::isfinite(yawDegrees) || !std::isfinite(distance) ||
 !root || !scene.getComponent(rig.head))
 !scene.getComponent(id))
@@ -12894,7 +12904,7 @@ public:
                          const glm::vec3&amp; topPivot, bool scaleOpen);
     /// [API] 시선 target-position과 옆벽의 월드 바깥 법선 내적이 가장 큰 양수인 면을 선택한다. 외부 카메라에서 보이는 맞은편 내부 벽이며 수직 시선에는 선택이 없을 수 있다.
     static std::optional&lt;std::size_t&gt; cameraFacingWall(const Scene&amp; scene, EntityId room, const Camera&amp; camera);
-    /// [API] 선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
+    /// [API] 선택 옆벽의 원래 중심을 기준으로 모든 축을 균등 축소/복원하며 완전 개방 시 숨긴다.
     static bool openRoomWall(Scene&amp; scene, EntityId room, std::size_t face, float progress);
     /// [API] 셀 격자를 지그재그 순서로 방문하는 정수 인덱스 목록을 만든다.
     static std::vector&lt;glm::ivec3&gt; snakeCells(const glm::ivec3&amp; cells);

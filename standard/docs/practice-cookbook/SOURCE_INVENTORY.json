@@ -1,0 +1,1363 @@
+﻿{
+  "source_commit": "ea1ebb7d6a1adc4858a8c6d35589430158e5e8b7",
+  "source_files": {
+    "openGL_3dAssign_13/Console.h": "7e79cd7dac7c35b55558041173ac84c3bf1361c900f24bcf926881af61bee6b1",
+    "openGL_3dAssign_13/Console.cpp": "5007783f6109cecc272f697e1a60d90bdcc8285aae3de9db79245050be92719b",
+    "openGL_3dAssign_13/main.cpp": "d9d5b44edc2b5cbd211fdb7d4920fcf6ac0790cf032dc65308fcc7e59ac41efe",
+    "openGL_3dAssign_14/Console.h": "6c4d6bcf9d6c3114e02f430ece285c5aa808ae874c99d6612b23acaf3969ff03",
+    "openGL_3dAssign_14/Console.cpp": "04cd7cee80e638ce5f1bb6d8d96b8d286c14066622f22c1395292b9c4edb3cf9",
+    "openGL_3dAssign_14/main.cpp": "e31e459e72049d184003ca3498b29c7dfdf6b8cb7f44e92c8c501dd37f32c0b1",
+    "openGL_3dAssign_15/Console.h": "acfaf155cf7b36298a07ca91435dc6c628975f4fcf2e4d3a9bb7c8538c22d4aa",
+    "openGL_3dAssign_15/Console.cpp": "d661db5e1350a3b067681e5813f949f4e7279a2331fd245587b348da569fec03",
+    "openGL_3dAssign_15/main.cpp": "3cd86476d9f1ea28036b4c50d8af49a2f05f50f0609110e42e0b453f641341b6",
+    "openGL_3dAssign_16/Console.h": "d7d702b8340eda7481f7fc908d538b89280afb9e255f781c65931d586503f1c1",
+    "openGL_3dAssign_16/Console.cpp": "ffcbc89ae8cbf5a5a68042a76c7fd6abae7b30b4d4590ee235e6ed5ad1291967",
+    "openGL_3dAssign_16/main.cpp": "7291015f8fe02740bd279c12e7896442ad4fc4e664a083a4fda4ac9e9274f1ff",
+    "openGL_3dAssign_17/Console.h": "751a33d1d235499147498c07158b52fe8edaa04a4ff03d6f79daa3d5f6bdf4b0",
+    "openGL_3dAssign_17/Console.cpp": "691845a58127523ea04074246302f74c09a9109b5162e222e919392fce64267f",
+    "openGL_3dAssign_17/main.cpp": "7c3a65b3327f086c72653bdc512e95d59c80b478fa8f16411628546217728939",
+    "openGL_3dAssign_18/Console.h": "278f4f010ab163f6f717e98c37e4cd48d121e5cf254e3c45db3274fb3c87eefc",
+    "openGL_3dAssign_18/Console.cpp": "9585ca3c0e05fec52b38c382b58bd08da9f2e18845cf1965ed09c5b922f7b34c",
+    "openGL_3dAssign_18/main.cpp": "70cf1cae40f481fb5c097715015acdf765a611b4ab397e320e0c1f92b275b2e8",
+    "openGL_3dAssign_19/Console.h": "377f51509d8db905df62565c6500df708da1f83b9beebec3d5b349faa1aee38c",
+    "openGL_3dAssign_19/Console.cpp": "591a8acc8875e3f78d7849d33d404690c54afe20508b412c3d28e86c672e417e",
+    "openGL_3dAssign_19/main.cpp": "dcb37b825f26d162546bd09544dfe8c25696a97f85dc46f8f08dd5ecb1e72f6f",
+    "openGL_3dAssign_20/Console.h": "ad0e1bc6790006973008d2ce38a44505ee9434fe4f9b2a565e7dab0ea0d7fadf",
+    "openGL_3dAssign_20/Console.cpp": "95a96c010f63abce84bb3d8611e9cc97817f4c1b48fd761fbd323b69ff3ac6b3",
+    "openGL_3dAssign_20/main.cpp": "caa1fcccd9fe755443e0c1381f640772a985f49f6443a7f05874804e9d633472",
+    "openGL_3dAssign_21/Console.h": "b755ad5817f609c62ee6c5fcb679ed6da8760ae8222e9f51d92dff3a6d8b9ca9",
+    "openGL_3dAssign_21/Console.cpp": "a28623a199fe9d0458b935cb4b3fb9280a5ecd33b1e7eaaff5bbaf3966876c25",
+    "openGL_3dAssign_21/main.cpp": "bd1dac8c02c14224f86831a013fda27db79cdd1ce2dc5859f6776543f99eb837",
+    "openGL_3dAssign_22/Console.h": "0afbfa02b4c0207b0050631431e8f870558976f8abc26694004a398903eff215",
+    "openGL_3dAssign_22/Console.cpp": "d1c8d5a321b2abe016bb389e682e75439e15b1c890a03dcf16c0569f367786db",
+    "openGL_3dAssign_22/main.cpp": "618eeedd92bc33b04debb01d82f776faa4f5dbf803016036aee8142cd9369b10",
+    "openGL_3dAssign_23/Console.h": "661f8d6fbaa74ca4e8429bdcca6b2db69b4cf4eaa72f0c79fbd9eba590d3f8ba",
+    "openGL_3dAssign_23/Console.cpp": "af23994389c678f3e3fc6e2790d71185404bbdde6eee8fc25c6d3248d40861e7",
+    "openGL_3dAssign_23/main.cpp": "2ddc47035687144c1cdbda089997d506def0f714899c1c9309aa928dbe210313",
+    "openGL_sample0/main.cpp": "33f8b29c7d452f9c1908a0254d96ca713e284dca24089fe3501def03e5d03ab7",
+    "Computer-Graphics_WarmmingUp2/README.md": "2dc2af576624832712f46814c38d2fad05f35cb5cfb1d5afa533910fe17d16e6",
+    "Computer-Graphics_WarmmingUp2/MeshValidator.cpp": "1c659c6f82eb0463e868d4c4a8c30cf942a5c07c30def8f86092dab8f36df844",
+    "lecture_pdf/homework/지엘3 좌표계 변환 (실습 131415).pdf": "7164cd16e20d552f3c82dfeca7123d5e798c15c0d44af726fe9602ec20257b85",
+    "lecture_pdf/homework/지엘3 좌표계 변환 (실습 1617).pdf": "a1b9929909d03f18f44275a7193b09f46c323f7fd837e6184f81a0929b770a6e",
+    "lecture_pdf/homework/지엘3 좌표계 변환 (실습 1819).pdf": "5b178f6285803fbb06551c51afde4b1c3ab0656509745ca2dc4563d59deb741a",
+    "lecture_pdf/homework/지엘3 좌표계 변환 (실습 2122).pdf": "d5875d79780f07be61ff3fb07ec40acc54174dcc8c5f1172121b0b38814a135b",
+    "lecture_pdf/homework/지엘3 좌표계 변환 (실습 23).pdf": "a6a24ba8f2dbe6ce1159c4148ef198a618b3de5d131e06593a3d6f36b3563a3e",
+    "lecture_pdf/homework/지엘3 좌표계 변환 2 (실습 20).pdf": "cf4ee032718f6206bab7516867888d4afc45953ca21e9d4af520b15ed979abc3"
+  },
+  "requirements": [
+    {
+      "practice": 13,
+      "id": "P13-01",
+      "title": "육면체·사각뿔의 초기 배치와 기울기",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "초기 모델 회전과 표시용 카메라를 함께 확인한다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-02",
+      "title": "움직이지 않는 XYZ 좌표축",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "좌표축 선을 객체 owner 없이 생성한다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-03",
+      "title": "육면체의 지정한 한 면만 표시",
+      "input": "1~6",
+      "methods": [
+        "onKey",
+        "selectFaces"
+      ],
+      "behavior": "이전 표시를 먼저 지우고 선택 면만 켠다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-04",
+      "title": "사각뿔의 지정한 옆면만 표시",
+      "input": "7~0",
+      "methods": [
+        "onKey",
+        "selectFaces"
+      ],
+      "behavior": "삼각 옆면 인덱스 0~3을 선택한다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-05",
+      "title": "서로 다른 육면체 두 면 무작위 선택",
+      "input": "C",
+      "methods": [
+        "onKey",
+        "selectFaces"
+      ],
+      "behavior": "5개 후보에서 뽑은 두 번째 번호를 첫 번호 이후에서 보정한다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-06",
+      "title": "사각뿔 바닥과 임의 옆면 표시",
+      "input": "T",
+      "methods": [
+        "onKey",
+        "selectFaces"
+      ],
+      "behavior": "바닥 4와 옆면 0~3 하나를 함께 켠다."
+    },
+    {
+      "practice": 13,
+      "id": "P13-07",
+      "title": "면마다 다른 색과 깊이 가림",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "기본 모델의 면 색과 RenderOptions.depthTest를 사용한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-01",
+      "title": "같은 꼭짓점에 같은 색을 배정",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "공통 assignVertexColors가 좌표 부호 3비트를 색 인덱스로 사용한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-02",
+      "title": "도형을 바꿔도 위치·회전 보존",
+      "input": "C/P",
+      "methods": [
+        "selectShape",
+        "applyTransform"
+      ],
+      "behavior": "도형 선택 상태와 조작 변환을 분리한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-03",
+      "title": "은면 제거 켜기·끄기",
+      "input": "H",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "렌더 옵션만 바꾼다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-04",
+      "title": "와이어·솔리드 선택",
+      "input": "w/W",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "Shift와 Caps Lock의 조합으로 대문자를 해석한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-05",
+      "title": "현재 로컬 X축 양·음 자전",
+      "input": "x/X",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "applyTransform"
+      ],
+      "behavior": "회전 기저의 오른쪽에 증분 회전을 곱한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-06",
+      "title": "현재 로컬 Y축 양·음 자전",
+      "input": "y/Y",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "applyTransform"
+      ],
+      "behavior": "초기 표시 각도를 별도 카메라에 둔다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-07",
+      "title": "누르는 동안 XY 이동",
+      "input": "방향키",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "키 해제에서 속도 입력을 지우며 dt로 이동한다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-08",
+      "title": "객체가 움직여도 좌표축 고정",
+      "input": "이동·회전",
+      "methods": [
+        "initScene",
+        "applyTransform"
+      ],
+      "behavior": "축 선을 모델 자식으로 넣지 않는다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-09",
+      "title": "조작 상태·속도 초기화",
+      "input": "S",
+      "methods": [
+        "resetMotion",
+        "onKey"
+      ],
+      "behavior": "이동·회전을 지우고 모든 애니메이션을 멈춘다."
+    },
+    {
+      "practice": 14,
+      "id": "P14-10",
+      "title": "포커스 이탈 때 지속 입력 해제",
+      "input": "포커스",
+      "methods": [
+        "onFocus"
+      ],
+      "behavior": "키 해제 이벤트가 없어도 이동을 정지한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-01",
+      "title": "모델 전체 Y 자전과 면 동작 중첩",
+      "input": "Y",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "applyObjectTransform"
+      ],
+      "behavior": "본체 SRT와 면별 행렬을 따로 저장한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-02",
+      "title": "윗면 중심 Z축 자전",
+      "input": "T",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Top case: 윗면 중심을 고정한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-03",
+      "title": "앞면 상단 모서리 힌지 열기·닫기",
+      "input": "F",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Front case: 진행률 0~1을 -90도로 바꾼다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-04",
+      "title": "왼쪽·오른쪽 면의 제자리 X축 회전",
+      "input": "S",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Side case: 두 면의 중심을 각각 사용한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-05",
+      "title": "뒷면 중심 축소·소멸·복원",
+      "input": "B",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Back case: 0 크기에 도달한 면을 숨긴다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-06",
+      "title": "서로 이웃한 옆면 쌍 선택 유지",
+      "input": "1/2 첫 입력",
+      "methods": [
+        "beginMotion"
+      ],
+      "behavior": "순환 쌍 0-3, 3-1, 1-2, 2-0과 공유 모서리를 함께 저장한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-07",
+      "title": "이웃한 두 면이 공유 모서리를 중심으로 360도 회전",
+      "input": "1",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Hinge case: 선택한 두 면에 같은 모서리 회전을 적용한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-08",
+      "title": "이웃한 두 면의 반대 방향 90도 공전 교환",
+      "input": "2",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "Swap case: 0→90→0도의 삼각 위상으로 교환·복귀한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-09",
+      "title": "네 옆면의 모델 중심 Y축 공전",
+      "input": "4",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "OrbitY case: 면 0,1,2,3을 함께 돌린다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-10",
+      "title": "위·아래·앞·뒤 면의 모델 중심 X축 공전",
+      "input": "5",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "OrbitX case: 면 4,5,0,1을 함께 돌린다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-11",
+      "title": "동작별 정지·재개와 방향 반전 구분",
+      "input": "반복 키",
+      "methods": [
+        "beginMotion",
+        "onUpdate"
+      ],
+      "behavior": "F/B는 방향 반전, 나머지는 각 동작의 running만 토글한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-12",
+      "title": "여러 면 동작의 고정 순서 합성",
+      "input": "동시 입력",
+      "methods": [
+        "applyFaceMotion"
+      ],
+      "behavior": "매 프레임 항등 행렬에서 시작해 enum 순서로 왼쪽 곱한다."
+    },
+    {
+      "practice": 15,
+      "id": "P15-13",
+      "title": "도형 전환과 전체 리셋",
+      "input": "P/R",
+      "methods": [
+        "selectShape",
+        "resetFaces",
+        "resetAll"
+      ],
+      "behavior": "면 상태 초기화와 본체 전체 초기화를 구분한다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-01",
+      "title": "실습 15의 육면체 동작 유지",
+      "input": "T/F/S/B/1/2/4/5",
+      "methods": [
+        "beginMotion",
+        "applyFaceMotion",
+        "onUpdate"
+      ],
+      "behavior": "육면체 부분은 실습 15와 같은 상태·합성 패턴이다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-02",
+      "title": "사각뿔 네 면을 아래에서 만나도록 열기",
+      "input": "6",
+      "methods": [
+        "beginPyramid",
+        "applyPyramid",
+        "updatePyramid"
+      ],
+      "behavior": "All: 실제 기하에서 회전각을 구한다. PDF의 목표 자세와 행렬 각도를 구분한다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-03",
+      "title": "사각뿔 네 면을 순서대로 열고 닫기",
+      "input": "7",
+      "methods": [
+        "beginPyramid",
+        "applyPyramid",
+        "updatePyramid"
+      ],
+      "behavior": "8초 주기, 각 면의 2초 구간에서 0→평면→0을 계산한다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-04",
+      "title": "마주보는 두 사각뿔 옆면의 꼭짓점 기준 교환",
+      "input": "8",
+      "methods": [
+        "beginPyramid",
+        "applyPyramid",
+        "updatePyramid"
+      ],
+      "behavior": "Swap: 꼭대기를 지나는 Y축에서 두 면에 반대 부호를 준다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-05",
+      "title": "사각뿔 꼭대기 고정 바깥쪽 펼치기",
+      "input": "9",
+      "methods": [
+        "beginPyramid",
+        "applyPyramid",
+        "updatePyramid"
+      ],
+      "behavior": "Apex: 면별 축으로 -45도까지 연다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-06",
+      "title": "사각뿔 모드 전환·정지·역방향 복귀",
+      "input": "6~9 재입력",
+      "methods": [
+        "beginPyramid",
+        "selectShape"
+      ],
+      "behavior": "새 모드는 닫힌 자세에서 시작하고 완료한 교환은 반대 방향으로 복귀한다."
+    },
+    {
+      "practice": 16,
+      "id": "P16-07",
+      "title": "사각뿔 바닥의 고정",
+      "input": "모든 사각뿔 동작",
+      "methods": [
+        "applyPyramid"
+      ],
+      "behavior": "면 4의 추가 행렬은 항등으로 둔다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-01",
+      "title": "왼쪽·오른쪽·두 객체의 선택",
+      "input": "1/2/3",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "선택 상태로 개별 조작의 적용 대상을 정한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-02",
+      "title": "공전 그룹과 표시 메시 분리",
+      "input": "시작",
+      "methods": [
+        "reset",
+        "apply",
+        "orbitRotation",
+        "worldPosition"
+      ],
+      "behavior": "공전 프레임 아래에 몸체의 위치·자전·크기를 둔다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-03",
+      "title": "선택 객체의 로컬 X/Y 자전",
+      "input": "x/X/y/Y",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "자전 기저를 보관하고 수치 드리프트를 다시 직교화한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-04",
+      "title": "월드 원점 Y축 공전",
+      "input": "r/R",
+      "methods": [
+        "onKey",
+        "orbitRotation",
+        "apply"
+      ],
+      "behavior": "본체 자전과 공전 그룹의 회전 상태를 분리한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-05",
+      "title": "제자리 확대·축소",
+      "input": "a/A",
+      "methods": [
+        "onKey",
+        "apply"
+      ],
+      "behavior": "표시 크기만 바꾸고 위치는 유지한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-06",
+      "title": "원점 기준 위치와 크기 동시 확대·축소",
+      "input": "b/B",
+      "methods": [
+        "onKey",
+        "apply"
+      ],
+      "behavior": "위치와 배율을 같은 비율로 바꾼다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-07",
+      "title": "공전 중 화면 XY 방향 이동",
+      "input": "d/D/e/E",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "원하는 월드 이동을 공전 회전의 전치로 부모 공간에 옮긴다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-08",
+      "title": "두 객체의 원점을 통과하는 직선 교환",
+      "input": "T",
+      "methods": [
+        "begin",
+        "onUpdate"
+      ],
+      "behavior": "시작 월드 위치를 저장하고 2초 동안 서로의 위치로 보간한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-09",
+      "title": "위·아래로 우회하는 교환",
+      "input": "U",
+      "methods": [
+        "begin",
+        "onUpdate"
+      ],
+      "behavior": "직선 보간에 부호가 반대인 sin(pi*t) 높이를 더한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-10",
+      "title": "반대 위상 확대·축소와 자전·공전",
+      "input": "V",
+      "methods": [
+        "begin",
+        "onUpdate"
+      ],
+      "behavior": "시작 배율과 위상을 저장하며 모드 정지는 합성 동작만 멈춘다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-11",
+      "title": "진행 중 모드 전환과 같은 모드 정지·재개",
+      "input": "T/U/V 반복",
+      "methods": [
+        "begin",
+        "onUpdate"
+      ],
+      "behavior": "전환 시 현재 월드 위치를 새 시작점으로 잡는다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-12",
+      "title": "두 객체의 형상 순환과 SRT 유지",
+      "input": "C",
+      "methods": [
+        "model",
+        "onKey",
+        "apply"
+      ],
+      "behavior": "원뿔→구→육면체 모델만 교체한다."
+    },
+    {
+      "practice": 17,
+      "id": "P17-13",
+      "title": "초기화·포커스 이탈 입력 정리",
+      "input": "S/포커스",
+      "methods": [
+        "reset",
+        "onFocus"
+      ],
+      "behavior": "선택·모션·이동 입력을 초기 상태로 되돌린다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-01",
+      "title": "중심·행성·달의 계층 구성",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "표시 메시 크기를 궤도 프레임 배율과 분리한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-02",
+      "title": "세 행성의 서로 다른 궤도 기울기·속도",
+      "input": "자동",
+      "methods": [
+        "initScene",
+        "apply",
+        "onUpdate"
+      ],
+      "behavior": "XZ와 Z축 ±45도 기울기를 위치와 선에 동일 적용한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-03",
+      "title": "행성별 달의 공전과 자체 자전",
+      "input": "자동",
+      "methods": [
+        "apply",
+        "onUpdate"
+      ],
+      "behavior": "행성 중심 프레임 아래에서 달 위치와 회전을 계산한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-04",
+      "title": "보이는 궤도와 실제 천체 경로 일치",
+      "input": "시작·궤도 변환",
+      "methods": [
+        "initScene",
+        "apply"
+      ],
+      "behavior": "공통 반지름과 프레임을 선과 천체가 공유한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-05",
+      "title": "직각·원근 투영 선택",
+      "input": "p/P",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "카메라 투영 상태만 바꾼다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-06",
+      "title": "솔리드·와이어 선택",
+      "input": "m/M",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "같은 장면을 다른 렌더 옵션으로 그린다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-07",
+      "title": "전체 시스템 XYZ 이동",
+      "input": "W/A/S/D/±",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "루트의 위치만 바꾼다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-08",
+      "title": "모든 궤도 반지름의 부드러운 확대·축소",
+      "input": "1",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "현재 반지름을 목표 반지름으로 보간한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-09",
+      "title": "중심 구의 크기 진동과 색 변화",
+      "input": "2",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "중심 메시만 바꾸며 행성 거리에는 전파하지 않는다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-10",
+      "title": "달의 궤도 프레임과 달의 함께 회전",
+      "input": "3",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "궤도 그룹 회전과 달 로컬 자전을 분리한다."
+    },
+    {
+      "practice": 18,
+      "id": "P18-11",
+      "title": "전체 이동 중 포커스 해제",
+      "input": "포커스",
+      "methods": [
+        "onFocus"
+      ],
+      "behavior": "눌린 키 상태를 비운다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-01",
+      "title": "바닥·탱크·상부·포신·깃대의 계층 조립",
+      "input": "시작",
+      "methods": [
+        "initScene",
+        "reset",
+        "box"
+      ],
+      "behavior": "관절/프레임과 표시 육면체를 분리한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-02",
+      "title": "바닥 범위 안에서 탱크 XZ 이동",
+      "input": "방향키",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "부품 회전 범위를 포함하는 여유 반경으로 루트 위치를 제한한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-03",
+      "title": "아래 몸체 높이 진동",
+      "input": "D",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "바닥에 놓이는 하단 위치와 높이를 함께 계산한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-04",
+      "title": "중앙 몸체 Y축 회전과 자식 전파",
+      "input": "T",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "중앙 그룹 아래의 상부 부품이 같이 돈다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-05",
+      "title": "두 상부 몸체의 반원 경로 교환",
+      "input": "L",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "sin/cos와 반대 부호로 서로 다른 반원을 지나 교환한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-06",
+      "title": "양쪽 포신의 반대 방향 Y회전",
+      "input": "G",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "회전 중심과 포신 오프셋을 함께 회전시킨다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-07",
+      "title": "양쪽 깃대의 반대 방향 X진동",
+      "input": "P",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "apply"
+      ],
+      "behavior": "같은 위상에 양쪽 부호만 반대로 둔다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-08",
+      "title": "카메라 위치와 target의 함께 이동",
+      "input": "x/X/z/Z",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "시선 방향을 유지하며 평행 이동한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-09",
+      "title": "카메라 로컬 Y축 자전",
+      "input": "y/Y",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "position 고정, 시선과 up을 함께 회전한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-10",
+      "title": "화면 중심 Y축 기준 카메라 공전",
+      "input": "r/R",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "월드 원점 축에서 카메라의 position/target/up을 변환한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-11",
+      "title": "전체 부품 색 순환",
+      "input": "O",
+      "methods": [
+        "recolor",
+        "onKey"
+      ],
+      "behavior": "위치·계층을 바꾸지 않고 색만 갱신한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-12",
+      "title": "탱크·카메라·애니메이션 전체 리셋",
+      "input": "C",
+      "methods": [
+        "reset",
+        "onKey"
+      ],
+      "behavior": "부품별 시간·방향·입력도 함께 초기화한다."
+    },
+    {
+      "practice": 19,
+      "id": "P19-13",
+      "title": "포커스 이탈 때 카메라/탱크 입력 해제",
+      "input": "포커스",
+      "methods": [
+        "onFocus"
+      ],
+      "behavior": "애니메이션 토글과 지속 입력을 구분한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-01",
+      "title": "바닥과 일정 높이의 ㄱ자 평면 벨트",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "벨트 면과 줄무늬 표시 육면체를 분리한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-02",
+      "title": "벨트 표면의 다수 줄무늬 배치",
+      "input": "시작",
+      "methods": [
+        "initScene",
+        "placeMovingObjects"
+      ],
+      "behavior": "30개 줄무늬를 전체 거리의 등간격으로 배치한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-03",
+      "title": "색·번호가 다른 택배 상자 다섯 개",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "상자와 번호 선분을 owner 관계로 묶는다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-04",
+      "title": "벨트·상자에 공통 거리 시계 사용",
+      "input": "자동",
+      "methods": [
+        "placeMovingObjects",
+        "onUpdate"
+      ],
+      "behavior": "거리=속도×같은 누적 시간+개별 간격이다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-05",
+      "title": "직선→90도 원호→직선에서 코너 방향 회전",
+      "input": "코너",
+      "methods": [
+        "placeMovingObjects"
+      ],
+      "behavior": "위치와 접선 yaw를 같은 거리에서 샘플링한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-06",
+      "title": "끝에서 시작점으로 순환",
+      "input": "벨트 끝",
+      "methods": [
+        "placeMovingObjects"
+      ],
+      "behavior": "전체 경로 길이로 거리를 순환한다. 끝점과 시작점은 별도 위치다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-07",
+      "title": "이동 정지·재개",
+      "input": "B",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "시계의 playing만 바꿔 객체 간 간격을 보존한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-08",
+      "title": "쿼터뷰 초기 시점과 카메라 줌",
+      "input": "±",
+      "methods": [
+        "resetState",
+        "zoom",
+        "onKey"
+      ],
+      "behavior": "원근 거리와 직각 범위를 각각 조절한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-09",
+      "title": "원근·직각 투영 선택",
+      "input": "p/P",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "대문자 처리와 카메라 상태를 분리한다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-10",
+      "title": "중심 Y축 카메라 공전",
+      "input": "좌우 방향키",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "onFocus"
+      ],
+      "behavior": "키 유지 중 dt로 회전하고 포커스 이탈에서 입력을 지운다."
+    },
+    {
+      "practice": 20,
+      "id": "P20-11",
+      "title": "벨트 시간·카메라 리셋",
+      "input": "R",
+      "methods": [
+        "resetState",
+        "onKey"
+      ],
+      "behavior": "정지 상태와 초기 시점으로 돌아간다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-01",
+      "title": "안쪽이 보이는 면별 색 직육면체 방",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "front-open 방과 Front 컬링을 사용한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-02",
+      "title": "벽 충돌 때 방향을 바꾸는 공",
+      "input": "자동",
+      "methods": [
+        "addBall",
+        "onUpdate",
+        "syncScene"
+      ],
+      "behavior": "RoomBody 상태를 계산한 뒤 구 메시 위치에 반영한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-03",
+      "title": "공을 추가하고 최대 다섯 개로 제한",
+      "input": "B",
+      "methods": [
+        "addBall",
+        "onKey"
+      ],
+      "behavior": "추가 개수와 이미 생성된 객체 상태를 따로 관리한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-04",
+      "title": "Z축 줄의 서로 다른 크기 상자 세 개",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "공과 상자의 elastic 상태를 다르게 둔다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-05",
+      "title": "드래그로 방 Z축 회전",
+      "input": "마우스 좌/우",
+      "methods": [
+        "onMouse",
+        "onCursor",
+        "roomWorld"
+      ],
+      "behavior": "커서의 차이만 회전량에 더한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-06",
+      "title": "기울어진 방 바닥을 따르는 상자 이동",
+      "input": "방 회전",
+      "methods": [
+        "onUpdate",
+        "syncScene"
+      ],
+      "behavior": "방 로컬 중력을 계산하고 월드 표시 위치로 옮긴다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-07",
+      "title": "방 자체 Y축 자전",
+      "input": "V",
+      "methods": [
+        "onKey",
+        "roomWorld",
+        "onUpdate"
+      ],
+      "behavior": "드래그 회전과 독립된 시간 상태를 둔다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-08",
+      "title": "바닥을 열고 객체를 월드 낙하로 전환",
+      "input": "F",
+      "methods": [
+        "onKey",
+        "onUpdate",
+        "releaseBody"
+      ],
+      "behavior": "이탈 시 월드 위치·속도·상자 회전을 보관한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-09",
+      "title": "모든 객체를 즉시 이탈시켜 낙하",
+      "input": "E",
+      "methods": [
+        "onKey",
+        "releaseBody"
+      ],
+      "behavior": "바닥 개방 진행과 독립된 강제 이탈이다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-10",
+      "title": "회전 방의 각속도를 이탈 속도에 반영",
+      "input": "이탈",
+      "methods": [
+        "releaseBody",
+        "onUpdate"
+      ],
+      "behavior": "드래그·자전 각속도의 기여를 함께 전달한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-11",
+      "title": "카메라 Z이동과 로컬 Y자전",
+      "input": "z/Z/y/Y",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "방 회전 상태와 카메라를 별도로 변경한다."
+    },
+    {
+      "practice": 21,
+      "id": "P21-12",
+      "title": "포커스 이탈에서 드래그·입력 멈춤",
+      "input": "포커스",
+      "methods": [
+        "onFocus",
+        "onUpdate"
+      ],
+      "behavior": "직전 커서와 pending 회전량을 정리한다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-01",
+      "title": "실습 19의 탱크와 조작 재사용",
+      "input": "방향키·D/T/L/G/P",
+      "methods": [
+        "reset",
+        "apply",
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "같은 Scene의 동일한 부품 ID를 모든 뷰에서 사용한다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-02",
+      "title": "원근 시점의 장면",
+      "input": "프레임",
+      "methods": [
+        "onRender"
+      ],
+      "behavior": "화면 크기에서 perspective pass를 구성한다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-03",
+      "title": "XZ 평면도의 직각 투영",
+      "input": "프레임",
+      "methods": [
+        "onRender"
+      ],
+      "behavior": "위에서 아래로 보며 up 방향을 -Z로 둔다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-04",
+      "title": "XY 정면도의 직각 투영",
+      "input": "프레임",
+      "methods": [
+        "onRender"
+      ],
+      "behavior": "같은 모델을 +Z 시점에서 본다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-05",
+      "title": "세 뷰포트의 같은 이동·같은 시간",
+      "input": "이동·애니메이션",
+      "methods": [
+        "onUpdate",
+        "onRender"
+      ],
+      "behavior": "갱신은 한 번, renderViews는 여러 번 그리기만 한다."
+    },
+    {
+      "practice": 22,
+      "id": "P22-06",
+      "title": "카메라·색·리셋·포커스 상태 재사용",
+      "input": "실습 19 조작",
+      "methods": [
+        "onKey",
+        "recolor",
+        "reset",
+        "onFocus"
+      ],
+      "behavior": "실습 19와 같은 요구를 함수별로 함께 추적한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-01",
+      "title": "안쪽이 보이는 무대와 면별 색",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "앞벽도 유지하고 컬링으로 시점에 따라 내부를 보이게 한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-02",
+      "title": "머리·코·몸통·다른 색 팔다리 로봇",
+      "input": "시작",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "위치/크기는 GridLayout 비율로 조립한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-03",
+      "title": "겹치지 않는 랜덤 장애물 세 개",
+      "input": "시작·I",
+      "methods": [
+        "initScene"
+      ],
+      "behavior": "난수 엔진을 유지하고 제한 횟수 안에서 배치한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-04",
+      "title": "방향을 지정하고 계속 걷기",
+      "input": "W/A/S/D",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "키가 진행 방향을 바꾸며 보행 상태를 켠다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-05",
+      "title": "무대 경계에서 방향 반전",
+      "input": "경계",
+      "methods": [
+        "onUpdate"
+      ],
+      "behavior": "CharacterBody를 stepCharacter로 진행한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-06",
+      "title": "장애물 충돌에서 이동 거부·방향 반전",
+      "input": "장애물",
+      "methods": [
+        "onUpdate"
+      ],
+      "behavior": "충돌 결과를 적용한 최종 위치로 리그를 갱신한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-07",
+      "title": "속도와 팔다리 진폭의 연동",
+      "input": "±",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "요청 속도와 실제 이동 거리로 보행 진폭·위상을 정한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-08",
+      "title": "보행 정지·재개",
+      "input": "Space",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "시간과 수직 운동을 모두 멈추는 대신 수평 속도만 0으로 계산한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-09",
+      "title": "제자리·이동 점프 및 장애물 위 착지",
+      "input": "J",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "grounded에서 점프하고 지지면 높이를 계산한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-10",
+      "title": "카메라 방향 벽의 균등 축소·개방",
+      "input": "O",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "카메라로 한 벽을 선택하고 중심 기준 균등 축소한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-11",
+      "title": "카메라 이동 후에도 같은 벽 복원",
+      "input": "O 반복",
+      "methods": [
+        "onKey",
+        "onUpdate"
+      ],
+      "behavior": "activeWall은 복원 완료 때까지 유지한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-12",
+      "title": "카메라 XYZ 이동·target 중심 Y공전",
+      "input": "x/X/z/Z/y/Y",
+      "methods": [
+        "onKey"
+      ],
+      "behavior": "로봇의 이동 상태와 독립적으로 조절한다."
+    },
+    {
+      "practice": 23,
+      "id": "P23-13",
+      "title": "무대·로봇·장애물·입력 리셋",
+      "input": "I",
+      "methods": [
+        "initScene",
+        "onKey"
+      ],
+      "behavior": "ID를 다시 받고 기존 난수 엔진에서 새 장애물을 생성한다."
+    }
+  ],
+  "common_patterns": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10"
+  ],
+  "earlier_3d_patterns": [
+    "E00-01",
+    "E00-02",
+    "E00-03",
+    "E00-04",
+    "E06-01",
+    "E06-02",
+    "E06-03",
+    "E06-04",
+    "E06-05",
+    "E06-06"
+  ],
+  "generated_by": "tools/Write-PracticeCookbook.py",
+  "build_test_app_execution": "not_run",
+  "dependencies": "C++17 standard library + framework bundled within standard + complete local helper block"
+}

@@ -30,3 +30,7 @@
 ## 독립 폴더
 
 standard 전체를 다른 경로로 복사하고 상위 공용 framework 없이 열어 본다. 다른 PC 실행·컴파일·문서 표시 결과는 사용자가 확인한다. 외부 자산 사례의 models/robot.obj·textures/robot.png는 제공된 기본 실행에 필요하지 않으며 사용자가 준비한다. 용량 기준은 SIZE_REPORT.md에서 실제 폴더 합계를 확인한다.
+
+## 3D 실습 코드 모음 사용자 확인
+
+[코드 모음](docs/practice-cookbook/README.md)의 Common 헤더와 선택한 실습의 Console.h/Console.cpp/main.cpp를 같은 standard 폴더에 구성한다. 빌드 후 해당 문서의 모든 키·정지/재개·방향반전·리셋·포커스·뷰포트를 확인한다. 다른 실습 폴더를 제거한 사본에서도 동봉 framework만으로 구성되는지 확인한다. 문서 제작 중 빌드·테스트·앱 실행은 하지 않았다.

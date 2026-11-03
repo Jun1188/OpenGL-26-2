@@ -1,8 +1,8 @@
 ﻿# 프레임워크 공개 API 한글 목록
 
-현재 include 헤더의 공개 선언을 읽어 갱신했다. 빌드·테스트는 하지 않았다.
+현재 공개 헤더에서 읽은 선언이다. 빌드·테스트는 하지 않았다.
 
-[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립](PATTERN_COMPOSITION.md) · [면 독립·계층·회전 분류](FACE_TRANSFORMS.md)
+[의미 동작·육면체 모드](MODE_ACTIONS.md) · [정점 입력·내부 수정 순서](RENDER_CONFIGURATION.md) · [패턴 조립](PATTERN_COMPOSITION.md) · [면 변환](FACE_TRANSFORMS.md)
 
 ## SceneActions::transform
 
@@ -2794,7 +2794,7 @@ static std::optional<std::size_t> cameraFacingWall(const Scene& scene, EntityId 
 static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float progress);
 ```
 
-선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.
+선택 옆벽의 원래 중심을 기준으로 모든 축을 균등 축소/복원하며 완전 개방 시 숨긴다.
 
 반환·실패: true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.
 

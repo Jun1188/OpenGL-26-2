@@ -3231,7 +3231,7 @@
     "signature": "static bool openRoomWall(Scene& scene, EntityId room, std::size_t face, float progress)",
     "file": "framework/include/Patterns.h",
     "line": 140,
-    "description": "선택 옆벽의 정점에서 상단 피벗을 계산하고 openFace로 높이를 축소/복원한다.",
+    "description": "선택 옆벽의 원래 중심을 기준으로 모든 축을 균등 축소/복원하며 완전 개방 시 숨긴다.",
     "result": "true/false로 결과를 판단한다. valid/contains/overlaps 등 판정 함수의 false는 오류와 구분한다.",
     "case": "parts",
     "example_lines": [

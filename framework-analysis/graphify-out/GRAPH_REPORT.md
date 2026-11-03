@@ -1,16 +1,16 @@
 ﻿# Graph Report - framework  (2026-11-03)
 
 ## Corpus Check
-- 33 files · ~32,760 words
+- 33 files · ~32,800 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1602 nodes · 2817 edges · 109 communities (83 shown, 10 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 185 edges (avg confidence: 0.84)
+- 1602 nodes · 2817 edges · 113 communities (89 shown, 8 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 184 edges (avg confidence: 0.84)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9410b43f`
+- Built from commit: `ea1ebb7d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,21 +23,12 @@
 - detail 코드 구조
 - detail 코드 구조
 - detail 코드 구조
-- detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
-- include 코드 구조
-- detail 코드 구조
-- detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - detail 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
 - include 코드 구조
 - detail 코드 구조
 - detail 코드 구조
@@ -48,25 +39,20 @@
 - detail 코드 구조
 - include 코드 구조
 - detail 코드 구조
+- detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
 - detail 코드 구조
 - include 코드 구조
+- include 코드 구조
+- include 코드 구조
 - detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
+- detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - detail 코드 구조
@@ -79,26 +65,44 @@
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
+- include 코드 구조
+- detail 코드 구조
+- include 코드 구조
 - detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
--  코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- detail 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- detail 코드 구조
 - include 코드 구조
 - include 코드 구조
 - include 코드 구조
 - detail 코드 구조
 - detail 코드 구조
-- include 코드 구조
-- include 코드 구조
-- include 코드 구조
-- detail 코드 구조
-- include 코드 구조
-- include 코드 구조
 - include 코드 구조
 - include 코드 구조
 - detail 코드 구조
 -  코드 구조
+- detail 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- include 코드 구조
+- detail 코드 구조
 - include 코드 구조
 - detail 코드 구조
 - include 코드 구조
@@ -122,10 +126,10 @@
 10. `Motion` - 26 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `MotionSystem::popLayer()` --calls--> `removeLayer`  [INFERRED]
+  detail/Motion.cpp → include/Motion.h
 - `MotionSystem::bindMotion()` --calls--> `setLayer`  [INFERRED]
   detail/Motion.cpp → include/Motion.h
-- `PatternSystem::openRoomWall()` --calls--> `openFace`  [INFERRED]
-  detail/Patterns.cpp → include/Patterns.h
 - `PatternSystem::poseWalkingRig()` --calls--> `rotateJoint`  [INFERRED]
   detail/Patterns.cpp → include/Patterns.h
 - `Scene::setPosition()` --calls--> `setTransform`  [INFERRED]
@@ -136,7 +140,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (109 total, 10 thin omitted)
+## Communities (113 total, 8 thin omitted)
 
 ### Community 0 - "detail 코드 구조"
 Cohesion: 0.05
@@ -152,7 +156,7 @@ Nodes (58): Scene::setFaceLocalMatrix, Scene::setMeshVertices, Scene::setVisible
 
 ### Community 3 - "include 코드 구조"
 Cohesion: 0.04
-Nodes (53): LayerId, map, Scene, addBasis, addCone, addCuboid, addGroup, addLine (+45 more)
+Nodes (54): LayerId, map, uint64_t, Scene, addBasis, addCone, addCuboid, addGroup (+46 more)
 
 ### Community 4 - "include 코드 구조"
 Cohesion: 0.09
@@ -163,204 +167,204 @@ Cohesion: 0.08
 Nodes (47): AssetLoader::loadObj(), Model, size_t, string, vector, ObjCorner, normal, position (+39 more)
 
 ### Community 6 - "detail 코드 구조"
-Cohesion: 0.12
-Nodes (34): mat4, optional, PathFunction, vec3, vector, motionAround(), motionPlane(), motionUnitVector() (+26 more)
-
-### Community 7 - "detail 코드 구조"
 Cohesion: 0.05
 Nodes (37): MotionSystem::reparentLayer, MotionSystem::popLayer, Motion::insertAction, MotionSystem::createMotion, MotionSystem::update, Motion::linear, MotionSystem::layerMatrices, MotionSystem::getLayer (+29 more)
 
-### Community 8 - "detail 코드 구조"
+### Community 7 - "detail 코드 구조"
 Cohesion: 0.06
-Nodes (35): DistancePath::sample, DistancePath::setPoints, CollisionSystem::stepRoomBody, PatternSystem::aligned, PatternSystem::snakeCells, CollisionSystem::stepCharacter, PatternSystem::poseWalkingRig, PatternSystem::screenOnPlane (+27 more)
+Nodes (35): DistancePath::sample, DistancePath::setPoints, CollisionSystem::stepRoomBody, CollisionSystem::stepCharacter, PatternSystem::aligned, PatternSystem::addBox, PatternSystem::threeViews, Bounds3::overlaps (+27 more)
 
-### Community 9 - "include 코드 구조"
+### Community 8 - "include 코드 구조"
 Cohesion: 0.06
 Nodes (31): exception_ptr, Application, assets_, callbackError_, camera_, configureRenderer, contextFailed_, contextThread_ (+23 more)
 
+### Community 9 - "include 코드 구조"
+Cohesion: 0.08
+Nodes (31): Application::pickAt(), Application::pickAtCursor(), optional, pickAt, EntityId, optional, Scene, size_t (+23 more)
+
 ### Community 10 - "include 코드 구조"
-Cohesion: 0.10
-Nodes (26): vec3, HumanoidConfig, grid, headColor, leftColor, rightColor, torsoColor, upperArmFraction (+18 more)
+Cohesion: 0.06
+Nodes (30): GLint, GLuint, vector, Renderer, config_, drawRanges_, ebo_, hasTextureLocation_ (+22 more)
 
 ### Community 11 - "include 코드 구조"
 Cohesion: 0.07
-Nodes (29): GLint, GLuint, vector, Renderer, config_, drawRanges_, ebo_, hasTextureLocation_ (+21 more)
-
-### Community 12 - "include 코드 구조"
-Cohesion: 0.07
 Nodes (29): CullMode, FaceAnimationSpace, FaceTransformMode, GLFace, OutlineMode, uint32_t, vector, PlaneFigure (+21 more)
 
-### Community 13 - "detail 코드 구조"
-Cohesion: 0.13
-Nodes (27): MotionAction, MotionId, optional, size_t, Motion::action(), Motion::append(), Motion::erase(), Motion::execute() (+19 more)
+### Community 12 - "include 코드 구조"
+Cohesion: 0.11
+Nodes (28): AnimationSystem::addHumanoid(), AnimationSystem::addSwingWithRider(), AnimationSystem::createJointAnimation(), AnimationSystem::poseHierarchy(), AnimationSystem::poseHumanoid(), EntityId, optional, Scene (+20 more)
 
-### Community 14 - "detail 코드 구조"
+### Community 13 - "detail 코드 구조"
 Cohesion: 0.07
 Nodes (28): GlfwApi, createWindow, DestroyWindow, GetCurrentContext, GetCursorPos, GetFramebufferSize, GetTime, GetWindowSize (+20 more)
 
-### Community 15 - "include 코드 구조"
-Cohesion: 0.10
-Nodes (27): AssetLoader::loadPrimitive(), loadModel, loadObj, FeatureOptions, textures, finishLoad(), Model, optional (+19 more)
-
-### Community 16 - "include 코드 구조"
+### Community 14 - "include 코드 구조"
 Cohesion: 0.08
-Nodes (24): MotionSystem::clear(), LayerId, map, MotionSystem, bindMotion, clear, createOrbit, createSpin (+16 more)
+Nodes (25): MotionSystem::clear(), LayerId, map, MotionSystem, bindMotion, clear, createOrbit, createSpin (+17 more)
 
-### Community 17 - "detail 코드 구조"
+### Community 15 - "detail 코드 구조"
 Cohesion: 0.08
 Nodes (24): Application::getFramebufferSize, Application::pickAtCursor, detail::glfw, Application::setKeyHandler, detail::glfw, Application::setInitHandler, Application::setCursorHandler, Application::setRenderHandler (+16 more)
 
-### Community 18 - "include 코드 구조"
-Cohesion: 0.11
-Nodes (23): mat4, TransformSpace, Motion::evaluate(), Motion::fixed(), Motion::then(), Motion::validStep(), MotionSystem::layerMatrices(), MotionSystem::validLayer() (+15 more)
+### Community 16 - "detail 코드 구조"
+Cohesion: 0.25
+Nodes (20): mat4, optional, PathFunction, vec3, vector, motionAround(), motionPlane(), motionUnitVector() (+12 more)
 
-### Community 19 - "include 코드 구조"
+### Community 17 - "include 코드 구조"
 Cohesion: 0.10
 Nodes (21): bindCuboidMode(), shared_ptr, CuboidMode, action, apply, bindings_, bindKey, config_ (+13 more)
 
-### Community 20 - "include 코드 구조"
-Cohesion: 0.13
-Nodes (22): LayerId, MotionSystem::getLayer(), MotionSystem::insertLayer(), MotionSystem::popLayer(), MotionSystem::pushLayer(), MotionSystem::reparentLayer(), MotionSystem::setLayer(), MotionId (+14 more)
-
-### Community 21 - "include 코드 구조"
+### Community 18 - "include 코드 구조"
 Cohesion: 0.09
 Nodes (22): PatternSystem, addNumber, addPolygon, addRoom, addWalkingRig, aligned, cameraFacingWall, conveyorCornerPose (+14 more)
 
-### Community 22 - "include 코드 구조"
-Cohesion: 0.10
-Nodes (20): CollisionSystem::jump(), CharacterBody, direction, feet, grounded, halfWidth, height, speed (+12 more)
-
-### Community 23 - "include 코드 구조"
-Cohesion: 0.17
-Nodes (19): AnimationSystem::addHumanoid(), AnimationSystem::addSwingWithRider(), AnimationSystem::createJointAnimation(), AnimationSystem::poseHierarchy(), EntityId, optional, Scene, vector (+11 more)
-
-### Community 24 - "detail 코드 구조"
-Cohesion: 0.25
-Nodes (16): AnimationSystem::poseHumanoid(), AnimationClock::advance(), Bounds3::contains(), CollisionSystem::stepRoomBody(), mat4, vec3, DistancePath::setPoints(), PatternSystem::addWalkingRig() (+8 more)
-
-### Community 25 - "detail 코드 구조"
-Cohesion: 0.15
-Nodes (17): Application::~Application(), Application::getFramebufferSize(), Application::pickAt(), Application::pickAtCursor(), Application::setCursorHandler(), Application::setFocusHandler(), Application::setInitHandler(), Application::setKeyHandler() (+9 more)
-
-### Community 26 - "include 코드 구조"
+### Community 19 - "include 코드 구조"
 Cohesion: 0.12
-Nodes (19): PatternSystem::moveCamera(), PatternSystem::orbitCamera(), PatternSystem::screenOnPlane(), PatternSystem::threeViews(), PatternSystem::zoomCamera(), Camera, farPlane, fieldOfViewDegrees (+11 more)
+Nodes (21): MotionAction, size_t, Motion::action(), Motion::append(), Motion::erase(), Motion::evaluate(), Motion::insert(), Motion::insertAction() (+13 more)
 
-### Community 27 - "include 코드 구조"
+### Community 20 - "include 코드 구조"
+Cohesion: 0.11
+Nodes (20): mat4, Scene, vector, Renderer::draw(), Renderer::render(), Renderer::renderViews(), CullMode, vec3 (+12 more)
+
+### Community 21 - "detail 코드 구조"
+Cohesion: 0.20
+Nodes (17): initializer_list, MotionId, Motion::then(), MotionSystem::createMotion(), MotionSystem::createOrbit(), MotionSystem::createSpin(), MotionSystem::getMotion(), MotionSystem::removeMotion() (+9 more)
+
+### Community 22 - "include 코드 구조"
 Cohesion: 0.11
 Nodes (18): HumanoidRig, elbows, feet, forearms, hands, head, hips, knees (+10 more)
 
-### Community 28 - "include 코드 구조"
-Cohesion: 0.12
-Nodes (17): Motion::linear(), Motion::rotation(), Playback, TransformSpace, vec3, LinearMotion, durationSeconds, from (+9 more)
-
-### Community 29 - "include 코드 구조"
-Cohesion: 0.12
-Nodes (15): Motion::pendulum(), map, MotionState, enabled, motion, playing, sampled, timeSeconds (+7 more)
-
-### Community 30 - "detail 코드 구조"
-Cohesion: 0.15
-Nodes (12): executableDirectory(), frameworkDirectory(), wglGetProc, T, Module, handle_, relativePathInside(), resolve() (+4 more)
-
-### Community 31 - "include 코드 구조"
+### Community 23 - "detail 코드 구조"
 Cohesion: 0.23
-Nodes (10): Application::ensureContext(), Application::initialize(), Application::run(), initHandler_, renderHandler_, renderScene, updateHandler_, Diagnostics (+2 more)
+Nodes (14): AnimationClock::advance(), Bounds3::contains(), ivec3, vector, DistancePath::setPoints(), PatternSystem::aligned(), PatternSystem::moveCamera(), PatternSystem::orbitCamera() (+6 more)
 
-### Community 32 - "detail 코드 구조"
+### Community 24 - "detail 코드 구조"
+Cohesion: 0.28
+Nodes (17): EntityId, optional, Scene, size_t, PatternSystem::addBox(), PatternSystem::addJoint(), PatternSystem::addNumber(), PatternSystem::addPolygon() (+9 more)
+
+### Community 25 - "include 코드 구조"
+Cohesion: 0.12
+Nodes (17): vec3, HumanoidConfig, grid, headColor, leftColor, rightColor, torsoColor, upperArmFraction (+9 more)
+
+### Community 26 - "include 코드 구조"
+Cohesion: 0.12
+Nodes (15): DistancePath, distances_, points_, sample, setPoints, mat4, vec3, vector (+7 more)
+
+### Community 27 - "include 코드 구조"
+Cohesion: 0.15
+Nodes (14): Motion::execute(), Motion::sample(), map, mat4, evaluate, MotionSample, local, parent (+6 more)
+
+### Community 28 - "detail 코드 구조"
 Cohesion: 0.23
 Nodes (13): compileShader(), GLenum, GLuint, string, readTextFile(), Renderer::initialize(), Renderer::initShader(), Renderer::upload() (+5 more)
 
-### Community 33 - "include 코드 구조"
+### Community 29 - "include 코드 구조"
+Cohesion: 0.13
+Nodes (16): Renderer::renderPass(), CameraSystem, projectionMatrix, viewMatrix, draw, upload, RenderPass, camera (+8 more)
+
+### Community 30 - "include 코드 구조"
+Cohesion: 0.18
+Nodes (13): main(), PathSystem, circle, ellipse, linear, polygon, polyline, rectangle (+5 more)
+
+### Community 31 - "include 코드 구조"
 Cohesion: 0.13
 Nodes (15): DrawUniformContext, depthOnly, entity, face, line, model, program, projection (+7 more)
 
+### Community 32 - "detail 코드 구조"
+Cohesion: 0.20
+Nodes (11): Application::getFramebufferSize(), Application::setCursorHandler(), Application::setFocusHandler(), Application::setInitHandler(), Application::setKeyHandler(), Application::setModifiedKeyHandler(), Application::setMouseHandler(), Application::setRenderHandler() (+3 more)
+
+### Community 33 - "include 코드 구조"
+Cohesion: 0.13
+Nodes (15): Motion::pendulum(), Motion::rotation(), TransformSpace, PendulumMotion, amplitudeDegrees, axis, offsetDegrees, periodSeconds (+7 more)
+
 ### Community 34 - "include 코드 구조"
-Cohesion: 0.16
-Nodes (15): initializer_list, MotionSystem::createMotion(), MotionSystem::setMotion(), Motion, action, append, erase, execute (+7 more)
+Cohesion: 0.21
+Nodes (11): AssetLoader::loadPrimitive(), AssetLoader, features_, imageCache_, loadModel, loadObj, loadPrimitive, projectRoot_ (+3 more)
 
 ### Community 35 - "include 코드 구조"
-Cohesion: 0.21
-Nodes (14): optional, Scene, vec3, pick(), PickViewport, height, width, x (+6 more)
+Cohesion: 0.30
+Nodes (9): GridLayout, cells, extent, frame, origin, ivec3, mat4, optional (+1 more)
 
-### Community 36 - "detail 코드 구조"
+### Community 36 - "include 코드 구조"
+Cohesion: 0.15
+Nodes (14): FeatureOptions, textures, finishLoad(), Model, optional, vec3, vector, ModelResult (+6 more)
+
+### Community 37 - "detail 코드 구조"
 Cohesion: 0.13
 Nodes (14): PathSystem::rectangle, PathSystem::polygon, TransformSystem::translation, PathSystem::ellipse, PathSystem::smoothStep, TransformSystem::rotation, TransformSystem::reflectPlane, PathSystem::polyline (+6 more)
 
-### Community 37 - "include 코드 구조"
-Cohesion: 0.20
-Nodes (14): Bounds3::overlaps(), CollisionSystem::randomFreeBox(), CollisionSystem::stepCharacter(), ivec3, vector, horizontalOverlap(), PatternSystem::snakeCells(), Bounds3 (+6 more)
-
-### Community 38 - "detail 코드 구조"
-Cohesion: 0.34
-Nodes (14): EntityId, optional, Scene, size_t, PatternSystem::addBox(), PatternSystem::addJoint(), PatternSystem::addNumber(), PatternSystem::addPolygon() (+6 more)
+### Community 38 - "include 코드 구조"
+Cohesion: 0.15
+Nodes (14): array, EntityId, vector, JointAnimation, joint, motion, rest, SwingRig (+6 more)
 
 ### Community 39 - "include 코드 구조"
 Cohesion: 0.14
 Nodes (14): ApplicationConfig, diagnostics, features, height, projectRoot, renderConfig, runtimeDirectory, shaderDirectory (+6 more)
 
-### Community 40 - "include 코드 구조"
-Cohesion: 0.21
-Nodes (10): HRESULT, checkCom(), ComApartment, result, ComOwner, value, decodeImage(), T (+2 more)
+### Community 40 - "detail 코드 구조"
+Cohesion: 0.32
+Nodes (13): LayerId, optional, MotionSystem::bindMotion(), MotionSystem::insertLayer(), MotionSystem::layerMatrices(), MotionSystem::popLayer(), MotionSystem::pushLayer(), MotionSystem::removeLayer() (+5 more)
 
 ### Community 41 - "include 코드 구조"
 Cohesion: 0.17
-Nodes (13): EntityId, vector, JointAnimation, joint, motion, rest, SwingRig, animation (+5 more)
+Nodes (13): MotionSystem::getLayer(), MotionId, optional, vector, LayerConfig, enabled, motion, space (+5 more)
 
 ### Community 42 - "include 코드 구조"
-Cohesion: 0.15
-Nodes (13): CullMode, vec3, RenderOptions, background, cull, depthTest, lightColor, lightDirection (+5 more)
+Cohesion: 0.21
+Nodes (10): HRESULT, checkCom(), ComApartment, result, ComOwner, value, decodeImage(), T (+2 more)
 
 ### Community 43 - "include 코드 구조"
-Cohesion: 0.15
-Nodes (13): EntityId, size_t, vec2, PickResult, barycentric, distance, entityId, faceIndex (+5 more)
-
-### Community 44 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): CuboidOperation, CuboidCommand, degrees, enabled, layer, motion, operation, transform (+4 more)
 
-### Community 45 - "include 코드 구조"
+### Community 44 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): CuboidMode::setCuboid(), CuboidConfig, color, faces, motion, name, size, transform (+4 more)
 
-### Community 46 - "include 코드 구조"
-Cohesion: 0.23
-Nodes (4): CharacterStep, blocked, landed, turned
-
-### Community 47 - "include 코드 구조"
+### Community 45 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): Motion::followPath(), PathFunction, PathMotion, durationSeconds, interpolation, phase, playback, rate (+4 more)
 
-### Community 48 - "include 코드 구조"
+### Community 46 - "include 코드 구조"
 Cohesion: 0.18
 Nodes (12): Scene::setTint(), GlColor, blue, green, red, shared_ptr, Material, color (+4 more)
 
-### Community 49 - "include 코드 구조"
+### Community 47 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): Diagnostic, action, api, cause, file, line, object, operation (+4 more)
 
-### Community 50 - "include 코드 구조"
+### Community 48 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): DrawRange, count, entityId, faceIndex, firstIndex, lineId, outlineCount, outlineFirstIndex (+4 more)
 
-### Community 51 - "include 코드 구조"
+### Community 49 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (11): FaceId, entityId, faceIndex, EntityId, optional, size_t, Line3D, color (+3 more)
 
-### Community 52 - "include 코드 구조"
-Cohesion: 0.24
-Nodes (8): AssetLoader, features_, imageCache_, loadPrimitive, projectRoot_, map, path, weak_ptr
-
-### Community 53 - "include 코드 구조"
+### Community 50 - "include 코드 구조"
 Cohesion: 0.17
 Nodes (12): UniformBindings, hasTexture, lightColor, lightDirection, lighting, model, mvp, normal (+4 more)
 
-### Community 54 - "detail 코드 구조"
+### Community 51 - "detail 코드 구조"
 Cohesion: 0.17
 Nodes (11): CuboidMode::dispatch, CuboidMode::setCuboid, CuboidMode::action, CuboidMode::motion, CuboidMode::bindKey, CuboidMode::unbindKey, CuboidMode::apply, CuboidMode::update (+3 more)
 
-### Community 55 - "include 코드 구조"
+### Community 52 - "include 코드 구조"
 Cohesion: 0.25
 Nodes (9): Application::configureRenderer(), main(), main(), pickAtCursor, requestClose, run, setInitHandler, setKeyHandler (+1 more)
+
+### Community 53 - "detail 코드 구조"
+Cohesion: 0.22
+Nodes (9): checkGlAt(), GetError, wglGetProc, PipelineStage, T, relativePathInside(), resolve(), symbol() (+1 more)
+
+### Community 54 - "include 코드 구조"
+Cohesion: 0.25
+Nodes (11): Bounds3::overlaps(), CollisionSystem::randomFreeBox(), CollisionSystem::stepCharacter(), horizontalOverlap(), Bounds3, contains, maximum, minimum (+3 more)
+
+### Community 55 - "include 코드 구조"
+Cohesion: 0.18
+Nodes (11): CollisionSystem::jump(), CharacterBody, direction, feet, grounded, halfWidth, height, speed (+3 more)
 
 ### Community 56 - "include 코드 구조"
 Cohesion: 0.44
@@ -371,121 +375,145 @@ Cohesion: 0.22
 Nodes (11): bottomCenter(), bounds(), Model, vec2, vec3, Vertex, color, normal (+3 more)
 
 ### Community 58 - "include 코드 구조"
-Cohesion: 0.20
-Nodes (10): array, HumanoidPose, elbows, hips, knees, neckDegrees, pelvisDegrees, seated (+2 more)
+Cohesion: 0.18
+Nodes (11): Motion, action, erase, execute, fixed, insertAction, linear, pendulum (+3 more)
 
 ### Community 59 - "include 코드 구조"
-Cohesion: 0.20
-Nodes (10): CuboidFaceConfig, color, cull, mode, rotation, transform, visible, CullMode (+2 more)
+Cohesion: 0.40
+Nodes (5): Application::ensureContext(), Application::initialize(), Diagnostics, PipelineStage, options
 
 ### Community 60 - "include 코드 구조"
 Cohesion: 0.20
-Nodes (10): RenderPass, camera, clearColor, clearDepth, viewport, Viewport, height, width (+2 more)
+Nodes (10): Motion::linear(), Playback, vec3, LinearMotion, durationSeconds, from, playback, space (+2 more)
 
 ### Community 61 - "include 코드 구조"
 Cohesion: 0.20
-Nodes (10): Component_Poly, parent, pivotMode, polyhedron, sideLengths, tint, transform, transformOnly (+2 more)
+Nodes (10): PatternSystem::screenOnPlane(), Camera, farPlane, fieldOfViewDegrees, nearPlane, orthographic, orthographicHalfExtent, position (+2 more)
 
 ### Community 62 - "include 코드 구조"
-Cohesion: 0.20
-Nodes (10): uint8_t, TextureImage, height, rgba, width, shared_ptr, string, TextureResult (+2 more)
+Cohesion: 0.29
+Nodes (4): CharacterStep, blocked, landed, turned
 
 ### Community 63 - "include 코드 구조"
 Cohesion: 0.20
+Nodes (10): CuboidFaceConfig, color, cull, mode, rotation, transform, visible, CullMode (+2 more)
+
+### Community 64 - "include 코드 구조"
+Cohesion: 0.20
+Nodes (10): Component_Poly, parent, pivotMode, polyhedron, sideLengths, tint, transform, transformOnly (+2 more)
+
+### Community 65 - "include 코드 구조"
+Cohesion: 0.20
+Nodes (10): uint8_t, TextureImage, height, rgba, width, shared_ptr, string, TextureResult (+2 more)
+
+### Community 66 - "include 코드 구조"
+Cohesion: 0.20
+Nodes (10): OutlineMode, PivotMode, LoadOptions, allowObjFallback, customPivot, flipTextureRows, mergeCoplanarFaces, outline (+2 more)
+
+### Community 67 - "include 코드 구조"
+Cohesion: 0.20
 Nodes (10): GLenum, GLint, GLuint, VertexAttribute, components, integer, location, normalized (+2 more)
 
-### Community 64 - "detail 코드 구조"
+### Community 68 - "detail 코드 구조"
 Cohesion: 0.22
 Nodes (8): Renderer::destroy, Renderer::render, Renderer::renderPass, Renderer::renderViews, Renderer::upload, Renderer::initShader, Renderer::draw, Renderer::initialize
 
-### Community 65 - "include 코드 구조"
+### Community 69 - "include 코드 구조"
+Cohesion: 0.25
+Nodes (7): Application::~Application(), Application::run(), initHandler_, renderHandler_, renderScene, shutdown, updateHandler_
+
+### Community 70 - "include 코드 구조"
 Cohesion: 0.25
 Nodes (8): MouseEvent, action, button, framebufferX, framebufferY, mods, windowX, windowY
 
-### Community 66 - "include 코드 구조"
+### Community 71 - "include 코드 구조"
 Cohesion: 0.29
 Nodes (6): CuboidMode::bindKey(), CuboidKeyBinding, action, key, mods, CuboidHandler
 
-### Community 67 - "include 코드 구조"
+### Community 72 - "detail 코드 구조"
+Cohesion: 0.52
+Nodes (7): CollisionSystem::stepRoomBody(), mat4, vec3, PatternSystem::addWalkingRig(), PatternSystem::follow(), PatternSystem::poseWalkingRig(), rigidRoom()
+
+### Community 73 - "include 코드 구조"
 Cohesion: 0.29
 Nodes (7): Playback, DistancePath::sample(), PatternSystem::conveyorCornerPose(), PathPose, position, tangent, yawDegrees
 
-### Community 68 - " 코드 구조"
-Cohesion: 0.33
-Nodes (7): mat4, Scene, vector, Renderer::draw(), Renderer::render(), Renderer::renderViews(), renderPass
-
-### Community 69 - "include 코드 구조"
-Cohesion: 0.29
-Nodes (6): DistancePath, distances_, points_, sample, setPoints, vector
-
-### Community 70 - "include 코드 구조"
+### Community 74 - "include 코드 구조"
 Cohesion: 0.29
 Nodes (7): array, EntityId, JointRig, head, hips, root, shoulders
 
-### Community 71 - "include 코드 구조"
+### Community 75 - "include 코드 구조"
 Cohesion: 0.29
 Nodes (6): RenderVertex, color, normal, position, uv, Scene
 
-### Community 72 - "detail 코드 구조"
+### Community 76 - "detail 코드 구조"
 Cohesion: 0.29
 Nodes (6): AnimationSystem::addHumanoid, AnimationSystem::poseHierarchy, AnimationSystem::addSwingWithRider, HumanoidPose::seated, AnimationSystem::createJointAnimation, AnimationSystem::poseHumanoid
 
-### Community 73 - "detail 코드 구조"
+### Community 77 - "detail 코드 구조"
 Cohesion: 0.33
 Nodes (6): Application::renderScene(), Application::renderViews(), Application::shutdown(), vector, ensureContext, getFramebufferSize
 
-### Community 74 - "include 코드 구조"
-Cohesion: 0.40
-Nodes (6): Renderer::renderPass(), CameraSystem, projectionMatrix, viewMatrix, draw, upload
-
-### Community 75 - "include 코드 구조"
+### Community 78 - "include 코드 구조"
 Cohesion: 0.33
 Nodes (6): GLShape, string, Polyhedron, faces, name, shape
 
-### Community 76 - "include 코드 구조"
+### Community 79 - "include 코드 구조"
 Cohesion: 0.33
 Nodes (6): function, RenderConfig, bindUniforms, packVertices, uniforms, vertexLayout
 
-### Community 77 - "detail 코드 구조"
+### Community 80 - "detail 코드 구조"
 Cohesion: 0.40
 Nodes (5): CuboidMode::dispatch(), CuboidMode::update(), Handler, dispatch(), handler
 
-### Community 78 - "include 코드 구조"
+### Community 81 - " 코드 구조"
+Cohesion: 0.40
+Nodes (5): mat4, TransformSpace, Motion::fixed(), MotionSystem::validLayer(), validAffine
+
+### Community 82 - "detail 코드 구조"
+Cohesion: 0.50
+Nodes (3): Module, handle_, HMODULE
+
+### Community 83 - "include 코드 구조"
 Cohesion: 0.40
 Nodes (5): CuboidModeConfig, camera, cuboids, renderOptions, vector
 
-### Community 79 - "include 코드 구조"
+### Community 84 - "include 코드 구조"
 Cohesion: 0.40
 Nodes (4): AnimationClock, advance, playing, seconds
 
-### Community 80 - "include 코드 구조"
+### Community 85 - "include 코드 구조"
 Cohesion: 0.40
 Nodes (5): CollisionSystem, jump, randomFreeBox, stepCharacter, stepRoomBody
 
-### Community 81 - "include 코드 구조"
+### Community 86 - "include 코드 구조"
 Cohesion: 0.40
 Nodes (5): size_t, vector, VertexLayout, attributes, stride
 
-### Community 82 - "detail 코드 구조"
-Cohesion: 0.67
-Nodes (3): checkGlAt(), GetError, PipelineStage
+### Community 87 - "detail 코드 구조"
+Cohesion: 0.50
+Nodes (3): executableDirectory(), frameworkDirectory(), DWORD
+
+### Community 88 - "include 코드 구조"
+Cohesion: 0.50
+Nodes (4): AxisLine, direction, point, vec3
 
 ## Knowledge Gaps
-- **805 isolated node(s):** `handle_`, `module`, `ready`, `Init`, `SetErrorCallback` (+800 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 978 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **806 isolated node(s):** `handle_`, `module`, `ready`, `Init`, `SetErrorCallback` (+801 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 979 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Application` connect `include 코드 구조` to `detail 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `detail 코드 구조`, `include 코드 구조`, `detail 코드 구조`, `include 코드 구조`?**
+- **Why does `Application` connect `include 코드 구조` to `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `detail 코드 구조`, `include 코드 구조`, `include 코드 구조`, `detail 코드 구조`, `include 코드 구조`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **Why does `Scene` connect `include 코드 구조` to `detail 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, ` 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`?**
+- **Why does `Scene` connect `include 코드 구조` to `detail 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
-- **Why does `Renderer` connect `include 코드 구조` to `detail 코드 구조`, `include 코드 구조`, ` 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, ` 코드 구조`, `include 코드 구조`?**
+- **Why does `Renderer` connect `include 코드 구조` to `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `include 코드 구조`, `detail 코드 구조`, `include 코드 구조`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
 - **What connects `handle_`, `module`, `ready` to the rest of the system?**
-  _805 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _806 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `detail 코드 구조` be split into smaller, more focused modules?**
   _Cohesion score 0.05457875457875458 - nodes in this community are weakly interconnected._
 - **Should `detail 코드 구조` be split into smaller, more focused modules?**

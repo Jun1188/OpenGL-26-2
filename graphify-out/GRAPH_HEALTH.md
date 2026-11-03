@@ -34,8 +34,8 @@ producer_suppression_examples:
 examples:
   - framework_detail_objloader_objresolve -> framework_detail_objloader_cpp_size_t edges=3 relations=['calls', 'references'] locations=['L77', 'L83'] contexts=['call', 'parameter_type', 'return_type']
   - framework_detail_objloader_objtext -> framework_detail_objloader_cpp_string edges=3 relations=['references'] locations=['L113'] contexts=['generic_arg', 'parameter_type', 'return_type']
-  - framework_detail_patterns_patternsystem_snap -> framework_detail_patterns_cpp_vec3 edges=3 relations=['calls', 'references'] locations=['L732', 'L740'] contexts=['call', 'parameter_type', 'return_type']
-  - framework_detail_patterns_patternsystem_screenonplane -> framework_detail_patterns_cpp_vec3 edges=3 relations=['calls', 'references'] locations=['L751', 'L774'] contexts=['call', 'generic_arg', 'parameter_type']
+  - framework_detail_patterns_patternsystem_snap -> framework_detail_patterns_cpp_vec3 edges=3 relations=['calls', 'references'] locations=['L735', 'L743'] contexts=['call', 'parameter_type', 'return_type']
+  - framework_detail_patterns_patternsystem_screenonplane -> framework_detail_patterns_cpp_vec3 edges=3 relations=['calls', 'references'] locations=['L754', 'L777'] contexts=['call', 'generic_arg', 'parameter_type']
   - framework_detail_transform_motionunitvector -> framework_detail_transform_cpp_vec3 edges=3 relations=['calls', 'references'] locations=['L16', 'L7'] contexts=['call', 'generic_arg', 'parameter_type']
 note: normal graph.json is post-build; raw producer loss must be measured earlier.
 Cross-program calls marked AMBIGUOUS: 3. Source anchors: 664.

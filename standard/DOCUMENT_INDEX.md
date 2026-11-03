@@ -44,3 +44,7 @@
 - [README.md](README.md)
 - [SIZE_REPORT.md](SIZE_REPORT.md)
 - [USER_CHECKS.md](USER_CHECKS.md)
+
+## 3D 실습 세부 구현 코드 모음
+
+[실습 13~23의 세부 116개·공통 구현·이전 3D 부록](docs/practice-cookbook/README.md)을 읽는다. 같은 standard 폴더에 구성할 코드 전문을 제공하며 다른 실습 폴더나 개인 경로를 참조하지 않는다. 실제 Console/main은 자동 교체하지 않았다.

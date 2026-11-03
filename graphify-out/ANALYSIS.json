@@ -142,7 +142,7 @@
     {
       "type": "isolated_nodes",
       "question": "What connects `console_`, `commandParser_`, `boardRenderer_` to the rest of the system?",
-      "why": "1854 weakly-connected nodes found - possible documentation gaps or missing edges."
+      "why": "1855 weakly-connected nodes found - possible documentation gaps or missing edges."
     }
   ],
   "cohesion": {
