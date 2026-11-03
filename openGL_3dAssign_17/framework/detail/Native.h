@@ -205,6 +205,7 @@ struct GlApi {
     PFNGLBUFFERDATAPROC BufferData = nullptr;
     PFNGLDELETEBUFFERSPROC DeleteBuffers = nullptr;
     PFNGLVERTEXATTRIBPOINTERPROC VertexAttribPointer = nullptr;
+    PFNGLVERTEXATTRIBIPOINTERPROC VertexAttribIPointer = nullptr;
     PFNGLENABLEVERTEXATTRIBARRAYPROC EnableVertexAttribArray = nullptr;
     PFNGLCREATESHADERPROC CreateShader = nullptr;
     PFNGLSHADERSOURCEPROC ShaderSource = nullptr;
@@ -276,6 +277,7 @@ struct GlApi {
         BufferData = resolve<decltype(BufferData)>("glBufferData");
         DeleteBuffers = resolve<decltype(DeleteBuffers)>("glDeleteBuffers");
         VertexAttribPointer = resolve<decltype(VertexAttribPointer)>("glVertexAttribPointer");
+        VertexAttribIPointer = resolve<decltype(VertexAttribIPointer)>("glVertexAttribIPointer");
         EnableVertexAttribArray = resolve<decltype(EnableVertexAttribArray)>("glEnableVertexAttribArray");
         CreateShader = resolve<decltype(CreateShader)>("glCreateShader");
         ShaderSource = resolve<decltype(ShaderSource)>("glShaderSource");

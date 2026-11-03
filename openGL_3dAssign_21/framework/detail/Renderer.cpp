@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 namespace graphics {
 std::string readTextFile(const std::filesystem::path& path) {
@@ -68,9 +69,29 @@ GLuint compileShader(GLenum kind, const std::string& sourceText, const std::file
     return shader;
 }
 
-struct GpuVertex {
-    float position[3], color[3], uv[2], normal[3];
-};
+bool validLayout(const VertexLayout& layout) {
+    if (!layout.stride || layout.stride > std::size_t(std::numeric_limits<GLsizei>::max()) || layout.attributes.empty())
+        return false;
+    GLint maximum = 0;
+    gl().GetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maximum);
+    std::vector<GLuint> used;
+    for (const auto& a : layout.attributes) {
+        std::size_t bytes = 0;
+        switch (a.type) {
+        case GL_BYTE: case GL_UNSIGNED_BYTE: bytes = 1; break;
+        case GL_SHORT: case GL_UNSIGNED_SHORT: bytes = 2; break;
+        case GL_INT: case GL_UNSIGNED_INT: case GL_FLOAT: bytes = 4; break;
+        default: return false;
+        }
+        if (a.location >= GLuint(maximum) || a.components < 1 || a.components > 4 ||
+            a.offset > layout.stride || std::size_t(a.components)*bytes > layout.stride-a.offset ||
+            (a.integer && (a.normalized || a.type == GL_FLOAT)) ||
+            std::find(used.begin(), used.end(), a.location) != used.end())
+            return false;
+        used.push_back(a.location);
+    }
+    return true;
+}
 
 GLuint uploadTexture(const TextureImage& image, bool repeat) {
     auto& api = gl();
@@ -166,25 +187,32 @@ bool Renderer::initShader(const std::filesystem::path& vertexPath, const std::fi
         return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Shader, "glLinkProgram", log,
                                    "Match vertex outputs and fragment inputs; inspect the linker log.");
     }
-    mvpLocation_ = gl.GetUniformLocation(shaderProgramID_, "uMVP");
-    modelLocation_ = gl.GetUniformLocation(shaderProgramID_, "uModel");
-    normalLocation_ = gl.GetUniformLocation(shaderProgramID_, "uNormalMatrix");
-    textureLocation_ = gl.GetUniformLocation(shaderProgramID_, "uTexture");
-    hasTextureLocation_ = gl.GetUniformLocation(shaderProgramID_, "uHasTexture");
-    lightingLocation_ = gl.GetUniformLocation(shaderProgramID_, "uLighting");
-    lightDirectionLocation_ = gl.GetUniformLocation(shaderProgramID_, "uLightDirection");
-    lightColorLocation_ = gl.GetUniformLocation(shaderProgramID_, "uLightColor");
-    overrideLocation_ = gl.GetUniformLocation(shaderProgramID_, "uOverrideColor");
-    outlineColorLocation_ = gl.GetUniformLocation(shaderProgramID_, "uOutlineColor");
-    tintLocation_ = gl.GetUniformLocation(shaderProgramID_, "uTint");
+    mvpLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.mvp.c_str());
+    modelLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.model.c_str());
+    normalLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.normal.c_str());
+    textureLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.texture.c_str());
+    hasTextureLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.hasTexture.c_str());
+    lightingLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.lighting.c_str());
+    lightDirectionLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.lightDirection.c_str());
+    lightColorLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.lightColor.c_str());
+    overrideLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.overrideColor.c_str());
+    outlineColorLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.outlineColor.c_str());
+    tintLocation_ = gl.GetUniformLocation(shaderProgramID_, config_.uniforms.tint.c_str());
 
     return mvpLocation_ >= 0 || Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Shader, "glGetUniformLocation",
                                                     "Required uMVP uniform is missing or optimized away.");
 }
 
-bool Renderer::initialize(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath) {
+bool Renderer::initialize(const std::filesystem::path& vertexPath, const std::filesystem::path& fragmentPath,
+                          const RenderConfig& config) {
     detail::gl().load();
+    if (!detail::validLayout(config.vertexLayout) ||
+        (!config.packVertices && config.vertexLayout.stride != sizeof(RenderVertex)))
+        return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::VertexInput, "Renderer::initialize",
+                                   "Invalid layout, or custom stride without a vertex packer.");
+    const auto nextConfig = config; // Copy before destroying resources; config may alias current settings.
     destroy();
+    config_ = nextConfig;
 
     if (!initShader(vertexPath, fragmentPath)) {
         destroy();
@@ -207,14 +235,17 @@ bool Renderer::initialize(const std::filesystem::path& vertexPath, const std::fi
     gl.BindVertexArray(vao_);
     gl.BindBuffer(GL_ARRAY_BUFFER, vbo_);
     gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    using V = detail::GpuVertex;
-    gl.VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(V), reinterpret_cast<void*>(offsetof(V, position)));
-    gl.VertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(V), reinterpret_cast<void*>(offsetof(V, color)));
-    gl.VertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V), reinterpret_cast<void*>(offsetof(V, uv)));
-    gl.VertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(V), reinterpret_cast<void*>(offsetof(V, normal)));
-
-    for (GLuint i = 0; i < 4; ++i)
-        gl.EnableVertexAttribArray(i);
+    for (const auto& attribute : config_.vertexLayout.attributes) {
+        const auto pointer = reinterpret_cast<const void*>(attribute.offset);
+        if (attribute.integer)
+            gl.VertexAttribIPointer(attribute.location, attribute.components, attribute.type,
+                                    GLsizei(config_.vertexLayout.stride), pointer);
+        else
+            gl.VertexAttribPointer(attribute.location, attribute.components, attribute.type,
+                                   attribute.normalized ? GL_TRUE : GL_FALSE,
+                                   GLsizei(config_.vertexLayout.stride), pointer);
+        gl.EnableVertexAttribArray(attribute.location);
+    }
     gl.BindVertexArray(0);
     gl.BindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -224,7 +255,7 @@ bool Renderer::initialize(const std::filesystem::path& vertexPath, const std::fi
 bool Renderer::upload(const Scene& scene, bool textureMode) {
     Diagnostics::trace(PipelineStage::VertexInput, "Renderer::upload");
 
-    std::vector<detail::GpuVertex> vertices;
+    std::vector<RenderVertex> vertices;
     std::vector<GLuint> indices;
     std::vector<DrawRange> ranges;
     TextureMap stagedTextures;
@@ -359,12 +390,26 @@ bool Renderer::upload(const Scene& scene, bool textureMode) {
             indices.insert(indices.end(), {first, first + 1});
         }
 
-        if (vertices.size() > std::size_t(std::numeric_limits<GLsizeiptr>::max()) / sizeof(detail::GpuVertex) ||
+        if (vertices.size() > std::size_t(std::numeric_limits<GLsizeiptr>::max()) / config_.vertexLayout.stride ||
             indices.size() > std::size_t(std::numeric_limits<GLsizeiptr>::max()) / sizeof(GLuint)) {
             cleanup();
 
             return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::VertexInput, "Renderer::upload",
                                        "Buffer byte size exceeds GLsizeiptr range.");
+        }
+
+        const auto byteCount = vertices.size() * config_.vertexLayout.stride;
+        std::vector<std::uint8_t> packed;
+        if (config_.packVertices) {
+            if (!config_.packVertices(vertices, packed) || packed.size() != byteCount) {
+                cleanup();
+                return Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::VertexInput, "packVertices",
+                                           "Packer failed or byte count does not match vertex count times stride.");
+            }
+        } else {
+            packed.resize(byteCount);
+            if (byteCount)
+                std::memcpy(packed.data(), vertices.data(), byteCount);
         }
 
         if (!detail::checkGlAt(__FILE__, __LINE__, PipelineStage::VertexInput, "before buffer upload")) {
@@ -374,8 +419,8 @@ bool Renderer::upload(const Scene& scene, bool textureMode) {
         }
         gl.BindVertexArray(vao_);
         gl.BindBuffer(GL_ARRAY_BUFFER, vbo_);
-        gl.BufferData(GL_ARRAY_BUFFER, GLsizeiptr(vertices.size() * sizeof(detail::GpuVertex)),
-                      vertices.empty() ? nullptr : vertices.data(), GL_STATIC_DRAW);
+        gl.BufferData(GL_ARRAY_BUFFER, GLsizeiptr(packed.size()),
+                      packed.empty() ? nullptr : packed.data(), GL_STATIC_DRAW);
         gl.BindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
         gl.BufferData(GL_ELEMENT_ARRAY_BUFFER, GLsizeiptr(indices.size() * sizeof(GLuint)),
                       indices.empty() ? nullptr : indices.data(), GL_STATIC_DRAW);
@@ -477,6 +522,9 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
             const auto matrix = projection * view * model;
 
             gl.UniformMatrix4fv(mvpLocation_, 1, GL_FALSE, glm::value_ptr(matrix));
+            if (config_.bindUniforms && !config_.bindUniforms(
+                    {shaderProgramID_, scene, range.entityId, range.lineId, range.faceIndex, model, view, projection, true}))
+                return false;
             gl.DrawElements(GL_TRIANGLES, range.count, GL_UNSIGNED_INT,
                             reinterpret_cast<const void*>(range.firstIndex * sizeof(GLuint)));
         }
@@ -549,6 +597,11 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
                              face->material.repeatTexture ? GL_REPEAT : GL_CLAMP_TO_EDGE);
         } else
             gl.BindTexture(GL_TEXTURE_2D, 0);
+
+        if (config_.bindUniforms && !config_.bindUniforms(
+                {shaderProgramID_, scene, range.lineId ? std::nullopt : std::optional<EntityId>(range.entityId),
+                 range.lineId, range.faceIndex, model, view, projection, false}))
+            return false;
 
         if (!face || !options.wireframe) {
             gl.DrawElements(face ? GL_TRIANGLES : GL_LINES, range.count, GL_UNSIGNED_INT,

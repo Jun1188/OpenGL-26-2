@@ -3,6 +3,7 @@
 #include "Geometry.h"
 #include "Motion.h"
 #include "../detail/Native.h"
+#include "RenderConfig.h"
 #include <map>
 
 #include <array>
@@ -263,6 +264,7 @@ class Renderer {
         GLsizei count = 0, outlineCount = 0;
     };
 
+    RenderConfig config_;
     GLuint shaderProgramID_ = 0, vao_ = 0, vbo_ = 0, ebo_ = 0;
     GLint mvpLocation_ = -1, modelLocation_ = -1, normalLocation_ = -1;
     GLint textureLocation_ = -1, hasTextureLocation_ = -1, lightingLocation_ = -1;
@@ -292,7 +294,8 @@ public:
     // Requires a current OpenGL 3.3 context. Empty paths select embedded shaders.
     /// [API] 현재 OpenGL 3.3 컨텍스트에서 셰이더·프로그램·버퍼를 생성한다. 빈 경로면 내장 GLSL을 사용한다.
     bool initialize(const std::filesystem::path& vertexPath = std::filesystem::path{},
-                    const std::filesystem::path& fragmentPath = std::filesystem::path{});
+                    const std::filesystem::path& fragmentPath = std::filesystem::path{},
+                    const RenderConfig& config = RenderConfig{});
     /// [API] Scene을 카메라와 전체 화면 크기로 렌더링한다. 유효한 현재 GL 컨텍스트가 필요하다.
     bool render(const Scene& scene, const Camera& camera, int width, int height,
                 const RenderOptions& options = RenderOptions{});

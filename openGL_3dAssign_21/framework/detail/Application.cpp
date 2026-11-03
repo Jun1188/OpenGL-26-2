@@ -24,6 +24,16 @@ Application::~Application() {
     shutdown();
 }
 
+bool Application::configureRenderer(const RenderConfig& config, const std::filesystem::path& vertexPath,
+                                    const std::filesystem::path& fragmentPath) {
+    if (!ensureContext("configureRenderer", __FILE__, __LINE__))
+        return false;
+    if (renderer_.initialize(vertexPath, fragmentPath, config))
+        return true;
+    requestClose();
+    return false;
+}
+
 void Application::setInitHandler(std::function<bool(Application&)> handler) {
     initHandler_ = std::move(handler);
 }
@@ -140,7 +150,7 @@ bool Application::initialize(const ApplicationConfig& config) {
 
     Diagnostics::locate(__FILE__, __LINE__, "initialize -> Renderer::initialize -> shader source/path setup");
 
-    if (!renderer_.initialize(vertexPath, fragmentPath))
+    if (!renderer_.initialize(vertexPath, fragmentPath, config.renderConfig))
         return false;
     assets_.emplace(root, config.features);
     renderOptions_.textures = config.features.textures;

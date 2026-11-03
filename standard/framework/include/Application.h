@@ -19,6 +19,7 @@ struct ApplicationConfig {
     std::filesystem::path projectRoot = ".";              // Relative to the executable.
     std::filesystem::path runtimeDirectory = "framework"; // Relative to projectRoot.
 
+    RenderConfig renderConfig;
     FeatureOptions features;
     bool verticalSync = true;
     DiagnosticOptions diagnostics;
@@ -109,6 +110,9 @@ public:
     AssetLoader& getAssets(); // Available from initialization callback until run() ends.
     /// [API] 초기화 → 이벤트 → 사용자 update → Scene 모션 → 렌더 → swap을 소유하고 정상/예외 종료에서 정리한다.
     int run(const ApplicationConfig& config = ApplicationConfig{});
+    /// [API] 현재 컨텍스트에서 셰이더·정점 입력을 재생성한다. 실패하면 종료를 요청한다.
+    bool configureRenderer(const RenderConfig& config, const std::filesystem::path& vertexPath = {},
+                           const std::filesystem::path& fragmentPath = {});
     /// [API] 창 닫기 플래그를 설정하여 이벤트 루프의 정상 종료를 요청한다.
     void requestClose();
     /// [API] 기본 카메라와 현재 프레임버퍼 크기로 Scene을 한 번 렌더링한다.
