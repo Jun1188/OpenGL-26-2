@@ -1,0 +1,553 @@
+﻿[
+  {
+    "project": "Computer-Graphics_WarmmingUp2/Computer-Graphics_WarmmingUp2.vcxproj",
+    "sources": [
+      "Computer-Graphics_WarmmingUp2/FileName.cpp",
+      "Computer-Graphics_WarmmingUp2/Application.cpp",
+      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
+      "Computer-Graphics_WarmmingUp2/console.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "Computer-Graphics_WarmmingUp2/FileName.cpp",
+        "line": 54,
+        "name": "wmain"
+      }
+    ],
+    "available": false,
+    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
+  },
+  {
+    "project": "Computer-Graphics_WarmmingUp2/tests/WarmupTests.vcxproj",
+    "sources": [
+      "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
+      "Computer-Graphics_WarmmingUp2/Application.cpp",
+      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
+      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
+      "Computer-Graphics_WarmmingUp2/console.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
+      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
+        "line": 262,
+        "name": "main"
+      }
+    ],
+    "available": false,
+    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
+  },
+  {
+    "project": "computer_graphics_warmUp1/computer_graphics_warmUp1.vcxproj",
+    "sources": [
+      "computer_graphics_warmUp1/FileName.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 553,
+        "name": "main",
+        "condition": "PROB == 1",
+        "active_by_source_default": false
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 903,
+        "name": "main",
+        "condition": "PROB == 2",
+        "active_by_source_default": true
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 1123,
+        "name": "main",
+        "condition": "PROB == 3",
+        "active_by_source_default": false
+      },
+      {
+        "file": "computer_graphics_warmUp1/FileName.cpp",
+        "line": 1319,
+        "name": "main",
+        "condition": "PROB == 4",
+        "active_by_source_default": false
+      }
+    ],
+    "available": false,
+    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
+  },
+  {
+    "project": "openGL_2dAssign11/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_2dAssign11/Common.cpp",
+      "openGL_2dAssign11/Console.cpp",
+      "openGL_2dAssign11/DiagramState.cpp",
+      "openGL_2dAssign11/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign11/main.cpp",
+        "name": "main",
+        "line": 109,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign12/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_2dAssign12/Common.cpp",
+      "openGL_2dAssign12/Console.cpp",
+      "openGL_2dAssign12/DiagramState.cpp",
+      "openGL_2dAssign12/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign12/main.cpp",
+        "name": "main",
+        "line": 59,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign_10/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_2dAssign_10/Common.cpp",
+      "openGL_2dAssign_10/Console.cpp",
+      "openGL_2dAssign_10/DiagramState.cpp",
+      "openGL_2dAssign_10/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign_10/main.cpp",
+        "name": "main",
+        "line": 86,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_2dAssign_789/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_2dAssign_789/Common.cpp",
+      "openGL_2dAssign_789/Console.cpp",
+      "openGL_2dAssign_789/DiagramState.cpp",
+      "openGL_2dAssign_789/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_2dAssign_789/main.cpp",
+        "name": "main",
+        "line": 103,
+        "conditional_compilation": "Review preprocessor branches in this source."
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_13/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_13/Console.cpp",
+      "openGL_3dAssign_13/framework/detail/Application.cpp",
+      "openGL_3dAssign_13/framework/detail/AssimpLoader.cpp",
+      "openGL_3dAssign_13/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_13/framework/detail/Motion.cpp",
+      "openGL_3dAssign_13/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_13/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_13/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_13/framework/detail/Scene.cpp",
+      "openGL_3dAssign_13/framework/detail/Transform.cpp",
+      "openGL_3dAssign_13/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_13/main.cpp",
+        "name": "main",
+        "line": 4,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_14/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_14/Console.cpp",
+      "openGL_3dAssign_14/framework/detail/Application.cpp",
+      "openGL_3dAssign_14/framework/detail/AssimpLoader.cpp",
+      "openGL_3dAssign_14/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_14/framework/detail/Motion.cpp",
+      "openGL_3dAssign_14/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_14/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_14/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_14/framework/detail/Scene.cpp",
+      "openGL_3dAssign_14/framework/detail/Transform.cpp",
+      "openGL_3dAssign_14/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_14/main.cpp",
+        "name": "main",
+        "line": 4,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_15/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_15/Console.cpp",
+      "openGL_3dAssign_15/framework/detail/Application.cpp",
+      "openGL_3dAssign_15/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_15/framework/detail/Motion.cpp",
+      "openGL_3dAssign_15/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_15/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_15/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_15/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_15/framework/detail/Scene.cpp",
+      "openGL_3dAssign_15/framework/detail/Transform.cpp",
+      "openGL_3dAssign_15/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_15/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_16/openGL_assign_16.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_16/Console.cpp",
+      "openGL_3dAssign_16/framework/detail/Application.cpp",
+      "openGL_3dAssign_16/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_16/framework/detail/Motion.cpp",
+      "openGL_3dAssign_16/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_16/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_16/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_16/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_16/framework/detail/Scene.cpp",
+      "openGL_3dAssign_16/framework/detail/Transform.cpp",
+      "openGL_3dAssign_16/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_16/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_17/openGL_assign_17.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_17/Console.cpp",
+      "openGL_3dAssign_17/framework/detail/Application.cpp",
+      "openGL_3dAssign_17/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_17/framework/detail/Motion.cpp",
+      "openGL_3dAssign_17/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_17/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_17/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_17/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_17/framework/detail/Scene.cpp",
+      "openGL_3dAssign_17/framework/detail/Transform.cpp",
+      "openGL_3dAssign_17/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_17/main.cpp",
+        "name": "main",
+        "line": 4,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_18/openGL_assign_18.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_18/Console.cpp",
+      "openGL_3dAssign_18/framework/detail/Application.cpp",
+      "openGL_3dAssign_18/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_18/framework/detail/Motion.cpp",
+      "openGL_3dAssign_18/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_18/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_18/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_18/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_18/framework/detail/Scene.cpp",
+      "openGL_3dAssign_18/framework/detail/Transform.cpp",
+      "openGL_3dAssign_18/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_18/main.cpp",
+        "name": "main",
+        "line": 4,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_19/openGL_assign_19.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_19/Console.cpp",
+      "openGL_3dAssign_19/framework/detail/Application.cpp",
+      "openGL_3dAssign_19/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_19/framework/detail/Motion.cpp",
+      "openGL_3dAssign_19/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_19/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_19/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_19/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_19/framework/detail/Scene.cpp",
+      "openGL_3dAssign_19/framework/detail/Transform.cpp",
+      "openGL_3dAssign_19/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_19/main.cpp",
+        "name": "main",
+        "line": 4,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_20/openGL_assign_20.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_20/Console.cpp",
+      "openGL_3dAssign_20/framework/detail/Application.cpp",
+      "openGL_3dAssign_20/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_20/framework/detail/Motion.cpp",
+      "openGL_3dAssign_20/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_20/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_20/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_20/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_20/framework/detail/Scene.cpp",
+      "openGL_3dAssign_20/framework/detail/Transform.cpp",
+      "openGL_3dAssign_20/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_20/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_21/openGL_assign_21.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_21/Console.cpp",
+      "openGL_3dAssign_21/framework/detail/Application.cpp",
+      "openGL_3dAssign_21/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_21/framework/detail/Motion.cpp",
+      "openGL_3dAssign_21/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_21/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_21/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_21/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_21/framework/detail/Scene.cpp",
+      "openGL_3dAssign_21/framework/detail/Transform.cpp",
+      "openGL_3dAssign_21/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_21/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_22/openGL_assign_22.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_22/Console.cpp",
+      "openGL_3dAssign_22/framework/detail/Application.cpp",
+      "openGL_3dAssign_22/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_22/framework/detail/Motion.cpp",
+      "openGL_3dAssign_22/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_22/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_22/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_22/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_22/framework/detail/Scene.cpp",
+      "openGL_3dAssign_22/framework/detail/Transform.cpp",
+      "openGL_3dAssign_22/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_22/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_3dAssign_23/openGL_assign_23.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_3dAssign_23/Console.cpp",
+      "openGL_3dAssign_23/framework/detail/Application.cpp",
+      "openGL_3dAssign_23/framework/detail/CuboidMode.cpp",
+      "openGL_3dAssign_23/framework/detail/Motion.cpp",
+      "openGL_3dAssign_23/framework/detail/ObjLoader.cpp",
+      "openGL_3dAssign_23/framework/detail/Patterns.cpp",
+      "openGL_3dAssign_23/framework/detail/PrimitiveLoader.cpp",
+      "openGL_3dAssign_23/framework/detail/Renderer.cpp",
+      "openGL_3dAssign_23/framework/detail/Scene.cpp",
+      "openGL_3dAssign_23/framework/detail/Transform.cpp",
+      "openGL_3dAssign_23/main.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_3dAssign_23/main.cpp",
+        "name": "main",
+        "line": 5,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "project": "openGL_assign123456/openGL_sample2.vcxproj",
+    "available": true,
+    "sources": [
+      "openGL_assign123456/Common.cpp",
+      "openGL_assign123456/Console.cpp",
+      "openGL_assign123456/main.cpp",
+      "openGL_assign123456/RectState.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_assign123456/main.cpp",
+        "name": "main",
+        "line": 79,
+        "conditional_compilation": "Review preprocessor branches in this source."
+      }
+    ]
+  },
+  {
+    "project": "openGL_sample0/openGL_sample0.vcxproj",
+    "sources": [
+      "openGL_sample0/main.cpp",
+      "openGL_sample0/MeshParser.cpp",
+      "openGL_sample0/MeshValidator.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "openGL_sample0/main.cpp",
+        "line": 308,
+        "name": "main"
+      }
+    ],
+    "available": false,
+    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
+  },
+  {
+    "project": "standard/standard.vcxproj",
+    "available": true,
+    "sources": [
+      "standard/Console.cpp",
+      "standard/framework/detail/Animation.cpp",
+      "standard/framework/detail/Application.cpp",
+      "standard/framework/detail/CuboidMode.cpp",
+      "standard/framework/detail/Motion.cpp",
+      "standard/framework/detail/ObjLoader.cpp",
+      "standard/framework/detail/Patterns.cpp",
+      "standard/framework/detail/PrimitiveLoader.cpp",
+      "standard/framework/detail/Renderer.cpp",
+      "standard/framework/detail/Scene.cpp",
+      "standard/framework/detail/Transform.cpp",
+      "standard/main.cpp",
+      "standard/modes/Assembly.cpp",
+      "standard/modes/AssemblyCommands.cpp",
+      "standard/modes/AssemblyConsole.cpp",
+      "standard/modes/AssemblyExamples.cpp",
+      "standard/modes/AssemblyExtensions.cpp",
+      "standard/modes/AssemblyGuide.cpp",
+      "standard/modes/AssemblyHierarchy.cpp",
+      "standard/modes/AssemblyInput.cpp",
+      "standard/modes/AssemblyMotion.cpp",
+      "standard/modes/AssemblyObjects.cpp",
+      "standard/modes/AssemblyParts.cpp",
+      "standard/modes/AssemblyPersistence.cpp",
+      "standard/modes/AssemblyRuntime.cpp",
+      "standard/modes/AssemblySurface.cpp",
+      "standard/modes/AssemblyTracks.cpp",
+      "standard/modes/Editor.cpp",
+      "standard/modes/FaceCommon.cpp",
+      "standard/modes/Mode0Assembly.cpp",
+      "standard/modes/Mode0Recipe.cpp",
+      "standard/modes/Mode10Practice13.cpp",
+      "standard/modes/Mode11Practice14.cpp",
+      "standard/modes/Mode12Practice15.cpp",
+      "standard/modes/Mode13Practice16.cpp",
+      "standard/modes/Mode14Practice17.cpp",
+      "standard/modes/Mode15Practice18.cpp",
+      "standard/modes/Mode16Practice19.cpp",
+      "standard/modes/Mode17Practice20.cpp",
+      "standard/modes/Mode18Practice21.cpp",
+      "standard/modes/Mode19Practice22.cpp",
+      "standard/modes/Mode1Ellipse.cpp",
+      "standard/modes/Mode20Practice23.cpp",
+      "standard/modes/Mode21CameraCollision.cpp",
+      "standard/modes/Mode22EmbeddedMesh.cpp",
+      "standard/modes/Mode2Rectangle.cpp",
+      "standard/modes/Mode3Polygon.cpp",
+      "standard/modes/Mode4Spatial.cpp",
+      "standard/modes/Mode5Circle.cpp",
+      "standard/modes/Mode6Polyline.cpp",
+      "standard/modes/Mode7Grid.cpp",
+      "standard/modes/Mode8Room.cpp",
+      "standard/modes/Mode9Animation.cpp",
+      "standard/modes/MotionCommon.cpp",
+      "standard/modes/PracticeRegistry.cpp",
+      "standard/modes/TankCommon.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "standard/main.cpp",
+        "name": "main",
+        "line": 6,
+        "conditional_compilation": null
+      }
+    ]
+  },
+  {
+    "standalone_example": true,
+    "file": "framework/examples/basic.cpp",
+    "entrypoint": "main"
+  },
+  {
+    "standalone_example": true,
+    "file": "framework/examples/assets.cpp",
+    "entrypoint": "main"
+  },
+  {
+    "standalone_example": true,
+    "file": "framework/examples/motion.cpp",
+    "entrypoint": "main"
+  }
+]

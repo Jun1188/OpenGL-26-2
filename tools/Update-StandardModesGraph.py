@@ -1,5 +1,6 @@
 ﻿"""Generate a code-only structure graph. Does not build, test, or run diagnostics."""
 from pathlib import Path
+import argparse
 import datetime
 import hashlib
 import json
@@ -13,7 +14,11 @@ from graphify.cluster import cluster
 from graphify.export import to_json, to_html
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / 'graphify-out/standard-input'
+_parser = argparse.ArgumentParser(description=__doc__)
+_parser.add_argument('--output', default='graphify-out/standard-input')
+_args = _parser.parse_args()
+OUT = (ROOT / _args.output).resolve()
+OUT.relative_to(ROOT)
 
 
 def write(name, value):

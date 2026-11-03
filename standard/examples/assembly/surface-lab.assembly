@@ -1,0 +1,16 @@
+﻿# 면에 붙인 관절, 노멀, 컬링, 지연 면 트랙. guide mount / guide face-track
+clear
+camera pose 6 5 8 0 0.8 0 0 1 0
+add box base 0 0 0 2 2 2
+mount base connector 4 0 0 0.5 0
+part box base.connector pole 0 0 0.5 0.15 0.15 1
+pendulum poleMotor base.connector y 25 3
+face-track fold base 4 2 0 pingpong turn 0 0 1 -1 1 0 90
+face-track shrink base 1 2 1 pingpong scale 0.2 0.2 0.2 0 0 -1
+normal base all auto
+cull base all back
+outline base all features
+render lighting on
+render light-direction 1 2 1
+render light-color 1 0.95 0.9
+select base

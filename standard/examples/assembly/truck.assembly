@@ -1,0 +1,27 @@
+﻿# 육면체 계층: 트럭과 컨테이너. guide truck-pattern
+clear
+camera pose 6 4 -8 0 1 0 0 1 0
+group truck 0 0 0
+part box truck chassis 0 0.6 0 1.8 0.3 3.2
+part box truck cabin 0 1.2 1.1 1.8 1.2 1.2
+part box truck wheel1 -0.95 0.3 -1.05 0.4 0.6 0.6
+part box truck wheel2 0.95 0.3 -1.05 0.4 0.6 0.6
+part box truck wheel3 -0.95 0.3 1.05 0.4 0.6 0.6
+part box truck wheel4 0.95 0.3 1.05 0.4 0.6 0.6
+joint truck container 0 0.85 -0.65
+part box truck.container floor 0 0 0 1.8 0.15 1.9
+part box truck.container roof 0 1.25 0 1.8 0.15 1.9
+part box truck.container leftWall -0.85 0.625 0 0.1 1.2 1.9
+part box truck.container rightWall 0.85 0.625 0 0.1 1.2 1.9
+part box truck.container frontWall 0 0.625 0.9 1.8 1.2 0.1
+joint truck.container leftDoor -0.85 0 -0.95
+joint truck.container rightDoor 0.85 0 -0.95
+part box truck.container.leftDoor panel 0.425 0.625 0 0.85 1.2 0.1
+part box truck.container.rightDoor panel -0.425 0.625 0 0.85 1.2 0.1
+pivot truck 0 0.8 0 keep
+pendulum leftDoorMotor truck.container.leftDoor y 40 6
+pendulum rightDoorMotor truck.container.rightDoor y 40 6
+seek rightDoorMotor 3
+bind RIGHT hold "move truck 1 0 0"
+bind LEFT hold "move truck -1 0 0"
+select truck

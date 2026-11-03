@@ -1,0 +1,22 @@
+﻿# 육면체 계층: 탱크. 세부 C++ 예제는 guide tank-pattern
+clear
+camera pose 10 7 12 0 1 0 0 1 0
+group tank 0 0 0
+part box tank body 0 0.45 0 2.2 0.5 2.6
+part box tank leftTrack -1.05 0.3 0 0.45 0.6 3
+part box tank rightTrack 1.05 0.3 0 0.45 0.6 3
+joint tank turret 0 0.8 0
+part box tank.turret body 0 0.25 0 1.4 0.5 1.5
+joint tank.turret gun 0 0.3 0.65
+part box tank.turret.gun barrel 0 0 1 0.2 0.2 2
+part box tank.turret.gun muzzle 0 0 2 0.35 0.35 0.3
+pivot tank 0 0.6 0 keep
+color tank 0.3 0.6 0.4
+spin turretMotor tank.turret y 25
+pendulum gunMotor tank.turret.gun x 10 4
+move tank 3 0 0
+spin tankSpin tank y 20
+group orbitFrame 0 0 0
+parent tank orbitFrame
+orbit orbitMotor orbitFrame y 12 0 0 0
+select tank

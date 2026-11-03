@@ -1,4 +1,6 @@
-﻿[현재 1~22 모드와 입력 평가](docs/MODE_INPUT_AUDIT.md) · [최신 전체 변경 전후](docs/input-modes/BEFORE_AFTER.md)
+﻿[0번 기능 조립·명세·직접 편집·패턴·표현력 평가](docs/assembly/README.md) · [0번 전체 변경 전후](docs/assembly/BEFORE_AFTER.md)
+
+[현재 0~22 모드와 입력 평가](docs/MODE_INPUT_AUDIT.md) · [1~22 입력 수정의 변경 전후](docs/input-modes/BEFORE_AFTER.md)
 
 2026-11-03: 실습 코드 모음은 모드 10~20, 이전 3D 부록은 모드21·22로 실행한다. 아래 과거 자동 교체/수동 조립 설명은 이전 제작 시점 기록이다.
 

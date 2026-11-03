@@ -1,0 +1,38 @@
+﻿# 육면체 계층: 사람. 충돌 보행이 아닌 관절 모션 예제. guide person-pattern
+clear
+camera pose 4 3 6 0 1 0 0 1 0
+group person 0 0 0
+joint person pelvis 0 0.8 0
+part box person.pelvis body 0 0 0 0.4 0.25 0.3
+joint person.pelvis torso 0 0.35 0
+part box person.pelvis.torso body 0 0 0 0.55 0.6 0.3
+joint person.pelvis.torso neck 0 0.35 0
+part box person.pelvis.torso.neck head 0 0.18 0 0.35 0.35 0.35
+part box person.pelvis.torso.neck nose 0 0.18 0.21 0.1 0.08 0.12
+joint person.pelvis.torso leftShoulder -0.38 0.17 0
+joint person.pelvis.torso rightShoulder 0.38 0.17 0
+part box person.pelvis.torso.leftShoulder upperArm 0 -0.2 0 0.14 0.4 0.16
+part box person.pelvis.torso.rightShoulder upperArm 0 -0.2 0 0.14 0.4 0.16
+joint person.pelvis.torso.leftShoulder elbow 0 -0.4 0
+joint person.pelvis.torso.rightShoulder elbow 0 -0.4 0
+part box person.pelvis.torso.leftShoulder.elbow forearm 0 -0.18 0 0.13 0.36 0.15
+part box person.pelvis.torso.rightShoulder.elbow forearm 0 -0.18 0 0.13 0.36 0.15
+joint person.pelvis leftHip -0.13 0 0
+joint person.pelvis rightHip 0.13 0 0
+part box person.pelvis.leftHip thigh 0 -0.2 0 0.17 0.4 0.2
+part box person.pelvis.rightHip thigh 0 -0.2 0 0.17 0.4 0.2
+joint person.pelvis.leftHip knee 0 -0.4 0
+joint person.pelvis.rightHip knee 0 -0.4 0
+part box person.pelvis.leftHip.knee shin 0 -0.2 0 0.17 0.4 0.2
+part box person.pelvis.rightHip.knee shin 0 -0.2 0 0.17 0.4 0.2
+part box person.pelvis.leftHip.knee foot 0 -0.4 0.08 0.2 0.1 0.35
+part box person.pelvis.rightHip.knee foot 0 -0.4 0.08 0.2 0.1 0.35
+pendulum leftArm person.pelvis.torso.leftShoulder x 25 2
+pendulum rightArm person.pelvis.torso.rightShoulder x 25 2
+seek rightArm 1
+pendulum leftLeg person.pelvis.leftHip x 25 2
+pendulum rightLeg person.pelvis.rightHip x 25 2
+seek leftLeg 1
+pivot person 0 0.9 0 keep
+linear stroll person 3 0 0 5 pingpong
+select person

@@ -2,7 +2,7 @@
 
 2026-11-03. Windows x64, C++17, OpenGL 3.3 Core. 빌드·테스트·앱 실행은 사용자가 수행한다.
 
-[전체 문서](DOCUMENT_INDEX.md) · [입력과 반응 평가](docs/MODE_INPUT_AUDIT.md) · [사용자 확인](USER_CHECKS.md) · [전체 변경 전후](docs/input-modes/BEFORE_AFTER.md)
+[0번 기능 조립·직접 편집](docs/assembly/README.md) · [전체 문서](DOCUMENT_INDEX.md) · [입력과 반응 평가](docs/MODE_INPUT_AUDIT.md) · [사용자 확인](USER_CHECKS.md) · [전체 변경 전후](docs/input-modes/BEFORE_AFTER.md)
 
 ## main에서 시작 모드 지정
 
@@ -12,14 +12,15 @@
 constexpr std::optional<int> initialMode = std::nullopt;
 ```
 
-`std::nullopt`는 기존 Motion 장면(1번)으로 시작하고 키로 모드를 전환한다. `1` 또는 `9` 같은 정수는 해당 모드로 바로 시작하고 실행 중 모드 전환을 막는다. 추가 모드도 `10`~`22`로 지정할 수 있다. 범위 밖 상수는 static_assert에서 거부한다.
+`std::nullopt`는 기존 Motion 장면(1번)으로 시작하고 키로 모드를 전환한다. `0`, `1` 또는 `9` 같은 정수는 해당 모드로 바로 시작하고 실행 중 모드 전환을 막는다. 추가 모드도 `10`~`22`로 지정할 수 있다. 범위 밖 상수는 static_assert에서 거부한다.
 
-nullopt에서 1~9 데모 사이에는 숫자 키를 사용한다. 추가 실습에서는 숫자 키가 면·객체 선택 기능이므로 실습에 전달한다. 어느 모드에서든 Alt+1~9는 해당 데모로 전환한다. F1~F11은 모드 10~20(실습 13~23), `[`·`]`는 전체 1~22를 순환한다. F12는 공통 도움말이며 Esc는 종료다. 고정 모드에서는 모드 전환 키만 비활성화된다.
+nullopt에서 0~9 모드 사이에는 숫자 키를 사용한다. 추가 실습에서는 숫자 키가 면·객체 선택 기능이므로 실습에 전달한다. 어느 모드에서든 Alt+0~9는 해당 데모로 전환한다. F1~F11은 모드 10~20(실습 13~23), `[`·`]`는 전체 0~22를 순환한다. F12는 공통 도움말이며 Esc는 종료다. 고정 모드에서는 모드 전환 키만 비활성화된다.
 
 ## 모드와 파일
 
 | 번호 | 내용 | 파일 |
 |---|---|---|
+| 0 | 기능 조립 콘솔·C++ 편집 안내 | [소스](modes/Mode0Assembly.cpp) · [문서](docs/assembly/README.md) |
 | 1 | 타원 | [소스](modes/Mode1Ellipse.cpp) |
 | 2 | 사각형 | [소스](modes/Mode2Rectangle.cpp) |
 | 3 | 다각형 | [소스](modes/Mode3Polygon.cpp) |
@@ -78,3 +79,9 @@ main → 콜백 등록 → Application::run → initScene → activateMode. 프�
 [API](docs/API_REFERENCE.html), [응용 패턴](docs/IMPLEMENTATION_PATTERNS.html), [시험 구현 순서](docs/EXAM_IMPLEMENTATION_ORDER.html), [독립 배포](PORTABLE.md)를 함께 읽는다. 실습 패턴 원문 코드는 [코드 모음](docs/practice-cookbook/README.md)에 보존한다. 현재 실행 모드의 차이는 MODE_INPUT_AUDIT.md가 우선한다.
 
 standard 전체를 복사한다. 다른 실습 폴더·외부 모델·추가 라이브러리를 요구하지 않는다. 변경한 소스·설정·문서는 UTF-8 BOM이다. 기존 Framework.props와 API 문서의 사용자 수정은 보존했다.
+
+## 0번 조립 API
+
+0번은 group/part/joint로 큐브부터 계층을 쌓고, 최상위 SRT·피벗·자전·공전을 조합한다. mount/anchor는 객체의 면과 좌표에 관절을 붙인다. normal/winding/cull, warp 비균일·반사 그룹, face-track 이동·축소·임의 축 회전, 물리·보행·입력 바인딩을 지원한다. C++ Input 훅으로 키·마우스·커서·포커스 반응도 기능별로 붙일 수 있다.
+
+콘솔은 실험을 돕는다. 확장은 `guide <기능>`으로 현재 C++ 파일·줄을 찾아 직접 편집한다. [명세](docs/assembly/SPEC.md), [직접 편집](docs/assembly/CODE_GUIDE.md), [탱크·트럭·사람 패턴](docs/assembly/PATTERN_COMBINATIONS.md), [실습별 표현력 평가](docs/assembly/REQUIREMENT_AUDIT.md)를 분리했다. 기본 명령만으로 모든 실습의 세부 상태 전이를 복제한 것은 아니다. 사용자 빌드·확인은 [0번 확인 절차](docs/assembly/USER_CHECKS.md)를 따른다.
