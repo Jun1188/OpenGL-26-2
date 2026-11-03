@@ -5,7 +5,7 @@
 
 namespace graphics {
 bool Motion::validStep(const MotionStep& step) {
-    return bool(step.transform) && std::isfinite(step.startSeconds) && step.startSeconds >= 0 &&
+    return (bool(step.transform) != bool(step.action)) && std::isfinite(step.startSeconds) && step.startSeconds >= 0 &&
            (!step.durationSeconds || (std::isfinite(*step.durationSeconds) && *step.durationSeconds >= 0 &&
                                       std::isfinite(step.startSeconds + *step.durationSeconds)));
 }
@@ -23,6 +23,19 @@ bool Motion::insert(std::size_t index, const MotionStep& step) {
     steps_.insert(steps_.begin() + index, step);
 
     return true;
+}
+
+MotionStep Motion::action(MotionAction callback, double startSeconds, std::optional<double> durationSeconds) {
+    MotionStep step;
+    step.action = std::move(callback);
+    step.startSeconds = startSeconds;
+    step.durationSeconds = durationSeconds;
+    return step;
+}
+
+bool Motion::insertAction(std::size_t index, MotionAction callback, double startSeconds,
+                          std::optional<double> durationSeconds) {
+    return insert(index, action(std::move(callback), startSeconds, durationSeconds));
 }
 
 bool Motion::replace(std::size_t index, const MotionStep& step) {
@@ -63,6 +76,16 @@ bool Motion::then(MotionStep step) {
 }
 
 std::optional<MotionSample> Motion::sample(double seconds) const {
+    return evaluate(seconds, false);
+}
+
+std::optional<MotionSample> Motion::execute(double seconds) const {
+    // Snapshot permits callbacks to edit the original sequence without invalidating iteration.
+    const Motion snapshot = *this;
+    return snapshot.evaluate(seconds, true);
+}
+
+std::optional<MotionSample> Motion::evaluate(double seconds, bool actions) const {
     if (!std::isfinite(seconds) || seconds < 0)
         return (
             Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "Motion::sample",
@@ -81,6 +104,12 @@ std::optional<MotionSample> Motion::sample(double seconds) const {
         if (step.durationSeconds)
             time = std::min(time, *step.durationSeconds);
 
+        if (step.action) {
+            if (actions && !step.action(time, result))
+                return (Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "Motion::execute",
+                                            "Action returned false; prior external effects are retained."), std::nullopt);
+            continue;
+        }
         const auto matrix = step.transform(time);
 
         if (!TransformSystem::validAffine(matrix))
@@ -190,6 +219,53 @@ MotionStep Motion::followPath(const PathMotion& config) {
 
         if (!matrix)
             throw std::domain_error("Path returned a non-finite position.");
+
+        return *matrix;
+    };
+
+    return step;
+}
+
+MotionStep Motion::linear(const LinearMotion& config) {
+    if (!detail::finiteVector(config.from) || !detail::finiteVector(config.to) ||
+        !std::isfinite(config.durationSeconds) || config.durationSeconds <= 0 ||
+        (config.playback != Playback::Once && config.playback != Playback::Loop &&
+         config.playback != Playback::PingPong) ||
+        (config.space != TransformSpace::World && config.space != TransformSpace::Local))
+        return {};
+
+    PathMotion path;
+
+    path.path = [from = glm::dvec3(config.from), to = glm::dvec3(config.to)](double u) {
+        return glm::vec3((1 - u) * from + u * to);
+    };
+    path.durationSeconds = config.durationSeconds;
+    path.playback = config.playback;
+    path.space = config.space;
+
+    return followPath(path);
+}
+
+MotionStep Motion::pendulum(const PendulumMotion& config) {
+    MotionStep step;
+
+    if (!std::isfinite(config.amplitudeDegrees) || config.amplitudeDegrees < 0 ||
+        !std::isfinite(config.periodSeconds) || config.periodSeconds <= 0 || !std::isfinite(config.phaseDegrees) ||
+        !std::isfinite(config.offsetDegrees) ||
+        !std::isfinite(std::abs(config.offsetDegrees) + config.amplitudeDegrees) ||
+        (config.space != TransformSpace::World && config.space != TransformSpace::Local) ||
+        !TransformSystem::rotation(config.axis, config.offsetDegrees))
+        return step;
+    step.space = config.space;
+    step.transform = [config](double seconds) {
+        constexpr double pi = 3.14159265358979323846;
+        const double phase = std::remainder(seconds, config.periodSeconds) / config.periodSeconds * 2 * pi +
+                             std::remainder(config.phaseDegrees, 360.0) * pi / 180;
+        const auto matrix =
+            TransformSystem::rotation(config.axis, config.offsetDegrees + config.amplitudeDegrees * std::sin(phase));
+
+        if (!matrix)
+            throw std::domain_error("Pendulum motion produced an invalid matrix.");
 
         return *matrix;
     };
@@ -317,6 +393,7 @@ bool MotionSystem::update(double deltaSeconds) {
         MotionId id;
         double time;
         MotionSample sample;
+        std::optional<Motion> actions;
     };
 
     std::vector<Pending> pending;
@@ -336,7 +413,10 @@ bool MotionSystem::update(double deltaSeconds) {
             return Diagnostics::failAt(
                 __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::update", "Rejected condition: !sample",
                 "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
-        pending.push_back({entry.first, time, *sample});
+        const auto& steps = state.motion.getSteps();
+        const bool actions = state.enabled && std::any_of(steps.begin(), steps.end(),
+                                                         [](const auto& step) { return bool(step.action); });
+        pending.push_back({entry.first, time, *sample, actions ? std::optional<Motion>(state.motion) : std::nullopt});
     }
 
     for (const auto& item : pending) {
@@ -345,6 +425,9 @@ bool MotionSystem::update(double deltaSeconds) {
         state.timeSeconds = item.time;
         state.sampled = item.sample;
     }
+    for (const auto& item : pending)
+        if (item.actions && !item.actions->execute(item.time))
+            return false;
 
     return true;
 }

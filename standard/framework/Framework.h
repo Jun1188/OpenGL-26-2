@@ -3,3 +3,5 @@
 #include "include/Application.h"
 #include "include/Patterns.h"
 #include "include/Animation.h"
+#include "include/Actions.h"
+#include "include/CuboidMode.h"

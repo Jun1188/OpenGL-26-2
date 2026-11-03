@@ -13,6 +13,8 @@ struct MotionSample {
     glm::mat4 local{1.0f};
 };
 
+using MotionAction = std::function<bool(double, const MotionSample&)>;
+
 struct RotationMotion {
     AxisLine axis;
     double degreesPerSecond = 45;
@@ -31,6 +33,22 @@ struct PathMotion {
     TransformSpace space = TransformSpace::World;
 };
 
+struct LinearMotion {
+    glm::vec3 from{0}, to{1, 0, 0};
+    double durationSeconds = 1;
+    Playback playback = Playback::Once;
+    TransformSpace space = TransformSpace::Local;
+};
+
+struct PendulumMotion {
+    AxisLine axis{{0, 0, 0}, {1, 0, 0}};
+    double amplitudeDegrees = 25;
+    double periodSeconds = 3;
+    double phaseDegrees = 0;
+    double offsetDegrees = 0;
+    TransformSpace space = TransformSpace::Local;
+};
+
 struct MotionStep {
     // The callback receives seconds since this step started, not frame delta time.
     std::function<glm::mat4(double)> transform;
@@ -38,17 +56,22 @@ struct MotionStep {
     double startSeconds = 0;
     std::optional<double> durationSeconds;
     bool enabled = true;
+    MotionAction action; // A step contains either transform or action.
 };
 
 class Motion {
     std::vector<MotionStep> steps_;
     static bool validStep(const MotionStep& step);
+    std::optional<MotionSample> evaluate(double seconds, bool actions) const;
 
 public:
     /// [API] 모션 단계 배열의 끝에 유효한 단계를 추가한다. 자동 순차 배치는 then을 사용한다.
     bool append(const MotionStep& step);
     /// [API] 주어진 인덱스에 모션 단계를 삽입한다.
     bool insert(std::size_t index, const MotionStep& step);
+    /// [API] 변환 사이의 인덱스에 의미 동작 또는 람다·함수 포인터를 삽입한다.
+    bool insertAction(std::size_t index, MotionAction action, double startSeconds = 0,
+                      std::optional<double> durationSeconds = std::nullopt);
     /// [API] 주어진 인덱스의 모션 단계를 새 단계로 교체한다.
     bool replace(std::size_t index, const MotionStep& step);
     /// [API] 주어진 인덱스의 모션 단계를 삭제한다.
@@ -63,12 +86,21 @@ public:
 
     /// [API] 절대 시간(초)에서 활성 단계의 월드/로컬 행렬 기여를 합성하여 MotionSample을 반환한다.
     std::optional<MotionSample> sample(double seconds) const;
+    /// [API] 변환을 평가하며 동작을 순서대로 실행한다. 실패한 외부 부수 효과는 복구하지 않는다.
+    std::optional<MotionSample> execute(double seconds) const;
+    /// [API] 기존 append/insert/then/replace와 조립하는 비변환 동작 단계를 만든다.
+    static MotionStep action(MotionAction action, double startSeconds = 0,
+                             std::optional<double> durationSeconds = std::nullopt);
     /// [API] 고정 행렬을 반환하는 모션 단계를 만든다. 합성 공간을 함께 지정한다.
     static MotionStep fixed(const glm::mat4& matrix, TransformSpace space = TransformSpace::World);
     /// [API] 축·초당 각속도·초기 각도·합성 공간으로 회전 모션 단계를 만든다.
     static MotionStep rotation(const RotationMotion& config);
     /// [API] 경로·보간·재생 설정으로 시간에 따른 위치 이동 모션 단계를 만든다.
     static MotionStep followPath(const PathMotion& config);
+    /// [API] 시작·끝 위치를 지정 시간 동안 선형보간한다. Once·Loop·PingPong을 지원한다.
+    static MotionStep linear(const LinearMotion& config);
+    /// [API] 지정 축에서 offset + amplitude*sin(위상)의 도 단위 회전을 반복한다. 물리 적분은 아니다.
+    static MotionStep pendulum(const PendulumMotion& config);
 };
 
 struct MotionState {
@@ -119,7 +151,7 @@ public:
     bool seekMotion(MotionId id, double seconds);
     /// [API] 모션을 제거하고 연결된 레이어의 해당 모션 연결을 해제한다.
     bool removeMotion(MotionId id);
-    /// [API] 시간 또는 프레임 상태를 진행한다. MotionSystem은 임시 샘플을 모은 뒤 성공한 경우 반영한다.
+    /// [API] 모든 샘플 성공 후 시간·샘플을 확정하고 활성 모션의 동작을 실행한다. 동작 실패는 외부 상태를 복구하지 않는다.
     bool update(double deltaSeconds);
     /// [API] 모션과 레이어를 비우고 루트 레이어를 복구한다. 다음 ID 카운터는 되돌리지 않는다.
     void clear(); // Identifiers are never reused by this system, including after clear.

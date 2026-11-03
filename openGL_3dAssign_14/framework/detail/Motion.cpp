@@ -5,7 +5,7 @@
 
 namespace graphics {
 bool Motion::validStep(const MotionStep& step) {
-    return bool(step.transform) && std::isfinite(step.startSeconds) && step.startSeconds >= 0 &&
+    return (bool(step.transform) != bool(step.action)) && std::isfinite(step.startSeconds) && step.startSeconds >= 0 &&
            (!step.durationSeconds || (std::isfinite(*step.durationSeconds) && *step.durationSeconds >= 0 &&
                                       std::isfinite(step.startSeconds + *step.durationSeconds)));
 }
@@ -16,15 +16,34 @@ bool Motion::append(const MotionStep& step) {
 
 bool Motion::insert(std::size_t index, const MotionStep& step) {
     if (index > steps_.size() || !validStep(step))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "Motion::insert",
+            "Rejected condition: index > steps_.size() || !validStep(step)",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
     steps_.insert(steps_.begin() + index, step);
 
     return true;
 }
 
+MotionStep Motion::action(MotionAction callback, double startSeconds, std::optional<double> durationSeconds) {
+    MotionStep step;
+    step.action = std::move(callback);
+    step.startSeconds = startSeconds;
+    step.durationSeconds = durationSeconds;
+    return step;
+}
+
+bool Motion::insertAction(std::size_t index, MotionAction callback, double startSeconds,
+                          std::optional<double> durationSeconds) {
+    return insert(index, action(std::move(callback), startSeconds, durationSeconds));
+}
+
 bool Motion::replace(std::size_t index, const MotionStep& step) {
     if (index >= steps_.size() || !validStep(step))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "Motion::replace",
+            "Rejected condition: index >= steps_.size() || !validStep(step)",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
     steps_[index] = step;
 
     return true;
@@ -32,7 +51,9 @@ bool Motion::replace(std::size_t index, const MotionStep& step) {
 
 bool Motion::erase(std::size_t index) {
     if (index >= steps_.size())
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "Motion::erase", "Rejected condition: index >= steps_.size()",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
     steps_.erase(steps_.begin() + index);
 
     return true;
@@ -43,7 +64,10 @@ bool Motion::then(MotionStep step) {
 
     for (const auto& current : steps_) {
         if (!current.durationSeconds)
-            return false;
+            return Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "Motion::then",
+                "Rejected condition: !current.durationSeconds",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
         end = std::max(end, current.startSeconds + *current.durationSeconds);
     }
     step.startSeconds += end;
@@ -52,8 +76,22 @@ bool Motion::then(MotionStep step) {
 }
 
 std::optional<MotionSample> Motion::sample(double seconds) const {
+    return evaluate(seconds, false);
+}
+
+std::optional<MotionSample> Motion::execute(double seconds) const {
+    // Snapshot permits callbacks to edit the original sequence without invalidating iteration.
+    const Motion snapshot = *this;
+    return snapshot.evaluate(seconds, true);
+}
+
+std::optional<MotionSample> Motion::evaluate(double seconds, bool actions) const {
     if (!std::isfinite(seconds) || seconds < 0)
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "Motion::sample",
+                                "Rejected condition: !std::isfinite(seconds) || seconds < 0",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     MotionSample result;
 
@@ -66,17 +104,31 @@ std::optional<MotionSample> Motion::sample(double seconds) const {
         if (step.durationSeconds)
             time = std::min(time, *step.durationSeconds);
 
+        if (step.action) {
+            if (actions && !step.action(time, result))
+                return (Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "Motion::execute",
+                                            "Action returned false; prior external effects are retained."), std::nullopt);
+            continue;
+        }
         const auto matrix = step.transform(time);
 
         if (!TransformSystem::validAffine(matrix))
-            return {};
+            return (Diagnostics::failAt(
+                        __FILE__, __LINE__, PipelineStage::Motion, "Motion::sample",
+                        "Rejected condition: !TransformSystem::validAffine(matrix)",
+                        "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+                    std::nullopt);
 
         auto& target = step.space == TransformSpace::World ? result.parent : result.local;
 
         target = matrix * target; // Within each space, API order is application order.
 
         if (!TransformSystem::validAffine(target))
-            return {};
+            return (Diagnostics::failAt(
+                        __FILE__, __LINE__, PipelineStage::Motion, "Motion::sample",
+                        "Rejected condition: !TransformSystem::validAffine(target)",
+                        "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+                    std::nullopt);
     }
 
     return result;
@@ -174,11 +226,62 @@ MotionStep Motion::followPath(const PathMotion& config) {
     return step;
 }
 
+MotionStep Motion::linear(const LinearMotion& config) {
+    if (!detail::finiteVector(config.from) || !detail::finiteVector(config.to) ||
+        !std::isfinite(config.durationSeconds) || config.durationSeconds <= 0 ||
+        (config.playback != Playback::Once && config.playback != Playback::Loop &&
+         config.playback != Playback::PingPong) ||
+        (config.space != TransformSpace::World && config.space != TransformSpace::Local))
+        return {};
+
+    PathMotion path;
+
+    path.path = [from = glm::dvec3(config.from), to = glm::dvec3(config.to)](double u) {
+        return glm::vec3((1 - u) * from + u * to);
+    };
+    path.durationSeconds = config.durationSeconds;
+    path.playback = config.playback;
+    path.space = config.space;
+
+    return followPath(path);
+}
+
+MotionStep Motion::pendulum(const PendulumMotion& config) {
+    MotionStep step;
+
+    if (!std::isfinite(config.amplitudeDegrees) || config.amplitudeDegrees < 0 ||
+        !std::isfinite(config.periodSeconds) || config.periodSeconds <= 0 || !std::isfinite(config.phaseDegrees) ||
+        !std::isfinite(config.offsetDegrees) ||
+        !std::isfinite(std::abs(config.offsetDegrees) + config.amplitudeDegrees) ||
+        (config.space != TransformSpace::World && config.space != TransformSpace::Local) ||
+        !TransformSystem::rotation(config.axis, config.offsetDegrees))
+        return step;
+    step.space = config.space;
+    step.transform = [config](double seconds) {
+        constexpr double pi = 3.14159265358979323846;
+        const double phase = std::remainder(seconds, config.periodSeconds) / config.periodSeconds * 2 * pi +
+                             std::remainder(config.phaseDegrees, 360.0) * pi / 180;
+        const auto matrix =
+            TransformSystem::rotation(config.axis, config.offsetDegrees + config.amplitudeDegrees * std::sin(phase));
+
+        if (!matrix)
+            throw std::domain_error("Pendulum motion produced an invalid matrix.");
+
+        return *matrix;
+    };
+
+    return step;
+}
+
 std::optional<MotionId> MotionSystem::createMotion(const Motion& motion) {
     const auto sample = motion.sample(0);
 
     if (!sample || nextMotion_ == std::numeric_limits<MotionId>::max())
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createMotion",
+                                "Rejected condition: !sample || nextMotion_ == std::numeric_limits<MotionId>::max()",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     const auto id = nextMotion_;
     MotionState state;
@@ -201,12 +304,17 @@ bool MotionSystem::setMotion(MotionId id, const Motion& motion) {
     const auto found = motions_.find(id);
 
     if (found == motions_.end())
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::setMotion",
+            "Rejected condition: found == motions_.end()",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
 
     const auto sample = motion.sample(found->second.timeSeconds);
 
     if (!sample)
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::setMotion", "Rejected condition: !sample",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     found->second.motion = motion;
     found->second.sampled = *sample;
 
@@ -217,7 +325,10 @@ bool MotionSystem::setMotionPlaying(MotionId id, bool playing) {
     const auto found = motions_.find(id);
 
     if (found == motions_.end())
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::setMotionPlaying",
+            "Rejected condition: found == motions_.end()",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     found->second.playing = playing;
 
     return true;
@@ -227,7 +338,10 @@ bool MotionSystem::setMotionEnabled(MotionId id, bool enabled) {
     const auto found = motions_.find(id);
 
     if (found == motions_.end())
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::setMotionEnabled",
+            "Rejected condition: found == motions_.end()",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     found->second.enabled = enabled;
 
     return true;
@@ -237,12 +351,17 @@ bool MotionSystem::seekMotion(MotionId id, double seconds) {
     const auto found = motions_.find(id);
 
     if (found == motions_.end())
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::seekMotion",
+            "Rejected condition: found == motions_.end()",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
 
     const auto sample = found->second.motion.sample(seconds);
 
     if (!sample)
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::seekMotion", "Rejected condition: !sample",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     found->second.timeSeconds = seconds;
     found->second.sampled = *sample;
 
@@ -251,7 +370,10 @@ bool MotionSystem::seekMotion(MotionId id, double seconds) {
 
 bool MotionSystem::removeMotion(MotionId id) {
     if (!motions_.erase(id))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::removeMotion",
+            "Rejected condition: !motions_.erase(id)",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
 
     for (auto& layer : layers_)
         if (layer.second.config.motion == id)
@@ -262,12 +384,16 @@ bool MotionSystem::removeMotion(MotionId id) {
 
 bool MotionSystem::update(double deltaSeconds) {
     if (!std::isfinite(deltaSeconds) || deltaSeconds < 0)
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::update",
+            "Rejected condition: !std::isfinite(deltaSeconds) || deltaSeconds < 0",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
 
     struct Pending {
         MotionId id;
         double time;
         MotionSample sample;
+        std::optional<Motion> actions;
     };
 
     std::vector<Pending> pending;
@@ -284,8 +410,13 @@ bool MotionSystem::update(double deltaSeconds) {
         const auto sample = state.motion.sample(time);
 
         if (!sample)
-            return false;
-        pending.push_back({entry.first, time, *sample});
+            return Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::update", "Rejected condition: !sample",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
+        const auto& steps = state.motion.getSteps();
+        const bool actions = state.enabled && std::any_of(steps.begin(), steps.end(),
+                                                         [](const auto& step) { return bool(step.action); });
+        pending.push_back({entry.first, time, *sample, actions ? std::optional<Motion>(state.motion) : std::nullopt});
     }
 
     for (const auto& item : pending) {
@@ -294,6 +425,9 @@ bool MotionSystem::update(double deltaSeconds) {
         state.timeSeconds = item.time;
         state.sampled = item.sample;
     }
+    for (const auto& item : pending)
+        if (item.actions && !item.actions->execute(item.time))
+            return false;
 
     return true;
 }
@@ -317,7 +451,12 @@ const LayerState* MotionSystem::getLayer(LayerId id) const {
 
 std::optional<LayerId> MotionSystem::pushLayer(LayerId parent, const LayerConfig& config) {
     if (!getLayer(parent) || !validLayer(config) || nextLayer_ == std::numeric_limits<LayerId>::max())
-        return {};
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::pushLayer",
+                "Rejected condition: !getLayer(parent) || !validLayer(config) || nextLayer_ == std::numeric_limits<LayerId>::max()",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     auto staged = layers_;
     const auto id = nextLayer_;
@@ -334,7 +473,12 @@ std::optional<LayerId> MotionSystem::insertLayer(LayerId child, const LayerConfi
     const auto current = getLayer(child);
 
     if (!current || !current->parent || !validLayer(config) || nextLayer_ == std::numeric_limits<LayerId>::max())
-        return {};
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::insertLayer",
+                "Rejected condition: !current || !current->parent || !validLayer(config) || nextLayer_ == std::numeric_limits<LayerId>::max()",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     const auto parent = *current->parent;
     const auto id = nextLayer_;
@@ -356,7 +500,10 @@ bool MotionSystem::removeLayer(LayerId id) {
     const auto current = getLayer(id);
 
     if (!current || !current->parent)
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::removeLayer",
+            "Rejected condition: !current || !current->parent",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
 
     auto staged = layers_;
     const auto parent = *current->parent;
@@ -379,12 +526,20 @@ std::optional<LayerId> MotionSystem::popLayer(LayerId top) {
     const auto current = getLayer(top);
 
     if (!current || !current->parent || !current->children.empty())
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::popLayer",
+                                "Rejected condition: !current || !current->parent || !current->children.empty()",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     const auto parent = *current->parent;
 
     if (!removeLayer(top))
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::popLayer",
+                                "Rejected condition: !removeLayer(top)",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     return parent;
 }
@@ -393,7 +548,10 @@ bool MotionSystem::reparentLayer(LayerId id, LayerId parent) {
     const auto current = getLayer(id);
 
     if (!current || !current->parent || !getLayer(parent))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::reparentLayer",
+            "Rejected condition: !current || !current->parent || !getLayer(parent)",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
 
     if (current->parent == parent)
         return true;
@@ -402,7 +560,10 @@ bool MotionSystem::reparentLayer(LayerId id, LayerId parent) {
 
     while (ancestor) {
         if (*ancestor == id)
-            return false;
+            return Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::reparentLayer",
+                "Rejected condition: *ancestor == id",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
         ancestor = layers_.at(*ancestor).parent;
     }
 
@@ -421,7 +582,10 @@ bool MotionSystem::setLayer(LayerId id, const LayerConfig& config) {
     const auto found = layers_.find(id);
 
     if (found == layers_.end() || !validLayer(config))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::setLayer",
+            "Rejected condition: found == layers_.end() || !validLayer(config)",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.", id);
     found->second.config = config;
 
     return true;
@@ -431,7 +595,10 @@ bool MotionSystem::bindMotion(LayerId layer, std::optional<MotionId> motion) {
     const auto current = getLayer(layer);
 
     if (!current || (motion && !getMotion(*motion)))
-        return false;
+        return Diagnostics::failAt(
+            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::bindMotion",
+            "Rejected condition: !current || (motion && !getMotion(*motion))",
+            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships.");
 
     auto config = current->config;
 
@@ -448,7 +615,11 @@ std::optional<MotionSample> MotionSystem::layerMatrices(LayerId leaf) const {
         const auto layer = getLayer(*current);
 
         if (!layer || chain.size() >= layers_.size())
-            return {};
+            return (Diagnostics::failAt(
+                        __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::layerMatrices",
+                        "Rejected condition: !layer || chain.size() >= layers_.size()",
+                        "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+                    std::nullopt);
         chain.push_back(*current);
         current = layer->parent;
     }
@@ -472,7 +643,11 @@ std::optional<MotionSample> MotionSystem::layerMatrices(LayerId leaf) const {
             const auto state = getMotion(*config.motion);
 
             if (!state)
-                return {};
+                return (Diagnostics::failAt(
+                            __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::layerMatrices",
+                            "Rejected condition: !state",
+                            "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+                        std::nullopt);
 
             if (state->enabled) {
                 own.parent = state->sampled.parent * own.parent;
@@ -488,7 +663,12 @@ std::optional<MotionSample> MotionSystem::layerMatrices(LayerId leaf) const {
         }
 
         if (!TransformSystem::validAffine(result.parent) || !TransformSystem::validAffine(result.local))
-            return {};
+            return (
+                Diagnostics::failAt(
+                    __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::layerMatrices",
+                    "Rejected condition: !TransformSystem::validAffine(result.parent) || !TransformSystem::validAffine(result.local)",
+                    "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+                std::nullopt);
     }
 
     return result;
@@ -500,7 +680,11 @@ std::optional<MotionId> MotionSystem::createSpin(RotationMotion config) {
     Motion motion;
 
     if (!motion.append(Motion::rotation(config)))
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createSpin",
+                                "Rejected condition: !motion.append(Motion::rotation(config))",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     return createMotion(motion);
 }
@@ -511,7 +695,11 @@ std::optional<MotionId> MotionSystem::createOrbit(RotationMotion config) {
     Motion motion;
 
     if (!motion.append(Motion::rotation(config)))
-        return {};
+        return (
+            Diagnostics::failAt(__FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createOrbit",
+                                "Rejected condition: !motion.append(Motion::rotation(config))",
+                                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     return createMotion(motion);
 }
@@ -523,7 +711,12 @@ std::optional<MotionId> MotionSystem::createOrbitAndSpin(RotationMotion orbit, R
     Motion motion;
 
     if (!motion.append(Motion::rotation(orbit)) || !motion.append(Motion::rotation(spin)))
-        return {};
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createOrbitAndSpin",
+                "Rejected condition: !motion.append(Motion::rotation(orbit)) || !motion.append(Motion::rotation(spin))",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     return createMotion(motion);
 }
@@ -534,7 +727,12 @@ std::optional<MotionId> MotionSystem::createPathAndSpin(const PathMotion& path, 
     Motion motion;
 
     if (!motion.append(Motion::followPath(path)) || !motion.append(Motion::rotation(spin)))
-        return {};
+        return (
+            Diagnostics::failAt(
+                __FILE__, __LINE__, PipelineStage::Motion, "MotionSystem::createPathAndSpin",
+                "Rejected condition: !motion.append(Motion::followPath(path)) || !motion.append(Motion::rotation(spin))",
+                "Check finite values, valid IDs, dimensions, indices and parent/layer relationships."),
+            std::nullopt);
 
     return createMotion(motion);
 }
