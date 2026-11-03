@@ -7,12 +7,15 @@ bool Console::initScene() {
 }
 
 bool Console::activateMode(int mode) {
-    if (mode < 1 || mode > 9)
+    if (mode < 1 || mode > lastStandardMode)
         return false;
     if (mode <= 6 && demo_ == Demo::Motion && pathId_) {
         activeMode_ = mode;
         return choosePath(mode);
     }
+    if (practiceMode_)
+        practiceMode_->onFocus(false);
+    practiceMode_.reset();
     activeMode_ = mode;
     animation_.clear();
     jointControls_.clear();
@@ -29,6 +32,10 @@ bool Console::activateMode(int mode) {
     clock_.reset();
     app_.getCamera() = graphics::Camera{};
     app_.getRenderOptions() = graphics::RenderOptions{};
+    if (mode >= 10) {
+        practiceMode_ = makePracticeMode(mode, app_);
+        return practiceMode_ && practiceMode_->initScene();
+    }
     const bool ok = mode <= 6 ? initMotion(mode) : mode == 7 ? initGrid() : mode == 8 ? initRoom() : initAnimation();
     if (!ok || !applyControls())
         return false;
@@ -37,7 +44,35 @@ bool Console::activateMode(int mode) {
 }
 
 /// 키 입력에 따라 동작을 변경한다.
-void Console::onKey(int key, int action) {
+void Console::onKey(int key, int action, int mods) {
+    if (!initialMode_ && action == GLFW_PRESS) {
+        int next = 0;
+        if (key >= GLFW_KEY_F1 && key <= GLFW_KEY_F11)
+            next = 10 + key - GLFW_KEY_F1;
+        else if (key == GLFW_KEY_LEFT_BRACKET)
+            next = activeMode_ == 1 ? lastStandardMode : activeMode_ - 1;
+        else if (key == GLFW_KEY_RIGHT_BRACKET)
+            next = activeMode_ == lastStandardMode ? 1 : activeMode_ + 1;
+        else if ((activeMode_ <= 9 || (mods & GLFW_MOD_ALT)) && key >= GLFW_KEY_1 && key <= GLFW_KEY_9)
+            next = key - GLFW_KEY_1 + 1;
+        if (next) {
+            if (!activateMode(next))
+                app_.requestClose();
+            return;
+        }
+    }
+    if (key == GLFW_KEY_F12 && action == GLFW_PRESS) {
+        printHelp();
+        return;
+    }
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        app_.requestClose();
+        return;
+    }
+    if (practiceMode_) {
+        practiceMode_->onKey(key, action, mods);
+        return;
+    }
     if (action == GLFW_REPEAT) {
         handleJointKey(key);
         return;
@@ -45,11 +80,6 @@ void Console::onKey(int key, int action) {
     if (action != GLFW_PRESS)
         return;
 
-    if (!initialMode_ && key >= GLFW_KEY_1 && key <= GLFW_KEY_9) {
-        if (!activateMode(key - GLFW_KEY_1 + 1))
-            app_.requestClose();
-        return;
-    }
     if (!initialMode_ && key == GLFW_KEY_0) {
         pathId_.reset();
         if (!activateMode(1))
@@ -137,6 +167,10 @@ void Console::onKey(int key, int action) {
 
 /// 마우스 버튼 입력을 처리한다.
 void Console::onMouse(const graphics::MouseEvent& event) {
+    if (practiceMode_) {
+        practiceMode_->onMouse(event);
+        return;
+    }
     if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) {
         return;
     }
@@ -170,7 +204,10 @@ void Console::onMouse(const graphics::MouseEvent& event) {
 /// 조작 방법을 출력한다.
 void Console::printHelp() const {
     std::cout
-        << "standard: 프레임워크 Motion·반사·레이어 샘플\n"
+        << "standard: initialMode=nullopt이면 모드 전환, 정수이면 해당 모드 고정\n"
+        << "[ / ] 전체 1~22 모드 순환, Alt+1~9 데모 선택, F12 공통 도움말\n"
+        << "F1~F11: 모드 10~20 = 실습 13~23 (각 실습의 기존 키 사용)\n"
+        << "모드 21: WASD 카메라 충돌 / 모드 22: 내장 3D 메시 입력 처리\n"
         << "1 타원 / 2 사각형 / 3 다각형 / 4 사용자 3D 경로+보간 / 5 원 / 6 왕복 꺾은선\n"
         << "Space 시간 정지·재개 / S 자전 기여 / G 전체 공전 기여\n"
         << "M 반사 변경 / I 크기 레이어 삽입·삭제 / H 도움말 / Esc 종료\n"
@@ -189,6 +226,10 @@ bool Console::applyControls() {
 }
 
 void Console::onUpdate(float dt) {
+    if (practiceMode_) {
+        practiceMode_->onUpdate(dt);
+        return;
+    }
     if (demo_ != Demo::Motion && !clock_.advance(dt)) {
         app_.requestClose();
         return;
@@ -204,7 +245,19 @@ void Console::onUpdate(float dt) {
 }
 
 /// 현재 장면을 지정한 뷰로 렌더링한다.
+void Console::onCursor(double x, double y) {
+    if (practiceMode_)
+        practiceMode_->onCursor(x, y);
+}
+
+void Console::onFocus(bool focused) {
+    if (practiceMode_)
+        practiceMode_->onFocus(focused);
+}
+
 bool Console::onRender() {
+    if (practiceMode_)
+        return practiceMode_->onRender();
     if (!threeViews_)
         return app_.renderScene();
 

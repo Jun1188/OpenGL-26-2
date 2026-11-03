@@ -3,19 +3,25 @@
 /// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() {
     graphics::Application app;
-    // nullopt: 숫자 키로 전환. 1~9: 지정한 모드에 고정해서 시작.
+    // nullopt: 숫자 키로 전환. 1~9: 기본 데모 고정. 10~22: 추가 실습·부록 고정.
     constexpr std::optional<int> initialMode = std::nullopt;
-    static_assert(!initialMode || (*initialMode >= 1 && *initialMode <= 9), "initialMode must be 1..9");
+    static_assert(!initialMode || (*initialMode >= 1 && *initialMode <= lastStandardMode), "initialMode must be 1..22");
     Console sample(app, initialMode);
 
     app.setInitHandler([&](graphics::Application&) {
         return sample.initScene();
     });
-    app.setKeyHandler([&](graphics::Application&, int key, int action) {
-        sample.onKey(key, action);
+    app.setModifiedKeyHandler([&](graphics::Application&, int key, int action, int mods) {
+        sample.onKey(key, action, mods);
     });
     app.setMouseHandler([&](graphics::Application&, const graphics::MouseEvent& event) {
         sample.onMouse(event);
+    });
+    app.setCursorHandler([&](graphics::Application&, double x, double y) {
+        sample.onCursor(x, y);
+    });
+    app.setFocusHandler([&](graphics::Application&, bool focused) {
+        sample.onFocus(focused);
     });
     app.setUpdateHandler([&](graphics::Application&, float dt) {
         sample.onUpdate(dt);
@@ -26,7 +32,7 @@ int main() {
 
     graphics::ApplicationConfig config;
 
-    config.title = "standard - Motion, Grid, diagnostics and render passes";
+    config.title = "standard - Modes 1..22, input, picking and practice patterns";
 
     return app.run(config);
 }

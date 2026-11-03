@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include "framework/Framework.h"
+#include "modes/PracticeMode.h"
 
 class Console {
     graphics::Application& app_;
     std::optional<int> initialMode_;
     int activeMode_ = 1;
+    std::unique_ptr<PracticeMode> practiceMode_;
     bool activateMode(int mode);
     bool initMotion(int kind);
     bool updateGrid();
@@ -102,7 +104,9 @@ public:
 
 
     /// 키 입력에 따라 동작을 변경한다.
-    void onKey(int key, int action);
+    void onKey(int key, int action, int mods = 0);
+    void onCursor(double x, double y);
+    void onFocus(bool focused);
 
 
     /// 마우스 버튼 입력을 처리한다.
