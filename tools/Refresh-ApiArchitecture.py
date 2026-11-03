@@ -31,6 +31,8 @@ def read(path):
 
 def write(path, text):
     path = ROOT / path
+    if path.name == 'API_REFERENCE.html':
+        text = guide.viewer.attach(path, text)
     path.parent.mkdir(parents=True, exist_ok=True)
     content = text.replace('\r\n', '\n').encode('utf-8-sig')
     if path.exists() and path.read_bytes() == content:
@@ -286,7 +288,7 @@ def row(x, y, width, *lines, decision=False):
 def diagrams():
     result = {}
     def add(key, title, nodes, edges, height, evidence, note):
-        result[key] = dict(title=title, html=guide.graph_svg('api-' + key, title, nodes, edges, 1200, height),
+        result[key] = dict(title=title, nodes=nodes, html=guide.graph_svg('api-' + key, title, nodes, edges, 1200, height),
                            evidence=evidence, note=note)
     add('ownership', '01 소유·참조·상속 관계', [
         row(400,20,400,'main 스코프','Application app; Console sample(app)'),
@@ -406,13 +408,138 @@ def diagrams():
     return result
 
 
-def source_link(directory, path):
+def code_span(path, start, end=None, within=None):
+    """Resolve line ranges from the source snapshot instead of fixed line numbers."""
+    lines = read(path).splitlines()
+    offset = next(i for i, line in enumerate(lines) if within in line) if within else 0
+    first = next(i for i in range(offset, len(lines)) if start in lines[i])
+    last = next(i for i in range(first, len(lines)) if end in lines[i]) if end else first
+    return path, first + 1, last + 1
+
+
+def block_mappings():
+    renderer = 'standard/framework/detail/Renderer.cpp'
+    patterns = 'standard/framework/detail/Patterns.cpp'
+    animation = 'standard/framework/detail/Animation.cpp'
+    scene = 'standard/framework/detail/Scene.cpp'
+    motion = 'standard/framework/detail/Motion.cpp'
+    model = 'standard/framework/include/Model.h'
+    shaders = 'standard/framework/detail/Shaders.h'
+    main = 'standard/main.cpp'
+    swing = 'std::optional<SwingRig> AnimationSystem::addSwingWithRider('
+    span = code_span
+    return {
+        'locals': [
+            (3, [span(main, 'int main()', 'return app.run(config);')], 'main의 지역 스코프와 run 호출. 첫 행의 세 칸은 표 머리글이다.'),
+            (4, [span(main, 'graphics::Application app;', 'Console sample(app);'), span(main, 'graphics::ApplicationConfig config;')], 'app·sample을 먼저 만들고 실행 설정 config를 준비한다.'),
+            (5, [span(main, 'return app.run(config);', '}')], 'run 반환 후 main 스코프가 끝난다. config·sample·app 순서로 자동 소멸한다. 소멸 호출을 직접 작성한 줄은 없다.'),
+            (6, [span(renderer, 'bool Renderer::render(', 'return renderPass(scene, pass, width, height);')], '단일 렌더 패스 구성 함수.'),
+            (7, [span(renderer, '    RenderPass pass;', 'pass.viewport =')], 'pass의 카메라·옵션·viewport 값 구성.'),
+            (8, [span(renderer, 'return renderPass(scene, pass, width, height);'), span(renderer, 'bool Renderer::renderPass(', 'const auto& viewport = pass.viewport;')], '호출 중 pass를 const 참조로 읽는다.'),
+            (9, [span(patterns, 'std::vector<RenderPass> PatternSystem::threeViews(', 'return {main, top, front};')], '세 패스를 만드는 함수.'),
+            (10, [span(patterns, '    RenderPass main;', 'front.camera.up =')], 'main을 만들고 top·front에 복사한 뒤 값을 조정한다.'),
+            (11, [span(patterns, 'return {main, top, front};'), span('standard/Console.cpp', '    return app_.renderViews(', 'graphics::PatternSystem::threeViews(')], 'vector를 값으로 반환한다. Console 호출의 임시 vector는 전체 renderViews 호출이 끝날 때까지 유지된다.'),
+            (12, [span(renderer, 'bool Renderer::upload(', 'TextureMap stagedTextures;')], 'upload 진입과 CPU 준비 컨테이너.'),
+            (13, [span(renderer, 'std::vector<RenderVertex> vertices;', 'TextureMap stagedTextures;'), span(renderer, 'std::vector<std::uint8_t> packed;')], '정점·인덱스·draw 범위·텍스처 캐시 후보·패킹 바이트의 지역 저장소.'),
+            (14, [span(renderer, 'gl.BufferData(GL_ARRAY_BUFFER', 'gl.BindVertexArray(0);'), span(renderer, 'textures_ = std::move(stagedTextures);', 'drawRanges_ = std::move(ranges);')], 'GPU 버퍼로 바이트를 복사하고, 성공 경로에서 캐시 후보를 멤버로 이전한다.'),
+            (15, [span(animation, 'std::optional<SwingRig> AnimationSystem::addSwingWithRider(', 'return rig;')], '원 Scene 대신 staged에서 조립하고 성공했을 때만 반영한다.'),
+            (16, [span(animation, '    Scene staged = scene;', 'transform.basis = config.pivot;', within=swing), span(animation, '    Motion riderMotion;', within=swing)], 'Scene 복사본, rig, 변환과 Motion의 지역 값. rig 안의 ID는 Scene 객체를 소유하지 않는다.'),
+            (17, [span(animation, '    scene = std::move(staged);', '    return rig;', within=swing)], '원 Scene을 성공한 staged로 바꾼 뒤 rig를 값으로 반환한다.'),
+        ],
+        'layers': [
+            (0, [span(scene, 'bool Scene::setParent(', 'components_[id].parent = parent;'), span(scene, '    std::vector<EntityId> chain;', 'std::reverse(chain.begin(), chain.end());')], '엔티티 부모를 저장하고 대상에서 루트까지 추적한 체인을 루트 순서로 뒤집는다.'),
+            (1, [span(motion, 'bool MotionSystem::bindMotion(', 'return setLayer(layer, config);'), span(motion, 'std::optional<MotionSample> MotionSystem::layerMatrices(', 'current = layer->parent;')], 'LayerId 부모 체인과 선택적인 MotionId 연결.'),
+            (2, [span(scene, 'bool Scene::bindEntity(', 'entityLayers_[id] = layer;'), span(scene, '    LayerId layer = MotionSystem::rootLayer();', 'const auto motion = motions_.layerMatrices(layer);')], '엔티티↔레이어 연결과 가장 가까운 연결 조상 anchor 선택.'),
+            (3, [span(motion, 'std::optional<MotionSample> MotionSystem::layerMatrices(', '    return result;')], '레이어를 루트부터 평가하고 World/Local 기여를 parent/local에 합성한다.'),
+            (4, [span(scene, '    glm::mat4 prefix(1), suffix(1);', 'const auto result = motion->parent * prefix * motion->local * suffix;'), span(model, 'inline glm::mat4 transformMatrix(', 'return glm::translate(glm::scale(m, t.scale), -t.localBasis);')], 'prefix·suffix와 엔티티 로컬 변환 L을 만든다. 아래 변수 설명 참조.'),
+            (5, [span(scene, 'std::optional<glm::mat4> Scene::faceWorldMatrix(', 'const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);'), span(model, 'inline glm::mat4 faceSrtMatrix(', ': child * face.localAnimationMatrix;')], '면의 상속 정책과 면 SRT·애니메이션 합성. 아래 적용 순서 참조.'),
+            (6, [span(renderer, 'bool Renderer::renderPass(', 'const bool success = draw('), span(renderer, '    gl.UseProgram(shaderProgramID_);', '    gl.BindVertexArray(vao_);'), span(renderer, '        const auto mvp = projection * view * model;', 'gl.BindTexture(GL_TEXTURE_2D, textures_.at(face->material.texture));')], '카메라에서 V·P를 계산하고 면의 M과 곱한다. GL 프로그램·VAO·uniform·texture를 설정한다.'),
+            (7, [span(renderer, 'gl.DrawElements(face ? GL_TRIANGLES : GL_LINES', 'reinterpret_cast<const void*>(range.firstIndex * sizeof(GLuint)));'), span(shaders, 'inline constexpr char vertexShader[]', ')GLSL";'), span(shaders, 'inline constexpr char fragmentShader[]', ')GLSL";'), span(renderer, '    gl.Viewport(', '    gl.DepthFunc(GL_LESS);')], 'DrawElements와 기본 셰이더 구현 위치다. 클리핑·원근 나눗셈·래스터화·깊이 검사는 GPU 고정 단계이며 대응하는 C++ 함수 본문은 없다.'),
+        ],
+    }
+
+
+def source_link(directory, path, first=None, last=None):
     relative = os.path.relpath(ROOT / path, ROOT / directory).replace('\\', '/')
-    return '<a href="' + esc(relative) + '">' + esc(path) + '</a>'
+    suffix = f'#L{first}-L{last}' if first else ''
+    label = path + (f':L{first}–L{last}' if first else '')
+    return '<a href="' + esc(relative + suffix) + '">' + esc(label) + '</a>'
+
+
+def mapped_chart(directory, key, chart, mappings):
+    """Make each mapped SVG block keyboard-accessible and list all supporting ranges."""
+    links = {index: (number, refs, note) for number, (index, refs, note) in enumerate(mappings, 1)}
+    prefix = '03' if key == 'locals' else '04'
+    index = -1
+    def wrap(match):
+        nonlocal index
+        index += 1
+        if index not in links:
+            return match.group()
+        number, refs, note = links[index]
+        ident = f'{prefix}.{number:02d}'
+        link = source_link(directory, *refs[0])
+        href = re.search(r'href="([^"]+)"', link).group(1)
+        node = re.sub(r'(<text[^>]*>)', lambda m: m.group(1) + ident + ' ', match.group(), count=1)
+        return '<a href="' + href + '" aria-label="' + esc(ident + ' ' + chart['nodes'][index][-1][0] + ' 코드 보기') + '"><title>' + esc(note) + '</title>' + node + '</a>'
+    svg = re.sub(r'<rect\b[^>]*/>(?:<text\b[^>]*>[\s\S]*?</text>)+', wrap, chart['html'])
+    table = '<h4>블록별 코드 줄 매핑</h4><p>블록을 누르면 첫 번째 소스 범위를 연다. 대응표에서는 관련된 모든 범위를 선택할 수 있다. 줄 번호는 문서 생성 시점 기준이다.</p><table class="api-block-map"><thead><tr><th>블록</th><th>실제 코드</th><th>역할·경계</th></tr></thead><tbody>'
+    for number, (index, refs, note) in enumerate(mappings, 1):
+        table += '<tr><th>' + esc(f'{prefix}.{number:02d} ' + chart['nodes'][index][-1][0]) + '</th><td>' + '<br>'.join(source_link(directory, *ref) for ref in refs) + '</td><td>' + esc(note) + '</td></tr>'
+    return svg, table + '</tbody></table>'
+
+
+def layer_explanation(directory):
+    scene = 'standard/framework/detail/Scene.cpp'
+    model = 'standard/framework/include/Model.h'
+    text = '''<section id="arch-layers-variables"><h4>04 변수의 역할과 행렬 적용 순서</h4>
+<p>이 문서의 행렬은 열벡터에 곱한다. <code>A · B · p</code>는 정점 p에 B를 먼저 적용하고 A를 나중에 적용한다. 행렬식은 왼쪽부터 적지만, 정점에 적용하는 순서는 오른쪽부터 읽는다.</p>
+<h5>엔티티 계층: prefix · suffix · anchor · L</h5>
+<table class="api-block-map"><thead><tr><th>기호 / 코드 이름</th><th>역할</th></tr></thead><tbody>
+<tr><th>chain</th><td>루트부터 대상 엔티티까지의 EntityId 목록. 각 엔티티의 로컬 변환을 이 순서로 곱한다.</td></tr>
+<tr><th>anchor</th><td>chain 안에서 모션 레이어가 연결된 가장 가까운 조상의 위치(인덱스). 대상 자신도 포함한다. 연결이 없으면 기본 rootLayer를 쓰고 anchor는 대상 위치가 된다.</td></tr>
+<tr><th>prefix</th><td>루트부터 anchor까지의 로컬 변환 곱. anchor 변환을 포함한다. 예: 루트 → 팔 → 손에서 팔이 anchor이면 L루트 · L팔.</td></tr>
+<tr><th>suffix</th><td>anchor 다음부터 대상까지의 로컬 변환 곱. 위 예에서 대상이 손이면 L손. 뒤쪽 엔티티가 없으면 항등행렬 I.</td></tr>
+<tr><th>L / detail::transformMatrix(t)</th><td>엔티티 하나의 로컬 좌표를 부모 좌표로 바꾸는 행렬. L = T(t.basis) · R · S · T(-t.localBasis).</td></tr>
+<tr><th>T / basis</th><td>T는 이동 행렬을 만드는 연산. t.basis는 피벗을 놓을 부모 좌표 위치다.</td></tr>
+<tr><th>pivot / t.localBasis</th><td>블록의 pivot은 설명용 기호다. 실제 필드 이름은 localBasis이며, 객체 로컬 좌표에서 회전·배율의 기준으로 삼는 점이다.</td></tr>
+<tr><th>R / t.rotation</th><td>회전을 나타내는 mat3를 mat4로 확장한 행렬.</td></tr>
+<tr><th>S / t.scale</th><td>X·Y·Z 축의 배율로 만든 행렬.</td></tr>
+<tr><th>motion-&gt;parent / motion-&gt;local</th><td>MotionSystem::layerMatrices가 반환한 MotionSample의 두 행렬. 일반 레이어의 World 기여는 parent, Local 기여는 local 쪽에 누적된다. rootLayer는 예외로 자기 parent · local을 결과 parent에 넣는다. 엔티티 부모 포인터나 prefix·suffix 자체가 아니다.</td></tr>
+</tbody></table>
+<pre><code>L = T(basis) · R · S · T(-pivot)
+worldMatrix = motion.parent · prefix · motion.local · suffix</code></pre>
+<p>L의 적용 순서: 로컬 피벗을 원점으로 이동 → 배율 → 회전 → 피벗을 basis 위치로 이동. 따라서 로컬 피벗 자체는 부모 좌표의 basis로 옮겨진다.</p>
+<p>worldMatrix의 적용 순서: suffix → motion.local → prefix → motion.parent. 모션을 끼워 넣는 위치를 anchor가 결정한다. 예를 들어 팔에 연결한 Local 모션은 팔 이후의 손에도 함께 작용한다.</p>
+<h5>면 변환: Hierarchy · Independent · Local · Model</h5>
+<table class="api-block-map"><thead><tr><th>기호 / 설정</th><th>역할</th></tr></thead><tbody>
+<tr><th>W / world</th><td>면의 transformMode가 Hierarchy이면 Scene::worldMatrix(id)를 사용한다. 엔티티의 조상·모션·자기 변환을 따른다. Independent이면 I를 사용하여 이 W 기여를 적용하지 않는다.</td></tr>
+<tr><th>I</th><td>항등행렬. 좌표를 그대로 둔다. Independent여도 뒤에 곱하는 transformFrame·면 SRT·면 애니메이션은 적용된다.</td></tr>
+<tr><th>F / face.transformFrame</th><td>면 변환 앞에 곱하는 보정 행렬. 부모 로컬 보정 또는 모드 변경 때 보존한 월드 프레임을 담을 수 있다. Independent에서도 사라지지 않는다.</td></tr>
+<tr><th>C / detail::faceSrtMatrix(face)</th><td>면 자체의 SRT 기여. 호환 필드 face.independence가 true일 때 T(face.transform.localBasis) · transformMatrix(face.transform), false이면 I.</td></tr>
+<tr><th>A / face.localAnimationMatrix</th><td>면에 추가로 적용하는 애니메이션 행렬.</td></tr>
+<tr><th>FaceAnimationSpace::Local</th><td>faceLocalMatrix = C · A. 정점에 A를 먼저 적용하고 면 SRT C를 적용한다.</td></tr>
+<tr><th>FaceAnimationSpace::Model</th><td>faceLocalMatrix = A · C. 면 SRT C를 먼저 적용하고 A를 적용한다. 엔티티 월드 행렬 W와 보정 F는 그 뒤에 적용한다.</td></tr>
+</tbody></table>
+<pre><code>Hierarchy + Local: M = worldMatrix(id) · F · C · A
+Hierarchy + Model: M = worldMatrix(id) · F · A · C
+Independent + Local: M = I · F · C · A
+Independent + Model: M = I · F · A · C</code></pre>
+<p>Hierarchy/Independent는 엔티티 변환을 따를지 결정한다. Local/Model은 면 애니메이션 A와 면 SRT C의 곱 순서를 결정한다. 두 설정은 별개다. 또한 bool 필드 independence는 면 SRT를 켜는 호환 설정이며, FaceTransformMode::Independent와 다르다.</p>
+<p>최종 M은 위 면 월드 행렬, V는 카메라 뷰 행렬, P는 투영 행렬이다. 셰이더는 gl_Position = (P · V · M) · 정점으로 클립 좌표를 만든다.</p>
+'''
+    text += '<p>구현 근거: ' + ' · '.join(source_link(directory, *ref) for ref in [
+        code_span(scene, 'std::optional<glm::mat4> Scene::worldMatrix(', 'const auto result = motion->parent * prefix * motion->local * suffix;'),
+        code_span(model, 'inline glm::mat4 transformMatrix(', ': child * face.localAnimationMatrix;'),
+        code_span(scene, 'std::optional<glm::mat4> Scene::faceWorldMatrix(', 'const auto result = *world * face.transformFrame * detail::faceLocalMatrix(face);'),
+        code_span(scene, 'bool Scene::setFaceTransformMode(', '    face.transformFrame = frame;'),
+    ]) + '</p></section>'
+    return text
 
 
 def refresh_diagrams():
     charts = diagrams()
+    mappings = block_mappings()
     health_path = OUT / 'graphify-out/GRAPH_HEALTH.md'
     health = health_path.read_text(encoding='utf-8-sig') if health_path.exists() else ''
     missing = re.search(r'dangling_endpoint_edges: (\d+)', health)
@@ -432,11 +559,15 @@ def refresh_diagrams():
         block += '<nav>'
         block += ''.join('<a href="#arch-' + key + '">' + esc(c['title']) + '</a>' for key, c in charts.items()) + '</nav>'
         for key, chart in charts.items():
-            block += '<section id="arch-' + key + '"><h3>' + esc(chart['title']) + '</h3>' + chart['html']
+            chart_html, mapping = mapped_chart(directory, key, chart, mappings[key]) if key in mappings else (chart['html'], '')
+            block += '<section id="arch-' + key + '"><h3>' + esc(chart['title']) + '</h3>' + chart_html + mapping
+            if key == 'layers':
+                block += layer_explanation(directory)
             block += '<p>' + esc(chart['note']) + '</p><p class="badge">소스: '
             block += ' · '.join(source_link(directory, p) for p in chart['evidence']) + '</p></section>'
             if key == 'layers':
                 block += '<p>코드 경계: Framework.h는 공개 헤더를 모으는 include 진입점이다. include/*.h의 선언 → detail/*.cpp의 구현 → detail/Native.h의 gl()/glfw() 함수 테이블 → GLFW/OpenGL 네이티브 함수로 내려간다. 헤더 include는 컴파일 의존성이며 실행 중 함수 호출이 아니다. 셰이더와 GPU 고정 단계는 그 이후의 처리다.</p>'
+            # Standalone SVG keeps the original diagram; line links belong to its HTML viewer.
             svg = re.search(r'<svg[\s\S]*?</svg>', chart['html']).group()
             write(directory + '/flowcharts/api-' + key + '.svg', svg + '\n')
         block += '</section><!-- API-ARCHITECTURE:END -->'

@@ -4,7 +4,16 @@
     <GraphicsFrameworkDirectory>$(MSBuildThisFileDirectory)</GraphicsFrameworkDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\*.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Animation.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Application.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\CuboidMode.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Motion.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\ObjLoader.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Patterns.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\PrimitiveLoader.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Renderer.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Scene.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Transform.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup>
     <ClCompile>

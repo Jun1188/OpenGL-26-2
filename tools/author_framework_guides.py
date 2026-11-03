@@ -2,8 +2,12 @@
 from pathlib import Path
 import re, json, html, hashlib, difflib
 import os
+import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
+viewer_spec = importlib.util.spec_from_file_location('api_source_viewer', ROOT / 'tools/api_source_viewer.py')
+viewer = importlib.util.module_from_spec(viewer_spec)
+viewer_spec.loader.exec_module(viewer)
 def source_path(p):
     # Older guide inputs used inline implementations; current sources use .cpp.
     if p.endswith('.inl') and not (ROOT / p).is_file():
@@ -15,6 +19,8 @@ def source_path(p):
 def read(p): return (ROOT / source_path(p)).read_text(encoding='utf-8-sig')
 def write(p, s):
     p = ROOT / p
+    if p.name == 'API_REFERENCE.html':
+        s = viewer.attach(p, s)
     p.parent.mkdir(parents=True, exist_ok=True)
     if p.is_file() and p.read_bytes() == s.encode('utf-8-sig'):
         return
