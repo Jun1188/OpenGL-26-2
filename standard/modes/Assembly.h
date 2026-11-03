@@ -22,7 +22,7 @@ struct Behavior {
     Effect effect = Effect::Motion;
     graphics::Motion motion;
     double seconds = 0;
-    bool playing = true, enabled = true;
+    bool playing = true, enabled = true, released = false;
     bool positionDriver = false;
     graphics::FaceRotationConfig face;
     std::size_t faceIndex = 0;

@@ -120,9 +120,20 @@ bool Assembly::applyPoses(float dt) {
                 require(object.mesh.has_value(), "장애물 메시가 없습니다.");
                 obstacles.push_back(bounds(scene, *object.mesh));
             }
-            const auto step = graphics::CollisionSystem::stepCharacter(b.character, stage, obstacles,
-                b.enabled && b.playing && !state_.paused ? dt : 0);
-            require(step.has_value(), "보행 충돌 계산 실패.");
+            const auto* walls = room.mesh ? scene.getComponent(*room.mesh) : nullptr;
+            require(walls && walls->polyhedron.faces.size() > 5, "보행 공간의 바닥이 없습니다.");
+            b.released = b.released || !walls->polyhedron.faces[5].visible;
+            const float stepTime = b.enabled && b.playing && !state_.paused ? dt : 0;
+            if (b.released) {
+                const auto delta = b.character.direction * b.character.speed * stepTime;
+                b.character.verticalSpeed -= 9.8f * stepTime;
+                b.character.feet += delta + glm::vec3(0, b.character.verticalSpeed * stepTime, 0);
+                b.character.walkDistance += glm::length(glm::vec2(delta.x, delta.z));
+                b.character.grounded = false;
+            } else {
+                const auto step = graphics::CollisionSystem::stepCharacter(b.character, stage, obstacles, stepTime);
+                require(step.has_value(), "보행 충돌 계산 실패.");
+            }
             const float yaw = glm::degrees(std::atan2(b.character.direction.x, b.character.direction.z));
             require(graphics::PatternSystem::poseWalkingRig(scene, *target.walker, b.character.feet, yaw,
                 b.character.walkDistance, b.character.speed), "보행 자세 적용 실패.");
