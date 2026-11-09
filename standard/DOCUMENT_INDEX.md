@@ -9,6 +9,9 @@
 0번 장면 작업공간의 입력·명령·좌표계. 실습은 소스 참조다.
 
 - [0번 작업공간 시작](README.md)
+- [두 물체로 이해하는 Standard](docs/WORKSPACE_TUTORIAL.html) — 실제 명령 → 좌표 계산 → 관찰 → 이유
+- [튜토리얼 원문과 전체 복사 명령](docs/WORKSPACE_TUTORIAL.md)
+- [튜토리얼 학습 순서·소스 근거](docs/tutorials/Standard-Graph/index.md)
 - [연산별 변환 템플릿](docs/TRANSFORM_TEMPLATES.html)
 - [요구 문장 → 변환·공간·API](docs/TRANSFORM_REFERENCE.md)
 - [템플릿 파일 목록](docs/TRANSFORM_TEMPLATES.md)
@@ -171,6 +174,9 @@ framework 폴더에 함께 들어 있는 문서 사본. 내용은 위 API 레퍼
 
 - [실습 모드 안내 변경](docs/MODE_ACTIONS.md)
 - [실습 모드 안내 변경](docs/MODE_INPUT_AUDIT.md)
+- [학습 순서](docs/tutorials/Standard-Graph/learning-graph.md)
+- [작성과 확인 경계](docs/tutorials/Standard-Graph/review-log.md)
+- [출처와 점검 범위](docs/tutorials/Standard-Graph/sources.md)
 - [객체 부착·지역 레이어·힘 API](framework/docs/WORKSPACE_API.md)
 
 ## 흐름도

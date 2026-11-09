@@ -1,0 +1,453 @@
+﻿# 물체 두 개로 이해하는 새 Standard
+
+**전역 배치는 물체를 장면에 놓는 기준이고, 지역 레이어는 그 기준 안에 붙이는 변환이다.** 부모 연결은 다른 물체의 최종 변환을 상속하게 한다. 이 세 값을 분리해서 작성한다.
+
+이 튜토리얼은 이동식 받침대 `base`와 표시판 `panel` 두 물체를 조립한다. 실습 재출제나 특정 시험 형상을 가정하지 않는다. SRT와 중심 회전의 개념은 알고 있다는 전제에서, Standard가 어떤 값과 순서를 저장하는지 설명한다.
+
+**확인 범위:** 현재 C++ 소스를 읽고 아래 좌표를 계산했다. 화면·콘솔을 실행해 측정한 결과가 아니다. 빌드·테스트·앱·브라우저 확인은 사용자가 수행한다. 좌표의 작은 부동소수점 오차는 있을 수 있다.
+
+## 읽는 방법
+
+처음에는 1~8단계를 한 블록씩 입력한다. 각 단계의 관찰점을 본 뒤 다음으로 간다. 빠른 전체 명령은 뒤의 ‘한 번에 복사’에 있다. `#`와 `#:`로 시작하는 레시피 주석은 실행 명령이 아니다.
+
+1. 생성·선택 → 2. 부모 연결 → 3. 전역 배치 → 4. 비균등 배율 → 5. 피벗 → 6. 회전 → 7. 지역 이동 → 8. 레이어 순서 → 9. 모양과 움직임 분리 → 10. 시간 템플릿.
+
+## 명령의 공간부터 구분하기
+
+| 입력 | 바뀌는 값 | 인수의 뜻 |
+|---|---|---|
+| `t X Y Z` | 자기 지역 레이어 이전의 전역 기준 배치 | 절대 월드 원점. 이동량이 아님 |
+| `r z 90` | 선택 피벗을 중심으로 전역 기준 배치에 회전 추가 | 월드 Z축, 추가 90도 |
+| `s 2 1 0.5` | 선택 피벗을 중심으로 전역 기준 배치에 배율 추가 | 월드 축별 상대 배율 |
+| `parent base` | 선택 자식의 부모·부착 행렬 | 부모 이름. 연결 순간 현재 월드 배치 유지 |
+| `pivot panel -1 0 0 keep` | panel의 모델 피벗과 기준 SRT의 보정 | 모델 좌표, keep은 배치 유지 |
+| `layer t 1 0 0` | 선택 지역 레이어의 행렬 | 그 레이어 축으로 추가 이동 |
+| `layer r z 90` | 선택 지역 레이어의 행렬 | 그 레이어의 지역 Z축으로 추가 회전 |
+| `G/R/S` 단축키 | 지역 레이어가 선택돼 있으면 그 레이어, 없으면 전역 배치 | X/Y/Z 축, 마우스/방향키로 양 조절 |
+
+직접 입력한 `t/r/s`는 레이어 선택 여부와 관계없이 전역 명령이다. 지역 명령은 `layer` 또는 `local` 접두어를 붙인다. 단축키는 선택 레이어에 따라 경로가 바뀐다. `layer select none`은 레이어 기여를 지우지 않고 편집 대상만 해제한다.
+
+숫자 좌표는 월드/모델 단위다. 콘솔 회전 각도는 도, 모션 기간은 초다. 내부 GLM 계산의 라디안 변환은 프레임워크가 맡는다. GLM의 하위 rotate API 자체는 [라디안 각도](https://glm.g-truc.net/0.9.9/api/a00668.html)를 받는다.
+
+## 물체 이름과 `.mesh`를 구분하기
+
+```text
+장면
+└─ base                 ← 받침대의 배치·레이어
+   ├─ base.mesh         ← 파란 형상
+   └─ panel             ← 표시판의 부착·레이어
+      └─ panel.mesh     ← 주황 형상
+```
+
+이것은 2단계 부모 연결 후의 논리 구조다. 화면에 보이는 두 물체는 내부적으로 루트와 메시를 각각 가진다. 기본 클릭은 물체 루트를 선택하고 Ctrl+클릭은 그 부모 물체를 고른다. 재현 가능한 명령 예제에서는 `select 이름`으로 대상을 고정한다. `.mesh`를 선택하면 형상만 별도로 변환할 수 있으며 9단계에서 사용한다.
+
+콘솔 입력은 텍스트 콘솔에서 한다. G/R/S 단축키·마우스 선택은 그래픽 창에서 한다. 미리보기 중 Enter 또는 클릭은 확정, Esc 또는 창 포커스 이탈은 취소다. `edit object`가 기본 선택이고 면 선택은 `edit face`를 명시했을 때만 들어간다.
+
+## 1. 두 물체를 만들고 선택 대상을 확인한다
+
+```text
+clear
+pause on
+view 1
+render wire off
+render lighting off
+render depth on
+render cull none
+camera projection perspective
+camera clip 0.1 200
+camera fov 55
+camera pose 14 9 16 5 1 0 0 1 0
+edit object
+add box base at 2 0 0
+color base 0.2 0.45 0.9
+add box panel 5 0 0 2 1 1
+color panel 1 0.55 0.15
+```
+
+**관찰할 결과:** 파란 받침대 base의 중심은 (2,0,0), 주황 표시판 panel의 중심은 (5,0,0)이다. panel의 모델 크기는 2×1×1이다. 마지막 add가 panel을 자동 선택하며 color는 그 선택을 바꾸지 않는다.
+
+**왜 이렇게 되는가:** add box base at 2 0 0은 기본 크기 1×1×1의 짧은 생성형이다. add box panel 5 0 0 2 1 1의 앞 세 수는 월드 생성 위치, 뒤 세 수는 실제 모델 크기다. 아직 비균등 변환을 적용한 것이 아니다. 원래 모델의 panel X 범위는 -1~+1이다.
+
+**구분할 점:** list에 base.mesh와 panel.mesh가 보여도 물체가 네 개 생긴 것은 아니다. 각 물체의 루트와 실제 메시가 따로 등록된다.
+
+근거: [S007: AssemblyObjects.cpp:24](../modes/AssemblyObjects.cpp)
+
+## 2. 현재 배치를 유지한 채 부모를 연결한다
+
+```text
+parent base
+diagnose panel
+```
+
+**관찰할 결과:** panel이 선택된 상태에서 base를 부모로 지정한다. 연결 직후 중심은 여전히 (5,0,0)이다. 이 단계에서의 부모 기준 간격은 X=3이다.
+
+**왜 이렇게 되는가:** parent base는 선택 물체의 부모 관계를 설정한다. 현재 월드 배치를 보존하도록 부착 행렬을 계산하므로 연결 순간 base 위치로 점프하지 않는다. 공통 움직임은 base가 소유하고 panel은 자기 배치를 소유한다.
+
+**구분할 점:** parent의 인수 base는 부모 이름이다. 자식은 현재 선택인 panel이다. 필요하면 명시형 parent panel base를 사용할 수 있다.
+
+근거: [S002: AssemblyCommands.cpp:5](../modes/AssemblyCommands.cpp)
+
+```text
+부모 X = 2
+자식 X = 5
+부착 간격 = 5 - 2 = 3
+부모를 X=4로 이동한 뒤 자식 X = 4 + 3 = 7
+```
+
+## 3. 부모를 전역 좌표로 옮긴다
+
+```text
+select base
+t 4 0 0
+select panel
+```
+
+**관찰할 결과:** base 중심은 X=2에서 X=4로 이동한다. panel 중심도 X=5에서 X=7로 이동한다. panel과 base의 X 간격 3은 유지된다.
+
+**왜 이렇게 되는가:** t 4 0 0은 현재 위치에 4를 더하는 명령이 아니라, 기준 배치의 월드 원점을 (4,0,0)으로 지정하는 명령이다. 부모가 +2 이동했으므로 자식도 +2 이동한다.
+
+**구분할 점:** 이후 명령은 다시 선택한 panel에 적용한다. 창에서 panel을 클릭해도 같은 대상을 고를 수 있다.
+
+근거: [S005: Scene.cpp:373](../framework/detail/Scene.cpp)
+
+## 4. 물체 루트에 비균등 배율을 적용한다
+
+```text
+s 2 1 0.5
+```
+
+**관찰할 결과:** panel 중심은 (7,0,0)을 유지한다. 실제 크기는 원래 2×1×1에 각 축 배율을 곱한 4×1×0.5가 된다. 이때 월드 X 범위는 5~9다.
+
+**왜 이렇게 되는가:** s는 선택 물체의 피벗을 중심으로 월드 축에 상대 배율을 적용한다. 현재 피벗은 중심이다. 같은 명령을 한 번 더 실행하면 X 길이는 8이 된다. 2를 절대 길이로 해석하지 않는다.
+
+**구분할 점:** 루트 배율은 뒤에서 추가할 지역 레이어와 자식 메시에도 상속된다. 이 효과는 7단계에서 실제 이동량으로 확인한다.
+
+근거: [S001: AssemblyWorkspace.cpp:29](../modes/AssemblyWorkspace.cpp)
+
+```text
+모델 크기       = (2, 1, 1)
+추가한 배율     = (2, 1, 0.5)
+화면 형상 크기  = (4, 1, 0.5)
+왼쪽 끝 월드 X  = 7 + 2 × (-1) = 5
+```
+
+## 5. 표시판의 왼쪽 끝을 피벗으로 지정한다
+
+```text
+pivot panel -1 0 0 keep
+```
+
+**관찰할 결과:** 표시판이 움직이지 않은 채 피벗이 왼쪽 끝으로 바뀐다. 월드 피벗은 (5,0,0)이다.
+
+**왜 이렇게 되는가:** 여기서 -1은 모델 좌표다. panel은 처음에 X 길이 2로 만들어졌으므로 왼쪽 끝의 모델 좌표는 -1이다. 월드 중심 7에서 배율 2×모델 거리 1을 빼면 왼쪽 끝은 5다. keep은 피벗만 바꿀 때 원래 배치를 보정한다.
+
+**구분할 점:** 월드 피벗 좌표를 직접 쓰고 싶다면 이 단계 대신 cursor 5 0 0, select panel, pivot cursor를 사용할 수 있다. 두 방법 중 하나를 택한다.
+
+근거: [S003: AssemblyHierarchy.cpp:32](../modes/AssemblyHierarchy.cpp)
+
+## 6. 피벗을 중심으로 전역 회전한다
+
+```text
+r z 90
+diagnose panel
+```
+
+**관찰할 결과:** 왼쪽 끝의 월드 좌표 (5,0,0)은 유지되고, 표시판 중심은 (7,0,0)에서 (5,2,0)으로 이동한다. 길이 4의 표시판이 위쪽으로 서므로 반대쪽 끝은 (5,4,0)이다.
+
+**왜 이렇게 되는가:** 중심에서 피벗을 빼면 (2,0,0)이다. Z축 +90도 회전 후 (0,2,0)이 되고 피벗 (5,0,0)을 더하면 중심 (5,2,0)이 된다. r은 기존 배치를 월드 축으로 추가 회전한다. r z 90을 반복하면 180도가 된다.
+
+**구분할 점:** 이 피벗은 물체에 붙은 모델 기준점이다. 이후 물체 자체를 이동시키면 그 월드 위치도 함께 바뀐다.
+
+근거: [S001: AssemblyWorkspace.cpp:29](../modes/AssemblyWorkspace.cpp)
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" role="img" aria-label="전역 회전 직후 base와 panel의 계산 위치" style="width:100%;max-width:760px;background:#f5f8fc;border-radius:12px">
+<defs><marker id="t-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#455e79"/></marker></defs>
+<g stroke="#dce5ed" stroke-width="1"><path d="M80 60V340M130 60V340M180 60V340M230 60V340M280 60V340M330 60V340M380 60V340M430 60V340M480 60V340M530 60V340M80 310H550M80 260H550M80 210H550M80 160H550M80 110H550"/></g>
+<g stroke="#455e79" stroke-width="2" marker-end="url(#t-arrow)"><path d="M80 310H565"/><path d="M80 310V45"/></g>
+<rect x="255" y="285" width="50" height="50" rx="4" fill="#4b83c9"/><rect x="305" y="110" width="50" height="200" rx="4" fill="#efaa52" stroke="#a05b14" stroke-width="2"/>
+<circle cx="330" cy="310" r="6" fill="#8d4db2"/><circle cx="330" cy="210" r="5" fill="#fff" stroke="#7c4c15"/>
+<g font-family="Malgun Gothic, sans-serif" font-size="15" fill="#203f58"><text x="572" y="315">+X</text><text x="65" y="33">+Y</text><text x="205" y="358">base 중심 (4,0)</text><text x="365" y="207">panel 중심 (5,2)</text><text x="365" y="309">피벗 (5,0)</text><text x="365" y="113">반대 끝 (5,4)</text><text x="95" y="26">6단계: XY 평면의 계산 예측 · Z 생략</text></g></svg>
+
+피벗이 바뀐다고 geometry 원점이 피벗으로 이동하는 것은 아니다. 아래 D의 마지막 열은 모델 원점, 즉 이 단계에서의 표시판 중심이다.
+
+```text
+D = [ 0  -1   0    5 ]
+    [ 2   0   0    2 ]
+    [ 0   0  0.5   0 ]
+    [ 0   0   0    1 ]
+
+중심 local (0,0,0)  → world (5,2,0)
+피벗 local (-1,0,0) → world (5,0,0)
+```
+
+## 7. 물체 안에 지역 이동 레이어를 넣는다
+
+```text
+layer add shift
+layer t 1 0 0
+layer list
+diagnose panel
+```
+
+**관찰할 결과:** panel 루트의 전역 기준 배치는 그대로 (5,2,0)이다. 화면에서 보이는 panel 중심은 (5,4,0)으로 바뀐다. 지역 X=1이 월드 Y=+2로 전달된다.
+
+**왜 이렇게 되는가:** 현재 기준 배치에는 Z축 90도 회전과 X축 배율 2가 들어 있다. 지역 X는 월드 +Y를 향하며 길이도 두 배다. 따라서 지역 이동 (1,0,0)은 Rz(90)×S(2,1,0.5)×(1,0,0)=(0,2,0)이다. 결과에 기준 중심 (5,2,0)을 더한다.
+
+**구분할 점:** t 1 0 0과 layer t 1 0 0은 다르다. 앞 명령은 기준 배치의 월드 원점을 X=1로 지정한다. 뒤 명령은 선택 레이어에 지역 이동을 추가한다.
+
+근거: [S004: AssemblyRuntime.cpp:23](../modes/AssemblyRuntime.cpp)
+
+<details><summary>예측 확인: 왜 Y=3이 아니라 Y=4인가?</summary><p>지역 X축 길이에 루트의 X 배율 2가 포함되기 때문이다. 기준 중심 Y=2에 지역 이동 1×배율2를 더해 Y=4가 된다. 이동을 월드 +X로 읽거나 지역 1을 무조건 월드 1로 읽으면 이 결과를 예측할 수 없다.</p></details>
+
+## 8. 두 번째 레이어를 넣고 의존 순서를 바꾼다
+
+```text
+layer add turn
+layer r z 90
+layer list
+layer before shift
+diagnose panel
+```
+
+**관찰할 결과:** turn 추가 직후에는 shift → turn 순서이며 중심은 (5,4,0)이다. turn을 shift 앞으로 옮기면 turn → shift가 되어 중심은 (4,2,0)이 된다. 같은 값으로 순서만 바꿔도 결과가 달라진다.
+
+**왜 이렇게 되는가:** shift → turn에서는 L=T(1,0,0)×Rz(90)이다. 원점은 R로 회전해도 원점이므로 T의 이동이 남는다. turn → shift에서는 L=Rz(90)×T(1,0,0)이며 지역 이동이 먼저 (0,1,0)으로 회전한다. 기준 배치가 이것을 월드 (-1,0,0)으로 보내므로 (5,2,0)+(-1,0,0)=(4,2,0)이다.
+
+**구분할 점:** layer list의 앞 레이어는 뒤 레이어의 좌표계를 제공한다. 정점에 행렬을 적용하는 계산은 오른쪽부터 한다. 이 두 설명을 구분한다.
+
+근거: [S001: AssemblyWorkspace.cpp:29](../modes/AssemblyWorkspace.cpp)
+
+| 순서 | 원점에 남는 지역 이동 | 기준 배치가 보낸 월드 이동 | 최종 중심 |
+|---|---|---|---|
+| shift → turn | (1,0,0) | (0,2,0) | (5,4,0) |
+| turn → shift | (0,1,0) | (-1,0,0) | (4,2,0) |
+
+## 9. 모양의 배율과 움직임의 좌표계를 분리하기
+
+루트에 배율을 둔 앞 예제는 지역 이동까지 배율을 상속하는 것을 보여준다. 움직임의 지역 단위는 유지하면서 형상만 길게 만들려면 배율을 `.mesh`에 둔다. 다음은 **별도로 시작하는 비교 레시피**다. 앞 장면에 이어 붙이지 않는다.
+
+```text
+clear
+pause on
+view 1
+render wire off
+render lighting off
+render depth on
+render cull none
+camera projection perspective
+camera clip 0.1 200
+camera fov 55
+camera pose 14 9 16 5 1 0 0 1 0
+edit object
+add box base at 2 0 0
+color base 0.2 0.45 0.9
+add box panel 5 0 0 2 1 1
+color panel 1 0.55 0.15
+parent base
+select base
+t 4 0 0
+select panel.mesh
+s 2 1 0.5
+select panel
+pivot panel -2 0 0 keep
+r z 90
+layer add shift
+layer t 1 0 0
+layer add turn
+layer r z 90
+```
+
+여기서는 panel의 루트에 배율이 없다. panel.mesh를 늘려서 왼쪽 끝이 panel 좌표 -2가 되었으므로 피벗도 -2로 지정한다. 루트 피벗을 -1로 그대로 두면 실제 왼쪽 끝과 일치하지 않는다.
+
+| 비교 | 앞의 루트 배율 | 지금의 메시 배율 |
+|---|---|---|
+| 초기 모델 X 길이 | 2 | 2 |
+| 표시판의 실제 X 길이 | 4 | 4 |
+| panel 기준 프레임에 S가 포함되는가 | 포함 | 포함하지 않음 |
+| 왼쪽 끝의 panel 좌표 | -1 | -2 |
+| 루트를 Z90도 회전한 직후 중심 | (5,2,0) | (5,2,0) |
+| shift의 지역 X=1이 만드는 월드 이동 | +Y 2 | +Y 1 |
+| shift → turn 상태의 최종 중심 | (5,4,0) | (5,3,0) |
+
+두 경로는 지역 레이어를 추가하기 전까지 같은 모양과 배치를 만든다. 같은 지역 회전을 추가한 뒤에는 모양도 달라질 수 있다. 변환을 저장한 위치에 따라 자식과 레이어의 좌표계가 달라지기 때문이다. 일반적으로 배치·운동은 루트와 그 레이어에, 시각적 크기 조정은 메시 쪽에 두면 이동량을 정하기 쉽다. 부모 전체의 확대 효과가 필요할 때는 루트 배율을 사용한다.
+
+## 10. 시간 템플릿으로 움직임을 추가하기
+
+다음 조각은 메시 배율 비교를 **새로 구성한 상태**에서 사용하는 별도 모션 레시피다. 정적 shift/turn을 넣지 않고, 표시판의 왼쪽 피벗 회전과 받침대 이동을 각각 추가한다.
+
+```text
+clear
+pause on
+view 1
+render wire off
+render lighting off
+render depth on
+render cull none
+camera projection perspective
+camera clip 0.1 200
+camera fov 55
+camera pose 14 9 16 5 1 0 0 1 0
+edit object
+add box base at 2 0 0
+color base 0.2 0.45 0.9
+add box panel 5 0 0 2 1 1
+color panel 1 0.55 0.15
+parent base
+select base
+t 4 0 0
+select panel.mesh
+s 2 1 0.5
+select panel
+pivot panel -2 0 0 keep
+r z 90
+insert pendulum z 15 4
+select base
+insert linear 2 0 0 4
+pause off
+```
+
+`insert pendulum z 15 4`는 선택한 panel에 진폭15도·주기4초의 지역 피벗 회전 레이어를 만든다. 사인 각도 함수이며 물리적인 중력 진자 적분은 아니다. `insert linear 2 0 0 4`는 base에 4초 동안 지역 X로 2 이동하는 레이어를 만든다. 기본 Once 이동이 끝나면 끝 위치를 유지한다. panel은 부모의 이동을 상속하면서 자기 회전을 수행한다.
+
+시간은 초 단위 dt로 한 프레임에 한 번 진행한다. `pause on`은 장면의 시계를 멈추지만 선택·정적 편집은 가능하다. 멈춘 순간의 자세가 계속 보이며 0초 자세로 돌아가는 명령은 아니다.
+
+| 제어 | 의미 | 현재 구현의 시간 |
+|---|---|---|
+| `layer play off` | 선택 레이어의 현재 자세에서 시계 정지 | 해당 레이어 시간 정지 |
+| `layer enable off` | 선택 레이어 변환 기여 제거 | 해당 레이어 시간도 진행하지 않음 |
+| `layer reset` | 선택 레이어의 정적 행렬만 I로 초기화 | 삽입된 모션은 남음 |
+| `layer remove` | 선택 레이어 삭제 | 해당 레이어 자체 제거 |
+| `layer select none` | 편집 대상에서 레이어 해제 | 기존 기여·시간 유지 |
+
+레시피를 여러 개 `load`하면 장면이 각각 다시 구성된다. 템플릿을 조합할 때는 필요한 명령 부분을 가져오고, 중복 clear·카메라 초기화·이름을 정리한다. `insert spin/orbit/linear/pendulum`은 새 레이어를 추가하고 자동으로 그 레이어를 선택한다. 생성된 이름은 `layer list`로 확인한다.
+
+## 11. 화면과 콘솔을 어떻게 대조하는가
+
+`diagnose panel`의 `world matrix: rows`는 지역 레이어까지 합친 최종 행렬이다. 세 행의 마지막 숫자가 모델 원점의 월드 위치이며, 이 튜토리얼에서는 panel 형상이 모델 원점을 중심으로 만들어져 그 값이 화면의 중심과 같다.
+
+일반 실행 결과의 `월드 원점=`은 `placementMatrix`를 사용하므로 **자기 지역 레이어 이전의 기준 배치**다. 7단계에서는 이 출력이 (5,2,0)이어도 최종 중심 (5,4,0)과 모순되지 않는다. 원점과 형상 중심이 다른 모델에서는 마지막 열을 곧바로 형상 중심이라고 해석하지 않는다.
+
+`inspect`의 rest.position/rest.scale은 저장된 기준 SRT다. 부착 행렬 A에 전역 배율·회전이 들어갈 수 있으므로 rest.scale=1만 보고 화면 배율도 1이라고 판단하지 않는다. `diagnose`의 최종 행렬과 부모 체인을 함께 읽는다.
+
+예를 들어 8단계에서 순서를 바꾸기 전 최종 행렬은 근사적으로 다음과 같다.
+
+```text
+W = [ -1   0   0    5 ]
+    [  0  -2   0    4 ]
+    [  0   0  0.5   0 ]
+    [  0   0   0    1 ]
+
+최종 모델 원점 = (5,4,0)
+기준 배치 원점 = (5,2,0)
+```
+
+## 12. 저장하고 다시 읽기
+
+```text
+save tutorial-scene.assembly
+load tutorial-scene.assembly
+```
+
+save는 대상·레이어·커서 좌표를 명시한 작성 명령을 저장한다. 파일의 `with`와 `attachment`는 그 재현을 위한 내부 표현이다. 사용자가 그 긴 표현을 외울 필요는 없다. 이 튜토리얼처럼 시간을 멈춘 정적 레이어 순서와 배치는 다시 구성된다.
+
+모션·물리의 현재 프레임 전체를 저장하는 기능은 아니다. 모션 레시피를 읽으면 작성한 초기 조건에서 다시 시작한다. 상대 저장 경로는 프로세스 작업 폴더 기준이다. read는 작업 폴더의 상대 경로를 먼저 확인하고, 없으면 실행 파일 옆의 레시피 경로를 확인한다. 불러오기 로그의 절대 경로를 확인하면 수정한 원본과 실행 파일 옆 복사본을 혼동하지 않을 수 있다.
+
+Ctrl+F5는 마지막에 읽은 레시피를 다시 읽는다. 그 경로가 C++의 영구 시작 장면으로 바뀌는 것은 아니다. Visual Studio의 Ctrl+F5는 빌드·시작 기능이므로 입력하는 창을 구분한다.
+
+## 13. 이 명령이 프레임워크에서 실행되는 위치
+
+```text
+키/마우스/콘솔 입력
+  → Console에서 Assembly로 전달
+  → resolveCommand: 선택 이름·레이어·커서 좌표를 명시적 인수로 해석
+  → dispatch: 대상/부모/전역 배치/지역 레이어 값 수정
+  → applyPoses(0): 정적 편집 결과를 즉시 Scene에 반영
+
+매 프레임
+  → Assembly::update(dt): 시계 진행
+  → applyPoses(dt): 기준값과 모션 행렬 합성
+  → Scene::worldMatrix / faceWorldMatrix
+  → Renderer: 모델·법선·카메라·조명 uniform과 정점/인덱스 전달
+  → GPU 셰이더 → 화면
+
+피킹도 같은 Scene 최종 행렬로 삼각형을 검사한다.
+```
+
+전체 합성은 `W_child = W_parent × A × B × L1 × ... × Ln`이다. A는 부모 관계를 보정하는 객체 부착, B는 기준 SRT, L은 객체 소유 지역 레이어다. 부모 W는 부모 자신의 레이어까지 포함한다. Standard는 이 값을 편하게 작성하는 편집기이며, framework API는 문서·명령 파서 없이 C++에서도 사용할 수 있다.
+
+이 튜토리얼은 C++ 런타임을 바꾸지 않는다. 기존 [구조 분석](assembly/architecture/GRAPH_REPORT.md)과 [공통 API 계약](../framework/docs/WORKSPACE_API.md)을 함께 볼 수 있다. 카메라·광원도 같은 객체 상속과 레이어를 쓰고, 중력·회전 프레임의 힘은 별도 상태/법칙을 [힘 API](APPLICATION_RECIPES.md)로 연결한다. 형상 크기를 바꾼다고 질량·충돌·관성 모멘트가 자동 계산되지는 않는다.
+
+## 한 번에 복사: 1~8단계
+
+이 블록은 장면을 비우고 원래부터 따라가는 전체 명령이다. 도중에 멈춰 살펴보려면 앞의 단계별 블록을 사용한다.
+
+```text
+clear
+pause on
+view 1
+render wire off
+render lighting off
+render depth on
+render cull none
+camera projection perspective
+camera clip 0.1 200
+camera fov 55
+camera pose 14 9 16 5 1 0 0 1 0
+edit object
+add box base at 2 0 0
+color base 0.2 0.45 0.9
+add box panel 5 0 0 2 1 1
+color panel 1 0.55 0.15
+parent base
+diagnose panel
+select base
+t 4 0 0
+select panel
+s 2 1 0.5
+pivot panel -1 0 0 keep
+r z 90
+diagnose panel
+layer add shift
+layer t 1 0 0
+layer list
+diagnose panel
+layer add turn
+layer r z 90
+layer list
+layer before shift
+diagnose panel
+```
+
+| 레시피 | 용도 |
+|---|---|
+| [two-objects-world-layers.assembly](../examples/assembly/tutorials/two-objects-world-layers.assembly) | 전역 배치·루트 비균등 배율·피벗·지역 레이어 순서 |
+| [two-objects-shape-only.assembly](../examples/assembly/tutorials/two-objects-shape-only.assembly) | 같은 모양에서 메시 배율로 이동 단위 분리 |
+| [two-objects-motion.assembly](../examples/assembly/tutorials/two-objects-motion.assembly) | 부모 이동 + 자식 피벗 모션 템플릿 |
+
+```text
+load examples/assembly/tutorials/two-objects-world-layers.assembly
+```
+
+## 이해 확인과 새 응용으로 옮기기
+
+설명과 실행의 성공은 이해 확인과 별개다. 다음 답을 확인하지 않았으므로 이해 완료로 기록하지 않는다.
+
+<details><summary>확인 1: 부모가 X=4에서 X=6으로 이동하면 정적 자식은 어떻게 되는가?</summary><p>다른 변화가 없다면 부모가 +2 이동하므로 자식의 기준 배치와 최종 형상도 월드 X로 +2 이동한다. 자기 레이어 값은 유지한다.</p></details>
+<details><summary>확인 2: 루트 배율 예제의 7단계에서 layer t 0.5 0 0을 처음부터 한 번 적용하면 중심은?</summary><p>지역 +X 0.5가 월드 +Y 1이 된다. 기준 중심 (5,2,0)에 더해 (5,3,0)이다. 이미 이동한 shift에 또 입력하면 추가 합성되므로 별도로 시작하거나 layer reset 후 계산해야 한다.</p></details>
+<details><summary>확인 3: 같은 모양에서 지역 이동 1을 월드 길이 1로 다루려면 무엇을 분리하는가?</summary><p>모양을 만드는 배율을 panel.mesh 또는 뒤쪽 형상 레이어에 두고, 이동 기준을 제공하는 panel 프레임과 분리한다. 배율과 회전이 합성될 위치를 정하고 해당 공간의 피벗을 다시 지정한다.</p></details>
+
+응용 문제를 받으면 물체 이름을 먼저 외우기보다 ① 공통 움직임의 부모 ② 월드 배치 ③ 내부 레이어 순서 ④ 피벗이 정의된 좌표계 ⑤ 시간 함수 또는 힘 법칙을 먼저 정한다. 그 뒤 이 문서의 명령 블록을 필요한 부분만 조합한다.
+
+## 소스와 다음 참조
+
+- [S001: AssemblyWorkspace.cpp:29](../modes/AssemblyWorkspace.cpp) — 표적 해석과 전역/지역 명령
+- [S002: AssemblyCommands.cpp:5](../modes/AssemblyCommands.cpp) — 부모 연결과 새 물체 선택
+- [S003: AssemblyHierarchy.cpp:32](../modes/AssemblyHierarchy.cpp) — 피벗 keep의 보정
+- [S004: AssemblyRuntime.cpp:23](../modes/AssemblyRuntime.cpp) — 기준 배치와 레이어의 실제 합성
+- [S005: Scene.cpp:373](../framework/detail/Scene.cpp) — Standard가 컴파일하는 Scene의 월드 합성
+- [S006: AssemblyDiagnostics.cpp:5](../modes/AssemblyDiagnostics.cpp) — 진단의 최종 행렬 출력
+- [S007: AssemblyObjects.cpp:24](../modes/AssemblyObjects.cpp) — 생성 크기와 root/mesh 등록
+- [S008: Assembly.cpp:283](../modes/Assembly.cpp) — 명령 결과·저장할 인수 해석
+- [S009: AssemblyPersistence.cpp:7](../modes/AssemblyPersistence.cpp) — 레시피의 실제 저장·읽기 계약
+- [S010: Motion.cpp:229](../framework/detail/Motion.cpp) — 모션의 시간 평가
+
+[전체 명령어와 인수](QUICK_COMMANDS.md) · [변환 조합 템플릿](TRANSFORM_TEMPLATES.html) · [연산/API 레퍼런스](TRANSFORM_REFERENCE.md) · [학습 순서·출처](tutorials/Standard-Graph/index.md)

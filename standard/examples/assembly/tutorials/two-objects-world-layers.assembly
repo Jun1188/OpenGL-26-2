@@ -1,0 +1,52 @@
+﻿# @title: 두 물체: 전역 배치와 지역 레이어
+# Source-derived expected behavior; app execution is delegated to the user.
+
+#: 1. 두 물체를 만들고 선택 대상을 확인한다
+clear
+pause on
+view 1
+render wire off
+render lighting off
+render depth on
+render cull none
+camera projection perspective
+camera clip 0.1 200
+camera fov 55
+camera pose 14 9 16 5 1 0 0 1 0
+edit object
+add box base at 2 0 0
+color base 0.2 0.45 0.9
+add box panel 5 0 0 2 1 1
+color panel 1 0.55 0.15
+
+#: 2. 현재 배치를 유지한 채 부모를 연결한다
+parent base
+diagnose panel
+
+#: 3. 부모를 전역 좌표로 옮긴다
+select base
+t 4 0 0
+select panel
+
+#: 4. 물체 루트에 비균등 배율을 적용한다
+s 2 1 0.5
+
+#: 5. 표시판의 왼쪽 끝을 피벗으로 지정한다
+pivot panel -1 0 0 keep
+
+#: 6. 피벗을 중심으로 전역 회전한다
+r z 90
+diagnose panel
+
+#: 7. 물체 안에 지역 이동 레이어를 넣는다
+layer add shift
+layer t 1 0 0
+layer list
+diagnose panel
+
+#: 8. 두 번째 레이어를 넣고 의존 순서를 바꾼다
+layer add turn
+layer r z 90
+layer list
+layer before shift
+diagnose panel

@@ -1,0 +1,97 @@
+﻿{
+  "baseline": "4e1c4f4",
+  "scope": "tutorial documentation, recipes, generator and navigation",
+  "execution": "Documentation generation and source reading only; user-run app/build/tests/browser checks pending.",
+  "files": [
+    {
+      "path": "docs/workspace-tutorial/BEFORE_AFTER.md",
+      "bytes": 43328,
+      "sha256": "0d1d8e2ea97c53a05ad5d048b3666571ecb090a206ddc42d824da822cf6a88d4"
+    },
+    {
+      "path": "docs/workspace-tutorial/RESULT.md",
+      "bytes": 2922,
+      "sha256": "e72c769704dff5ac812f33cd724ef5fbefb5bbce55f3dd80d6d7d465b5cdafc9"
+    },
+    {
+      "path": "standard/DOCUMENT_INDEX.md",
+      "bytes": 13615,
+      "sha256": "01e9b4f24e18263d954b44dbdd1ed6ebdd4342a057aa60d88dd220163f3c9b15"
+    },
+    {
+      "path": "standard/README.md",
+      "bytes": 3360,
+      "sha256": "106de93fcea33e24c1e6250b5aed77e6ab33dd923cdb3d161452d1b805fa2dc5"
+    },
+    {
+      "path": "standard/SIZE_REPORT.md",
+      "bytes": 1855,
+      "sha256": "2ff31211384e7c1b520e6250173bcced92e04bb8556e37a2c5b4b93a34e2382a"
+    },
+    {
+      "path": "standard/docs/DOCUMENT_CATALOG.json",
+      "bytes": 16568,
+      "sha256": "e53d68538c4a085d2d0193aab13bbe2646e69e0abb60b1ae9555fab3d307175d"
+    },
+    {
+      "path": "standard/docs/WORKSPACE_TUTORIAL.html",
+      "bytes": 31507,
+      "sha256": "772069f9518180b0026e501f209e784f5bdbf58b756d50b254ffcd6d73a2149d"
+    },
+    {
+      "path": "standard/docs/WORKSPACE_TUTORIAL.md",
+      "bytes": 26538,
+      "sha256": "76ed13e14dcbd63f644da68f732b5281ce565f13f9300aa5f8e6cc7a59005f57"
+    },
+    {
+      "path": "standard/docs/tutorials/Standard-Graph/index.md",
+      "bytes": 930,
+      "sha256": "233efd49bf5a5f97516387dc98f997f876490d811032fb58b2ace2a9c0cb3104"
+    },
+    {
+      "path": "standard/docs/tutorials/Standard-Graph/learning-graph.md",
+      "bytes": 1062,
+      "sha256": "4969acc4f7768d6bfdeaaa19eef2177d0e5a128b7b36b7122817f5d33eabd278"
+    },
+    {
+      "path": "standard/docs/tutorials/Standard-Graph/review-log.md",
+      "bytes": 792,
+      "sha256": "ae1203cdbe626044af83969e5c01d5f7f60e64958e6906a85bc249cb7b87d8b8"
+    },
+    {
+      "path": "standard/docs/tutorials/Standard-Graph/sources.md",
+      "bytes": 8147,
+      "sha256": "cece23b5df0f1e728fb365f02d3fb3d0f1445b8ddd7979913b69610e99072eb7"
+    },
+    {
+      "path": "standard/docs/viewer/documents.js",
+      "bytes": 2432273,
+      "sha256": "d7dfaf756be00ee68ed5701a46d6e78ba310ebe8e4c91556768acfaa2bb94860"
+    },
+    {
+      "path": "standard/examples/assembly/tutorials/two-objects-motion.assembly",
+      "bytes": 699,
+      "sha256": "267852b4da7ee13cafc0a9293d529d8a5566c82ba8e64bb33ca31b6b0253ba8d"
+    },
+    {
+      "path": "standard/examples/assembly/tutorials/two-objects-shape-only.assembly",
+      "bytes": 686,
+      "sha256": "67015961e092be5d4a177283e2e53a30d1ee19ff7569d34d4266e8c266f2f766"
+    },
+    {
+      "path": "standard/examples/assembly/tutorials/two-objects-world-layers.assembly",
+      "bytes": 1183,
+      "sha256": "baafa97af8f57d0cd461b9692b8a4f672ce59f7ef0d529a35bf7163a8458b92f"
+    },
+    {
+      "path": "tools/Write-WorkspaceDocs.py",
+      "bytes": 27947,
+      "sha256": "42916761c43512c8b880c996afef95a0a39666f74fdda37e328f40fcea21738c"
+    },
+    {
+      "path": "tools/Write-WorkspaceTutorial.py",
+      "bytes": 38783,
+      "sha256": "8218daa6bfd03a5c620d7310ecc09c51db6ec005c895ee83ec668a373fc75353"
+    }
+  ]
+}

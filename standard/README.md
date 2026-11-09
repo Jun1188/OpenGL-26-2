@@ -1,5 +1,9 @@
 ﻿# Standard: 0번 장면 작업공간
 
+<!-- workspace-tutorial:start -->
+[처음부터 따라 하기: 두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.html) — 전역 배치와 지역 레이어를 계산·관찰로 구분한다.
+<!-- workspace-tutorial:end -->
+
 [변환 조합 템플릿](docs/TRANSFORM_TEMPLATES.html) · [변환 조합 레퍼런스](document.html?doc=docs/TRANSFORM_REFERENCE.md)
 
 실습 재출제를 가정하지 않는다. 요구된 변환과 공간·순서·시간·힘을 조합하는 작업공간이다.

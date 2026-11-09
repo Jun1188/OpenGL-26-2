@@ -19,6 +19,20 @@
           "featured": true
         },
         {
+          "path": "docs/WORKSPACE_TUTORIAL.html",
+          "title": "두 물체로 이해하는 Standard",
+          "summary": "실제 명령 → 좌표 계산 → 관찰 → 이유",
+          "featured": true
+        },
+        {
+          "path": "docs/WORKSPACE_TUTORIAL.md",
+          "title": "튜토리얼 원문과 전체 복사 명령"
+        },
+        {
+          "path": "docs/tutorials/Standard-Graph/index.md",
+          "title": "튜토리얼 학습 순서·소스 근거"
+        },
+        {
           "path": "docs/TRANSFORM_TEMPLATES.html",
           "title": "연산별 변환 템플릿",
           "featured": true
