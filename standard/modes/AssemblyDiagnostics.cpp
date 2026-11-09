@@ -36,18 +36,10 @@ void Assembly::diagnose(const std::string& target, std::ostream& out) const {
                 << " determinant=" << (world ? glm::determinant(glm::mat3(*world)) : 0) << '\n';
         }
     }
-    for (const auto& feature : state_.features) {
-        bool member = feature.name == target;
-        for (const auto& part : feature.entities) member = member || part.second.group == object.id || part.second.mesh == object.id;
-        if (member) out << "feature owner=" << feature.name << " source mode=" << feature.program->mode()
-            << " playing=" << feature.playing << " enabled=" << feature.enabled << " focus=" << (state_.featureFocus == feature.name)
-            << " geometry-owner=native; authoring=extra SRT/face motion\n";
-    }
     const auto size = app_.getFramebufferSize();
     out << "framebuffer=" << size[0] << 'x' << size[1] << " views=" << (state_.threeViews ? 3 : 1)
         << " paused=" << state_.paused << " faulted=" << faulted_ << '\n';
-    out << "1) pause on / feature play <id> off 2) surface <mesh> <face> 3) guide <feature>\n"
-        << "4) inspect rest/pivot/parent/determinant; compare private controller vs extra authoring pose\n"
-        << "5) recipe edit: reload / Ctrl+F5; C++ edit: rebuild by user, then recreate.\n";
+    out << "pause on [시간 정지] - on/off: 시간 진행 여부\n"
+        << "diagnose <이름> [현재 행렬과 상태] - 이름: 객체 또는 부품\n";
 }
 } // namespace assembly

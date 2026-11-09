@@ -5,10 +5,7 @@
 /// 콜백을 등록하고 애플리케이션을 실행한다.
 int main() try {
     graphics::Application app;
-    // nullopt: 숫자 키로 전환. 0: 조립 콘솔 고정. 1~9: 기본 데모 고정. 10~22: 추가 실습·부록 고정.
-    constexpr std::optional<int> initialMode = std::nullopt;
-    static_assert(!initialMode || (*initialMode >= 0 && *initialMode <= lastStandardMode), "initialMode must be 0..22");
-    Console sample(app, initialMode);
+    Console sample(app);
 
     app.setInitHandler([&](graphics::Application&) {
         return sample.initScene();
@@ -34,7 +31,7 @@ int main() try {
 
     graphics::ApplicationConfig config;
 
-    config.title = "standard - Modes 0..22, input, picking and practice patterns";
+    config.title = "Standard - Scene workspace (mode 0)";
 
     return app.run(config);
 } catch (const std::exception& error) {

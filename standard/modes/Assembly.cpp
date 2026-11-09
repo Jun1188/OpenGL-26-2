@@ -292,13 +292,12 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
     const auto savedCamera = app_.getCamera();
     const auto savedOptions = app_.getRenderOptions();
     const bool savedFault = faulted_;
-    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface" || args[0] == "diagnose" ||
-        (args[0] == "feature" && args.size() > 1 && (args[1] == "list" || args[1] == "parts"));
+    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface" || args[0] == "diagnose";
     try {
         require(dispatch(args, out), "지원하지 않는 명령입니다. help 또는 guide custom을 사용하세요.");
         if (!readOnly)
             require(applyPoses(0), "조립 결과의 상태/변환이 유효하지 않습니다.");
-        if (!replaying_ && !readOnly && args[0] != "load" && args[0] != "reload" && args[0] != "select" && args[0] != "jump" && args[0] != "release" && !(args[0] == "feature" && args.size() > 1 && args[1] == "key"))
+        if (!replaying_ && !readOnly && args[0] != "load" && args[0] != "reload" && args[0] != "select" && args[0] != "jump" && args[0] != "release")
             state_.recipe.push_back(line);
         if (!readOnly) faulted_ = false;
         return true;

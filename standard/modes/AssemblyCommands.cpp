@@ -38,8 +38,6 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
                 ancestor = scene.getComponent(*ancestor)->parent;
             if (ancestor) {
                 require(command == "color" ? scene.setTint(id, {color.x, color.y, color.z}) : scene.setVisible(id, visible), "색/가시성 적용 실패.");
-                if (command == "color") featureAppearance(id, graphics::GlColor{color.x, color.y, color.z}, {});
-                else featureAppearance(id, {}, visible);
             }
         }
         return true;
@@ -128,7 +126,7 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
         require(a.size() == 2 && !replaying_, "save/load <파일>. 레시피 안에서 파일 명령을 중첩할 수 없습니다.");
         return a[0] == "save" ? save(a[1], out) : load(a[1], out);
     }
-    if (featureCommand(a, out) || surfaceCommand(a, out) || trackCommand(a, out) || hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
+    if (surfaceCommand(a, out) || trackCommand(a, out) || hierarchyCommand(a, out) || objectCommand(a, out) || motionCommand(a, out) || inputCommand(a, out))
         return true;
     if (const auto handled = customCommand(*this, a, out))
         return *handled;

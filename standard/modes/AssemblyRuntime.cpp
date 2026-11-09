@@ -206,7 +206,6 @@ bool Assembly::applyPoses(float dt) {
         }
     }
     }
-    syncFeatures();
     applyMounts();
     return true;
 }
@@ -228,7 +227,6 @@ bool Assembly::update(float dt, std::ostream& out) {
             for (auto& behavior : state_.behaviors)
                 if (behavior.playing && behavior.enabled)
                     behavior.seconds += dt;
-        advanceFeatures(dt);
         return applyPoses(dt);
     } catch (const std::exception& error) {
         faulted_ = true;

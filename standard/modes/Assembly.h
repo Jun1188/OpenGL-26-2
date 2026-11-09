@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "PracticeMode.h"
-#include "FeatureContainer.h"
+#include "../framework/Framework.h"
 #include <functional>
 #include <map>
 #include <ostream>
@@ -71,8 +70,6 @@ class Assembly {
         std::map<std::string, Node> nodes;
         std::vector<Behavior> behaviors;
         std::vector<Binding> bindings;
-        std::vector<FeatureInstance> features;
-        std::string featureFocus, featureCamera;
         std::string reloadPath = "examples/assembly/workspace.assembly";
         std::vector<std::string> recipe;
         std::string selected;
@@ -94,15 +91,6 @@ class Assembly {
     bool hierarchyCommand(const Tokens& args, std::ostream& out);
     bool surfaceCommand(const Tokens& args, std::ostream& out);
     bool trackCommand(const Tokens& args, std::ostream& out);
-    bool featureCommand(const Tokens& args, std::ostream& out);
-    void advanceFeatures(float dt);
-    void syncFeatures();
-    void featureAppearance(graphics::EntityId id, std::optional<graphics::GlColor> color, std::optional<bool> visible);
-    bool routeFeatureKey(int key, int action, int mods, std::ostream& out);
-    bool routeFeatureMouse(const graphics::MouseEvent& event, std::ostream& out);
-    bool routeFeatureCursor(double x, double y);
-    void queueFeatureFocus(bool value);
-    void queueFeatureEvent(FeatureInstance& feature, FeatureEvent event);
     bool inputCommand(const Tokens& args, std::ostream& out);
     bool applyPoses(float dt);
     bool dispatchInput(const std::function<bool(const Behavior&)>& callback, std::ostream& out);
@@ -121,8 +109,6 @@ public:
     Node& node(const std::string& name);
     const Node& node(const std::string& name) const;
     void clear();
-    void addFeature(const std::string& name, int mode);
-    void portFeature(const std::string& source, graphics::EntityId native, const std::string& name);
     void add(const std::string& kind, const std::string& name, glm::vec3 position,
              glm::vec3 size = glm::vec3(1));
     void group(const std::string& name, glm::vec3 position);
@@ -149,7 +135,6 @@ public:
     void onMouse(const graphics::MouseEvent& event, std::ostream& out);
     void onFocus(bool focused);
     void onCursor(double x, double y, std::ostream& out);
-    bool capturesNumericKeys() const { return !state_.featureFocus.empty(); }
     void guide(const std::string& topic, std::ostream& out) const;
     void help(std::ostream& out) const;
     void inspect(const std::string& target, std::ostream& out) const;

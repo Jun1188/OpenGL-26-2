@@ -167,7 +167,6 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
         for (auto& binding : state_.bindings)
             if (binding.key == key) binding.down = false;
     }
-    if (routeFeatureKey(key, action, mods, out)) return;
     if (dispatchInput([&](const Behavior& b) { return b.key && b.key(*this, key, action, mods); }, out)) return;
     if (action == GLFW_RELEASE) return;
     const int physicalMods = mods & (GLFW_MOD_SHIFT | GLFW_MOD_CONTROL | GLFW_MOD_ALT);
@@ -211,7 +210,6 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
 }
 
 void Assembly::onFocus(bool focused) {
-    queueFeatureFocus(focused);
     if (!focused) {
         for (auto& binding : state_.bindings) binding.down = false;
         state_.dragging = false; state_.dragX.reset();
@@ -220,7 +218,6 @@ void Assembly::onFocus(bool focused) {
 }
 
 void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
-    if (routeFeatureMouse(event, out)) return;
     if (event.button == GLFW_MOUSE_BUTTON_RIGHT && event.action == GLFW_RELEASE) {
         state_.dragging = false; state_.dragX.reset();
     }
@@ -260,7 +257,6 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
     out << "선택 해제\n";
 }
 void Assembly::onCursor(double x, double y, std::ostream& out) {
-    if (routeFeatureCursor(x, y)) return;
     if (dispatchInput([&](const Behavior& b) { return b.cursor && b.cursor(*this, x, y); }, out)) return;
     if (!state_.dragging || !std::isfinite(x)) return;
     try {

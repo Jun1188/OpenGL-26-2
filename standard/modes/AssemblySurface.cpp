@@ -21,9 +21,7 @@ graphics::EntityId Assembly::meshEntity(const std::string& name) const {
 }
 
 void Assembly::requireFeatureEditable(graphics::EntityId mesh) const {
-    for (const auto& f : state_.features)
-        for (const auto& part : f.entities)
-            require(part.second.mesh != mesh, "라이브 기능의 형상/면 속성은 native 컨트롤러 소유입니다. feature snapshot으로 독립 복사 후 편집하세요.");
+    require(app_.getScene().getComponent(mesh) != nullptr, "메시가 없습니다.");
 }
 
 void Assembly::requireGeometryEditable(graphics::EntityId mesh) const {
