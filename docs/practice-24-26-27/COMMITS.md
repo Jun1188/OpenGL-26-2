@@ -14,3 +14,13 @@ b7fdbcb Practice correction: make labs 24 26 27 self-contained and record folder
 ```
 
 공유 스킬/사건 로그 기준 저장소: 5597a28, origin/main 일반 push 완료. 과제 저장소는 별도 push 요청 없이 로컬 커밋으로 남긴다.
+
+## 2026-11-09 후속 수정
+
+```text
+219615a 이전 작업의 최종 소스·참조 문서 커밋
+6cefc23 1단계: 상자 카메라를 뒤로 이동
+d277470 2단계: 트럭을 세로 컨베이어 바깥 옆에 배치
+```
+
+3단계 문서 커밋은 최종 응답에서 제공한다. [변경 블록 전체](CAMERA24_ADJUSTMENT.md). 빌드·테스트·앱 실행은 사용자 확인 전이다.
