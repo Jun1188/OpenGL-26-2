@@ -12,7 +12,7 @@ class Console {
     graphics::EntityId truck_ = 0;
     graphics::Camera thirdPerson_;
     std::array<graphics::Camera, 5> parcelViews_{};
-    float truckZ_ = 7.5f;
+    float truckZ_ = 1.0f;
     int truckDirection_ = -1;
     std::size_t viewBox_ = 4;
     bool truckMoving_ = false, firstPerson_ = false;

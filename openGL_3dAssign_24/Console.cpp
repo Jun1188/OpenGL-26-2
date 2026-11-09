@@ -6,8 +6,8 @@
 namespace {
 constexpr float beltHeight = 1.0f;
 constexpr float boxSize = .85f;
-constexpr float truckX = -7.0f;
-constexpr float truckStartZ = 7.5f, truckMinZ = -7.0f, truckMaxZ = 9.3f;
+constexpr float truckX = 5.5f;
+constexpr float truckStartZ = 1.0f, truckMinZ = -7.0f, truckMaxZ = 9.3f;
 constexpr double beltSpeed = 1.25;
 constexpr std::size_t stripeCount = 30;
 constexpr float cornerRadius = .8f;
