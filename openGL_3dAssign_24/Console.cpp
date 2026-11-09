@@ -6,6 +6,8 @@
 namespace {
 constexpr float beltHeight = 1.0f;
 constexpr float boxSize = .85f;
+constexpr float truckX = -7.0f;
+constexpr float truckMinZ = -6.5f, truckMaxZ = 7.5f;
 constexpr double beltSpeed = 1.25;
 constexpr std::size_t stripeCount = 30;
 constexpr float cornerRadius = .8f;
@@ -29,7 +31,7 @@ bool Console::initScene() {
     stripes_.clear();
 
     require(
-        graphics::PatternSystem::addPolygon(scene, {{-6, 0, -5}, {-6, 0, 5}, {6, 0, 5}, {6, 0, -5}}, {.25f, .30f, .34f})
+        graphics::PatternSystem::addPolygon(scene, {{-11, 0, -10}, {-11, 0, 11}, {11, 0, 11}, {11, 0, -10}}, {.25f, .30f, .34f})
             .has_value(),
         "Floor creation failed.");
 
@@ -143,7 +145,7 @@ void Console::resetState() {
     loaded_.fill(false);
     firstPerson_ = false;
     viewBox_ = 4;
-    truckZ_ = 3.2f;
+    truckZ_ = truckMaxZ;
     truckDirection_ = -1;
     truckMoving_ = false;
     leftHeld_ = false;
@@ -152,16 +154,17 @@ void Console::resetState() {
     auto& camera = app_.getCamera();
 
     camera = graphics::Camera{};
-    camera.position = {11, 10, 13};
-    camera.target = {0, .7f, .3f};
+    camera.position = {19, 17, 24};
+    camera.target = {-1, .7f, .5f};
     camera.up = {0, 1, 0};
     camera.orthographic = false;
-    camera.orthographicHalfExtent = 7.5f;
+    camera.orthographicHalfExtent = 12.5f;
     camera.nearPlane = .1f;
     camera.farPlane = 120;
     require(graphics::CameraSystem::validCamera(camera), "Reset camera is invalid.");
     thirdPerson_ = camera;
     placeMovingObjects();
+    updateCamera();
 }
 
 void Console::zoom(float factor) {
@@ -195,7 +198,7 @@ void Console::onKey(int key, int action, int mods) {
 
     if (key >= GLFW_KEY_1 && key <= GLFW_KEY_5) {
         loadParcel(std::size_t(key - GLFW_KEY_1));
-        updateCamera();
+        updateCamera(firstPerson_);
         return;
     }
     switch (key) {
@@ -204,20 +207,20 @@ void Console::onKey(int key, int action, int mods) {
         break;
     case GLFW_KEY_P:
 
-        app_.getCamera().orthographic = ((mods & GLFW_MOD_SHIFT) != 0) != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
+        if (!firstPerson_)
+            app_.getCamera().orthographic = ((mods & GLFW_MOD_SHIFT) != 0) != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
         break;
     case GLFW_KEY_V:
         if (!firstPerson_) thirdPerson_ = app_.getCamera();
         firstPerson_ = !firstPerson_;
         if (!firstPerson_) app_.getCamera() = thirdPerson_;
-        updateCamera();
+        updateCamera(true);
         break;
     case GLFW_KEY_N:
         if (firstPerson_) {
             const bool upper = ((mods & GLFW_MOD_SHIFT) != 0) != ((mods & GLFW_MOD_CAPS_LOCK) != 0);
             viewBox_ = (viewBox_ + (upper ? 4 : 1)) % boxes_.size();
-            updateCamera();
-            std::cout << "상자 시점: " << viewBox_ + 1 << '\n';
+            updateCamera(true);
         }
         break;
     case GLFW_KEY_G:
@@ -244,14 +247,14 @@ void Console::onFocus(bool focused) {
 void Console::onUpdate(float dt) {
     require(clock_.advance(dt), "Conveyor clock update failed.");
     if (truckMoving_) {
-        truckZ_ = std::clamp(truckZ_ + float(truckDirection_) * 1.5f * dt, -2.1f, 3.2f);
-        if (truckZ_ <= -2.1f || truckZ_ >= 3.2f) {
+        truckZ_ = std::clamp(truckZ_ + float(truckDirection_) * 1.5f * dt, truckMinZ, truckMaxZ);
+        if (truckZ_ <= truckMinZ || truckZ_ >= truckMaxZ) {
             truckMoving_ = false;
             truckDirection_ = -truckDirection_;
             std::cout << "트럭 끝점 정지. g를 누르면 반대 방향으로 출발합니다.\n";
         }
         graphics::Transform3D pose;
-        pose.basis = {0, 0, truckZ_};
+        pose.basis = {truckX, 0, truckZ_};
         require(app_.getScene().setTransform(truck_, pose), "Truck motion failed.");
     }
     placeMovingObjects();
@@ -270,7 +273,7 @@ void Console::onUpdate(float dt) {
 void Console::addTruck() {
     auto& scene = app_.getScene();
     graphics::Transform3D pose;
-    pose.basis = {0, 0, 3.2f};
+    pose.basis = {truckX, 0, truckMaxZ};
     const auto root = scene.addGroup(pose);
     require(root.has_value(), "Truck root creation failed.");
     truck_ = *root;
@@ -304,15 +307,26 @@ void Console::loadParcel(std::size_t index) {
     std::cout << "트럭 적재: " << index + 1 << '\n';
 }
 
-void Console::updateCamera() {
-    if (!firstPerson_) return;
+void Console::updateCamera(bool report) {
     graphics::Camera local;
-    local.position = {0, boxSize * .5f + .15f, boxSize * .5f + .08f};
+    local.position = {0, boxSize * .5f + .35f, boxSize * .5f + .08f};
     local.target = local.position + glm::vec3(0, 0, 1);
     local.nearPlane = .05f;
     local.farPlane = 120;
-    const auto frame = app_.getScene().worldMatrix(boxes_[viewBox_]);
-    const auto camera = frame ? graphics::CameraSystem::attached(local, *frame) : std::nullopt;
-    require(camera.has_value(), "Parcel camera failed.");
-    app_.getCamera() = *camera;
+    for (std::size_t i = 0; i < boxes_.size(); ++i) {
+        const auto frame = app_.getScene().worldMatrix(boxes_[i]);
+        const auto camera = frame ? graphics::CameraSystem::attached(local, *frame) : std::nullopt;
+        require(camera.has_value(), "Parcel camera failed.");
+        parcelViews_[i] = *camera;
+    }
+    if (firstPerson_) app_.getCamera() = parcelViews_[viewBox_];
+    if (report) {
+        std::cout << (firstPerson_ ? "상자 시점 " : "전체 시점, 선택 상자 ") << viewBox_ + 1 << '\n';
+        for (std::size_t i = 0; i < boxes_.size(); ++i) {
+            const auto& eye = parcelViews_[i].position;
+            std::cout << (i == viewBox_ ? "* " : "  ") << "상자 " << i + 1 << " (entity=" << boxes_[i]
+                      << (loaded_[i] ? ", 적재)" : ", 벨트)") << " camera="
+                      << eye.x << ',' << eye.y << ',' << eye.z << '\n';
+        }
+    }
 }

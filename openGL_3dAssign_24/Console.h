@@ -11,7 +11,8 @@ class Console {
     std::vector<graphics::EntityId> stripes_;
     graphics::EntityId truck_ = 0;
     graphics::Camera thirdPerson_;
-    float truckZ_ = 3.2f;
+    std::array<graphics::Camera, 5> parcelViews_{};
+    float truckZ_ = 7.5f;
     int truckDirection_ = -1;
     std::size_t viewBox_ = 4;
     bool truckMoving_ = false, firstPerson_ = false;
@@ -22,7 +23,7 @@ class Console {
     void zoom(float factor);
     void addTruck();
     void loadParcel(std::size_t index);
-    void updateCamera();
+    void updateCamera(bool report = false);
 
 public:
     explicit Console(graphics::Application& app) : app_(app) {}
