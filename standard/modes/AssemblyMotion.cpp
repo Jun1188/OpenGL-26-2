@@ -34,6 +34,7 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
             require(app_.getScene().setFaceLocalMatrix(mesh, it->faceIndex, it->initialFaceMatrix, it->initialFaceSpace) &&
                     app_.getScene().setFaceVisible(mesh, it->faceIndex, it->initialFaceVisible), "면 동작 복원 실패.");
         }
+        if (it->tether) require(app_.getScene().setVector(*it->tether,{0,0,0},{0,0,0}),"힘 표시 선 제거 실패.");
         state_.behaviors.erase(it);
         ++topologyRevision_;
         return true;

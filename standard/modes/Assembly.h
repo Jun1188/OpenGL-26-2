@@ -39,7 +39,7 @@ struct Node {
     std::optional<graphics::Camera> camera;
 };
 
-enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom, Input };
+enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom, Input, Dynamics };
 inline bool faceEffect(Effect effect) { return effect == Effect::Face || effect == Effect::FaceTrack || effect == Effect::Wall; }
 struct Behavior {
     std::string name, target, reference;
@@ -56,6 +56,14 @@ struct Behavior {
     glm::mat4 faceTrackBase{1};
     float rate = 1, phase = 0, height = .455f;
     graphics::RoomBody body;
+    graphics::ParticleState particle;
+    glm::mat4 particleShape{1};
+    graphics::ReferenceFrame frame;
+    graphics::ForceFunction force;
+    glm::vec3 springAnchor{0}, previousOriginVelocity{0}, previousOmega{0}, lastForce{0};
+    float stiffness=0, damping=0;
+    int frameSamples=0;
+    std::optional<graphics::LineId> tether;
     glm::vec3 gravity{0, -9.8f, 0}, angularVelocity{0};
     bool elastic = false, releaseRequested = false;
     glm::mat3 releasedRotation{1};
@@ -112,6 +120,8 @@ class Assembly {
     void finishEdit(bool keep, std::ostream& out);
     void setWorld(const std::string& target, const glm::mat4& matrix);
     bool dispatch(const Tokens& args, std::ostream& out);
+    bool dynamicsCommand(const Tokens& args, std::ostream& out);
+    void advanceDynamics(Behavior& behavior, float dt);
     bool motionCommand(const Tokens& args, std::ostream& out);
     bool objectCommand(const Tokens& args, std::ostream& out);
     bool hierarchyCommand(const Tokens& args, std::ostream& out);

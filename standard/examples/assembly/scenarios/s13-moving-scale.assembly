@@ -1,0 +1,29 @@
+﻿# @title: 이동·회전 프레임의 스프링 저울
+# @goal: 공전하는 기준 객체에 중력과 선형 스프링을 조합한다.
+# @observe: 노란 스프링 선의 길이와 기울기, force read load의 N 값을 관찰한다.
+#: 새 장면으로 시작한다.
+clear
+#: 일반 관찰 카메라를 배치한다.
+camera pose 7 5 10 0 1 0 0 1 0
+#: 힘 기준 객체를 월드 (0,2,0)에 만든다.
+add joint carrier at 0 2 0
+#: carrier에 공전 레이어를 추가한다. 도/초 입력이며 내부 힘 계산은 rad/s다.
+insert orbit z 30 center 0 0 0
+#: 기준 객체에 지지대를 붙인다. 월드 배치를 유지한다.
+add box support at 0 2 0
+#: 지지대의 모양을 비균등 배율로 만든다.
+s 0.8 0.12 0.3
+#: 강체 기준은 유지하고 시각적 지지대만 상속시킨다.
+parent carrier
+#: 1kg 추를 거의 정적 평형 위치에 만든다.
+add sphere bob at 0 1.755 0
+#: 추의 시각적 형상 크기를 줄인다.
+s 0.2
+#: carrier 좌표계에서 움직이는 질점으로 등록한다.
+force add load bob carrier 1
+#: 강성 40N/m, 감쇠 3N*s/m, 원점 앵커의 영자연길이 선형 스프링을 연결한다.
+force spring load 40 3 0 0 0
+#: 월드 중력을 설정한다.
+force gravity load 0 -9.8 0
+#: 선과 추를 보기 쉽게 선택한다.
+select bob

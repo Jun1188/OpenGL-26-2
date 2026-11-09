@@ -80,7 +80,7 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
 }
 
 bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
-    if (sceneToolCommand(a, out) || workspaceCommand(a, out)) return true;
+    if (dynamicsCommand(a, out) || sceneToolCommand(a, out) || workspaceCommand(a, out)) return true;
     if (a[0] == "help") {
         require(a.size() <= 2, "help [기능]");
         if (a.size() == 2) guide(a[1], out);

@@ -26,7 +26,7 @@ bool Assembly::sceneToolCommand(const Tokens& a, std::ostream&) {
         require(a.size()>=2,"light point/color/intensity/attenuation/sun ...");
         if (a[1]=="sun") {
             require(a.size()==3,"light sun <0 이상 강도>");
-            const float value=float(number(a[2])); require(value>=0,"방향광 강도는 0 이상입니다.");
+            const float value=float(number(a[2])); require(std::isfinite(value) && value>=0,"방향광 강도는 0 이상입니다.");
             app_.getRenderOptions().directionalIntensity=value; return true;
         }
         auto& object=node(state_.selected); require(object.light.has_value(),"선택한 물체는 점광원이 아닙니다.");
@@ -37,7 +37,7 @@ bool Assembly::sceneToolCommand(const Tokens& a, std::ostream&) {
             next.color={color.x,color.y,color.z};
         } else {
             require(a.size()==3 && (a[1]=="intensity" || a[1]=="attenuation"),"light intensity/attenuation <0 이상 값>");
-            const float value=float(number(a[2])); require(value>=0,"강도/감쇠는 0 이상입니다.");
+            const float value=float(number(a[2])); require(std::isfinite(value) && value>=0,"강도/감쇠는 0 이상입니다.");
             (a[1]=="intensity" ? next.intensity : next.attenuation)=value;
         }
         object.light=next; return true;

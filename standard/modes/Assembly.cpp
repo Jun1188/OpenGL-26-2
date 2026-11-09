@@ -139,7 +139,7 @@ void Assembly::attach(Behavior behavior) {
         require(bool(behavior.custom), "Custom 동작 함수가 필요합니다.");
         behavior.positionDriver = true;
     }
-    if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor)
+    if (behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Conveyor || behavior.effect == Effect::Dynamics)
         behavior.positionDriver = true;
     const auto checkGeometryOwner = [&](const Behavior& physics, const Behavior& other) {
         if (other.effect == Effect::Input || (physics.effect != Effect::Body && physics.effect != Effect::Walk)) return;
@@ -167,8 +167,8 @@ void Assembly::attach(Behavior behavior) {
         if (current.target != behavior.target)
             continue;
         require(!(current.positionDriver && behavior.positionDriver), "위치 제어가 충돌합니다. 기존 동작을 remove 하거나 자식 부품에 붙이세요.");
-        const bool currentPhysics = current.effect == Effect::Body || current.effect == Effect::Walk || current.effect == Effect::Custom;
-        const bool newPhysics = behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Custom;
+        const bool currentPhysics = current.effect == Effect::Body || current.effect == Effect::Walk || current.effect == Effect::Custom || current.effect == Effect::Dynamics;
+        const bool newPhysics = behavior.effect == Effect::Body || behavior.effect == Effect::Walk || behavior.effect == Effect::Custom || behavior.effect == Effect::Dynamics;
         require(!((currentPhysics && behavior.effect == Effect::Motion) || (newPhysics && current.effect == Effect::Motion)),
                 "물리 루트와 Motion은 같은 SRT를 소유할 수 없습니다. 자식 부품에 동작을 붙이세요.");
     }
@@ -291,7 +291,7 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
     const auto savedCamera = app_.getCamera();
     const auto savedOptions = app_.getRenderOptions();
     const bool savedFault = faulted_;
-    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface" || args[0] == "diagnose";
+    const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface" || args[0] == "diagnose" || (args[0] == "force" && args.size()>1 && args[1] == "read");
     try {
         args = resolveCommand(args);
         require(dispatch(args, out), "지원하지 않는 명령입니다. help 또는 guide custom을 사용하세요.");

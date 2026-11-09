@@ -5,3 +5,5 @@
 #include "include/Animation.h"
 #include "include/Actions.h"
 #include "include/CuboidMode.h"
+
+#include "include/Dynamics.h"

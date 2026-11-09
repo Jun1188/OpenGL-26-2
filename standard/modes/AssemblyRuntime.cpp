@@ -53,7 +53,7 @@ bool Assembly::applyPoses(float dt) {
     };
     for (const auto& item : state_.nodes) {
         auto* driver = positionDriver(item.first);
-        if (driver && (driver->effect == Effect::Body || driver->effect == Effect::Walk || driver->effect == Effect::Custom))
+        if (driver && (driver->effect == Effect::Body || driver->effect == Effect::Walk || driver->effect == Effect::Custom || driver->effect == Effect::Dynamics))
             continue;
         const auto sample = motionFor(item.first).sample(0);
         require(sample.has_value(), "객체 모션 합성 실패.");
@@ -70,7 +70,7 @@ bool Assembly::applyPoses(float dt) {
     }
     for (int phase = 0; phase < 4; ++phase) {
     for (auto& b : state_.behaviors) {
-        const int order = b.effect == Effect::Body ? 1 : b.effect == Effect::Walk ? 2 : b.effect == Effect::Custom ? 3 : 0;
+        const int order = b.effect == Effect::Body ? 1 : b.effect == Effect::Walk ? 2 : (b.effect == Effect::Custom || b.effect == Effect::Dynamics) ? 3 : 0;
         if (phase != order)
             continue;
         auto& target = node(b.target);
@@ -107,6 +107,9 @@ bool Assembly::applyPoses(float dt) {
                 const float u = b.enabled ? float(std::clamp(b.seconds / b.rate, 0.0, 1.0)) : 0;
                 require(graphics::PatternSystem::openRoomWall(scene, *target.mesh, b.faceIndex, u), "벽 개방 실패.");
             }
+        } else if (b.effect == Effect::Dynamics) {
+            const float stepTime=b.enabled && b.playing && !state_.paused ? dt : 0;
+            advanceDynamics(b,stepTime);
         } else if (b.effect == Effect::Custom) {
             const float stepTime = b.enabled && b.playing && !state_.paused ? dt : 0;
             if (b.enabled) require(b.custom && b.custom(scene, target.rest, b.seconds, stepTime), "C++ 사용자 동작 실패: " + b.name);

@@ -28,6 +28,9 @@ Tokens Assembly::resolveCommand(const Tokens& input) const {
         Tokens create{"add",kind}; create.insert(create.end(),a.begin()+2,a.end());
         auto resolved=resolveCommand(create); resolved[0]="tool-add"; return resolved;
     }
+    if (a[0]=="force" && a.size()==5 && a[1]=="add") {
+        require(!state_.selected.empty(),"물리 물체를 선택하세요."); a.insert(a.begin()+3,state_.selected);
+    }
     if (a[0]=="camera" && a.size()==2 && a[1]=="use") a.push_back(state_.selected);
     if ((a[0]=="light" && a.size()>=2 && a[1]!="sun") ||
         (a[0]=="camera" && a.size()>=2 && a[1]=="look")) {
@@ -75,7 +78,7 @@ Tokens Assembly::resolveCommand(const Tokens& input) const {
 void Assembly::setWorld(const std::string& target, const glm::mat4& matrix) {
     auto& object = node(target);
     const auto* driver = positionDriver(target);
-    require(!object.mount && (!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk && driver->effect != Effect::Custom)),
+    require(!object.mount && (!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk && driver->effect != Effect::Custom && driver->effect != Effect::Dynamics)),
             "물리/사용자 제어 루트 또는 면 관절의 배치는 제어 함수를 통해 변경하세요.");
     auto& scene = app_.getScene();
     const auto current = scene.getComponent(object.id)->attachment;
@@ -150,7 +153,7 @@ bool Assembly::workspaceCommand(const Tokens& a, std::ostream& out) {
         auto& object = node(state_.selected);
         auto& layers = object.layers;
         const auto* driver = positionDriver(state_.selected);
-        require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk && driver->effect != Effect::Custom),
+        require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk && driver->effect != Effect::Custom && driver->effect != Effect::Dynamics),
                 "적분 물리/사용자 제어 루트의 레이어는 제어 함수와 별도의 자식 객체에 작성하세요.");
         if (command == "insert") {
             require(a.size() >= 2,"insert spin/orbit/linear/pendulum/translate/rotate/scale ...");
