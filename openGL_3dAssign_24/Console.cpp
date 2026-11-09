@@ -99,7 +99,7 @@ bool Console::initScene() {
     options.background = {.08f, .10f, .14f, 1};
     resetState();
     std::cout << "실습 24: 택배 물류 센터와 트럭\n"
-              << "1~5 적재 | V 상자/전체 시점 | n/N 다음/이전 상자 (처음 5번)\n"
+              << "1~5 1초 선형보간 적재 | V 상자/전체 시점 | n/N 다음/이전 상자 (처음 5번)\n"
               << "g 트럭 출발/정지 (끝점에서 정지, 다음 g로 반대 방향)\n"
               << "b 컨베이어 | +/- 줌 | p/P 투영 | 좌/우 공전 | r 초기화 | q 종료\n";
 
@@ -135,7 +135,7 @@ void Console::placeMovingObjects() {
     for (std::size_t i = 0; i < boxes_.size(); ++i) {
         const double offset = conveyorLength * double(i) / double(boxes_.size());
 
-        if (!loaded_[i]) place(boxes_[i], travelled + offset, .03f + boxSize * .5f);
+        if (!loaded_[i] && !loading_[i]) place(boxes_[i], travelled + offset, .03f + boxSize * .5f);
     }
 }
 
@@ -143,6 +143,9 @@ void Console::resetState() {
     clock_.reset();
     clock_.playing = false;
     loaded_.fill(false);
+    loading_.fill(false);
+    loadingSeconds_.fill(0);
+    loadingStart_.fill(glm::mat4(1));
     firstPerson_ = false;
     viewBox_ = 4;
     truckZ_ = truckStartZ;
@@ -258,6 +261,7 @@ void Console::onUpdate(float dt) {
         require(app_.getScene().setTransform(truck_, pose), "Truck motion failed.");
     }
     placeMovingObjects();
+    updateLoading(dt);
     updateCamera();
 
     const int direction = int(rightHeld_) - int(leftHeld_);
@@ -291,20 +295,42 @@ void Console::addTruck() {
 }
 
 void Console::loadParcel(std::size_t index) {
-    if (loaded_[index]) {
-        std::cout << "이미 적재한 상자: " << index + 1 << '\n';
+    if (loaded_[index] || loading_[index]) {
+        std::cout << "이동 중이거나 이미 적재한 상자: " << index + 1 << '\n';
         return;
     }
+    const auto start = app_.getScene().worldMatrix(boxes_[index]);
+    require(start.has_value(), "Parcel starting placement missing.");
+    loadingStart_[index] = *start;
+    loadingSeconds_[index] = 0;
+    loading_[index] = true;
+    std::cout << "상자 이동 시작: " << index + 1 << '\n';
+}
+
+void Console::updateLoading(float dt) {
     auto& scene = app_.getScene();
     const auto truckWorld = scene.worldMatrix(truck_);
     require(truckWorld.has_value(), "Truck placement missing.");
-    const glm::vec3 slot{index % 2 == 0 ? -.48f : .48f, 1.365f, -.85f + .9f * float(index / 2)};
-    const auto destination = *truckWorld * glm::translate(glm::mat4(1), slot)
-        * glm::rotate(glm::mat4(1), glm::radians(180.0f), glm::vec3(0, 1, 0));
-    require(scene.setParentPreserveWorld(boxes_[index], truck_), "Parcel attachment failed.");
-    require(scene.setWorldPlacement(boxes_[index], destination), "Parcel slot placement failed.");
-    loaded_[index] = true;
-    std::cout << "트럭 적재: " << index + 1 << '\n';
+    for (std::size_t i = 0; i < boxes_.size(); ++i) {
+        if (!loading_[i]) continue;
+        loadingSeconds_[i] = std::clamp(loadingSeconds_[i] + dt, 0.0f, 1.0f);
+        const glm::vec3 slot{i % 2 == 0 ? -.48f : .48f, 1.365f, -.85f + .9f * float(i / 2)};
+        const auto destination = *truckWorld * glm::translate(glm::mat4(1), slot)
+            * glm::rotate(glm::mat4(1), glm::radians(180.0f), glm::vec3(0, 1, 0));
+        auto placement = loadingStart_[i];
+        placement[3] = glm::vec4(glm::mix(glm::vec3(loadingStart_[i][3]), glm::vec3(destination[3]),
+                                        loadingSeconds_[i]), 1.0f);
+        if (loadingSeconds_[i] >= 1.0f) {
+            require(scene.setParentPreserveWorld(boxes_[i], truck_), "Parcel attachment failed.");
+            placement = destination;
+        }
+        require(scene.setWorldPlacement(boxes_[i], placement), "Parcel transfer placement failed.");
+        if (loadingSeconds_[i] >= 1.0f) {
+            loaded_[i] = true;
+            loading_[i] = false;
+            std::cout << "트럭 적재 완료: " << i + 1 << '\n';
+        }
+    }
 }
 
 void Console::updateCamera(bool report) {
@@ -325,7 +351,7 @@ void Console::updateCamera(bool report) {
         for (std::size_t i = 0; i < boxes_.size(); ++i) {
             const auto& eye = parcelViews_[i].position;
             std::cout << (i == viewBox_ ? "* " : "  ") << "상자 " << i + 1 << " (entity=" << boxes_[i]
-                      << (loaded_[i] ? ", 적재)" : ", 벨트)") << " camera="
+                      << (loaded_[i] ? ", 적재)" : loading_[i] ? ", 이동 중)" : ", 벨트)") << " camera="
                       << eye.x << ',' << eye.y << ',' << eye.z << '\n';
         }
     }

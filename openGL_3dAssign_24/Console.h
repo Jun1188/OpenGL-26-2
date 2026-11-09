@@ -8,6 +8,9 @@ class Console {
     graphics::AnimationClock clock_;
     std::array<graphics::EntityId, 5> boxes_{};
     std::array<bool, 5> loaded_{};
+    std::array<bool, 5> loading_{};
+    std::array<float, 5> loadingSeconds_{};
+    std::array<glm::mat4, 5> loadingStart_{};
     std::vector<graphics::EntityId> stripes_;
     graphics::EntityId truck_ = 0;
     graphics::Camera thirdPerson_;
@@ -23,6 +26,7 @@ class Console {
     void zoom(float factor);
     void addTruck();
     void loadParcel(std::size_t index);
+    void updateLoading(float dt);
     void updateCamera(bool report = false);
 
 public:
