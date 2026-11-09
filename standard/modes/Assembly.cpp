@@ -102,6 +102,7 @@ void Assembly::clear() {
     editStart_.reset(); editOperation_=0; editCursor_.reset();
     ++topologyRevision_;
     app_.getScene().clear();
+    app_.getRenderOptions().pointLights.clear();
     state_ = State{};
     faulted_ = false;
 }

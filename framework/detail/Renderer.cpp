@@ -498,6 +498,16 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
     gl.Uniform1i(textureLocation_, 0);
     gl.Uniform3f(lightDirectionLocation_, options.lightDirection.x, options.lightDirection.y, options.lightDirection.z);
     gl.Uniform3f(lightColorLocation_, options.lightColor.red, options.lightColor.green, options.lightColor.blue);
+    gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.directionalIntensity.c_str()), options.directionalIntensity);
+    gl.Uniform1i(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.pointLightCount.c_str()), int(options.pointLights.size()));
+    for (std::size_t i=0; i<options.pointLights.size(); ++i) {
+        const auto& light=options.pointLights[i];
+        const auto prefix=config_.uniforms.pointLights + "[" + std::to_string(i) + "].";
+        gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, (prefix+"position").c_str()), light.position.x,light.position.y,light.position.z);
+        gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, (prefix+"color").c_str()), light.color.red,light.color.green,light.color.blue);
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, (prefix+"intensity").c_str()),light.intensity);
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, (prefix+"attenuation").c_str()),light.attenuation);
+    }
     gl.Uniform3f(outlineColorLocation_, options.outlineColor.red, options.outlineColor.green,
                  options.outlineColor.blue);
 
@@ -657,7 +667,11 @@ bool Renderer::renderPass(const Scene& scene, const RenderPass& pass, int width,
     if (viewport.width == 0 || viewport.height == 0)
         return true;
 
-    if (!CameraSystem::validCamera(camera) || !detail::finiteVector(options.lightDirection) ||
+    bool validLights=options.pointLights.size()<=8 && std::isfinite(options.directionalIntensity) && options.directionalIntensity>=0;
+    for (const auto& light:options.pointLights)
+        validLights=validLights && detail::finiteVector(light.position) && detail::validColor(light.color) &&
+            std::isfinite(light.intensity) && light.intensity>=0 && std::isfinite(light.attenuation) && light.attenuation>=0;
+    if (!validLights || !CameraSystem::validCamera(camera) || !detail::finiteVector(options.lightDirection) ||
         glm::length(options.lightDirection) < 1e-12f || !detail::validColor(options.lightColor) ||
         !detail::validColor(options.outlineColor) || !std::isfinite(options.background.r) ||
         !std::isfinite(options.background.g) || !std::isfinite(options.background.b) ||

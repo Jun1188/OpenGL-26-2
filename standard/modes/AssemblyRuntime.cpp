@@ -206,6 +206,7 @@ bool Assembly::applyPoses(float dt) {
     }
     }
     applyMounts();
+    syncSceneTools();
     glm::vec3 origin = state_.cursor;
     glm::mat3 axes(1);
     if (!state_.selected.empty()) {

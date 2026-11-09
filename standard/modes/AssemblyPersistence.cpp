@@ -28,6 +28,9 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
             for (int c=0;c<4;++c) for (int r=0;r<4;++r) stream << ' ' << item.second.attachment[c][r];
             stream << '\n';
         }
+        stream << "light sun " << app_.getRenderOptions().directionalIntensity << '\n';
+        // Camera rig commands remain in the authored recipe. Free before serializing the final view.
+        stream << "camera free\n";
         const auto& c = app_.getCamera();
         const auto& r = app_.getRenderOptions();
         stream << "camera pose " << c.position.x << ' ' << c.position.y << ' ' << c.position.z << ' '
@@ -42,6 +45,7 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
                << "render light-direction " << r.lightDirection.x << ' ' << r.lightDirection.y << ' ' << r.lightDirection.z << '\n'
                << "render light-color " << r.lightColor.red << ' ' << r.lightColor.green << ' ' << r.lightColor.blue << '\n'
                << "render background " << r.background.r << ' ' << r.background.g << ' ' << r.background.b << '\n';
+        if (!state_.activeCamera.empty()) stream << "camera use " << quote(state_.activeCamera) << '\n';
         stream.flush();
         require(bool(stream), "레시피 쓰기에 실패했습니다.");
         stream.close();

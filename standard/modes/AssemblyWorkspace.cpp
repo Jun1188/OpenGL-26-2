@@ -23,6 +23,18 @@ glm::mat4 matrixTokens(const Tokens& a, std::size_t start) {
 
 Tokens Assembly::resolveCommand(const Tokens& input) const {
     auto a = input;
+    if (a.size()>=2 && ((a[0]=="light" && a[1]=="point") || (a[0]=="camera" && a[1]=="add"))) {
+        const std::string kind=a[0]=="light" ? "light" : "camera";
+        Tokens create{"add",kind}; create.insert(create.end(),a.begin()+2,a.end());
+        auto resolved=resolveCommand(create); resolved[0]="tool-add"; return resolved;
+    }
+    if (a[0]=="camera" && a.size()==2 && a[1]=="use") a.push_back(state_.selected);
+    if ((a[0]=="light" && a.size()>=2 && a[1]!="sun") ||
+        (a[0]=="camera" && a.size()>=2 && a[1]=="look")) {
+        require(!state_.selected.empty(),"먼저 광원/카메라를 선택하세요.");
+        if (a.back()=="cursor") {a.pop_back();const auto p=pointTokens(state_.cursor);a.insert(a.end(),p.begin(),p.end());}
+        Tokens scoped{"with",state_.selected,"none"}; scoped.insert(scoped.end(),a.begin(),a.end()); return scoped;
+    }
     if (a[0] == "add" && a.size() >= 2 && (a.size() <= 3 || a[2] == "at" || (a.size() > 3 && a[3] == "at"))) {
         std::string name = a[1]; unsigned suffix = 1;
         while (state_.nodes.count(name + std::to_string(suffix))) ++suffix;

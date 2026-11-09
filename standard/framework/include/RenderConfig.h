@@ -33,6 +33,8 @@ struct UniformBindings {
     std::string mvp = "uMVP", model = "uModel", normal = "uNormalMatrix";
     std::string texture = "uTexture", hasTexture = "uHasTexture", lighting = "uLighting";
     std::string lightDirection = "uLightDirection", lightColor = "uLightColor";
+    std::string pointLightCount = "uPointLightCount", pointLights = "uPointLights";
+    std::string directionalIntensity = "uDirectionalIntensity";
     std::string overrideColor = "uOverrideColor", outlineColor = "uOutlineColor", tint = "uTint";
 };
 

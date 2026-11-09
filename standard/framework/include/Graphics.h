@@ -367,6 +367,12 @@ public:
 std::string readTextFile(const std::filesystem::path& path);
 
 
+struct PointLight {
+    glm::vec3 position{0};
+    GlColor color{1,1,1};
+    float intensity = 1, attenuation = .02f;
+};
+
 struct RenderOptions {
     bool depthTest = true;
     bool wireframe = false;
@@ -377,6 +383,8 @@ struct RenderOptions {
     GlColor outlineColor{0.05f, 0.05f, 0.05f};
     glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
     CullMode cull = CullMode::None; // Append to preserve existing aggregate initializers.
+    float directionalIntensity = 1;
+    std::vector<PointLight> pointLights; // At most eight world-space lights in the default shader.
 };
 
 struct Viewport {
