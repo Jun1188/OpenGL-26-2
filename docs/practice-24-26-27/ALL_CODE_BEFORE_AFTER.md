@@ -324,7 +324,7 @@ namespace {
 constexpr float beltHeight = 1.0f;
 constexpr float boxSize = .85f;
 constexpr float truckX = -7.0f;
-constexpr float truckMinZ = -6.5f, truckMaxZ = 7.5f;
+constexpr float truckStartZ = 7.5f, truckMinZ = -7.0f, truckMaxZ = 9.3f;
 constexpr double beltSpeed = 1.25;
 constexpr std::size_t stripeCount = 30;
 constexpr float cornerRadius = .8f;
@@ -462,7 +462,7 @@ void Console::resetState() {
     loaded_.fill(false);
     firstPerson_ = false;
     viewBox_ = 4;
-    truckZ_ = truckMaxZ;
+    truckZ_ = truckStartZ;
     truckDirection_ = -1;
     truckMoving_ = false;
     leftHeld_ = false;
@@ -590,7 +590,7 @@ void Console::onUpdate(float dt) {
 void Console::addTruck() {
     auto& scene = app_.getScene();
     graphics::Transform3D pose;
-    pose.basis = {truckX, 0, truckMaxZ};
+    pose.basis = {truckX, 0, truckStartZ};
     const auto root = scene.addGroup(pose);
     require(root.has_value(), "Truck root creation failed.");
     truck_ = *root;
@@ -32514,7 +32514,7 @@ DATA = {
         ('처음 선택한 상자 시점은 5번', '초기/V', 'resetState', 'viewBox_=4; 배열 인덱스와 상자 번호 구분'),
         ('상자 다음/이전 시점', 'n/N', 'onKey', '1인칭에서만 5→1, 1→5 순환; 번호·entity ID·후보 5개 월드 좌표 출력'),
         ('트럭 출발/정지', 'g', 'onKey/onUpdate', '중간 정지는 방향 유지'),
-        ('바닥 끝에서 정지하고 다음 g에 반대 방향 이동', '끝점/g', 'onUpdate', '트럭 전체 길이를 고려한 Z=-6.5~7.5 범위; clamp 후 정지·다음 방향 반전'),
+        ('바닥 끝에서 정지하고 다음 g에 반대 방향 이동', '끝점/g', 'onUpdate', '트럭 전체 길이를 고려한 Z=-7.0~9.3 범위; clamp 후 정지·다음 방향 반전'),
         ('전체 리셋', 'r', 'initScene/resetState', '장면·적재·부모 관계·트럭 방향·카메라·시계를 초기화'),
         ('종료', 'q', 'onKey', 'Application::requestClose'),
         ('기존 실습 20 입력 유지', 'b,+/-,p/P,좌/우', 'onKey/onFocus/onUpdate', '컨베이어 시작/정지, 줌, 투영, 전체 시점 공전'),

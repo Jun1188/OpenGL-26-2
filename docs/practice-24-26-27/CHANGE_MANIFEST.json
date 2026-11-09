@@ -19,7 +19,7 @@
     {
       "path": "docs/practice-24-26-27/CAMERA24.md",
       "bytes": 4469,
-      "sha256": "4a27ec69938dde5c1c939360331efaee24a7b354e60eb53f7dfc7fc25d28463c",
+      "sha256": "25b5b1c6223d3bd71d3e4c9394bef7fa366b78beefbf9197a2b6e9f9da8b5c42",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -131,7 +131,7 @@
     {
       "path": "graphify-out/practice-24-26-27/SOURCE_MANIFEST.json",
       "bytes": 17249,
-      "sha256": "5d0e567a9b218b6feed092ca9f44d7d9c6d38ee358bd1a09e8bdffc28f783c1a",
+      "sha256": "82ce177f2133024007f8ed0b8a8d7c713b20d8d3a135c72796c8cdbfa83e9fde",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -145,21 +145,21 @@
     {
       "path": "graphify-out/practice-24-26-27/graph.json",
       "bytes": 4061226,
-      "sha256": "a4d98d2f6c605ff63cae5ec5b90352df871f18a9f21c21dfd6e860ca9bf55ddb",
+      "sha256": "27595f5fdc69ad0f19c907bcfce96f23c3d2e673ca1365fc8817f13b9a3f4207",
       "exists": true,
       "concurrent_user_edit": false
     },
     {
       "path": "openGL_3dAssign_24/CAMERA_MAPPING.md",
       "bytes": 4469,
-      "sha256": "4a27ec69938dde5c1c939360331efaee24a7b354e60eb53f7dfc7fc25d28463c",
+      "sha256": "25b5b1c6223d3bd71d3e4c9394bef7fa366b78beefbf9197a2b6e9f9da8b5c42",
       "exists": true,
       "concurrent_user_edit": false
     },
     {
       "path": "openGL_3dAssign_24/Console.cpp",
-      "bytes": 12989,
-      "sha256": "0fd07290b5b1a194bb44f2889cc8df3b54c381e844b6cb21b5d6fe2561d6672b",
+      "bytes": 13013,
+      "sha256": "cd875b815abccd9c27570ee85e7c106bb6114775cd41983ee9518ffb18e595cd",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -180,7 +180,7 @@
     {
       "path": "openGL_3dAssign_24/USER_CHECKS.md",
       "bytes": 2418,
-      "sha256": "66b72a7d5b4d782d4bb8cc6eec9265491a39cfdf93b567e020426767865fc748",
+      "sha256": "235d17e370253899aa27ada87cf0f8ba8c00d6010d21be374748239d04dd8690",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -11282,7 +11282,7 @@
     {
       "path": "standard/SIZE_REPORT.md",
       "bytes": 1855,
-      "sha256": "a2e415bc4d1f7010495d43bb81e22f8f25fe65e864244c15a9bcc2ac8272578c",
+      "sha256": "5f58443f7f79364ef9e387b98f3237ea3b400aa48a89e27e91d9cbc14f24429c",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -11317,7 +11317,7 @@
     {
       "path": "standard/docs/PRACTICE_24_PLUS.md",
       "bytes": 6006,
-      "sha256": "47a98ffe269c1ce94822067709f118799a392d2b2b6abd41791d69b997b854c5",
+      "sha256": "68c6f77b01366bc0dd187a7b0b41ff704b6316338c0b3648b9d36ab5ba5614c0",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -11386,8 +11386,8 @@
     },
     {
       "path": "standard/docs/reference/practices/P24.md",
-      "bytes": 19330,
-      "sha256": "f2d41d5c0ce7804e119faa2aaf0218091fecf7f8f4a37cbefa725259cd80c366",
+      "bytes": 19354,
+      "sha256": "fdb9bb92698768c205a8c23d9f339910d83ad0bfed140177cc196bf12a81ef0f",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -11407,8 +11407,8 @@
     },
     {
       "path": "standard/docs/viewer/documents.js",
-      "bytes": 2519710,
-      "sha256": "b6018a0821eb5d454c52debfad290804fb4b40040f8d005f5fa462bb2914d796",
+      "bytes": 2519734,
+      "sha256": "9a6d88950b8f0ebdec7a3421b8c7e523c1624677224532d50ed32873a2895de1",
       "exists": true,
       "concurrent_user_edit": false
     },
@@ -11562,7 +11562,7 @@
     {
       "path": "tools/Write-Practice24Plus.py",
       "bytes": 16656,
-      "sha256": "b75ba9a1044e92e47250625a2619e4f492ea773589a20881142e693d8bce01fa",
+      "sha256": "7d0a97a3da0644f4a25844a76a0b913f1744b1b67f18969fa746ff12cc81cf3d",
       "exists": true,
       "concurrent_user_edit": false
     },

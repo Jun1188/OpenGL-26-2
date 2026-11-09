@@ -7,7 +7,7 @@ namespace {
 constexpr float beltHeight = 1.0f;
 constexpr float boxSize = .85f;
 constexpr float truckX = -7.0f;
-constexpr float truckMinZ = -6.5f, truckMaxZ = 7.5f;
+constexpr float truckStartZ = 7.5f, truckMinZ = -7.0f, truckMaxZ = 9.3f;
 constexpr double beltSpeed = 1.25;
 constexpr std::size_t stripeCount = 30;
 constexpr float cornerRadius = .8f;
@@ -145,7 +145,7 @@ void Console::resetState() {
     loaded_.fill(false);
     firstPerson_ = false;
     viewBox_ = 4;
-    truckZ_ = truckMaxZ;
+    truckZ_ = truckStartZ;
     truckDirection_ = -1;
     truckMoving_ = false;
     leftHeld_ = false;
@@ -273,7 +273,7 @@ void Console::onUpdate(float dt) {
 void Console::addTruck() {
     auto& scene = app_.getScene();
     graphics::Transform3D pose;
-    pose.basis = {truckX, 0, truckMaxZ};
+    pose.basis = {truckX, 0, truckStartZ};
     const auto root = scene.addGroup(pose);
     require(root.has_value(), "Truck root creation failed.");
     truck_ = *root;

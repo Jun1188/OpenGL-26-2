@@ -10,6 +10,7 @@
 14b3fd4 Practice step 5: compose materials, attachments and custom mechanism references
 b7fdbcb Practice correction: make labs 24 26 27 self-contained and record folder isolation
 78669b8 Practice 24 correction: place truck outside L belt and map five parcel cameras
+60d9d93 Practice step 6: publish requirements, novel-mechanism exercises and final source references
 ```
 
 공유 스킬/사건 로그 기준 저장소: 5597a28, origin/main 일반 push 완료. 과제 저장소는 별도 push 요청 없이 로컬 커밋으로 남긴다.

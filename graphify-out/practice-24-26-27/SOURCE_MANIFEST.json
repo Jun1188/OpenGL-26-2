@@ -1,6 +1,6 @@
 ﻿{
   "date": "2026-11-09",
-  "source_commit": "78669b80aa4eb4a157398b3111baec584dd448e0",
+  "source_commit": "60d9d931e6e1d6a2c482f3c619d1efd8cb3fcd61",
   "method": "graphify AST; no semantic API, build, tests, app run, or extraction diagnostics",
   "source_state": "Saved working tree; source_commit names the base commit, files records current source hashes.",
   "nodes": 3703,
@@ -112,7 +112,7 @@
     "openGL_3dAssign_23/Console.cpp": "af23994389c678f3e3fc6e2790d71185404bbdde6eee8fc25c6d3248d40861e7",
     "openGL_3dAssign_23/Console.h": "661f8d6fbaa74ca4e8429bdcca6b2db69b4cf4eaa72f0c79fbd9eba590d3f8ba",
     "openGL_3dAssign_23/main.cpp": "2ddc47035687144c1cdbda089997d506def0f714899c1c9309aa928dbe210313",
-    "openGL_3dAssign_24/Console.cpp": "0fd07290b5b1a194bb44f2889cc8df3b54c381e844b6cb21b5d6fe2561d6672b",
+    "openGL_3dAssign_24/Console.cpp": "cd875b815abccd9c27570ee85e7c106bb6114775cd41983ee9518ffb18e595cd",
     "openGL_3dAssign_24/Console.h": "e3cf8afdf4651c4214e3c0ef640dea6d16b357c7612e4e7f12d4c023ade99ff5",
     "openGL_3dAssign_24/main.cpp": "6d7306412dce4632ae8d12bccbdcd21ea8368e13dba40f62ab0bf7433bf236bb",
     "openGL_3dAssign_26/Console.cpp": "c384a2d3015e4377236b0b37874a17303ea8ffc9cc3302ee9c6ac6d78097c542",
