@@ -61,6 +61,9 @@ struct Material {
     std::shared_ptr<const TextureImage> texture;
     bool useTexture = false;
     bool repeatTexture = true;
+    float ambientStrength = .25f, diffuseStrength = 1;
+    float specularStrength = 0, shininess = 32;
+    bool unlit = false;
 };
 
 struct Vertex {
@@ -206,6 +209,13 @@ inline bool validMesh(const Mesh& m) {
     if (m.localVertices.size() < 3 || !validColor(m.color) || !validColor(m.material.color) ||
         !finiteVector(m.normal) || !finiteMatrix(m.localAnimationMatrix) || !std::isfinite(m.creaseAngleDegrees) ||
         m.creaseAngleDegrees < 0 || m.creaseAngleDegrees > 180)
+        return false;
+
+    const auto& material = m.material;
+    for (float value : {material.ambientStrength, material.diffuseStrength, material.specularStrength})
+        if (!std::isfinite(value) || value < 0 || value > 1)
+            return false;
+    if (!std::isfinite(material.shininess) || material.shininess < 1 || material.shininess > 1024)
         return false;
 
     const auto count = m.localVertices.size();

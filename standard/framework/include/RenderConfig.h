@@ -36,6 +36,9 @@ struct UniformBindings {
     std::string overrideColor = "uOverrideColor", outlineColor = "uOutlineColor", tint = "uTint";
     std::string pointLightCount = "uPointLightCount", pointLights = "uPointLights";
     std::string directionalIntensity = "uDirectionalIntensity";
+    std::string viewPosition = "uViewPosition", ambientColor = "uAmbientColor";
+    std::string materialAmbient = "uMaterialAmbient", materialDiffuse = "uMaterialDiffuse";
+    std::string materialSpecular = "uMaterialSpecular", shininess = "uShininess";
 };
 
 struct DrawUniformContext {

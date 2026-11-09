@@ -498,6 +498,10 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
     gl.Uniform1i(textureLocation_, 0);
     gl.Uniform3f(lightDirectionLocation_, options.lightDirection.x, options.lightDirection.y, options.lightDirection.z);
     gl.Uniform3f(lightColorLocation_, options.lightColor.red, options.lightColor.green, options.lightColor.blue);
+    const auto eye = glm::vec3(glm::inverse(view)[3]);
+    gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.viewPosition.c_str()), eye.x, eye.y, eye.z);
+    gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.ambientColor.c_str()),
+                 options.ambientColor.red, options.ambientColor.green, options.ambientColor.blue);
     gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.directionalIntensity.c_str()), options.directionalIntensity);
     gl.Uniform1i(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.pointLightCount.c_str()), int(options.pointLights.size()));
     for (std::size_t i=0; i<options.pointLights.size(); ++i) {
@@ -592,7 +596,12 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
         gl.UniformMatrix4fv(modelLocation_, 1, GL_FALSE, glm::value_ptr(model));
         gl.UniformMatrix3fv(normalLocation_, 1, GL_FALSE, glm::value_ptr(normalMatrix));
         gl.Uniform3f(tintLocation_, tint.red, tint.green, tint.blue);
-        gl.Uniform1i(lightingLocation_, face && options.lighting);
+        gl.Uniform1i(lightingLocation_, face && options.lighting && !face->material.unlit);
+        const Material material = face ? face->material : Material{};
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.materialAmbient.c_str()), material.ambientStrength);
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.materialDiffuse.c_str()), material.diffuseStrength);
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.materialSpecular.c_str()), material.specularStrength);
+        gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.shininess.c_str()), material.shininess);
         gl.Uniform1i(overrideLocation_, 0);
 
         const bool textured = face && options.textures && face->material.useTexture;
@@ -673,7 +682,7 @@ bool Renderer::renderPass(const Scene& scene, const RenderPass& pass, int width,
             std::isfinite(light.intensity) && light.intensity>=0 && std::isfinite(light.attenuation) && light.attenuation>=0;
     if (!validLights || !CameraSystem::validCamera(camera) || !detail::finiteVector(options.lightDirection) ||
         glm::length(options.lightDirection) < 1e-12f || !detail::validColor(options.lightColor) ||
-        !detail::validColor(options.outlineColor) || !std::isfinite(options.background.r) ||
+        !detail::validColor(options.outlineColor) || !detail::validColor(options.ambientColor) || !std::isfinite(options.background.r) ||
         !std::isfinite(options.background.g) || !std::isfinite(options.background.b) ||
         !std::isfinite(options.background.a) ||
         (options.cull != CullMode::Inherit && options.cull != CullMode::None && options.cull != CullMode::Back &&

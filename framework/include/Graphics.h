@@ -354,6 +354,9 @@ public:
     /// [API] 시점·주목점·up·투영/클립 범위가 유효한 카메라인지 검사한다.
     static bool validCamera(const Camera& camera);
 
+    /// [API] 지역 카메라를 아핀 프레임에 부착한다. 시선/up을 직교화하며 퇴화하면 실패한다.
+    static std::optional<Camera> attached(const Camera& local, const glm::mat4& frame);
+
 
     /// [API] 카메라 시점·주목점·up으로 월드→뷰 행렬을 계산한다.
     static glm::mat4 viewMatrix(const Camera& camera);
@@ -385,6 +388,7 @@ struct RenderOptions {
     CullMode cull = CullMode::None; // Append to preserve existing aggregate initializers.
     float directionalIntensity = 1;
     std::vector<PointLight> pointLights; // At most eight world-space lights in the default shader.
+    GlColor ambientColor{0, 0, 0}; // Independent ambient light; legacy directional ambient remains.
 };
 
 struct Viewport {

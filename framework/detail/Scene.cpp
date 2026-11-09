@@ -867,6 +867,22 @@ bool CameraSystem::validCamera(const Camera& camera) {
            std::isfinite(camera.orthographicHalfExtent) && camera.orthographicHalfExtent > 0.0f;
 }
 
+std::optional<Camera> CameraSystem::attached(const Camera& local, const glm::mat4& frame) {
+    if (!validCamera(local) || !TransformSystem::validAffine(frame))
+        return std::nullopt;
+    const auto forward = glm::vec3(frame * glm::vec4(local.target - local.position, 0));
+    const auto up = glm::vec3(frame * glm::vec4(local.up, 0));
+    if (glm::length(forward) < 1e-6f || glm::length(glm::cross(forward, up)) < 1e-6f)
+        return std::nullopt;
+    auto result = local;
+    const auto direction = glm::normalize(forward);
+    const auto right = glm::normalize(glm::cross(direction, up));
+    result.position = glm::vec3(frame * glm::vec4(local.position, 1));
+    result.target = result.position + direction;
+    result.up = glm::normalize(glm::cross(right, direction));
+    return validCamera(result) ? std::optional<Camera>{result} : std::nullopt;
+}
+
 glm::mat4 CameraSystem::viewMatrix(const Camera& camera) {
     return glm::lookAt(camera.position, camera.target, camera.up);
 }
