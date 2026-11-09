@@ -309,7 +309,7 @@ void Console::loadParcel(std::size_t index) {
 
 void Console::updateCamera(bool report) {
     graphics::Camera local;
-    local.position = {0, boxSize * .5f + .35f, boxSize * .5f + .08f};
+    local.position = {0, boxSize * .5f + .35f, -boxSize * .5f - 1.0f};
     local.target = local.position + glm::vec3(0, 0, 1);
     local.nearPlane = .05f;
     local.farPlane = 120;
