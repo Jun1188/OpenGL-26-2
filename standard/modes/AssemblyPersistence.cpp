@@ -17,13 +17,16 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
         stream << "# @state-begin\n";
         for (const auto& item : state_.nodes) {
             const auto& t = item.second.rest;
-            stream << (item.second.affineGroup ? "rest3 " : "rest ") << quote(item.first) << ' ' << t.basis.x << ' ' << t.basis.y << ' ' << t.basis.z;
+            stream << "rest3 " << quote(item.first) << ' ' << t.basis.x << ' ' << t.basis.y << ' ' << t.basis.z;
             for (int c = 0; c < 3; ++c)
                 for (int r = 0; r < 3; ++r)
                     stream << ' ' << t.rotation[c][r];
             stream << ' ' << t.scale.x;
-            if (item.second.affineGroup) stream << ' ' << t.scale.y << ' ' << t.scale.z;
+            stream << ' ' << t.scale.y << ' ' << t.scale.z;
             stream << ' ' << t.localBasis.x << ' ' << t.localBasis.y << ' ' << t.localBasis.z << '\n';
+            stream << "attachment " << quote(item.first);
+            for (int c=0;c<4;++c) for (int r=0;r<4;++r) stream << ' ' << item.second.attachment[c][r];
+            stream << '\n';
         }
         const auto& c = app_.getCamera();
         const auto& r = app_.getRenderOptions();

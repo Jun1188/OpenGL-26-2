@@ -78,8 +78,14 @@ bool Assembly::hierarchyCommand(const Tokens& a, std::ostream&) {
         return true;
     }
     if (a[0] == "srt") {
-        require(a.size() == 9, "srt <대상> <위치3> <X/Y/Z 회전 도3> <균일배율>");
-        srt(a[1], vector(a, 2), vector(a, 5), float(number(a[8])));
+        require(a.size() == 9 || a.size() == 11, "srt <대상> <월드 위치3> <회전 도3> <균일배율 또는 SX SY SZ>");
+        graphics::Transform3D desired;
+        desired.basis = vector(a,2);
+        const auto angles=glm::radians(vector(a,5));
+        desired.rotation=glm::mat3(glm::rotate(glm::mat4(1),angles.z,glm::vec3(0,0,1)) *
+            glm::rotate(glm::mat4(1),angles.y,glm::vec3(0,1,0)) * glm::rotate(glm::mat4(1),angles.x,glm::vec3(1,0,0)));
+        desired.scale=a.size()==9 ? glm::vec3(float(number(a[8]))) : vector(a,8);
+        setWorld(a[1],graphics::DiagramSystem::modelMatrix(desired));
         return true;
     }
     if (a[0] != "pivot" && a[0] != "center") return false;

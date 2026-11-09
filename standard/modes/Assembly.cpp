@@ -99,6 +99,7 @@ const Node& Assembly::node(const std::string& name) const {
 }
 
 void Assembly::clear() {
+    editStart_.reset(); editOperation_=0; editCursor_.reset();
     ++topologyRevision_;
     app_.getScene().clear();
     state_ = State{};
@@ -214,13 +215,10 @@ void Assembly::setRest(const std::string& target, const graphics::Transform3D& r
     }
     require(glm::all(glm::lessThanEqual(glm::abs(rest.basis), glm::vec3(1000000))) &&
             glm::all(glm::lessThanEqual(glm::abs(rest.localBasis), glm::vec3(1000000))), "위치/피벗 범위는 ±1000000입니다.");
-    const bool validScale = value.affineGroup
-        ? glm::all(glm::greaterThan(glm::abs(rest.scale), glm::vec3(.0001f))) &&
-          glm::all(glm::lessThanEqual(glm::abs(rest.scale), glm::vec3(100)))
-        : rest.scale.x > .0001f && rest.scale.x <= 100 && std::abs(rest.scale.x - rest.scale.y) < .0001f &&
-          std::abs(rest.scale.x - rest.scale.z) < .0001f;
+    const bool validScale = glm::all(glm::greaterThan(glm::abs(rest.scale), glm::vec3(.0001f))) &&
+        glm::all(glm::lessThanEqual(glm::abs(rest.scale), glm::vec3(100)));
     require(graphics::DiagramSystem::validTransform(rest) && validScale,
-            "유효한 SRT가 필요합니다. 기본은 양수 균일 배율이며 warp 그룹은 0이 아닌 축별 배율(.0001~100)을 씁니다.");
+            "배율은 각 축 절댓값 .0001~100이며, 유효한 SRT가 필요합니다.");
     for (const auto& behavior : state_.behaviors) {
         if ((behavior.effect == Effect::Body || behavior.effect == Effect::Walk) && behavior.reference == target)
             require(rigid(graphics::DiagramSystem::modelMatrix(rest)), "물리 공간은 강체 변환을 유지해야 합니다.");
@@ -269,7 +267,7 @@ void Assembly::inspect(const std::string& target, std::ostream& out) const {
     const auto& value = node(target);
     const auto& t = value.rest;
     out << target << " kind=" << value.kind << " id=" << value.id << " position="
-        << t.basis.x << ',' << t.basis.y << ',' << t.basis.z << " scale=" << t.scale.x << '\n';
+        << t.basis.x << ',' << t.basis.y << ',' << t.basis.z << " scale=" << t.scale.x << ',' << t.scale.y << ',' << t.scale.z << '\n';
     for (const auto& behavior : state_.behaviors)
         if (behavior.target == target)
             out << "  " << behavior.name << " time=" << behavior.seconds << " playing=" << behavior.playing
@@ -294,12 +292,26 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
     const bool savedFault = faulted_;
     const bool readOnly = args[0] == "save" || args[0] == "guide" || args[0] == "help" || args[0] == "list" || args[0] == "inspect" || args[0] == "surface" || args[0] == "diagnose";
     try {
+        args = resolveCommand(args);
         require(dispatch(args, out), "지원하지 않는 명령입니다. help 또는 guide custom을 사용하세요.");
         if (!readOnly)
             require(applyPoses(0), "조립 결과의 상태/변환이 유효하지 않습니다.");
         if (!replaying_ && !readOnly && args[0] != "load" && args[0] != "reload" && args[0] != "select" && args[0] != "jump" && args[0] != "release")
-            state_.recipe.push_back(line);
+        {
+            std::string canonical;
+            for (const auto& arg : args) { if (!canonical.empty()) canonical += ' '; canonical += quote(arg); }
+            state_.recipe.push_back(canonical);
+        }
         if (!readOnly) faulted_ = false;
+        if (!replaying_ && !readOnly) {
+            out << line << " [적용 완료] - 대상: " << (state_.selected.empty() ? "작업공간" : state_.selected);
+            if (!state_.selectedLayer.empty()) out << ", 지역 레이어: " << state_.selectedLayer;
+            out << '\n';
+            if (!state_.selected.empty() && state_.nodes.count(state_.selected)) {
+                const auto world = app_.getScene().placementMatrix(node(state_.selected).id);
+                if (world) out << "월드 원점=" << (*world)[3].x << ',' << (*world)[3].y << ',' << (*world)[3].z << '\n';
+            }
+        }
         return true;
     } catch (const std::exception& error) {
         app_.getScene() = std::move(savedScene);

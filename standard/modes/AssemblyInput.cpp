@@ -184,33 +184,30 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
         execute(state_.paused ? "pause off" : "pause on", out);
         return;
     }
-    if ((key == GLFW_KEY_TAB || key == GLFW_KEY_BACKSPACE) && action == GLFW_PRESS && !state_.nodes.empty()) {
-        auto it = state_.nodes.find(state_.selected);
-        if (key == GLFW_KEY_TAB) {
-            if (it == state_.nodes.end() || ++it == state_.nodes.end()) it = state_.nodes.begin();
-        } else {
-            if (it == state_.nodes.begin() || it == state_.nodes.end()) it = state_.nodes.end();
-            --it;
-        }
-        state_.selected = it->first;
-        inspect(it->first, out);
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        if (editStart_) finishEdit(false,out);
+        else { state_.editMode = "object"; state_.faceSelection.reset(); state_.selectedLayer.clear(); }
+        return;
+    }
+    if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) { finishEdit(true,out); return; }
+    if ((key == GLFW_KEY_G || key == GLFW_KEY_R || key == GLFW_KEY_S) && action == GLFW_PRESS && !state_.selected.empty()) {
+        finishEdit(true,out);
+        editStart_ = state_; state_.paused = true;
+        editOperation_ = key == GLFW_KEY_G ? 't' : key == GLFW_KEY_R ? 'r' : 's'; editCursor_.reset();
+        out << "G/R/S [변환 미리보기] - X/Y/Z: 축, 마우스/방향키: 양, Shift: 미세, Enter: 확정, Esc: 취소\n";
     } else if (key == GLFW_KEY_X || key == GLFW_KEY_Y || key == GLFW_KEY_Z) {
         state_.axis = key == GLFW_KEY_X ? 0 : key == GLFW_KEY_Y ? 1 : 2;
-    } else if (!state_.selected.empty()) {
-        std::ostringstream command;
-        const auto target = quote(state_.selected);
-        if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT)
-            command << "rotate " << target << ' ' << "xyz"[state_.axis] << ' ' << (key == GLFW_KEY_LEFT ? -5 : 5);
-        else if (key == GLFW_KEY_UP || key == GLFW_KEY_DOWN) {
-            glm::vec3 delta(0); delta[state_.axis] = key == GLFW_KEY_UP ? .05f : -.05f;
-            command << "move " << target << ' ' << delta.x << ' ' << delta.y << ' ' << delta.z;
-        }
-        if (!command.str().empty()) execute(command.str(), out);
+        out << "축 [" << "XYZ"[state_.axis] << "] - " << (state_.selectedLayer.empty() ? "월드" : "지역 레이어") << " 좌표계\n";
+    } else if (editOperation_ && (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT || key == GLFW_KEY_UP || key == GLFW_KEY_DOWN)) {
+        const float sign = key == GLFW_KEY_LEFT || key == GLFW_KEY_DOWN ? -1.0f : 1.0f;
+        editStep(sign * ((mods & GLFW_MOD_SHIFT) ? .1f : 1.0f),out);
     }
+
 }
 
 void Assembly::onFocus(bool focused) {
     if (!focused) {
+        finishEdit(false,std::cout);
         for (auto& binding : state_.bindings) binding.down = false;
         state_.dragging = false; state_.dragX.reset();
     }
@@ -228,7 +225,13 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
         return;
     }
     if (event.button != GLFW_MOUSE_BUTTON_LEFT || event.action != GLFW_PRESS) return;
+    if (editStart_) { finishEdit(true,out); return; }
     std::optional<graphics::PickResult> hit;
+    const auto setPlaneCursor = [&](const graphics::Camera& camera, const graphics::PickViewport& viewport) {
+        const auto point = graphics::PatternSystem::screenOnPlane(camera,event.framebufferX,event.framebufferY,
+            viewport,state_.planePoint,state_.planeNormal);
+        if (point) state_.cursor = *point;
+    };
     if (state_.threeViews) {
         const auto size = app_.getFramebufferSize();
         if (size[0] < 3 || size[1] < 2) return;
@@ -236,20 +239,34 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
             const auto& v = pass.viewport;
             const double top = size[1] - v.y - v.height;
             if (event.framebufferX >= v.x && event.framebufferX < v.x + v.width && event.framebufferY >= top && event.framebufferY < top + v.height)
+            {
+                setPlaneCursor(pass.camera,{double(v.x),top,double(v.width),double(v.height)});
                 hit = graphics::pick(app_.getScene(), pass.camera, event.framebufferX, event.framebufferY,
                     {double(v.x), top, double(v.width), double(v.height)}, pass.options.cull);
+            }
         }
-    } else hit = app_.pickAt(event.windowX, event.windowY);
+    } else {
+        const auto size=app_.getFramebufferSize();
+        setPlaneCursor(app_.getCamera(),{0,0,double(size[0]),double(size[1])});
+        hit=app_.pickAt(event.windowX,event.windowY);
+    }
+    if (hit) state_.cursor = hit->worldPoint;
+    if (state_.snapSpacing > 0) state_.cursor = graphics::PatternSystem::snap(state_.cursor,state_.snapSpacing);
+    state_.selectedLayer.clear();
+    state_.faceSelection = state_.editMode == "face" ? hit : std::nullopt;
     state_.selected.clear();
     std::optional<graphics::EntityId> entity = hit ? std::optional<graphics::EntityId>{hit->entityId} : std::nullopt;
     while (entity) {
-        for (const auto& item : state_.nodes)
-            if (item.second.id == *entity && item.second.whole &&
-                (state_.selected.empty() || item.second.kind == "group"))
-                state_.selected = item.first;
+        for (const auto& item : state_.nodes) {
+            const bool selectable = state_.editMode == "object" ? item.second.whole : true;
+            if (item.second.id == *entity && selectable) { state_.selected = item.first; break; }
+        }
+        if (!state_.selected.empty()) break;
         const auto* component = app_.getScene().getComponent(*entity);
         entity = component ? component->parent : std::nullopt;
     }
+    out << "cursor [생성 기준점] - 월드 XYZ=" << state_.cursor.x << ',' << state_.cursor.y << ',' << state_.cursor.z << '\n';
+    if (state_.faceSelection) out << "face [세부 면 선택] - entity=" << state_.faceSelection->entityId << ", face=" << state_.faceSelection->faceIndex << '\n';
     if (!state_.selected.empty()) {
         inspect(state_.selected, out);
         return;
@@ -257,6 +274,11 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
     out << "선택 해제\n";
 }
 void Assembly::onCursor(double x, double y, std::ostream& out) {
+    if (editStart_ && std::isfinite(x)) {
+        if (editCursor_) editStep(float(x-*editCursor_)*.1f,out);
+        editCursor_=x;
+        return;
+    }
     if (dispatchInput([&](const Behavior& b) { return b.cursor && b.cursor(*this, x, y); }, out)) return;
     if (!state_.dragging || !std::isfinite(x)) return;
     try {

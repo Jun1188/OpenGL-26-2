@@ -15,6 +15,13 @@ struct FaceMount {
     bool barycentric = true;
 };
 
+struct LocalLayer {
+    std::string name;
+    glm::mat4 matrix{1};
+    graphics::Motion motion;
+    double seconds = 0;
+    bool playing = true, enabled = true;
+};
 struct Node {
     graphics::EntityId id = 0;
     std::optional<graphics::EntityId> mesh;
@@ -26,6 +33,8 @@ struct Node {
     std::string guideTopic;
     std::optional<FaceMount> mount;
     bool affineGroup = false;
+    glm::mat4 attachment{1};
+    std::vector<LocalLayer> layers;
 };
 
 enum class Effect { Motion, Face, FaceTrack, Wall, Body, Walk, Conveyor, Custom, Input };
@@ -72,7 +81,12 @@ class Assembly {
         std::vector<Binding> bindings;
         std::string reloadPath = "examples/assembly/workspace.assembly";
         std::vector<std::string> recipe;
-        std::string selected;
+        std::string selected, selectedLayer;
+        glm::vec3 cursor{0}, planePoint{0}, planeNormal{0,1,0};
+        float snapSpacing = 0;
+        std::optional<std::array<graphics::LineId,3>> axes;
+        std::string editMode = "object";
+        std::optional<graphics::PickResult> faceSelection;
         int axis = 0;
         std::string dragTarget;
         glm::vec3 dragAxis{0, 1, 0};
@@ -85,6 +99,14 @@ class Assembly {
     bool replaying_ = false, faulted_ = false;
     std::uint64_t topologyRevision_ = 0;
 
+    std::optional<State> editStart_;
+    char editOperation_ = 0;
+    std::optional<double> editCursor_;
+    Tokens resolveCommand(const Tokens& args) const;
+    bool workspaceCommand(const Tokens& args, std::ostream& out);
+    void editStep(float amount, std::ostream& out);
+    void finishEdit(bool keep, std::ostream& out);
+    void setWorld(const std::string& target, const glm::mat4& matrix);
     bool dispatch(const Tokens& args, std::ostream& out);
     bool motionCommand(const Tokens& args, std::ostream& out);
     bool objectCommand(const Tokens& args, std::ostream& out);

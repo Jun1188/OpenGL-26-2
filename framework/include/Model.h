@@ -143,6 +143,8 @@ struct Component_Poly {
     std::optional<EntityId> parent; // Local SRT is relative to this entity.
     GlColor tint;                   // Per-entity multiplier; does not propagate to children.
     bool transformOnly = false;
+    glm::mat4 attachment{1.0f}; // Object-owned affine placement, including inherited shear.
+    std::vector<glm::mat4> localLayers; // Ordered, object-local transformations.
 };
 
 struct FaceId {

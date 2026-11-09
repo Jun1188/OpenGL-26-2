@@ -51,18 +51,23 @@ bool Assembly::applyPoses(float dt) {
         }
         return motion;
     };
-    std::vector<graphics::JointAnimation> tracks;
     for (const auto& item : state_.nodes) {
         auto* driver = positionDriver(item.first);
         if (driver && (driver->effect == Effect::Body || driver->effect == Effect::Walk || driver->effect == Effect::Custom))
             continue;
-        if (item.second.affineGroup) {
-            require(scene.setTransform(item.second.id, item.second.rest), "정적 warp 그룹 적용 실패.");
-            continue;
+        const auto sample = motionFor(item.first).sample(0);
+        require(sample.has_value(), "객체 모션 합성 실패.");
+        require(scene.setTransform(item.second.id, item.second.rest) &&
+            scene.setAttachment(item.second.id, item.second.attachment * sample->parent), "객체 기준 배치 실패.");
+        std::vector<glm::mat4> layers{sample->local};
+        for (const auto& layer : item.second.layers) {
+            if (!layer.enabled) continue;
+            const auto pose = layer.motion.sample(layer.seconds);
+            require(pose.has_value(), "지역 레이어 모션 실패: " + layer.name);
+            layers.push_back(layer.matrix * pose->parent * pose->local);
         }
-        tracks.push_back({item.second.id, item.second.rest, motionFor(item.first)});
+        require(scene.setLocalLayers(item.second.id, layers), "지역 레이어 합성 실패.");
     }
-    require(graphics::AnimationSystem::poseHierarchy(scene, tracks, 0), "기준 자세와 동작 합성 실패.");
     for (int phase = 0; phase < 4; ++phase) {
     for (auto& b : state_.behaviors) {
         const int order = b.effect == Effect::Body ? 1 : b.effect == Effect::Walk ? 2 : b.effect == Effect::Custom ? 3 : 0;
@@ -118,12 +123,6 @@ bool Assembly::applyPoses(float dt) {
             for (const auto& face : mesh->polyhedron.faces)
                 for (const auto& vertex : face.localVertices)
                     half = glm::max(half, glm::abs(target.rest.rotation * (vertex * target.rest.scale)));
-            if (target.kind == "sphere") {
-                float radius = 0;
-                for (const auto& face : mesh->polyhedron.faces)
-                    for (const auto& vertex : face.localVertices) radius = std::max(radius, glm::length(vertex));
-                half = glm::vec3(radius * target.rest.scale.x);
-            }
             b.body.halfExtent = half;
             if (!b.body.released) {
                 b.releasedRotation = glm::mat3(*matrix);
@@ -207,6 +206,19 @@ bool Assembly::applyPoses(float dt) {
     }
     }
     applyMounts();
+    glm::vec3 origin = state_.cursor;
+    glm::mat3 axes(1);
+    if (!state_.selected.empty()) {
+        const auto m=scene.worldMatrix(node(state_.selected).id);
+        if (m) {
+            origin=glm::vec3((*m)[3]);
+            if (!state_.selectedLayer.empty())
+                for (int i=0;i<3;++i) axes[i]=glm::normalize(glm::vec3((*m)[i]));
+        }
+    }
+    if (!state_.axes) state_.axes=scene.addBasis(origin,axes,glm::vec3(.8f));
+    if (state_.axes)
+        for (int i=0;i<3;++i) require(scene.setVector((*state_.axes)[i],origin,axes[i]*.8f),"조작 축 표시 실패");
     return true;
 }
 
@@ -223,6 +235,10 @@ bool Assembly::update(float dt, std::ostream& out) {
             else
                 rotate(binding.tokens[1], axis(binding.tokens[2]), float(number(binding.tokens[3])) * dt);
         }
+        if (!state_.paused)
+            for (auto& item : state_.nodes)
+                for (auto& layer : item.second.layers)
+                    if (layer.playing && layer.enabled) layer.seconds += dt;
         if (!state_.paused)
             for (auto& behavior : state_.behaviors)
                 if (behavior.playing && behavior.enabled)

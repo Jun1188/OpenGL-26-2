@@ -7,10 +7,11 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
     if (command == "add") {
         require(a.size() == 6 || a.size() == 9, "add <종류> <이름> <X> <Y> <Z> [크기X 크기Y 크기Z]");
         add(a[1], a[2], vector(a, 3), a.size() == 9 ? vector(a, 6) : glm::vec3(1));
+        state_.selected = a[2]; state_.selectedLayer.clear();
         return true;
     }
     if (command == "parent") {
-        require(a.size() == 3, "parent <자식> <부모 또는 none>. 좌표는 부모 로컬 값으로 유지합니다.");
+        require(a.size() == 3, "parent <자식> <부모 또는 none>. 현재 월드 배치와 지역 레이어를 유지합니다.");
         auto& child = node(a[1]);
         require(!child.mount, "면 부착 관절은 unmount 후 부모를 바꾸세요.");
         auto* driver = positionDriver(a[1]);
@@ -22,7 +23,8 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
                     "물리 메시/방 walls의 부모를 바꿀 수 없습니다.");
         }
         const auto parent = a[2] == "none" ? std::optional<graphics::EntityId>{} : std::optional<graphics::EntityId>{node(a[2]).id};
-        require(app_.getScene().setParent(child.id, parent), "부모 연결 실패. 순환 여부를 확인하세요.");
+        require(app_.getScene().setParentPreserveWorld(child.id, parent), "부모 연결 실패. 순환 여부를 확인하세요.");
+        child.attachment = app_.getScene().getComponent(child.id)->attachment;
         return true;
     }
     if (command == "color" || command == "show") {
@@ -56,8 +58,8 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         require(a.size() >= 3, command + " <대상> <값>");
         auto rest = node(a[1]).rest;
         if (command == "scale") {
-            require(a.size() == 3, "scale <대상> <양수 균일 배율>");
-            rest.scale = glm::vec3(float(number(a[2])));
+            require(a.size() == 3 || a.size() == 5, "scale <대상> <균일값 또는 SX SY SZ>");
+            rest.scale = a.size() == 3 ? glm::vec3(float(number(a[2]))) : vector(a, 2);
         } else if (command == "rest" || command == "rest3") {
             require(command == "rest" ? a.size() == 18 : a.size() == 20, "rest <대상> <위치3> <회전행렬 열우선9> <균일배율> <피벗3>");
             rest.basis = vector(a, 2);
@@ -78,6 +80,7 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
 }
 
 bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
+    if (workspaceCommand(a, out)) return true;
     if (a[0] == "help") {
         require(a.size() <= 2, "help [기능]");
         if (a.size() == 2) guide(a[1], out);
@@ -104,7 +107,7 @@ bool Assembly::dispatch(const Tokens& a, std::ostream& out) {
     if (a[0] == "inspect" || a[0] == "select") {
         require(a.size() == 2, a[0] + " <객체/부품 이름>");
         inspect(a[1], out);
-        if (a[0] == "select") state_.selected = a[1];
+        if (a[0] == "select") { state_.selected = a[1]; state_.selectedLayer.clear(); }
         return true;
     }
     if (a[0] == "clear") {

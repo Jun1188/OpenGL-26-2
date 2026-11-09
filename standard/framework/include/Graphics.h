@@ -106,6 +106,18 @@ public:
     /// [API] 부모 ID가 존재하고 순환이 없는지 확인한 뒤 계층 관계를 바꾼다. 월드 자세 보존 reparent 기능은 아니다.
     bool setParent(EntityId id, std::optional<EntityId> parent);
 
+    /// [API] Full affine placement before this object's local layers; parent's final layers are inherited.
+    std::optional<glm::mat4> placementMatrix(EntityId id) const;
+    /// [API] Sets world-authored placement without decomposing a potentially sheared matrix.
+    bool setWorldPlacement(EntityId id, const glm::mat4& world);
+    /// [API] Changes parent while preserving placement and this object's local layer list.
+    bool setParentPreserveWorld(EntityId id, std::optional<EntityId> parent);
+    /// [API] Sets the parent-relative affine attachment, before base SRT.
+    bool setAttachment(EntityId id, const glm::mat4& matrix);
+    /// [API] Replaces ordered local layers atomically. Each layer inherits all preceding layers.
+    bool setLocalLayers(EntityId id, const std::vector<glm::mat4>& layers);
+
+
 
     /// [API] 부모 체인과 모션 레이어를 합성한다. parent/prefix/local/suffix 순서를 실제 소스와 함께 읽는다.
     std::optional<glm::mat4> worldMatrix(EntityId id) const;

@@ -336,6 +336,54 @@ bool Scene::setParent(EntityId id, std::optional<EntityId> parent) {
     return true;
 }
 
+namespace {
+bool invertiblePlacement(const glm::mat4& m) {
+    return TransformSystem::validAffine(m) && std::abs(glm::determinant(glm::mat3(m))) > 1e-18f;
+}
+}
+std::optional<glm::mat4> Scene::placementMatrix(EntityId id) const {
+    if (id >= components_.size()) return {};
+    const auto& c = components_[id];
+    const auto parent = c.parent ? worldMatrix(*c.parent) : std::optional<glm::mat4>{glm::mat4(1)};
+    if (!parent) return {};
+    const auto matrix = *parent * c.attachment * detail::transformMatrix(c.transform);
+    return TransformSystem::validAffine(matrix) ? std::optional<glm::mat4>{matrix} : std::nullopt;
+}
+bool Scene::setAttachment(EntityId id, const glm::mat4& matrix) {
+    if (id >= components_.size() || !invertiblePlacement(matrix)) return false;
+    components_[id].attachment = matrix;
+    return true;
+}
+bool Scene::setLocalLayers(EntityId id, const std::vector<glm::mat4>& layers) {
+    if (id >= components_.size() || layers.size() > 128) return false;
+    glm::mat4 composed(1);
+    for (const auto& layer : layers) {
+        composed *= layer;
+        if (!invertiblePlacement(layer) || !invertiblePlacement(composed)) return false;
+    }
+    components_[id].localLayers = layers;
+    return true;
+}
+bool Scene::setWorldPlacement(EntityId id, const glm::mat4& world) {
+    if (id >= components_.size() || !invertiblePlacement(world)) return false;
+    const auto& c = components_[id];
+    const auto parent = c.parent ? worldMatrix(*c.parent) : std::optional<glm::mat4>{glm::mat4(1)};
+    const auto base = detail::transformMatrix(c.transform);
+    if (!parent || !invertiblePlacement(*parent) || !invertiblePlacement(base)) return false;
+    return setAttachment(id, glm::inverse(*parent) * world * glm::inverse(base));
+}
+bool Scene::setParentPreserveWorld(EntityId id, std::optional<EntityId> parent) {
+    const auto placement = placementMatrix(id);
+    if (!placement) return false;
+    const auto oldParent = components_[id].parent;
+    const auto oldAttachment = components_[id].attachment;
+    if (!setParent(id, parent)) return false;
+    if (setWorldPlacement(id, *placement)) return true;
+    components_[id].parent = oldParent;
+    components_[id].attachment = oldAttachment;
+    return false;
+}
+
 std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
     if (id >= components_.size())
         return (Diagnostics::failAt(
@@ -385,7 +433,9 @@ std::optional<glm::mat4> Scene::worldMatrix(EntityId id) const {
     for (std::size_t i = 0; i < chain.size(); ++i) {
         auto& matrix = i <= anchor ? prefix : suffix;
 
-        matrix *= detail::transformMatrix(components_[chain[i]].transform);
+        const auto& component = components_[chain[i]];
+        matrix *= component.attachment * detail::transformMatrix(component.transform);
+        for (const auto& local : component.localLayers) matrix *= local;
     }
 
     const auto result = motion->parent * prefix * motion->local * suffix;
