@@ -2,7 +2,7 @@
 
 namespace assembly {
 void Assembly::help(std::ostream& out) const {
-    out << "Standard 0: 왼쪽 클릭으로 물체 선택, Esc로 세부모드 종료. 도/초/월드 단위 사용.\n"
+    out << "Standard 0: 왼쪽 클릭: 물체, Ctrl+클릭: 부모 물체, Esc: 세부모드 종료. 도/초/월드 단위 사용.\n"
         << "add <종류> [이름] [at cursor 또는 at X Y Z] [생성 후 선택] - 종류: box/sphere/cone/pyramid/tetra/joint/room/humanoid, 이름 생략: 자동\n"
         << "t X Y Z [월드 원점 배치] - XYZ: 절대 좌표. 부모 상속 유지\n"
         << "r <축> <도> [월드 축 상대 회전] - 축: x/y/z, 도: 추가 회전량\n"
@@ -20,6 +20,8 @@ void Assembly::help(std::ostream& out) const {
         << "layer enable/play <on/off> [기여/시계 제어] - off: 기여 제거/시간 정지\n"
         << "insert spin <축> <도/초> [자전 레이어 추가] - 축: 지역 축, 도/초: 각속도\n"
         << "insert orbit <축> <도/초> center <cursor 또는 X Y Z> [공전 레이어 추가] - 중심: 월드 점을 지역으로 변환\n"
+        << "insert spin-axis AX AY AZ <도/초> [임의 지역 축 자전] - A: 0이 아닌 축 방향, 중심: 물체 피벗\n"
+        << "insert orbit-axis AX AY AZ <도/초> center <cursor 또는 X Y Z> [임의 지역 축 공전] - A: 축 방향, 중심: 월드 점\n"
         << "insert linear DX DY DZ <초> [선형 이동 레이어] - D: 지역 변위, 초: 이동 시간\n"
         << "insert pendulum <축> <진폭 도> <주기 초> [진자 레이어] - 축: 지역 회전축\n"
         << "insert translate/rotate/scale <t/r/s 인수> [고정 변환 레이어] - 인수: 해당 지역 변환과 같음\n"

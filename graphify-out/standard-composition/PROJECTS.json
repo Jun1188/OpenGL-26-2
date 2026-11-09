@@ -1,89 +1,5 @@
 ﻿[
   {
-    "project": "Computer-Graphics_WarmmingUp2/Computer-Graphics_WarmmingUp2.vcxproj",
-    "sources": [
-      "Computer-Graphics_WarmmingUp2/FileName.cpp",
-      "Computer-Graphics_WarmmingUp2/Application.cpp",
-      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
-      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
-      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
-      "Computer-Graphics_WarmmingUp2/console.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
-    ],
-    "entrypoints": [
-      {
-        "file": "Computer-Graphics_WarmmingUp2/FileName.cpp",
-        "line": 54,
-        "name": "wmain"
-      }
-    ],
-    "available": false,
-    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
-  },
-  {
-    "project": "Computer-Graphics_WarmmingUp2/tests/WarmupTests.vcxproj",
-    "sources": [
-      "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
-      "Computer-Graphics_WarmmingUp2/Application.cpp",
-      "Computer-Graphics_WarmmingUp2/Warm2-1.cpp",
-      "Computer-Graphics_WarmmingUp2/BoardCommand.cpp",
-      "Computer-Graphics_WarmmingUp2/BoardRenderer.cpp",
-      "Computer-Graphics_WarmmingUp2/console.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshParser.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshValidator.cpp",
-      "Computer-Graphics_WarmmingUp2/MeshReporter.cpp"
-    ],
-    "entrypoints": [
-      {
-        "file": "Computer-Graphics_WarmmingUp2/tests/Tests.cpp",
-        "line": 262,
-        "name": "main"
-      }
-    ],
-    "available": false,
-    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
-  },
-  {
-    "project": "computer_graphics_warmUp1/computer_graphics_warmUp1.vcxproj",
-    "sources": [
-      "computer_graphics_warmUp1/FileName.cpp"
-    ],
-    "entrypoints": [
-      {
-        "file": "computer_graphics_warmUp1/FileName.cpp",
-        "line": 553,
-        "name": "main",
-        "condition": "PROB == 1",
-        "active_by_source_default": false
-      },
-      {
-        "file": "computer_graphics_warmUp1/FileName.cpp",
-        "line": 903,
-        "name": "main",
-        "condition": "PROB == 2",
-        "active_by_source_default": true
-      },
-      {
-        "file": "computer_graphics_warmUp1/FileName.cpp",
-        "line": 1123,
-        "name": "main",
-        "condition": "PROB == 3",
-        "active_by_source_default": false
-      },
-      {
-        "file": "computer_graphics_warmUp1/FileName.cpp",
-        "line": 1319,
-        "name": "main",
-        "condition": "PROB == 4",
-        "active_by_source_default": false
-      }
-    ],
-    "available": false,
-    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
-  },
-  {
     "project": "openGL_2dAssign11/openGL_sample2.vcxproj",
     "available": true,
     "sources": [
@@ -449,23 +365,6 @@
     ]
   },
   {
-    "project": "openGL_sample0/openGL_sample0.vcxproj",
-    "sources": [
-      "openGL_sample0/main.cpp",
-      "openGL_sample0/MeshParser.cpp",
-      "openGL_sample0/MeshValidator.cpp"
-    ],
-    "entrypoints": [
-      {
-        "file": "openGL_sample0/main.cpp",
-        "line": 308,
-        "name": "main"
-      }
-    ],
-    "available": false,
-    "note": "Absent before this task. Entry information is historical; no file was restored or deleted."
-  },
-  {
     "project": "standard/standard.vcxproj",
     "available": true,
     "sources": [
@@ -473,6 +372,7 @@
       "standard/framework/detail/Animation.cpp",
       "standard/framework/detail/Application.cpp",
       "standard/framework/detail/CuboidMode.cpp",
+      "standard/framework/detail/Dynamics.cpp",
       "standard/framework/detail/Motion.cpp",
       "standard/framework/detail/ObjLoader.cpp",
       "standard/framework/detail/Patterns.cpp",
@@ -485,51 +385,23 @@
       "standard/modes/AssemblyCommands.cpp",
       "standard/modes/AssemblyConsole.cpp",
       "standard/modes/AssemblyDiagnostics.cpp",
+      "standard/modes/AssemblyDynamics.cpp",
       "standard/modes/AssemblyExamples.cpp",
       "standard/modes/AssemblyExtensions.cpp",
-      "standard/modes/AssemblyFeatureInput.cpp",
-      "standard/modes/AssemblyFeatures.cpp",
       "standard/modes/AssemblyGuide.cpp",
       "standard/modes/AssemblyHierarchy.cpp",
       "standard/modes/AssemblyInput.cpp",
       "standard/modes/AssemblyMotion.cpp",
       "standard/modes/AssemblyObjects.cpp",
       "standard/modes/AssemblyParts.cpp",
+      "standard/modes/AssemblyPaths.cpp",
       "standard/modes/AssemblyPersistence.cpp",
       "standard/modes/AssemblyRuntime.cpp",
+      "standard/modes/AssemblySceneTools.cpp",
       "standard/modes/AssemblySurface.cpp",
       "standard/modes/AssemblyTracks.cpp",
-      "standard/modes/Editor.cpp",
-      "standard/modes/FaceCommon.cpp",
-      "standard/modes/FeatureContainer.cpp",
-      "standard/modes/GuideRecipes.cpp",
-      "standard/modes/Mode0Assembly.cpp",
-      "standard/modes/Mode0Recipe.cpp",
-      "standard/modes/Mode10Practice13.cpp",
-      "standard/modes/Mode11Practice14.cpp",
-      "standard/modes/Mode12Practice15.cpp",
-      "standard/modes/Mode13Practice16.cpp",
-      "standard/modes/Mode14Practice17.cpp",
-      "standard/modes/Mode15Practice18.cpp",
-      "standard/modes/Mode16Practice19.cpp",
-      "standard/modes/Mode17Practice20.cpp",
-      "standard/modes/Mode18Practice21.cpp",
-      "standard/modes/Mode19Practice22.cpp",
-      "standard/modes/Mode1Ellipse.cpp",
-      "standard/modes/Mode20Practice23.cpp",
-      "standard/modes/Mode21CameraCollision.cpp",
-      "standard/modes/Mode22EmbeddedMesh.cpp",
-      "standard/modes/Mode2Rectangle.cpp",
-      "standard/modes/Mode3Polygon.cpp",
-      "standard/modes/Mode4Spatial.cpp",
-      "standard/modes/Mode5Circle.cpp",
-      "standard/modes/Mode6Polyline.cpp",
-      "standard/modes/Mode7Grid.cpp",
-      "standard/modes/Mode8Room.cpp",
-      "standard/modes/Mode9Animation.cpp",
-      "standard/modes/MotionCommon.cpp",
-      "standard/modes/PracticeRegistry.cpp",
-      "standard/modes/TankCommon.cpp"
+      "standard/modes/AssemblyWorkspace.cpp",
+      "standard/modes/Mode0Recipe.cpp"
     ],
     "entrypoints": [
       {

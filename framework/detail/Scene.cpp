@@ -337,6 +337,12 @@ bool Scene::setParent(EntityId id, std::optional<EntityId> parent) {
 }
 
 namespace {
+glm::mat4 inversePlacement(const glm::mat4& m) {
+    const auto linear=glm::inverse(glm::mat3(m));
+    glm::mat4 result(linear);
+    result[3]=glm::vec4(-linear*glm::vec3(m[3]),1);
+    return result;
+}
 bool invertiblePlacement(const glm::mat4& m) {
     return TransformSystem::validAffine(m) && std::abs(glm::determinant(glm::mat3(m))) > 1e-18f;
 }
@@ -370,7 +376,7 @@ bool Scene::setWorldPlacement(EntityId id, const glm::mat4& world) {
     const auto parent = c.parent ? worldMatrix(*c.parent) : std::optional<glm::mat4>{glm::mat4(1)};
     const auto base = detail::transformMatrix(c.transform);
     if (!parent || !invertiblePlacement(*parent) || !invertiblePlacement(base)) return false;
-    return setAttachment(id, glm::inverse(*parent) * world * glm::inverse(base));
+    return setAttachment(id, inversePlacement(*parent) * world * inversePlacement(base));
 }
 bool Scene::setParentPreserveWorld(EntityId id, std::optional<EntityId> parent) {
     const auto placement = placementMatrix(id);

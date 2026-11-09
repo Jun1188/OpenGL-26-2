@@ -9,3 +9,5 @@
 - Step 4: generic acceleration/force hooks and moving-scale application.
 - Step 5: regenerate current documentation and architecture, report all code changes and user-run checks.
 - Each step is a separate commit. No builds, tests, validators, app launches, or browser checks are executed.
+
+- Additional user direction: all previous modes are reference documents only. Full legacy source is preserved in standard/docs/reference/modes/*.md; Standard explicitly enumerates only current workspace translation units.

@@ -1,4 +1,4 @@
-﻿[브라우저 목차](index.html) · [시험 시나리오](docs/EXAM_SCENARIOS.html) · [README](README.md)
+﻿[브라우저 목차](index.html) · [변환 템플릿](docs/TRANSFORM_TEMPLATES.html) · [README](README.md)
 
 # standard 문서 목차
 
@@ -6,41 +6,45 @@
 
 ## 시작하기
 
-빌드, 실행, 모드 전환과 기본 조작. 처음이면 여기부터 읽는다.
+0번 장면 작업공간의 입력·명령·좌표계. 실습은 소스 참조다.
 
-- [README: 모드·키·실행 흐름](README.md) — 모드 0~22 목록, 공통 키, 실행 순서
-- [독립 배포와 환경](PORTABLE.md) — 필요한 Visual Studio 구성과 독립 폴더 배포
-- [사용자 빌드·입력 확인](USER_CHECKS.md) — 모드별로 직접 눌러 볼 키와 예상 결과
-- [모드별 입력 → 상태 → 출력 평가](docs/MODE_INPUT_AUDIT.md) — 모드별 입력과 반응을 정리한 평가표
-- [의미 단위 동작과 육면체 모드](docs/MODE_ACTIONS.md) — 모드별 의미 단위 동작과 육면체 명령
+- [0번 작업공간 시작](README.md)
+- [연산별 변환 템플릿](docs/TRANSFORM_TEMPLATES.html)
+- [요구 문장 → 변환·공간·API](docs/TRANSFORM_REFERENCE.md)
+- [템플릿 파일 목록](docs/TRANSFORM_TEMPLATES.md)
+- [명령어 [결과] - 인수 의미](docs/QUICK_COMMANDS.md)
+- [월드 배치·상속·지역 레이어](docs/TRANSFORM_WORKSPACE.md)
+- [광원·카메라·힘 API 연결](docs/APPLICATION_RECIPES.md)
+- [사용자 빌드·동작 확인](USER_CHECKS.md)
+- [Standard 폴더 사용](PORTABLE.md) — 필요한 Visual Studio 구성과 독립 폴더 배포
 
-## 시험 대비
+## 변환과 응용
 
-무작위 실습형 문제를 0번 조립 모드와 기존 실습 코드로 푸는 순서.
+재출제 시나리오 대신 연산·좌표계·시간·힘을 조합한다.
 
-- [시험 시나리오 튜토리얼](docs/EXAM_SCENARIOS.html) — 시나리오 12개: 레시피 불러오기 → 변형 → 모드 확정
-- [시험 현장 구현 순서: 육면체·렌더링·계층 변환](docs/EXAM_IMPLEMENTATION_ORDER.html) — 육면체·렌더링·계층 변환을 처음부터 구현하는 순서
-- [응용패턴 통합: 흐름도와 실제 코드](docs/IMPLEMENTATION_PATTERNS.html) — 응용 패턴별 흐름도와 실제 코드
+- [이전 시나리오 문서의 이동 안내](docs/EXAM_SCENARIOS.html) — 변환 조합 템플릿으로 통합
+- [응용 장면 작성 순서](docs/EXAM_IMPLEMENTATION_ORDER.html) — 육면체·렌더링·계층 변환을 처음부터 구현하는 순서
+- [응용 장면 작성 순서](docs/IMPLEMENTATION_PATTERNS.html) — 응용 패턴별 흐름도와 실제 코드
 
 ## 0번 기능 조립
 
-콘솔 명령으로 장면을 조립하고, 저장하고, C++로 확장하는 방법.
+짧은 명령과 객체별 지역 레이어로 작성·저장·확장한다.
 
-- [0번 기능 조립과 직접 코드 편집](docs/assembly/README.md) — 0번 모드 개요와 문서 지도
-- [시작·조립·직접 편집](docs/assembly/USER_GUIDE.md) — 시작, 계층 구성, 저장·재구성 따라 하기
-- [0번 기능 조립 API 명세](docs/assembly/SPEC.md) — 모든 명령의 문법과 계약
-- [기능별 C++ 직접 편집 안내](docs/assembly/CODE_GUIDE.md) — 기능별로 고칠 C++ 파일과 확장 예제
-- [guide로 편집하고 디버깅하기](docs/assembly/EDIT_DEBUG_GUIDE.md) — guide 출력으로 고치고 디버깅하는 순서
-- [1~22 기능 컨테이너와 핫로드 조립](docs/assembly/FEATURE_CONTAINERS.md) — 1~22 기존 모드를 기능 컨테이너로 조합
-- [기능 조합 패턴](docs/assembly/PATTERN_COMBINATIONS.md) — 탱크·트럭·사람 조립 패턴
-- [실습 표현력과 반복 소스 검토](docs/assembly/REQUIREMENT_AUDIT.md) — 실습별로 명령만으로 되는 것과 C++가 필요한 것
-- [C++26 리플렉션과 현재 핫로드 설계](docs/assembly/REFLECTION_AND_HOTLOAD.md) — 레시피 핫로드와 C++ 재빌드의 차이
-- [사용자 빌드·실행 확인 절차](docs/assembly/USER_CHECKS.md) — 0번 모드 직접 확인 절차
+- [0번 작업공간 문서 지도](docs/assembly/README.md) — 0번 모드 개요와 문서 지도
+- [작업공간 사용 순서](docs/assembly/USER_GUIDE.md) — 시작, 계층 구성, 저장·재구성 따라 하기
+- [명령과 좌표계 계약](docs/assembly/SPEC.md) — 모든 명령의 문법과 계약
+- [C++ 확장 위치](docs/assembly/CODE_GUIDE.md) — 기능별로 고칠 C++ 파일과 확장 예제
+- [편집과 오류 위치](docs/assembly/EDIT_DEBUG_GUIDE.md) — guide 출력으로 고치고 디버깅하는 순서
+- [과거 실습 컨테이너 소스 참조](docs/assembly/FEATURE_CONTAINERS.md) — 과거 컨테이너 소스 참조; 현재 런타임 제외
+- [객체와 변환 템플릿 조합](docs/assembly/PATTERN_COMBINATIONS.md) — 탱크·트럭·사람 조립 패턴
+- [현재 지원 범위](docs/assembly/REQUIREMENT_AUDIT.md) — 실습별로 명령만으로 되는 것과 C++가 필요한 것
+- [레시피 재읽기와 C++ 변경](docs/assembly/REFLECTION_AND_HOTLOAD.md) — 레시피 핫로드와 C++ 재빌드의 차이
+- [조립 작업공간 사용자 확인](docs/assembly/USER_CHECKS.md) — 0번 모드 직접 확인 절차
 - [30MB 이하 소스 프로젝트 배포](docs/assembly/PORTABLE_PACKAGE.md) — 30MB 이하 소스 패키지 정책
 
-## 실습 13~23 코드 모음
+## 과거 실습 코드 참조
 
-실습별 세부 요구를 상태·입력·프레임 계산 코드로 나눈 모음.
+변환 구현을 찾는 참고 코드. 시험 유형이나 재출제 예상 목록이 아니다.
 
 - [3D 실습 세부 요구사항 구현 패턴](docs/practice-cookbook/README.md) — 실습별 문서 목록과 읽는 방법
 - [공통 구현: standard 안에서만 사용하는 보조 코드](docs/practice-cookbook/COMMON.md) — 모든 실습이 공유하는 공통 코드
@@ -64,7 +68,7 @@
 framework와 standard의 공개 API, 렌더링 설정, 외부 라이브러리 명세.
 
 - [공통 구현과 전체 API 사례 코드](docs/API_REFERENCE.html) — 전체 API와 사례 코드(최신 조립 API 포함)
-- [프레임워크 공개 API 한글 목록](docs/API_KO.md) — framework 공개 API 한글 목록
+- [공개 API 한글 목록](docs/API_KO.md) — framework 공개 API 한글 목록
 - [응용 API 읽는 순서](docs/APPLICATION_API.md) — Application API 읽는 순서
 - [그네·사람형·계층 SRT 빠른 참조](docs/ANIMATION_API.md) — 그네·사람형·선형보간 SRT 애니메이션
 - [응용패턴·그네 통합 설명](docs/APPLICATION_PATTERNS.md) — 응용 패턴 사례
@@ -81,8 +85,8 @@ framework와 standard의 공개 API, 렌더링 설정, 외부 라이브러리 �
 
 가이드·기능 컨테이너 사이의 의존 관계 그래프.
 
-- [가이드·컨테이너 구조 스냅샷](docs/assembly/architecture/README.md) — 그래프 읽는 법
-- [가이드·기능 컨테이너와 전체 실행 구조](docs/assembly/architecture/GRAPH_REPORT.md) — 그래프 분석 보고서
+- [구조 분석](docs/assembly/architecture/README.md) — 그래프 읽는 법
+- [실행 구조와 소스 관계](docs/assembly/architecture/GRAPH_REPORT.md) — 그래프 분석 보고서
 - [구조 그래프 (대화형)](docs/assembly/architecture/graph.html) — 대화형 그래프(인터넷 필요)
 
 ## framework 동봉 사본
@@ -90,7 +94,7 @@ framework와 standard의 공개 API, 렌더링 설정, 외부 라이브러리 �
 framework 폴더에 함께 들어 있는 문서 사본. 내용은 위 API 레퍼런스와 같은 계열이다.
 
 - [공통 구현과 전체 API 사례 코드](framework/docs/API_REFERENCE.html)
-- [프레임워크 공개 API 한글 목록](framework/docs/API_KO.md)
+- [공개 API 한글 목록](framework/docs/API_KO.md)
 - [응용 API 읽는 순서](framework/docs/APPLICATION_API.md)
 - [그네·사람형·계층 SRT 빠른 참조](framework/docs/ANIMATION_API.md)
 - [응용패턴·그네 통합 설명](framework/docs/APPLICATION_PATTERNS.md)
@@ -115,6 +119,59 @@ framework 폴더에 함께 들어 있는 문서 사본. 내용은 위 API 레퍼
 - [브라우저 문서 목차와 Markdown 미리보기](docs/DOCUMENT_VIEWER.md) — 목차 분류를 고치고 문서를 다시 만드는 방법
 - [standard 전체 폴더 용량](SIZE_REPORT.md) — standard 폴더 용량 합계
 - [문서 목차 (Markdown 판)](DOCUMENT_INDEX.md) — 이 목차의 Markdown 판
+
+## 실습 소스 참조
+
+실행 모드가 아닌 코드 레퍼런스
+
+- [실습 코드 참조](docs/REFERENCE_PRACTICES.md)
+- [과거 구현 참조: AssemblyFeatureInput.cpp](docs/reference/modes/AssemblyFeatureInput.cpp.md)
+- [과거 구현 참조: AssemblyFeatures.cpp](docs/reference/modes/AssemblyFeatures.cpp.md)
+- [과거 구현 참조: Editor.cpp](docs/reference/modes/Editor.cpp.md)
+- [과거 구현 참조: FaceCommon.cpp](docs/reference/modes/FaceCommon.cpp.md)
+- [과거 구현 참조: FaceCommon.h](docs/reference/modes/FaceCommon.h.md)
+- [과거 구현 참조: FeatureContainer.cpp](docs/reference/modes/FeatureContainer.cpp.md)
+- [과거 구현 참조: FeatureContainer.h](docs/reference/modes/FeatureContainer.h.md)
+- [과거 구현 참조: GuideRecipes.cpp](docs/reference/modes/GuideRecipes.cpp.md)
+- [과거 구현 참조: GuideRecipes.h](docs/reference/modes/GuideRecipes.h.md)
+- [과거 구현 참조: Mode0Assembly.cpp](docs/reference/modes/Mode0Assembly.cpp.md)
+- [과거 구현 참조: Mode10Practice13.cpp](docs/reference/modes/Mode10Practice13.cpp.md)
+- [과거 구현 참조: Mode11Practice14.cpp](docs/reference/modes/Mode11Practice14.cpp.md)
+- [과거 구현 참조: Mode12Practice15.cpp](docs/reference/modes/Mode12Practice15.cpp.md)
+- [과거 구현 참조: Mode13Practice16.cpp](docs/reference/modes/Mode13Practice16.cpp.md)
+- [과거 구현 참조: Mode14Practice17.cpp](docs/reference/modes/Mode14Practice17.cpp.md)
+- [과거 구현 참조: Mode15Practice18.cpp](docs/reference/modes/Mode15Practice18.cpp.md)
+- [과거 구현 참조: Mode16Practice19.cpp](docs/reference/modes/Mode16Practice19.cpp.md)
+- [과거 구현 참조: Mode17Practice20.cpp](docs/reference/modes/Mode17Practice20.cpp.md)
+- [과거 구현 참조: Mode18Practice21.cpp](docs/reference/modes/Mode18Practice21.cpp.md)
+- [과거 구현 참조: Mode19Practice22.cpp](docs/reference/modes/Mode19Practice22.cpp.md)
+- [과거 구현 참조: Mode1Ellipse.cpp](docs/reference/modes/Mode1Ellipse.cpp.md)
+- [과거 구현 참조: Mode20Practice23.cpp](docs/reference/modes/Mode20Practice23.cpp.md)
+- [과거 구현 참조: Mode21CameraCollision.cpp](docs/reference/modes/Mode21CameraCollision.cpp.md)
+- [과거 구현 참조: Mode22EmbeddedMesh.cpp](docs/reference/modes/Mode22EmbeddedMesh.cpp.md)
+- [과거 구현 참조: Mode2Rectangle.cpp](docs/reference/modes/Mode2Rectangle.cpp.md)
+- [과거 구현 참조: Mode3Polygon.cpp](docs/reference/modes/Mode3Polygon.cpp.md)
+- [과거 구현 참조: Mode4Spatial.cpp](docs/reference/modes/Mode4Spatial.cpp.md)
+- [과거 구현 참조: Mode5Circle.cpp](docs/reference/modes/Mode5Circle.cpp.md)
+- [과거 구현 참조: Mode6Polyline.cpp](docs/reference/modes/Mode6Polyline.cpp.md)
+- [과거 구현 참조: Mode7Grid.cpp](docs/reference/modes/Mode7Grid.cpp.md)
+- [과거 구현 참조: Mode8Room.cpp](docs/reference/modes/Mode8Room.cpp.md)
+- [과거 구현 참조: Mode9Animation.cpp](docs/reference/modes/Mode9Animation.cpp.md)
+- [과거 구현 참조: MotionCommon.cpp](docs/reference/modes/MotionCommon.cpp.md)
+- [과거 구현 참조: Paths.h](docs/reference/modes/Paths.h.md)
+- [과거 구현 참조: PracticeCommon.h](docs/reference/modes/PracticeCommon.h.md)
+- [과거 구현 참조: PracticeMode.h](docs/reference/modes/PracticeMode.h.md)
+- [과거 구현 참조: PracticeRegistry.cpp](docs/reference/modes/PracticeRegistry.cpp.md)
+- [과거 구현 참조: TankCommon.cpp](docs/reference/modes/TankCommon.cpp.md)
+- [과거 구현 참조: TankCommon.h](docs/reference/modes/TankCommon.h.md)
+
+## 기타 문서
+
+분류에 아직 넣지 않은 문서다. DOCUMENT_CATALOG.json에 추가하면 위 분류로 옮겨진다.
+
+- [실습 모드 안내 변경](docs/MODE_ACTIONS.md)
+- [실습 모드 안내 변경](docs/MODE_INPUT_AUDIT.md)
+- [객체 부착·지역 레이어·힘 API](framework/docs/WORKSPACE_API.md)
 
 ## 흐름도
 

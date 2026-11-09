@@ -1,8 +1,7 @@
-﻿#include "Paths.h"
-#include "PracticeCommon.h"
+﻿#include "AssemblyPaths.h"
 
 
-graphics::PathMotion standard_modes::path1() {
+graphics::PathMotion assembly_paths::ellipse() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     const glm::vec3 center(1.7f, 0, 0);
@@ -10,7 +9,7 @@ graphics::PathMotion standard_modes::path1() {
     return path;
 }
 
-graphics::PathMotion standard_modes::path2() {
+graphics::PathMotion assembly_paths::rectangle() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     const glm::vec3 center(1.7f, 0, 0);
@@ -18,7 +17,7 @@ graphics::PathMotion standard_modes::path2() {
     return path;
 }
 
-graphics::PathMotion standard_modes::path3() {
+graphics::PathMotion assembly_paths::polygon() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     path.path = graphics::PathSystem::polygon(
@@ -26,7 +25,7 @@ graphics::PathMotion standard_modes::path3() {
     return path;
 }
 
-graphics::PathMotion standard_modes::path4() {
+graphics::PathMotion assembly_paths::spatial() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     const glm::vec3 center(1.7f, 0, 0);
@@ -39,7 +38,7 @@ graphics::PathMotion standard_modes::path4() {
     return path;
 }
 
-graphics::PathMotion standard_modes::path5() {
+graphics::PathMotion assembly_paths::circle() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     const glm::vec3 center(1.7f, 0, 0);
@@ -47,7 +46,7 @@ graphics::PathMotion standard_modes::path5() {
     return path;
 }
 
-graphics::PathMotion standard_modes::path6() {
+graphics::PathMotion assembly_paths::polyline() {
     graphics::PathMotion path;
     path.durationSeconds = 6;
     path.path = graphics::PathSystem::polyline({{1, -.5f, 0}, {2.4f, -.5f, 0}, {2, .6f, 0}});

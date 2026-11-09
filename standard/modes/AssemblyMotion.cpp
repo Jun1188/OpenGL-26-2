@@ -1,5 +1,5 @@
 ﻿#include "Assembly.h"
-#include "Paths.h"
+#include "AssemblyPaths.h"
 #include <algorithm>
 
 namespace assembly {
@@ -108,8 +108,8 @@ bool Assembly::motionCommand(const Tokens& a, std::ostream&) {
         const double index = number(a[3]);
         require(index >= 1 && index <= 6 && index == std::floor(index), "경로 번호는 1~6입니다.");
         using Factory = graphics::PathMotion (*)();
-        const Factory factories[]{standard_modes::path1, standard_modes::path2, standard_modes::path3,
-            standard_modes::path4, standard_modes::path5, standard_modes::path6};
+        const Factory factories[]{assembly_paths::ellipse, assembly_paths::rectangle, assembly_paths::polygon,
+            assembly_paths::spatial, assembly_paths::circle, assembly_paths::polyline};
         auto config = factories[int(index) - 1]();
         config.durationSeconds = number(a[4]);
         require(config.durationSeconds > 0, "주기는 양수입니다.");

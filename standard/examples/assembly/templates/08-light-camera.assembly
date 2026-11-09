@@ -1,0 +1,24 @@
+﻿# @title: 같은 변환을 조명·카메라에 사용
+# @goal: 시각 객체와 관찰·광원 배치를 함께 조립할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 관찰할 물체 생성
+add box item at 0 0 0
+
+#: 점광원 생성
+light point lamp at 3 4 2
+
+#: 광원 강도 설정
+light intensity 2
+
+#: 카메라 생성
+camera add observer at 6 4 8
+
+#: 월드 원점을 바라보게 설정
+camera look 0 0 0
+
+#: 선택 카메라로 전환
+camera use

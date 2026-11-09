@@ -1,0 +1,15 @@
+﻿# @title: 입력량과 시간당 변화량
+# @goal: 한 번 누름과 길게 누름을 구분할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 제어할 물체 생성
+add box item at 0 0 0
+
+#: 누른 동안 초당 X+1 이동
+bind RIGHT hold "move item 1 0 0"
+
+#: 한 번 누를 때 Y축5도 회전
+bind Q press "rotate item y 5"

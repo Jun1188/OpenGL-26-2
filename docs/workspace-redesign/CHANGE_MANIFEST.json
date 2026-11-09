@@ -1,0 +1,1490 @@
+﻿{
+  "baseline": "e6af6deb4b2c8acc5028307592b654bcaeebbf4d",
+  "source_state": "Saved working tree during step 5; docs.zip and manifest self-hash excluded.",
+  "files": [
+    {
+      "path": "docs/workspace-redesign/ALL_CODE_BEFORE_AFTER.md",
+      "new": true,
+      "exists": true,
+      "bytes": 492434,
+      "sha256": "f00b34a9922cf097905ce0c37002b49db96f9d29773ac7175d555e1906e1a396"
+    },
+    {
+      "path": "docs/workspace-redesign/ARCHITECTURE.md",
+      "new": true,
+      "exists": true,
+      "bytes": 8202,
+      "sha256": "38f9a86e8cb994e1578a382c1eaa06fc59f55fb0e5af63eb4ecc1647c7d4e2f8"
+    },
+    {
+      "path": "docs/workspace-redesign/CLEANUP_CANDIDATES.md",
+      "new": true,
+      "exists": true,
+      "bytes": 745,
+      "sha256": "96ec7e9f302ff5c008527a538354350044dd76503a551112071cc29576c2150a"
+    },
+    {
+      "path": "docs/workspace-redesign/PLAN.md",
+      "new": true,
+      "exists": true,
+      "bytes": 1154,
+      "sha256": "9e2f47b435a2ddb0b7c6593fbb9601394fee4889c35a87e48b8065ae32589602"
+    },
+    {
+      "path": "docs/workspace-redesign/REFERENCE_MIGRATION.json",
+      "new": true,
+      "exists": true,
+      "bytes": 13551,
+      "sha256": "68f010318fb6051a6404c69995f77056c6bf6ac542c0e60bdee2832c7068e82c"
+    },
+    {
+      "path": "docs/workspace-redesign/RESULT.md",
+      "new": true,
+      "exists": true,
+      "bytes": 1812,
+      "sha256": "87e0177fa1cc52a358808fb6e573d7981e3839f9202e46e1bfe20446b5661109"
+    },
+    {
+      "path": "framework-analysis/api-reference/CATALOG.md",
+      "new": false,
+      "exists": true,
+      "bytes": 543,
+      "sha256": "abb1813f9e9314b51e14bd572350bbd475cdb866415b3f66ab80be33de0ff54c"
+    },
+    {
+      "path": "framework/Framework.h",
+      "new": false,
+      "exists": true,
+      "bytes": 312,
+      "sha256": "4f00dddbb402def9b03b3680dd3e45fbd0d52e930d453c700802f5cac9a2e879"
+    },
+    {
+      "path": "framework/README.md",
+      "new": false,
+      "exists": true,
+      "bytes": 45647,
+      "sha256": "e1e59f080e0c03dca21993561e27567ebae86b70b7bdd1fcebcbe234b4d0c1dc"
+    },
+    {
+      "path": "framework/detail/Dynamics.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 3512,
+      "sha256": "cf7aec36444d9ba8d34021d3ddaac7ee28a298472cc0608f7a90255260d06d61"
+    },
+    {
+      "path": "framework/detail/Renderer.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 33731,
+      "sha256": "8216edb888c3ad966196d816bf3859da493e82f131055d96c9c44b6e62ffaa68"
+    },
+    {
+      "path": "framework/detail/Scene.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 51555,
+      "sha256": "d6a2dea5d7e9ded538f496515deb266a95ed777ad2c81fa2f444e55c5805cbd0"
+    },
+    {
+      "path": "framework/detail/Shaders.h",
+      "new": false,
+      "exists": true,
+      "bytes": 2142,
+      "sha256": "ccb8f8225c11da6213be7ae529a6a439598dec00fc0045524379bb42acc0864a"
+    },
+    {
+      "path": "framework/docs/API_CASE_MAP.json",
+      "new": false,
+      "exists": true,
+      "bytes": 839929,
+      "sha256": "ff56cfc3f8106daf5b97260d910e4f39b8fa28af82579259b30d177eff3a6b54"
+    },
+    {
+      "path": "framework/docs/API_KO.json",
+      "new": false,
+      "exists": true,
+      "bytes": 134944,
+      "sha256": "17b483e93bbaafcc0a14f9e3484801c3e4f6d9362cc2a3420adac357fd0cc9cf"
+    },
+    {
+      "path": "framework/docs/API_KO.md",
+      "new": false,
+      "exists": true,
+      "bytes": 112426,
+      "sha256": "5c6dd6fdd0a0c14c1e2636311577fabe187c25620e80068858aa1731953228c5"
+    },
+    {
+      "path": "framework/docs/API_REFERENCE.html",
+      "new": false,
+      "exists": true,
+      "bytes": 2603243,
+      "sha256": "760e767a5839c3515744786c2637cbdf70db4cf1baf9fa6c7e789f26a65ed9f8"
+    },
+    {
+      "path": "framework/docs/IMPLEMENTATION_PATTERNS.html",
+      "new": false,
+      "exists": true,
+      "bytes": 675728,
+      "sha256": "7b603e820a650e0611cee7e17648d8bdf09539378f4a15819e25fe7c6f2faf27"
+    },
+    {
+      "path": "framework/docs/WORKSPACE_API.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2552,
+      "sha256": "f10be181620675f53c37facdab4f6123736431a9389495d7685eb4c84ae0c59e"
+    },
+    {
+      "path": "framework/include/Dynamics.h",
+      "new": true,
+      "exists": true,
+      "bytes": 1947,
+      "sha256": "2252c2739b307fa780f1ab700dfdb62ae8f95c0a0a04e172b2cfbfdc2e8108a6"
+    },
+    {
+      "path": "framework/include/Graphics.h",
+      "new": false,
+      "exists": true,
+      "bytes": 21096,
+      "sha256": "e93519de9a5b39f9111e78673a61545ee6bd9e033a304d688960f115337d281f"
+    },
+    {
+      "path": "framework/include/Model.h",
+      "new": false,
+      "exists": true,
+      "bytes": 9968,
+      "sha256": "7a6f43c461b6d82d91cf2082b9fdd9282c813c1d38823137272fb6c11228dd2b"
+    },
+    {
+      "path": "framework/include/RenderConfig.h",
+      "new": false,
+      "exists": true,
+      "bytes": 3804,
+      "sha256": "f0dac3acf398482a8d055cd83aee29d4dbaedef9d5c5f4f044995e94b1a8035b"
+    },
+    {
+      "path": "framework/shaders/FragmentShader.glsl",
+      "new": false,
+      "exists": true,
+      "bytes": 1458,
+      "sha256": "d8c49f6ed22e1d4f5aae145ebc86f19e53266a7cde8c6985cb045f6a507285b3"
+    },
+    {
+      "path": "framework/shaders/VertexShader.glsl",
+      "new": false,
+      "exists": true,
+      "bytes": 526,
+      "sha256": "88e1f6da0d415f0b8efad7c4186bfefe77575588a807822b69a7be3fc6463790"
+    },
+    {
+      "path": "graphify-out/standard-composition/EXTRACTION.json",
+      "new": false,
+      "exists": true,
+      "bytes": 3702526,
+      "sha256": "36fad6250835e34b842bf8c83c4313a2a243d2221b2c4e391bd8bd5fa2c4ddb8"
+    },
+    {
+      "path": "graphify-out/standard-composition/GRAPH_REPORT.md",
+      "new": false,
+      "exists": true,
+      "bytes": 8202,
+      "sha256": "38f9a86e8cb994e1578a382c1eaa06fc59f55fb0e5af63eb4ecc1647c7d4e2f8"
+    },
+    {
+      "path": "graphify-out/standard-composition/PROJECTS.json",
+      "new": false,
+      "exists": true,
+      "bytes": 14760,
+      "sha256": "874b68bb0010d4532b0cb19bcdc468c242090446dc7533be8c90961257c6c737"
+    },
+    {
+      "path": "graphify-out/standard-composition/SOURCE_MANIFEST.json",
+      "new": false,
+      "exists": true,
+      "bytes": 16181,
+      "sha256": "dcd41f81d174cd7ed8877ed75dec551cf0e99f8f41315c216c2876bfcb7b97ee"
+    },
+    {
+      "path": "graphify-out/standard-composition/graph.html",
+      "new": false,
+      "exists": true,
+      "bytes": 3182325,
+      "sha256": "6fd39565ab6626e850b38e5bc369fef125d677527abd6470413f2254890e9f88"
+    },
+    {
+      "path": "graphify-out/standard-composition/graph.json",
+      "new": false,
+      "exists": true,
+      "bytes": 3956078,
+      "sha256": "39c26d8177abd40ec8a9c8c4acc6648faacc0946206f97b650e285b82b15bf4b"
+    },
+    {
+      "path": "standard/Console.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 1254,
+      "sha256": "108373a7230ecf65e98c83081876f8c1c87598bfa4d6f38909e86e3a1634f7a7"
+    },
+    {
+      "path": "standard/Console.h",
+      "new": false,
+      "exists": true,
+      "bytes": 641,
+      "sha256": "9e707a6f15350bf3bc6e94d8239e862a7de38e8e9dbd6501b950ed2e2ba998fd"
+    },
+    {
+      "path": "standard/DOCUMENT_INDEX.md",
+      "new": false,
+      "exists": true,
+      "bytes": 13109,
+      "sha256": "99a787175399b163b0219dcb156a9d314e4db0a27f59a78d9aa864825da49af1"
+    },
+    {
+      "path": "standard/PORTABLE.md",
+      "new": false,
+      "exists": true,
+      "bytes": 515,
+      "sha256": "18e2bbb1324865d675663a98ecac21b222cb06c5f962e84de7f4967f19d0a3ff"
+    },
+    {
+      "path": "standard/README.md",
+      "new": false,
+      "exists": true,
+      "bytes": 3132,
+      "sha256": "d5cd0d946acefc0a7ac66231bdce18d31bd77eeeb8c4662db6707769c2e61fbd"
+    },
+    {
+      "path": "standard/SIZE_REPORT.md",
+      "new": false,
+      "exists": true,
+      "bytes": 1855,
+      "sha256": "2e62dded809536b6d81bf566c4e26af5ced3d3e85e29567ce31f685901baf66c"
+    },
+    {
+      "path": "standard/USER_CHECKS.md",
+      "new": false,
+      "exists": true,
+      "bytes": 2956,
+      "sha256": "77dc068fa7dc1909a35f3835423b718a35fa3670b56d0edc520cdb1e024c16cc"
+    },
+    {
+      "path": "standard/docs/API_CASE_MAP.json",
+      "new": false,
+      "exists": true,
+      "bytes": 870589,
+      "sha256": "30c99d2240749d905b01c2c2c9f4d1bd3e49b4ce796569385b86587b51d9193f"
+    },
+    {
+      "path": "standard/docs/API_KO.json",
+      "new": false,
+      "exists": true,
+      "bytes": 137428,
+      "sha256": "75588f9ba9f307014680d3bb76cee0b285a77bc367e67a8c0d5d59aa6c2f31e6"
+    },
+    {
+      "path": "standard/docs/API_KO.md",
+      "new": false,
+      "exists": true,
+      "bytes": 115186,
+      "sha256": "01cb45c25a9a92e7ec52dd469478ed3512ddfc654cd9670e811a47a076dfce3a"
+    },
+    {
+      "path": "standard/docs/API_REFERENCE.html",
+      "new": false,
+      "exists": true,
+      "bytes": 2413756,
+      "sha256": "85b3ca39372c7a05ac476103efecf4c923d9e1dd15992e5a789fad5357179b93"
+    },
+    {
+      "path": "standard/docs/APPLICATION_RECIPES.md",
+      "new": true,
+      "exists": true,
+      "bytes": 3757,
+      "sha256": "7b95aebd12743abbb6d03194f277151844ba233931cbb525d3ac28b89a6d0590"
+    },
+    {
+      "path": "standard/docs/DOCUMENT_CATALOG.json",
+      "new": false,
+      "exists": true,
+      "bytes": 16042,
+      "sha256": "c9e1f21c8ca562f75b43442de2af5f7e7c95cd7890da254b6b53c0982d196fde"
+    },
+    {
+      "path": "standard/docs/EXAM_IMPLEMENTATION_ORDER.html",
+      "new": false,
+      "exists": true,
+      "bytes": 1693,
+      "sha256": "740cfe4761124ebb122eeb01ca62d304cb1c10f9ab2dfe0979d03b12e2848001"
+    },
+    {
+      "path": "standard/docs/EXAM_SCENARIOS.html",
+      "new": false,
+      "exists": true,
+      "bytes": 296,
+      "sha256": "080f723e7b552d0de792910d47ddd250696905861c4b679f350eb733f567090c"
+    },
+    {
+      "path": "standard/docs/IMPLEMENTATION_PATTERNS.html",
+      "new": false,
+      "exists": true,
+      "bytes": 1691,
+      "sha256": "52aafdb65ef9d8df0833b07342dcb2bd524aec24a3cb2474dad48cef6a07ab89"
+    },
+    {
+      "path": "standard/docs/MODE_ACTIONS.md",
+      "new": false,
+      "exists": true,
+      "bytes": 242,
+      "sha256": "e09222d42c09109287d10af82c2a287f5037256b53e3a3ad311ebf4711b8ceb6"
+    },
+    {
+      "path": "standard/docs/MODE_INPUT_AUDIT.md",
+      "new": false,
+      "exists": true,
+      "bytes": 242,
+      "sha256": "e09222d42c09109287d10af82c2a287f5037256b53e3a3ad311ebf4711b8ceb6"
+    },
+    {
+      "path": "standard/docs/QUICK_COMMANDS.md",
+      "new": true,
+      "exists": true,
+      "bytes": 5280,
+      "sha256": "c3c8c1bbf7742825644eed908a1630d9646bc4481f8cd16aef9557898aa8142b"
+    },
+    {
+      "path": "standard/docs/REFERENCE_PRACTICES.md",
+      "new": true,
+      "exists": true,
+      "bytes": 3024,
+      "sha256": "30abf668b7690af49460364332865d5b49500eb827b8ccfdb67208efdb0d4d90"
+    },
+    {
+      "path": "standard/docs/TRANSFORM_REFERENCE.md",
+      "new": true,
+      "exists": true,
+      "bytes": 5744,
+      "sha256": "3313ac3240ce37be9b2998b525cdb3baaf384081da14763efecfee35af9c5d57"
+    },
+    {
+      "path": "standard/docs/TRANSFORM_TEMPLATES.html",
+      "new": true,
+      "exists": true,
+      "bytes": 13308,
+      "sha256": "420cbf97384a1fc615990a2cf4f70202109a9211d79fef22ef1cc9ebd5d13c7d"
+    },
+    {
+      "path": "standard/docs/TRANSFORM_TEMPLATES.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2707,
+      "sha256": "ec4eb54d213cc52ec9e5493dd078204593ae928f3749e3a63419f9708b3db0d3"
+    },
+    {
+      "path": "standard/docs/TRANSFORM_WORKSPACE.md",
+      "new": true,
+      "exists": true,
+      "bytes": 3952,
+      "sha256": "6a788123a196bd8eab0e48065cacfdd65ab76e6402ad65818d1cc51db75b80eb"
+    },
+    {
+      "path": "standard/docs/assembly/CODE_GUIDE.md",
+      "new": false,
+      "exists": true,
+      "bytes": 279,
+      "sha256": "5e7502795225bcf05b70de38f5f5554ab5041976a868c0266f9f905f03ee9d4b"
+    },
+    {
+      "path": "standard/docs/assembly/EDIT_DEBUG_GUIDE.md",
+      "new": false,
+      "exists": true,
+      "bytes": 295,
+      "sha256": "9380c98473487e2e1a3ddb09464661e258b5f7adecf814a29b8130f90ae4b1b5"
+    },
+    {
+      "path": "standard/docs/assembly/FEATURE_CONTAINERS.md",
+      "new": false,
+      "exists": true,
+      "bytes": 298,
+      "sha256": "64824f7b489155bd81c261aeb01b84a53849f18b8f5298f8da6ac36bd04e81a8"
+    },
+    {
+      "path": "standard/docs/assembly/PATTERN_COMBINATIONS.md",
+      "new": false,
+      "exists": true,
+      "bytes": 259,
+      "sha256": "253dd9f679972ba5ac090665deb1418dac4016053b63752f1e4a3f2aa2ff062b"
+    },
+    {
+      "path": "standard/docs/assembly/README.md",
+      "new": false,
+      "exists": true,
+      "bytes": 223,
+      "sha256": "fa88583df7033c0bc321ca6ff6038f5e228768333f3d29ce3fd53c92cfba9682"
+    },
+    {
+      "path": "standard/docs/assembly/REFLECTION_AND_HOTLOAD.md",
+      "new": false,
+      "exists": true,
+      "bytes": 259,
+      "sha256": "03751532f7017f7457dddaa78f462504d2082457e4148aaf35615deb063002e8"
+    },
+    {
+      "path": "standard/docs/assembly/REQUIREMENT_AUDIT.md",
+      "new": false,
+      "exists": true,
+      "bytes": 306,
+      "sha256": "e3700e9af076fedc70ba68641b28967487e74901c634d0851e5c0ced75d9aa29"
+    },
+    {
+      "path": "standard/docs/assembly/SPEC.md",
+      "new": false,
+      "exists": true,
+      "bytes": 236,
+      "sha256": "bbcb60df3d15e0e5e21a2ad90df8187e5fabce3ff0682456ab02c4964d3239ea"
+    },
+    {
+      "path": "standard/docs/assembly/USER_CHECKS.md",
+      "new": false,
+      "exists": true,
+      "bytes": 2961,
+      "sha256": "6e7a034194b51f04e4ea188f0ea445ccb396510bcdb222918b13ef5f318aac3d"
+    },
+    {
+      "path": "standard/docs/assembly/USER_GUIDE.md",
+      "new": false,
+      "exists": true,
+      "bytes": 192,
+      "sha256": "33244a17a099657496faeb62b13345056d89f8ae9967d834997c0052519a4929"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/GRAPH_REPORT.md",
+      "new": false,
+      "exists": true,
+      "bytes": 8202,
+      "sha256": "38f9a86e8cb994e1578a382c1eaa06fc59f55fb0e5af63eb4ecc1647c7d4e2f8"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/PROJECTS.json",
+      "new": false,
+      "exists": true,
+      "bytes": 14760,
+      "sha256": "874b68bb0010d4532b0cb19bcdc468c242090446dc7533be8c90961257c6c737"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/README.md",
+      "new": false,
+      "exists": true,
+      "bytes": 167,
+      "sha256": "2598ac22d310895da34231284be45999d5dcebf81df71f33c73159704fab84b3"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/SOURCE_MANIFEST.json",
+      "new": false,
+      "exists": true,
+      "bytes": 16181,
+      "sha256": "dcd41f81d174cd7ed8877ed75dec551cf0e99f8f41315c216c2876bfcb7b97ee"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/graph.html",
+      "new": false,
+      "exists": true,
+      "bytes": 3182325,
+      "sha256": "6fd39565ab6626e850b38e5bc369fef125d677527abd6470413f2254890e9f88"
+    },
+    {
+      "path": "standard/docs/assembly/architecture/graph.json",
+      "new": false,
+      "exists": true,
+      "bytes": 3956078,
+      "sha256": "39c26d8177abd40ec8a9c8c4acc6648faacc0946206f97b650e285b82b15bf4b"
+    },
+    {
+      "path": "standard/docs/reference/modes/AssemblyFeatureInput.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 4490,
+      "sha256": "214f3b2adcf08b1cef5e3a489fb4f98a8de91503e0cd371cbede9417b58bfb78"
+    },
+    {
+      "path": "standard/docs/reference/modes/AssemblyFeatures.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 19786,
+      "sha256": "966331ad09fafb9d78e857f22e32053e677695f4a3ef1ac842982cca4c4a3615"
+    },
+    {
+      "path": "standard/docs/reference/modes/Editor.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 6507,
+      "sha256": "9651688af703c705ffcae5756d4b15051a774bbcfc322dd74f94cbfc46c8e471"
+    },
+    {
+      "path": "standard/docs/reference/modes/FaceCommon.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 10455,
+      "sha256": "6feca800fef7fc1b355645c5fa51f63471a61b56095706a96a045c4bebb33a70"
+    },
+    {
+      "path": "standard/docs/reference/modes/FaceCommon.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2599,
+      "sha256": "ec35b5429a46f4d7932a65a640a2411021f95b1a4e1a7506e3c8d4df49cd8451"
+    },
+    {
+      "path": "standard/docs/reference/modes/FeatureContainer.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 4947,
+      "sha256": "bb1986f471b43b0a8e1049f707fdc650b2262df7e5dff41b3cae8c4e32388d66"
+    },
+    {
+      "path": "standard/docs/reference/modes/FeatureContainer.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2658,
+      "sha256": "e8817cd72502aa4f6757306ce5927a9f53d39b900b1a2f3d04d42184a0e90129"
+    },
+    {
+      "path": "standard/docs/reference/modes/GuideRecipes.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 57521,
+      "sha256": "0333a0e52bd800a4f2aac405d1ee4b2b88686eb408f4ea8fe02d351838e22989"
+    },
+    {
+      "path": "standard/docs/reference/modes/GuideRecipes.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 1136,
+      "sha256": "11c83f899e5108fd61b92ab60360ddbe68b69261847dfad44d290d67db3d2b30"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode0Assembly.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2643,
+      "sha256": "e3ef33af8e0fbe74d339fdfa0d132131286e8a1aa6b9c4848611e677677dfc90"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode10Practice13.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 4977,
+      "sha256": "57ca7aba74246e1f0381230c790842fee6e27e6713451c8ee6b421d9a774b126"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode11Practice14.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 6960,
+      "sha256": "88ac31ce690d3d4eb4b6850b3d2ddd6eb42adaa8c3a3a72b1a568fef77ae3062"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode12Practice15.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 700,
+      "sha256": "9b13a7966889001389e7784c7ab1d3af103d58bd9eae745595e084e064ccd2a9"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode13Practice16.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 7204,
+      "sha256": "b804d553c8ada67fd3c0c0961eeb4bdc4382f2d15eab885057220a18fbce4a6c"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode14Practice17.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 11311,
+      "sha256": "01345a10c9d2f03c5b6fd24ebab25739a78a40ebed1d32db1488b8723613266b"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode15Practice18.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 9342,
+      "sha256": "28e2938d9070a0224a643fc23f94790c3f63dfe05b0fd7b8d66c84918cbf0154"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode16Practice19.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 693,
+      "sha256": "56730acb4afb8dfdfa3d488a54d672bbcbbabbaef2b3cb2abf958c648991f267"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode17Practice20.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 9668,
+      "sha256": "2aa6dd44afc402b27dc6d778979d3755b40750572bb67e7fd89503303742f9de"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode18Practice21.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 13497,
+      "sha256": "3809222907532af5f0f74129d0aa005df6089029c97b121ffcdc045f45ac49f3"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode19Practice22.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 692,
+      "sha256": "a4589990984703f705bc1a0e74e02151e414decf1da5c1e7ef3dc0f42dbf504c"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode1Ellipse.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 822,
+      "sha256": "b407ce318214f6a4c3379486c8c79b1293a2fa3b3588089608a7364b26541e19"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode20Practice23.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 7510,
+      "sha256": "26e8ad9592bf967cd00ab758eedce125f9c76201d112f78b9caf0229b403a89c"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode21CameraCollision.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 3128,
+      "sha256": "7d00299d38f77b9ef98cbc31cc355e814be9d9c51dd7b4459948575c31cb3cd9"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode22EmbeddedMesh.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 5809,
+      "sha256": "f1e7a487956fa8ce0a5159d76a8ae1e5b6d5862d945b03721cc3afabf68b3bf1"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode2Rectangle.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 828,
+      "sha256": "4475db74da5a2d449f53086de8f1079804a0b2a9d34e8bc76f9addc1269b20e5"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode3Polygon.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 837,
+      "sha256": "78be704854035f86f37ba59c368f08ad450ca50537b135102e3ca9b748e51e45"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode4Spatial.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 1066,
+      "sha256": "2694d5cd161d49c7f2afb3b6baa0c8f6b79ed61794a22805adf059823fbe7afd"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode5Circle.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 810,
+      "sha256": "90adf9addce0060690d4868211694cb3dd484bca899e66d6c836e9fc7c8d8dac"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode6Polyline.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 847,
+      "sha256": "6695832a3449eb30d640989d88c4a3976b486d7512ab8933aaaf3cfa7f6f097c"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode7Grid.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2513,
+      "sha256": "ef5843b19b034d95f84835d9e3bce56df392a76ce0ae0b4362722cce110d41a1"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode8Room.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 3963,
+      "sha256": "e86e0fcd653615a2b6ea9913a3be29dc5cf13e6da5e79c6318a24cf271ec96fe"
+    },
+    {
+      "path": "standard/docs/reference/modes/Mode9Animation.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 5050,
+      "sha256": "480021fa47129babf443d72cb49f8f2155d7bf6af5dbc307f2dbd1638de06930"
+    },
+    {
+      "path": "standard/docs/reference/modes/MotionCommon.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 6105,
+      "sha256": "207c9b45ba6f8886995b7e864bce684377d03881bfe6239820f7541abb90131f"
+    },
+    {
+      "path": "standard/docs/reference/modes/Paths.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 799,
+      "sha256": "8b44a29874ca9f8003fcf2488f36237d52298b930a481dd1e15bf1378e63c91f"
+    },
+    {
+      "path": "standard/docs/reference/modes/PracticeCommon.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2760,
+      "sha256": "341bbdc3a3452c8f0e9f0bbc93530cac3ac10c9c94d7e85cbbedfc4dfefc6bce"
+    },
+    {
+      "path": "standard/docs/reference/modes/PracticeMode.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2480,
+      "sha256": "2e4d020aefb2e57cccbb6e470d0301f11115e050a6ee9f30f8a4e8f6ff9918ee"
+    },
+    {
+      "path": "standard/docs/reference/modes/PracticeRegistry.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 1334,
+      "sha256": "7ca7b18295a33dd521cd7b0a57a6685d2f48780d1308386a426715437e22bcc6"
+    },
+    {
+      "path": "standard/docs/reference/modes/TankCommon.cpp.md",
+      "new": true,
+      "exists": true,
+      "bytes": 11102,
+      "sha256": "1b503a320649fc8dbf2877309874a50e825d5a917edd19718054917b6f797681"
+    },
+    {
+      "path": "standard/docs/reference/modes/TankCommon.h.md",
+      "new": true,
+      "exists": true,
+      "bytes": 665,
+      "sha256": "b37315f8d41090eb1204d6f300ca6615d474595cf02d76aec29027975827b5a0"
+    },
+    {
+      "path": "standard/docs/viewer/documents.js",
+      "new": false,
+      "exists": true,
+      "bytes": 2392512,
+      "sha256": "d399b79fb3c3cd19ac4f169e7cf6ad1c5ab4e50dd8a55f4aaae95987c92e41b9"
+    },
+    {
+      "path": "standard/docs/viewer/scenarios.js",
+      "new": false,
+      "exists": true,
+      "bytes": 35109,
+      "sha256": "821480dda98139047f4c515cabf3baa5141062900c92174ec5d8c06a2800f194"
+    },
+    {
+      "path": "standard/examples/assembly/scenarios/s13-moving-scale.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 1335,
+      "sha256": "adc7216612040c20d312f0cc4f22a75e28925b2d6f5295b8031514d63d8bede2"
+    },
+    {
+      "path": "standard/examples/assembly/templates/01-local-order.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 631,
+      "sha256": "fb78c71ba59bd6ea7823bbae21a10b006ab58c3a6d9869e3d351f6157f1859dc"
+    },
+    {
+      "path": "standard/examples/assembly/templates/02-pivot.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 432,
+      "sha256": "9893c130f7df050ee46e7379b0c37f4eca0bcd8a23cd96afe5b68236b00d35f9"
+    },
+    {
+      "path": "standard/examples/assembly/templates/03-inherit-world.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 580,
+      "sha256": "e0c37562aab9628387dea471f8a7a6ccd292b4b12ce604b7a5ac5dad819d990b"
+    },
+    {
+      "path": "standard/examples/assembly/templates/04-orbit-spin.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 474,
+      "sha256": "fd867a70cb12fe07e5da3c5a9596a46527185d9a1dc12f90d27c4b04838a8f38"
+    },
+    {
+      "path": "standard/examples/assembly/templates/05-fixed-end-scale.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 405,
+      "sha256": "ce19f34fb8d9024e69b293a2c4fa2b56a46c8bcdffa090f30ee8df53bb6c677a"
+    },
+    {
+      "path": "standard/examples/assembly/templates/06-periodic.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 338,
+      "sha256": "f457cbc917fde509c6698504b5d1aa5110a20163e75941a296f2c6f4e0d8f08d"
+    },
+    {
+      "path": "standard/examples/assembly/templates/07-input-rate.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 403,
+      "sha256": "61420136b60ea90b441f0e98ff788b64c8948554c307ae8390a06bff15038906"
+    },
+    {
+      "path": "standard/examples/assembly/templates/08-light-camera.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 539,
+      "sha256": "400c904b4978002491f09ce9bf9979e0276f3f784707b4f148441acd9ca4c2fc"
+    },
+    {
+      "path": "standard/examples/assembly/templates/09-arbitrary-axis.assembly",
+      "new": true,
+      "exists": true,
+      "bytes": 331,
+      "sha256": "dff64b04de0e12c0be6aa0cc7b18315090bd12af67903700e6b97b3fd77ee4e0"
+    },
+    {
+      "path": "standard/examples/assembly/workspace.assembly",
+      "new": false,
+      "exists": true,
+      "bytes": 146,
+      "sha256": "87b06d7e96cf06dc5bfee4f0352153c65f96be57f1cf53490dccc9df3011eae2"
+    },
+    {
+      "path": "standard/framework/Framework.h",
+      "new": false,
+      "exists": true,
+      "bytes": 312,
+      "sha256": "4f00dddbb402def9b03b3680dd3e45fbd0d52e930d453c700802f5cac9a2e879"
+    },
+    {
+      "path": "standard/framework/README.md",
+      "new": false,
+      "exists": true,
+      "bytes": 45647,
+      "sha256": "e1e59f080e0c03dca21993561e27567ebae86b70b7bdd1fcebcbe234b4d0c1dc"
+    },
+    {
+      "path": "standard/framework/detail/Dynamics.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 3512,
+      "sha256": "cf7aec36444d9ba8d34021d3ddaac7ee28a298472cc0608f7a90255260d06d61"
+    },
+    {
+      "path": "standard/framework/detail/Renderer.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 33731,
+      "sha256": "8216edb888c3ad966196d816bf3859da493e82f131055d96c9c44b6e62ffaa68"
+    },
+    {
+      "path": "standard/framework/detail/Scene.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 51555,
+      "sha256": "d6a2dea5d7e9ded538f496515deb266a95ed777ad2c81fa2f444e55c5805cbd0"
+    },
+    {
+      "path": "standard/framework/detail/Shaders.h",
+      "new": false,
+      "exists": true,
+      "bytes": 2142,
+      "sha256": "ccb8f8225c11da6213be7ae529a6a439598dec00fc0045524379bb42acc0864a"
+    },
+    {
+      "path": "standard/framework/docs/API_CASE_MAP.json",
+      "new": false,
+      "exists": true,
+      "bytes": 870589,
+      "sha256": "30c99d2240749d905b01c2c2c9f4d1bd3e49b4ce796569385b86587b51d9193f"
+    },
+    {
+      "path": "standard/framework/docs/API_KO.json",
+      "new": false,
+      "exists": true,
+      "bytes": 137428,
+      "sha256": "75588f9ba9f307014680d3bb76cee0b285a77bc367e67a8c0d5d59aa6c2f31e6"
+    },
+    {
+      "path": "standard/framework/docs/API_KO.md",
+      "new": false,
+      "exists": true,
+      "bytes": 112426,
+      "sha256": "5c6dd6fdd0a0c14c1e2636311577fabe187c25620e80068858aa1731953228c5"
+    },
+    {
+      "path": "standard/framework/docs/API_REFERENCE.html",
+      "new": false,
+      "exists": true,
+      "bytes": 2378319,
+      "sha256": "7b5f31fe5fbad67a6d89845688cb5dd67ccd7f2c5c0b9c6fff927fe72f560198"
+    },
+    {
+      "path": "standard/framework/docs/IMPLEMENTATION_PATTERNS.html",
+      "new": false,
+      "exists": true,
+      "bytes": 676577,
+      "sha256": "20c5955d641ca02930d8cbd8589b55423d63b53f0d7ec4578a0288894b605fa8"
+    },
+    {
+      "path": "standard/framework/docs/WORKSPACE_API.md",
+      "new": true,
+      "exists": true,
+      "bytes": 2552,
+      "sha256": "f10be181620675f53c37facdab4f6123736431a9389495d7685eb4c84ae0c59e"
+    },
+    {
+      "path": "standard/framework/include/Dynamics.h",
+      "new": true,
+      "exists": true,
+      "bytes": 1947,
+      "sha256": "2252c2739b307fa780f1ab700dfdb62ae8f95c0a0a04e172b2cfbfdc2e8108a6"
+    },
+    {
+      "path": "standard/framework/include/Graphics.h",
+      "new": false,
+      "exists": true,
+      "bytes": 21096,
+      "sha256": "e93519de9a5b39f9111e78673a61545ee6bd9e033a304d688960f115337d281f"
+    },
+    {
+      "path": "standard/framework/include/Model.h",
+      "new": false,
+      "exists": true,
+      "bytes": 9968,
+      "sha256": "7a6f43c461b6d82d91cf2082b9fdd9282c813c1d38823137272fb6c11228dd2b"
+    },
+    {
+      "path": "standard/framework/include/RenderConfig.h",
+      "new": false,
+      "exists": true,
+      "bytes": 3804,
+      "sha256": "f0dac3acf398482a8d055cd83aee29d4dbaedef9d5c5f4f044995e94b1a8035b"
+    },
+    {
+      "path": "standard/framework/shaders/FragmentShader.glsl",
+      "new": false,
+      "exists": true,
+      "bytes": 1458,
+      "sha256": "d8c49f6ed22e1d4f5aae145ebc86f19e53266a7cde8c6985cb045f6a507285b3"
+    },
+    {
+      "path": "standard/framework/shaders/VertexShader.glsl",
+      "new": false,
+      "exists": true,
+      "bytes": 526,
+      "sha256": "88e1f6da0d415f0b8efad7c4186bfefe77575588a807822b69a7be3fc6463790"
+    },
+    {
+      "path": "standard/index.html",
+      "new": false,
+      "exists": true,
+      "bytes": 1582,
+      "sha256": "7905adcf52bea8d0eeabb21839c6005a70987432c38dbf43db5c8dbf0a119008"
+    },
+    {
+      "path": "standard/main.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 1412,
+      "sha256": "08c4ab5dba445c8ffb4153d920866f472dc23be5f88e23ae73fdb0e225607eb9"
+    },
+    {
+      "path": "standard/modes/Assembly.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 18075,
+      "sha256": "943247fd4e8139dd555ea318e55fe76ada16fe69bd5334bb38b1ac3889c654aa"
+    },
+    {
+      "path": "standard/modes/Assembly.h",
+      "new": false,
+      "exists": true,
+      "bytes": 8786,
+      "sha256": "87300f6775546ab1be0118df77efc7a96fac4b64aa9f608373d8d2375c6afa91"
+    },
+    {
+      "path": "standard/modes/AssemblyCommands.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 6951,
+      "sha256": "f4fc9df7b8950d6acdf9ad1848c244f3eaa105f2babcad8b338ef5ef98db5a24"
+    },
+    {
+      "path": "standard/modes/AssemblyConsole.h",
+      "new": false,
+      "exists": true,
+      "bytes": 618,
+      "sha256": "436d939d3f68de35546b832be3ba13b99e2b17950c188e4db026f48459f8057a"
+    },
+    {
+      "path": "standard/modes/AssemblyDiagnostics.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 2540,
+      "sha256": "7aed1d7c5d33c9dc7c05105d867647d86bb46de6d30304a3263c756ac834341d"
+    },
+    {
+      "path": "standard/modes/AssemblyDynamics.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 5698,
+      "sha256": "08816ae87882ddb2f953969ee4dc83df43a9eb8340e785d8e58b34fc2b38fdc2"
+    },
+    {
+      "path": "standard/modes/AssemblyFeatureInput.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/AssemblyFeatures.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/AssemblyGuide.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 5769,
+      "sha256": "456395251bb1aa3184d2effc16553fc2d9ebd959d3e203aff8fe71a0e39e4d15"
+    },
+    {
+      "path": "standard/modes/AssemblyHierarchy.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 5131,
+      "sha256": "cec258b3c8803ccd6291cdd01694e7ebf298e0628b73136b0e78bf67f34d38ea"
+    },
+    {
+      "path": "standard/modes/AssemblyInput.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 16443,
+      "sha256": "a3edf3817f92ab5b7d0da5f7fe27fe0a9f9a249310a513d622349f0455ca5494"
+    },
+    {
+      "path": "standard/modes/AssemblyMotion.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 14242,
+      "sha256": "cba89da373aec05328ca35ee7d36218785aebfe9a4b0f932d46b5c3af0093fb1"
+    },
+    {
+      "path": "standard/modes/AssemblyParts.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 2400,
+      "sha256": "cd575424c220e2c09a5a1cb024350d70046609222030c17d34bf022e1fee0daf"
+    },
+    {
+      "path": "standard/modes/AssemblyParts.h",
+      "new": false,
+      "exists": true,
+      "bytes": 448,
+      "sha256": "93f0be2bf97add5c0ff88e5fe7f94007159ce439a94f5d226b7ed6c09933510f"
+    },
+    {
+      "path": "standard/modes/AssemblyPaths.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 1858,
+      "sha256": "0920664dcee683533fb7ba3df80bcc6f630ab3c82e01fd5d1d71b877252acadf"
+    },
+    {
+      "path": "standard/modes/AssemblyPaths.h",
+      "new": true,
+      "exists": true,
+      "bytes": 287,
+      "sha256": "cdec59811ec5f887e91c99c21a26ea9ff3b140b7234559bea63158bb1de823ec"
+    },
+    {
+      "path": "standard/modes/AssemblyPersistence.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 6499,
+      "sha256": "e562951fa402bf6b31e402f79f1693c506d357fa2634c5e115e1d22941bcdf14"
+    },
+    {
+      "path": "standard/modes/AssemblyRuntime.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 15826,
+      "sha256": "dae51242cf0f06911cf33e17632b3c46d8c70defefbed2b0d24d7e7053587b2d"
+    },
+    {
+      "path": "standard/modes/AssemblySceneTools.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 6198,
+      "sha256": "852fd50265f93c0a7ad589ab888a2859c50646dccd6e08c73ded318d90d64c1f"
+    },
+    {
+      "path": "standard/modes/AssemblySurface.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 16563,
+      "sha256": "c312ad3cf13e4f7845de9a4f54696a63d13233f73d07daf4041f3632d1c2e5c1"
+    },
+    {
+      "path": "standard/modes/AssemblyWorkspace.cpp",
+      "new": true,
+      "exists": true,
+      "bytes": 20281,
+      "sha256": "78face2a1f63a1589eb7ffc8bad617e68f7cfa5a4e7b8f6049a9098642f8271a"
+    },
+    {
+      "path": "standard/modes/Editor.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/FaceCommon.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/FaceCommon.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/FeatureContainer.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/FeatureContainer.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/GuideRecipes.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/GuideRecipes.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode0Assembly.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode0Recipe.cpp",
+      "new": false,
+      "exists": true,
+      "bytes": 458,
+      "sha256": "e980e78c8a541c01933b24cd4b26e11653b03464f820bf4a22323bda63a613fd"
+    },
+    {
+      "path": "standard/modes/Mode10Practice13.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode11Practice14.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode12Practice15.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode13Practice16.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode14Practice17.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode15Practice18.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode16Practice19.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode17Practice20.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode18Practice21.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode19Practice22.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode1Ellipse.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode20Practice23.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode21CameraCollision.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode22EmbeddedMesh.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode2Rectangle.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode3Polygon.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode4Spatial.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode5Circle.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode6Polyline.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode7Grid.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode8Room.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Mode9Animation.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/MotionCommon.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/Paths.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/PracticeCommon.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/PracticeMode.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/PracticeRegistry.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/TankCommon.cpp",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/modes/TankCommon.h",
+      "new": false,
+      "exists": false,
+      "bytes": 0,
+      "sha256": null
+    },
+    {
+      "path": "standard/standard.vcxproj",
+      "new": false,
+      "exists": true,
+      "bytes": 4288,
+      "sha256": "f9c58b7a53fbf93881f4aea2da485e0cc136bb95308e543bf05897c6268364cf"
+    },
+    {
+      "path": "standard/standard.vcxproj.filters",
+      "new": false,
+      "exists": true,
+      "bytes": 1693,
+      "sha256": "d94cadebe652d2ed7b3e76cb6caad16e384e000a7419906e397adc83d4a432cf"
+    },
+    {
+      "path": "tools/Refresh-ApiCatalog.py",
+      "new": false,
+      "exists": true,
+      "bytes": 21679,
+      "sha256": "b2333d186f68e20e4b11367e1f2c553ea2126f0a63a2f442922a1586a2830aff"
+    },
+    {
+      "path": "tools/Update-StandardDocs.py",
+      "new": false,
+      "exists": true,
+      "bytes": 14024,
+      "sha256": "d147f27d9adece0b270e827b9e0ce2ac0cfc789110423c347eeb1f48fd307a1d"
+    },
+    {
+      "path": "tools/Update-StandardModesGraph.py",
+      "new": false,
+      "exists": true,
+      "bytes": 6438,
+      "sha256": "e8dfa25166814f5842c530535164cc8000755b9a8153c16b7621007862135a48"
+    },
+    {
+      "path": "tools/Write-ApiKo.py",
+      "new": false,
+      "exists": true,
+      "bytes": 30875,
+      "sha256": "a5dd2355fa09080475db3dbce6149c3997a9b334a581bed255f95efb1d264594"
+    },
+    {
+      "path": "tools/Write-TransformReference.py",
+      "new": true,
+      "exists": true,
+      "bytes": 16311,
+      "sha256": "2c60d5daef36f53b5b48c6acac4d26075dc4e350d3c3b7f36b39f266060e16fa"
+    },
+    {
+      "path": "tools/Write-WorkspaceDocs.py",
+      "new": true,
+      "exists": true,
+      "bytes": 27871,
+      "sha256": "9c52d03fd754196381f3e5bb64ef1053f53a4d59ca8a90489e93048bc0770961"
+    },
+    {
+      "path": "tools/Write-WorkspaceReport.py",
+      "new": true,
+      "exists": true,
+      "bytes": 13955,
+      "sha256": "e67df8276d67dc75da6001dfd324e83021d2e9aad727bd9eeff6619147bd8bbe"
+    },
+    {
+      "path": "tools/templates/standard-viewer/index.html",
+      "new": false,
+      "exists": true,
+      "bytes": 1582,
+      "sha256": "7905adcf52bea8d0eeabb21839c6005a70987432c38dbf43db5c8dbf0a119008"
+    }
+  ]
+}

@@ -98,13 +98,8 @@ void Assembly::applyMounts() {
         const auto rotation = frame(normal, edge);
         const auto point = a.barycentric ? p0 + (p1 - p0) * a.coordinate.x + (p2 - p0) * a.coordinate.y : a.coordinate;
         const auto anchor = glm::vec3(local * glm::vec4(point, 1)) + (a.barycentric ? rotation[2] * a.coordinate.z : glm::vec3(0));
-        const auto pose = glm::translate(glm::mat4(1), anchor) * glm::mat4(rotation) *
-            graphics::DiagramSystem::modelMatrix(scene.getComponent(object.id)->transform);
-        auto result = object.rest;
-        result.localBasis = {0, 0, 0};
-        result.basis = glm::vec3(pose[3]);
-        result.rotation = glm::mat3(pose) / result.scale.x;
-        require(scene.setTransform(object.id, result), "면 관절 자세 합성 실패.");
+        const auto attached=glm::translate(glm::mat4(1),anchor)*glm::mat4(rotation)*scene.getComponent(object.id)->attachment;
+        require(scene.setAttachment(object.id,attached),"면 관절의 아핀 부착 실패.");
     }
 }
 

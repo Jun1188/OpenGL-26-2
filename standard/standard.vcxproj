@@ -45,9 +45,29 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="modes\Assembly*.cpp" Exclude="modes\AssemblyFeatures.cpp;modes\AssemblyFeatureInput.cpp" />
+    <ClCompile Include="modes\Assembly.cpp" />
+    <ClCompile Include="modes\AssemblyCommands.cpp" />
+    <ClCompile Include="modes\AssemblyConsole.cpp" />
+    <ClCompile Include="modes\AssemblyDiagnostics.cpp" />
+    <ClCompile Include="modes\AssemblyDynamics.cpp" />
+    <ClCompile Include="modes\AssemblyExamples.cpp" />
+    <ClCompile Include="modes\AssemblyExtensions.cpp" />
+    <ClCompile Include="modes\AssemblyGuide.cpp" />
+    <ClCompile Include="modes\AssemblyHierarchy.cpp" />
+    <ClCompile Include="modes\AssemblyInput.cpp" />
+    <ClCompile Include="modes\AssemblyMotion.cpp" />
+    <ClCompile Include="modes\AssemblyObjects.cpp" />
+    <ClCompile Include="modes\AssemblyParts.cpp" />
+    <ClCompile Include="modes\AssemblyPaths.cpp" />
+    <ClCompile Include="modes\AssemblyPersistence.cpp" />
+    <ClCompile Include="modes\AssemblyRuntime.cpp" />
+    <ClCompile Include="modes\AssemblySceneTools.cpp" />
+    <ClCompile Include="modes\AssemblySurface.cpp" />
+    <ClCompile Include="modes\AssemblyTracks.cpp" />
+    <ClCompile Include="modes\AssemblyWorkspace.cpp" />
     <ClCompile Include="modes\Mode0Recipe.cpp" />
-    <ClInclude Include="modes\*.h" />
+    <ClInclude Include="modes\Assembly*.h" />
+    <None Include="docs\reference\modes\*.md" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="framework\Framework.h" />
     <ClInclude Include="framework\include\Motion.h" />

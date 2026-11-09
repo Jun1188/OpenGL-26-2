@@ -4,6 +4,7 @@ import collections
 import importlib.util
 import html
 import json
+import os
 import re
 import textwrap
 
@@ -74,6 +75,8 @@ def state_owner(a):
         return 'Application.scene_: CPU 장면·형상·엔티티 ID·모션 연결'
     if owner == 'Renderer':
         return 'Application.renderer_: GPU 핸들·draw range·업로드 캐시'
+    if owner == 'DynamicsSystem':
+        return '호출자가 소유한 지역 질점·강체 기준과 순수 힘 콜백'
     if owner == 'MotionSystem':
         return 'Scene.motions_: MotionState·LayerState와 ID'
     if owner == 'AssetLoader':
@@ -200,10 +203,14 @@ def main():
                 a.update(description=catalog.description(a), result=catalog.result_contract(a))
                 records.append(a)
         previous = json.loads(read(directory + '/API_CASE_MAP.json'))
+        # The previous inventory predates the default culling argument. Keep both pick overload anchors.
+        for previous_record in previous:
+            if previous_record['owner']=='' and previous_record['name']=='pick' and 'inheritedCull' not in previous_record['signature']:
+                previous_record['signature']=previous_record['signature'][:-1]+', CullMode inheritedCull = CullMode::None)'
         key = lambda a: (a['owner'], a['name'], a['signature'])
         old = {key(a): a for a in previous}
-        if set(old) != set(map(key, records)):
-            raise RuntimeError('Declaration inventory changed; reconcile API anchors before authoring.')
+        if set(old) - set(map(key, records)):
+            raise RuntimeError('Removed/changed declarations need explicit anchor migration; additions preserve old anchors.')
         definitions, incoming = definition_calls(base)
         current = read(directory + '/API_REFERENCE.html')
         existing = {int(m.group(1)): m.group() for m in re.finditer(
@@ -219,6 +226,12 @@ def main():
         ids = {key(a): int(a['api_id'].split('-')[1]) if a.get('api_id') else
                article_keys[((a['owner'] + '::') if a['owner'] else '') + a['name'], a['signature']]
                for a in previous}
+        next_id=max(ids.values(),default=-1)+1
+        for a in records:
+            if key(a) in ids: continue
+            idx=next_id; next_id+=1; ids[key(a)]=idx
+            qualified=(a['owner']+'::' if a['owner'] else '')+a['name']
+            existing[idx]='<article class="api-entry" id="api-'+str(idx)+'"><h3>'+esc(qualified)+'</h3><p>'+esc(a['description'])+'</p>'+architecture.guide.code(a['signature'])+'</article>'
         block = '<!-- API-CATALOG:BEGIN --><section id="api"><h2>전체 API: 호출 단계 → 상태 소유자 → 선언</h2>'
         block += '<p>인덱스 C01~C05는 호출 목적별 탐색 번호이며 모든 함수가 이 순서로 자동 실행된다는 뜻은 아니다. C00은 공통 계약·도우미다. 오버로드는 별도 항목이며 기존 api-N 링크는 유지한다.</p>'
         block += '<p>선언 소속 클래스와 실제 상태 소유자를 구분한다. 소유권·참조·ID 계약은 각 선언 설명을 따른다. 아래 호출 위치는 명시한 타입/수신자 구문에서 추출했으며 오버로드 선택·함수 포인터·동적 호출 전체를 증명하지 않는다. 지연 람다 본문도 따로 표시한다.</p>'
@@ -270,7 +283,7 @@ def main():
                 meta += '</details><!-- API-METADATA:END -->'
                 article = article.replace('</h3>', '</h3>' + meta, 1)
                 block += article
-                inventory.append({**old[key(a)], **a,
+                inventory.append({**old.get(key(a), {}), **a,
                                   'api_id': 'api-' + str(idx), 'call_index': index, 'call_phase': p,
                                   'state_owner': state_owner(a), 'called_by': callers,
                                   'definitions': implementations})
@@ -287,6 +300,13 @@ def main():
         # Preserve the original declaration order so existing api-N anchors survive regeneration.
         inventory.sort(key=lambda a: int(a['api_id'].split('-')[1]))
         dump(directory + '/API_CASE_MAP.json', inventory)
+        dump(directory + '/API_KO.json', records)
+        korean='# 공개 API 한글 목록\n\n현재 헤더 선언에서 생성했다. 빌드·테스트·브라우저 확인은 사용자가 수행한다.\n\n'
+        for a in records:
+            qualified=(a['owner']+'::' if a['owner'] else '')+a['name']
+            relative=os.path.relpath(ROOT/a['file'],ROOT/directory).replace('\\','/')
+            korean+='### '+qualified+'\n\n```cpp\n'+a['signature']+';\n```\n\n'+a['description']+'\n\n반환·실패: '+a['result']+'\n\n[선언 '+str(a['line'])+'행]('+relative+')\n\n'
+        write(directory + '/API_KO.md', korean)
         for page in sorted((ROOT / directory).glob('*.html')):
             if page.name == 'API_REFERENCE.html':
                 continue

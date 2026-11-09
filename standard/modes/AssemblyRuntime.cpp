@@ -84,7 +84,8 @@ bool Assembly::applyPoses(float dt) {
             const auto turn = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(pose->yawDegrees), glm::vec3(0, 1, 0)));
             rest.basis = pose->position + glm::vec3(0, b.height, 0) + turn * rest.basis;
             rest.rotation = turn * rest.rotation;
-            require(graphics::AnimationSystem::poseHierarchy(scene, {{target.id, rest, motionFor(b.target)}}, 0), "컨베이어 자세 적용 실패.");
+            const auto pose=motionFor(b.target).sample(0);
+            require(pose && scene.setTransform(target.id,rest) && scene.setAttachment(target.id,target.attachment*pose->parent),"컨베이어 자세 적용 실패.");
         } else if (faceEffect(b.effect)) {
             require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
             if (!b.enabled) {
@@ -198,12 +199,9 @@ bool Assembly::applyPoses(float dt) {
                 const auto matrix = graphics::DiagramSystem::modelMatrix(rest) *
                     glm::inverse(graphics::DiagramSystem::modelMatrix(part.second.initial)) *
                     graphics::DiagramSystem::modelMatrix(part.second.rest);
-                rest.scale = part.second.rest.scale;
-                rest.localBasis = part.second.rest.localBasis;
-                rest.rotation = glm::mat3(matrix) / rest.scale.x;
-                rest.basis = glm::vec3(matrix[3]) + rest.rotation * (rest.scale * rest.localBasis);
-                const std::vector<graphics::JointAnimation> edited{{part.second.id, rest, motionFor(part.first)}};
-                require(graphics::AnimationSystem::poseHierarchy(scene, edited, 0), "보행과 부품 동작 합성 실패.");
+                const auto pose=motionFor(part.first).sample(0);
+                require(pose && scene.setTransform(id,graphics::Transform3D{}) &&
+                    scene.setAttachment(id,part.second.attachment*pose->parent*matrix),"보행 부품의 아핀 자세 합성 실패.");
             }
         }
     }

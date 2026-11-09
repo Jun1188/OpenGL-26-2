@@ -1,0 +1,27 @@
+﻿# @title: 지역 변환의 순서
+# @goal: 이동한 축·회전한 축에서 다음 연산을 적용할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 0 0 0
+
+#: 회전 레이어 생성
+layer add turn
+
+#: 지역 Y축으로 30도 회전
+layer r y 30
+
+#: 앞 레이어의 회전된 축을 상속하는 이동 레이어 생성
+layer add offset
+
+#: 회전된 지역 X축으로 2 이동
+layer t 2 0 0
+
+#: 비균등 형상 레이어 생성
+layer add shape
+
+#: 지역 세 축 배율을 따로 적용
+layer s 2 1 0.5

@@ -1,0 +1,24 @@
+﻿# @title: 월드 좌표로 부착하고 상속
+# @goal: 서로 다른 물체가 공통 이동을 따라갈 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 부모 프레임을 월드 X=10에 생성
+add joint base at 10 0 0
+
+#: 자식을 월드 X=12에 생성
+add box item at 12 0 0
+
+#: 현재 월드 배치를 유지해 부모 연결
+parent base
+
+#: 자식 내부 회전 추가
+insert spin y 45
+
+#: 부모 선택
+select base
+
+#: 부모를 월드 X=15로 이동. 자식 기준 배치는 X=17
+t 15 0 0

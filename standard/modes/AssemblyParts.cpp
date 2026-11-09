@@ -1,11 +1,16 @@
 ﻿#include "AssemblyParts.h"
-#include "PracticeCommon.h"
+#include "Assembly.h"
 
 namespace assembly {
+namespace {
+graphics::EntityId requireEntity(std::optional<graphics::EntityId> id,const char* message) {
+    require(id.has_value(),message); return *id;
+}
+}
 TankParts addTankParts(graphics::Scene& scene) {
     TankParts rig;
     const auto entity = [](std::optional<graphics::EntityId> id) {
-        return practice_common::requireEntity(id, "Tank part creation failed.");
+        return requireEntity(id, "Tank part creation failed.");
     };
     const auto box = [&](glm::vec3 size, glm::vec3 position, graphics::EntityId parent) {
         const auto id = entity(graphics::PatternSystem::addBox(scene, size, position, {1, 1, 1}, parent));
@@ -35,8 +40,8 @@ std::vector<graphics::EntityId> addGridParts(graphics::Scene& scene, const graph
         for (int x = 0; x < grid.cells.x; ++x) {
             const auto center = grid.cellCenter({x, 0, z});
             const auto size = grid.relativeSize({.15f, 1, .22f});
-            practice_common::require(center && size, "Invalid grid cell.");
-            cells.push_back(practice_common::requireEntity(graphics::PatternSystem::addBox(scene, *size, *center,
+            require(center && size, "Invalid grid cell.");
+            cells.push_back(requireEntity(graphics::PatternSystem::addBox(scene, *size, *center,
                 (x + z) % 2 ? graphics::GlColor{.25f, .3f, .4f} : graphics::GlColor{.4f, .45f, .55f}),
                 "Grid cell creation failed."));
         }

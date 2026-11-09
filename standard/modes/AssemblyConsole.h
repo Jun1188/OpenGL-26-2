@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "PracticeMode.h"
+#include "../framework/Framework.h"
 
 namespace assembly {
 class ConsoleInput {

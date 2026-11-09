@@ -12,6 +12,11 @@ Tokens pointTokens(glm::vec3 p) { return {decimal(p.x), decimal(p.y), decimal(p.
 bool affine(const glm::mat4& m) {
     return graphics::TransformSystem::validAffine(m) && std::abs(glm::determinant(glm::mat3(m))) > 1e-18f;
 }
+glm::mat4 inverseAffine(const glm::mat4& m) {
+    require(affine(m),"역행렬이 없는 아핀 변환입니다.");
+    const auto linear=glm::inverse(glm::mat3(m));
+    glm::mat4 result(linear); result[3]=glm::vec4(-linear*glm::vec3(m[3]),1); return result;
+}
 glm::mat4 matrixTokens(const Tokens& a, std::size_t start) {
     require(a.size() == start + 16, "행렬은 열 우선 16개 값입니다.");
     glm::mat4 m(1);
@@ -59,13 +64,17 @@ Tokens Assembly::resolveCommand(const Tokens& input) const {
         require(!state_.selected.empty(), "먼저 물체를 클릭하세요.");
         const auto m = app_.getScene().worldMatrix(node(state_.selected).id);
         require(m && affine(*m), "피벗 좌표 변환 실패.");
-        const auto p = pointTokens(glm::vec3(glm::inverse(*m) * glm::vec4(state_.cursor,1)));
+        const auto p = pointTokens(glm::vec3(inverseAffine(*m) * glm::vec4(state_.cursor,1)));
         a = {"pivot", state_.selected}; a.insert(a.end(),p.begin(),p.end()); a.push_back("keep");
     } else if (a[0] == "pivot" && a.size() == 2 && a[1] == "center") {
         a.insert(a.begin()+1,state_.selected);
     }
     if (a[0] == "insert" && a.back() == "cursor") {
         a.pop_back(); const auto p = pointTokens(state_.cursor); a.insert(a.end(),p.begin(),p.end());
+    }
+    if (state_.editMode=="face" && state_.faceSelection && (a[0]=="t" || a[0]=="r" || a[0]=="s")) {
+        Tokens face{"face-edit",state_.selected,std::to_string(state_.faceSelection->faceIndex)};
+        face.insert(face.end(),a.begin(),a.end()); return face;
     }
     if (a[0] == "t" || a[0] == "r" || a[0] == "s" || a[0] == "layer" || a[0] == "local" || a[0] == "insert") {
         require(!state_.selected.empty(), "먼저 물체를 클릭하세요. select <이름>도 가능합니다.");
@@ -82,9 +91,9 @@ void Assembly::setWorld(const std::string& target, const glm::mat4& matrix) {
             "물리/사용자 제어 루트 또는 면 관절의 배치는 제어 함수를 통해 변경하세요.");
     auto& scene = app_.getScene();
     const auto current = scene.getComponent(object.id)->attachment;
-    const auto animation = glm::inverse(object.attachment) * current;
+    const auto animation = inverseAffine(object.attachment) * current;
     require(affine(animation) && scene.setWorldPlacement(object.id,matrix), "월드 배치 실패: 부모/배율을 확인하세요.");
-    object.attachment = scene.getComponent(object.id)->attachment * glm::inverse(animation);
+    object.attachment = scene.getComponent(object.id)->attachment * inverseAffine(animation);
 }
 
 bool Assembly::workspaceCommand(const Tokens& a, std::ostream& out) {
@@ -93,6 +102,27 @@ bool Assembly::workspaceCommand(const Tokens& a, std::ostream& out) {
         require(a.size() >= 4, "with <객체> <레이어/none> <명령...>");
         node(a[1]); state_.selected = a[1]; state_.selectedLayer = a[2] == "none" ? "" : a[2];
         return dispatch(Tokens(a.begin()+3,a.end()),out);
+    }
+    if (command=="face-edit") {
+        require(a.size()>=5,"face-edit <메시> <면> t/r/s ...");
+        auto& scene=app_.getScene(); const auto mesh=meshEntity(a[1]); const auto faceIndex=indexNumber(a[2]);
+        requireFaceEditable(mesh,faceIndex);
+        const auto* face=scene.getMesh(mesh,faceIndex); require(face!=nullptr,"면이 없습니다.");
+        const auto world=scene.faceWorldMatrix(mesh,faceIndex); require(world.has_value(),"면의 월드 변환이 없습니다.");
+        const auto parent=face->transformMode==graphics::FaceTransformMode::Hierarchy ? scene.worldMatrix(mesh) : std::optional<glm::mat4>{glm::mat4(1)};
+        require(parent.has_value(),"메시 프레임이 없습니다.");
+        const auto frame=*parent*face->transformFrame;
+        glm::vec3 localCenter(0); for (const auto& p:face->localVertices) localCenter+=p;
+        require(!face->localVertices.empty(),"면 정점이 없습니다."); localCenter/=float(face->localVertices.size());
+        const auto center=glm::vec3(*world*glm::vec4(localCenter,1));
+        std::optional<glm::mat4> change;
+        if (a[3]=="t") { require(a.size()==7,"면 t X Y Z: 면 중심의 월드 위치"); change=graphics::TransformSystem::translation(vector(a,4)-center); }
+        else if (a[3]=="r") { require(a.size()==6,"면 r 축 도"); change=graphics::TransformSystem::rotation({center,axis(a[4])},number(a[5])); }
+        else { require(a[3]=="s" && (a.size()==5 || a.size()==7),"면 s 배율 또는 SX SY SZ"); change=graphics::TransformSystem::scaling(a.size()==5 ? glm::vec3(float(number(a[4]))) : vector(a,4),center); }
+        const auto srt=graphics::detail::faceSrtMatrix(*face);
+        require(change && affine(*change) && affine(frame) && affine(srt),"면 변환이 특이합니다.");
+        require(scene.setFaceLocalMatrix(mesh,faceIndex,inverseAffine(frame)* *change* *world*inverseAffine(srt),graphics::FaceAnimationSpace::Model),"면 변환 실패.");
+        return true;
     }
     if (command == "attachment") {
         require(a.size() == 18,"attachment <객체> <열 우선 행렬16>");
@@ -160,16 +190,20 @@ bool Assembly::workspaceCommand(const Tokens& a, std::ostream& out) {
             std::string name = "layer" + std::to_string(layers.size()+1);
             while (std::any_of(layers.begin(),layers.end(),[&](const LocalLayer& l){return l.name == name;})) name += "_";
             LocalLayer layer; layer.name = name;
-            if (a[1] == "spin" || a[1] == "orbit") {
-                require(a[1] == "spin" ? a.size() == 4 : (a.size() == 8 && a[4] == "center"),
-                    "insert spin <축> <도/초> 또는 insert orbit <축> <도/초> center <월드 XYZ/cursor>");
+            if (a[1] == "spin" || a[1] == "orbit" || a[1] == "spin-axis" || a[1] == "orbit-axis") {
+                const bool vectorAxis=a[1]=="spin-axis" || a[1]=="orbit-axis";
+                const bool orbit=a[1]=="orbit" || a[1]=="orbit-axis";
+                const std::size_t rateIndex=vectorAxis ? 5 : 3;
+                require(orbit ? (a.size()==rateIndex+5 && a[rateIndex+1]=="center") : a.size()==rateIndex+1,
+                    "insert spin[-axis] <축 또는 AX AY AZ> <도/초> 또는 orbit[-axis] ... center <월드 XYZ/cursor>");
                 graphics::RotationMotion rotation;
-                rotation.axis.direction = axis(a[2]); rotation.degreesPerSecond = number(a[3]);
-                rotation.space = graphics::TransformSpace::Local;
-                if (a[1] == "orbit") {
-                    const auto frame = app_.getScene().worldMatrix(object.id);
+                rotation.axis.direction=vectorAxis ? vector(a,2) : axis(a[2]);
+                rotation.axis.point=object.rest.localBasis;
+                rotation.degreesPerSecond=number(a[rateIndex]); rotation.space=graphics::TransformSpace::Local;
+                if (orbit) {
+                    const auto frame=app_.getScene().worldMatrix(object.id);
                     require(frame && affine(*frame),"공전 중심 변환 실패.");
-                    rotation.axis.point = glm::vec3(glm::inverse(*frame)*glm::vec4(vector(a,5),1));
+                    rotation.axis.point=glm::vec3(inverseAffine(*frame)*glm::vec4(vector(a,rateIndex+2),1));
                 }
                 require(layer.motion.append(graphics::Motion::rotation(rotation)),"회전 템플릿 생성 실패.");
             } else if (a[1] == "linear") {
@@ -179,7 +213,7 @@ bool Assembly::workspaceCommand(const Tokens& a, std::ostream& out) {
                 require(layer.motion.append(graphics::Motion::linear(motion)),"선형 이동 템플릿 생성 실패.");
             } else if (a[1] == "pendulum") {
                 require(a.size() == 5,"insert pendulum <축> <진폭 도> <주기 초>");
-                graphics::PendulumMotion motion; motion.axis.direction = axis(a[2]);
+                graphics::PendulumMotion motion; motion.axis.direction = axis(a[2]); motion.axis.point=object.rest.localBasis;
                 motion.amplitudeDegrees = number(a[3]); motion.periodSeconds = number(a[4]);
                 require(layer.motion.append(graphics::Motion::pendulum(motion)),"진자 템플릿 생성 실패.");
             } else {
@@ -252,7 +286,14 @@ void Assembly::editStep(float amount, std::ostream& out) {
         if (!local) {
             const auto base=app_.getScene().placementMatrix(node(state_.selected).id);
             if (!base) return;
-            p += glm::vec3((*base)[3]);
+            if (state_.editMode=="face" && state_.faceSelection) {
+                const auto& hit=*state_.faceSelection;
+                const auto face=app_.getScene().getMesh(hit.entityId,hit.faceIndex);
+                const auto matrix=app_.getScene().faceWorldMatrix(hit.entityId,hit.faceIndex);
+                if (!face || !matrix || face->localVertices.empty()) return;
+                glm::vec3 center(0);for(const auto& v:face->localVertices)center+=v;
+                p+=glm::vec3(*matrix*glm::vec4(center/float(face->localVertices.size()),1));
+            } else p += glm::vec3((*base)[3]);
         }
         command << (local ? "layer t " : "t ") << p.x << ' ' << p.y << ' ' << p.z;
     }
@@ -260,9 +301,9 @@ void Assembly::editStep(float amount, std::ostream& out) {
 }
 void Assembly::finishEdit(bool keep, std::ostream& out) {
     if (!editStart_) return;
-    if (!keep) { state_ = *editStart_; applyPoses(0); }
+    if (!keep) { state_ = *editStart_; if(editScene_) app_.getScene()=*editScene_; applyPoses(0); }
     else state_.paused = editStart_->paused;
-    editStart_.reset(); editOperation_=0; editCursor_.reset();
+    editStart_.reset(); editScene_.reset(); editOperation_=0; editCursor_.reset();
     out << (keep ? "Enter [변환 확정]" : "Esc [변환 취소]") << " - 인수 없음\n";
 }
 } // namespace assembly

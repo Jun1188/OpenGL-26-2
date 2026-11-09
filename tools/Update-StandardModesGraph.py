@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse
 import datetime
 import hashlib
+import fnmatch
 import json
 import re
 import subprocess
@@ -45,7 +46,8 @@ def inventory():
         for element in ET.parse(path).findall('.//m:ClCompile', ns):
             include = element.get('Include')
             if include and '$(' not in include:
-                sources.update(p.resolve() for p in path.parent.glob(include.replace('\\', '/')) if p.is_file())
+                exclusions=[x.replace('\\','/') for x in element.get('Exclude','').split(';') if x]
+                sources.update(p.resolve() for p in path.parent.glob(include.replace('\\', '/')) if p.is_file() and not any(fnmatch.fnmatch(p.relative_to(path.parent).as_posix(),pattern) for pattern in exclusions))
         bundled = path.parent / 'framework/detail'
         if bundled.is_dir():
             sources.update(p.resolve() for p in bundled.glob('*.cpp'))
@@ -91,6 +93,7 @@ def main():
     communities = cluster(graph)
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     to_json(graph, communities, str(OUT / 'graph.json'), force=True, built_at_commit=commit)
+    if graph.number_of_nodes()>5000: print('Warning: interactive graph has more than 5000 nodes; initial layout may be slow.')
     to_html(graph, communities, str(OUT / 'graph.html'))
     for name in ('graph.json', 'graph.html'):
         write(name, (OUT / name).read_text(encoding='utf-8-sig'))
@@ -99,6 +102,7 @@ def main():
     dump('SOURCE_MANIFEST.json', {
         'date': datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).date().isoformat(), 'source_commit': commit,
         'method': 'graphify AST; no semantic API, build, tests, app run, or extraction diagnostics',
+        'source_state': 'Saved working tree; source_commit names the base commit, files records current source hashes.',
         'nodes': graph.number_of_nodes(), 'edges': graph.number_of_edges(),
         'files': {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
         'limits': ['Dynamic callback and virtual-dispatch order requires source review.',

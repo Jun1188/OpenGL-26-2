@@ -1,0 +1,160 @@
+﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>변환 조합 템플릿</title><style>body{font:16px/1.8 "Malgun Gothic",sans-serif;max-width:1100px;margin:32px auto;padding:0 24px}pre{background:#142d42;color:#fff;padding:18px;overflow:auto}td,th{border:1px solid #ccd6de;padding:10px}table{border-collapse:collapse;width:100%}section{margin:40px 0}a{color:#15649c}</style></head><body><!-- standard-nav:start --><nav style="position:sticky;top:0;z-index:50;display:flex;gap:18px;flex-wrap:wrap;align-items:center;padding:10px 24px;background:#142c43;color:#fff;font:15px/1.6 'Malgun Gothic',sans-serif"><a href="../index.html" style="color:#fff;font-weight:700;text-decoration:none">← 전체 문서</a><a href="../index.html#cat-start" style="color:#cfe3ff;text-decoration:none">시작하기</a><span style="flex:1"></span><span style="color:#9fb6cf;font:13px Consolas,monospace">docs/TRANSFORM_TEMPLATES.html</span></nav><!-- standard-nav:end --><h1>변환 조합 템플릿</h1><p><a href="../index.html">전체 문서</a> · <a href="../document.html?doc=docs/TRANSFORM_REFERENCE.md">변환 조합 레퍼런스</a> · <a href="../document.html?doc=docs/QUICK_COMMANDS.md">명령어</a></p><p>실습 재출제를 가정하지 않는다. 요구한 움직임을 연산·좌표계·상속·시간·힘으로 분해한다. 파일마다 장면 초기화가 있으므로 조합할 때 clear와 카메라 초기화를 제외한다.</p><nav><a href="#01-local-order">지역 변환의 순서</a> · <a href="#02-pivot">피벗을 고정한 회전</a> · <a href="#03-inherit-world">월드 좌표로 부착하고 상속</a> · <a href="#04-orbit-spin">공전과 자전의 독립 조합</a> · <a href="#05-fixed-end-scale">끝점을 고정한 비균등 배율</a> · <a href="#06-periodic">시간 함수로 반복 회전</a> · <a href="#07-input-rate">입력량과 시간당 변화량</a> · <a href="#08-light-camera">같은 변환을 조명·카메라에 사용</a> · <a href="#09-arbitrary-axis">임의 축 회전</a> · </nav><section id="01-local-order"><h2>지역 변환의 순서</h2><p>이동한 축·회전한 축에서 다음 연산을 적용할 때</p><p><code>load examples/assembly/templates/01-local-order.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>기본 물체 생성</td></tr><tr><td><code>layer add turn</code></td><td>회전 레이어 생성</td></tr><tr><td><code>layer r y 30</code></td><td>지역 Y축으로 30도 회전</td></tr><tr><td><code>layer add offset</code></td><td>앞 레이어의 회전된 축을 상속하는 이동 레이어 생성</td></tr><tr><td><code>layer t 2 0 0</code></td><td>회전된 지역 X축으로 2 이동</td></tr><tr><td><code>layer add shape</code></td><td>비균등 형상 레이어 생성</td></tr><tr><td><code>layer s 2 1 0.5</code></td><td>지역 세 축 배율을 따로 적용</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 지역 변환의 순서
+# @goal: 이동한 축·회전한 축에서 다음 연산을 적용할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 0 0 0
+
+#: 회전 레이어 생성
+layer add turn
+
+#: 지역 Y축으로 30도 회전
+layer r y 30
+
+#: 앞 레이어의 회전된 축을 상속하는 이동 레이어 생성
+layer add offset
+
+#: 회전된 지역 X축으로 2 이동
+layer t 2 0 0
+
+#: 비균등 형상 레이어 생성
+layer add shape
+
+#: 지역 세 축 배율을 따로 적용
+layer s 2 1 0.5
+</pre></details></section><section id="02-pivot"><h2>피벗을 고정한 회전</h2><p>중심·끝점·관절·임의 기준점 주위로 돌 때</p><p><code>load examples/assembly/templates/02-pivot.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box rod 0 0 0 4 0.2 0.2</code></td><td>길이 4의 막대 생성</td></tr><tr><td><code>pivot rod -2 0 0 keep</code></td><td>막대 왼쪽 끝을 피벗으로 지정하되 배치는 유지</td></tr><tr><td><code>insert spin z 45</code></td><td>지정한 피벗 주위로 지역 Z축 자전</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 피벗을 고정한 회전
+# @goal: 중심·끝점·관절·임의 기준점 주위로 돌 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 길이 4의 막대 생성
+add box rod 0 0 0 4 0.2 0.2
+
+#: 막대 왼쪽 끝을 피벗으로 지정하되 배치는 유지
+pivot rod -2 0 0 keep
+
+#: 지정한 피벗 주위로 지역 Z축 자전
+insert spin z 45
+</pre></details></section><section id="03-inherit-world"><h2>월드 좌표로 부착하고 상속</h2><p>서로 다른 물체가 공통 이동을 따라갈 때</p><p><code>load examples/assembly/templates/03-inherit-world.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add joint base at 10 0 0</code></td><td>부모 프레임을 월드 X=10에 생성</td></tr><tr><td><code>add box item at 12 0 0</code></td><td>자식을 월드 X=12에 생성</td></tr><tr><td><code>parent base</code></td><td>현재 월드 배치를 유지해 부모 연결</td></tr><tr><td><code>insert spin y 45</code></td><td>자식 내부 회전 추가</td></tr><tr><td><code>select base</code></td><td>부모 선택</td></tr><tr><td><code>t 15 0 0</code></td><td>부모를 월드 X=15로 이동. 자식 기준 배치는 X=17</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 월드 좌표로 부착하고 상속
+# @goal: 서로 다른 물체가 공통 이동을 따라갈 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 부모 프레임을 월드 X=10에 생성
+add joint base at 10 0 0
+
+#: 자식을 월드 X=12에 생성
+add box item at 12 0 0
+
+#: 현재 월드 배치를 유지해 부모 연결
+parent base
+
+#: 자식 내부 회전 추가
+insert spin y 45
+
+#: 부모 선택
+select base
+
+#: 부모를 월드 X=15로 이동. 자식 기준 배치는 X=17
+t 15 0 0
+</pre></details></section><section id="04-orbit-spin"><h2>공전과 자전의 독립 조합</h2><p>위치 변화와 자체 회전을 각각 조절할 때</p><p><code>load examples/assembly/templates/04-orbit-spin.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 3 0 0</code></td><td>중심에서 떨어진 물체 생성</td></tr><tr><td><code>insert orbit y 30 center 0 0 0</code></td><td>월드 원점을 지역 중심으로 변환해 공전 레이어 생성</td></tr><tr><td><code>insert spin x 90</code></td><td>공전 레이어를 상속하는 자체 회전 레이어 생성</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 공전과 자전의 독립 조합
+# @goal: 위치 변화와 자체 회전을 각각 조절할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 중심에서 떨어진 물체 생성
+add box item at 3 0 0
+
+#: 월드 원점을 지역 중심으로 변환해 공전 레이어 생성
+insert orbit y 30 center 0 0 0
+
+#: 공전 레이어를 상속하는 자체 회전 레이어 생성
+insert spin x 90
+</pre></details></section><section id="05-fixed-end-scale"><h2>끝점을 고정한 비균등 배율</h2><p>한쪽 끝은 그대로 두고 길이·폭만 바꿀 때</p><p><code>load examples/assembly/templates/05-fixed-end-scale.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box rod 0 0 0 4 0.2 0.2</code></td><td>길이 4 막대 생성</td></tr><tr><td><code>pivot rod -2 0 0 keep</code></td><td>왼쪽 끝을 피벗으로 지정</td></tr><tr><td><code>s 2 1 1</code></td><td>월드 X축 길이만 두 배. 왼쪽 X=-2는 유지</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 끝점을 고정한 비균등 배율
+# @goal: 한쪽 끝은 그대로 두고 길이·폭만 바꿀 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 길이 4 막대 생성
+add box rod 0 0 0 4 0.2 0.2
+
+#: 왼쪽 끝을 피벗으로 지정
+pivot rod -2 0 0 keep
+
+#: 월드 X축 길이만 두 배. 왼쪽 X=-2는 유지
+s 2 1 1
+</pre></details></section><section id="06-periodic"><h2>시간 함수로 반복 회전</h2><p>단순 주기 운동을 물리 적분 없이 작성할 때</p><p><code>load examples/assembly/templates/06-periodic.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>기본 물체 생성</td></tr><tr><td><code>insert pendulum z 25 3</code></td><td>Z축 진폭25도·주기3초의 사인 회전</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 시간 함수로 반복 회전
+# @goal: 단순 주기 운동을 물리 적분 없이 작성할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 0 0 0
+
+#: Z축 진폭25도·주기3초의 사인 회전
+insert pendulum z 25 3
+</pre></details></section><section id="07-input-rate"><h2>입력량과 시간당 변화량</h2><p>한 번 누름과 길게 누름을 구분할 때</p><p><code>load examples/assembly/templates/07-input-rate.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>제어할 물체 생성</td></tr><tr><td><code>bind RIGHT hold &quot;move item 1 0 0&quot;</code></td><td>누른 동안 초당 X+1 이동</td></tr><tr><td><code>bind Q press &quot;rotate item y 5&quot;</code></td><td>한 번 누를 때 Y축5도 회전</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 입력량과 시간당 변화량
+# @goal: 한 번 누름과 길게 누름을 구분할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 제어할 물체 생성
+add box item at 0 0 0
+
+#: 누른 동안 초당 X+1 이동
+bind RIGHT hold &quot;move item 1 0 0&quot;
+
+#: 한 번 누를 때 Y축5도 회전
+bind Q press &quot;rotate item y 5&quot;
+</pre></details></section><section id="08-light-camera"><h2>같은 변환을 조명·카메라에 사용</h2><p>시각 객체와 관찰·광원 배치를 함께 조립할 때</p><p><code>load examples/assembly/templates/08-light-camera.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>관찰할 물체 생성</td></tr><tr><td><code>light point lamp at 3 4 2</code></td><td>점광원 생성</td></tr><tr><td><code>light intensity 2</code></td><td>광원 강도 설정</td></tr><tr><td><code>camera add observer at 6 4 8</code></td><td>카메라 생성</td></tr><tr><td><code>camera look 0 0 0</code></td><td>월드 원점을 바라보게 설정</td></tr><tr><td><code>camera use</code></td><td>선택 카메라로 전환</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 같은 변환을 조명·카메라에 사용
+# @goal: 시각 객체와 관찰·광원 배치를 함께 조립할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 관찰할 물체 생성
+add box item at 0 0 0
+
+#: 점광원 생성
+light point lamp at 3 4 2
+
+#: 광원 강도 설정
+light intensity 2
+
+#: 카메라 생성
+camera add observer at 6 4 8
+
+#: 월드 원점을 바라보게 설정
+camera look 0 0 0
+
+#: 선택 카메라로 전환
+camera use
+</pre></details></section><section id="09-arbitrary-axis"><h2>임의 축 회전</h2><p>좌표축이 아닌 방향 벡터를 기준으로 돌 때</p><p><code>load examples/assembly/templates/09-arbitrary-axis.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 2 0 0</code></td><td>기본 물체 생성</td></tr><tr><td><code>insert orbit-axis 1 1 0 30 center 0 0 0</code></td><td>지역 (1,1,0) 방향 축의 공전</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 임의 축 회전
+# @goal: 좌표축이 아닌 방향 벡터를 기준으로 돌 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 2 0 0
+
+#: 지역 (1,1,0) 방향 축의 공전
+insert orbit-axis 1 1 0 30 center 0 0 0
+</pre></details></section><h2>힘을 포함하는 응용 한 가지: 회전 스프링 저울</h2><p><code>load examples/assembly/scenarios/s13-moving-scale.assembly</code></p><p>앞의 변환 블록에 중력·이동/회전 프레임·스프링 콜백을 추가한 예다. 영자연길이 선형 스프링 모델이며 시험 문제의 형상·제약 조건은 별도로 작성한다.</p><p><a href="../document.html?doc=docs/APPLICATION_RECIPES.md">힘의 단위·가정·저울 예제 설명</a></p></body></html>

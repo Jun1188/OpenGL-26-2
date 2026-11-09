@@ -15,7 +15,7 @@ bool Assembly::objectCommand(const Tokens& a, std::ostream&) {
         auto& child = node(a[1]);
         require(!child.mount, "면 부착 관절은 unmount 후 부모를 바꾸세요.");
         auto* driver = positionDriver(a[1]);
-        require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk), "물리 루트에는 부모를 추가할 수 없습니다.");
+        require(!driver || (driver->effect != Effect::Body && driver->effect != Effect::Walk && driver->effect != Effect::Dynamics && driver->effect != Effect::Custom), "물리 루트에는 부모를 추가할 수 없습니다.");
         for (const auto& behavior : state_.behaviors) {
             if (behavior.effect != Effect::Body && behavior.effect != Effect::Walk) continue;
             const auto& room = node(behavior.reference);

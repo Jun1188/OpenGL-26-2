@@ -214,6 +214,8 @@ def description(r):
     if name==owner:return {'Application':'초기 창 포인터와 콜백·CPU 장면 상태를 준비한다. 실제 창은 run에서 생성한다.','Scene':'빈 CPU 장면과 ID·형상 변경 상태를 초기화한다.','Renderer':'GPU 핸들을 0과 미업로드 상태로 준비한다. 실제 GL 생성은 initialize에서 수행한다.','AssetLoader':'프로젝트 루트와 기능 옵션을 보관하고 상대경로 자산 로딩을 준비한다.'}[owner]
     if name.startswith('~'):return '실행 자원을 정리한다. GPU 해제는 창의 컨텍스트가 유효한 동안 수행한다.'
     if name=='operator bool':return '모델 또는 이미지 결과가 있는지 성공 여부로 변환한다. 실패 시 error 문자열을 확인한다.'
+    workspace_descriptions={('Scene', 'placementMatrix'): '자기 지역 레이어 이전의 월드 기준 배치를 반환한다. 부모의 최종 레이어는 상속한다.', ('Scene', 'setWorldPlacement'): '월드 배치를 부모 기준 아핀 부착으로 변환한다. 전단을 보존하고 자기 지역 레이어는 유지한다.', ('Scene', 'setParentPreserveWorld'): '현재 월드 배치를 유지해 부모를 연결한다. 순환·특이행렬 실패 시 기존 관계를 보존한다.', ('Scene', 'setAttachment'): '객체가 소유한 부모 기준 아핀 부착 행렬을 설정한다. 특이행렬은 거부한다.', ('Scene', 'setLocalLayers'): '객체 소유의 순차 지역 행렬 목록을 교체한다. 실패 시 기존 목록을 유지한다.', ('DynamicsSystem', 'validFrame'): '기준 프레임의 정규직교 회전과 유한한 가속도·각속도·각가속도를 확인한다.', ('DynamicsSystem', 'effectiveAcceleration'): '월드 중력과 이동·회전 프레임의 관성항을 합성해 지역 가속도를 계산한다.', ('DynamicsSystem', 'step'): '지역 힘 콜백을 질량으로 나누고 점질량을 적분한다. 비유한 결과는 상태에 반영하지 않는다.', ('DynamicsSystem', 'holdingForce'): '질점을 기준 프레임의 해당 위치에 정지 구속하는 데 필요한 지역 힘을 계산한다.', ('DynamicsSystem', 'normalLoad'): '정지 구속력을 주어진 법선에 투영한 압축력을 반환한다. 실제 접촉 충돌 계산은 아니다.', ('DynamicsSystem', 'spring'): '앵커·강성·감쇠로 영자연길이 선형 스프링의 지역 힘 콜백을 만든다.'}
+    if (owner,name) in workspace_descriptions: return workspace_descriptions[owner,name]
     additions={
         ('HumanoidPose','seated'):'허벅지를 앞으로 뻗고 무릎을 굽힌 앉은 자세를 반환한다.',
         ('AnimationSystem','createJointAnimation'):'관절의 기준 SRT와 강체 모션을 보관한다. 기준 배율은 양수 균일 배율이다.',

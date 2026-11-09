@@ -1,0 +1,12 @@
+﻿# @title: 시간 함수로 반복 회전
+# @goal: 단순 주기 운동을 물리 적분 없이 작성할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 0 0 0
+
+#: Z축 진폭25도·주기3초의 사인 회전
+insert pendulum z 25 3

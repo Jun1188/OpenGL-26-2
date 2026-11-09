@@ -110,6 +110,7 @@ class Assembly {
     std::uint64_t topologyRevision_ = 0;
 
     std::optional<State> editStart_;
+    std::optional<graphics::Scene> editScene_;
     char editOperation_ = 0;
     std::optional<double> editCursor_;
     Tokens resolveCommand(const Tokens& args) const;

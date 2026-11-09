@@ -99,7 +99,7 @@ const Node& Assembly::node(const std::string& name) const {
 }
 
 void Assembly::clear() {
-    editStart_.reset(); editOperation_=0; editCursor_.reset();
+    editStart_.reset(); editScene_.reset(); editOperation_=0; editCursor_.reset();
     ++topologyRevision_;
     app_.getScene().clear();
     app_.getRenderOptions().pointLights.clear();
@@ -200,6 +200,11 @@ void Assembly::attach(Behavior behavior) {
 
 void Assembly::setRest(const std::string& target, const graphics::Transform3D& rest) {
     auto& value = node(target);
+    if (const auto* driver=positionDriver(target); driver && driver->effect==Effect::Dynamics) {
+        require(rest.basis==value.rest.basis && rest.localBasis==value.rest.localBasis && rest.scale==value.rest.scale &&
+            rest.rotation[0]==value.rest.rotation[0] && rest.rotation[1]==value.rest.rotation[1] && rest.rotation[2]==value.rest.rotation[2],
+            "힘 제어 루트는 force position/velocity로 이동하고 형상은 메시 자식에서 편집하세요.");
+    }
     bool immutable = false;
     for (const auto& behavior : state_.behaviors) {
         immutable = immutable || (behavior.effect == Effect::Body && target == behavior.target + ".mesh");
@@ -305,7 +310,9 @@ bool Assembly::execute(const std::string& line, std::ostream& out) {
         }
         if (!readOnly) faulted_ = false;
         if (!replaying_ && !readOnly) {
-            out << line << " [적용 완료] - 대상: " << (state_.selected.empty() ? "작업공간" : state_.selected);
+            out << line << " [적용 완료] - 해석 인수:";
+            for (const auto& arg:args) out << ' ' << quote(arg);
+            out << ", 선택: " << (state_.selected.empty() ? "없음" : state_.selected);
             if (!state_.selectedLayer.empty()) out << ", 지역 레이어: " << state_.selectedLayer;
             out << '\n';
             if (!state_.selected.empty() && state_.nodes.count(state_.selected)) {

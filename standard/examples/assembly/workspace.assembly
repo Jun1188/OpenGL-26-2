@@ -1,10 +1,5 @@
-﻿# Ctrl+F5 기본 작업공간. 이 파일을 편집하고 다시 Ctrl+F5.
+﻿# Standard 0 generic workspace. Edit the scene here, then Ctrl+F5.
 clear
-feature add swingLab 9
-move swingLab -5 0 0
-feature add tankLab 16
-move tankLab 5 0 0
-camera pose 18 11 24 0 1 0 0 1 0
-feature focus none
-feature camera none
-view 1
+camera pose 8 6 10 0 0 0 0 1 0
+add box box1 at 0 0 0
+select box1

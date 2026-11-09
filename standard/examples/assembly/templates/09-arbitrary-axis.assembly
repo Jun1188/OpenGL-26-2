@@ -1,0 +1,12 @@
+﻿# @title: 임의 축 회전
+# @goal: 좌표축이 아닌 방향 벡터를 기준으로 돌 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 기본 물체 생성
+add box item at 2 0 0
+
+#: 지역 (1,1,0) 방향 축의 공전
+insert orbit-axis 1 1 0 30 center 0 0 0

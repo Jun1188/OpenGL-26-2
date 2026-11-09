@@ -192,7 +192,7 @@ void Assembly::onKey(int key, int action, int mods, std::ostream& out) {
     if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) { finishEdit(true,out); return; }
     if ((key == GLFW_KEY_G || key == GLFW_KEY_R || key == GLFW_KEY_S) && action == GLFW_PRESS && !state_.selected.empty()) {
         finishEdit(true,out);
-        editStart_ = state_; state_.paused = true;
+        editStart_ = state_; editScene_=app_.getScene(); state_.paused = true;
         editOperation_ = key == GLFW_KEY_G ? 't' : key == GLFW_KEY_R ? 'r' : 's'; editCursor_.reset();
         out << "G/R/S [변환 미리보기] - X/Y/Z: 축, 마우스/방향키: 양, Shift: 미세, Enter: 확정, Esc: 취소\n";
     } else if (key == GLFW_KEY_X || key == GLFW_KEY_Y || key == GLFW_KEY_Z) {
@@ -264,6 +264,15 @@ void Assembly::onMouse(const graphics::MouseEvent& event, std::ostream& out) {
         if (!state_.selected.empty()) break;
         const auto* component = app_.getScene().getComponent(*entity);
         entity = component ? component->parent : std::nullopt;
+    }
+    if ((event.mods & GLFW_MOD_CONTROL) && !state_.selected.empty() && state_.editMode=="object") {
+        auto parent=app_.getScene().getComponent(node(state_.selected).id)->parent;
+        bool found=false;
+        while (parent && !found) {
+            for (const auto& item:state_.nodes)
+                if(item.second.id==*parent && item.second.whole) {state_.selected=item.first;found=true;break;}
+            if(!found) parent=app_.getScene().getComponent(*parent)->parent;
+        }
     }
     out << "cursor [생성 기준점] - 월드 XYZ=" << state_.cursor.x << ',' << state_.cursor.y << ',' << state_.cursor.z << '\n';
     if (state_.faceSelection) out << "face [세부 면 선택] - entity=" << state_.faceSelection->entityId << ", face=" << state_.faceSelection->faceIndex << '\n';

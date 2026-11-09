@@ -1,4 +1,8 @@
-﻿# 재사용 가능한 OpenGL 프레임워크 사용설명서
+﻿<!-- workspace-current:start -->
+[객체 부착·지역 레이어·힘 API](docs/WORKSPACE_API.md). Standard는 0번 작업공간이며 실습은 코드 참조다.
+<!-- workspace-current:end -->
+
+# 재사용 가능한 OpenGL 프레임워크 사용설명서
 
 ## 편집 가능한 API와 패턴 조립 (2026-11-03)
 

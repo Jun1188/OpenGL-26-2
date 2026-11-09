@@ -1,0 +1,275 @@
+﻿[
+  {
+    "source": "standard/modes/AssemblyFeatureInput.cpp",
+    "reference": "standard/docs/reference/modes/AssemblyFeatureInput.cpp.md",
+    "source_sha256": "dd9b95088434f882ece7b51118bfba7dd9ca1a7829051c7923f507211ecb616b",
+    "bytes": 3869,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/AssemblyFeatures.cpp",
+    "reference": "standard/docs/reference/modes/AssemblyFeatures.cpp.md",
+    "source_sha256": "ed946bc55e207a263bb1ae40a2c19b8cc89cef0360040706a1d08b5772680c06",
+    "bytes": 18926,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Editor.cpp",
+    "reference": "standard/docs/reference/modes/Editor.cpp.md",
+    "source_sha256": "012f7ff8ebfb617005ee94a2e78518bfa914be0b3986a25e8cc2fea1797a3065",
+    "bytes": 5863,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/FaceCommon.cpp",
+    "reference": "standard/docs/reference/modes/FaceCommon.cpp.md",
+    "source_sha256": "19039ecc4f22dac3df0d71e7bad411ffb34f311b8edd74bc2a92d58a0f92fcaa",
+    "bytes": 9639,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/FaceCommon.h",
+    "reference": "standard/docs/reference/modes/FaceCommon.h.md",
+    "source_sha256": "b7828e583962a4dc76f519dff9049d2de79d3c5928b392a7242831c36230ca91",
+    "bytes": 2017,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/FeatureContainer.cpp",
+    "reference": "standard/docs/reference/modes/FeatureContainer.cpp.md",
+    "source_sha256": "fd871b6e24a262a263e78db82b4e2473350bb6e17e7de77d081ffb4399c93720",
+    "bytes": 4321,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/FeatureContainer.h",
+    "reference": "standard/docs/reference/modes/FeatureContainer.h.md",
+    "source_sha256": "e10d108340e7584e7b170a162d554744e7648f5226d3e12c8543e0d351336866",
+    "bytes": 2058,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/GuideRecipes.cpp",
+    "reference": "standard/docs/reference/modes/GuideRecipes.cpp.md",
+    "source_sha256": "4234a204e904720a939c1de05ca256dcf71d19f9f1aa09307694b53607517be7",
+    "bytes": 56907,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/GuideRecipes.h",
+    "reference": "standard/docs/reference/modes/GuideRecipes.h.md",
+    "source_sha256": "7a8609fea929c8529f189297162baf43d4cd31fd70af17104c6474ae44a01c82",
+    "bytes": 581,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode0Assembly.cpp",
+    "reference": "standard/docs/reference/modes/Mode0Assembly.cpp.md",
+    "source_sha256": "07b089329b4923261fd17780875ea7875e3b80a36052e8a9324fdf0b7d420a54",
+    "bytes": 2055,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode10Practice13.cpp",
+    "reference": "standard/docs/reference/modes/Mode10Practice13.cpp.md",
+    "source_sha256": "ca592bfa325496da04ccfb83768f1996693f7ad74d9d3316f12933fa8a6df6c0",
+    "bytes": 4317,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode11Practice14.cpp",
+    "reference": "standard/docs/reference/modes/Mode11Practice14.cpp.md",
+    "source_sha256": "442762bb328ae1fdd5728865b41683fa1dd700ce5e074785ab201f39defb8ceb",
+    "bytes": 6225,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode12Practice15.cpp",
+    "reference": "standard/docs/reference/modes/Mode12Practice15.cpp.md",
+    "source_sha256": "6a035eda0ea11b61a4894823cda46b39af24ae008b97310cf9bf003bbbc87980",
+    "bytes": 154,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode13Practice16.cpp",
+    "reference": "standard/docs/reference/modes/Mode13Practice16.cpp.md",
+    "source_sha256": "6726bc38abe989a7ff009ff65b5bcac7b66370ff57dc1c614f2efc9e736632d4",
+    "bytes": 6495,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode14Practice17.cpp",
+    "reference": "standard/docs/reference/modes/Mode14Practice17.cpp.md",
+    "source_sha256": "a0d703eff9d6a853a2c9da73bde79f6deae68904e0e1b5918d5f9afdcf886db5",
+    "bytes": 10432,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode15Practice18.cpp",
+    "reference": "standard/docs/reference/modes/Mode15Practice18.cpp.md",
+    "source_sha256": "1badbab9850aacba1e8c2fad4373bb4a10e270fb826a930631665dc26aa31283",
+    "bytes": 8568,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode16Practice19.cpp",
+    "reference": "standard/docs/reference/modes/Mode16Practice19.cpp.md",
+    "source_sha256": "76a58c9c080e4c248e9213abda2371ee69425235e33094941fad668c1e01a149",
+    "bytes": 147,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode17Practice20.cpp",
+    "reference": "standard/docs/reference/modes/Mode17Practice20.cpp.md",
+    "source_sha256": "7f9dae657dd5495664df9bb9a7b25bfb502e161b66f3dc0367beecffe0f4ee3d",
+    "bytes": 8871,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode18Practice21.cpp",
+    "reference": "standard/docs/reference/modes/Mode18Practice21.cpp.md",
+    "source_sha256": "b7ee5b7037efa81a388e905d46dcf79d8a3caf85fd97c3949b4c1786c244fa75",
+    "bytes": 12593,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode19Practice22.cpp",
+    "reference": "standard/docs/reference/modes/Mode19Practice22.cpp.md",
+    "source_sha256": "abae18c2408b79ae67120c85f84ca8ff91bc5ac036932e00785fca3eb25c8cba",
+    "bytes": 146,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode1Ellipse.cpp",
+    "reference": "standard/docs/reference/modes/Mode1Ellipse.cpp.md",
+    "source_sha256": "6ef193740b1dfddba01d28b7e137393edfc6f587f329d6b66bd0984ed55132f4",
+    "bytes": 280,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode20Practice23.cpp",
+    "reference": "standard/docs/reference/modes/Mode20Practice23.cpp.md",
+    "source_sha256": "4b1153b736d4deb37aa5e5c35c0971f4771fa394367bbd1deff325e2d4d91c6e",
+    "bytes": 6756,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode21CameraCollision.cpp",
+    "reference": "standard/docs/reference/modes/Mode21CameraCollision.cpp.md",
+    "source_sha256": "d69d490abd67c5fb1b1d84123ad3295b59a68dd76d718d5b66f54495c7d61ba2",
+    "bytes": 2520,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode22EmbeddedMesh.cpp",
+    "reference": "standard/docs/reference/modes/Mode22EmbeddedMesh.cpp.md",
+    "source_sha256": "de9fbd4d53efc9bb03336edb1d115634b925f9a8b495803a6dc58723d8bd78ca",
+    "bytes": 5155,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode2Rectangle.cpp",
+    "reference": "standard/docs/reference/modes/Mode2Rectangle.cpp.md",
+    "source_sha256": "df53aea75e9e7f16d8e29908ec7ff9b90c0a8241d39cf2cea9de3811198589fe",
+    "bytes": 282,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode3Polygon.cpp",
+    "reference": "standard/docs/reference/modes/Mode3Polygon.cpp.md",
+    "source_sha256": "3778f0a79e4b79392cb815ead362bfd2e9276435052fec1bdef7b520b88a5ecb",
+    "bytes": 295,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode4Spatial.cpp",
+    "reference": "standard/docs/reference/modes/Mode4Spatial.cpp.md",
+    "source_sha256": "478be74f050fd0bd6bd9051fb60e0f0adf7480ef22c479e63a2685a2ee310d78",
+    "bytes": 519,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode5Circle.cpp",
+    "reference": "standard/docs/reference/modes/Mode5Circle.cpp.md",
+    "source_sha256": "1ef56b3839bd9f4847399d0eba5588766b27deb378c9b2c4e059104cb5b94340",
+    "bytes": 270,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode6Polyline.cpp",
+    "reference": "standard/docs/reference/modes/Mode6Polyline.cpp.md",
+    "source_sha256": "f97de17cb93a8acddb5219d73142507c6a9466708ac43c7a03b7eb40177be728",
+    "bytes": 303,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode7Grid.cpp",
+    "reference": "standard/docs/reference/modes/Mode7Grid.cpp.md",
+    "source_sha256": "0158b2d0569498faf5f421e6a8b98a5c5ed143561fc3a1be3154f1516de0beb9",
+    "bytes": 1930,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode8Room.cpp",
+    "reference": "standard/docs/reference/modes/Mode8Room.cpp.md",
+    "source_sha256": "5874813e0995ec4ee63b8bf9ded816c6851623e717675f13f2ff78bda6b48c27",
+    "bytes": 3370,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Mode9Animation.cpp",
+    "reference": "standard/docs/reference/modes/Mode9Animation.cpp.md",
+    "source_sha256": "1ecb028a7191547c0d8ae7a16eb5757f14be5bbc3fe6288c96fb62c0926d329c",
+    "bytes": 4388,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/MotionCommon.cpp",
+    "reference": "standard/docs/reference/modes/MotionCommon.cpp.md",
+    "source_sha256": "542650a9fbd45c37f00d4939536b192d98e902eab8a36e98a225e3d8db1c2cf6",
+    "bytes": 5392,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/Paths.h",
+    "reference": "standard/docs/reference/modes/Paths.h.md",
+    "source_sha256": "aa8f5fc18dca0be10f063806c91677b70b84274bf41b99b5239313fc5c57d28d",
+    "bytes": 273,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/PracticeCommon.h",
+    "reference": "standard/docs/reference/modes/PracticeCommon.h.md",
+    "source_sha256": "a508e211e4d01c8b7635fd7ac5b7fb01a5c6f271797b854d4df6a7bbfb4047d7",
+    "bytes": 2170,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/PracticeMode.h",
+    "reference": "standard/docs/reference/modes/PracticeMode.h.md",
+    "source_sha256": "460e2878c82e5ed3fa84ce16db37d60723da94c2ad97c307cf716c38e27071d6",
+    "bytes": 1914,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/PracticeRegistry.cpp",
+    "reference": "standard/docs/reference/modes/PracticeRegistry.cpp.md",
+    "source_sha256": "c857274d506b22df48aebf071a7a5dc993be08beb6d1f4f8076bafaa70fb0a65",
+    "bytes": 772,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/TankCommon.cpp",
+    "reference": "standard/docs/reference/modes/TankCommon.cpp.md",
+    "source_sha256": "16e00856ea4c2b1759b648f94cb1f968d3cca6ae96fa0616a4ee9ea90d238e70",
+    "bytes": 10285,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  },
+  {
+    "source": "standard/modes/TankCommon.h",
+    "reference": "standard/docs/reference/modes/TankCommon.h.md",
+    "source_sha256": "f1a7fbdc83348fd1703a0fdaa62c3830b12e260d5110d0c222f131fcfa2acf4a",
+    "bytes": 136,
+    "action": "preserved full source as reference markdown; removed obsolete translation unit/header"
+  }
+]

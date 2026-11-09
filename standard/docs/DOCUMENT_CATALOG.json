@@ -1,4 +1,4 @@
-{
+﻿{
   "schemaVersion": 1,
   "id": "standard-document-catalog",
   "source": "tools/Update-StandardDocs.py reads this file and writes index.html data, DOCUMENT_INDEX.md and docs/viewer/documents.js.",
@@ -11,41 +11,62 @@
     {
       "id": "start",
       "title": "시작하기",
-      "description": "빌드, 실행, 모드 전환과 기본 조작. 처음이면 여기부터 읽는다.",
+      "description": "0번 장면 작업공간의 입력·명령·좌표계. 실습은 소스 참조다.",
       "documents": [
         {
           "path": "README.md",
-          "title": "README: 모드·키·실행 흐름",
-          "summary": "모드 0~22 목록, 공통 키, 실행 순서"
+          "title": "0번 작업공간 시작",
+          "featured": true
+        },
+        {
+          "path": "docs/TRANSFORM_TEMPLATES.html",
+          "title": "연산별 변환 템플릿",
+          "featured": true
+        },
+        {
+          "path": "docs/TRANSFORM_REFERENCE.md",
+          "title": "요구 문장 → 변환·공간·API",
+          "featured": true
+        },
+        {
+          "path": "docs/TRANSFORM_TEMPLATES.md",
+          "title": "템플릿 파일 목록"
+        },
+        {
+          "path": "docs/QUICK_COMMANDS.md",
+          "title": "명령어 [결과] - 인수 의미",
+          "featured": true
+        },
+        {
+          "path": "docs/TRANSFORM_WORKSPACE.md",
+          "title": "월드 배치·상속·지역 레이어",
+          "featured": true
+        },
+        {
+          "path": "docs/APPLICATION_RECIPES.md",
+          "title": "광원·카메라·힘 API 연결",
+          "featured": false
+        },
+        {
+          "path": "USER_CHECKS.md",
+          "title": "사용자 빌드·동작 확인"
         },
         {
           "path": "PORTABLE.md",
           "summary": "필요한 Visual Studio 구성과 독립 폴더 배포"
-        },
-        {
-          "path": "USER_CHECKS.md",
-          "summary": "모드별로 직접 눌러 볼 키와 예상 결과"
-        },
-        {
-          "path": "docs/MODE_INPUT_AUDIT.md",
-          "summary": "모드별 입력과 반응을 정리한 평가표"
-        },
-        {
-          "path": "docs/MODE_ACTIONS.md",
-          "summary": "모드별 의미 단위 동작과 육면체 명령"
         }
       ]
     },
     {
       "id": "exam",
-      "title": "시험 대비",
-      "description": "무작위 실습형 문제를 0번 조립 모드와 기존 실습 코드로 푸는 순서.",
+      "title": "변환과 응용",
+      "description": "재출제 시나리오 대신 연산·좌표계·시간·힘을 조합한다.",
       "documents": [
         {
           "path": "docs/EXAM_SCENARIOS.html",
-          "title": "시험 시나리오 튜토리얼",
-          "summary": "시나리오 12개: 레시피 불러오기 → 변형 → 모드 확정",
-          "featured": true
+          "title": "이전 시나리오 문서의 이동 안내",
+          "summary": "변환 조합 템플릿으로 통합",
+          "featured": false
         },
         {
           "path": "docs/EXAM_IMPLEMENTATION_ORDER.html",
@@ -60,7 +81,7 @@
     {
       "id": "assembly",
       "title": "0번 기능 조립",
-      "description": "콘솔 명령으로 장면을 조립하고, 저장하고, C++로 확장하는 방법.",
+      "description": "짧은 명령과 객체별 지역 레이어로 작성·저장·확장한다.",
       "documents": [
         {
           "path": "docs/assembly/README.md",
@@ -84,7 +105,7 @@
         },
         {
           "path": "docs/assembly/FEATURE_CONTAINERS.md",
-          "summary": "1~22 기존 모드를 기능 컨테이너로 조합"
+          "summary": "과거 컨테이너 소스 참조; 현재 런타임 제외"
         },
         {
           "path": "docs/assembly/PATTERN_COMBINATIONS.md",
@@ -110,8 +131,8 @@
     },
     {
       "id": "cookbook",
-      "title": "실습 13~23 코드 모음",
-      "description": "실습별 세부 요구를 상태·입력·프레임 계산 코드로 나눈 모음.",
+      "title": "과거 실습 코드 참조",
+      "description": "변환 구현을 찾는 참고 코드. 시험 유형이나 재출제 예상 목록이 아니다.",
       "documents": [
         {
           "path": "docs/practice-cookbook/README.md",
@@ -342,6 +363,133 @@
           "path": "DOCUMENT_INDEX.md",
           "title": "문서 목차 (Markdown 판)",
           "summary": "이 목차의 Markdown 판"
+        }
+      ]
+    },
+    {
+      "id": "practice-reference",
+      "title": "실습 소스 참조",
+      "description": "실행 모드가 아닌 코드 레퍼런스",
+      "documents": [
+        {
+          "path": "docs/REFERENCE_PRACTICES.md"
+        },
+        {
+          "path": "docs/reference/modes/AssemblyFeatureInput.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/AssemblyFeatures.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Editor.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/FaceCommon.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/FaceCommon.h.md"
+        },
+        {
+          "path": "docs/reference/modes/FeatureContainer.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/FeatureContainer.h.md"
+        },
+        {
+          "path": "docs/reference/modes/GuideRecipes.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/GuideRecipes.h.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode0Assembly.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode10Practice13.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode11Practice14.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode12Practice15.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode13Practice16.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode14Practice17.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode15Practice18.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode16Practice19.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode17Practice20.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode18Practice21.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode19Practice22.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode1Ellipse.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode20Practice23.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode21CameraCollision.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode22EmbeddedMesh.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode2Rectangle.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode3Polygon.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode4Spatial.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode5Circle.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode6Polyline.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode7Grid.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode8Room.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Mode9Animation.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/MotionCommon.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/Paths.h.md"
+        },
+        {
+          "path": "docs/reference/modes/PracticeCommon.h.md"
+        },
+        {
+          "path": "docs/reference/modes/PracticeMode.h.md"
+        },
+        {
+          "path": "docs/reference/modes/PracticeRegistry.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/TankCommon.cpp.md"
+        },
+        {
+          "path": "docs/reference/modes/TankCommon.h.md"
         }
       ]
     }
