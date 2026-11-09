@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../framework/Framework.h"
+#include "framework/Framework.h"
 #include <array>
 
 class Console {

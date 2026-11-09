@@ -79,6 +79,7 @@ void Console::apply() {
     ring.scale = {radius_, 1, radius_};
     require(scene.setTransform(lamp_, lamp) && scene.setTransform(ring_, ring), "Light/ring placement failed.");
     app_.getRenderOptions().pointLights[0].position = position;
+    app_.getCamera().position = glm::normalize(glm::vec3(5, 4, 8)) * std::max(10.5f, 3.5f * radius_);
 }
 
 void Console::onKey(int key, int action, int mods) {
