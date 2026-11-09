@@ -1,4 +1,4 @@
-﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>변환 조합 템플릿</title><style>body{font:16px/1.8 "Malgun Gothic",sans-serif;max-width:1100px;margin:32px auto;padding:0 24px}pre{background:#142d42;color:#fff;padding:18px;overflow:auto}td,th{border:1px solid #ccd6de;padding:10px}table{border-collapse:collapse;width:100%}section{margin:40px 0}a{color:#15649c}</style></head><body><!-- standard-nav:start --><nav style="position:sticky;top:0;z-index:50;display:flex;gap:18px;flex-wrap:wrap;align-items:center;padding:10px 24px;background:#142c43;color:#fff;font:15px/1.6 'Malgun Gothic',sans-serif"><a href="../index.html" style="color:#fff;font-weight:700;text-decoration:none">← 전체 문서</a><a href="../index.html#cat-start" style="color:#cfe3ff;text-decoration:none">시작하기</a><span style="flex:1"></span><span style="color:#9fb6cf;font:13px Consolas,monospace">docs/TRANSFORM_TEMPLATES.html</span></nav><!-- standard-nav:end --><h1>변환 조합 템플릿</h1><p><a href="../index.html">전체 문서</a> · <a href="../document.html?doc=docs/TRANSFORM_REFERENCE.md">변환 조합 레퍼런스</a> · <a href="../document.html?doc=docs/QUICK_COMMANDS.md">명령어</a></p><p>실습 재출제를 가정하지 않는다. 요구한 움직임을 연산·좌표계·상속·시간·힘으로 분해한다. 파일마다 장면 초기화가 있으므로 조합할 때 clear와 카메라 초기화를 제외한다.</p><nav><a href="#01-local-order">지역 변환의 순서</a> · <a href="#02-pivot">피벗을 고정한 회전</a> · <a href="#03-inherit-world">월드 좌표로 부착하고 상속</a> · <a href="#04-orbit-spin">공전과 자전의 독립 조합</a> · <a href="#05-fixed-end-scale">끝점을 고정한 비균등 배율</a> · <a href="#06-periodic">시간 함수로 반복 회전</a> · <a href="#07-input-rate">입력량과 시간당 변화량</a> · <a href="#08-light-camera">같은 변환을 조명·카메라에 사용</a> · <a href="#09-arbitrary-axis">임의 축 회전</a> · </nav><section id="01-local-order"><h2>지역 변환의 순서</h2><p>이동한 축·회전한 축에서 다음 연산을 적용할 때</p><p><code>load examples/assembly/templates/01-local-order.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>기본 물체 생성</td></tr><tr><td><code>layer add turn</code></td><td>회전 레이어 생성</td></tr><tr><td><code>layer r y 30</code></td><td>지역 Y축으로 30도 회전</td></tr><tr><td><code>layer add offset</code></td><td>앞 레이어의 회전된 축을 상속하는 이동 레이어 생성</td></tr><tr><td><code>layer t 2 0 0</code></td><td>회전된 지역 X축으로 2 이동</td></tr><tr><td><code>layer add shape</code></td><td>비균등 형상 레이어 생성</td></tr><tr><td><code>layer s 2 1 0.5</code></td><td>지역 세 축 배율을 따로 적용</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 지역 변환의 순서
+﻿<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>변환 조합 템플릿</title><style>body{font:16px/1.8 "Malgun Gothic",sans-serif;max-width:1100px;margin:32px auto;padding:0 24px}pre{background:#142d42;color:#fff;padding:18px;overflow:auto}td,th{border:1px solid #ccd6de;padding:10px}table{border-collapse:collapse;width:100%}section{margin:40px 0}a{color:#15649c}</style></head><body><h1>변환 조합 템플릿</h1><p><a href="../index.html">전체 문서</a> · <a href="../document.html?doc=docs/TRANSFORM_REFERENCE.md">변환 조합 레퍼런스</a> · <a href="../document.html?doc=docs/QUICK_COMMANDS.md">명령어</a></p><p>실습 재출제를 가정하지 않는다. 요구한 움직임을 연산·좌표계·상속·시간·힘으로 분해한다. 파일마다 장면 초기화가 있으므로 조합할 때 clear와 카메라 초기화를 제외한다.</p><nav><a href="#01-local-order">지역 변환의 순서</a> · <a href="#02-pivot">피벗을 고정한 회전</a> · <a href="#03-inherit-world">월드 좌표로 부착하고 상속</a> · <a href="#04-orbit-spin">공전과 자전의 독립 조합</a> · <a href="#05-fixed-end-scale">끝점을 고정한 비균등 배율</a> · <a href="#06-periodic">시간 함수로 반복 회전</a> · <a href="#07-input-rate">입력량과 시간당 변화량</a> · <a href="#08-light-camera">같은 변환을 조명·카메라에 사용</a> · <a href="#09-arbitrary-axis">임의 축 회전</a> · <a href="#10-attached-view">움직이는 기준과 부착 시점</a> · <a href="#11-attachment-change">실행 중 부착 대상 변경</a> · <a href="#12-orbit-radius">공통 회전과 독립 반지름</a> · <a href="#13-phong-material">광원색과 재질 응답</a> · </nav><section id="01-local-order"><h2>지역 변환의 순서</h2><p>이동한 축·회전한 축에서 다음 연산을 적용할 때</p><p><code>load examples/assembly/templates/01-local-order.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add box item at 0 0 0</code></td><td>기본 물체 생성</td></tr><tr><td><code>layer add turn</code></td><td>회전 레이어 생성</td></tr><tr><td><code>layer r y 30</code></td><td>지역 Y축으로 30도 회전</td></tr><tr><td><code>layer add offset</code></td><td>앞 레이어의 회전된 축을 상속하는 이동 레이어 생성</td></tr><tr><td><code>layer t 2 0 0</code></td><td>회전된 지역 X축으로 2 이동</td></tr><tr><td><code>layer add shape</code></td><td>비균등 형상 레이어 생성</td></tr><tr><td><code>layer s 2 1 0.5</code></td><td>지역 세 축 배율을 따로 적용</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 지역 변환의 순서
 # @goal: 이동한 축·회전한 축에서 다음 연산을 적용할 때
 #: 독립 템플릿의 시작 장면
 clear
@@ -157,4 +157,142 @@ add box item at 2 0 0
 
 #: 지역 (1,1,0) 방향 축의 공전
 insert orbit-axis 1 1 0 30 center 0 0 0
+</pre></details></section><section id="10-attached-view"><h2>움직이는 기준과 부착 시점</h2><p>관찰 장치가 이동하는 대상의 자세를 함께 따를 때</p><p><code>load examples/assembly/templates/10-attached-view.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add joint carrier at 0 0 0</code></td><td>공통 이동 프레임</td></tr><tr><td><code>add box sensor at 2 1 0</code></td><td>관찰 장치의 월드 배치</td></tr><tr><td><code>parent carrier</code></td><td>현재 배치를 유지해 연결</td></tr><tr><td><code>camera add observer at 2 1.8 -1.5</code></td><td>관찰 카메라를 월드 좌표에 생성</td></tr><tr><td><code>camera look 2 1 3</code></td><td>현재 대상의 앞쪽을 보도록 설정</td></tr><tr><td><code>parent sensor</code></td><td>관찰 장치에 부착</td></tr><tr><td><code>camera use</code></td><td>부착 카메라 사용</td></tr><tr><td><code>select carrier</code></td><td>공통 프레임을 선택</td></tr><tr><td><code>insert linear 4 0 0 4</code></td><td>프레임을 4초 동안 이동</td></tr><tr><td><code>select sensor</code></td><td>장치만 선택</td></tr><tr><td><code>insert spin y 20</code></td><td>장치의 자체 회전과 관찰 시점을 함께 변경</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 움직이는 기준과 부착 시점
+# @goal: 관찰 장치가 이동하는 대상의 자세를 함께 따를 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 공통 이동 프레임
+add joint carrier at 0 0 0
+
+#: 관찰 장치의 월드 배치
+add box sensor at 2 1 0
+
+#: 현재 배치를 유지해 연결
+parent carrier
+
+#: 관찰 카메라를 월드 좌표에 생성
+camera add observer at 2 1.8 -1.5
+
+#: 현재 대상의 앞쪽을 보도록 설정
+camera look 2 1 3
+
+#: 관찰 장치에 부착
+parent sensor
+
+#: 부착 카메라 사용
+camera use
+
+#: 공통 프레임을 선택
+select carrier
+
+#: 프레임을 4초 동안 이동
+insert linear 4 0 0 4
+
+#: 장치만 선택
+select sensor
+
+#: 장치의 자체 회전과 관찰 시점을 함께 변경
+insert spin y 20
+</pre></details></section><section id="11-attachment-change"><h2>실행 중 부착 대상 변경</h2><p>물체를 서로 다른 움직이는 기준 사이에서 인계할 때</p><p><code>load examples/assembly/templates/11-attachment-change.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add joint source at -2 0 0</code></td><td>첫 번째 움직이는 기준</td></tr><tr><td><code>insert linear 3 0 0 6</code></td><td>첫 기준의 이동</td></tr><tr><td><code>add joint destination at 3 0 0</code></td><td>두 번째 기준</td></tr><tr><td><code>insert spin y 25</code></td><td>두 번째 기준의 회전</td></tr><tr><td><code>add box payload at -2 1 0</code></td><td>독립 물체</td></tr><tr><td><code>parent source</code></td><td>첫 기준에 연결</td></tr><tr><td><code>bind L press &quot;parent payload destination&quot;</code></td><td>L 한 번으로 두 번째 기준에 인계; 전환 순간 월드 배치 유지</td></tr><tr><td><code>bind K press &quot;parent payload none&quot;</code></td><td>K 한 번으로 월드에 분리</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 실행 중 부착 대상 변경
+# @goal: 물체를 서로 다른 움직이는 기준 사이에서 인계할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 첫 번째 움직이는 기준
+add joint source at -2 0 0
+
+#: 첫 기준의 이동
+insert linear 3 0 0 6
+
+#: 두 번째 기준
+add joint destination at 3 0 0
+
+#: 두 번째 기준의 회전
+insert spin y 25
+
+#: 독립 물체
+add box payload at -2 1 0
+
+#: 첫 기준에 연결
+parent source
+
+#: L 한 번으로 두 번째 기준에 인계; 전환 순간 월드 배치 유지
+bind L press &quot;parent payload destination&quot;
+
+#: K 한 번으로 월드에 분리
+bind K press &quot;parent payload none&quot;
+</pre></details></section><section id="12-orbit-radius"><h2>공통 회전과 독립 반지름</h2><p>광원·표지·위성의 중심 회전과 거리 조절을 나눌 때</p><p><code>load examples/assembly/templates/12-orbit-radius.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add joint hub at 0 0 0</code></td><td>공전 프레임</td></tr><tr><td><code>insert spin y 30</code></td><td>부모 Y 회전</td></tr><tr><td><code>light point lamp at 0 0 3</code></td><td>반지름 3의 점광원</td></tr><tr><td><code>parent hub</code></td><td>공전 프레임에 연결</td></tr><tr><td><code>layer add radius</code></td><td>반지름 편집용 지역 레이어</td></tr><tr><td><code>bind U press &quot;with lamp radius layer t 0 0 0.25&quot;</code></td><td>U로 지역 반지름 증가</td></tr><tr><td><code>bind J press &quot;with lamp radius layer t 0 0 -0.25&quot;</code></td><td>J로 지역 반지름 감소; 원점을 지나면 반대편으로 이동</td></tr><tr><td><code>add sphere surface at 0 0 0</code></td><td>조명을 받을 표면</td></tr><tr><td><code>render ambient 1 1 1</code></td><td>독립 주변광</td></tr><tr><td><code>light sun 0</code></td><td>방향광 제외</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 공통 회전과 독립 반지름
+# @goal: 광원·표지·위성의 중심 회전과 거리 조절을 나눌 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 공전 프레임
+add joint hub at 0 0 0
+
+#: 부모 Y 회전
+insert spin y 30
+
+#: 반지름 3의 점광원
+light point lamp at 0 0 3
+
+#: 공전 프레임에 연결
+parent hub
+
+#: 반지름 편집용 지역 레이어
+layer add radius
+
+#: U로 지역 반지름 증가
+bind U press &quot;with lamp radius layer t 0 0 0.25&quot;
+
+#: J로 지역 반지름 감소; 원점을 지나면 반대편으로 이동
+bind J press &quot;with lamp radius layer t 0 0 -0.25&quot;
+
+#: 조명을 받을 표면
+add sphere surface at 0 0 0
+
+#: 독립 주변광
+render ambient 1 1 1
+
+#: 방향광 제외
+light sun 0
+</pre></details></section><section id="13-phong-material"><h2>광원색과 재질 응답</h2><p>빛 위치·색과 표면 반사 특성을 독립적으로 바꿀 때</p><p><code>load examples/assembly/templates/13-phong-material.assembly</code></p><table><tr><th>명령어 [결과]</th><th>인수·관찰점</th></tr><tr><td><code>add sphere sample at 0 0 0</code></td><td>표면 생성</td></tr><tr><td><code>material phong 0.12 1 0.7 96</code></td><td>주변/확산/정반사/광택 계수</td></tr><tr><td><code>render ambient 1 1 1</code></td><td>독립 주변광</td></tr><tr><td><code>light sun 0</code></td><td>방향광 제외</td></tr><tr><td><code>light point lamp at 2 2 3</code></td><td>점광원 생성</td></tr><tr><td><code>light color 1 0.4 0.2</code></td><td>광원 색 설정</td></tr><tr><td><code>select sample</code></td><td>표면 선택</td></tr><tr><td><code>bind H press &quot;material sample phong 0.12 1 0.7 8&quot;</code></td><td>H 한 번으로 낮은 광택 계수</td></tr><tr><td><code>bind N press &quot;material sample phong 0.12 1 0.7 256&quot;</code></td><td>N 한 번으로 높은 광택 계수</td></tr></table><details><summary>복사할 원문</summary><pre># @title: 광원색과 재질 응답
+# @goal: 빛 위치·색과 표면 반사 특성을 독립적으로 바꿀 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 표면 생성
+add sphere sample at 0 0 0
+
+#: 주변/확산/정반사/광택 계수
+material phong 0.12 1 0.7 96
+
+#: 독립 주변광
+render ambient 1 1 1
+
+#: 방향광 제외
+light sun 0
+
+#: 점광원 생성
+light point lamp at 2 2 3
+
+#: 광원 색 설정
+light color 1 0.4 0.2
+
+#: 표면 선택
+select sample
+
+#: H 한 번으로 낮은 광택 계수
+bind H press &quot;material sample phong 0.12 1 0.7 8&quot;
+
+#: N 한 번으로 높은 광택 계수
+bind N press &quot;material sample phong 0.12 1 0.7 256&quot;
 </pre></details></section><h2>힘을 포함하는 응용 한 가지: 회전 스프링 저울</h2><p><code>load examples/assembly/scenarios/s13-moving-scale.assembly</code></p><p>앞의 변환 블록에 중력·이동/회전 프레임·스프링 콜백을 추가한 예다. 영자연길이 선형 스프링 모델이며 시험 문제의 형상·제약 조건은 별도로 작성한다.</p><p><a href="../document.html?doc=docs/APPLICATION_RECIPES.md">힘의 단위·가정·저울 예제 설명</a></p></body></html>

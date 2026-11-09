@@ -28,6 +28,10 @@ glm::mat4 matrixTokens(const Tokens& a, std::size_t start) {
 
 Tokens Assembly::resolveCommand(const Tokens& input) const {
     auto a = input;
+    if (a[0] == "material" && a.size() >= 2 && (a[1] == "phong" || a[1] == "unlit")) {
+        require(!state_.selected.empty(), "먼저 재질을 바꿀 물체를 선택하세요.");
+        a.insert(a.begin() + 1, state_.selected);
+    }
     if (a.size()>=2 && ((a[0]=="light" && a[1]=="point") || (a[0]=="camera" && a[1]=="add"))) {
         const std::string kind=a[0]=="light" ? "light" : "camera";
         Tokens create{"add",kind}; create.insert(create.end(),a.begin()+2,a.end());

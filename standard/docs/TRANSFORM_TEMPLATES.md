@@ -15,6 +15,10 @@
 | 한 번 누름과 길게 누름을 구분할 때 | [입력량과 시간당 변화량](../examples/assembly/templates/07-input-rate.assembly) | 좌표·배율·기간·대상 |
 | 시각 객체와 관찰·광원 배치를 함께 조립할 때 | [같은 변환을 조명·카메라에 사용](../examples/assembly/templates/08-light-camera.assembly) | 좌표·배율·기간·대상 |
 | 좌표축이 아닌 방향 벡터를 기준으로 돌 때 | [임의 축 회전](../examples/assembly/templates/09-arbitrary-axis.assembly) | 축·중심·각속도 |
+| 관찰 장치가 이동하는 대상의 자세를 함께 따를 때 | [움직이는 기준과 부착 시점](../examples/assembly/templates/10-attached-view.assembly) | 축·중심·각속도 |
+| 물체를 서로 다른 움직이는 기준 사이에서 인계할 때 | [실행 중 부착 대상 변경](../examples/assembly/templates/11-attachment-change.assembly) | 축·중심·각속도 |
+| 광원·표지·위성의 중심 회전과 거리 조절을 나눌 때 | [공통 회전과 독립 반지름](../examples/assembly/templates/12-orbit-radius.assembly) | 축·중심·각속도 |
+| 빛 위치·색과 표면 반사 특성을 독립적으로 바꿀 때 | [광원색과 재질 응답](../examples/assembly/templates/13-phong-material.assembly) | 좌표·배율·기간·대상 |
 
 [HTML 템플릿 목차](TRANSFORM_TEMPLATES.html) · [연산 선택과 C++ 레퍼런스](TRANSFORM_REFERENCE.md) · [전체 명령](QUICK_COMMANDS.md)
 

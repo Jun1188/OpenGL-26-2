@@ -44,6 +44,7 @@ bool Assembly::save(const std::string& path, std::ostream& out) const {
                << "render cull " << (r.cull == graphics::CullMode::Front ? "front" : r.cull == graphics::CullMode::Back ? "back" : "none") << '\n'
                << "render light-direction " << r.lightDirection.x << ' ' << r.lightDirection.y << ' ' << r.lightDirection.z << '\n'
                << "render light-color " << r.lightColor.red << ' ' << r.lightColor.green << ' ' << r.lightColor.blue << '\n'
+               << "render ambient " << r.ambientColor.red << ' ' << r.ambientColor.green << ' ' << r.ambientColor.blue << '\n'
                << "render background " << r.background.r << ' ' << r.background.g << ' ' << r.background.b << '\n';
         if (!state_.activeCamera.empty()) stream << "camera use " << quote(state_.activeCamera) << '\n';
         stream.flush();

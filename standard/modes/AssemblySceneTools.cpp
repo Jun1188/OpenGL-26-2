@@ -3,6 +3,27 @@
 
 namespace assembly {
 bool Assembly::sceneToolCommand(const Tokens& a, std::ostream&) {
+    if (a[0] == "material") {
+        require(a.size() >= 4, "material [대상] phong Ka Kd Ks N 또는 material [대상] unlit on/off");
+        const auto mesh = meshEntity(a[1]);
+        auto& scene = app_.getScene();
+        const auto count = scene.getComponent(mesh)->polyhedron.faces.size();
+        for (std::size_t face = 0; face < count; ++face) {
+            auto material = scene.getMesh(mesh, face)->material;
+            if (a[2] == "phong") {
+                require(a.size() == 7, "material [대상] phong Ka Kd Ks N");
+                material.ambientStrength = float(number(a[3]));
+                material.diffuseStrength = float(number(a[4]));
+                material.specularStrength = float(number(a[5]));
+                material.shininess = float(number(a[6]));
+            } else {
+                require(a[2] == "unlit" && a.size() == 4, "material [대상] unlit on/off");
+                material.unlit = boolean(a[3]);
+            }
+            require(scene.setMaterial(mesh, face, material), "재질 계수는 0~1, 광택 N은 1~1024입니다.");
+        }
+        return true;
+    }
     if (a[0] == "tool-add") {
         require(a.size()==6 && (a[1]=="light" || a[1]=="camera"),"tool-add light/camera <이름> X Y Z");
         if (a[1]=="light") {
@@ -11,6 +32,12 @@ bool Assembly::sceneToolCommand(const Tokens& a, std::ostream&) {
         }
         add("box",a[2],vector(a,3),glm::vec3(.2f));
         auto& object=node(a[2]); object.kind=a[1];
+        const auto count = app_.getScene().getComponent(*object.mesh)->polyhedron.faces.size();
+        for (std::size_t face = 0; face < count; ++face) {
+            auto material = app_.getScene().getMesh(*object.mesh, face)->material;
+            material.unlit = true;
+            require(app_.getScene().setMaterial(*object.mesh, face, material), "도구 표시 재질 실패.");
+        }
         if (a[1]=="light") {
             object.light=graphics::PointLight{};
             require(app_.getScene().setTint(*object.mesh,{1,.85f,.2f}),"광원 표시 실패.");
@@ -40,7 +67,9 @@ bool Assembly::sceneToolCommand(const Tokens& a, std::ostream&) {
             const float value=float(number(a[2])); require(std::isfinite(value) && value>=0,"강도/감쇠는 0 이상입니다.");
             (a[1]=="intensity" ? next.intensity : next.attenuation)=value;
         }
-        object.light=next; return true;
+        object.light=next;
+        require(app_.getScene().setTint(*object.mesh,next.color),"광원 표시 색 변경 실패.");
+        return true;
     }
     if (a[0]!="camera" || a.size()<2) return false;
     if (a[1]=="use") {
@@ -88,15 +117,9 @@ void Assembly::syncSceneTools() {
             const bool active=state_.activeCamera==item.first;
             if (object.mesh) require(scene.setVisible(*object.mesh,!active),"카메라 표시 실패.");
             if (!active) continue;
-            auto camera=*object.camera;
-            const auto position=glm::vec3(*world*glm::vec4(camera.position,1));
-            const auto forward=glm::vec3(*world*glm::vec4(camera.target-camera.position,0));
-            const auto up=glm::vec3(*world*glm::vec4(camera.up,0));
-            require(glm::length(forward)>.000001f && glm::length(glm::cross(forward,up))>.000001f,"카메라 방향이 퇴화했습니다.");
-            const auto direction=glm::normalize(forward), right=glm::normalize(glm::cross(direction,up));
-            camera.position=position; camera.target=position+direction; camera.up=glm::normalize(glm::cross(right,direction));
-            require(graphics::CameraSystem::validCamera(camera),"월드 카메라 자세가 유효하지 않습니다.");
-            app_.getCamera()=camera;
+            const auto camera=graphics::CameraSystem::attached(*object.camera,*world);
+            require(camera.has_value(),"월드 카메라 자세가 유효하지 않습니다.");
+            app_.getCamera()=*camera;
         }
     }
 }

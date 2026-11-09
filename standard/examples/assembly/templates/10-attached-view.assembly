@@ -1,0 +1,39 @@
+﻿# @title: 움직이는 기준과 부착 시점
+# @goal: 관찰 장치가 이동하는 대상의 자세를 함께 따를 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 공통 이동 프레임
+add joint carrier at 0 0 0
+
+#: 관찰 장치의 월드 배치
+add box sensor at 2 1 0
+
+#: 현재 배치를 유지해 연결
+parent carrier
+
+#: 관찰 카메라를 월드 좌표에 생성
+camera add observer at 2 1.8 -1.5
+
+#: 현재 대상의 앞쪽을 보도록 설정
+camera look 2 1 3
+
+#: 관찰 장치에 부착
+parent sensor
+
+#: 부착 카메라 사용
+camera use
+
+#: 공통 프레임을 선택
+select carrier
+
+#: 프레임을 4초 동안 이동
+insert linear 4 0 0 4
+
+#: 장치만 선택
+select sensor
+
+#: 장치의 자체 회전과 관찰 시점을 함께 변경
+insert spin y 20

@@ -83,15 +83,15 @@ bool Assembly::inputCommand(const Tokens& a, std::ostream&) {
         return true;
     }
     if (a[0] == "render") {
-        require(a.size() >= 3, "render <wire/lighting/depth/cull/light-direction/light-color/background> ...");
+        require(a.size() >= 3, "render <wire/lighting/depth/cull/light-direction/light-color/ambient/background> ...");
         auto& options = app_.getRenderOptions();
         if (a[1] == "cull") {
             require(a.size() == 3 && (a[2] == "none" || a[2] == "back" || a[2] == "front"), "render cull none/back/front");
             options.cull = a[2] == "none" ? graphics::CullMode::None : a[2] == "back" ? graphics::CullMode::Back : graphics::CullMode::Front;
             return true;
         }
-        if (a[1] == "light-direction" || a[1] == "light-color" || a[1] == "background") {
-            require(a.size() == 5, "render light-direction/light-color/background <값3>");
+        if (a[1] == "light-direction" || a[1] == "light-color" || a[1] == "ambient" || a[1] == "background") {
+            require(a.size() == 5, "render light-direction/light-color/ambient/background <값3>");
             const auto value = vector(a, 2);
             if (a[1] == "light-direction") {
                 require(glm::length(value) > .0001f, "광원 방향은 0일 수 없습니다.");
@@ -99,6 +99,7 @@ bool Assembly::inputCommand(const Tokens& a, std::ostream&) {
             } else {
                 require(glm::all(glm::greaterThanEqual(value, glm::vec3(0))) && glm::all(glm::lessThanEqual(value, glm::vec3(1))), "색은 0~1입니다.");
                 if (a[1] == "background") options.background = glm::vec4(value, 1);
+                else if (a[1] == "ambient") options.ambientColor = {value.x, value.y, value.z};
                 else options.lightColor = {value.x, value.y, value.z};
             }
             return true;

@@ -1,0 +1,36 @@
+﻿# @title: 공통 회전과 독립 반지름
+# @goal: 광원·표지·위성의 중심 회전과 거리 조절을 나눌 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 공전 프레임
+add joint hub at 0 0 0
+
+#: 부모 Y 회전
+insert spin y 30
+
+#: 반지름 3의 점광원
+light point lamp at 0 0 3
+
+#: 공전 프레임에 연결
+parent hub
+
+#: 반지름 편집용 지역 레이어
+layer add radius
+
+#: U로 지역 반지름 증가
+bind U press "with lamp radius layer t 0 0 0.25"
+
+#: J로 지역 반지름 감소; 원점을 지나면 반대편으로 이동
+bind J press "with lamp radius layer t 0 0 -0.25"
+
+#: 조명을 받을 표면
+add sphere surface at 0 0 0
+
+#: 독립 주변광
+render ambient 1 1 1
+
+#: 방향광 제외
+light sun 0

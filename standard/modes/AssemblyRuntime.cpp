@@ -84,8 +84,8 @@ bool Assembly::applyPoses(float dt) {
             const auto turn = glm::mat3(glm::rotate(glm::mat4(1), glm::radians(pose->yawDegrees), glm::vec3(0, 1, 0)));
             rest.basis = pose->position + glm::vec3(0, b.height, 0) + turn * rest.basis;
             rest.rotation = turn * rest.rotation;
-            const auto pose=motionFor(b.target).sample(0);
-            require(pose && scene.setTransform(target.id,rest) && scene.setAttachment(target.id,target.attachment*pose->parent),"컨베이어 자세 적용 실패.");
+            const auto motionPose=motionFor(b.target).sample(0);
+            require(motionPose && scene.setTransform(target.id,rest) && scene.setAttachment(target.id,target.attachment*motionPose->parent),"컨베이어 자세 적용 실패.");
         } else if (faceEffect(b.effect)) {
             require(target.mesh.has_value(), "면 동작에는 메시가 필요합니다.");
             if (!b.enabled) {

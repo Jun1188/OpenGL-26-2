@@ -1,0 +1,30 @@
+﻿# @title: 실행 중 부착 대상 변경
+# @goal: 물체를 서로 다른 움직이는 기준 사이에서 인계할 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 첫 번째 움직이는 기준
+add joint source at -2 0 0
+
+#: 첫 기준의 이동
+insert linear 3 0 0 6
+
+#: 두 번째 기준
+add joint destination at 3 0 0
+
+#: 두 번째 기준의 회전
+insert spin y 25
+
+#: 독립 물체
+add box payload at -2 1 0
+
+#: 첫 기준에 연결
+parent source
+
+#: L 한 번으로 두 번째 기준에 인계; 전환 순간 월드 배치 유지
+bind L press "parent payload destination"
+
+#: K 한 번으로 월드에 분리
+bind K press "parent payload none"

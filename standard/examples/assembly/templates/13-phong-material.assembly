@@ -1,0 +1,33 @@
+﻿# @title: 광원색과 재질 응답
+# @goal: 빛 위치·색과 표면 반사 특성을 독립적으로 바꿀 때
+#: 독립 템플릿의 시작 장면
+clear
+#: 관찰 카메라
+camera pose 8 6 10 0 0 0 0 1 0
+
+#: 표면 생성
+add sphere sample at 0 0 0
+
+#: 주변/확산/정반사/광택 계수
+material phong 0.12 1 0.7 96
+
+#: 독립 주변광
+render ambient 1 1 1
+
+#: 방향광 제외
+light sun 0
+
+#: 점광원 생성
+light point lamp at 2 2 3
+
+#: 광원 색 설정
+light color 1 0.4 0.2
+
+#: 표면 선택
+select sample
+
+#: H 한 번으로 낮은 광택 계수
+bind H press "material sample phong 0.12 1 0.7 8"
+
+#: N 한 번으로 높은 광택 계수
+bind N press "material sample phong 0.12 1 0.7 256"

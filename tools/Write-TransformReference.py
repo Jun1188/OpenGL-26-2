@@ -35,6 +35,31 @@ TEMPLATES=[
   ('월드 원점을 바라보게 설정','camera look 0 0 0'),('선택 카메라로 전환','camera use')]),
  ('09-arbitrary-axis','임의 축 회전','좌표축이 아닌 방향 벡터를 기준으로 돌 때',[
   ('기본 물체 생성','add box item at 2 0 0'),('지역 (1,1,0) 방향 축의 공전','insert orbit-axis 1 1 0 30 center 0 0 0')]),
+ ('10-attached-view','움직이는 기준과 부착 시점','관찰 장치가 이동하는 대상의 자세를 함께 따를 때',[
+  ('공통 이동 프레임','add joint carrier at 0 0 0'),('관찰 장치의 월드 배치','add box sensor at 2 1 0'),
+  ('현재 배치를 유지해 연결','parent carrier'),('관찰 카메라를 월드 좌표에 생성','camera add observer at 2 1.8 -1.5'),
+  ('현재 대상의 앞쪽을 보도록 설정','camera look 2 1 3'),('관찰 장치에 부착','parent sensor'),('부착 카메라 사용','camera use'),
+  ('공통 프레임을 선택','select carrier'),('프레임을 4초 동안 이동','insert linear 4 0 0 4'),
+  ('장치만 선택','select sensor'),('장치의 자체 회전과 관찰 시점을 함께 변경','insert spin y 20')]),
+ ('11-attachment-change','실행 중 부착 대상 변경','물체를 서로 다른 움직이는 기준 사이에서 인계할 때',[
+  ('첫 번째 움직이는 기준','add joint source at -2 0 0'),('첫 기준의 이동','insert linear 3 0 0 6'),
+  ('두 번째 기준','add joint destination at 3 0 0'),('두 번째 기준의 회전','insert spin y 25'),
+  ('독립 물체','add box payload at -2 1 0'),('첫 기준에 연결','parent source'),
+  ('L 한 번으로 두 번째 기준에 인계; 전환 순간 월드 배치 유지','bind L press "parent payload destination"'),
+  ('K 한 번으로 월드에 분리','bind K press "parent payload none"')]),
+ ('12-orbit-radius','공통 회전과 독립 반지름','광원·표지·위성의 중심 회전과 거리 조절을 나눌 때',[
+  ('공전 프레임','add joint hub at 0 0 0'),('부모 Y 회전','insert spin y 30'),
+  ('반지름 3의 점광원','light point lamp at 0 0 3'),('공전 프레임에 연결','parent hub'),
+  ('반지름 편집용 지역 레이어','layer add radius'),
+  ('U로 지역 반지름 증가','bind U press "with lamp radius layer t 0 0 0.25"'),
+  ('J로 지역 반지름 감소; 원점을 지나면 반대편으로 이동','bind J press "with lamp radius layer t 0 0 -0.25"'),
+  ('조명을 받을 표면','add sphere surface at 0 0 0'),('독립 주변광','render ambient 1 1 1'),('방향광 제외','light sun 0')]),
+ ('13-phong-material','광원색과 재질 응답','빛 위치·색과 표면 반사 특성을 독립적으로 바꿀 때',[
+  ('표면 생성','add sphere sample at 0 0 0'),('주변/확산/정반사/광택 계수','material phong 0.12 1 0.7 96'),
+  ('독립 주변광','render ambient 1 1 1'),('방향광 제외','light sun 0'),('점광원 생성','light point lamp at 2 2 3'),
+  ('광원 색 설정','light color 1 0.4 0.2'),('표면 선택','select sample'),
+  ('H 한 번으로 낮은 광택 계수','bind H press "material sample phong 0.12 1 0.7 8"'),
+  ('N 한 번으로 높은 광택 계수','bind N press "material sample phong 0.12 1 0.7 256"')]),
 ]
 
 def write(path,text):
