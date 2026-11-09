@@ -2,21 +2,21 @@
 
 `python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.
 
-- 파일 수: 743
-- 전체: **26,405,768바이트** = 26.41 MB = 25.18 MiB
-- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 3.59 MB
+- 파일 수: 758
+- 전체: **26,599,756바이트** = 26.60 MB = 25.37 MiB
+- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 3.40 MB
 
 | 최상위 항목 | 바이트 |
 |---|---:|
-| docs | 15,241,947 |
-| framework | 10,832,272 |
-| modes | 179,335 |
+| docs | 15,417,144 |
+| framework | 10,840,786 |
+| modes | 181,279 |
 | BEFORE_AFTER.md | 75,914 |
-| examples | 41,072 |
-| DOCUMENT_INDEX.md | 13,615 |
+| examples | 47,592 |
+| DOCUMENT_INDEX.md | 14,380 |
 | standard.vcxproj | 4,288 |
-| README.md | 3,360 |
-| USER_CHECKS.md | 2,956 |
+| USER_CHECKS.md | 3,756 |
+| README.md | 3,608 |
 | SIZE_REPORT.md | 1,855 |
 | standard.vcxproj.filters | 1,693 |
 | index.html | 1,582 |
@@ -37,9 +37,9 @@
 |---|---:|
 | docs/assembly/architecture/graph.json | 3,956,078 |
 | docs/assembly/architecture/graph.html | 3,182,325 |
-| docs/viewer/documents.js | 2,432,273 |
-| docs/API_REFERENCE.html | 2,413,756 |
-| framework/docs/API_REFERENCE.html | 2,378,319 |
+| docs/viewer/documents.js | 2,519,710 |
+| docs/API_REFERENCE.html | 2,414,129 |
+| framework/docs/API_REFERENCE.html | 2,378,692 |
 | framework/dependencies/glew-2.3.1/include/GL/glew.h | 1,362,237 |
 | docs/API_CASE_MAP.json | 870,589 |
 | framework/docs/API_CASE_MAP.json | 870,589 |

@@ -168,6 +168,21 @@ framework 폴더에 함께 들어 있는 문서 사본. 내용은 위 API 레퍼
 - [과거 구현 참조: TankCommon.cpp](docs/reference/modes/TankCommon.cpp.md)
 - [과거 구현 참조: TankCommon.h](docs/reference/modes/TankCommon.h.md)
 
+## 실습 24 이후와 응용 N제
+
+요구사항·전체 코드·새로운 사물과 규칙의 설계
+
+- [실습 24·26·27 요구사항 대응표](docs/PRACTICE_24_PLUS.md)
+- [새로운 사물·기믹을 연결하는 방법](docs/EXTENDING_MECHANISMS.md)
+- [응용 N제 12문제](docs/exercises/README.md)
+- [P24: 움직이는 기준과 관찰](docs/exercises/P24.md)
+- [P26: 독립 동작과 광원](docs/exercises/P26.md)
+- [P27: 재질과 새로운 규칙](docs/exercises/P27.md)
+- [조명·재질·부착 카메라 계약](framework/docs/LIGHTING_MATERIALS.md)
+- [실습 24 전체 코드](docs/reference/practices/P24.md)
+- [실습 26 전체 코드](docs/reference/practices/P26.md)
+- [실습 27 전체 코드](docs/reference/practices/P27.md)
+
 ## 기타 문서
 
 분류에 아직 넣지 않은 문서다. DOCUMENT_CATALOG.json에 추가하면 위 분류로 옮겨진다.

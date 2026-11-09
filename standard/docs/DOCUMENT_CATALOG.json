@@ -506,6 +506,63 @@
           "path": "docs/reference/modes/TankCommon.h.md"
         }
       ]
+    },
+    {
+      "id": "practice-24-plus",
+      "title": "실습 24 이후와 응용 N제",
+      "description": "요구사항·전체 코드·새로운 사물과 규칙의 설계",
+      "documents": [
+        {
+          "path": "docs/PRACTICE_24_PLUS.md",
+          "title": "실습 24·26·27 요구사항 대응표",
+          "featured": true
+        },
+        {
+          "path": "docs/EXTENDING_MECHANISMS.md",
+          "title": "새로운 사물·기믹을 연결하는 방법",
+          "featured": true
+        },
+        {
+          "path": "docs/exercises/README.md",
+          "title": "응용 N제 12문제",
+          "featured": true
+        },
+        {
+          "path": "docs/exercises/P24.md",
+          "title": "P24: 움직이는 기준과 관찰",
+          "featured": false
+        },
+        {
+          "path": "docs/exercises/P26.md",
+          "title": "P26: 독립 동작과 광원",
+          "featured": false
+        },
+        {
+          "path": "docs/exercises/P27.md",
+          "title": "P27: 재질과 새로운 규칙",
+          "featured": false
+        },
+        {
+          "path": "framework/docs/LIGHTING_MATERIALS.md",
+          "title": "조명·재질·부착 카메라 계약",
+          "featured": false
+        },
+        {
+          "path": "docs/reference/practices/P24.md",
+          "title": "실습 24 전체 코드",
+          "featured": false
+        },
+        {
+          "path": "docs/reference/practices/P26.md",
+          "title": "실습 26 전체 코드",
+          "featured": false
+        },
+        {
+          "path": "docs/reference/practices/P27.md",
+          "title": "실습 27 전체 코드",
+          "featured": false
+        }
+      ]
     }
   ],
   "entryFields": {

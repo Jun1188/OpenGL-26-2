@@ -30,6 +30,9 @@ light point [이름] [at cursor 또는 at X Y Z] [선택 가능한 점광원 생
 light color R G B [선택 광원 색] - RGB: 0~1
 light intensity/attenuation <값> [선택 광원 강도/거리 감쇠] - 0 이상, intensity 0: 끄기
 light sun <강도> [기존 방향광 강도] - 0: 끄기, 기본 1
+render ambient R G B [독립 주변광 색] - RGB: 0~1, 기본 0 0 0
+material [대상] phong Ka Kd Ks N [메시 전체 재질 설정] - Ka/Kd/Ks: 0~1, N: 광택 1~1024, 생략 대상: 선택
+material [대상] unlit on/off [조명 계산 제외/적용] - 광원 표시/표지판에 사용, 다른 재질·텍스처 유지
 camera add [이름] [at cursor 또는 at X Y Z] [카메라 객체 생성] - t/r/s/레이어로 이동
 camera look <cursor 또는 X Y Z> [선택 카메라 시선 설정] - 목표: 월드 점
 camera use [이름] [카메라로 전환] - 생략: 선택 카메라

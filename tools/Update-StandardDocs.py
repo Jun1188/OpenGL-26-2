@@ -44,6 +44,9 @@ def refresh_api():
             ('Scene::setParentPreserveWorld','순환 검사, 월드 배치 보존, 실패 시 이전 관계 유지'),
             ('Scene::setAttachment / setLocalLayers','객체 소유 아핀 부착과 순서 있는 지역 행렬 목록'),
             ('PointLight / RenderOptions','월드 점광원 최대8, 색·강도·거리 감쇠'),
+            ('Material','Ka/Kd/Ks·shininess·unlit; 메시별 재질 응답과 비조명 표시'),
+            ('RenderOptions::ambientColor','방향광과 독립된 주변광 색, 기본 0 0 0'),
+            ('CameraSystem::attached','지역 카메라를 부모 프레임에 부착하고 시선/up을 직교화'),
             ('DynamicsSystem::effectiveAcceleration / step','중력·이동·원심·코리올리·오일러 항과 지역 힘 콜백'),
             ('DynamicsSystem::holdingForce / normalLoad','정지 구속력과 법선 압축력. 실제 접촉 솔버가 아님'),
             ('DynamicsSystem::spring','지역 앵커·강성·감쇠로 선형 힘 콜백 생성')]:

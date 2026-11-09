@@ -15,3 +15,13 @@
 11. `standard/index.html`에서 명령·변환·응용·API·실습 소스 참조를 연다. `s13-moving-scale`의 줄별 설명, 목차·검색·코드 링크를 확인한다. 문서를 제거한 소스 복사본도 Standard 런타임에서 문서 읽기를 요구하지 않아야 한다.
 
 실패를 보고할 때는 콘솔 명령, 선택 물체·레이어, `diagnose 이름`, 화면, 빌드 오류 위치를 함께 기록한다.
+
+<!-- practice-24-plus:start -->
+1. 템플릿 10~13을 각각 load하고 부착 시점·L/K 인계·U/J 반지름·H/N 광택을 관찰한다.
+2. `material sample phong 0.12 1 0.7 96`, `render ambient 1 1 1`을 저장·다시 읽고 같은 값을 확인한다.
+3. 범위를 벗어난 계수나 N=0 명령은 거절되고 기존 장면이 유지돼야 한다.
+4. material unlit on/off는 다른 색·텍스처 상태를 유지해야 한다. 광원 표시 색은 light color를 따라야 한다.
+5. MovingBeacon 참조는 C++ 확장 예제이며 등록 후 사용자 재빌드가 필요하다. load가 C++을 컴파일하지 않는다.
+
+[독립 실습의 전체 요구사항과 확인 절차](docs/PRACTICE_24_PLUS.md) · [응용 N제](docs/exercises/README.md)
+<!-- practice-24-plus:end -->

@@ -72,3 +72,7 @@ if (sample) {
 - `modes/AssemblySceneTools.cpp`: 같은 변환을 광원·카메라에 연결.
 
 [연산별 실행 템플릿](TRANSFORM_TEMPLATES.md) · [전체 명령과 인수](QUICK_COMMANDS.md) · [실습 소스 참조](REFERENCE_PRACTICES.md)
+
+<!-- practice-24-plus:start -->
+[부착·카메라·공전·재질 추가 사례](PRACTICE_24_PLUS.md) · [처음 보는 기믹 작성](EXTENDING_MECHANISMS.md) · [응용 N제](exercises/README.md)
+<!-- practice-24-plus:end -->

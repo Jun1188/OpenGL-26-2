@@ -41,3 +41,7 @@ save scene.assembly
 `save`는 현재 작성 상태를 재구성하는 레시피를 저장한다. 선택 대상·레이어·커서 좌표를 명시한 명령으로 기록한다. 물리·모션의 현재 프레임 전체를 저장하는 기능은 아니다. 상대 경로는 **프로세스 작업 폴더** 기준이다. 실행 파일 옆에 쓰려면 그 폴더를 작업 폴더로 지정하거나 절대 경로를 쓴다.
 
 소스 검토와 문서 생성만 수행했다. 빌드·테스트·화면 확인은 [사용자 확인 절차](USER_CHECKS.md)에 따라 사용자가 수행한다. 변경 텍스트는 UTF-8 BOM이다.
+
+<!-- practice-24-plus:start -->
+[실습 24·26·27 요구사항/코드](docs/PRACTICE_24_PLUS.md) · [새 기믹의 확장 방법](docs/EXTENDING_MECHANISMS.md) · [응용 N제 12문제](docs/exercises/README.md)
+<!-- practice-24-plus:end -->

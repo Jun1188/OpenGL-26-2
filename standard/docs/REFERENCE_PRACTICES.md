@@ -43,3 +43,9 @@
 - [TankCommon.h.md](reference/modes/TankCommon.h.md)
 
 각 문서는 당시 구조 참조다. 새 Assembly API와 함께 컴파일하는 코드가 아니다. 원래 독립 실습 프로젝트는 저장소의 각 openGL_* 폴더에 별도로 남아 있다.
+
+<!-- practice-24-plus:start -->
+[실습 24·26·27 대응표](PRACTICE_24_PLUS.md) · [24](reference/practices/P24.md) · [26](reference/practices/P26.md) · [27](reference/practices/P27.md)
+
+새 실습도 독립 프로젝트이며 Standard 실행 모드는 추가하지 않는다.
+<!-- practice-24-plus:end -->

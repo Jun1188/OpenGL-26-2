@@ -322,6 +322,7 @@ def refresh_transform_templates():
     import runpy
     runpy.run_path(str(ROOT/'tools/Write-TransformReference.py'))['main']()
     runpy.run_path(str(ROOT/'tools/Write-WorkspaceTutorial.py'))['main']()
+    runpy.run_path(str(ROOT/'tools/Write-Practice24Plus.py'))['main']()
 
 if __name__ == '__main__':
     refresh_documents()

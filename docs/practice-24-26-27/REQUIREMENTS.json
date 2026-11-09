@@ -1,0 +1,210 @@
+﻿[
+  {
+    "practice": 24,
+    "requirement": "실습 20 물류 센터·컨베이어·상자 5개 유지",
+    "input": "시작/b",
+    "methods": "initScene/placeMovingObjects/onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "컨베이어 옆 육면체 트럭",
+    "input": "시작",
+    "methods": "addTruck",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "번호에 해당하는 상자 적재",
+    "input": "1~5",
+    "methods": "loadParcel",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "상자 시점/전체 시점 전환",
+    "input": "V",
+    "methods": "onKey/updateCamera",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "처음 선택한 상자 시점은 5번",
+    "input": "초기/V",
+    "methods": "resetState",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "상자 다음/이전 시점",
+    "input": "n/N",
+    "methods": "onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "트럭 출발/정지",
+    "input": "g",
+    "methods": "onKey/onUpdate",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "바닥 끝에서 정지하고 다음 g에 반대 방향 이동",
+    "input": "끝점/g",
+    "methods": "onUpdate",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "전체 리셋",
+    "input": "r",
+    "methods": "initScene/resetState",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "종료",
+    "input": "q",
+    "methods": "onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 24,
+    "requirement": "기존 실습 20 입력 유지",
+    "input": "b,+/-,p/P,좌/우",
+    "methods": "onKey/onFocus/onUpdate",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "육면체·사각뿔에 조명 적용",
+    "input": "시작/n",
+    "methods": "initScene/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "객체 앞쪽 광원과 작은 도형 표시",
+    "input": "시작",
+    "methods": "initScene/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "육면체/사각뿔 전환",
+    "input": "n",
+    "methods": "onKey/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "조명 켜기/끄기",
+    "input": "m",
+    "methods": "onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "객체 중심 Y축 자전",
+    "input": "y",
+    "methods": "onKey/onUpdate/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "광원 양/음 방향 중심 Y축 공전",
+    "input": "r/R",
+    "methods": "onKey/onUpdate/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "광원 공전 궤도를 원으로 표시",
+    "input": "시작/거리 변경",
+    "methods": "initScene/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "광원 가까이/멀리 이동",
+    "input": "z/Z",
+    "methods": "onKey/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "광원 거리와 궤도 크기 동기화",
+    "input": "z/Z",
+    "methods": "apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 26,
+    "requirement": "종료",
+    "input": "q",
+    "methods": "onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 27,
+    "requirement": "구 3개: 중앙 1개와 다른 위치 2개",
+    "input": "시작",
+    "methods": "initScene",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 27,
+    "requirement": "화면 앞쪽 광원과 작은 표시 객체",
+    "input": "시작/apply",
+    "methods": "initScene/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 27,
+    "requirement": "광원색 3종 전환",
+    "input": "c",
+    "methods": "onKey/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 27,
+    "requirement": "중앙 구의 Y축 기준 양/음 공전",
+    "input": "r/R",
+    "methods": "onKey/onUpdate/apply",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  },
+  {
+    "practice": 27,
+    "requirement": "종료",
+    "input": "q",
+    "methods": "onKey",
+    "source_status": "implemented",
+    "runtime_status": "not_run"
+  }
+]
