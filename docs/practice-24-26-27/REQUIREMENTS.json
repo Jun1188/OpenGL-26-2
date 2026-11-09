@@ -19,7 +19,7 @@
     "practice": 24,
     "requirement": "번호에 해당하는 상자 적재",
     "input": "1~5",
-    "methods": "loadParcel",
+    "methods": "loadParcel/updateLoading",
     "source_status": "implemented",
     "runtime_status": "not_run"
   },
