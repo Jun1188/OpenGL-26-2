@@ -41,6 +41,10 @@ bool validColor(GlColor color) {
     return std::isfinite(color.red) && std::isfinite(color.green) && std::isfinite(color.blue) &&
         color.red >= 0 && color.green >= 0 && color.blue >= 0;
 }
+void validateLight(const PointLight& light) {
+    requireAuthoring(finite(light.position) && validColor(light.color) && std::isfinite(light.intensity) &&
+        light.intensity >= 0 && std::isfinite(light.attenuation) && light.attenuation >= 0, "SceneAuthoring: invalid point light.");
+}
 }
 
 void SceneAuthoring::clear() {
@@ -57,20 +61,23 @@ std::string SceneAuthoring::name(EntityId id) const {
     return {};
 }
 EntityId SceneAuthoring::addObject(const std::string& name, const ObjectSetup& setup, const std::string& parent) {
-    requireAuthoring(!name.empty() && !objects_.count(name), "SceneAuthoring: duplicate/empty object name.");
     requireAuthoring(setup.shape == GLShape::Cube || setup.shape == GLShape::Tetra || setup.shape == GLShape::Pyramid,
-        "SceneAuthoring: use native Scene APIs for other model types.");
+        "SceneAuthoring: use addModel for other geometry.");
     requireAuthoring(finite(setup.size) && glm::all(glm::greaterThan(setup.size, glm::vec3(0))) &&
         finite(setup.position) && finite(setup.pivot) && finite(setup.scale), "SceneAuthoring: invalid object values.");
-    const auto parentId = parent.empty() ? std::optional<EntityId>{} : std::optional<EntityId>{object(parent)};
     Transform3D pose;
     pose.basis = setup.position; pose.rotation = glm::mat3(rotation(setup.rotationDegrees));
     pose.scale = setup.scale; pose.localBasis = setup.pivot;
-    const auto world = DiagramSystem::modelMatrix(pose);
-    requireAuthoring(nonsingular(world),
-        "SceneAuthoring: object scale must be invertible.");
     auto model = DiagramSystem::makePolyhedron(setup.shape, setup.size);
     for (auto& face : model.faces) face.material = setup.material;
+    return addModel(name, model, pose, parent);
+}
+EntityId SceneAuthoring::addModel(const std::string& name, const Model& model, const Transform3D& worldPose,
+                                 const std::string& parent) {
+    requireAuthoring(!name.empty() && !objects_.count(name), "SceneAuthoring: duplicate/empty object name.");
+    const auto parentId = parent.empty() ? std::optional<EntityId>{} : std::optional<EntityId>{object(parent)};
+    const auto world = DiagramSystem::modelMatrix(worldPose);
+    requireAuthoring(nonsingular(world), "SceneAuthoring: object pose must be finite and invertible.");
     auto saved = app_.getScene();
     try {
         const auto id = app_.getScene().push_entity(model);
@@ -96,13 +103,30 @@ void SceneAuthoring::addLayer(const std::string& objectName, const std::string& 
     requireAuthoring(app_.getScene().setLocalLayers(id, initial), "SceneAuthoring: invalid initial local layers.");
     layers_.push_back({objectName, name, setup});
 }
+void SceneAuthoring::setLayer(const std::string& objectName, const std::string& name, const LayerSetup& setup) {
+    object(objectName);
+    layerMatrix(setup, 0);
+    for (auto& layer : layers_) if (layer.object == objectName && layer.name == name) {
+        layer.setup = setup;
+        return;
+    }
+    throw std::runtime_error("SceneAuthoring: missing layer: " + objectName + "/" + name);
+}
 void SceneAuthoring::addLight(const std::string& name, const PointLight& light, const std::string& parent) {
     requireAuthoring(!name.empty() && lights_.size() < 8, "SceneAuthoring: empty name or more than eight point lights.");
     for (const auto& item : lights_) requireAuthoring(item.name != name, "SceneAuthoring: duplicate light name.");
     if (!parent.empty()) object(parent);
-    requireAuthoring(finite(light.position) && validColor(light.color) && std::isfinite(light.intensity) &&
-        light.intensity >= 0 && std::isfinite(light.attenuation) && light.attenuation >= 0, "SceneAuthoring: invalid point light.");
+    validateLight(light);
     lights_.push_back({name, parent, light});
+}
+void SceneAuthoring::setLight(const std::string& name, const PointLight& light, const std::string& parent) {
+    validateLight(light);
+    if (!parent.empty()) object(parent);
+    for (auto& item : lights_) if (item.name == name) {
+        item = {name, parent, light};
+        return;
+    }
+    throw std::runtime_error("SceneAuthoring: missing light: " + name);
 }
 void SceneAuthoring::setCamera(const Camera& camera, const std::string& parent) {
     if (!parent.empty()) object(parent);
@@ -115,6 +139,9 @@ void SceneAuthoring::update(double seconds) {
     for (const auto& layer : layers_) matrices[object(layer.object)].push_back(layerMatrix(layer.setup, seconds));
     for (const auto& item : matrices)
         requireAuthoring(app_.getScene().setLocalLayers(item.first, item.second), "SceneAuthoring: invalid composed local layers.");
+    syncTools();
+}
+void SceneAuthoring::syncTools() {
     std::vector<PointLight> lights;
     for (const auto& item : lights_) {
         auto light = item.value;

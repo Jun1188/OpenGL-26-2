@@ -30,14 +30,23 @@ public:
     void clear();
     /// [API] Create a cube/tetrahedron/pyramid at a world-authored pose; parent must already exist.
     EntityId addObject(const std::string& name, const ObjectSetup& setup, const std::string& parent = "");
+    /// [API] Register prepared geometry, retaining materials and a world-authored pose.
+    EntityId addModel(const std::string& name, const Model& model, const Transform3D& worldPose = Transform3D{},
+                      const std::string& parent = "");
     /// [API] Append an object-local layer. Later layers inherit all earlier layers.
     void addLayer(const std::string& object, const std::string& name, const LayerSetup& setup);
+    /// [API] Replace an existing layer; evaluate at the next update without resetting time.
+    void setLayer(const std::string& object, const std::string& name, const LayerSetup& setup);
     /// [API] Register a point light, optionally expressed in a named object's local frame.
     void addLight(const std::string& name, const PointLight& light, const std::string& parent = "");
+    /// [API] Replace a named light's value and parent; output is rebuilt by syncTools.
+    void setLight(const std::string& name, const PointLight& light, const std::string& parent = "");
     /// [API] Select one camera, optionally expressed in a named object's local frame.
     void setCamera(const Camera& camera, const std::string& parent = "");
     /// [API] Evaluate local layers, attached lights and camera at absolute seconds; throws on invalid input.
     void update(double seconds);
+    /// [API] Synchronize attached lights/camera after all Scene motions; does not advance time.
+    void syncTools();
     /// [API] Resolve a source-authored object name; throws if the name is absent.
     EntityId object(const std::string& name) const;
     /// [API] Resolve a picked object ID to its source-authored name, or return an empty string.
