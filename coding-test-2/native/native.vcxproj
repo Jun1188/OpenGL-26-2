@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals"><ProjectGuid>{7DF5AC70-6E06-4F77-9C40-67AA242E51A4}</ProjectGuid><Keyword>Win32Proj</Keyword><ProjectName>native</ProjectName><WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="Toolchain.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType><CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup><OutDir>$(ProjectDir)x64\$(Configuration)\</OutDir><IntDir>$(ProjectDir)x64\$(Configuration)\obj\</IntDir></PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile><LanguageStandard>stdcpp17</LanguageStandard><WarningLevel>Level4</WarningLevel><AdditionalOptions>/utf-8 /FC %(AdditionalOptions)</AdditionalOptions><RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebug</RuntimeLibrary><RuntimeLibrary Condition="'$(Configuration)'=='Release'">MultiThreaded</RuntimeLibrary><AdditionalIncludeDirectories>$(ProjectDir)dependencies\glew\include;$(ProjectDir)dependencies\glfw\include;$(ProjectDir)dependencies\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories></ClCompile>
+    <Link><SubSystem>Console</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation><AdditionalDependencies>$(ProjectDir)dependencies\glew\lib\glew32.lib;$(ProjectDir)dependencies\glfw\lib\glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies></Link>
+  </ItemDefinitionGroup>
+  <ItemGroup><ClCompile Include="main.cpp" /><None Include="shaders\VertexShader.glsl" /><None Include="shaders\FragmentShader.glsl" /></ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Target Name="DeployNativeRuntime" AfterTargets="Build">
+    <Copy SourceFiles="$(ProjectDir)dependencies\glew\bin\glew32.dll;$(ProjectDir)dependencies\glfw\bin\glfw3.dll;$(ProjectDir)dependencies\glfw\bin\vcruntime140.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ProjectDir)shaders\VertexShader.glsl;$(ProjectDir)shaders\FragmentShader.glsl" DestinationFolder="$(TargetDir)shaders\" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(ProjectDir)dependencies\glew\LICENSE.txt;$(ProjectDir)dependencies\glfw\LICENSE.md;$(ProjectDir)dependencies\glfw\LICENSE-Microsoft-VC-Runtime.md" DestinationFolder="$(TargetDir)licenses\" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

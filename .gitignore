@@ -78,3 +78,7 @@ packages/
 !**/framework/examples/data/*.obj
 /dist/
 /.obj-work/
+
+# Standalone native learning project: vendored x64 SDK inputs, not build outputs.
+!/coding-test-2/native/dependencies/**/*.dll
+!/coding-test-2/native/dependencies/**/*.lib

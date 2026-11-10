@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Import after Microsoft.Cpp.Default.props and before Microsoft.Cpp.props. -->
+  <PropertyGroup>
+    <GraphicsToolsetRoot>$(VCTargetsPath)\Platforms\x64\PlatformToolsets</GraphicsToolsetRoot>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and '$(DefaultPlatformToolset)'!='' and Exists('$(GraphicsToolsetRoot)\$(DefaultPlatformToolset)\Toolset.props')">$(DefaultPlatformToolset)</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(GraphicsToolsetRoot)\v143\Toolset.props')">v143</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(GraphicsToolsetRoot)\v145\Toolset.props')">v145</PlatformToolset>
+  </PropertyGroup>
+  <Target Name="ExplainGraphicsToolchain" BeforeTargets="PrepareForBuild">
+    <Message Importance="High" Text="Native OpenGL toolchain: VS=$(VisualStudioVersion); Platform=$(Platform); Toolset=$(PlatformToolset); VCTargetsPath=$(VCTargetsPath)" />
+    <Error Condition="'$(PlatformToolset)'=='' or !Exists('$(GraphicsToolsetRoot)\$(PlatformToolset)\Toolset.props')" Text="OpenGL toolset unavailable: $(PlatformToolset). Expected $(GraphicsToolsetRoot)\$(PlatformToolset)\Toolset.props. VS 2022: install Desktop development with C++ and MSVC v143, then open the .sln (not .slnx on older VS). For a deliberate toolset override, install that toolset or change Platform Toolset in Project Properties." />
+  </Target>
+</Project>
