@@ -1,0 +1,64 @@
+﻿{
+  "schemaVersion": 1,
+  "id": "standard-document-catalog",
+  "source": "tools/Write-SourceDebuggerDocs.py",
+  "uncategorized": {
+    "id": "other",
+    "title": "공통 API·기존 참고 자료",
+    "description": "현재 작성 흐름은 시작하기 문서를 우선한다. 과거 명령 예제는 old_standard용이다."
+  },
+  "categories": [
+    {
+      "id": "start",
+      "title": "C++ 직접 작성과 편집 안내",
+      "description": "수동 소스 편집 → 사용자 빌드·실행",
+      "documents": [
+        {
+          "path": "README.md",
+          "title": "Standard 시작",
+          "featured": true
+        },
+        {
+          "path": "docs/DIRECT_CPP_WORKFLOW.md",
+          "title": "작성 위치와 실행 흐름",
+          "featured": true
+        },
+        {
+          "path": "docs/SOURCE_DEBUGGER.md",
+          "title": "debugger 명령과 실제 소스 위치",
+          "featured": true
+        },
+        {
+          "path": "docs/WORKSPACE_TUTORIAL.md",
+          "title": "두 물체 C++ 튜토리얼",
+          "featured": true
+        },
+        {
+          "path": "docs/TRANSFORM_REFERENCE.md",
+          "title": "월드 배치·지역 레이어",
+          "featured": true
+        },
+        {
+          "path": "docs/EXAMPLES.md",
+          "title": "C++ 예제 전체 코드",
+          "featured": true
+        },
+        {
+          "path": "docs/LIGHTING_AND_MATERIALS.md",
+          "title": "조명·재질·참고 소스",
+          "featured": true
+        },
+        {
+          "path": "framework/docs/SOURCE_AUTHORING.md",
+          "title": "공통 작성 API",
+          "featured": true
+        },
+        {
+          "path": "USER_CHECKS.md",
+          "title": "사용자 확인 절차",
+          "featured": true
+        }
+      ]
+    }
+  ]
+}

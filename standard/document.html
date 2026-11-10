@@ -1,0 +1,27 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markdown 미리보기</title>
+<link rel="stylesheet" href="docs/viewer/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">← 전체 문서</a>
+  <a id="category" href="index.html"></a>
+  <span class="spacer"></span>
+  <span class="crumb" id="path"></span>
+  <a id="original">원본 파일</a>
+  <button id="toggle" type="button">원문 보기</button>
+</header>
+<main class="doc-layout">
+  <nav id="toc" aria-label="문서 목차"></nav>
+  <article id="content"></article>
+  <pre id="source" hidden></pre>
+</main>
+<script src="docs/viewer/vendor/marked.umd.js"></script>
+<script src="docs/viewer/documents.js"></script>
+<script src="docs/viewer/preview.js"></script>
+</body>
+</html>

@@ -48,6 +48,7 @@
     <ClCompile Include="SceneSetup.cpp" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="SceneSetup.h" />
+    <ClInclude Include="examples\SourceExamples.h" />
     <ClInclude Include="framework\Framework.h" />
   </ItemGroup>
   <Import Project="framework\Framework.props" />

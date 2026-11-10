@@ -82,14 +82,18 @@ EntityId SceneAuthoring::addObject(const std::string& name, const ObjectSetup& s
     } catch (...) { app_.getScene() = std::move(saved); throw; }
 }
 void SceneAuthoring::addLayer(const std::string& objectName, const std::string& name, const LayerSetup& setup) {
-    object(objectName);
+    const auto id = object(objectName);
     requireAuthoring(!name.empty(), "SceneAuthoring: empty layer name.");
     std::size_t count = 0;
     for (const auto& layer : layers_) if (layer.object == objectName) {
         requireAuthoring(layer.name != name, "SceneAuthoring: duplicate object-local layer name."); ++count;
     }
     requireAuthoring(count < 128, "SceneAuthoring: at most 128 layers per object.");
-    layerMatrix(setup, 0);
+    std::vector<glm::mat4> initial;
+    for (const auto& layer : layers_) if (layer.object == objectName) initial.push_back(layerMatrix(layer.setup, 0));
+    initial.push_back(layerMatrix(setup, 0));
+    // Materialize initial layers before a later child computes its world-authored attachment.
+    requireAuthoring(app_.getScene().setLocalLayers(id, initial), "SceneAuthoring: invalid initial local layers.");
     layers_.push_back({objectName, name, setup});
 }
 void SceneAuthoring::addLight(const std::string& name, const PointLight& light, const std::string& parent) {

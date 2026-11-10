@@ -126,10 +126,11 @@ def collect_scenarios():
 def write_document_index(docs, catalog):
     """Markdown version of the catalog; keeps the flowchart block that author_framework_guides.py maintains."""
     titles = {d['path']: d['title'] for d in docs}
-    old = (STANDARD / 'DOCUMENT_INDEX.md').read_text(encoding='utf-8-sig')
+    index = STANDARD / 'DOCUMENT_INDEX.md'
+    old = index.read_text(encoding='utf-8-sig') if index.exists() else '# Standard 문서 목차\n\n'
     begin, end = '<!-- flowchart-index:start -->', '<!-- flowchart-index:end -->'
     flow = old[old.index(begin):old.index(end) + len(end)] if begin in old and end in old else ''
-    lines = ['[브라우저 목차](index.html) · [변환 템플릿](docs/TRANSFORM_TEMPLATES.html) · [README](README.md)', '',
+    lines = ['[브라우저 목차](index.html) · [C++ 예제](docs/EXAMPLES.md) · [README](README.md)', '',
              '# standard 문서 목차', '',
              '분류와 순서는 docs/DOCUMENT_CATALOG.json에서 정한다. 이 파일과 index.html은 `python tools/Update-StandardDocs.py`가 함께 다시 만든다.', '']
     for category in catalog['categories']:
@@ -199,13 +200,14 @@ def refresh_index():
     for name, target in (('style.css', 'docs/viewer/style.css'), ('index.js', 'docs/viewer/index.js'),
                          ('preview.js', 'docs/viewer/preview.js'), ('index.html', 'index.html'), ('document.html', 'document.html')):
         write(STANDARD / target, (VIEWER_TEMPLATES / name).read_text(encoding='utf-8-sig'))
+    for path in sorted((VIEWER_TEMPLATES / 'vendor').glob('*')):
+        if path.is_file(): write(STANDARD / 'docs/viewer/vendor' / path.name, path.read_text(encoding='utf-8-sig'))
     write_document_index(docs, catalog)
     write_size_report()
     print('Indexed', len(docs), 'documents in', len(catalog['categories']), 'categories; scenarios bundled. No browser/tests run.')
 
 def main():
     import runpy
-    runpy.run_path(str(ROOT / 'tools/Write-WorkspaceDocs.py'))['refresh_documents']()
-    refresh_api()
+    runpy.run_path(str(ROOT / 'tools/Write-SourceDebuggerDocs.py'))['refresh_documents']()
     refresh_index()
 if __name__=='__main__': main()
