@@ -60,7 +60,7 @@ def inventory():
                                 'conditional_compilation': 'Review preprocessor branches in this source.' if '#if' in text else None})
         projects.append({'project': relative, 'available': True,
                          'sources': [p.relative_to(ROOT).as_posix() for p in sorted(sources)], 'entrypoints': entries})
-    for name in ('basic', 'assets', 'motion'):
+    for name in ('basic', 'assets', 'motion', 'source_authoring'):
         projects.append({'standalone_example': True, 'file': f'framework/examples/{name}.cpp', 'entrypoint': 'main'})
     return projects
 
@@ -68,7 +68,7 @@ def inventory():
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     excluded = {'.git', '.vs', '.agents', '.codex', 'dependencies', 'packages', 'archive',
-                'x64', 'Debug', 'Release', '.obj-work', 'dist', 'tests'}
+                'x64', 'Debug', 'Release', '.obj-work', 'dist', 'tests', 'old_standard'}
     files = []
     for path in ROOT.rglob('*'):
         rel = path.relative_to(ROOT)
@@ -79,7 +79,8 @@ def main():
         files.append(path)
     # Include the owning standard API copies changed in this task, rather than every SDK distribution.
     files += [ROOT / 'standard/framework/include/Picking.h', ROOT / 'standard/framework/detail/Application.cpp',
-              ROOT / 'standard/framework/include/Graphics.h', ROOT / 'standard/framework/detail/Scene.cpp']
+              ROOT / 'standard/framework/include/Graphics.h', ROOT / 'standard/framework/detail/Scene.cpp',
+              ROOT / 'standard/framework/include/SceneAuthoring.h', ROOT / 'standard/framework/detail/SceneAuthoring.cpp']
     files = sorted(set(files))
     extraction = extract(files, cache_root=OUT, root=ROOT)
     node_sources = {n['id']: n.get('source_file', '').replace('\\', '/') for n in extraction['nodes']}
