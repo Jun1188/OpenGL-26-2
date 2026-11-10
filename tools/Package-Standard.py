@@ -1,4 +1,4 @@
-﻿"""Create the source-only standard ZIP; no build, app run, tests or validators."""
+﻿"""Create a self-contained Standard source ZIP. No build/tests/validators/apps."""
 from pathlib import Path
 import argparse
 import datetime
@@ -6,72 +6,45 @@ import hashlib
 import json
 import subprocess
 import zipfile
-
-ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / 'standard'
-LIMIT = 30_000_000
-
+from standard_package_policy import LIMIT, inventory
+ROOT=Path(__file__).resolve().parent.parent
+SOURCE=ROOT/'standard'
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', default='dist/standard-composition-20261103.zip')
-    args = parser.parse_args()
-    output = (ROOT / args.output).resolve()
-    output.relative_to(ROOT)
-    if output.is_relative_to(SOURCE.resolve()):
-        raise SystemExit('Output must be outside the source tree.')
-    if output.exists():
-        raise SystemExit('Output already exists. Choose a new --output path; existing artifacts are preserved.')
-    included, excluded = [], []
-    for path in sorted(SOURCE.rglob('*')):
-        if not path.is_file():
-            continue
-        relative = path.relative_to(SOURCE)
-        reason = None
-        build_root = relative.parts[1] if len(relative.parts) > 1 and relative.parts[0] == 'debugger' else relative.parts[0]
-        if build_root in {'.vs', 'x64', '.git', '__pycache__'}:
-            reason = 'IDE cache/build output; source, bundled SDK and licences remain included'
-        elif path.name.endswith('.vcxproj.user') or path.suffix in {'.pyc', '.tmp'}:
-            reason = 'Device-local or temporary file'
-        elif not path.resolve().is_relative_to(SOURCE.resolve()):
-            reason = 'Outside source tree link'
-        entry = {'path': relative.as_posix(), 'bytes': path.stat().st_size}
-        if reason:
-            excluded.append({**entry, 'reason': reason})
-        else:
-            entry['sha256'] = hashlib.sha256(path.read_bytes()).hexdigest()
-            included.append(entry)
-    raw = sum(p['bytes'] for p in included)
-    if raw >= LIMIT:
-        raise SystemExit(f'Source exceeds 30MB before compression: {raw}. Review packaging scope; no files were deleted.')
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, 'x', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for entry in included:
-            archive.write(SOURCE / entry['path'], 'standard/' + entry['path'])
-    size = output.stat().st_size
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    result = {
-        'date': datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),
-        'source_commit': commit, 'source': str(SOURCE), 'archive': str(output),
-        'raw_bytes': raw, 'zip_bytes': size, 'limit_bytes': LIMIT,
-        'archive_sha256': hashlib.sha256(output.read_bytes()).hexdigest(),
-        'included': included, 'excluded': excluded,
-        'notes': ['Current working source includes preserved user changes.',
-                  'Bundled SDK x64 libraries are included; only standard/x64 build output is excluded.',
-                  'No source, cache, output, backup or user file was deleted.',
-                  'No build, app run, tests, archive testzip, or validators were run.']}
-    output.with_suffix('.manifest.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8-sig')
-    report = ['# standard source package size', '', f'Source commit: `{commit}`. Current working source, including preserved user changes.', '',
-              f'- Included files: {len(included)}', f'- Uncompressed: {raw:,} bytes ({raw / 1_000_000:.2f} MB)',
-              f'- ZIP: {size:,} bytes ({size / 1_000_000:.2f} MB)', f'- Limit: {LIMIT:,} bytes',
-              f'- Excluded cache/build bytes: {sum(e["bytes"] for e in excluded):,}',
-              '- Deleted bytes: 0', '- Build/runtime/tests: delegated to user', '',
-              'The adjacent manifest lists every included/excluded path, size and included-file SHA-256. The ZIP is a C++ source project; the old executable is not included.']
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',default='dist/standard-coding-test-2-20261110.zip')
+    parser.add_argument('--include-learning',action='store_true',help='Development copy including debugger and learning docs; default is submission')
+    args=parser.parse_args();output=(ROOT/args.output).resolve();output.relative_to(ROOT)
+    if output.is_relative_to(SOURCE.resolve()): raise SystemExit('Output must be outside Standard.')
+    if output.exists(): raise SystemExit('Output already exists. Choose another output; prior artifacts are preserved.')
+    included,excluded=inventory(SOURCE,args.include_learning)
+    for entry in included: entry['sha256']=hashlib.sha256((SOURCE/entry['path']).read_bytes()).hexdigest()
+    raw=sum(p['bytes'] for p in included)
+    if raw>LIMIT: raise SystemExit(f'Source exceeds 30,000,000 bytes: {raw}. No files deleted.')
+    output.parent.mkdir(parents=True,exist_ok=True)
+    with zipfile.ZipFile(output,'x',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
+        for e in included: archive.write(SOURCE/e['path'],'standard/'+e['path'])
+    size=output.stat().st_size
+    commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    result={'date':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(),
+      'source_commit':commit,'source':str(SOURCE),'archive':str(output),'profile':'development' if args.include_learning else 'submission',
+      'raw_bytes':raw,'zip_bytes':size,'limit_bytes':LIMIT,'included_files':len(included),
+      'archive_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),'included':included,'excluded':excluded,
+      'notes':['Input is the saved working tree at package time; source_commit identifies HEAD, not an assertion of a clean tree.',
+        'Submission excludes debugger, project x64/.vs, docs/tutorials/HTML/examples.',
+        'Bundled SDK x64 libraries, headers, runtime DLLs and licenses remain.',
+        'OS, Windows SDK, MSVC tools and compatible graphics drivers are environment prerequisites.',
+        'No files were deleted. No build, tests, app run, archive testzip or validators were run.']}
+    output.with_suffix('.manifest.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8-sig')
+    report=['# Standard 제출용 소스 패키지','',f'프로필: {result["profile"]} · 패키징 시 HEAD: `{commit}`. 실제 입력은 저장된 작업 트리다.','',
+      f'- 포함 파일: {len(included)}',f'- 압축 전: **{raw:,}바이트** ({raw/1e6:.2f} MB)',f'- ZIP: **{size:,}바이트** ({size/1e6:.2f} MB)',
+      f'- 기준: {LIMIT:,}바이트 이하',f'- 제외: {sum(e["bytes"] for e in excluded):,}바이트 / {len(excluded)}개',
+      '- 실제 삭제: 0바이트','', '제출 프로필은 debugger·프로젝트 x64/.vs·문서·튜토리얼·HTML·예제를 제외한다. SDK의 x64 입력과 라이선스는 남긴다. 옆 manifest에 모든 포함/제외 경로와 크기·포함 파일 해시가 있다. 기존 .exe는 제출하지 않는 C++ 소스 프로젝트다.','',
+      '빌드·테스트·검증기·앱 실행·압축 해제 후 단독 동작 확인은 사용자가 수행한다. 용량 충족은 컴파일/실행 성공을 뜻하지 않는다.']
     output.with_suffix('.SIZE.md').write_text('\n'.join(report)+'\n',encoding='utf-8-sig')
-    print(json.dumps({k:result[k] for k in ('archive','raw_bytes','zip_bytes','limit_bytes','archive_sha256')}, ensure_ascii=False))
-    if size >= LIMIT:
-        raise SystemExit('ZIP exceeds 30MB. Artifact retained for review; do not report delivery success.')
-
-
-if __name__ == '__main__':
-    main()
+    book=ROOT/'coding-test-2/reports';book.mkdir(parents=True,exist_ok=True)
+    if not args.include_learning:
+        (book/'SUBMISSION_SIZE.md').write_text('\n'.join(report)+'\n\n[제출 ZIP](../../'+output.relative_to(ROOT).as_posix()+')\n',encoding='utf-8-sig')
+    print(json.dumps({k:result[k] for k in ('archive','profile','included_files','raw_bytes','zip_bytes','limit_bytes')},ensure_ascii=False))
+    if size>LIMIT: raise SystemExit('ZIP exceeds limit; artifact retained for review.')
+if __name__=='__main__': main()

@@ -163,32 +163,26 @@ def add_navigation(docs, catalog):
         text = re.sub(r'(<body\b[^>]*>)', lambda m: m[0] + bar, text, count=1)
         if text != current: write(page, text)
 
-SIZE_LIMIT = 30_000_000
-SIZE_EXCLUDED = (('x64',), ('.vs',), ('debugger', 'x64'), ('debugger', '.vs'))
-
 def write_size_report():
-    """Logical file sizes of standard without build output and IDE cache. Written last; its own size is the previous run's."""
-    files = [p for p in STANDARD.rglob('*') if p.is_file() and not p.is_symlink()
-             and not any(p.relative_to(STANDARD).parts[:len(prefix)] == prefix for prefix in SIZE_EXCLUDED)]
-    tops = {}
-    for p in files:
-        top = p.relative_to(STANDARD).parts[0]
-        tops[top] = tops.get(top, 0) + p.stat().st_size
-    total = sum(tops.values())
-    largest = sorted(files, key=lambda p: p.stat().st_size, reverse=True)[:10]
-    lines = ['# standard 전체 폴더 용량', '',
-             '`python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 '
-             '지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.', '',
-             f'- 파일 수: {len(files)}',
-             f'- 전체: **{total:,}바이트** = {total / 1e6:.2f} MB = {total / 1048576:.2f} MiB',
-             f'- 한도 30 MB(30,000,000바이트) 대비: **{"초과" if total > SIZE_LIMIT else "이하"}**, 남은 여유 {(SIZE_LIMIT - total) / 1e6:.2f} MB', '',
-             '| 최상위 항목 | 바이트 |', '|---|---:|']
-    lines += [f'| {name} | {size:,} |' for name, size in sorted(tops.items(), key=lambda item: -item[1])]
-    lines += ['', '## 큰 파일 10개', '', '지우기 전에 다른 문서나 도구가 참조하는지 확인한다. 예: graph.json은 GRAPH_REPORT.md가, framework/ 아래는 Sync-Framework.ps1 -Standard가 루트 framework에서 다시 복사한다.', '',
-              '| 파일 | 바이트 |', '|---|---:|']
-    lines += [f'| {p.relative_to(STANDARD).as_posix()} | {p.stat().st_size:,} |' for p in largest]
-    write(STANDARD / 'SIZE_REPORT.md', '\n'.join(lines) + '\n')
-    if total > SIZE_LIMIT: print(f'WARNING: standard is {total / 1e6:.2f} MB, over the 30 MB limit.')
+    from standard_package_policy import LIMIT, inventory
+    included,excluded=inventory(STANDARD)
+    development,_=inventory(STANDARD,include_learning=True)
+    total=sum(e['bytes'] for e in included)
+    lines=['# Standard 제출 입력 용량','',
+      'Package-Standard.py와 같은 정책으로 계산한다. 논리 파일 크기의 합이며 ZIP 크기·디스크 할당 크기와 다르다. 문서 자체는 제출에 포함하지 않는다.','',
+      f'- 제출 입력: **{total:,}바이트** ({total/1e6:.2f} MB), {len(included)}개',
+      f'- 기준: {LIMIT:,}바이트 이하 / 현재 {"이하" if total<=LIMIT else "초과"}',
+      f'- 개발 사본(문서·debugger 포함, 빌드/IDE 제외): {sum(e["bytes"] for e in development):,}바이트',
+      '- 제외: debugger, 프로젝트 x64/.vs, docs, 튜토리얼/학습 HTML, 예제',
+      '- 보존: C++/프로젝트/props/GLSL, bundled SDK 헤더·라이브러리·DLL·라이선스. SDK의 x64 폴더는 빌드 산출물이 아니다.',
+      '- 빌드·테스트·앱 실행·재배치 확인은 사용자 수행. 이 보고서는 실행 검증이 아니다.','',
+      '| 제출 최상위 항목 | 바이트 |','|---|---:|']
+    tops={}
+    for e in included:
+        top=e['path'].split('/')[0];tops[top]=tops.get(top,0)+e['bytes']
+    lines += [f'| {name} | {size:,} |' for name,size in sorted(tops.items())]
+    write(STANDARD/'SIZE_REPORT.md','\n'.join(lines)+'\n')
+
 
 def refresh_index():
     docs = collect_documents()

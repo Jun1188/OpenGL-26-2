@@ -30,14 +30,26 @@ public:
     void clear();
     /// [API] Create a cube/tetrahedron/pyramid at a world-authored pose; parent must already exist.
     EntityId addObject(const std::string&amp; name, const ObjectSetup&amp; setup, const std::string&amp; parent = &quot;&quot;);
+    /// [API] Register prepared geometry, retaining materials and a world-authored pose.
+    EntityId addModel(const std::string&amp; name, const Model&amp; model, const Transform3D&amp; worldPose = Transform3D{},
+                      const std::string&amp; parent = &quot;&quot;);
     /// [API] Append an object-local layer. Later layers inherit all earlier layers.
     void addLayer(const std::string&amp; object, const std::string&amp; name, const LayerSetup&amp; setup);
+    /// [API] Replace an existing layer; evaluate at the next update without resetting time.
+    void setLayer(const std::string&amp; object, const std::string&amp; name, const LayerSetup&amp; setup);
     /// [API] Register a point light, optionally expressed in a named object&#x27;s local frame.
     void addLight(const std::string&amp; name, const PointLight&amp; light, const std::string&amp; parent = &quot;&quot;);
+    /// [API] Read the named light&#x27;s authored value (local when parented) and its frame name.
+    PointLight light(const std::string&amp; name) const;
+    std::string lightParent(const std::string&amp; name) const;
+    /// [API] Replace a named light&#x27;s value and parent; output is rebuilt by syncTools.
+    void setLight(const std::string&amp; name, const PointLight&amp; light, const std::string&amp; parent = &quot;&quot;);
     /// [API] Select one camera, optionally expressed in a named object&#x27;s local frame.
     void setCamera(const Camera&amp; camera, const std::string&amp; parent = &quot;&quot;);
     /// [API] Evaluate local layers, attached lights and camera at absolute seconds; throws on invalid input.
     void update(double seconds);
+    /// [API] Synchronize attached lights/camera after all Scene motions; does not advance time.
+    void syncTools();
     /// [API] Resolve a source-authored object name; throws if the name is absent.
     EntityId object(const std::string&amp; name) const;
     /// [API] Resolve a picked object ID to its source-authored name, or return an empty string.

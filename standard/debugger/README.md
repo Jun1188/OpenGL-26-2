@@ -65,6 +65,7 @@ render main ambient 0.2 0.2 0.2
 | `code "파일" 시작행 끝행` | 실제 소스 행 범위 표시 |
 | `replace "파일" 시작행 끝행 "코드"` | 임의 C++/GLSL/프로젝트 파일의 정확한 수정 전후 제안 |
 | `insert "파일" 앞행 "코드"` | 해당 행 앞의 삽입안. 마지막 행+1은 파일 끝 |
+| `where state/input/update/shader/uniform` | 현재 @debug hook의 실제 파일·행·주변 코드. 내장/외부 셰이더를 구분해 표시 |
 | `help`, `quit` | 도움말, 종료 |
 
 `replace/insert`의 코드 인수에서 `\n`은 줄바꿈으로 해석한다. 코드 안의 큰따옴표는 `\"`로 입력한다. Windows 폴더 경로는 따옴표로 감싸고 닫는 따옴표 앞의 불필요한 끝 역슬래시는 생략한다.

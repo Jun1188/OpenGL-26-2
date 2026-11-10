@@ -81,6 +81,7 @@ render main ambient 0.2 0.2 0.2
 | `code "파일" 시작행 끝행` | 실제 소스 행 범위 표시 |
 | `replace "파일" 시작행 끝행 "코드"` | 임의 C++/GLSL/프로젝트 파일의 정확한 수정 전후 제안 |
 | `insert "파일" 앞행 "코드"` | 해당 행 앞의 삽입안. 마지막 행+1은 파일 끝 |
+| `where state/input/update/shader/uniform` | 현재 @debug hook의 실제 파일·행·주변 코드. 내장/외부 셰이더를 구분해 표시 |
 | `help`, `quit` | 도움말, 종료 |
 
 `replace/insert`의 코드 인수에서 `\n`은 줄바꿈으로 해석한다. 코드 안의 큰따옴표는 `\"`로 입력한다. Windows 폴더 경로는 따옴표로 감싸고 닫는 따옴표 앞의 불필요한 끝 역슬래시는 생략한다.
@@ -126,7 +127,7 @@ def refresh_documents():
 ```text
 standard/
   standard.sln             # Standard만 참조
-  standard.vcxproj         # main/Console/SceneSetup + 자기 framework
+  standard.vcxproj         # main/Console/SceneSetup/ExamController + 자기 framework
   SceneSetup.cpp           # 사용자가 직접 편집하는 C++ 원본
   framework/               # 독립 배포 사본, debugger 참조 없음
   debugger/
@@ -138,7 +139,7 @@ standard/
 
 | 모듈 | 실제 빌드 입력 | 다른 모듈과의 관계 |
 |---|---|---|
-| Standard | main.cpp, Console.cpp, SceneSetup.cpp, framework/Framework.props | framework API 사용. debugger 소스·프로젝트·실행 파일 참조 없음 |
+| Standard | main.cpp, Console.cpp, SceneSetup.cpp, ExamController.cpp, framework/Framework.props | framework API 사용. debugger 소스·프로젝트·실행 파일 참조 없음 |
 | framework 원본/배포 사본 | 자기 헤더·detail 소스·셰이더·SDK·런타임 DLL | debugger를 include/import/link/실행하지 않음 |
 | debugger | 자기 main.cpp, Commands.cpp, SourceIndex.cpp, SourceIndex.h, Toolchain.props | Standard/framework를 링크하지 않음. 사용자가 고른 소스 파일만 읽음 |
 
@@ -151,7 +152,7 @@ standard 전체 폴더 또는 debugger 폴더만 별도 위치로 복사할 수 
     examples = (ROOT / 'standard/examples/SourceExamples.h').read_text(encoding='utf-8-sig')
     write('standard/docs/EXAMPLES.md', '''# C++ 변환·조명·카메라 예제
 
-원문은 `examples/SourceExamples.h`다. 외부 assembly 파일이나 명령 문자열을 실행하지 않는 C++ 함수 두 개를 제공한다. 현재 Standard의 기본 장면 대신 확인하려면 `SceneSetup.cpp`에서 이 헤더를 include하고 configureScene 본문을 아래 호출 중 하나로 직접 바꾼 뒤 사용자가 재빌드한다.
+원문은 `examples/SourceExamples.h`다. 외부 assembly 파일이나 명령 문자열을 실행하지 않는 C++ 함수 두 개를 제공한다. 현재 Standard의 기본 장면 대신 확인하려면 `SceneSetup.cpp`에서 이 헤더를 include하고 configureScene 본문을 아래 호출 중 하나로 직접 바꾼다. main.cpp도 `Console sample(app, false);`로 바꾸어 기본 시험 컨트롤러를 끈 뒤 사용자가 재빌드한다. 부착 카메라·광원 이름은 예제 함수가 소유한다.
 
 ```cpp
 #include "examples/SourceExamples.h"
@@ -174,7 +175,7 @@ source_examples::rotatingDisplay(scene, options);
 ''' + examples.rstrip() + '\n```')
     write('standard/README.md', '''# Standard: C++ 직접 작성 프로젝트
 
-`SceneSetup.cpp`에 객체·변환·조명·재질·카메라를 C++ 코드로 작성한다. 수정 후 사용자가 빌드·실행한다.
+`SceneSetup.cpp`에 초기 장면, `ExamController.h/.cpp`에 상태·입력·시간 갱신, `framework/shaders`에 GLSL을 C++/GLSL로 직접 작성한다. 수정 후 사용자가 빌드·실행한다.
 
 [전체 문서](index.html) · [모듈 경계](docs/MODULE_LAYOUT.md) · [작성 흐름](docs/DIRECT_CPP_WORKFLOW.md) · [두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.md) · [디버거 명령](docs/SOURCE_DEBUGGER.md) · [조명](docs/LIGHTING_AND_MATERIALS.md) · [사용자 확인](USER_CHECKS.md)
 
@@ -185,7 +186,7 @@ source_examples::rotatingDisplay(scene, options);
 - `debugger/`: 소스 편집 안내용 독립 콘솔 프로젝트. Standard와 framework의 필수 모듈이 아니다. `debugger/debugger.sln`으로 따로 연다.
 - `old_standard/`: 저장소의 형제 폴더에 보존한 이전 명령·레시피 버전. 그 폴더의 `standard.sln`으로 별도 연다.
 
-클릭은 선택한 객체 이름과 `show object 이름` 안내만 출력한다. Space는 시간 정지/재개, Home은 시간 초기화, Esc는 종료다. 객체 속성은 코드에서 편집한다. 물체 전체 선택이 기본이며 면 편집 명령 모드는 현재 Standard 실행에 포함하지 않는다. 필요하면 기존 면 변환 C++ API를 직접 사용한다.
+클릭은 선택한 객체 이름과 `show object 이름` 안내만 출력한다. m/c/y/Y/z/Z는 조명·색·공전·반경, WASD/r/R은 카메라 이동·공전, p는 구 자전, F2는 합성·법선·확산·정반사 출력이다. Space는 컨트롤러/authoring 시간 정지, Home은 기준 상태 복원, Esc/q는 종료다. 별도 native Motion은 setMotionPlaying 등으로 별도 정지해야 한다. 객체 속성은 코드에서 편집한다. 물체 전체 선택이 기본이며 면 편집 명령 모드는 현재 Standard 실행에 포함하지 않는다. 필요하면 기존 면 변환 C++ API를 직접 사용한다.
 
 `debugger`에 원하는 변경을 입력하면 현재 소스의 파일·행·수정 전후 코드가 출력된다. 소스 저장, 재빌드, 화면 확인은 사용자가 수행한다. 빌드·테스트·앱 실행은 에이전트가 수행하지 않았다.
 ''')
@@ -198,8 +199,8 @@ source_examples::rotatingDisplay(scene, options);
 1. 사용자가 `ObjectSetup`, `LayerSetup`, `PointLight`, `Camera`, `RenderOptions` 값을 직접 편집한다.
 2. `main`은 Application 콜백을 한 번 등록한다. `run` 초기화 후 `Console::initScene`이 `configureScene`을 호출한다.
 3. `SceneAuthoring::addObject`는 월드 배치를 부모 기준 attachment에 저장한다. 비균등 배율 결과를 SRT로 다시 분해하지 않는다.
-4. `Console::onUpdate`가 절대 시간을 누적하고 `SceneAuthoring::update`가 지역 레이어와 부모를 따르는 광원·카메라를 평가한다. Application의 기존 Scene 모션 갱신은 그 뒤 한 번 실행된다.
-5. `Console::onRender` → `Application::renderScene` → Renderer가 모델·정규행렬·광원·재질을 GPU에 전달한다. Scene의 월드/면 행렬은 렌더와 피킹이 함께 사용한다.
+4. `Console::onUpdate`가 ExamController에 프레임 dt(정지 중 0)를 전달하고 절대 시간을 누적한다. SceneAuthoring::update(seconds)가 지역 레이어를 평가한다. Application의 기존 Scene 모션 갱신은 그 뒤 한 번 실행된다.
+5. `Console::onRender`가 최종 syncTools → controller.syncVisuals를 수행한 뒤 Application::renderScene → Renderer가 모델·정규행렬·광원·재질을 GPU에 전달한다. Scene의 월드/면 행렬은 렌더와 피킹이 함께 사용한다.
 6. 종료 시 Application이 GPU·창·GLFW 수명을 정리한다. debugger는 이 실행 흐름에 참여하지 않는다.
 
 ## 편집 위치
@@ -350,7 +351,7 @@ camera main target 0 1 0
 7. 잘못된 숫자, 0 배율, 0 회전축, 없는 구획, 중복 구획, 여러 대입문, 존재하지 않는 파일/행을 입력한다. 잘못된 위치를 성공으로 안내하지 않고 오류를 표시해야 한다. 임시로 바꾼 사용자 소스는 직접 복원한다.
 8. `find "SceneAuthoring::update"`를 framework 대상으로 실행하고 실제 결과를 `code`로 읽는다. Standard 대상으로는 하위 debugger 소스가 검색되지 않고 debugger 폴더를 명시한 project 대상에서는 그 구현이 검색되는지 확인한다. 구획이 없는 일반 실습에도 find/code/replace/insert의 before가 실제 파일과 같은지 확인한다. 이 명령은 MSBuild 활성 분기나 C++ 의미를 판정하지 않는다.
 9. 한글·공백 경로에서 UTF-8 BOM 파일을 읽고 EOF/quit로 종료한다. 링크·재분석 지점 아래로 순회하지 않는지 확인한다.
-10. standard 폴더 전체와 그 안의 debugger 폴더를 각각 다른 위치로 복사해 단독 프로젝트 빌드·실행을 확인한다. 별도 복사본에서 debugger를 빼도 standard.sln/standard.vcxproj와 framework가 도구 없이 빌드·실행되는지 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과도 확인한다. Package-Standard와 용량 집계는 standard 및 내부 debugger의 x64/.vs를 제외하지만 framework/dependencies의 SDK 입력은 보존한다.
+10. standard 폴더 전체와 그 안의 debugger 폴더를 각각 다른 위치로 복사해 단독 프로젝트 빌드·실행을 확인한다. 별도 복사본에서 debugger를 빼도 standard.sln/standard.vcxproj와 framework가 도구 없이 빌드·실행되는지 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과도 확인한다. Package-Standard의 기본 제출 프로필은 debugger 전체·프로젝트 x64/.vs·문서/학습 HTML·예제를 제외하며 framework/dependencies의 SDK 입력과 라이선스는 보존한다. 개발 사본은 --include-learning으로 별도 포장한다.
 
 `old_standard`는 이전 프로젝트를 보존한 폴더다. 기존 standard 내부에 x64/.vs가 없었으므로 이 이동에서 삭제된 용량은 0바이트다. 저장소 루트의 .vs, 다른 실습의 x64, 사용자 docs.zip·PDF·기존 Renderer.cpp 변경은 정리 범위에서 제외했다.
 ''')
@@ -361,6 +362,10 @@ camera main target 0 1 0
 | API | 계약 |
 |---|---|
 | ObjectSetup / addObject | box/tetra/pyramid, 모델 크기, 월드 배치·비균등 배율·피벗·재질. 부모를 먼저 등록 |
+| addModel(name, model, worldPose, parent) | 구 등 준비한 Model의 기하·재질을 보존하고 월드 배치로 등록 |
+| setLayer(object, name, setup) | 이미 등록한 지역 레이어 갱신. 시간 초기화 없이 다음 update에서 평가 |
+| light(name) / lightParent(name) / setLight | 등록된 광원의 지역 값·프레임 조회 및 교체. 없는 이름은 예외 |
+| syncTools | 모든 Scene 모션 뒤 부착 광원·카메라 최종 동기화. 시간을 진행시키지 않음 |
 | LayerSetup / addLayer | 객체 소유 지역 레이어, T(p+pivot) Rz Ry Rx Rspin S T(-pivot), 등록 순서 상속 |
 | PointLight / addLight | 최대8 점광원. 선택 부모가 있으면 지역 위치에서 월드로 변환 |
 | Camera / setCamera | 하나의 활성 카메라. 선택 부모에 부착, 시선/up 직교화 |
@@ -395,6 +400,27 @@ camera main target 0 1 0
             section += html.escape((ROOT / base / 'include/SceneAuthoring.h').read_text(encoding='utf-8-sig')) + '</code></pre></section><!-- source-authoring:end -->'
             text = re.sub(r'(<body\b[^>]*>)', lambda m: m[0] + section, text, count=1)
             write(base + '/docs/API_REFERENCE.html', text)
+    current_workbench = '''
+
+## 2차 코딩테스트 작업공간
+
+2026-11-24 화요일 시험 준비의 전체 학습 HTML·순정 OpenGL·N제·시나리오는 저장소의 coding-test-2 폴더에 별도로 둔다. Standard 제출 입력은 해당 학습 폴더를 참조하지 않는다. 같은 저장소에서는 [오프라인 학습](../coding-test-2/index.html)으로 이동할 수 있다. Standard만 복사한 배포본에서는 이 링크가 학습 참고 링크이며 빌드/실행 입력이 아니다.
+
+ExamController는 key 광원과 월드 카메라, studySphere/studySpin, lightMarker를 소유한다. 기존 초기 광원을 읽고 부모 이름을 보존한다. 다른 소스가 같은 상태를 동시에 쓰지 않는다. 전체 장면을 기존 examples 함수로 교체할 때는 main.cpp의 Console sample(app, false)로 기본 컨트롤러를 끈다. 기본 실행은 true다.
+
+외부 GLSL은 main의 shaderDirectory=framework/shaders로 선택한다. 소스 GLSL 수정 후 사용자가 Rebuild하여 출력 폴더의 사본도 갱신한다. 내장 detail/Shaders.h만 바꿔도 이 외부 경로가 바뀌는 것은 아니다. uStudyView=0/1/2/3은 합성/법선/확산/정반사이며 기존 내장 셰이더 사용자에게 기본 0을 유지한다.
+
+제출은 debugger, 프로젝트 x64/.vs, docs, 튜토리얼·학습 HTML·예제를 뺀 소스 기준 30,000,000바이트 이하다. SDK의 x64 라이브러리·DLL·헤더·라이선스는 남긴다. Package-Standard.py는 실제 파일 삭제 없이 이 범위로 ZIP을 만든다. 표준 개발 환경(OS·MSVC·Windows SDK·호환 드라이버)은 필요하다. 상위/형제 폴더·개인 절대 경로의 실행/빌드 입력을 두지 않는다.
+
+빌드·테스트·브라우저/앱 실행·화면 결과는 사용자 확인 대상이다. 소스·문서 생성과 실행 성공을 구분한다.
+'''
+    for relative in ('standard/README.md', 'standard/docs/DIRECT_CPP_WORKFLOW.md', 'standard/docs/MODULE_LAYOUT.md', 'standard/docs/WORKSPACE_TUTORIAL.md', 'standard/docs/LIGHTING_AND_MATERIALS.md'):
+        path = ROOT / relative
+        note = current_workbench if relative == 'standard/README.md' else current_workbench.replace('../coding-test-2/index.html', '../../coding-test-2/index.html')
+        write(relative, path.read_text(encoding='utf-8-sig') + note)
+    for base in ('framework', 'standard/framework'):
+        path = ROOT / base / 'docs/SOURCE_AUTHORING.md'
+        write(base + '/docs/SOURCE_AUTHORING.md', path.read_text(encoding='utf-8-sig') + '\n기본 컨트롤러의 구·표시·광원 공전은 Standard의 독립 모듈이며 프레임워크에 시험 사물 enum을 추가하지 않는다. 외부/내장 GLSL에 합성·법선·확산·정반사 출력(uStudyView)을 제공한다. 예제 컨트롤러는 공통 API를 사용하는 선택 코드다.\n')
     catalog = {'schemaVersion': 1, 'id': 'standard-document-catalog', 'source': 'tools/Write-SourceDebuggerDocs.py',
         'uncategorized': {'id': 'other', 'title': '공통 API·기존 참고 자료', 'description': '현재 작성 흐름은 시작하기 문서를 우선한다. 과거 명령 예제는 old_standard용이다.'},
         'categories': [{'id': 'start', 'title': 'C++ 직접 작성과 편집 안내', 'description': '수동 소스 편집 → 사용자 빌드·실행',

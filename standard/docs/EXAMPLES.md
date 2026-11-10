@@ -1,6 +1,6 @@
 ﻿# C++ 변환·조명·카메라 예제
 
-원문은 `examples/SourceExamples.h`다. 외부 assembly 파일이나 명령 문자열을 실행하지 않는 C++ 함수 두 개를 제공한다. 현재 Standard의 기본 장면 대신 확인하려면 `SceneSetup.cpp`에서 이 헤더를 include하고 configureScene 본문을 아래 호출 중 하나로 직접 바꾼 뒤 사용자가 재빌드한다.
+원문은 `examples/SourceExamples.h`다. 외부 assembly 파일이나 명령 문자열을 실행하지 않는 C++ 함수 두 개를 제공한다. 현재 Standard의 기본 장면 대신 확인하려면 `SceneSetup.cpp`에서 이 헤더를 include하고 configureScene 본문을 아래 호출 중 하나로 직접 바꾼다. main.cpp도 `Console sample(app, false);`로 바꾸어 기본 시험 컨트롤러를 끈 뒤 사용자가 재빌드한다. 부착 카메라·광원 이름은 예제 함수가 소유한다.
 
 ```cpp
 #include "examples/SourceExamples.h"

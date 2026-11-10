@@ -1,44 +1,23 @@
-﻿# standard 전체 폴더 용량
+﻿# Standard 제출 입력 용량
 
-`python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.
+Package-Standard.py와 같은 정책으로 계산한다. 논리 파일 크기의 합이며 ZIP 크기·디스크 할당 크기와 다르다. 문서 자체는 제출에 포함하지 않는다.
 
-- 파일 수: 566
-- 전체: **11,268,237바이트** = 11.27 MB = 10.75 MiB
-- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 18.73 MB
+- 제출 입력: **6,378,808바이트** (6.38 MB), 497개
+- 기준: 30,000,000바이트 이하 / 현재 이하
+- 개발 사본(문서·debugger 포함, 빌드/IDE 제외): 11,306,780바이트
+- 제외: debugger, 프로젝트 x64/.vs, docs, 튜토리얼/학습 HTML, 예제
+- 보존: C++/프로젝트/props/GLSL, bundled SDK 헤더·라이브러리·DLL·라이선스. SDK의 x64 폴더는 빌드 산출물이 아니다.
+- 빌드·테스트·앱 실행·재배치 확인은 사용자 수행. 이 보고서는 실행 검증이 아니다.
 
-| 최상위 항목 | 바이트 |
+| 제출 최상위 항목 | 바이트 |
 |---|---:|
-| framework | 10,823,129 |
-| docs | 376,506 |
-| debugger | 43,427 |
-| USER_CHECKS.md | 3,739 |
+| Console.cpp | 1,633 |
+| Console.h | 896 |
+| ExamController.cpp | 7,124 |
+| ExamController.h | 1,294 |
 | SceneSetup.cpp | 3,057 |
-| examples | 2,874 |
-| DOCUMENT_INDEX.md | 2,789 |
-| standard.vcxproj | 2,467 |
-| README.md | 1,938 |
-| SIZE_REPORT.md | 1,859 |
-| index.html | 1,590 |
-| Console.cpp | 1,394 |
-| main.cpp | 1,061 |
-| document.html | 889 |
-| standard.sln | 827 |
-| Console.h | 467 |
 | SceneSetup.h | 224 |
-
-## 큰 파일 10개
-
-지우기 전에 다른 문서나 도구가 참조하는지 확인한다. 예: graph.json은 GRAPH_REPORT.md가, framework/ 아래는 Sync-Framework.ps1 -Standard가 루트 framework에서 다시 복사한다.
-
-| 파일 | 바이트 |
-|---|---:|
-| framework/docs/API_REFERENCE.html | 2,376,807 |
-| framework/dependencies/glew-2.3.1/include/GL/glew.h | 1,362,237 |
-| framework/docs/API_CASE_MAP.json | 870,589 |
-| framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib | 770,808 |
-| framework/docs/IMPLEMENTATION_PATTERNS.html | 690,861 |
-| framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll | 472,576 |
-| docs/viewer/documents.js | 283,926 |
-| framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h | 248,376 |
-| framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll | 232,448 |
-| framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/vcruntime140.dll | 178,616 |
+| framework | 6,359,855 |
+| main.cpp | 1,374 |
+| standard.sln | 845 |
+| standard.vcxproj | 2,506 |
