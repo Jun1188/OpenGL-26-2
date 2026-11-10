@@ -28,7 +28,8 @@ def main():
             continue
         relative = path.relative_to(SOURCE)
         reason = None
-        if relative.parts[0] in {'.vs', 'x64', '.git', '__pycache__'}:
+        build_root = relative.parts[1] if len(relative.parts) > 1 and relative.parts[0] == 'debugger' else relative.parts[0]
+        if build_root in {'.vs', 'x64', '.git', '__pycache__'}:
             reason = 'IDE cache/build output; source, bundled SDK and licences remain included'
         elif path.name.endswith('.vcxproj.user') or path.suffix in {'.pyc', '.tmp'}:
             reason = 'Device-local or temporary file'

@@ -13,7 +13,7 @@ namespace {
 bool excluded(const fs::path& path) {
     const auto name = path.filename().u8string();
     return name == ".git" || name == ".vs" || name == "x64" || name == "Debug" || name == "Release" ||
-        name == "dependencies" || name == "docs" || name == "old_standard" || name == "graphify-out" ||
+        name == "dependencies" || name == "docs" || name == "debugger" || name == "old_standard" || name == "graphify-out" ||
         name == ".agents" || name == ".obj-work" || name == "dist" || name == "packages";
 }
 bool source(const fs::path& path) {

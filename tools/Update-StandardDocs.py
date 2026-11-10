@@ -164,12 +164,12 @@ def add_navigation(docs, catalog):
         if text != current: write(page, text)
 
 SIZE_LIMIT = 30_000_000
-SIZE_EXCLUDED = ('x64', '.vs')
+SIZE_EXCLUDED = (('x64',), ('.vs',), ('debugger', 'x64'), ('debugger', '.vs'))
 
 def write_size_report():
     """Logical file sizes of standard without build output and IDE cache. Written last; its own size is the previous run's."""
     files = [p for p in STANDARD.rglob('*') if p.is_file() and not p.is_symlink()
-             and p.relative_to(STANDARD).parts[0] not in SIZE_EXCLUDED]
+             and not any(p.relative_to(STANDARD).parts[:len(prefix)] == prefix for prefix in SIZE_EXCLUDED)]
     tops = {}
     for p in files:
         top = p.relative_to(STANDARD).parts[0]
