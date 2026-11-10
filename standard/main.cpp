@@ -9,10 +9,14 @@ int main() try {
     app.setInitHandler([&](graphics::Application&) { return sample.initScene(); });
     app.setModifiedKeyHandler([&](graphics::Application&, int key, int action, int mods) { sample.onKey(key, action, mods); });
     app.setMouseHandler([&](graphics::Application&, const graphics::MouseEvent& event) { sample.onMouse(event); });
+    app.setFocusHandler([&](graphics::Application&, bool focused) { sample.onFocus(focused); });
     app.setUpdateHandler([&](graphics::Application&, float dt) { sample.onUpdate(dt); });
     app.setRenderHandler([&](graphics::Application&) { return sample.onRender(); });
     graphics::ApplicationConfig config;
-    config.title = "Standard - Direct C++ source";
+    config.title = "Standard - Coding test 2 workbench";
+    // @debug hook shader
+    config.shaderDirectory = "framework/shaders";
+    config.renderConfig.bindUniforms = [&](const graphics::DrawUniformContext& context) { return sample.bindUniforms(context); };
     return app.run(config);
 } catch (const std::exception& error) {
     std::cerr << "Standard 실행 실패: " << error.what() << '\n';

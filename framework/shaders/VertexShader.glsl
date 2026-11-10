@@ -11,9 +11,11 @@ out vec2 TexCoord;
 out vec3 Normal;
 out vec3 WorldPosition;
 void main() {
+    // @debug hook vertex
     gl_Position = uMVP * vec4(vPos, 1.0);
     outColor = vColor;
     TexCoord = vTexCoord;
+    // @debug hook normal
     Normal = uNormalMatrix * vNormal;
     WorldPosition = (uModel * vec4(vPos, 1.0)).xyz;
 }

@@ -39,6 +39,9 @@ public:
     void setLayer(const std::string& object, const std::string& name, const LayerSetup& setup);
     /// [API] Register a point light, optionally expressed in a named object's local frame.
     void addLight(const std::string& name, const PointLight& light, const std::string& parent = "");
+    /// [API] Read the named light's authored value (local when parented) and its frame name.
+    PointLight light(const std::string& name) const;
+    std::string lightParent(const std::string& name) const;
     /// [API] Replace a named light's value and parent; output is rebuilt by syncTools.
     void setLight(const std::string& name, const PointLight& light, const std::string& parent = "");
     /// [API] Select one camera, optionally expressed in a named object's local frame.

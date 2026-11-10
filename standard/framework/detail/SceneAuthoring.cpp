@@ -119,6 +119,14 @@ void SceneAuthoring::addLight(const std::string& name, const PointLight& light, 
     validateLight(light);
     lights_.push_back({name, parent, light});
 }
+PointLight SceneAuthoring::light(const std::string& name) const {
+    for (const auto& item : lights_) if (item.name == name) return item.value;
+    throw std::runtime_error("SceneAuthoring: missing light: " + name);
+}
+std::string SceneAuthoring::lightParent(const std::string& name) const {
+    for (const auto& item : lights_) if (item.name == name) return item.parent;
+    throw std::runtime_error("SceneAuthoring: missing light: " + name);
+}
 void SceneAuthoring::setLight(const std::string& name, const PointLight& light, const std::string& parent) {
     validateLight(light);
     if (!parent.empty()) object(parent);

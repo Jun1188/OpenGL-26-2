@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <limits>
+#include <map>
 #include <regex>
 #include <sstream>
 #include <stdexcept>
@@ -239,6 +240,7 @@ object/light/camera 이름 parent 부모이름/none [등록 코드 수정안] - 
 add object 이름 box/tetra/pyramid [부모] [전체 삽입 코드]
 add layer 이름 객체 [전체 삽입 코드] - 이후 레이어가 앞 레이어를 상속
 add light 이름 [부모] / add camera 이름 [부모] [전체 삽입 코드]
+where state/input/update/shader/uniform [작성 지점] - 실제 @debug hook 경로·행·주변 코드
 find "문자열" [실제 파일·행·코드] - 일반 C++/GLSL/props에도 사용
 code "파일" 시작행 끝행 [현재 코드] - 프로젝트 내부의 색인된 파일
 replace "파일" 시작행 끝행 "코드" [정확한 before/after] - 코드 안의 \n은 줄바꿈
@@ -254,7 +256,25 @@ bool command(SourceIndex& sources, const std::string& line, std::ostream& out) {
     if (a[0] == "project") { require(a.size() == 2, "project \"폴더 또는 .vcxproj\""); sources.project(fs::u8path(a[1])); }
     sources.refresh();
     if (a[0] == "project") { out << "대상: " << sources.root().u8string() << " | 소스 " << sources.files.size() << "개\n"; return true; }
-    if (a[0] == "list") {
+    if (a[0] == "where") {
+        require(a.size() == 2, "where state/input/update/shader/uniform 또는 구체적인 hook 이름");
+        const std::map<std::string, Words> groups = {
+            {"state", {"state"}}, {"input", {"input"}}, {"update", {"update", "final-sync"}},
+            {"shader", {"shader", "vertex", "normal", "lighting", "shader-view"}}, {"uniform", {"uniform", "shader-view"}}
+        };
+        const Words tags = groups.count(a[1]) ? groups.at(a[1]) : Words{a[1]};
+        require(identifier(a[1]) || a[1] == "final-sync" || a[1] == "shader-view", "유효한 hook 이름을 입력하세요.");
+        const std::regex hook(R"(^\s*//\s*@debug\s+hook\s+([A-Za-z_][A-Za-z_0-9-]*)\s*$)");
+        std::size_t count = 0;
+        for (const auto& f : sources.files) for (std::size_t i = 0; i < f.lines.size(); ++i) {
+            std::smatch match;
+            if (!std::regex_match(f.lines[i], match, hook) || std::find(tags.begin(), tags.end(), match[1].str()) == tags.end()) continue;
+            const auto label = f.path.filename() == "Shaders.h" ? "내장 셰이더 대체 소스" : f.path.extension() == ".glsl" ? "외부 GLSL" : "C++ 작성 지점";
+            out << '[' << label << "] " << match[1].str() << '\n';
+            sources.print(f, i + 1, std::min(f.lines.size(), i + 4), out); ++count;
+        }
+        out << "작성 지점 " << count << "개. 셰이더 선택은 main의 shaderDirectory 설정을 먼저 확인하세요.\n";
+    } else if (a[0] == "list") {
         require(a.size() == 1, "list");
         for (const auto& b : sources.blocks) out << b.kind << ' ' << b.name << " | " << sources.files[b.file].path.u8string() << ':' << b.first + 1 << '-' << b.last + 1 << '\n';
         if (sources.blocks.empty()) out << "@debug 구획이 없습니다. find/code/replace/insert로 일반 소스에 사용할 수 있습니다.\n";
