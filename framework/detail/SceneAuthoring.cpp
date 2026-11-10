@@ -9,6 +9,10 @@ void requireAuthoring(bool ok, const char* message) {
 bool finite(const glm::vec3& value) {
     return std::isfinite(value.x) && std::isfinite(value.y) && std::isfinite(value.z);
 }
+bool nonsingular(const glm::mat4& matrix) {
+    const auto determinant = glm::determinant(glm::mat3(matrix));
+    return TransformSystem::validAffine(matrix) && std::isfinite(determinant) && std::abs(determinant) > 1e-18f;
+}
 glm::mat4 rotation(const glm::vec3& degrees) {
     requireAuthoring(finite(degrees), "SceneAuthoring: rotation must be finite.");
     glm::mat4 result(1);
@@ -29,7 +33,7 @@ glm::mat4 layerMatrix(const LayerSetup& setup, double seconds) {
     const auto result = glm::translate(glm::mat4(1), setup.translation + setup.pivot) *
         rotation(setup.rotationDegrees) * spin * glm::scale(glm::mat4(1), setup.scale) *
         glm::translate(glm::mat4(1), -setup.pivot);
-    requireAuthoring(TransformSystem::validAffine(result) && std::abs(glm::determinant(glm::mat3(result))) > 1e-18f,
+    requireAuthoring(nonsingular(result),
         "SceneAuthoring: layer scale must be invertible.");
     return result;
 }
@@ -63,7 +67,7 @@ EntityId SceneAuthoring::addObject(const std::string& name, const ObjectSetup& s
     pose.basis = setup.position; pose.rotation = glm::mat3(rotation(setup.rotationDegrees));
     pose.scale = setup.scale; pose.localBasis = setup.pivot;
     const auto world = DiagramSystem::modelMatrix(pose);
-    requireAuthoring(TransformSystem::validAffine(world) && std::abs(glm::determinant(glm::mat3(world))) > 1e-18f,
+    requireAuthoring(nonsingular(world),
         "SceneAuthoring: object scale must be invertible.");
     auto model = DiagramSystem::makePolyhedron(setup.shape, setup.size);
     for (auto& face : model.faces) face.material = setup.material;
@@ -115,6 +119,7 @@ void SceneAuthoring::update(double seconds) {
             requireAuthoring(frame.has_value(), "SceneAuthoring: invalid light frame.");
             light.position = glm::vec3(*frame * glm::vec4(light.position, 1));
         }
+        requireAuthoring(finite(light.position), "SceneAuthoring: light position overflow.");
         lights.push_back(light);
     }
     app_.getRenderOptions().pointLights = std::move(lights);

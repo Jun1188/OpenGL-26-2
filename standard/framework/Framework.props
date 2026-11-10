@@ -7,6 +7,7 @@
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Animation.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Application.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\CuboidMode.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Dynamics.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Motion.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\ObjLoader.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Patterns.cpp" />

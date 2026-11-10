@@ -1,0 +1,24 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "standard", "standard\standard.vcxproj", "{AD50DC3F-7731-4954-923F-907BB2A8277C}"
+EndProject
+Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "debugger", "debugger\debugger.vcxproj", "{48D466D1-8954-4D75-A111-D8BAC65250A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.ActiveCfg = Debug|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.Build.0 = Debug|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.ActiveCfg = Release|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.Build.0 = Release|x64
+		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Debug|x64.ActiveCfg = Debug|x64
+		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Debug|x64.Build.0 = Debug|x64
+		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Release|x64.ActiveCfg = Release|x64
+		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+EndGlobal
