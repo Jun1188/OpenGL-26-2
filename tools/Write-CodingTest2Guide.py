@@ -80,7 +80,7 @@ def main():
         docs.append(dict(id=p,title=title,markdown=content))
     sources=[]
     source_paths=['coding-test-2/native/main.cpp','coding-test-2/native/shaders/VertexShader.glsl','coding-test-2/native/shaders/FragmentShader.glsl',
-      'standard/main.cpp','standard/SceneSetup.cpp','standard/ExamController.h','standard/ExamController.cpp','standard/Console.cpp',
+      'standard/main.cpp','standard/Console.h','standard/SceneSetup.h','standard/SceneSetup.cpp','standard/ExamController.h','standard/ExamController.cpp','standard/Console.cpp',
       'standard/framework/include/SceneAuthoring.h','standard/framework/detail/SceneAuthoring.cpp',
       'standard/framework/shaders/VertexShader.glsl','standard/framework/shaders/FragmentShader.glsl','standard/debugger/Commands.cpp']
     summary=['# 실제 소스 참조', '', '현재 저장된 소스의 전체 내용을 HTML 소스 탭에 포함했다. 번호는 생성 시점의 1-based 행이며 저장 후 바뀔 수 있다. 원문 편집은 해당 실제 파일에서 한다.', '', '| 파일 | 행 수 | 위치 표식 |', '|---|---:|---|']

@@ -1,0 +1,3614 @@
+﻿[
+  {
+    "path": "coding-test-2/native/dependencies/glew/bin/glew32.dll",
+    "bytes": 472576,
+    "sha256": "a4428b3283ded13b701797d433343eb923d29efe198d27d89e1f3f64f6516427",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/include/GL/eglew.h",
+    "bytes": 135514,
+    "sha256": "feb986fe31fb9a48fef1b39f6042be2602daedb97a6f8b9125bc3596c08e41db",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/include/GL/eglew.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/include/GL/glew.h",
+    "bytes": 1362237,
+    "sha256": "7e8851309fb6ff9a01ec6317ef38d0534d29eaae80ee2e9cbe1050c8f6a5c825",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/include/GL/glew.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/include/GL/glxew.h",
+    "bytes": 77600,
+    "sha256": "313e9191173fe3bc2dfc979c35668d542d44a3185e3119414ca65093e2ab3779",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/include/GL/glxew.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/include/GL/wglew.h",
+    "bytes": 65578,
+    "sha256": "0ca21745247a7903204959b1d96f944c3873cac9c6d1d03ed74d9273d312fda2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/include/GL/wglew.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/lib/glew32.lib",
+    "bytes": 770808,
+    "sha256": "b8c3e33e1c08beba9c9c60e7a1c795bdb1cd3982db9eb6332f98ed972dcc5f65",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glew/LICENSE.txt",
+    "bytes": 3873,
+    "sha256": "38ee953cbae3c9d8b26308bdf92a1d0d6b79629165b58946e92df2f88001f16f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glew-2.3.1/LICENSE.txt"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/bin/glfw3.dll",
+    "bytes": 232448,
+    "sha256": "4429adff46d4d1038bb5836cecc59661eef7126e4941de6fdfde8855e7c14bb1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/bin/vcruntime140.dll",
+    "bytes": 178616,
+    "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/vcruntime140.dll"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/include/GLFW/glfw3.h",
+    "bytes": 248376,
+    "sha256": "182f851c480be6f79b27b064171e7f43572d3fe195c364dc2932277f98da9d04",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/include/GLFW/glfw3native.h",
+    "bytes": 21867,
+    "sha256": "b66cb1327a98a5a8ecede8eefe48eca3b702b09c7fc0bec04ad0bf86c7bd81ee",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3native.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/lib/glfw3dll.lib",
+    "bytes": 31378,
+    "sha256": "3b1e0f2e4e9f443838a0917b7c58aedc4af2c25823a811254a75c5b1ad62e0d3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3dll.lib"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/LICENSE-Microsoft-VC-Runtime.md",
+    "bytes": 1439,
+    "sha256": "e890e543d19ee93c32486d03d8cad54dbe4fe0a87961b615e75652b497794267",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/LICENSE-Microsoft-VC-Runtime.md"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glfw/LICENSE.md",
+    "bytes": 930,
+    "sha256": "6d091ca4f2cb3e9c53d83112ebb63774ecd40c64b468003b348bf0432386f5a6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glfw-3.4.bin.WIN64/LICENSE.md"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/copying.txt",
+    "bytes": 2922,
+    "sha256": "142911fd27af238e59643eacefa39d8412c3f9d3bf2026c2c1e2a0bd00d4b4d2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/copying.txt"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/CMakeLists.txt",
+    "bytes": 2537,
+    "sha256": "0c45721afef81c3526612a8ecfe045eef3da48d09ae15ac61f38ba02233ed219",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/CMakeLists.txt"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/common.hpp",
+    "bytes": 28188,
+    "sha256": "48d0b170fc8d4bfe81c5aea565e874613f989defee4f3d69e8c253a8f36ee737",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_features.hpp",
+    "bytes": 11773,
+    "sha256": "50f94f2f93f598cc719388a69d9532b0986a1e47cadbcfb3b424ad5f6275d304",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_features.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_fixes.hpp",
+    "bytes": 410,
+    "sha256": "56f2af1c102984685206613ebb40335dbce3c14e645de4295ecc8d6043dd1786",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_fixes.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_noise.hpp",
+    "bytes": 2363,
+    "sha256": "cec1a5818e6e57c8006c5f796239ff130b033f49a0eccacc24e016f472adc424",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_noise.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_swizzle.hpp",
+    "bytes": 49268,
+    "sha256": "d898ea2c0c7497438abe4c8ad8ff1c9fa01035433b6a87ce7bf0efcac3d1b7fa",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_swizzle.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_swizzle_func.hpp",
+    "bytes": 35136,
+    "sha256": "fbc8edbbaac0ac999a759f2ce5fca903230b9535e8f331004982de9c683f45c9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_swizzle_func.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/_vectorize.hpp",
+    "bytes": 8045,
+    "sha256": "d793730202775daaec85cdae89cb89c8f9c35954f8621fbb8bdaf8f1fe31701d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/_vectorize.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/compute_common.hpp",
+    "bytes": 1303,
+    "sha256": "e19139d3505101a73dd8f1a0a6252a01bb0ce6f6afa85bfb3ef367ebb48e5efd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/compute_common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/compute_vector_decl.hpp",
+    "bytes": 6279,
+    "sha256": "53bc95c34ca4f33e022b2f9fca43e97ca8decceb7fea7d3cc6d9ce9b385036a5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/compute_vector_decl.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/compute_vector_relational.hpp",
+    "bytes": 633,
+    "sha256": "81cb9d8c12f083227a0ed9a94a4147a4b4b5f0c3be809b978571df4b7f86649c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/compute_vector_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_common.inl",
+    "bytes": 30670,
+    "sha256": "886b8f4cac597a6796bc65c50d7d43d474f850c397f7fbb84b4532314d740c54",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_common_simd.inl",
+    "bytes": 16970,
+    "sha256": "9d12159e26d03440b55cebcc0d6101eb30522d0e6df486b7e3788a5adb188cbe",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_common_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_exponential.inl",
+    "bytes": 4654,
+    "sha256": "d0050a125dc20f0aef0d721b0119ced6af24430e6ed08af5420f1c773eb18221",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_exponential.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_exponential_simd.inl",
+    "bytes": 853,
+    "sha256": "1bf6a6d54c8f7a244e3378ac4e46c598ef332811b7dd4b570b47332c6e89edc0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_exponential_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_geometric.inl",
+    "bytes": 8344,
+    "sha256": "c671e4733da6bb1ea22b6e76eea7f20a737357ba9f0b01a2ac2c567998b8652d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_geometric.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_geometric_simd.inl",
+    "bytes": 4760,
+    "sha256": "1991e7ef10f8a3711b4c85da87448eeb35db8f53b6c2daa1303394623285ee12",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_geometric_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_integer.inl",
+    "bytes": 15754,
+    "sha256": "5de79b2fbf67a6a32d51cf37510c34ef09e683279ecdd3c2d4b0fa6d7b89f574",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_integer_simd.inl",
+    "bytes": 1756,
+    "sha256": "baefdb29125860e443e7a534b8d01bd4642dfa5a9875572d063d0df9fa3721ad",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_integer_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_matrix.inl",
+    "bytes": 16247,
+    "sha256": "dec91438d926e37422690dc2261b3c19bda5d1b67dbbf9dbb9c3f3aa3bbbe6ad",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_matrix.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_matrix_simd.inl",
+    "bytes": 9048,
+    "sha256": "ea51aa2c30277a084c87673e6e24dfec7d9e96064a341e97431f45cc4d1647a0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_matrix_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_packing.inl",
+    "bytes": 3143,
+    "sha256": "c35a936c4cb68682c137df454b0d88163f3f3d012cea40c8c3639ae6fec1830a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_packing.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_packing_simd.inl",
+    "bytes": 81,
+    "sha256": "d59a7ff19ca90848710933ada5df8da312439977051b3ddc566aa9bd9903dc12",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_packing_simd.inl",
+      "standard/framework/dependencies/glm/glm/detail/func_vector_relational_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_trigonometric.inl",
+    "bytes": 5614,
+    "sha256": "8dce04a74b72b88d312ee9f3025e0ccae235beb1bf5835d16fc7284cd2ee07f1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_trigonometric.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_trigonometric_simd.inl",
+    "bytes": 3,
+    "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_trigonometric_simd.inl",
+      "standard/framework/dependencies/glm/glm/ext/scalar_packing.inl",
+      "standard/framework/dependencies/glm/glm/ext/vector_packing.inl",
+      "standard/framework/dependencies/glm/glm/gtc/quaternion_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_vector_relational.inl",
+    "bytes": 2498,
+    "sha256": "d7e625f03f3949e06b34fb2075584b8e8b7dae0b4b345a19abd8bc2a27a95165",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_vector_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/func_vector_relational_simd.inl",
+    "bytes": 81,
+    "sha256": "d59a7ff19ca90848710933ada5df8da312439977051b3ddc566aa9bd9903dc12",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_packing_simd.inl",
+      "standard/framework/dependencies/glm/glm/detail/func_vector_relational_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/glm.cpp",
+    "bytes": 8725,
+    "sha256": "66a3757ef93bcbbd125be1d5b9cc74b155483fc70679ced1cddb211aed1dd665",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/glm.cpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/qualifier.hpp",
+    "bytes": 7265,
+    "sha256": "b600bebe59852af7922430378c64741255c08fd723f89ce446bf0cec3fa62cc3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/qualifier.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/setup.hpp",
+    "bytes": 43386,
+    "sha256": "5cd3c1910234033904cf05e7c26f13bdc15e962d42104ad5af18563b2a9a6990",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/setup.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_float.hpp",
+    "bytes": 1645,
+    "sha256": "9bc3296ba7ee8abc736bc1702cd235e63a0073088e282b09de1be8936a19940e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_float.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_half.hpp",
+    "bytes": 273,
+    "sha256": "3c9a5ee63e531d99b1d40d3a85282f96c43f21901565328b78156a714381028b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_half.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_half.inl",
+    "bytes": 4760,
+    "sha256": "341729a03107c010eab6f60da3a9aac7836854790d1c4547a865c56817ab6221",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_half.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x2.hpp",
+    "bytes": 6769,
+    "sha256": "937aa8268f8018992edfaf8c8119afbe7bd44ff2ab59e2a75e35c767af49bf87",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x2.inl",
+    "bytes": 15097,
+    "sha256": "07a6b9b13a9a4841f2aabaf348472a70491864d412210aa3b12fa3553560deb1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x2.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x3.hpp",
+    "bytes": 5779,
+    "sha256": "6a80157ac17058876986ea8f555262f391caba30ffea29f23cf85705c234d9d9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x3.inl",
+    "bytes": 14074,
+    "sha256": "628403a6c9604dface15711fea9692b0459430a7685ceedd38dfadd68ccc3725",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x3.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x4.hpp",
+    "bytes": 5840,
+    "sha256": "38f2a429bba596470183865a6c6f045d013ad5fd3dbedb6bec27dc8f96c2c890",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat2x4.inl",
+    "bytes": 14675,
+    "sha256": "071416302f5c0da02599217dfa618919fbce8b5323161ac7876261bfa87d337f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat2x4.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x2.hpp",
+    "bytes": 5873,
+    "sha256": "d96770fa59e0d341a8811bdc4312d5594f13c3c95f96fd5dd9d93d6991418c51",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x2.inl",
+    "bytes": 15124,
+    "sha256": "245d79c7b00f355a3840f8b78e658717e2d56bd644fa5f9fd1806be8e63d4105",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x2.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x3.hpp",
+    "bytes": 6939,
+    "sha256": "01d5dc18cfa048cd25f40bcc78e4e32b082ce42b949d6d5b9985ee8fef1d8807",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x3.inl",
+    "bytes": 19655,
+    "sha256": "cabeca31c8af7b4f25558204ea17be9ac3502a077d059f5a153df94365508615",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x3.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x4.hpp",
+    "bytes": 6024,
+    "sha256": "3799b956c1194ae3a37d10e22c4d37e5f7952e39fcb4697e6f1cddd55fc9ce84",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat3x4.inl",
+    "bytes": 17194,
+    "sha256": "a0dcf42743e0382a2628124878aaaa7c8a981c3e1f3d0e0dae924ec4cfe574aa",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat3x4.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x2.hpp",
+    "bytes": 5870,
+    "sha256": "077207ac339552caafcb335e64b9ed57bc8238088744c6d4de48218c0943946e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x2.inl",
+    "bytes": 16973,
+    "sha256": "d2fd9318adebab558d2c65c7e188f1e2c3a40b605aced78c8cce7782dd04535f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x2.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x3.hpp",
+    "bytes": 6170,
+    "sha256": "5d7c18e8f5dc5a3e7ccca5d0e7f46ca46a6ceb29604a866f351ba9594312e1be",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x3.inl",
+    "bytes": 18421,
+    "sha256": "77397c65708f55f0ad233f6070627a5565a01549c309a514dd76e2ec05df874a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x3.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x4.hpp",
+    "bytes": 7438,
+    "sha256": "642ac8fe4f5571080746fcded2800817dc5bd4314755a3596a1cbe5b3b62c4e2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x4.inl",
+    "bytes": 29247,
+    "sha256": "e92d519215e7cd4fb739f72973747e852ae81110b4649a271d8d08e169bc792b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x4.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_mat4x4_simd.inl",
+    "bytes": 58,
+    "sha256": "bcc356a3c9fedb9bd177fc15d5b6ca0cd19a0571f5b0b568894ba8f51ed940a1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_mat4x4_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_quat.hpp",
+    "bytes": 6352,
+    "sha256": "61083f3084e17197cb59e8793543d537fe1a30667dd9573803d6f36419429cdd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_quat.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_quat.inl",
+    "bytes": 12478,
+    "sha256": "97c89e7d114283aeec9ed274421ac0ac14961ca91a8a0330aadc452db6994a00",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_quat.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_quat_simd.inl",
+    "bytes": 7206,
+    "sha256": "4060eeb8bca977e059493c7b684d564965f9920a645bdce4e975d55ed699a74d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_quat_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec1.hpp",
+    "bytes": 11715,
+    "sha256": "749ad682d740317de0cee106346f650d1317d770903839019d2192f31f6552f6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec1.inl",
+    "bytes": 14673,
+    "sha256": "086c38597bea0f5ecf8b5f1feb7303bd076c4d8e8557a6b77abb2cce22f630a9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec1.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec2.hpp",
+    "bytes": 16328,
+    "sha256": "343f6dbc68c89fbfa820fa1f6cbaaded2b917155c10f0bef1e221368fa33ea0d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec2.inl",
+    "bytes": 24244,
+    "sha256": "38234ca126a6b52baec79accb5bb6bae91ea5e7ef737ed8dd378cccea01b3f20",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec2.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec3.hpp",
+    "bytes": 18335,
+    "sha256": "c87dede89a8dbb39688d580b8cfcbda18abe73e8b2e07119b2f4168c5d9827b2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec3.inl",
+    "bytes": 31947,
+    "sha256": "0e1033167c913bf20c8254ef32fc26bf74becd7f7f343304a3b1d2df29b737e3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec3.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec4.hpp",
+    "bytes": 23112,
+    "sha256": "6804a80268f0de2cfeb8b34c569d7b2a5c9d20afb9abcafe81bdb2670da165bd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec4.inl",
+    "bytes": 37206,
+    "sha256": "6f1b350f32078a5d08208a129b633fef24f3d784c68555dd71f3d38a4292bc4a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec4.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/detail/type_vec_simd.inl",
+    "bytes": 30706,
+    "sha256": "269e9e8a5862599c08089c9adcb93d060dd23a0cb4502d157af447991957dec1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/type_vec_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/exponential.hpp",
+    "bytes": 5728,
+    "sha256": "f99fe4662b828fb40b0d82dbaeea5745f6d85ee7358af1f0fa00dde05de70d40",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/exponential.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/_matrix_vectorize.hpp",
+    "bytes": 4682,
+    "sha256": "d47f45c0772ae134d7b125c3b8fbfb1f736e278774fc06542b72ee75ff62cf28",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/_matrix_vectorize.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_clip_space.hpp",
+    "bytes": 34432,
+    "sha256": "4e304202722baac68c98f76461b6eddc7cc908c5b494b8c6d043d49a4b822368",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_clip_space.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_clip_space.inl",
+    "bytes": 22715,
+    "sha256": "7fa1c76868e9bebe00802ab29492d6c4d2f1977ef9ef7a491e8c9883d611b6e8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_clip_space.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_common.hpp",
+    "bytes": 1171,
+    "sha256": "ff738dde368720033d72ec69c8eaac5edac4b117af39eba265762f6abe5e7bb0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_common.inl",
+    "bytes": 1185,
+    "sha256": "83989be3cc04bd8bf58c8dffbf50059ff89c919a35a5d901d7b1136786fee04d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x2.hpp",
+    "bytes": 742,
+    "sha256": "8988aae2320d0ef8f0241545eb13e7a5648f434f5361a7e0a9bb35965a41701e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x2_precision.hpp",
+    "bytes": 3022,
+    "sha256": "d30ec80b9397ae666807c3ddc63a624de95ec7bd6a3d638cba4abdc36cea3d9e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x3.hpp",
+    "bytes": 472,
+    "sha256": "0249cdd96d25361f1f2e79de3f3d2a68e5e835b2fbbfcc7295fb0ebe3d94f618",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x3_precision.hpp",
+    "bytes": 1624,
+    "sha256": "984659c78e14736235014216bf7a6f921e31cc4e674cebbcc42e8c024c63813c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x4.hpp",
+    "bytes": 472,
+    "sha256": "399e591e95a51c0ff287a76270035fe0038ccc93b6288a43568391f9e8c35272",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double2x4_precision.hpp",
+    "bytes": 1624,
+    "sha256": "734d6eb388aa0360209173b481af00af3e8cff8cc0db17bc5f4ff647baccacdb",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double2x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x2.hpp",
+    "bytes": 472,
+    "sha256": "3631794438a7042c6a849c0fa0b85ab0eb6dc36a2eaff23c31c30031d6f9c742",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x2_precision.hpp",
+    "bytes": 1624,
+    "sha256": "18bff31b2d832d1f685f738446779f69cede287ec01375af434976586b3233c3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x3.hpp",
+    "bytes": 742,
+    "sha256": "524d18afb1f977ad4da6a1a3cf7d4a7a408878e04a5c072740804bfb1aa1af0c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x3_precision.hpp",
+    "bytes": 3022,
+    "sha256": "52ad25d2c39fa2d1829a024cf1285e4dbc4af0e20636563e13e2491aa484ce72",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x4.hpp",
+    "bytes": 472,
+    "sha256": "d310d2f564f69576a8492841be71815bd90f3dead089d448227dd7f925e821ff",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double3x4_precision.hpp",
+    "bytes": 1624,
+    "sha256": "7c2de092da7dddc03c5c40dbea83d0b9c4ba2b394eb5e3514da691ef35f39d6b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double3x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x2.hpp",
+    "bytes": 472,
+    "sha256": "ffc3fe35dd8e8ab655ccb826621e769cc9dd5c138ef251f6ed33c45e4b9fb435",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x2_precision.hpp",
+    "bytes": 1624,
+    "sha256": "8a732fe4f2f8820a688e5c6b36c61678565d432139ef610ad193531863437e2a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x3.hpp",
+    "bytes": 472,
+    "sha256": "12a9e5cbfba247e7c719e58f4d6d2e37322a245606e294935c352f4c244b02d6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x3_precision.hpp",
+    "bytes": 1624,
+    "sha256": "c02846c09ab692fd77dc82c9b929b2f7a2817a6860b98035f0c376c82528a2ea",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x4.hpp",
+    "bytes": 742,
+    "sha256": "35f2047fe26f495443c74218fbdc1b404a9bdb14cbd876113929377794255864",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_double4x4_precision.hpp",
+    "bytes": 3022,
+    "sha256": "51d5680c95c49f96c04b37829bfff215dd626b3eba495f2efb64eaab3e0435f7",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_double4x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x2.hpp",
+    "bytes": 737,
+    "sha256": "841936453083c65220e826de9eeca359f4519eefc7769671cc99906c9a8aede8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x2_precision.hpp",
+    "bytes": 3007,
+    "sha256": "6ca2a15c6e71ad30b64bc2bc4546858d12c2305a60424eeffc35e906cc3fd4ac",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x3.hpp",
+    "bytes": 469,
+    "sha256": "6dae07ddd823bea70f59c1f7b74cabd44b8796e05bc80ae5f9f4a54fd36561c6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x3_precision.hpp",
+    "bytes": 1616,
+    "sha256": "c3947ce6c001ed94bbf124d11f403c39825d7dd51f4963343f8a04da1f0b655d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x4.hpp",
+    "bytes": 469,
+    "sha256": "9dd80a13352ae4f12e29c22bef63bd09803bfa4f1f5f4843c4ec87a8d585f5fd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float2x4_precision.hpp",
+    "bytes": 1616,
+    "sha256": "587470650fad9c426a74fae76e12ca9b339e1246f1604a7ca96c7c32b3d3d362",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float2x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x2.hpp",
+    "bytes": 470,
+    "sha256": "6f9ed2d1b89187032d12da29c3953831293e92e4c3f8879457cde25bda5ce108",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x2_precision.hpp",
+    "bytes": 1616,
+    "sha256": "f54ebc067b1528c4439bd56244a17e9f57ed90f6d98b97b47148f4a19be430a6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x3.hpp",
+    "bytes": 739,
+    "sha256": "cdf6291801c42f465ba0fcfd07bddd5235be87fb919a4ea6250c11cda22422f8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x3_precision.hpp",
+    "bytes": 3007,
+    "sha256": "ee880ab0a3c60ad13d1493dcd75b0d26899a76277b27d9592f0b3e858924cb24",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x4.hpp",
+    "bytes": 470,
+    "sha256": "4ac3173d621582453abab434303a475b6dd5251d1ca6ae8810cdf00345ac41e3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float3x4_precision.hpp",
+    "bytes": 1616,
+    "sha256": "5b8f8a5eff4c138486d7ea4b0f447a47e5d693e9f7781082401e58029403dccc",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float3x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x2.hpp",
+    "bytes": 470,
+    "sha256": "6c0c92f24889e80251b6db6ffaf3efcefddab75d34355356db349322f2ba1ac7",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x2_precision.hpp",
+    "bytes": 1616,
+    "sha256": "bb2499e042f10111a2cb82cd5eb7c5b124e2883310159b32d12963f5669af3c0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x3.hpp",
+    "bytes": 470,
+    "sha256": "f312a05ce56f83f4ae030fc05b00bc6be2755b880a20340ba9dbb77cd0855921",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x3_precision.hpp",
+    "bytes": 1616,
+    "sha256": "ec7be67780fe92c5226137ab2efa38042abf341cee1ba1e506bd9a214055f10a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x4.hpp",
+    "bytes": 736,
+    "sha256": "df618841315d9cb6027d9b49537206719e9323332ad31273254c48b348b8527c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_float4x4_precision.hpp",
+    "bytes": 3007,
+    "sha256": "944dfc764179cf8d9faced4215b75d603d875f837be4ac7a6aa356233abfe842",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_float4x4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x2.hpp",
+    "bytes": 842,
+    "sha256": "a620147e0f9124b3038b8b01c03805cb1b5757f812e03eae07fda3873a2b8978",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x2_sized.hpp",
+    "bytes": 1758,
+    "sha256": "bfc3abaca841ccb6cfde266fbf9a774b274bb6b435ac68611d5c9c8518cd94d7",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x3.hpp",
+    "bytes": 730,
+    "sha256": "4d74abaeb3d02348a1ab42af58c4656a21e9b796c725ec2807dc710af5594bc4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x3_sized.hpp",
+    "bytes": 1231,
+    "sha256": "f70854e696b1b2a95e1125499140ca8867d7da2f8fd3564874d780337bcd1a40",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x4.hpp",
+    "bytes": 730,
+    "sha256": "f667fb414097e7ddf2fd7f722056e3e21afb8d21f20ab75898e820f5b16a56be",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int2x4_sized.hpp",
+    "bytes": 1231,
+    "sha256": "e28652fd0fd8c49eb565a07885f277daa494b6e978526d7f2d65cae49656c91e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int2x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x2.hpp",
+    "bytes": 730,
+    "sha256": "bff626c579914f8f1af96762eac40ce549652ad158f978c02eaba602fe6c04b2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x2_sized.hpp",
+    "bytes": 1231,
+    "sha256": "2013364a7a1dc87bf9dfff9cfe9a640a77a24d81d253040db54c1aa1b0643ffd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x3.hpp",
+    "bytes": 842,
+    "sha256": "87d02d438d5c506d2632fa80b62957447c41990b4600396ea7fa6c6075c4a17f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x3_sized.hpp",
+    "bytes": 1758,
+    "sha256": "d5505b8f0e34a00057c77024699adbae5f17efaafe434bc52552c12daed9e3a5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x4.hpp",
+    "bytes": 730,
+    "sha256": "c9e8e6a204e085dd4e8c4ba7885562e6cfcdb9eda5641d004530902aa58b7982",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int3x4_sized.hpp",
+    "bytes": 1231,
+    "sha256": "f56444a1efb44b45cd6ad44f9ee2479b05d7a42a5613dda316043d5b9bbe31f2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int3x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x2.hpp",
+    "bytes": 730,
+    "sha256": "30b615dddcff99eeb9afc34740610d751c196a847fe146c77694b3d4c65fb64c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x2_sized.hpp",
+    "bytes": 1231,
+    "sha256": "8544d801d4d4f4632dace8eebbf224836cd9ea0c9f00bd398a02d17d48eac2d1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x3.hpp",
+    "bytes": 730,
+    "sha256": "7b2108328b78bac9a9f919660918b81cff4f6e04ccc8c2504ad1e0dba6d7ce7b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x3_sized.hpp",
+    "bytes": 1231,
+    "sha256": "a41fce94c7a9df4d128826ee84531ae987c4be9b7e75ca1e3ee5400e4d4045dd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x4.hpp",
+    "bytes": 842,
+    "sha256": "20619f8dc7b01a378fd1a84f949b64286ee658fc9bc1bd410c3d9ff8e094a45a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_int4x4_sized.hpp",
+    "bytes": 1758,
+    "sha256": "340140a14b834fee2fd8ea22bf96e26fa1901522ecaf719807e6feeab4d4deca",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_int4x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_integer.hpp",
+    "bytes": 4327,
+    "sha256": "9ef29c5f2dff02aadd85a12bd008102e71c96df013cbccae536c1ef2a02e0859",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_integer.inl",
+    "bytes": 1406,
+    "sha256": "ed5e4698b532e03e9b3a149bd256c30f26ba9e5464a1057f8cdc394660578b01",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_projection.hpp",
+    "bytes": 8208,
+    "sha256": "5da44fb43797d760397f0b0c282e982adf1f070b655ef380ac0f7223959e1203",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_projection.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_projection.inl",
+    "bytes": 4070,
+    "sha256": "bb0a942e7219ae7083ba196bb6a95cb3fe096162a332f5489a715508dfd8e0a1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_projection.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_relational.hpp",
+    "bytes": 6845,
+    "sha256": "5d157ffea4189ebc5a7d7f9d1d4efe426d76ecfbb1df1ccd7216e6639356721c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_relational.inl",
+    "bytes": 3179,
+    "sha256": "9dc556c33e7f6eeee4cac3f72af288f9642ebb0a515f84cf2785b0b7e0e88d82",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_transform.hpp",
+    "bytes": 7680,
+    "sha256": "e95ec6ad6d6e403fc3d87fb5c769ad78fd5bfdf3f440fde8165f7a5578534595",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_transform.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_transform.inl",
+    "bytes": 7599,
+    "sha256": "7a90941a5079340f903f8b6c19ac3d8dbc4e5ab82f4feb18e9d3d495a8c2316c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_transform.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x2.hpp",
+    "bytes": 857,
+    "sha256": "872ebf8d37765e29fc048ea24c1ec087ce90ecf52075fe00d513e6e421ad1992",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x2_sized.hpp",
+    "bytes": 1798,
+    "sha256": "54704646ed5e103a86055c3c503690ea2f7c22fcf56f09326152946973efc9de",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x3.hpp",
+    "bytes": 741,
+    "sha256": "2750219cf54b2f06983af4b7d2bd7f7020bddf61291fcbe89a56cd51b42ed5ae",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x3_sized.hpp",
+    "bytes": 1255,
+    "sha256": "637ac63599d715801dedfd0f3dc6f78f8c18569792ae5525719725690ac7e512",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x4.hpp",
+    "bytes": 740,
+    "sha256": "5866045e6c781649c96760a8fd6f615941f8be34ba89ae544fd2904e6e7ecaa5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint2x4_sized.hpp",
+    "bytes": 1255,
+    "sha256": "204c9a207e17b416cab76d46727edf57432a38f54e49b1987d8385128b8b1610",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint2x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x2.hpp",
+    "bytes": 741,
+    "sha256": "2bacd8d27fde66217ba7d7e249f4fa0f45a96e00fa8928fd864b7b6923e304ad",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x2_sized.hpp",
+    "bytes": 1247,
+    "sha256": "4d73e62033ac02d65b16343384dbcf6b338bd0be167d07e17b16587e2e6e8a10",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x3.hpp",
+    "bytes": 857,
+    "sha256": "5cf424210dddc3c92608df44c68d6faf7c8c9cf4b76d1051f90654ebc4d3a926",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x3_sized.hpp",
+    "bytes": 1798,
+    "sha256": "68d0dd82b154ed3ccb1e2b7a9fddaa40ec748c1c18bbb6546f15f97d324c8a73",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x4.hpp",
+    "bytes": 739,
+    "sha256": "090fab8a63aeee49aba46a04bbbce100b6e48a0dbbbf535554ff6d9e77a9f6db",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint3x4_sized.hpp",
+    "bytes": 1255,
+    "sha256": "4c2b34a932e0ff1c7404b9b44a10829fd0b51d4b785594b1acb6d4d5a35ecd85",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint3x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x2.hpp",
+    "bytes": 741,
+    "sha256": "aa2171132e5da762562ac2f25c2e1969e966c0a1df380886d7bca8623363b728",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x2_sized.hpp",
+    "bytes": 1255,
+    "sha256": "1884239d1ce81d55fc84663caab98bd4a4142c636b0e605775599b419004768d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x3.hpp",
+    "bytes": 741,
+    "sha256": "1b73e12c2c03f5f15e25dd9894a2e0b9bcc8006bfb202a872df53dcdc3a95bb5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x3_sized.hpp",
+    "bytes": 1255,
+    "sha256": "4f7d80da919973d9b7837108cd1e1edfac1829e60895cb5687e0554dee33e8a9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x4.hpp",
+    "bytes": 857,
+    "sha256": "f6123f7e7ec862b2f276212ce1cb45cdd9bee37ba0e8c2db2ea90f3739ba5e93",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/matrix_uint4x4_sized.hpp",
+    "bytes": 1798,
+    "sha256": "ffe916f61d78dec350673e9e97506df77395f5bc69905901daacce05efc6e1bb",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/matrix_uint4x4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_common.hpp",
+    "bytes": 5020,
+    "sha256": "1fb9fc6207c850b593c8a51a776584cd08f1727157f7790b935d3f9a0c898d61",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_common.inl",
+    "bytes": 4806,
+    "sha256": "cbcf7fe43a66ca691f044d7a7249db5dd7e76d4d3b1dd671b60758b2db1f1915",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_common_simd.inl",
+    "bytes": 393,
+    "sha256": "16f63f092b0f80d594d28840cc9c3bae7720323606518d5a5eaa19f541284e5c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_common_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_double.hpp",
+    "bytes": 1027,
+    "sha256": "12954acc5a09e387c182961c1b1377bc881aba7458933f9b5fbae7cc2c28e8ca",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_double.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_double_precision.hpp",
+    "bytes": 1363,
+    "sha256": "24f6e7732fd93f9fa87d8cd8326e2f687758cd1c55cbf598b5b6ed975be58b6b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_double_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_exponential.hpp",
+    "bytes": 1807,
+    "sha256": "eadb3c5cc99be4ccafc32de336c117af139d472651364a94adebf04480a7d5cb",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_exponential.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_exponential.inl",
+    "bytes": 2950,
+    "sha256": "5f156104bdcb6611db7343f3c570fbbef65a18d32cc1747cd2b31a19533bb8a9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_exponential.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_float.hpp",
+    "bytes": 1018,
+    "sha256": "4da67234432fb03d656e0d98ca625245a344d314bc1132d85d40fd7b39f2f7ca",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_float.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_float_precision.hpp",
+    "bytes": 1192,
+    "sha256": "3b923827b8c728df9d901f05f7c6a573122a9e8f047727f174ed0a97dbccf7ac",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_float_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_geometric.hpp",
+    "bytes": 2017,
+    "sha256": "d5c3823f9e3fbc079f4abffa1e099f2f20dd61e6fd1d7bd347ce13185a754f4a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_geometric.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_geometric.inl",
+    "bytes": 1350,
+    "sha256": "e2be0c800cd2a635c26e66747556990628b132336aa2e2769672ba2558a5dbe2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_geometric.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_relational.hpp",
+    "bytes": 2019,
+    "sha256": "d60b00fa64320affda373f34e8f76801414a120ad6371d190e2f89f3b3c14dcf",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_relational.inl",
+    "bytes": 1057,
+    "sha256": "6c2ec05dd24cdf1a566c973b41aeb9d9931ffc02f849e515acd40c28a972c7a8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_transform.hpp",
+    "bytes": 1381,
+    "sha256": "5ea9afad1a212cad00de121a6c50ccd4e4b37546b68439ba436fdc09b274fbda",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_transform.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_transform.inl",
+    "bytes": 662,
+    "sha256": "56b6eabbd2b08fd1bd5400e2c7455ec77ae927376801db92b4f2c6b3fc3ed99e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_transform.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_trigonometric.hpp",
+    "bytes": 1925,
+    "sha256": "4ad10d61b77f92f1347aac5855b7bc76111220132440f80f8e84435d25976f66",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_trigonometric.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/quaternion_trigonometric.inl",
+    "bytes": 1028,
+    "sha256": "c2e8992300392f5c63cb107ec04b1a073df8f6aa1a43cab6dd809740dcdb5b95",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/quaternion_trigonometric.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_common.hpp",
+    "bytes": 6298,
+    "sha256": "89e6c98ad49b61cae2d70c841a110f5c30d2ee802983a070d4e8be2bf070aab2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_common.inl",
+    "bytes": 4712,
+    "sha256": "8202367aa7c4f20b48fa0281e77b28424d55966f3a78f08e1663a6a3435c8be3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_constants.hpp",
+    "bytes": 1080,
+    "sha256": "bd1cea6ec26b60549f6a982e4178e53a93b8b0659c258167e4022b50b64bb83a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_constants.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_constants.inl",
+    "bytes": 803,
+    "sha256": "244633feae7f575b4c96c6e245b7cd1aa94a29c0911fd6c99b54de29295a09be",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_constants.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_int_sized.hpp",
+    "bytes": 1402,
+    "sha256": "fa4d9e88289df1c89fe98bca956489d3f55c1aadc20b3b78f3e67add678c741c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_int_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_integer.hpp",
+    "bytes": 2778,
+    "sha256": "79ea6f569f61dd5e8dd5b5452be1b4c9261afc86d92247ff1632423617c355f9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_integer.inl",
+    "bytes": 7256,
+    "sha256": "2888ba2a348ba38e3d52e5f5c59de47ea0a20e7c2acd281f3b2f80b02f2fbdb1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_packing.hpp",
+    "bytes": 711,
+    "sha256": "0872250cfc4ea74705ee974d6fded5acfd71fdc1796fd418c9a5691195fa6c70",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_packing.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_packing.inl",
+    "bytes": 3,
+    "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_trigonometric_simd.inl",
+      "standard/framework/dependencies/glm/glm/ext/scalar_packing.inl",
+      "standard/framework/dependencies/glm/glm/ext/vector_packing.inl",
+      "standard/framework/dependencies/glm/glm/gtc/quaternion_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_reciprocal.hpp",
+    "bytes": 3693,
+    "sha256": "a71422a9b7349fc3d66ae49153fdac2233b451f7c925fd4e85c765388ef47a4c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_reciprocal.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_reciprocal.inl",
+    "bytes": 3561,
+    "sha256": "2c8569ac70e4848ab43250007489111e131169a6e32de8db0c69de5ed4e67177",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_reciprocal.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_relational.hpp",
+    "bytes": 2383,
+    "sha256": "8438969d52284e5e74e44b630129a4ab28636ca95124e9e5f52cd7496363f896",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_relational.inl",
+    "bytes": 1170,
+    "sha256": "7f2bbbfeefac15b3aa431cf12c924c36c362d4a5390e3bcbc915188efd071b54",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_uint_sized.hpp",
+    "bytes": 1439,
+    "sha256": "40be3227bcbae6e41e6de317f1455a76a2d298def19a99209a8d6670f3fa993a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_uint_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_ulp.hpp",
+    "bytes": 2171,
+    "sha256": "f06023e60c8228be85e97b9324619fa451b4737e7d9f01d78d9e96cb7f43c79f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_ulp.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/scalar_ulp.inl",
+    "bytes": 7737,
+    "sha256": "6df0296f088293af2876483584645085aeb84a444fc425c92b540142f7a4c4b6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/scalar_ulp.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool1.hpp",
+    "bytes": 682,
+    "sha256": "4e66b1635bebb66ad36e9666f01fa79fb2fbb66e0df77d53c95eee00deac9a10",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool1_precision.hpp",
+    "bytes": 913,
+    "sha256": "6d648e99f532b92099f44b5a7059361080b312e878c7b425de1c8502d7e323f6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool1_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool2.hpp",
+    "bytes": 413,
+    "sha256": "4aa38230cb6e0d7da105e2f89567cce9960af50bdd072e60e8ba52c88ff86305",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool2_precision.hpp",
+    "bytes": 1374,
+    "sha256": "028f7315009d69facc70cf14d2582a9005239df2b0c22d13ee8bcb1d2680581c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool3.hpp",
+    "bytes": 413,
+    "sha256": "c693f619905f83ee8e16aa776ae86c8c737039ab05292a9430fe1dde74a5a140",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool3_precision.hpp",
+    "bytes": 1374,
+    "sha256": "2f02eb6ce170ab9a17e2f52af4c2bf3ae4ab2640f34f85b28223c6bf7e331ea9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool4.hpp",
+    "bytes": 413,
+    "sha256": "4a64578845386c0c91698ab8b5f4b5d09baea94ab3a53e2b869da41f4afb4dee",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_bool4_precision.hpp",
+    "bytes": 1374,
+    "sha256": "614c4e94957edd22503e557687d56bbf4490029deff6a5a3933e95fd1019baee",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_bool4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_common.hpp",
+    "bytes": 10689,
+    "sha256": "c1a6eb0bdbf3609ce2f3481449bbcdea43bc8f91af28470f21d716a12e3d7fe8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_common.inl",
+    "bytes": 6189,
+    "sha256": "52af3d66fda5958946e046dad3ee1cb52dfb6f84e5c36a8720f155f14bc4236b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double1.hpp",
+    "bytes": 816,
+    "sha256": "c10b120ee00c980d924f2ab5979c1368033369fffe103464297499b8120ee102",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double1_precision.hpp",
+    "bytes": 1194,
+    "sha256": "8f8246a4b9b0bb1f76e59b6e14b021cbdace56304710ae37d735359c3ae367f8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double1_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double2.hpp",
+    "bytes": 449,
+    "sha256": "baf54247150a183acb161a4c905b01736e6f01313b438a4725d8d72da2c29e67",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double2_precision.hpp",
+    "bytes": 1434,
+    "sha256": "12370946f9ab21ec2cce2d9f226d74aa515c0b9e48b567b7daea370f6c4223fc",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double3.hpp",
+    "bytes": 449,
+    "sha256": "e3299c9b32f98d3a8a63686101b18e25292f6a157f557e23e386472d69a71c29",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double3_precision.hpp",
+    "bytes": 1593,
+    "sha256": "1355cf513265fa8717c219fc6f3dfd22bed2546b1a201b0b85a03af5509b97ca",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double4.hpp",
+    "bytes": 449,
+    "sha256": "49ff2cb0b45e88f975cdcdfe8622b1663a4024a1d50cb1167a3c8646d18f204d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_double4_precision.hpp",
+    "bytes": 1625,
+    "sha256": "e943fba185e8b191b691223cd8bec4b92d2cbe909dc1d2f4f838da2565163735",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_double4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float1.hpp",
+    "bytes": 807,
+    "sha256": "6f4c821805c967856ada823c555efaa9b8e2fe037a4f60691b5ec922fc9109bb",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float1_precision.hpp",
+    "bytes": 1189,
+    "sha256": "1c7b780b9895f72caab184f21498626f56f4776d87b2279945b923c915bddba2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float1_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float2.hpp",
+    "bytes": 445,
+    "sha256": "5c3746bf09b27d0e4444b17e0031b7f375a67b001ddda19134e08bc97e75e690",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float2_precision.hpp",
+    "bytes": 1428,
+    "sha256": "a5dafa12f4b870c072c538e8145093f97d4b2f5f744ce93836cac2b3ac428774",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float2_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float3.hpp",
+    "bytes": 446,
+    "sha256": "d5fb00ea964bafd7a52cc491fa7d968bd58cbdbdb6065e1663879b56f4200a85",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float3_precision.hpp",
+    "bytes": 1428,
+    "sha256": "048bfcd179ef54535fea651f4813c826812b02ddc77449da18b361a511745778",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float3_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float4.hpp",
+    "bytes": 446,
+    "sha256": "3a8ef67ddcc7dc30ddde9a0609d6954ed025db1ad578f754c399e3ab98a97359",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_float4_precision.hpp",
+    "bytes": 1428,
+    "sha256": "e3d2401739a80b5ab05244bea13f3f8f0d69db54c293b6d3726a55234742f903",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_float4_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int1.hpp",
+    "bytes": 728,
+    "sha256": "b9b927b0f6a2fb9cb3f87df7e986e2e3e125850b302417e4b97aec450be40d73",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int1_sized.hpp",
+    "bytes": 1264,
+    "sha256": "fcfe212a8eeac8b26d6a89fe7f22cd7a8fb4d7edf0b4cd886583a86afc489811",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int1_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int2.hpp",
+    "bytes": 426,
+    "sha256": "672675ee53c6b56e6512db4f7094349555ae05a38be135c08360255ed555d578",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int2_sized.hpp",
+    "bytes": 1287,
+    "sha256": "4c5188a656f0f38d76d98d7986c5ec305d3f9f3d921cac8baa756123746e26e3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int3.hpp",
+    "bytes": 426,
+    "sha256": "2565ece98d1f17928c353935f0bcf480b4be9db70720b1f13e0a54a022ae83c5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int3_sized.hpp",
+    "bytes": 1287,
+    "sha256": "19b06a4e05dd0883762048c5e5f56b8f3e51471aba0ec4f90b9fbbac593fb787",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int4.hpp",
+    "bytes": 426,
+    "sha256": "0dcf10a6840a6c2652c9ba79df912d2921f0b7f4fe0f037c8aed4e71bc6e2502",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_int4_sized.hpp",
+    "bytes": 1287,
+    "sha256": "b66d6d6a64d5fe38ad6f7a4ef78f083e8881c48489324e2998a8816b8c093cb3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_int4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_integer.hpp",
+    "bytes": 5662,
+    "sha256": "d13628dd89d1bfb51352a418fe9b50531eec9e55b63fda77811301afad3913da",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_integer.inl",
+    "bytes": 3419,
+    "sha256": "ccd91c197259300d89eb7698d5709b3046db72bb6a2092ab0b4cd2222c92ae14",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_packing.hpp",
+    "bytes": 705,
+    "sha256": "4d090c95c9daea82f9aec67f70ac2f25f59d704fdd86df869f072c408748212f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_packing.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_packing.inl",
+    "bytes": 3,
+    "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_trigonometric_simd.inl",
+      "standard/framework/dependencies/glm/glm/ext/scalar_packing.inl",
+      "standard/framework/dependencies/glm/glm/ext/vector_packing.inl",
+      "standard/framework/dependencies/glm/glm/gtc/quaternion_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_reciprocal.hpp",
+    "bytes": 3693,
+    "sha256": "a22d5156397e7bebaa60920674e90df6027694afbfd9f4d270acfe92f683d51d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_reciprocal.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_reciprocal.inl",
+    "bytes": 4356,
+    "sha256": "190710a5e39e8566b4b8dd98ca802bd28dd05c476f90758d0dd9572075e3e2dc",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_reciprocal.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_relational.hpp",
+    "bytes": 4639,
+    "sha256": "4c5de772115a0474718b8f86542c1a561cbf1df67fd4802fc70f947dbd51440f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_relational.inl",
+    "bytes": 2541,
+    "sha256": "c360805dbd2c4de9fcb1ee2aa7b7af16d379fbca5ac615298ea7d3cdf3bc6179",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint1.hpp",
+    "bytes": 746,
+    "sha256": "88dcd41f191dae33cc29a28137a74b23cd85775f4fbba34bcdb4326e17bd75cb",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint1_sized.hpp",
+    "bytes": 1292,
+    "sha256": "cd9eaf3225ec83c15a1e07777dc2eafbd8cc58749d018717b9d3718b80b540b2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint1_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint2.hpp",
+    "bytes": 438,
+    "sha256": "fe84b2317032f3e0f2073c5ad123f8fe0ed13e3990d4dec6046317765d825370",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint2_sized.hpp",
+    "bytes": 1311,
+    "sha256": "fa7c2a827e3daa1b755d0013b0469d9f471f5909aa1773b00d102c06b04535b8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint2_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint3.hpp",
+    "bytes": 438,
+    "sha256": "1a73a9736b1613b322d11f19d94e48eaf23c0ae35d79a81dd5e321890255381f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint3_sized.hpp",
+    "bytes": 1311,
+    "sha256": "ada490ff5df88c558a6eeab144ca276336b1375206e56a03dade776dd63c4dd8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint3_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint4.hpp",
+    "bytes": 438,
+    "sha256": "dd08786412313d539b83113ccb5c9081942abd8ab2969dc8e1d8b1cc472308e2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_uint4_sized.hpp",
+    "bytes": 1311,
+    "sha256": "056290350fee7cf0f122056e4ec365ef36c3d67643b098a4c68f178a9a7a1116",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_uint4_sized.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_ulp.hpp",
+    "bytes": 4004,
+    "sha256": "4fdbec97530a16028e33f381f00a52bb448e1613387ca882787dd5ce433c871e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_ulp.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext/vector_ulp.inl",
+    "bytes": 2295,
+    "sha256": "2625eb167985054bcaed6670d5054535d34b545c2c0655ce7220d751f864ea64",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext/vector_ulp.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/ext.hpp",
+    "bytes": 9155,
+    "sha256": "9c57ebe0b9636d216ed395d26b5aa38d6ae35aeb9d2be7dbf18af9fd161ea876",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/ext.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/fwd.hpp",
+    "bytes": 46778,
+    "sha256": "e0a9c3a31d3f1000758e7b6a5a98e3eee07d32e20ba2ec47653d9f15ebf63631",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/fwd.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/geometric.hpp",
+    "bytes": 5498,
+    "sha256": "e60e39fb5d98cbca4135f902461ff76e0eb059de9355684f4d10623cbecbf523",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/geometric.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/glm.cppm",
+    "bytes": 73247,
+    "sha256": "512a3eb2b218f405705da07fd244f027efc816104d8caa197a94a4da3de345ab",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/glm.cppm"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/glm.hpp",
+    "bytes": 4643,
+    "sha256": "9bb34dc8dba5e23e74c50943f804873532919b161fecc3e1a9247f9890d498d9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/glm.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/bitfield.hpp",
+    "bytes": 10147,
+    "sha256": "944b295cf9c0cf45d3f2baa98680c6ebddb135e7f7ced239d64b71c23d0a7be8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/bitfield.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/bitfield.inl",
+    "bytes": 20997,
+    "sha256": "17c33ad1b4459cf024c73a30fca0e48beb020bca6eaeb647967f8f511ec92e37",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/bitfield.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/color_space.hpp",
+    "bytes": 2023,
+    "sha256": "e125a247aa5165ef8b47ad9f2db5429f28a61d80c96edaf8a73b96995362a987",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/color_space.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/color_space.inl",
+    "bytes": 3041,
+    "sha256": "66211e68c6bc090bd971efbd20eae1c0bf9e00eaf53b6d8175a91c8050eaacd6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/color_space.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/constants.hpp",
+    "bytes": 4334,
+    "sha256": "ef2a4934378a306f57d0fc8daf00e210e3ebc6fcda47d4c2a60714062ea82f23",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/constants.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/constants.inl",
+    "bytes": 4124,
+    "sha256": "b6da0725b14830815f4839f8bbcb425d8695be173e058fadc56f74907610ebec",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/constants.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/epsilon.hpp",
+    "bytes": 1831,
+    "sha256": "f258d822295ba7e5c3a55da3da06ab59af8805567f0fd3e1dfb33139734e8477",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/epsilon.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/epsilon.inl",
+    "bytes": 2279,
+    "sha256": "a7c2f8b051b925998af2d11c445d994a84e2b1abb292ee2032cde41864726fef",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/epsilon.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/integer.hpp",
+    "bytes": 1097,
+    "sha256": "17f146d81d03887d11c753eb580db2d29593d633e488c49f44142e8b42b4ddac",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/integer.inl",
+    "bytes": 1087,
+    "sha256": "ece2e3c9e1ecbf754369c244503a25f4e772299d08ac98dc6692e33a2d24759f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_access.hpp",
+    "bytes": 1471,
+    "sha256": "87c20ed9ae8eaf7d993febf6783fb4d04011667f78636d5eeed15ba0b9d47507",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_access.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_access.inl",
+    "bytes": 1190,
+    "sha256": "6bcb64d5245584ebfabf06fc5166c9ffd45b1f832f13077b09d6f5e8607711c4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_access.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_integer.hpp",
+    "bytes": 13049,
+    "sha256": "ccfb7d9ae7a65b0eca54af01ed5d079f0e8d75788c4db56b2d81499e4f47f6df",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_inverse.hpp",
+    "bytes": 1520,
+    "sha256": "3272b7c4c6abe6d69da51c439a68ad35fbaa3e6d1af1cb85aa35cfaa08b9f493",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_inverse.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_inverse.inl",
+    "bytes": 5049,
+    "sha256": "5d70d3da6d92bb829acad9351ef7022b780ada7c7981e0b6c719c4dff1c4db33",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_inverse.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_transform.hpp",
+    "bytes": 1229,
+    "sha256": "0aef74b23433b727dfca0bbe35f3bb9bb14f313346ba1c5c4f971d825d580a5d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_transform.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/matrix_transform.inl",
+    "bytes": 91,
+    "sha256": "30242dca1319f41aa6286c4cf0374ec6af0a5d6169fae9cfa125dd715f0eb044",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/matrix_transform.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/noise.hpp",
+    "bytes": 1556,
+    "sha256": "c8a2e2628315549cc8c62e1235cfb05cb52d242b188d9f99e7b17670de25febd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/noise.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/noise.inl",
+    "bytes": 34008,
+    "sha256": "0099a2804df9b679a8c7dd21c1d7508da108a2fca8d9d42b6c734a9452eba5b2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/noise.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/packing.hpp",
+    "bytes": 36719,
+    "sha256": "7f68657057f311c373eb43237a7d646e97d3b2ce121630f4c9056ec3fc720534",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/packing.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/packing.inl",
+    "bytes": 26457,
+    "sha256": "3e48c8c98836323d2d95d2a6e2fe16864dbfaefda6ae95da74d438549ec49851",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/packing.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/quaternion.hpp",
+    "bytes": 5697,
+    "sha256": "2dbc2c30ad5c24201aadb186f9e757cfc89006bb4b765740a1ab5ae5bce773b2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/quaternion.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/quaternion.inl",
+    "bytes": 6628,
+    "sha256": "ff39757356667069995e28ed0e2793ee649b2cbe2f5e1b67cdaa7706cd94c2d1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/quaternion.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/quaternion_simd.inl",
+    "bytes": 3,
+    "sha256": "f1945cd6c19e56b3c1c78943ef5ec18116907a4ca1efc40a57d48ab1db7adfc5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/detail/func_trigonometric_simd.inl",
+      "standard/framework/dependencies/glm/glm/ext/scalar_packing.inl",
+      "standard/framework/dependencies/glm/glm/ext/vector_packing.inl",
+      "standard/framework/dependencies/glm/glm/gtc/quaternion_simd.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/random.hpp",
+    "bytes": 2696,
+    "sha256": "ca608d4c85ad790b64d60d33d441c95f42eb266f9eb0246f096d145c192aa8b8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/random.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/random.inl",
+    "bytes": 8949,
+    "sha256": "a540bbc165dbb6ab2d26469d924f157a3c407189ffc7cab2b1b20ac4bebcfcbd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/random.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/reciprocal.hpp",
+    "bytes": 597,
+    "sha256": "7ec8b0a4147138782021371633afc5382a551dce3d8f2db4a43687c5ac291e5a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/reciprocal.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/round.hpp",
+    "bytes": 5441,
+    "sha256": "1cc9d5b26c98b84e6353b6de414ead7e5df611573c63afc3c61dfa1e105c289f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/round.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/round.inl",
+    "bytes": 4532,
+    "sha256": "13984660fb15b5bb1c5781e99f16ae48bfdecb8346c30044e31b5ae34cae35bc",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/round.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/type_aligned.hpp",
+    "bytes": 72543,
+    "sha256": "58fb1b4309a4e39f2eddbc71f054e85de6d6956e5edd1e424ae4ef815d7c6c97",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/type_aligned.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/type_precision.hpp",
+    "bytes": 66318,
+    "sha256": "d594ee0cd495ff3374df469370b0203c401743723e82803dd02c59e7165817ea",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/type_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/type_precision.inl",
+    "bytes": 52,
+    "sha256": "05bbecd4bec385a010755790ec01745fb8efa074056747c6ebdeb6694fbd87a4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/type_precision.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/type_ptr.hpp",
+    "bytes": 7059,
+    "sha256": "0b8fdea75e9840608eff08a07215d25da2e282281122c922b35de283a43b2cdf",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/type_ptr.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/type_ptr.inl",
+    "bytes": 9292,
+    "sha256": "54c5fd6072d79c81acd6f1f7c8bf70d699cef15cc25b28b47176354b89506d9d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/type_ptr.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/ulp.hpp",
+    "bytes": 5234,
+    "sha256": "7114ff35d57f68928875c61b3a95b5ff07fa44ddf0508a0c82829c484e0df4ee",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/ulp.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/ulp.inl",
+    "bytes": 5251,
+    "sha256": "5639d486c78c7a28ad5c536350f372420824802b41fba04644868e00a5e6be22",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/ulp.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtc/vec1.hpp",
+    "bytes": 841,
+    "sha256": "d7c73593b3b73776a984544d35bbcc52825361b2d6b2a07ed93ad032e06a030b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtc/vec1.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/associated_min_max.hpp",
+    "bytes": 7797,
+    "sha256": "f088e363eb2550cf00d21e95246e08e08f602d209c0b7772f631490ab78f86a8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/associated_min_max.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/associated_min_max.inl",
+    "bytes": 8880,
+    "sha256": "37ed87051be23099e0b4959cc0ef65c037b2cafb1769a5c161958657f372621a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/associated_min_max.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/bit.hpp",
+    "bytes": 3111,
+    "sha256": "5a31a4322679ce43c0314a90feb2287223e1f0022f7f51b4dc75cb5c25893ab1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/bit.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/bit.inl",
+    "bytes": 2357,
+    "sha256": "acfc45a2147ef4c6e4b5f98bb8a1a74b8199ddb0e23ecd334fa784e0359cd23a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/bit.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/closest_point.hpp",
+    "bytes": 1351,
+    "sha256": "6c49123b2b9b6a75be8eeec3888f6fd90f2ff0cc933cd4aee132662ed8560077",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/closest_point.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/closest_point.inl",
+    "bytes": 1165,
+    "sha256": "9ba0da204fb39ed0ffbcab1737d84f7b692029ae26b6bc9ddcc7ffcbfbe0673c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/closest_point.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_encoding.hpp",
+    "bytes": 1705,
+    "sha256": "626676411a4141e69019ddaecaaccbc80dcb298110b4f5ea4870901f57358c88",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_encoding.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_encoding.inl",
+    "bytes": 1795,
+    "sha256": "33ad9c49d55427886d86b4030c4f200f568bedda94e64a5259a7b8db2d51ff65",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_encoding.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_space.hpp",
+    "bytes": 2020,
+    "sha256": "3710628a54217adab3d4d6a522dcacbc4b8b468e4b6a4ce5e2dacae026dcc549",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_space.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_space.inl",
+    "bytes": 3481,
+    "sha256": "f47e6e2ca4c7c42c0f591700ffb4bd5ad468ba36aa0711ab3887c304324b244c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_space.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_space_YCoCg.hpp",
+    "bytes": 1901,
+    "sha256": "9a13bc9dc9af09f1197657937520bdfe8e1b82842e2c1bd16c3afeb79ae8600c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_space_YCoCg.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/color_space_YCoCg.inl",
+    "bytes": 2847,
+    "sha256": "a2eb82983d935ac152e4b8419be2bc571f57bcf5d419d062adbddcfa2de60f73",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/color_space_YCoCg.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/common.hpp",
+    "bytes": 3167,
+    "sha256": "b796116b0a017700c6d2b8ea35f1ae5f7d050c8f2fb195ce6c1ce85b9ed2eb0d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/common.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/common.inl",
+    "bytes": 3738,
+    "sha256": "e4bc51659970309172115be4ff6eaa298a1a1cfc4987efb04a8cfd002736b603",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/common.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/compatibility.hpp",
+    "bytes": 15285,
+    "sha256": "472c95fbcbd2ba8c68a323204c3887cd0a990a24955c7f0a8efc2fa5e833b7c5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/compatibility.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/compatibility.inl",
+    "bytes": 1746,
+    "sha256": "b3545942c4d90cc1ec0d92b5b8c4593b71c9230cd1104a43fdda923b25491912",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/compatibility.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/component_wise.hpp",
+    "bytes": 2792,
+    "sha256": "93da54d0d08054c6d4f72d1f607f6f4c1f1ecec9c62e9003bfd30b0e8acc434e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/component_wise.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/component_wise.inl",
+    "bytes": 4854,
+    "sha256": "17fadf08e210c7b51b33cf159bf6d93a40ad0cb664800fdf06aa139a83896760",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/component_wise.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/dual_quaternion.hpp",
+    "bytes": 9668,
+    "sha256": "69413d31fefcfcc07230bb75129965518ea8dbd50637a7ef71e85024ce354980",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/dual_quaternion.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/dual_quaternion.inl",
+    "bytes": 10764,
+    "sha256": "4fe3726f9ddc7c4b93e0e988fae986aaf519b91ae2e48cc41ec85e812f25f536",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/dual_quaternion.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/easing.hpp",
+    "bytes": 7068,
+    "sha256": "c95a97d9492b48807c0f3f9669f91faa67d715ad7005df341fe930eca88bab0e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/easing.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/easing.inl",
+    "bytes": 12156,
+    "sha256": "f1cc823b653328a374aadce461511436b5bdf5f236c6adbf12d2d9b90d5121a6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/easing.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/euler_angles.hpp",
+    "bytes": 11080,
+    "sha256": "7b0a85c5f4bd0aac4197ba6f48ea079c1017888aaba59b21a6aaa515c596e354",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/euler_angles.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/euler_angles.inl",
+    "bytes": 23199,
+    "sha256": "2f383b23679461c9a39b494d07f2c1daf6db7c3d9560e4b8c04edf370b45b5a8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/euler_angles.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/extend.hpp",
+    "bytes": 1086,
+    "sha256": "6974d3d820af31ceceea75f84b776051be7764365be8625b889c58593ccfaf31",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/extend.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/extend.inl",
+    "bytes": 952,
+    "sha256": "68c770692b484a84dd8be8c6713cbd0b9a9c76e18eb6c0ddd8f28ddee04d72e3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/extend.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/extended_min_max.hpp",
+    "bytes": 3686,
+    "sha256": "bbe9704c6bc9052874340b04174f45ea35c941594c5618649c55f2960b9ab0bd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/extended_min_max.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/extended_min_max.inl",
+    "bytes": 2490,
+    "sha256": "99807758d5be8ca9f27a6dbf8de28bd78fb552bf99430da5e04d7089fe7de9d6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/extended_min_max.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/exterior_product.hpp",
+    "bytes": 1370,
+    "sha256": "210823a450ece948381ac71c8ce86613e0ec2012e6749f43ea0629b64c8c6cfa",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/exterior_product.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/exterior_product.inl",
+    "bytes": 723,
+    "sha256": "be51fb66433653dfb91b1dc6511504235e368496bde0653256b6fd3606645527",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/exterior_product.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_exponential.hpp",
+    "bytes": 3188,
+    "sha256": "ba3f1c8a479162e925425ed52a1916000e5fda618175038772b82b067db8cec9",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_exponential.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_exponential.inl",
+    "bytes": 4387,
+    "sha256": "65f8afa2ce0c65feefa57857b74c204ec1d98e0f7dc1e095bd2627542f62a9de",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_exponential.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_square_root.hpp",
+    "bytes": 3226,
+    "sha256": "e512ee5439d68d182ca3497bcc887cd51f4b11d6297f5c1425d6101e8a651055",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_square_root.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_square_root.inl",
+    "bytes": 2221,
+    "sha256": "770303c3ba5af5bee51a1f842fa76a7cb8428feb6099fc73a1bc32e09f4591b7",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_square_root.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_trigonometry.hpp",
+    "bytes": 2449,
+    "sha256": "f976e42c761d7423d86b9150d1b340f47ce96abe3d1eb4b1089d53097e1258ef",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_trigonometry.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/fast_trigonometry.inl",
+    "bytes": 4159,
+    "sha256": "a8bf654cd093c92c6214177ea5ce9349f4b3940efb785ac597fc61d6fdb73b59",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/fast_trigonometry.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/float_normalize.inl",
+    "bytes": 309,
+    "sha256": "e6039466bf2eb2af27c2415cb94990ae110666571950d6cdc56754d3b2478ce8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/float_normalize.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/functions.hpp",
+    "bytes": 1317,
+    "sha256": "af7708c25d6388432b0b8149ebb0a1a6d6b095ac6775366374344d8a689c8083",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/functions.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/functions.inl",
+    "bytes": 806,
+    "sha256": "296374bc1285d535f75f50a2ae8393f9b79a42ebf59ffd7f63178b4433faff5a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/functions.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/gradient_paint.hpp",
+    "bytes": 1489,
+    "sha256": "6d9cf170682fe4582a025be1c194c63d6a18cb1447893200e097c92e3964314b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/gradient_paint.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/gradient_paint.inl",
+    "bytes": 943,
+    "sha256": "2fc2cfc87630fb2cf6b0df649a2c32642d08af783393b4d0f2e889eb135f6659",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/gradient_paint.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/handed_coordinate_space.hpp",
+    "bytes": 1538,
+    "sha256": "1cb8639ba63ab373d6be2948ec9af01d8b242e0ab8a4d28e2287e35abdc0bb93",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/handed_coordinate_space.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/handed_coordinate_space.inl",
+    "bytes": 562,
+    "sha256": "6a780257eb98ed85aba8c5f3fee5f290e7587c139a67d0d9dfb45940266dca8e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/handed_coordinate_space.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/hash.hpp",
+    "bytes": 4280,
+    "sha256": "93768ca2d74e33e6e6cdd24ccc018bc78152f3e6cd52e984c9da9cbe2111adb0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/hash.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/hash.inl",
+    "bytes": 5784,
+    "sha256": "53ac1b58aadf3268045c556a3dc5d54a0b4832b9b9285df92e64c84bc14fd819",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/hash.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/integer.hpp",
+    "bytes": 2217,
+    "sha256": "132b453d75983b2d73b1482afc56bbae42ee2360581b50a8b3684fe0d3f03d8d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/integer.inl",
+    "bytes": 4045,
+    "sha256": "6b84077a7c0b76fee111e048c4c96b2e4787a373281fd3d37c3102ded6cef972",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/integer.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/intersect.hpp",
+    "bytes": 3417,
+    "sha256": "210df0efe55c852db4bf44b6f67dde5d93e399ef55b9bb84b2e30495bba1c83b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/intersect.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/intersect.inl",
+    "bytes": 6865,
+    "sha256": "209bd241af8d28aa59435ba0bae077f8fa18353d44a394dad11a3557b1d2f79b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/intersect.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/io.hpp",
+    "bytes": 7859,
+    "sha256": "db2105d6ab4837426a889d373f4b772a50272fd646b579010c45a0669ed09561",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/io.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/io.inl",
+    "bytes": 12766,
+    "sha256": "22f57ca9b45a1bc13b6827efc13bbf2cadbeb3ddb069cb2c58027d16fa704d47",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/io.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/iteration.hpp",
+    "bytes": 3846,
+    "sha256": "9a7083287f735879b191e556003ff7fa80f62ed36f3ccedec9cce718e546f641",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/iteration.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/iteration.inl",
+    "bytes": 4159,
+    "sha256": "026b3c703599c6cc708aec0d093c2fb94a37ecd76baca6433ede72bd12fd2636",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/iteration.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/log_base.hpp",
+    "bytes": 1193,
+    "sha256": "0cde266163798e0baf1789561b7f8c813dca7bb68a5e64152f8846282ae30473",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/log_base.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/log_base.inl",
+    "bytes": 398,
+    "sha256": "85699c013bef828a340a0a5898f1d2a8fe15f7396d75fd89268c4d81fcfbdc4d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/log_base.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_cross_product.hpp",
+    "bytes": 1347,
+    "sha256": "c5556a345945603fe37154dbfb4e087987fccc8333512421da1a3ddf09f9b337",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_cross_product.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_cross_product.inl",
+    "bytes": 718,
+    "sha256": "06ba79f1135fbf5d66fba4179904df4a510c405f0c41431ace5b0d76102003d4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_cross_product.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_decompose.hpp",
+    "bytes": 1739,
+    "sha256": "acbc77276935d672809bc08aa51be6a2c55df6df09bcfbd9e75a383e68d71079",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_decompose.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_decompose.inl",
+    "bytes": 7903,
+    "sha256": "3555fa1ce91cb62cbb4526a8cfdaa5f820d93830b8fe2f64967ac1d4ce15205a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_decompose.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_factorisation.hpp",
+    "bytes": 2947,
+    "sha256": "3c616f1f712fc4865c79d530afc0e75d1f30b0e90feedccf3939c4072fd66f19",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_factorisation.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_factorisation.inl",
+    "bytes": 2868,
+    "sha256": "23715c719b138b302710e08f37355e35a8f9838ffca251c89b7fcb2bcd6e4d66",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_factorisation.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_interpolation.hpp",
+    "bytes": 2041,
+    "sha256": "3c522c8d8b89c7941e0133d90a5bcf6f4812233bdfff636da7d688dc94049ea5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_interpolation.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_interpolation.inl",
+    "bytes": 4457,
+    "sha256": "973e2cf1232a17e778c3e6164bbc9aa7f2e4192ac6eca478de47acf5e60027c6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_interpolation.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_major_storage.hpp",
+    "bytes": 3856,
+    "sha256": "7e364e1bf00b678ba97ef2edc7821d68b63e1b737de097ae3f60a59f19096dbe",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_major_storage.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_major_storage.inl",
+    "bytes": 3824,
+    "sha256": "77225638a968bcef1e7586a3a615cb0aaa94ee1d9e691cb29001313d8575d22e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_major_storage.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_operation.hpp",
+    "bytes": 3130,
+    "sha256": "2351cffb5895d22e5bc3dd63fb926e43b2eed0e274cee49f40cfbda06c6b210f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_operation.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_operation.inl",
+    "bytes": 5823,
+    "sha256": "1de136720f3381058c8f7f41fbbe4f0b5baf0da69ec19d278710433540d89a5c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_operation.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_query.hpp",
+    "bytes": 2796,
+    "sha256": "8411d1a5afa033f870479a4701551bacc7834111bd56e3700cb19368d950f1bf",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_query.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_query.inl",
+    "bytes": 3497,
+    "sha256": "0a9b95484c088209d7daf1be296524cc4562d7222036fc258a1b3093c03bfe68",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_query.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_transform_2d.hpp",
+    "bytes": 2584,
+    "sha256": "187560ddc197b08fc5078cfc21e16df3bcc5ea6db00e2b544e5b8f4990e0c109",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_transform_2d.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/matrix_transform_2d.inl",
+    "bytes": 1414,
+    "sha256": "50c0565a770f1ebf81c0504f80e77850cbdc78a28dc82ac358872137406c28bf",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/matrix_transform_2d.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/mixed_product.hpp",
+    "bytes": 1076,
+    "sha256": "c66320a7c31600053022637ea2e2ee1f8e3921d8beeb2f0a12ef3cba22cbe287",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/mixed_product.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/mixed_product.inl",
+    "bytes": 271,
+    "sha256": "d6b74359ecef2ae9cd19ba8a34faf27dd522a33c9cad5bcecddb6614c0015951",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/mixed_product.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/norm.hpp",
+    "bytes": 2724,
+    "sha256": "7e0660877037c349847eaaed4a9984fe7d01dd5299f1c33a4478057ba7868a1c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/norm.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/norm.inl",
+    "bytes": 2834,
+    "sha256": "800c6a55c387e470e74eeeb1ec4eaa7aa46c9227fc9454baa914f44277513017",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/norm.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/normal.hpp",
+    "bytes": 1066,
+    "sha256": "787004d4175773d777a524ccbc254f8d6d63ec1ed29eee658b3ab22833868742",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/normal.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/normal.inl",
+    "bytes": 289,
+    "sha256": "d17d6e052713b4ecdf1b7129dd5691ecb3243e9789b6b4b80f9b5406b2cdf3a0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/normal.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/normalize_dot.hpp",
+    "bytes": 1553,
+    "sha256": "970aea4ff39b03a1c7722466f6d80adb6cdf6a2e9461870939f291a39989b08e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/normalize_dot.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/normalize_dot.inl",
+    "bytes": 511,
+    "sha256": "badae260727e9176e4f624fd7e4716d6ff2c9a7d3ad463db86aa135e9545ec20",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/normalize_dot.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/number_precision.hpp",
+    "bytes": 1543,
+    "sha256": "fb1e65e6042e84e72e55217460b2dd9dbad2f3dbdfbe39cbf2f053a7d3542d56",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/number_precision.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/optimum_pow.hpp",
+    "bytes": 1302,
+    "sha256": "7beabee46c33ae1922b15e2d913c4dc85d26e7841fc32391fe1fac02e0a7a38d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/optimum_pow.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/optimum_pow.inl",
+    "bytes": 405,
+    "sha256": "24e9df52744266f60fb1b850be276450af597dc62d62284f598c7d53a667899f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/optimum_pow.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/orthonormalize.hpp",
+    "bytes": 1346,
+    "sha256": "3009c895ea6c56d503465ba8132894a1816f1a3f3de636ac30115b8a06fca0b8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/orthonormalize.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/orthonormalize.inl",
+    "bytes": 636,
+    "sha256": "0597119fefbb323ae82e4797298e7af9dc514600436d231eb7cd1eb510d7e0df",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/orthonormalize.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/pca.hpp",
+    "bytes": 5863,
+    "sha256": "4f63838d8ceaa483f0562ab82543c01d79c88e50dbbd6c63109f7e0615e8a66d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/pca.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/pca.inl",
+    "bytes": 8557,
+    "sha256": "25f4438fd03a61ff119157ca4a26372b14e571ed6ef15c65e363c0a5de415912",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/pca.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/perpendicular.hpp",
+    "bytes": 1123,
+    "sha256": "17c2693ffb9238e2407c07af1571b9d3d52d0b5c2d71450c5affb0ca4d93374a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/perpendicular.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/perpendicular.inl",
+    "bytes": 212,
+    "sha256": "115195d90827188d09925a1608889d634d58922839978fba6d66af42cd605e49",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/perpendicular.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/polar_coordinates.hpp",
+    "bytes": 1356,
+    "sha256": "4a56db9bd4e6ddf008ee5ea07a7df64e8a22169886c3fb093c763fdc38fd94c3",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/polar_coordinates.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/polar_coordinates.inl",
+    "bytes": 773,
+    "sha256": "34fcbdf27e27caf0d6b76bd66a6296443e85fba396c8b443f5ee70fbd64123dc",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/polar_coordinates.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/projection.hpp",
+    "bytes": 1110,
+    "sha256": "e012b18348c77a59d681d9025bba9d2b2b9194cbda94fd5e4a7c20357eab24ab",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/projection.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/projection.inl",
+    "bytes": 245,
+    "sha256": "ed7608b9ea6b218f5e10cf379d6169169b12f9c5b1a6f37bd679c59363f6a034",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/projection.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/quaternion.hpp",
+    "bytes": 4774,
+    "sha256": "a7a914bc351184d766cb821b3e8d5295939453d4c44fc924af5770d22d763b60",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/quaternion.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/quaternion.inl",
+    "bytes": 4417,
+    "sha256": "6d9655c893a990a31b6529983cccfa7696dc08606d2e34448ceed0e1516ca712",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/quaternion.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/range.hpp",
+    "bytes": 2311,
+    "sha256": "c1b35ae8855c29a7a8b94ae92b0d6c576accde9234738381c426d761f9500266",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/range.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/raw_data.hpp",
+    "bytes": 1269,
+    "sha256": "b5ffe9a52fc8e5e7848d38c68787d01d2d78c6f968fa97b4815301af0d47fd2a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/raw_data.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/raw_data.inl",
+    "bytes": 28,
+    "sha256": "835ba49219f27f24849da440a3c10ca54e5ed30cdb112c95370518646a44637c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/raw_data.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/rotate_normalized_axis.hpp",
+    "bytes": 2279,
+    "sha256": "4301eb490af85e6ec3e7376f9e269a43ef87342e8b3d1abfb0f08eeae4819313",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/rotate_normalized_axis.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/rotate_normalized_axis.inl",
+    "bytes": 1719,
+    "sha256": "b5955df01c4fe9ea7bf275edfd2e78e1dcf49a50411a3ebd707ea57077bcdbb2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/rotate_normalized_axis.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/rotate_vector.hpp",
+    "bytes": 3688,
+    "sha256": "285a668f8c6d349c727e07ca76578783c1f09ec2bed18431c73f4107c99e3d3e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/rotate_vector.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/rotate_vector.inl",
+    "bytes": 4023,
+    "sha256": "e4175c3985443ce1bd5034e05c7f740ba0b2c450b3b5ba246bbdddf8faf2b234",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/rotate_vector.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/scalar_multiplication.hpp",
+    "bytes": 2483,
+    "sha256": "08ef0279871de09c13b8dca131b442a483284714955b48b1829945a0a82a6562",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/scalar_multiplication.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/scalar_relational.hpp",
+    "bytes": 922,
+    "sha256": "90a1e3eecc2fd3d7da187033827de81e44a0b5d8bf1e0fb88eac7c5e4c97687f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/scalar_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/scalar_relational.inl",
+    "bytes": 1187,
+    "sha256": "e8f934703017a9224f1d2b477a3c9cb87aaedbb212d9570906032f74c7f6d229",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/scalar_relational.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/spline.hpp",
+    "bytes": 1620,
+    "sha256": "270afc994bad59961a0e6fedac2300efde95810a5083c4f67fd4263309750be5",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/spline.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/spline.inl",
+    "bytes": 1864,
+    "sha256": "ce468401be713b6c732d3ab58ad5837ad4eba9398526481c5bcf8346f7e4bd8f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/spline.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/std_based_type.hpp",
+    "bytes": 2056,
+    "sha256": "9ef6192990d67cfea5a894fdbba9ae0dcf0b8ffe4f70ef1cdc2f8eaab80d8bc8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/std_based_type.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/std_based_type.inl",
+    "bytes": 57,
+    "sha256": "e9132bf571a9a80d04e06ba1b92401b89177e439a6c306a694aab44125bf609c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/std_based_type.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/string_cast.hpp",
+    "bytes": 1264,
+    "sha256": "4614291c958594c28f437866db2669a8dc62e09b49d7e7da8c6566b1fa79dd37",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/string_cast.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/string_cast.inl",
+    "bytes": 18293,
+    "sha256": "5e0d0c154bf6f4c3537e80668a09f962443656e681a560469e507e6eb31c268b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/string_cast.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/structured_bindings.hpp",
+    "bytes": 3171,
+    "sha256": "ed9db45581daafbff7c5a899ee006dcc9e7c78f1081e8d01a865066390890a69",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/structured_bindings.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/structured_bindings.inl",
+    "bytes": 1741,
+    "sha256": "715f7995372042e97a7f4db66ca3a10a6c023a3e58cd6664a28c252a58fe6b02",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/structured_bindings.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/texture.hpp",
+    "bytes": 1311,
+    "sha256": "43b56639e3bc43456d5af6a3230d96d5e368d2d9c920691eb2ec6e5cb3f9c6e0",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/texture.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/texture.inl",
+    "bytes": 335,
+    "sha256": "e00a18eacb9cb158de1cd84c2ff8a08e27afa7f03a13475f35ee06c5f7362ba4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/texture.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/transform.hpp",
+    "bytes": 1720,
+    "sha256": "eeba2399bd1a0a7c57aefe8be663b9e9a338fc3fa3ddb14b88dc4817c4f7c839",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/transform.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/transform.inl",
+    "bytes": 595,
+    "sha256": "a92ca1ffb9cc998723289f19841d54a49bea0c71a04f875e4736223261be029b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/transform.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/transform2.hpp",
+    "bytes": 3485,
+    "sha256": "1e5cb9960ae28e2e5bfc5fd3c07c48b3b9d810542699143f5936fa270b44240d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/transform2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/transform2.inl",
+    "bytes": 4007,
+    "sha256": "b2fe1bab72eac347f1d1fdf0eb3c675b0adeb1d84bf25e337a58316e671a9000",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/transform2.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/type_aligned.hpp",
+    "bytes": 34257,
+    "sha256": "e7127320c8d967a787c3298e0399ce65bfcdef09a21174b578b7afd5ecb82873",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/type_aligned.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/type_aligned.inl",
+    "bytes": 55,
+    "sha256": "8a13d7cc7e03e83781ba18b8faa4c377a752e2d084b07a3717529ff975eb872d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/type_aligned.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/type_trait.hpp",
+    "bytes": 2196,
+    "sha256": "93dabdba43fb44d3c622b77070c3cf58676cd611a89f1daee2ea683d3b5b14d8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/type_trait.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/type_trait.inl",
+    "bytes": 2103,
+    "sha256": "a6ddfc7bd958897acf7c64795be4cf126b563517a59030c858e204f298cfed81",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/type_trait.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/vec_swizzle.hpp",
+    "bytes": 82457,
+    "sha256": "5299aa5e5cb96eb52f0ce49fd572cdf91da86241d3e6a6ff8e5b64e07e1fb7c6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/vec_swizzle.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/vector_angle.hpp",
+    "bytes": 1825,
+    "sha256": "abd1ec2d18a29f8c236e3979ab6bfd3dd4540cca6edece04a859ebd427296021",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/vector_angle.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/vector_angle.inl",
+    "bytes": 1538,
+    "sha256": "e75e5a6bb98cbbee1585ad66ded2bb87a38028697cb3808efade4fad25e5a2da",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/vector_angle.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/vector_query.hpp",
+    "bytes": 2242,
+    "sha256": "f63e1a4a6b020b05979d265cc656ae949d2b84b01306b96bc568b1c7682e99a1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/vector_query.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/vector_query.inl",
+    "bytes": 4639,
+    "sha256": "744768db68d23dedbc1ab33d4ca60764b276cfb5c30def3deaa2033fa789865a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/vector_query.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/wrap.hpp",
+    "bytes": 875,
+    "sha256": "63ceadb7338652f8db8c487e712e2b2143e5cb534d3274ac1099bb404ed7451d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/wrap.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/gtx/wrap.inl",
+    "bytes": 62,
+    "sha256": "97cde43039625b06f13c4df01a828474b9cf5b6c2fe61c6d63f5e6fcbeaf86d8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/gtx/wrap.inl"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/integer.hpp",
+    "bytes": 10707,
+    "sha256": "fbb3ca5c518502bbba672ca1006a2e299262b5814e24572e50cb592086641594",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/integer.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat2x2.hpp",
+    "bytes": 236,
+    "sha256": "ad69b7477122d91a9c5f5a4655c2e66ff348c8143c9c97511517e04e45020e44",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat2x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat2x3.hpp",
+    "bytes": 236,
+    "sha256": "99f0c981ddac7432e3b7637a6d1d63b3345593a190feb670059c7dacbf2f8053",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat2x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat2x4.hpp",
+    "bytes": 236,
+    "sha256": "d9fe8b645b3f76186da7706e36750622b25dacc11aadc0171e00b7e8bd3e6d4a",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat2x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat3x2.hpp",
+    "bytes": 236,
+    "sha256": "d55d1216d9701c51feb2d74ed62971d0000548eca60132812edaec6ed2aa589b",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat3x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat3x3.hpp",
+    "bytes": 234,
+    "sha256": "94d0e032b5458aeeea0233692b0181f820a4b498ca6c0d5ebe38276afb0be9bd",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat3x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat3x4.hpp",
+    "bytes": 234,
+    "sha256": "28f6826b1cded1ee9eacfa26037775ec377a4157c80534664a2c443a32181978",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat3x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat4x2.hpp",
+    "bytes": 236,
+    "sha256": "4f041500e15c4690a19d266394d4585fc9962f99907269ad00cecbbee3598c04",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat4x2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat4x3.hpp",
+    "bytes": 234,
+    "sha256": "4681e9ebf357d4aca98394a8e056b58a26a575792054b7bf4d2694a1ec020c6f",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat4x3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/mat4x4.hpp",
+    "bytes": 236,
+    "sha256": "367b21fe6b9052a4dcb3e7f146038fa547384755f58c1c5784a54243b4c014a2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/mat4x4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/matrix.hpp",
+    "bytes": 5812,
+    "sha256": "ca9f427d40a824528d3f4d320dab552c4c4a1034e0b8786f7eede43a34f86e72",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/matrix.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/packing.hpp",
+    "bytes": 11073,
+    "sha256": "a2dcdc7769b43f3d1d3e5c7b959beab1898797df83ffb750d85e20c4059b72a4",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/packing.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/common.h",
+    "bytes": 7356,
+    "sha256": "1cfbea079bf62ac76cf7aeb2532a6162d388088807dbdf876ef64053b298929e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/common.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/exponential.h",
+    "bytes": 400,
+    "sha256": "b04a68b1fcdf87200873db2593ab50681184820997949de8e75fd0daadbc1fe8",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/exponential.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/geometric.h",
+    "bytes": 4435,
+    "sha256": "9c740b6f17cfd2092171353381b17b7622c1d2121ee43395d6ed8a6b8954744d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/geometric.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/integer.h",
+    "bytes": 3806,
+    "sha256": "7361a721e51303b4f89379ad0c752ed90f85332eb2e1c75748abe461916779b6",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/integer.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/matrix.h",
+    "bytes": 41418,
+    "sha256": "1a41850417c7daa54a0b7a283e0cab5508f6b3097e7b7936b6bc4be0738467e1",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/matrix.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/neon.h",
+    "bytes": 5162,
+    "sha256": "247d54d342596361f6e37f3b2b42594aa2a0616b9e02611478a1e04f58398b18",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/neon.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/packing.h",
+    "bytes": 140,
+    "sha256": "99efb5a0b5c2ac5d34782de883dbb92d613f1f149fabfb3a3e32e703c2f016ae",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/packing.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/platform.h",
+    "bytes": 16267,
+    "sha256": "f6e3a790cecb95c839aeb6e904d8bf4c865755c6976c2a2b71739e4c087b5593",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/platform.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/trigonometric.h",
+    "bytes": 148,
+    "sha256": "1b9492b7c7fb284dcf8a86bf25fa379c84001c38a5893e3b37b7834c3d4b6b3e",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/trigonometric.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/simd/vector_relational.h",
+    "bytes": 150,
+    "sha256": "50298b14982ff78b6c1cb88d15c8549bf7ee11d2baf5a77d3787ac0deed3b001",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/simd/vector_relational.h"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/trigonometric.hpp",
+    "bytes": 10890,
+    "sha256": "15f7b9d814d244d0f1351329bc7cd3c853a03c95cb350197d9b203ecce463f71",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/trigonometric.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/vec2.hpp",
+    "bytes": 454,
+    "sha256": "993c05b83e034d8bc451f25749d0d5a1ef003ed614cf7268693dbb43cdfef567",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/vec2.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/vec3.hpp",
+    "bytes": 454,
+    "sha256": "be9ca0adf100538cf4ff62cb4cbd2d8504cb410baf9f28e9ea748c57c461a14d",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/vec3.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/vec4.hpp",
+    "bytes": 456,
+    "sha256": "8ce1f9cd962932a8fefa61fa84a5972aebb9721cbd07e74106ab2349c4c83ba2",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/vec4.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/native/dependencies/glm/glm/vector_relational.hpp",
+    "bytes": 6467,
+    "sha256": "7faf05e55d5346c10189abc5af01a68b00c240824093742a7363f514360b880c",
+    "matching_local_origins": [
+      "standard/framework/dependencies/glm/glm/vector_relational.hpp"
+    ]
+  },
+  {
+    "path": "coding-test-2/assets/marked.umd.js",
+    "bytes": 41120,
+    "sha256": "4144dae0bef1d7db4199501c5fac9536bf8e862f6e0d91ab7d2667b7dc849d7d",
+    "local_origin": "tools/templates/standard-viewer/vendor/marked.umd.js",
+    "change": "UTF-8 BOM text distribution copy; algorithm unchanged"
+  },
+  {
+    "path": "coding-test-2/assets/marked-LICENSE.md",
+    "bytes": 2989,
+    "sha256": "6d0854d440d7be0a23559c61110d71bb33b19a5ef214bd881e09cfbe9bbd45bf",
+    "local_origin": "tools/templates/standard-viewer/vendor/marked-LICENSE.md",
+    "change": "UTF-8 BOM text distribution copy; algorithm unchanged"
+  }
+]

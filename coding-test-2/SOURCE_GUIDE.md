@@ -8,6 +8,8 @@
 | [coding-test-2/native/shaders/VertexShader.glsl](../coding-test-2/native/shaders/VertexShader.glsl) | 12 |  |
 | [coding-test-2/native/shaders/FragmentShader.glsl](../coding-test-2/native/shaders/FragmentShader.glsl) | 25 |  |
 | [standard/main.cpp](../standard/main.cpp) | 27 | 17: // @debug hook shader |
+| [standard/Console.h](../standard/Console.h) | 21 |  |
+| [standard/SceneSetup.h](../standard/SceneSetup.h) | 5 |  |
 | [standard/SceneSetup.cpp](../standard/SceneSetup.cpp) | 83 |  |
 | [standard/ExamController.h](../standard/ExamController.h) | 37 | 8: // @debug hook state |
 | [standard/ExamController.cpp](../standard/ExamController.cpp) | 123 | 18: // @debug hook initialize; 55: // @debug hook input; 76: // @debug hook update; 94: // @debug hook final-sync; 121: // @debug hook uniform |

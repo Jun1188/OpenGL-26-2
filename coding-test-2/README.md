@@ -19,3 +19,5 @@
 소스와 학습 자료를 작성했다. HTML/문서/소스 구조/패키지 생성은 빌드 성공을 뜻하지 않는다. 빌드·테스트·검증기·앱/브라우저 실행·화면 판정은 사용자에게 맡긴다. 문항의 관찰 기준은 수행할 체크이며 확인된 실행 결과가 아니다.
 
 원문은 learning/*.md, implementation/WORKFLOW.md, requirements/COVERAGE.md, exercises/problems.json, scenarios/scenarios.json이다. tools/Write-CodingTest2Guide.py는 원문을 읽어 HTML·문항별 Markdown·실제 소스 스냅샷을 생성하며 원문을 덮어쓰지 않는다. [출처](sources.md)와 [학습 관계](learning-graph.md), [사용자 확인](USER_CHECKS.md)을 함께 제공한다.
+
+[변경 근거와 전체 코드 before/after](reports/README.md) · [인터랙티브 소스 구조](../graphify-out/coding-test-2/graph.html) · [제출 ZIP](../dist/standard-coding-test-2-20261110.zip) · [제출 크기](reports/SUBMISSION_SIZE.md)

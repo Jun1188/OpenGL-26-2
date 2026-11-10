@@ -1,0 +1,251 @@
+﻿{
+  "baseline": "5487f4d0514598dca6c3b567e616b836e8e97773",
+  "head_when_generated": "82bc8e7d00fac88818b9ba2c0674d31ac84dc957",
+  "source_state": "saved working tree",
+  "own_code": [
+    {
+      "path": ".gitignore",
+      "before_exists": true,
+      "before_lines": 80,
+      "after_lines": 84,
+      "sha256": "f0da246229793b99c0cb6fcc52856789d48067ee6185f822ea7884994265d456"
+    },
+    {
+      "path": "coding-test-2/assets/study.css",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 1,
+      "sha256": "12f3d6ae3ada160cfcfa4bdd3e45640dff9b756426b20c6fc1f16b26ec4b56a5"
+    },
+    {
+      "path": "coding-test-2/assets/study.js",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 101,
+      "sha256": "9d720d74aa1f643fb16762e11e950137696f403a2d705f656b2cba9ff6167ce0"
+    },
+    {
+      "path": "coding-test-2/native/Toolchain.props",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 14,
+      "sha256": "4426f4e8dd7a451438e291ac1b1cc669f22b178a980a3607d522a934379d4689"
+    },
+    {
+      "path": "coding-test-2/native/main.cpp",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 241,
+      "sha256": "fbe319c0283d04e34ba533d7a6f6fff67726f2fac268530cceb50e82792a4817"
+    },
+    {
+      "path": "coding-test-2/native/native.sln",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 18,
+      "sha256": "d82de2553ce759c0fe269592034aeef7f8bca7d51ba748d3b7a6bff7ab50df54"
+    },
+    {
+      "path": "coding-test-2/native/native.vcxproj",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 28,
+      "sha256": "bb4d9d53f2830793b92fa1de90dc75087cb9b7fcd5b960812e4f73522a6ce900"
+    },
+    {
+      "path": "coding-test-2/native/shaders/FragmentShader.glsl",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 25,
+      "sha256": "d697705dc9012a6d23e50a5173f3509a125bbc1e9ae0b884495cea2ccf349c28"
+    },
+    {
+      "path": "coding-test-2/native/shaders/VertexShader.glsl",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 12,
+      "sha256": "5976a57995d14cd5ffe5134933a4140073e54b15e545a560cc2d4441b1fb5b10"
+    },
+    {
+      "path": "framework/detail/SceneAuthoring.cpp",
+      "before_exists": true,
+      "before_lines": 141,
+      "after_lines": 176,
+      "sha256": "ff31fc71af928658c79bb40dc0150f6e1ce140a8613e46ede7693f152a324b2b"
+    },
+    {
+      "path": "framework/detail/Shaders.h",
+      "before_exists": true,
+      "before_lines": 77,
+      "after_lines": 91,
+      "sha256": "a3a78f76f32b46bf8fcc89390e51e1ebc299aaabfcd1fae4c8b47cb8e09b514a"
+    },
+    {
+      "path": "framework/include/SceneAuthoring.h",
+      "before_exists": true,
+      "before_lines": 46,
+      "after_lines": 58,
+      "sha256": "79783c02e6d3e36481f2e7361b4e97544773739c61c0518e28096a5347b1754c"
+    },
+    {
+      "path": "framework/shaders/FragmentShader.glsl",
+      "before_exists": true,
+      "before_lines": 52,
+      "after_lines": 64,
+      "sha256": "63ee85bdc6afdd8f9508ae98a69555b22c02cc9fc2b48498e80fa02c27737e0f"
+    },
+    {
+      "path": "framework/shaders/VertexShader.glsl",
+      "before_exists": true,
+      "before_lines": 19,
+      "after_lines": 21,
+      "sha256": "f83bb2c59d0c5148ace93d8fa0ccedadbbf31fbddd4cb52917041644514c9e81"
+    },
+    {
+      "path": "standard/Console.cpp",
+      "before_exists": true,
+      "before_lines": 31,
+      "after_lines": 36,
+      "sha256": "fbcec9b8c04dbc58ae0b98590b88a158b0fb501c936ac3832636e7a91cb1c9b0"
+    },
+    {
+      "path": "standard/Console.h",
+      "before_exists": true,
+      "before_lines": 16,
+      "after_lines": 21,
+      "sha256": "ad6558fc4dddd053ab339db79de0ec6aa73b656ebdbac1eda1da17b5a78c912e"
+    },
+    {
+      "path": "standard/ExamController.cpp",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 123,
+      "sha256": "67ac38203a7e5f00c9f289a9e4a42fa8a4854f5e3cfd2ba2cc88918cd1f7a03a"
+    },
+    {
+      "path": "standard/ExamController.h",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 37,
+      "sha256": "6857e345685b2c705268a1eb86ac4265380d03a48f0fc8c820feb320825b9ebd"
+    },
+    {
+      "path": "standard/debugger/Commands.cpp",
+      "before_exists": true,
+      "before_lines": 281,
+      "after_lines": 301,
+      "sha256": "5199309f83649bef28631bf0d04106420afcd25acc2a5d0a8e84824dd025caa1"
+    },
+    {
+      "path": "standard/docs/viewer/documents.js",
+      "before_exists": true,
+      "before_lines": 2,
+      "after_lines": 2,
+      "sha256": "7bb062540834d13ca30fff06873584ce823801431c809ba0b2532082e2351a5d"
+    },
+    {
+      "path": "standard/framework/detail/SceneAuthoring.cpp",
+      "before_exists": true,
+      "before_lines": 141,
+      "after_lines": 176,
+      "sha256": "ff31fc71af928658c79bb40dc0150f6e1ce140a8613e46ede7693f152a324b2b"
+    },
+    {
+      "path": "standard/framework/detail/Shaders.h",
+      "before_exists": true,
+      "before_lines": 77,
+      "after_lines": 91,
+      "sha256": "a3a78f76f32b46bf8fcc89390e51e1ebc299aaabfcd1fae4c8b47cb8e09b514a"
+    },
+    {
+      "path": "standard/framework/include/SceneAuthoring.h",
+      "before_exists": true,
+      "before_lines": 46,
+      "after_lines": 58,
+      "sha256": "79783c02e6d3e36481f2e7361b4e97544773739c61c0518e28096a5347b1754c"
+    },
+    {
+      "path": "standard/framework/shaders/FragmentShader.glsl",
+      "before_exists": true,
+      "before_lines": 52,
+      "after_lines": 64,
+      "sha256": "63ee85bdc6afdd8f9508ae98a69555b22c02cc9fc2b48498e80fa02c27737e0f"
+    },
+    {
+      "path": "standard/framework/shaders/VertexShader.glsl",
+      "before_exists": true,
+      "before_lines": 19,
+      "after_lines": 21,
+      "sha256": "f83bb2c59d0c5148ace93d8fa0ccedadbbf31fbddd4cb52917041644514c9e81"
+    },
+    {
+      "path": "standard/main.cpp",
+      "before_exists": true,
+      "before_lines": 23,
+      "after_lines": 27,
+      "sha256": "ef36c92131aca3fa52e703ee4941a0cdb332f40ce0b3e31491c8e3c0a8d34166"
+    },
+    {
+      "path": "standard/standard.vcxproj",
+      "before_exists": true,
+      "before_lines": 56,
+      "after_lines": 57,
+      "sha256": "6065c5a3f2fe1b615ad8f947b07afa18d86b3c74cf1ee924ac4f5b4720079aff"
+    },
+    {
+      "path": "tools/Package-Standard.py",
+      "before_exists": true,
+      "before_lines": 77,
+      "after_lines": 50,
+      "sha256": "5af1c5d291678b394ca87c4bb442921163a64921f627a4c3007df584b01555a5"
+    },
+    {
+      "path": "tools/Update-StandardDocs.py",
+      "before_exists": true,
+      "before_lines": 213,
+      "after_lines": 207,
+      "sha256": "a3b94ca0b97279df798ecadd7bb3d6ebf57a1e5b15bd03737c9c97af9729754a"
+    },
+    {
+      "path": "tools/Write-CodingTest2Guide.py",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 102,
+      "sha256": "2bd00fb077aa9b2e8acb68e8145ddd5423e5e640614e856df81d61839092dae2"
+    },
+    {
+      "path": "tools/Write-CodingTest2Report.py",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 131,
+      "sha256": "41d52ff62dc398d5534464574f35d660c4731eb01eb3893d9ee64e140b9a832d"
+    },
+    {
+      "path": "tools/Write-SourceDebuggerDocs.py",
+      "before_exists": true,
+      "before_lines": 410,
+      "after_lines": 436,
+      "sha256": "6a0d556a57764edc9d67b13aae0bd407d5bf4f4acbb6c455f186a619e44e4b64"
+    },
+    {
+      "path": "tools/standard_package_policy.py",
+      "before_exists": false,
+      "before_lines": 0,
+      "after_lines": 29,
+      "sha256": "0361ea8567253526502b57c74da71d55c22e50a7fb679fa1d12b22d254e92a75"
+    }
+  ],
+  "graph": {
+    "nodes": 3687,
+    "edges": 7024,
+    "method": "graphify AST; no semantic API, build, tests, app run, or extraction diagnostics"
+  },
+  "not_run": [
+    "build",
+    "test",
+    "validator",
+    "application",
+    "browser",
+    "archive extraction/run"
+  ]
+}
