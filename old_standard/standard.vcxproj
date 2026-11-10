@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AD50DC3F-7731-4954-923F-907BB2A8277C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>standard</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="framework\Toolchain.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)x64\$(Configuration)\obj\</IntDir>
+    <TargetName>standard</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level4</WarningLevel>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Release'">MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="modes\Assembly.cpp" />
+    <ClCompile Include="modes\AssemblyCommands.cpp" />
+    <ClCompile Include="modes\AssemblyConsole.cpp" />
+    <ClCompile Include="modes\AssemblyDiagnostics.cpp" />
+    <ClCompile Include="modes\AssemblyDynamics.cpp" />
+    <ClCompile Include="modes\AssemblyExamples.cpp" />
+    <ClCompile Include="modes\AssemblyExtensions.cpp" />
+    <ClCompile Include="modes\AssemblyGuide.cpp" />
+    <ClCompile Include="modes\AssemblyHierarchy.cpp" />
+    <ClCompile Include="modes\AssemblyInput.cpp" />
+    <ClCompile Include="modes\AssemblyMotion.cpp" />
+    <ClCompile Include="modes\AssemblyObjects.cpp" />
+    <ClCompile Include="modes\AssemblyParts.cpp" />
+    <ClCompile Include="modes\AssemblyPaths.cpp" />
+    <ClCompile Include="modes\AssemblyPersistence.cpp" />
+    <ClCompile Include="modes\AssemblyRuntime.cpp" />
+    <ClCompile Include="modes\AssemblySceneTools.cpp" />
+    <ClCompile Include="modes\AssemblySurface.cpp" />
+    <ClCompile Include="modes\AssemblyTracks.cpp" />
+    <ClCompile Include="modes\AssemblyWorkspace.cpp" />
+    <ClCompile Include="modes\Mode0Recipe.cpp" />
+    <ClInclude Include="modes\Assembly*.h" />
+    <None Include="docs\reference\modes\*.md" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="framework\Framework.h" />
+    <ClInclude Include="framework\include\Motion.h" />
+    <ClInclude Include="framework\include\Animation.h" />
+    <ClInclude Include="framework\include\Transform.h" />
+    <ClInclude Include="framework\include\Patterns.h" />
+    <ClInclude Include="framework\include\GridLayout.h" />
+    <ClInclude Include="framework\include\Diagnostics.h" />
+  </ItemGroup>
+  <Import Project="framework\Framework.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemGroup>
+    <AssemblyRecipe Include="examples\assembly\**\*.assembly" />
+  </ItemGroup>
+  <Target Name="CopyAssemblyLearningFiles" AfterTargets="Build">
+    <Copy SourceFiles="@(AssemblyRecipe)" DestinationFiles="@(AssemblyRecipe->'$(TargetDir)examples\assembly\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
