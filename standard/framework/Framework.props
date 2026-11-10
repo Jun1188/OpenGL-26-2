@@ -13,6 +13,7 @@
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\PrimitiveLoader.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Renderer.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Scene.cpp" />
+    <ClCompile Include="$(GraphicsFrameworkDirectory)detail\SceneAuthoring.cpp" />
     <ClCompile Include="$(GraphicsFrameworkDirectory)detail\Transform.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup>

@@ -7,3 +7,4 @@
 #include "include/CuboidMode.h"
 
 #include "include/Dynamics.h"
+#include "include/SceneAuthoring.h"
