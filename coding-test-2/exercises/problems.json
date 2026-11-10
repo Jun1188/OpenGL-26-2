@@ -1,0 +1,269 @@
+﻿[
+  {
+    "id": "CT2-N01",
+    "title": "사각형 한 장: 정점 공유와 EBO",
+    "track": "native",
+    "minutes": 35,
+    "problem": "`native/main.cpp`의 박스와 별개로 XY 평면의 사각형을 그려라. 네 정점과 여섯 인덱스를 사용한다. 네 정점의 법선은 +Z다. 두 삼각형의 감김 방향은 같아야 한다. `glDrawArrays`와 `glDrawElements`의 마지막 인수가 각각 무엇을 뜻하는지 설명한다.",
+    "design": "GPU 자원: VAO/VBO/EBO 각 하나. 데이터: 위치·법선이 들어 있는 Vertex[4], unsigned int[6]. 생성은 루프 앞, 그리기는 루프 안, 삭제는 컨텍스트 파괴 전이다. EBO 바인딩은 VAO 상태다.",
+    "hints": [
+      "사각형의 네 꼭짓점을 반시계 순서로 적는다.",
+      "인덱스 0,1,2와 0,2,3을 연결한다. VAO가 바인딩된 동안 EBO를 연결한다."
+    ],
+    "solution": "`main.cpp`에서 shader를 만든 다음, 렌더 루프 앞에 넣는다.\n```cpp\nconst Vertex quad[] = {\n    {{-1,-1,0},{0,0,1}}, {{1,-1,0},{0,0,1}},\n    {{1,1,0},{0,0,1}}, {{-1,1,0},{0,0,1}}\n};\nconst unsigned int indices[] = {0,1,2,0,2,3};\nGLuint qvao=0,qvbo=0,qebo=0;\nglGenVertexArrays(1,&qvao); glBindVertexArray(qvao);\nglGenBuffers(1,&qvbo); glBindBuffer(GL_ARRAY_BUFFER,qvbo);\nglBufferData(GL_ARRAY_BUFFER,sizeof(quad),quad,GL_STATIC_DRAW);\nglVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),\n    reinterpret_cast<void*>(offsetof(Vertex,position)));\nglEnableVertexAttribArray(0);\nglVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(Vertex),\n    reinterpret_cast<void*>(offsetof(Vertex,normal)));\nglEnableVertexAttribArray(1);\nglGenBuffers(1,&qebo); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,qebo);\nglBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);\nglBindVertexArray(0);\n```\n루프의 view/projection/조명 uniform 설정 뒤에 넣는다. 다른 물체의 draw가 설정한 model과 unlit을 물려받지 않게 전부 지정한다.\n```cpp\nmatrix(shader,\"model\",glm::mat4(1));\nglm::mat3 normal(1);\nglUniformMatrix3fv(location(shader,\"normalMatrix\"),1,GL_FALSE,glm::value_ptr(normal));\nvector(shader,\"objectColor\",{.9f,.6f,.2f}); integer(shader,\"unlit\",0);\nglBindVertexArray(qvao);\nglDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,nullptr);\n```\n정상 종료뿐 아니라 예외 경로에서도 삭제할 수 있도록 qvao/qvbo/qebo 선언은 main의 try 밖으로 옮긴다. 기존 `if(gpu)` 정리 구간에 세 glDelete 호출을 추가한다.\n```cpp\nglDeleteBuffers(1,&qebo); glDeleteBuffers(1,&qvbo);\nglDeleteVertexArrays(1,&qvao);\n```\nDrawArrays의 마지막 인수는 정점 수다. DrawElements의 마지막 인수는 현재 VAO의 EBO 안에서 인덱스가 시작하는 바이트 오프셋이다. `nullptr`는 오프셋 0이다. 박스는 같은 위치라도 면별 법선이 다르므로 여덟 위치만으로 평면 법선을 공유할 수 없다.",
+    "observe": [
+      "두 삼각형 사이에 틈이 없다.",
+      "EBO를 다른 VAO에 연결한 오류를 스스로 찾아 고친다.",
+      "박스가 겹치면 원래 주 물체 draw를 잠시 주석 처리하고 확인한다."
+    ],
+    "refs": [
+      "learning/01-native-pipeline.md",
+      "native/main.cpp: upload/draw"
+    ]
+  },
+  {
+    "id": "CT2-N02",
+    "title": "비균등 배율과 경첩 기준점",
+    "track": "native",
+    "minutes": 35,
+    "problem": "폭 2, 높이 1, 깊이 0.5인 판을 만든다. 모델 지역점 (-0.5,0,0)을 월드 (1,0,0)에 고정하고 Y축으로 회전시킨다. 배율을 (3,1,0.25)로 바꿔도 경첩은 움직이면 안 된다. 회전 뒤 월드로 1만큼 밀 때와 회전 전에 지역으로 1만큼 밀 때를 비교한다.",
+    "design": "State.position은 도형 중심이 아니라 피벗의 월드 위치다. scale은 중심이 ±0.5인 단위 박스에 적용한다. 모델점 q에 M=T(anchor) R S T(-pivot)을 적용한다.",
+    "hints": [
+      "피벗 q=pivot을 행렬식에 대입하면 T(-pivot)에서 0이 된다.",
+      "월드 이동은 행렬 왼쪽, 물체 지역 이동은 오른쪽에 곱한다."
+    ],
+    "solution": "`State` 초기값을 바꾼다. 기존 모델 행렬 생성 코드가 이 정의를 이미 구현한다.\n```cpp\nglm::vec3 camera{6,4,8}, target{0}, position{1,0,0};\nglm::vec3 scale{2,1,.5f}, pivot{-.5f,0,0};\n```\n수학을 직접 다시 쓰면 다음과 같다.\n```cpp\nconst auto T=[](glm::vec3 p){return glm::translate(glm::mat4(1),p);};\nconst auto R=glm::rotate(glm::mat4(1),glm::radians(float(state.objectDegrees)),glm::vec3(0,1,0));\nconst auto M=T(state.position)*R*glm::scale(glm::mat4(1),state.scale)*T(-state.pivot);\nconst auto anchor=glm::vec3(M*glm::vec4(state.pivot,1));\nconst auto worldShift=T({1,0,0})*M;\nconst auto localShift=M*T({1,0,0});\n```\n`anchor`는 항상 (1,0,0)이다. localShift는 이동벡터도 R과 S를 거치므로 월드에서 길이 1이 아닐 수 있다. 배율 영향을 빼고 회전 방향으로만 이동하려면 T(anchor) R T(delta) S T(-pivot) 순서를 쓴다. 회전·이동의 목적에 따라 식이 달라진다.",
+    "observe": [
+      "p를 눌러 자전시켜도 경첩점은 고정된다.",
+      "회전각 90도에서 월드 이동과 지역 이동의 방향 차이를 예측한다.",
+      "배율 0은 역행렬을 만들 수 없으므로 사용하지 않는다."
+    ],
+    "refs": [
+      "learning/02-transform-frames.md",
+      "native/main.cpp: model 생성"
+    ]
+  },
+  {
+    "id": "CT2-N03",
+    "title": "법선을 고쳐 밝기 오류 찾기",
+    "track": "native",
+    "minutes": 30,
+    "problem": "구를 scale=(2,1,0.5)로 늘린다. normalMatrix를 mat3(model)로 바꾼 잘못된 버전과 역전치 버전을 비교한다. 조명은 고정하고 F2로 법선·확산·정반사를 관찰한다. N, L, V의 좌표계를 하나로 맞춰야 하는 이유를 설명한다.",
+    "design": "정점 위치는 월드, 법선은 월드, 광원·카메라 위치도 월드다. 법선은 표면 접선과 수직이라는 조건을 보존해야 한다. 구의 경사진 법선에서 오류가 잘 보인다.",
+    "hints": [
+      "접선 t와 법선 n에 n·t=0을 적용한다.",
+      "A t에 수직인 새 법선은 transpose(inverse(A)) n이다."
+    ],
+    "solution": "`native/main.cpp`의 draw 함수에서 다음 행을 유지한다.\n```cpp\nconst auto normal=glm::transpose(glm::inverse(glm::mat3(model)));\nglUniformMatrix3fv(location(p,\"normalMatrix\"),1,GL_FALSE,glm::value_ptr(normal));\n```\nVertexShader.glsl에서 법선을 변환하고, 보간된 법선은 FragmentShader.glsl에서 다시 정규화한다.\n```glsl\n// vertex\nworldNormal = normalMatrix * normal;\n// fragment\nvec3 N = normalize(worldNormal);\nvec3 L = normalize(lightPosition - worldPosition);\nvec3 V = normalize(viewPosition - worldPosition);\n```\n잘못된 normal=mat3(model)을 임시로 넣었다가 원래 식으로 복구한다. 두 배율이 같거나 축과 평행인 면만 보면 오류를 놓칠 수 있다. 판정은 비균등 구의 경사진 표면에서 한다.",
+    "observe": [
+      "법선 출력은 -1~1을 0~1로 매핑한 색이다.",
+      "광원이 표면 뒤로 가면 확산·정반사가 0이다.",
+      "동일한 화면을 보고 재질 값만 바꾸어 법선 오류를 숨기지 않는다."
+    ],
+    "refs": [
+      "learning/04-light-material.md",
+      "native/shaders/VertexShader.glsl"
+    ]
+  },
+  {
+    "id": "CT2-N04",
+    "title": "반경이 바뀌는 공전과 궤도",
+    "track": "native",
+    "minutes": 30,
+    "problem": "광원 중심을 (1,0,-1)로 옮긴다. y/Y로 +/- 공전, z/Z로 반경 변경을 구현한다. 정지→반경 변경→역방향 재개 때 각도는 연속이어야 한다. 광원, 표시 물체, 원 궤도가 같은 중심과 반경을 써야 한다.",
+    "design": "상태 center, radius, height, phase, direction을 분리한다. 위치 하나를 저장해 따로 보정하지 않는다. 원 궤도 버퍼는 center/radius/height가 바뀔 때만 갱신한다.",
+    "hints": [
+      "angle=speed*누적 전체시간 식은 중간 정지에 적합하지 않다.",
+      "이미 있는 point 람다에 center를 더하고 dirty 조건에도 center를 넣는다."
+    ],
+    "solution": "State에 `glm::vec3 orbitCenter{1,0,-1};`를 추가한다. 렌더 루프의 기존 point 람다를 바꾼다.\n```cpp\nconst auto point=[&](double degrees) {\n    const double a=degrees*pi/180;\n    return state.orbitCenter+glm::vec3(state.radius*float(std::cos(a)),\n        state.lightHeight,state.radius*float(std::sin(a)));\n};\n```\n루프 앞에 `glm::vec3 previousCenter{1e9f};`를 추가한다. 궤도 갱신 if에 `previousCenter!=state.orbitCenter`를 OR로 넣고, 갱신 뒤 previousCenter를 저장한다. 기존 lightPosition uniform과 marker draw가 모두 point를 사용하므로 함께 이동한다. 기존 update의 lightDegrees += direction*45*dt는 보존한다. 반경 입력은 각도를 바꾸지 않는다.\n```cpp\nstate.lightDegrees=std::remainder(\n    state.lightDegrees+state.lightDirection*45*dt,360.0);\n```\nheight는 중심에서의 Y 오프셋이다. 중심 Y까지 더하므로 월드 높이가 필요하면 그 차이를 계산한다.",
+    "observe": [
+      "정지 중 반경만 바꾸면 원의 같은 위상에 표시 물체가 놓인다.",
+      "y를 두 번 누르면 정지, Y를 누르면 역방향이다.",
+      "원의 중심도 (1,0,-1)로 바뀐다."
+    ],
+    "refs": [
+      "learning/03-state-patterns.md",
+      "native/main.cpp: point/circle"
+    ]
+  },
+  {
+    "id": "CT2-N05",
+    "title": "입력 규칙과 카메라의 상태 분리",
+    "track": "native",
+    "minutes": 30,
+    "problem": "WASD는 누르는 동안 움직이고, r/R은 공전을 토글한다. 대각 이동 속도를 축 이동과 같게 한다. 창 포커스를 잃어도 이동이 계속 남지 않아야 한다. 카메라 위치만 이동하는 모드와 주목점도 같이 이동하는 모드를 만든다.",
+    "design": "held 배열과 토글 direction은 별개다. mode는 PRESS에서 한 번만 변경한다. 카메라 position-target 차이는 공전 반경벡터다. 관찰 지점 유지와 평행 이동은 서로 다른 요구다.",
+    "hints": [
+      "GLFW 키 코드는 대문자/소문자 구분 없이 GLFW_KEY_R이고 Shift는 mods다.",
+      "카메라와 target에 같은 delta를 더하면 시선 방향이 유지된다."
+    ],
+    "solution": "State에 `bool translateTarget=false;`를 추가하고 key의 PRESS 구간에 넣는다.\n```cpp\nif(key==GLFW_KEY_T) state.translateTarget=!state.translateTarget;\n```\nupdate에서 기존 카메라 직선 이동 두 줄을 다음으로 대체한다.\n```cpp\nauto move=glm::vec3(int(state.move[3])-int(state.move[1]),0,\n    int(state.move[2])-int(state.move[0]));\nif(glm::length(move)>0) {\n    const auto delta=glm::normalize(move)*3.f*dt;\n    state.camera+=delta;\n    if(state.translateTarget) state.target+=delta;\n}\n```\n그 뒤의 target 기준 공전 코드는 보존한다. 공전과 평행 이동을 함께 쓰면 기준점도 이동한다. focus 콜백의 move.fill(false)는 보존한다. 같은 키를 한 번 누른 사건으로 움직임 거리를 누적하면 OS 키 반복 속도에 의존한다.",
+    "observe": [
+      "w+d 이동이 w 이동보다 빠르지 않다.",
+      "T 모드에서 이동 후에도 카메라-주목점 벡터가 같다(공전 정지 상태).",
+      "포커스를 잃었다 돌아오면 키를 다시 누를 때까지 이동하지 않는다."
+    ],
+    "refs": [
+      "learning/03-state-patterns.md",
+      "native/main.cpp: key/update/focus"
+    ]
+  },
+  {
+    "id": "CT2-N06",
+    "title": "CPU→uniform→GLSL 한 번에 고치기",
+    "track": "native",
+    "minutes": 35,
+    "problem": "g로 최종 밝기를 1↔1.5배 바꾼다. 이어서 b키로 정반사 항만 켜고 끄는 specularEnabled uniform을 추가한다. 조명 전체 m 토글과 독립이어야 한다. 실수형/정수형 uniform의 CPU 호출을 구별한다.",
+    "design": "State bool→PRESS 토글→매 프레임 glUniform1i→GLSL bool→정반사 항 조건이다. gain은 glUniform1f. program을 사용한 후 전송한다.",
+    "hints": [
+      "gain은 기존 전체 예제가 있다. 새 값도 선언만 하고 안 쓰면 location=-1이 될 수 있다.",
+      "조명 켜기와 재질 Ks=0은 관찰 효과가 다르다."
+    ],
+    "solution": "State에 `bool specularEnabled=true;`를 추가한다. key에 다음을 추가한다.\n```cpp\nif(key==GLFW_KEY_B) state.specularEnabled=!state.specularEnabled;\n```\n기존 uniform 구간에 넣는다.\n```cpp\ninteger(shader,\"specularEnabled\",state.specularEnabled ? 1 : 0);\n```\nFragmentShader.glsl의 전역 선언과 specular 계산 다음에 넣는다.\n```glsl\nuniform bool specularEnabled;\n// 기존 vec3 specular = ...; 바로 다음\nif (!specularEnabled) specular = vec3(0.0);\n```\ngain 경로는 기존 scalar(shader,\"gain\",state.gain)와 fragmentColor=result*gain이다. 원본 GLSL을 바꾼 뒤 사용자가 프로젝트를 다시 빌드하여 출력 폴더의 셰이더 복사본도 바꾼다. 실행 중 핫 리로드는 구현하지 않았다. bool은 glUniform1i, float은 glUniform1f로 전송한다. 스스로 uniform 이름 하나를 틀리게 써서 CPU의 누락 오류가 무엇을 가리키는지 읽고 복구한다.",
+    "observe": [
+      "b는 하이라이트만 바꾸고 확산은 남긴다.",
+      "m으로 조명을 끄면 objectColor만 남는 기존 분기가 작동한다.",
+      "수정한 원본 GLSL과 실행 폴더의 파일이 같아야 한다."
+    ],
+    "refs": [
+      "learning/05-shader-edit.md",
+      "native/main.cpp: uniform",
+      "native/shaders/FragmentShader.glsl"
+    ]
+  },
+  {
+    "id": "CT2-N07",
+    "title": "새 형상과 재질을 코드로 등록하기",
+    "track": "standard",
+    "minutes": 30,
+    "problem": "Standard에 편평한 구를 추가한다. 중심은 (-2,1,0), 반지름은 0.6, 배율은 (1,0.5,1.5)다. 기존 박스 추가 명령을 억지로 구 명령처럼 사용하지 않는다. 재질의 Ks와 shininess를 각각 바꿔 하이라이트의 세기와 폭을 구별한다.",
+    "design": "초기 장면은 SceneSetup.cpp에서 작성한다. 구는 Model.meshes에 재질이 있고, 기본 다면체는 faces에 재질이 있다. 새 API addModel은 준비한 기하와 재질을 보존한다.",
+    "hints": [
+      "DiagramSystem::makeSphere로 Model을 만들고 meshes()를 순회한다.",
+      "구의 radius와 worldPose.scale을 섞지 않는다."
+    ],
+    "solution": "SceneSetup.cpp의 `// @debug insert` 앞에 넣는다. 이 함수의 scene은 SceneAuthoring이다.\n```cpp\nauto sphere=graphics::DiagramSystem::makeSphere(.6f,24,16);\nfor(auto& mesh:sphere.meshes()) {\n    mesh.material.color={.3f,.8f,.6f};\n    mesh.material.ambientStrength=.25f;\n    mesh.material.diffuseStrength=1.f;\n    mesh.material.specularStrength=.8f;\n    mesh.material.shininess=64.f;\n}\ngraphics::Transform3D pose;\npose.basis={-2,1,0}; pose.scale={1,.5f,1.5f};\nscene.addModel(\"ellipsoid\",sphere,pose);\n```\nKs는 0→0.8, shininess는 8→128로 각각 바꿔 비교한다. Ks는 정반사 계수, shininess는 지수다. Ks만 바꾸면 강도가 달라지고, 지수를 키우면 보통 하이라이트가 좁아진다. 재질 값과 광원 세기를 한꺼번에 바꾸지 않아야 원인을 비교할 수 있다. 미리 실행된 다른 셰이더 출력 모드가 있다면 F2로 합성 모드로 돌아온다.",
+    "observe": [
+      "찌그러진 구의 법선 출력이 연속적이다.",
+      "Ks=0에서 정반사 출력은 검다.",
+      "지수만 바꿀 때 물체 실루엣은 같다."
+    ],
+    "refs": [
+      "learning/06-standard-workbench.md",
+      "standard/SceneSetup.cpp",
+      "framework/include/SceneAuthoring.h"
+    ]
+  },
+  {
+    "id": "CT2-N08",
+    "title": "부모 위치만 따르는 수평 받침대",
+    "track": "standard",
+    "minutes": 40,
+    "problem": "회전하는 panel의 끝점을 따라가는 받침대를 만든다. 받침대 중심은 끝점 위치를 따라가지만, panel의 기울기와 비균등 배율은 상속하지 않는다. 다른 객체의 방향을 상속하지 않는 조건을 부모 연결 하나로 해결하려 하지 않는다.",
+    "design": "받침대는 월드 루트 객체다. panel 지역점→panel 최종 월드 행렬로 위치만 계산한다. 받침대의 세계 방향과 배율은 독립적으로 만든다. SceneAuthoring 및 Scene 모션의 최종 갱신 후 위치를 반영한다.",
+    "hints": [
+      "panel과 같은 parent로 등록하면 배율/회전도 상속한다.",
+      "T(end)*S(trayScale)를 새로 만든다. panelWorld 전체를 받침대에 곱하지 않는다."
+    ],
+    "solution": "SceneSetup.cpp의 끝에 먼저 등록한다.\n```cpp\ngraphics::ObjectSetup tray;\ntray.size={.7f,.15f,.7f}; tray.position={0,2,0};\ntray.material.color={.7f,.8f,.3f};\nscene.addObject(\"tray\",tray); // parent 인수 없음\n```\nConsole::onRender의 `scene_.syncTools()` 뒤, `controller_.syncVisuals()` 전에 넣는다.\n```cpp\nauto& raw=app_.getScene();\nconst auto frame=raw.worldMatrix(scene_.object(\"panel\"));\nif(!frame) return false;\nconst auto end=glm::vec3(*frame*glm::vec4(1,0,0,1));\nif(!raw.setWorldPlacement(scene_.object(\"tray\"),\n    glm::translate(glm::mat4(1),end))) return false;\n```\n단위 박스가 아닌 panel 모델의 크기는 (2,1,.2)이므로 x=1은 오른쪽 끝의 중심이다. tray는 크기가 이미 Model에 반영되어 있고 지역 레이어가 없어서 위 T만 설정하면 된다. panel의 hinge를 X축으로 회전하게 바꿔 비교한다. 받침대의 Y축은 계속 월드 Y다. 실제 물리 안정화나 중력 계산을 하는 것이 아니라 방향을 지정한 기하 제약이다.",
+    "observe": [
+      "panel의 기울기와 배율을 바꿔도 받침대가 눕거나 늘어나지 않는다.",
+      "끝점 위치는 panel의 최종 변환을 따른다.",
+      "tray에 별도 지역 레이어가 있으면 setWorldPlacement 뒤 추가 변환됨을 설명한다."
+    ],
+    "refs": [
+      "learning/02-transform-frames.md",
+      "standard/Console.cpp: onRender"
+    ]
+  },
+  {
+    "id": "CT2-N09",
+    "title": "부착 광원과 표시 물체 동기화",
+    "track": "standard",
+    "minutes": 35,
+    "problem": "key 광원을 panel에 부착한다. 광원은 panel 지역 좌표에서 공전한다. 표시 물체와 원 궤도가 최종 월드 위치에서 광원과 일치해야 한다. 광원의 지역 위치와 렌더러가 받는 월드 위치를 구별한다.",
+    "design": "SceneAuthoring은 parent 이름과 PointLight의 지역 값을 저장한다. syncTools가 부모 최종 행렬로 광원을 변환한다. ExamController는 lightParent를 유지하며, syncVisuals에서 같은 부모 행렬을 사용한다.",
+    "hints": [
+      "SceneSetup의 addLight 세 번째 인수가 parent다.",
+      "빛 위치뿐 아니라 궤도도 같은 frame으로 옮긴다. 비균등 부모라면 원이 월드에서 타원이 될 수 있다."
+    ],
+    "solution": "SceneSetup.cpp의 light key 구획에서 등록을 바꾼다.\n```cpp\ncfg_key.position={2.f,1.f,0.f};\nscene.addLight(\"key\",cfg_key,\"panel\");\n```\nExamController는 initialize에서 위 지역 위치를 읽어 radius=2,height=1,phase=0으로 시작한다. update는 계속 같은 parent를 setLight에 넘긴다. 최종 순서는 다음과 같다.\n```cpp\n// Console::onRender: Application의 Scene 모션 갱신 뒤 호출됨\nscene_.syncTools();\ncontroller_.syncVisuals();\nreturn app_.renderScene();\n```\n지역 궤도 q와 부모 월드행렬 W에 대해 markerWorld=W*vec4(q,1)이다. renderer의 pointLights에도 같은 위치가 들어가야 한다. 기존 구현에 이 식이 있으므로 두 번째 광원 컨트롤러를 중복 추가하지 않는다. 부모에 비균등 배율이 있다면 원은 월드에서 타원이 된다. 월드에서 원이어야 한다는 새 조건이면 광원 자체를 월드 좌표로 제어하거나 부모에서 위치·회전만 추출하는 별도 프레임을 설계한다.",
+    "observe": [
+      "panel 회전과 광원 공전을 동시에 해도 표시 물체가 광원 위치를 따른다.",
+      "z/Z가 지역 반경을 바꾼다.",
+      "최종 프레임 동기화 전 값을 쓰면 한 프레임 지연이 생길 수 있음을 설명한다."
+    ],
+    "refs": [
+      "standard/ExamController.cpp: syncVisuals",
+      "framework/detail/SceneAuthoring.cpp: syncTools"
+    ]
+  },
+  {
+    "id": "CT2-N10",
+    "title": "누르면 열리고 놓으면 돌아오는 판",
+    "track": "standard",
+    "minutes": 35,
+    "problem": "h를 누르는 동안 panel이 0→60도 열리고, 놓으면 0도로 복귀하게 한다. 속도는 40도/초다. 범위를 벗어나면 안 된다. 입력 반복과 무관해야 하고 Space 정지 때 멈춰야 한다.",
+    "design": "angle과 held를 독립적으로 저장한다. 입력은 held만 바꾸고 dt 갱신이 각도를 적분한다. hinge 레이어 하나의 소유자를 ExamController로 정한다. 기존 hinge.spin을 동시에 켜지 않는다.",
+    "hints": [
+      "PRESS/REPEAT와 RELEASE를 상태에 반영한다.",
+      "clamp(angle + sign*speed*dt,0,60) 후 setLayer한다."
+    ],
+    "solution": "ExamController.h의 State에 `float hatchAngle=0;`를 추가한다. move_ 옆에 `bool hatchHeld_=false;`를 둔다. initialize/reset과 onFocus(false)에서 hatchHeld_=false를 지정한다. onKey의 PRESS 필터 **앞**에 추가한다.\n```cpp\nif(key==GLFW_KEY_H) hatchHeld_=action!=GLFW_RELEASE;\n```\nExamController::update에 추가한다.\n```cpp\nstate_.hatchAngle=std::clamp(state_.hatchAngle+\n    (hatchHeld_ ? 40.f : -40.f)*dt,0.f,60.f);\ngraphics::LayerSetup hatch;\nhatch.pivot={-1,0,0}; hatch.rotationDegrees.z=state_.hatchAngle;\nscene_.setLayer(\"panel\",\"hinge\",hatch);\n```\nZ축 회전은 판의 왼쪽 모서리를 중심으로 XY 평면에서 열린다. 기존 SceneSetup hinge의 spinDegreesPerSecond는 0으로 둔다. Console은 pause 시 dt=0을 전달하므로 이 컨트롤러도 멈춘다. 이 움직임은 정해진 속도의 복귀 애니메이션이다. 스프링·질량·토크를 계산한 물리 운동으로 설명하지 않는다.",
+    "observe": [
+      "60도에서 계속 눌러도 더 열리지 않는다.",
+      "Space 정지 중에는 키를 놓아도 각도가 고정된다.",
+      "창을 벗어나면 held가 해제된다."
+    ],
+    "refs": [
+      "learning/03-state-patterns.md",
+      "standard/ExamController.h",
+      "standard/ExamController.cpp"
+    ]
+  },
+  {
+    "id": "CT2-N11",
+    "title": "광원 색과 재질 색의 조합",
+    "track": "standard",
+    "minutes": 30,
+    "problem": "붉은 판과 흰 판을 나란히 둔다. 붉은/푸른 광원에서 어떤 항이 사라지는지 예측한다. Ka, Kd, Ks, N을 하나씩 바꾸며 F2 출력을 비교한다. 조명 off와 unlit 물체가 같은 설정인지 구분한다.",
+    "design": "광원 RGB와 재질 RGB는 곱해진다. 독립 주변광은 광원 색 변화와 별개다. Standard 점광원 정반사는 현재 구현에서 재질 색으로도 tint된다. 물리 기반 백색 specular로 가정하지 않는다.",
+    "hints": [
+      "SceneSetup에 두 ObjectSetup을 복사하되 이름과 position을 다르게 쓴다.",
+      "방향광은 기본값 0이다. ambient도 0으로 두고 점광원 확산만 먼저 비교한다."
+    ],
+    "solution": "SceneSetup의 insert 앞에 넣는다.\n```cpp\ngraphics::ObjectSetup swatch;\nswatch.size={1,1,.2f}; swatch.position={-2,1,0};\nswatch.material.color={1,0,0};\nswatch.material.ambientStrength=0;\nswatch.material.diffuseStrength=1;\nswatch.material.specularStrength=0;\nscene.addObject(\"redSwatch\",swatch);\nswatch.position={-3.5f,1,0}; swatch.material.color={1,1,1};\nscene.addObject(\"whiteSwatch\",swatch);\n```\nExamController의 C 색 배열을 순수 백/적/청으로 바꾸면 비교가 분명하다.\n```cpp\nconst graphics::GlColor colors[]={{1,1,1},{1,0,0},{0,0,1}};\n```\nF2 확산 모드에서 순수 붉은 재질×순수 푸른 빛은 0이다. 합성 모드에서 주변광이 남을 수 있으므로 위 재질 Ka=0으로 통제했다. 이후 Ka=.25, Ks=.8,N=8/128을 따로 바꿔 본다. render lighting=false는 장면 조명 계산을 생략한다. material.unlit=true는 그 물체만 조명 계산을 생략한다.",
+    "observe": [
+      "흰 판은 광원 색을 드러낸다.",
+      "푸른 빛 아래 붉은 판의 확산 항은 검다.",
+      "unlit 표시 물체는 m에 따라 사라지거나 검게 변하지 않는다."
+    ],
+    "refs": [
+      "learning/04-light-material.md",
+      "standard/framework/shaders/FragmentShader.glsl"
+    ]
+  },
+  {
+    "id": "CT2-N12",
+    "title": "debugger 안내로 소스와 셰이더 직접 편집",
+    "track": "standard",
+    "minutes": 45,
+    "problem": "debugger를 실행해 새 박스 생성·비균등 배율·지역 피벗·조명 변경의 실제 파일/행/before/after를 확인한다. 이어서 where로 상태·입력·uniform·GLSL 위치를 찾고 밝기 배율 uniform 하나를 직접 연결한다. debugger가 소스를 대신 저장하지 않는 것을 확인한다.",
+    "design": "구조화 명령은 SceneSetup의 @debug 구획을 읽는다. where는 실제 hook을 검색한다. 임의 셰이더 수정은 code/replace/insert로 제안할 수 있지만 uniform 의미까지 자동으로 판단하지 않는다.",
+    "hints": [
+      "새 object 제안을 수동 저장해야 그 이름을 다음 명령이 찾는다.",
+      "where uniform은 CPU 위치, where shader는 실제 외부 GLSL과 내장 사본을 구별한다."
+    ],
+    "solution": "사용자가 debugger/debugger.sln에서 빌드한 뒤 자기 경로의 debugger.exe에 Standard 폴더를 인수로 전달한다. 콘솔에서 다음 순서로 입력한다.\n```text\nadd object practicePanel box\nshow object practicePanel\nobject practicePanel position 2 1 0\nobject practicePanel scale 2 1 0.5\nadd layer practiceHinge practicePanel\nlayer practiceHinge pivot -0.5 0 0\nlayer practiceHinge rotation 0 45 0\nlight key color 1 0.3 0.2\nwhere state\nwhere input\nwhere uniform\nwhere shader\n```\n각 add와 변경 명령 사이에 **실제 before를 읽고 after를 IDE에 붙여 저장**한다. practicePanel의 기본 size가 1이므로 지역 x=-.5는 왼쪽 끝이다. 행 번호는 매 명령 때 디스크에서 계산한다. 앞에 빈 줄을 넣어 저장하고 재입력하면 번호가 이동해야 한다.\n\n밝기 조절은 ExamController State에 `float extraGain=1;`를 넣는다. onKey PRESS 구간에 `if(key==GLFW_KEY_G) state_.extraGain=state_.extraGain==1 ? 1.5f : 1;`를 넣는다. bindUniforms 반환을 바꾼다.\n```cpp\nreturn context.setUniform(\"uStudyView\",state_.shaderView)\n    && context.setUniform(\"uExtraGain\",state_.extraGain);\n```\n외부 FragmentShader.glsl에 `uniform float uExtraGain;`를 선언한다. 최종 `FragColor = color;` 바로 앞에 `color.rgb *= uExtraGain;`를 넣는다. 내장 셰이더만 수정하면 이 Standard의 외부 셰이더 경로에는 반영되지 않는다. 빌드·실행은 사용자가 한다.",
+    "observe": [
+      "모든 before가 저장된 소스와 같고 after는 복사 가능한 코드다.",
+      "debugger를 삭제한 복사본에서도 Standard 프로젝트는 도구를 참조하지 않는다.",
+      "g 동작과 F2 출력이 함께 유지된다."
+    ],
+    "refs": [
+      "standard/docs/SOURCE_DEBUGGER.md",
+      "learning/05-shader-edit.md"
+    ]
+  }
+]

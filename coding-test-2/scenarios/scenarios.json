@@ -1,0 +1,140 @@
+﻿[
+  {
+    "id": "CT2-S01",
+    "title": "회전 전시대: 같은 위치, 다른 광원 프레임",
+    "track": "native",
+    "minutes": 60,
+    "problem": "전시대에 세 작품을 원형으로 배치한다. 전시대는 Y축 회전하며 작품은 자기 축으로도 회전한다. l키로 광원을 월드 고정↔전시대 부착으로 전환한다. 전환 순간 위치는 유지한다. 새 프레임워크 API 없이 model과 lightPosition uniform으로 해결한다. 재질은 작품마다 다른 Ks를 갖게 한다.",
+    "design": "상태 deckAngle, attached, lightCoordinate. attached=false일 때 lightCoordinate는 월드, true일 때 전시대 지역 좌표다. 전환은 inverse(newFrame)*oldWorldPoint. 전시대 회전과 작품 자전은 서로 다른 행렬 위치다.",
+    "hints": [
+      "M=Rdeck*T(offset)*Rself*S로 시작한다.",
+      "lightCoordinate 값을 새 좌표계에 맞게 변환하지 않으면 전환 때 점프한다."
+    ],
+    "solution": "기존 State에 다음 필드를 추가한다.\n```cpp\ndouble deckAngle=0;\nbool attached=false;\nglm::vec3 lightCoordinate{2,4,3};\n```\nkey의 PRESS 구간에 추가한다. 키 전환 시점의 전시대 행렬로 재표현한다.\n```cpp\nif(key==GLFW_KEY_L) {\n    const auto deck=glm::rotate(glm::mat4(1),glm::radians(float(state.deckAngle)),glm::vec3(0,1,0));\n    const auto world=state.attached ? deck*glm::vec4(state.lightCoordinate,1)\n                                    : glm::vec4(state.lightCoordinate,1);\n    state.attached=!state.attached;\n    state.lightCoordinate=glm::vec3(state.attached ? glm::inverse(deck)*world : world);\n}\n```\nupdate에서 pause 확인 뒤 deckAngle+=20*dt를 추가한다. 기존 y/z 광원 제어는 이 시나리오에서는 사용하지 않는다. 렌더에서 기존 중심 물체·옆 구·광원 marker·궤도 draw를 빼고 다음으로 대체한다(바닥 draw는 유지해도 된다). 이 코드는 기존 view/projection/기본 uniform 전송 뒤다.\n```cpp\nconst auto deck=glm::rotate(glm::mat4(1),glm::radians(float(state.deckAngle)),glm::vec3(0,1,0));\nconst auto light=state.attached ? glm::vec3(deck*glm::vec4(state.lightCoordinate,1)) : state.lightCoordinate;\nvector(shader,\"lightPosition\",light);\nfor(int i=0;i<3;++i) {\n    const float a=float(2*pi*i/3);\n    const auto offset=glm::vec3(2*std::cos(a),.5f,2*std::sin(a));\n    const auto self=glm::rotate(glm::mat4(1),glm::radians(float(state.objectDegrees)+30*i),glm::vec3(0,1,0));\n    auto model=deck*glm::translate(glm::mat4(1),offset)*self*\n        glm::scale(glm::mat4(1),glm::vec3(1,.5f,1.4f));\n    scalar(shader,\"Ks\",.2f+.3f*i);\n    draw(shader,meshes[std::size_t(i)],model,{.3f+.2f*i,.7f,.9f-.2f*i});\n}\ndraw(shader,meshes[0],glm::scale(glm::translate(glm::mat4(1),light),glm::vec3(.15f)),colors[state.color],true);\n```\n기존 objectDegrees와 pause 갱신을 재사용한다. p는 작품 자전, Space는 정지다. 프레임 전환은 표시 위치를 보존하지만 이후 궤도는 달라진다. 질량이나 회전 관성은 모델링하지 않았다.",
+    "observe": [
+      "l 전환 직전/직후 광원 표시는 같은 위치다.",
+      "월드 고정일 때 작품이 광원 앞을 지나고, 부착일 때 같이 돈다.",
+      "작품 자전을 꺼도 전시대 공전은 계속된다."
+    ],
+    "refs": [
+      "learning/02-transform-frames.md",
+      "learning/04-light-material.md",
+      "native/main.cpp"
+    ]
+  },
+  {
+    "id": "CT2-S02",
+    "title": "접이식 차양: 모서리 경첩과 부착 조명",
+    "track": "standard",
+    "minutes": 60,
+    "problem": "가로로 나열된 네 차양판을 만든다. h를 누르면 각 판이 0~60도로 열리고 놓으면 닫힌다. 각 판은 자기 뒤 모서리가 고정된다. 첫 판에 부착된 등이 함께 회전하며, 표시 물체는 최종 광원 위치와 일치한다. 인접 판의 시작 각도에는 10도씩 위상차를 준다.",
+    "design": "공통 openAngle과 판별 clamp(openAngle-10*i,0,60). 판 모델의 반깊이는 1, 지역 경첩은 z=-1. world position은 경첩 anchor다. 부착광은 awningLamp 이름으로 key와 분리한다. 기존 controller는 key만 제어하므로 충돌하지 않는다.",
+    "hints": [
+      "판의 중심을 (x,2,1)에 고정하는 대신 피벗을 (0,0,-1), anchor를 (x,2,0)로 둔다.",
+      "표시 물체는 root로 두고 최종 월드 좌표만 반영할 수 있다."
+    ],
+    "solution": "SceneSetup.cpp의 insert 앞에 추가한다.\n```cpp\nfor(int i=0;i<4;++i) {\n    graphics::ObjectSetup p;\n    p.size={1,.1f,2}; p.position={-1.65f+1.1f*i,2,0}; p.pivot={0,0,-1};\n    p.material.color={.3f,.6f,.8f};\n    const auto name=\"awning\"+std::to_string(i);\n    scene.addObject(name,p);\n    graphics::LayerSetup hinge; hinge.pivot={0,0,-1};\n    scene.addLayer(name,\"fold\",hinge);\n}\ngraphics::PointLight lamp; lamp.position={0,.3f,1};\nlamp.color={1,.8f,.3f}; lamp.intensity=1;\nscene.addLight(\"awningLamp\",lamp,\"awning0\");\ngraphics::ObjectSetup marker; marker.size={.1f,.1f,.1f}; marker.material.unlit=true;\nmarker.material.color=lamp.color; scene.addObject(\"awningMarker\",marker);\n```\nExamController State에 `float openAngle=0;`를 추가한다. 클래스에 bool awningHeld_=false를 추가하고 initialize/reset/focus 상실 때 false로 한다. onKey의 PRESS 필터 앞에 `if(key==GLFW_KEY_H) awningHeld_=action!=GLFW_RELEASE;`를 넣는다. update에 추가한다.\n```cpp\nstate_.openAngle=std::clamp(state_.openAngle+(awningHeld_ ? 40.f:-40.f)*dt,0.f,90.f);\nfor(int i=0;i<4;++i) {\n    graphics::LayerSetup hinge; hinge.pivot={0,0,-1};\n    hinge.rotationDegrees.x=-std::clamp(state_.openAngle-10.f*i,0.f,60.f);\n    scene_.setLayer(\"awning\"+std::to_string(i),\"fold\",hinge);\n}\n```\nConsole::onRender에서 scene_.syncTools 뒤에 표시 위치를 갱신한다.\n```cpp\nauto& raw=app_.getScene();\nconst auto frame=raw.worldMatrix(scene_.object(\"awning0\"));\nif(!frame) return false;\nconst auto pos=glm::vec3(*frame*glm::vec4(0,.3f,1,1));\nif(!raw.setWorldPlacement(scene_.object(\"awningMarker\"),glm::translate(glm::mat4(1),pos))) return false;\n```\n표시 물체는 지역 레이어가 없고 unlit이다. 네 판의 마지막 각도는 모두 60도지만 열리기 시작하는 시점은 다르다. 회전법칙을 직접 정한 애니메이션이다.",
+    "observe": [
+      "h를 누르면 첫 판부터 순차적으로 열린다.",
+      "반대 모서리는 움직이고 뒤 경첩은 고정된다.",
+      "조명 표시와 광원이 판 회전 뒤에도 일치한다."
+    ],
+    "refs": [
+      "CT2-N10",
+      "CT2-N09",
+      "standard/ExamController.cpp"
+    ]
+  },
+  {
+    "id": "CT2-S03",
+    "title": "분류 게이트: 연속 이동과 이산 전환",
+    "track": "native",
+    "minutes": 60,
+    "problem": "세 화물이 한 방향으로 이동하는 분류 라인을 만든다. j로 선택 화물을 순환하고 k로 선택 화물의 행선지(왼쪽/오른쪽)를 전환한다. 분기점 x=0을 통과하면 선택 상태와 무관하게 그때 확정한 행선지를 따라 움직인다. 끝점 x=4에서 초기 위치로 돌아와 새 회차를 시작한다. 화물 색은 행선지, specular는 선택 여부를 나타낸다.",
+    "design": "각 화물은 x,route(-1/+1),latchedRoute,latched를 가진다. 선택과 경로 확정은 다른 상태다. 직선 이동 x<0, 분기 후 z=route*min(x,2)/2로 정의한다. 이 문제는 충돌/운송 물리 모델이 아닌 지정 경로 애니메이션이다.",
+    "hints": [
+      "분기 후 키를 눌렀다고 이미 진행 중인 화물의 궤도를 바꾸면 조건 위반이다.",
+      "화물이 wrap될 때 latched=false로 되돌린다."
+    ],
+    "solution": "main.cpp에 Parcel 정의를 State 앞에 추가하고 State에 배열과 선택을 추가한다.\n```cpp\nstruct Parcel { float x; int route=1,latchedRoute=1; bool latched=false; };\n// State 안\nstd::array<Parcel,3> parcels{{{-4},{-2.7f},{-1.4f}}};\nint selected=0;\n```\nkey의 PRESS 구간에 넣는다.\n```cpp\nif(key==GLFW_KEY_J) state.selected=(state.selected+1)%3;\nif(key==GLFW_KEY_K) state.parcels[std::size_t(state.selected)].route*=-1;\n```\nupdate의 pause 확인 뒤에 넣는다.\n```cpp\nfor(auto& p:state.parcels) {\n    p.x+=1.2f*dt;\n    if(p.x>=4) { p.x-=8; p.latched=false; }\n    if(!p.latched && p.x>=0) { p.latchedRoute=p.route; p.latched=true; }\n}\n```\n렌더 루프의 기존 중심 물체와 옆 구 draw를 다음으로 교체한다. 바닥·광원·uniform은 보존한다.\n```cpp\nfor(int i=0;i<3;++i) {\n    const auto& p=state.parcels[std::size_t(i)];\n    const int route=p.latched ? p.latchedRoute:p.route;\n    const float z=p.x<0 ? 0.f : route*std::min(p.x,2.f)*.5f;\n    auto model=glm::scale(glm::translate(glm::mat4(1),glm::vec3(p.x,0,z)),glm::vec3(.6f));\n    scalar(shader,\"Ks\",i==state.selected ? 1.f:0.f);\n    draw(shader,meshes[0],model,route>0 ? glm::vec3(.2f,.8f,.4f):glm::vec3(.9f,.3f,.2f));\n}\nscalar(shader,\"Ks\",.8f); // 뒤의 다른 물체에 선택 재질을 남기지 않음\n```\n기본 dt는 .05초 이하로 제한된다. 이 모델은 한 프레임에 여러 회차를 건너뛰는 큰 시간간격을 다루지 않는다. 임의 큰 dt를 허용할 새 조건이라면 경계 사건을 시간 순으로 처리하거나 작은 단계로 나눈다.",
+    "observe": [
+      "분기 전 k는 경로를 바꾸고 분기 후 k는 다음 회차의 route만 바꾼다.",
+      "Space 정지 중 선택·행선지 변경이 가능하고 위치는 멈춘다.",
+      "배열 인덱스와 화물 상태를 분리해 선택해도 위치가 점프하지 않는다."
+    ],
+    "refs": [
+      "learning/03-state-patterns.md",
+      "native/main.cpp: update/draw"
+    ]
+  },
+  {
+    "id": "CT2-S04",
+    "title": "이동 촬영 장치와 수평 모니터",
+    "track": "standard",
+    "minutes": 60,
+    "problem": "촬영 장치가 반지름 3의 원형 경로를 이동한다. 본체는 경로 접선 방향을 향한다. 모니터는 본체의 지역점 (0,1,0)에 붙은 위치만 따라가며 화면 수직축은 월드 Y를 유지한다. 카메라는 본체 지역 오프셋 (0,1.2,-2)에서 원점 부근 표적 (0,1,0)을 본다. 회전 정지와 광원 공전 정지를 별도로 제어한다.",
+    "design": "경로 위상과 자세 yaw를 분리한다. 정지 토글은 h, 기존 y는 광원용이다. 모니터는 본체의 방향과 배율을 물려받지 않는 루트 객체다. 카메라는 하나의 컨트롤러만 소유해야 한다.",
+    "hints": [
+      "접선은 (-sin(theta),0,cos(theta))다. +Z가 진행 방향이면 yaw=-theta(라디안 기준)로 나타낼 수 있다.",
+      "접선과 실제 atan2(x,z)로 방향을 구하면 부호를 추측할 필요가 없다."
+    ],
+    "solution": "SceneSetup.cpp에 rig와 monitor를 루트 객체로 추가한다.\n```cpp\ngraphics::ObjectSetup rig; rig.size={.8f,.4f,1.2f}; rig.position={3,0,0};\nscene.addObject(\"rig\",rig);\ngraphics::ObjectSetup monitor; monitor.size={.8f,.5f,.08f};\nmonitor.material.unlit=true; monitor.material.color={.2f,.8f,.9f};\nscene.addObject(\"monitor\",monitor);\n```\nExamController State에 `double rigPhase=0; bool rigMoving=false;`를 추가한다. onKey PRESS 구간에 `if(key==GLFW_KEY_H) state_.rigMoving=!state_.rigMoving;`를 넣는다. 기존 update의 `auto movement=...`부터 카메라 공전 결과 대입까지의 블록을 아래로 교체한다. key의 WASD/r 상태는 이 시나리오에서 쓰지 않는다고 help도 고친다.\n```cpp\nstate_.rigPhase+=state_.rigMoving ? .4*dt:0;\nconst float a=float(state_.rigPhase);\nconst glm::vec3 pos{3*std::cos(a),0,3*std::sin(a)};\nconst glm::vec3 tangent{-std::sin(a),0,std::cos(a)};\nconst float yaw=std::atan2(tangent.x,tangent.z);\nconst auto W=glm::translate(glm::mat4(1),pos)*\n    glm::rotate(glm::mat4(1),yaw,glm::vec3(0,1,0));\nif(!app_.getScene().setWorldPlacement(scene_.object(\"rig\"),W))\n    throw std::runtime_error(\"rig placement\");\nstate_.camera.position=glm::vec3(W*glm::vec4(0,1.2f,-2,1));\nstate_.camera.target={0,1,0}; state_.camera.up={0,1,0};\n```\n기존 아래쪽 scene_.setCamera(state_.camera)는 유지한다. rig에 별도 authoring layer나 native motion을 추가하지 않는 조건이다. 모니터는 Console::onRender에서 syncTools 뒤 갱신한다.\n```cpp\nauto& raw=app_.getScene();\nconst auto W=raw.worldMatrix(scene_.object(\"rig\"));\nif(!W) return false;\nconst auto p=glm::vec3(*W*glm::vec4(0,1,0,1));\nif(!raw.setWorldPlacement(scene_.object(\"monitor\"),glm::translate(glm::mat4(1),p))) return false;\n```\n모니터가 화면을 항상 카메라로 향하는 billboard라는 조건은 없다. 월드 XY 방향을 유지한다. 카메라만으로 확인하기 힘들면 시험용 고정 시점을 별도 키로 전환하되 두 카메라를 동시에 쓰지 않는다.",
+    "observe": [
+      "본체는 경로 접선을 향하고 모니터는 본체 yaw를 따라 돌지 않는다.",
+      "h로 촬영 장치를 멈춰도 y 광원 공전은 계속된다.",
+      "viewPosition이 실제 카메라를 따라 바뀌어 정반사도 변한다."
+    ],
+    "refs": [
+      "CT2-N08",
+      "learning/02-transform-frames.md",
+      "standard/ExamController.cpp"
+    ]
+  },
+  {
+    "id": "CT2-S05",
+    "title": "반복 조형물: 패턴과 비균등 법선",
+    "track": "native",
+    "minutes": 60,
+    "problem": "16개의 조형물을 방사형으로 배치한다. t로 4×4 격자↔방사형을 전환한다. 각 물체는 자기 위상에 따라 높이가 진동하고 비균등 배율을 가진다. 패턴 전환과 조명 공전은 독립이다. 배열에 16개 좌표를 직접 써 넣지 않는다. F2 법선 출력으로 변환을 확인한다.",
+    "design": "패턴은 i→position 함수다. 시간은 누적 simulationSeconds, 물체별 phase=2πi/16. 물체 월드 행렬은 T(position)*Ry(localAngle)*S. 이는 위치를 공식으로 정한 절차 애니메이션이며 힘 시뮬레이션이 아니다.",
+    "hints": [
+      "격자는 column=i%4,row=i/4다. 중심을 맞추려면 1.5를 뺀다.",
+      "위상은 프레임 수가 아니라 시간에 더한다."
+    ],
+    "solution": "State에 `bool grid=false; double simulationSeconds=0;`를 추가한다. key PRESS 구간에서 T를 토글한다. update의 pause 확인 다음에 simulationSeconds+=dt를 추가한다. 렌더의 중심 물체와 옆 구 draw를 다음으로 대체한다.\n```cpp\nfor(int i=0;i<16;++i) {\n    const float phase=float(2*pi*i/16);\n    const float height=.5f+.4f*std::sin(float(state.simulationSeconds)*2+phase);\n    glm::vec3 pos;\n    if(state.grid) pos={(i%4-1.5f)*1.5f,height,(i/4-1.5f)*1.5f};\n    else pos={3*std::cos(phase),height,3*std::sin(phase)};\n    const auto model=glm::translate(glm::mat4(1),pos)*\n        glm::rotate(glm::mat4(1),float(state.simulationSeconds)+phase,glm::vec3(0,1,0))*\n        glm::scale(glm::mat4(1),glm::vec3(.6f,1.3f,.35f));\n    draw(shader,meshes[2],model,{.2f+.6f*i/15,.7f,.9f-.5f*i/15});\n}\n```\nnormalMatrix는 기존 draw에서 각 model의 역전치로 계산된다. 같은 GPU 구 메시를 16회 재사용한다. 16개 VBO를 새로 만들지 않는다. 이 예제는 인스턴스 렌더링이 아닌 반복 draw다. 패턴 전환 시 위치가 즉시 달라지는 것이 명시된 동작이다. 보간 전환이 추가 조건이면 old/new 패턴 위치와 transitionProgress를 별도 상태로 둔다.",
+    "observe": [
+      "T가 16개 전체 배치를 바꾸고 개별 위상은 보존한다.",
+      "Space 정지 때 높이와 자전은 멈춘다.",
+      "비균등 배율에서도 구의 법선 출력이 매끈하다."
+    ],
+    "refs": [
+      "CT2-N03",
+      "learning/03-state-patterns.md",
+      "native/main.cpp"
+    ]
+  },
+  {
+    "id": "CT2-S06",
+    "title": "제한 시간 종합: 방사형 차단문과 경고등",
+    "track": "standard",
+    "minutes": 55,
+    "problem": "해설을 닫고 요구만 읽어 55분 연습한다. 세 차단문을 120도 간격으로 배치한다. j로 선택문을 순환하고 k로 선택문 열림/닫힘을 토글한다. 각 문은 자기 안쪽 경첩에서 Z축 0~70도로 45도/초 회전한다. 하나라도 실제 각도가 1도보다 크면 경고등이 0.5초마다 켜졌다 꺼진다. 닫힘 목표로 바꿔도 문이 닫히기 전에는 경고를 유지한다. F2에 다섯 번째 출력으로 확산 밝기 0.5 이상인 부분만 흰색으로 표시하는 임계값 모드를 추가한다.",
+    "design": "selected, targetOpen[3], angle[3], elapsed. 경고는 목표값이 아니라 실제 angle에서 파생한다. 객체/입력/갱신/광원/셰이더를 순서대로 작성한다. 시간 55분은 저자가 정한 연습 조건이며 실제 시험 시간은 미확인이다.",
+    "hints": [
+      "회전문 크기와 피벗은 지역 좌표로 정한다. 문마다 동일 레이어 이름을 사용할 수 있다.",
+      "경고등의 on/off는 intensity=0/2로 표현한다. 새 광원 종류를 만들지 않는다."
+    ],
+    "solution": "SceneSetup.cpp에 추가한다. 세 문은 각 지역 +X 방향으로 뻗는다.\n```cpp\nfor(int i=0;i<3;++i) {\n    const float a=glm::radians(120.f*i);\n    graphics::ObjectSetup door;\n    door.size={1.6f,.7f,.15f}; door.pivot={-.8f,0,0};\n    door.position={.5f*std::cos(a),1,-.5f*std::sin(a)};\n    door.rotationDegrees.y=120.f*i;\n    door.material.color={.2f,.6f,.8f};\n    const auto name=\"door\"+std::to_string(i);\n    scene.addObject(name,door);\n    graphics::LayerSetup hinge; hinge.pivot={-.8f,0,0};\n    scene.addLayer(name,\"open\",hinge);\n}\ngraphics::PointLight alarm; alarm.position={0,3,0};\nalarm.color={1,.1f,.1f}; alarm.intensity=0; scene.addLight(\"alarm\",alarm);\n```\nState에 아래를 추가한다. std::array는 기존 헤더에 포함되어 있다.\n```cpp\nstd::array<float,3> doorAngles{};\nstd::array<bool,3> targetOpen{};\nint selected=0;\ndouble elapsed=0;\n```\nonKey PRESS 구간에 추가한다.\n```cpp\nif(key==GLFW_KEY_J) state_.selected=(state_.selected+1)%3;\nif(key==GLFW_KEY_K) state_.targetOpen[state_.selected]=!state_.targetOpen[state_.selected];\n```\nupdate에 추가한다.\n```cpp\nstate_.elapsed+=dt; bool warning=false;\nfor(int i=0;i<3;++i) {\n    auto& angle=state_.doorAngles[i];\n    const float goal=state_.targetOpen[i] ? 70.f:0.f;\n    angle+=std::clamp(goal-angle,-45.f*dt,45.f*dt);\n    warning=warning || angle>1;\n    graphics::LayerSetup h; h.pivot={-.8f,0,0}; h.rotationDegrees.z=angle;\n    scene_.setLayer(\"door\"+std::to_string(i),\"open\",h);\n}\nauto alarm=scene_.light(\"alarm\");\nalarm.intensity=warning && std::fmod(state_.elapsed,1.0)<.5 ? 2.f:0.f;\nscene_.setLight(\"alarm\",alarm);\n```\nF2 토글의 `%4`를 `%5`로 바꾼다. 외부 FragmentShader.glsl에서 uStudyView==3 분기 바로 다음, 합성 else 앞에 넣는다.\n```glsl\nelse if (uStudyView == 4) color.rgb = vec3(step(0.5, dot(diffuse, vec3(0.2126,0.7152,0.0722))));\n```\n이 모드는 재질색을 곱하기 전 diffuse 에너지의 가중합을 판정한다. 감마 보정된 화면색의 물리 휘도를 측정한다고 설명하지 않는다. 경고 표시 물체가 추가 조건이면 unlit 작은 구를 만들고 intensity 상태와 같은 조건으로 tint를 갱신한다. 현재 요구의 경고는 조명의 켜짐이다.",
+    "observe": [
+      "문마다 선택/목표/실제 각도가 독립이다.",
+      "닫는 중 경고는 각도 1도 이하가 된 뒤 꺼진다.",
+      "F2 새 분기에서 문 실루엣은 유지되고 밝기 임계값만 바뀐다.",
+      "55분 후 남은 요구를 체크하고 해설과 자신의 설계 차이를 기록한다."
+    ],
+    "refs": [
+      "CT2-N10",
+      "CT2-N12",
+      "learning/05-shader-edit.md"
+    ]
+  }
+]
