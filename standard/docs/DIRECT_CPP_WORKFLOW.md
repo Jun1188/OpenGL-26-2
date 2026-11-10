@@ -31,4 +31,6 @@
 
 ## 배포 경계
 
-Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. debugger는 자체 소스와 Toolchain.props만 사용한다. 합본 솔루션의 프로젝트 경로는 편의용이며 각 단독 솔루션의 빌드/실행 의존성은 아니다. 실제 소스 위치는 debugger 실행 인수나 project 명령으로 선택한다. 폴더를 다른 위치로 복사한 뒤 빌드·실행하는 확인은 사용자가 수행한다.
+Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. 선택 도구는 `standard/debugger`에 있으며 자체 소스와 Toolchain.props만 사용한다. Standard의 vcxproj와 framework의 헤더/props/런타임은 debugger를 참조하지 않는다. Standard를 직접 빌드·실행할 때 debugger가 필요하지 않다. debugger도 Standard나 framework를 링크하지 않고 실행 인수로 선택한 디스크 소스를 읽는다.
+
+standard.sln은 Standard만 참조한다. 저장소 루트의 편의 솔루션은 두 프로젝트를 표시하지만 ProjectReference/ProjectDependencies를 추가하지 않으며 debugger의 Build.0 기본 선택도 제외한다. 도구를 빌드하려면 그 프로젝트를 선택하거나 내부 단독 솔루션을 사용한다. standard 폴더 전체를 복사하면 내부 두 프로젝트와 framework 사본이 함께 이동하며 상위 저장소에 실행/빌드 의존성을 두지 않는다. debugger 폴더를 뺀 복사본도 standard.sln/standard.vcxproj와 framework 소스를 그대로 사용한다. debugger 폴더 자체도 별도로 복사할 수 있다. 폴더 분리 후 실제 빌드·실행 확인은 사용자가 수행한다.

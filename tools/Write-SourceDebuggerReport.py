@@ -14,7 +14,7 @@ GRAPH = ROOT / 'graphify-out/source-debugger'
 OWNED = ('framework/', 'standard/', 'old_standard/', 'debugger/', 'docs/source-debugger/',
          'graphify-out/source-debugger/', 'tools/templates/standard-viewer/')
 TOOLS = {'tools/Write-SourceDebuggerDocs.py', 'tools/Write-SourceDebuggerReport.py',
-         'tools/Update-StandardDocs.py', 'tools/Update-StandardModesGraph.py', 'OpenGL-26-2.sln'}
+         'tools/Update-StandardDocs.py', 'tools/Update-StandardModesGraph.py', 'tools/Package-Standard.py', 'OpenGL-26-2.sln'}
 
 
 def git(*args):
@@ -79,10 +79,6 @@ def main():
                        '**before**' if old else '**before: 없음**', '', code(old, language) if old else '',
                        '**after**' if new else '**after: 없음**', '', code(new, language) if new else '', '']
     write(OUT / 'ALL_CODE_BEFORE_AFTER.md', '\n'.join(report))
-    write(OUT / 'CHANGE_MANIFEST.json', json.dumps({'baseline': BASE, 'changed_code_blocks': blocks,
-        'source_state': 'Saved source during final documentation stage; hashes include current generated artifacts.',
-        'excluded_preexisting_user_items': ['openGL_3dAssign_26/framework/detail/Renderer.cpp', 'docs.zip',
-            'lecture_pdf/homework/*', 'tools/__pycache__/*'], 'files': manifest}, ensure_ascii=False, indent=2))
 
     projects = json.loads((GRAPH / 'PROJECTS.json').read_text(encoding='utf-8-sig'))
     graph = json.loads((GRAPH / 'graph.json').read_text(encoding='utf-8-sig'))
@@ -104,8 +100,8 @@ def main():
         '5. Application의 기존 Scene 모션 갱신 후 Console::onRender → Application::renderScene → Renderer의 CPU 정점/인덱스 업로드와 VAO/VBO/EBO·uniform·draw 호출로 이어진다.',
         '6. Shaders.h 또는 외부 VertexShader/FragmentShader가 모델/정규행렬·조명·재질·텍스처를 처리한다. 프레임 종료 뒤 run이 GPU·창·GLFW를 정리한다.', '',
         '## 별도 debugger', '',
-        '1. wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다.',
-        '2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다.',
+        '1. standard/debugger/main.cpp의 wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다. Standard/framework는 도구를 참조하지 않는다.',
+        '2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다. Standard 대상 검색에서 하위 debugger는 제외한다.',
         '3. set/parent는 유일한 현재 대입/등록 줄을 찾고, add는 실제 @debug insert 앞의 전체 C++ 삽입안을 만든다. find/code는 일반 소스 위치를 제공한다.',
         '4. proposal은 실제 before와 생성한 after, 경로·행·주변 코드를 stdout에 출력한다. 대상 파일 저장·프로세스 실행·컴파일 호출은 없다.',
         '5. EOF 또는 quit로 끝난다. Windows 파일 경로/콘솔 API와 C++ 표준 기능만 사용하며 OpenGL SDK 링크는 없다.', '',
@@ -144,6 +140,7 @@ def main():
 - 날짜: 2026-11-10
 - 승인 범위: 프레임워크 원본과 Standard 직접 작성 전환, 별도 debugger, 실제 소스의 경로·행·before/after 안내, 조명·재질·카메라와 문서·튜토리얼·예제 개편.
 - 추가 승인: 기존 Standard를 old_standard로 이동하고 그 안의 x64/.vs만 삭제. 두 폴더가 없어 실제 삭제·회수 용량은 0바이트.
+- 배치 변경 승인: debugger를 standard/debugger로 이동. standard.sln은 Standard만 참조하고, 루트 편의 솔루션의 도구 기본 Build.0은 제외한다. framework/Standard에 debugger 의존성을 추가하지 않는다.
 - 기존 사용자 Renderer.cpp 변경, docs.zip, PDF, 기존 pycache는 수정·삭제·커밋하지 않음.
 
 | 단계 | 커밋 | 내용 |
@@ -152,7 +149,9 @@ def main():
 | 2 | 14fefc4 | old_standard 보존, 새 Standard의 SceneSetup·콜백·컴파일 목록 |
 | 3 | d0ac31a | debugger, 실제 소스 색인·수정안·합본/단독 솔루션 |
 | 4 | 50d73c5 | 튜토리얼·예제·조명 문서·목차·생성기, 초기 부모 레이어 적용 |
-| 5 | 최종 구조/보고 커밋 | graphify AST, 프로젝트 진입점, 전체 before/after·manifest |
+| 5 | 15f88be | graphify AST, 프로젝트 진입점, 전체 before/after·manifest |
+| 6 | 13b888e | standard/debugger 이동, 독립 프로젝트 유지, 소스 검색·패키징 경계 |
+| 7 | 후속 문서/구조 커밋 | 내부 배치 문서·그래프·전체/추가 before-after 갱신 |
 
 문서 생성: python -B tools/Update-StandardDocs.py. 코드 작성·문서 생성·구조 자료 생성은 수행했고, 컴파일·테스트·검증기·앱 실행·화면 확인은 수행하지 않았다.
 
@@ -160,7 +159,54 @@ def main():
 
 별도 삭제할 임시파일을 만들지 않았다. graphify-out/source-debugger의 추출/캐시는 구조 자료와 재생성 근거로 보존한다. 삭제 후보로 사용자 자료를 임의 분류하지 않는다.
 ''')
+    layout_before_after()
+    listed = {item['path'] for item in manifest}
+    for name in ('docs/source-debugger/PLAN.md', 'docs/source-debugger/ARCHITECTURE.md',
+                 'docs/source-debugger/MODULE_LAYOUT_BEFORE_AFTER.md', 'graphify-out/source-debugger/GRAPH_REPORT.md'):
+        if name not in listed: manifest.append({'path': name, 'preserved_project_relocation': False})
+    # Record generated artifacts after their final writes; omit self-referential report/manifest hashes.
+    for item in manifest:
+        path = ROOT / item['path']
+        data = path.read_bytes() if path.is_file() else b''
+        item.update(exists=path.is_file(), bytes=len(data), sha256=hashlib.sha256(data).hexdigest() if path.is_file() else None)
+    write(OUT / 'CHANGE_MANIFEST.json', json.dumps({'baseline': BASE, 'changed_code_blocks': blocks,
+        'source_state': 'Saved source during final documentation stage; hashes include final generated artifacts.',
+        'excluded_preexisting_user_items': ['openGL_3dAssign_26/framework/detail/Renderer.cpp', 'docs.zip',
+            'lecture_pdf/homework/*', 'tools/__pycache__/*'], 'files': manifest}, ensure_ascii=False, indent=2))
     print(f'Generated complete before/after ({blocks} blocks), source manifest and architecture reports. No builds/tests run.')
+
+
+def layout_before_after():
+    baseline = '15f88bef3fb818026f6693a578d0c418eb896043'
+    names = set(git('diff', '--no-renames', '--name-only', baseline, '--').decode('utf-8').splitlines())
+    names.update(git('ls-files', '--others', '--exclude-standard').decode('utf-8').splitlines())
+    lines = ['# debugger 내부 배치 변경 전후', '', '이번 배치 변경 직전 커밋 `' + baseline + '` 기준이다.', '',
+        '## 이동 파일', '', '| 이전 경로 | 현재 경로 |', '|---|---|']
+    for path in sorted((ROOT / 'standard/debugger').iterdir()):
+        if path.is_file(): lines.append('| debugger/' + path.name + ' | standard/debugger/' + path.name + ' |')
+    lines += ['', '이동한 파일의 변경 없는 본문은 중복하지 않는다. 소스/설정의 실제 변경 블록은 아래에 모두 기록한다. '
+        '문서·그래프 생성물은 전체 CHANGE_MANIFEST에서 확인한다. 런타임 코드의 변경은 검색 제외 디렉터리에 debugger를 추가한 부분이다. '
+        '빌드·테스트·실행·검증기는 수행하지 않았다.', '']
+    for name in sorted(names):
+        if not (name in TOOLS or name.startswith('standard/debugger/')): continue
+        path = ROOT / name
+        if not path.is_file() or path.suffix not in {'.cpp', '.h', '.props', '.vcxproj', '.sln', '.py'}: continue
+        old_name = 'debugger/' + name[len('standard/debugger/'):] if name.startswith('standard/debugger/') else name
+        result = subprocess.run(['git', 'show', baseline + ':' + old_name], cwd=ROOT, capture_output=True)
+        left = result.stdout.decode('utf-8-sig').replace('\r\n', '\n').splitlines(keepends=True) if result.returncode == 0 else []
+        right = path.read_text(encoding='utf-8-sig').splitlines(keepends=True)
+        groups = list(difflib.SequenceMatcher(None, left, right, autojunk=False).get_grouped_opcodes(0))
+        if not groups: continue
+        lines += ['## ' + name, '']
+        for n, group in enumerate(groups, 1):
+            first, last = group[0], group[-1]
+            i, j, a, b = first[1], last[2], first[3], last[4]
+            old, new = ''.join(left[i:j]), ''.join(right[a:b])
+            lines += [f'### 블록 {n} · before L{i+1} / after L{a+1}', '',
+                '변경 이유: 도구를 Standard 내부에 배치하면서 원본/배포 프레임워크와 Standard의 빌드·실행 독립성을 유지하고 새 경로를 문서/패키징/보고에 연결한다.', '',
+                '**before**' if old else '**before: 없음**', '', code(old, 'text') if old else '',
+                '**after**' if new else '**after: 없음**', '', code(new, 'text') if new else '', '']
+    write(OUT / 'MODULE_LAYOUT_BEFORE_AFTER.md', '\n'.join(lines))
 
 
 if __name__ == '__main__':

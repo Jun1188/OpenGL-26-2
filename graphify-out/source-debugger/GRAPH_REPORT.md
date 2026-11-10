@@ -15,8 +15,8 @@ graphify AST: 3599 nodes / 6739 edges / 141 source files.
 
 ## 별도 debugger
 
-1. wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다.
-2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다.
+1. standard/debugger/main.cpp의 wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다. Standard/framework는 도구를 참조하지 않는다.
+2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다. Standard 대상 검색에서 하위 debugger는 제외한다.
 3. set/parent는 유일한 현재 대입/등록 줄을 찾고, add는 실제 @debug insert 앞의 전체 C++ 삽입안을 만든다. find/code는 일반 소스 위치를 제공한다.
 4. proposal은 실제 before와 생성한 after, 경로·행·주변 코드를 stdout에 출력한다. 대상 파일 저장·프로세스 실행·컴파일 호출은 없다.
 5. EOF 또는 quit로 끝난다. Windows 파일 경로/콘솔 API와 C++ 표준 기능만 사용하며 OpenGL SDK 링크는 없다.
@@ -27,7 +27,6 @@ graphify AST: 3599 nodes / 6739 edges / 141 source files.
 
 | 프로젝트/독립 예제 | 확인한 진입점 |
 |---|---|
-| debugger/debugger.vcxproj | debugger/main.cpp:8 wmain |
 | old_standard/standard.vcxproj | old_standard/main.cpp:6 main |
 | openGL_2dAssign11/openGL_sample2.vcxproj | openGL_2dAssign11/main.cpp:109 main |
 | openGL_2dAssign12/openGL_sample2.vcxproj | openGL_2dAssign12/main.cpp:59 main |
@@ -48,6 +47,7 @@ graphify AST: 3599 nodes / 6739 edges / 141 source files.
 | openGL_3dAssign_26/openGL_assign_26.vcxproj | openGL_3dAssign_26/main.cpp:5 main |
 | openGL_3dAssign_27/openGL_assign_27.vcxproj | openGL_3dAssign_27/main.cpp:5 main |
 | openGL_assign123456/openGL_sample2.vcxproj | openGL_assign123456/main.cpp:79 main |
+| standard/debugger/debugger.vcxproj | standard/debugger/main.cpp:8 wmain |
 | standard/standard.vcxproj | standard/main.cpp:5 main |
 | framework/examples/basic.cpp | framework/examples/basic.cpp main |
 | framework/examples/assets.cpp | framework/examples/assets.cpp main |

@@ -9,6 +9,7 @@
 수동 소스 편집 → 사용자 빌드·실행
 
 - [Standard 시작](README.md)
+- [모듈 경계와 내부 debugger](docs/MODULE_LAYOUT.md)
 - [작성 위치와 실행 흐름](docs/DIRECT_CPP_WORKFLOW.md)
 - [debugger 명령과 실제 소스 위치](docs/SOURCE_DEBUGGER.md)
 - [두 물체 C++ 튜토리얼](docs/WORKSPACE_TUTORIAL.md)
@@ -22,6 +23,7 @@
 
 현재 작성 흐름은 시작하기 문서를 우선한다. 과거 명령 예제는 old_standard용이다.
 
+- [Source debugger: 실제 C++ 소스 편집 안내](debugger/README.md)
 - [standard 문서 목차](DOCUMENT_INDEX.md)
 - [그네·사람형·계층 SRT 빠른 참조](framework/docs/ANIMATION_API.md)
 - [공개 API 한글 목록](framework/docs/API_KO.md)

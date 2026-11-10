@@ -1,7 +1,7 @@
 ﻿{
   "baseline": "01db4ff48ade5f8d8941110408852762cb0f3f64",
-  "changed_code_blocks": 54,
-  "source_state": "Saved source during final documentation stage; hashes include current generated artifacts.",
+  "changed_code_blocks": 57,
+  "source_state": "Saved source during final documentation stage; hashes include final generated artifacts.",
   "excluded_preexisting_user_items": [
     "openGL_3dAssign_26/framework/detail/Renderer.cpp",
     "docs.zip",
@@ -12,78 +12,22 @@
     {
       "path": "OpenGL-26-2.sln",
       "exists": true,
-      "bytes": 1301,
-      "sha256": "42f96959aa57561cb57668358c6c9256b7bafbb16bf565c60a8d3d4ea42947de",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/Commands.cpp",
-      "exists": true,
-      "bytes": 21278,
-      "sha256": "c4fc4257206dd7dcf11ce2c781c87e3a500ba2acc08aee924013c115dbe9eaf7",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/README.md",
-      "exists": true,
-      "bytes": 7415,
-      "sha256": "ecc264c08759a54f8b6afe8f13a78fb921fb0692ad1e7962ee3e3920fee2dd8d",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/SourceIndex.cpp",
-      "exists": true,
-      "bytes": 7095,
-      "sha256": "ab78f8a35c5455313759d10e416862b0041d4a94f41b1f5e8bb2feb72eaebb42",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/SourceIndex.h",
-      "exists": true,
-      "bytes": 1109,
-      "sha256": "76e7f2a2f953f89935cc0dead6bb37a294d65ccaf958f84c8449c49951c3d2c5",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/Toolchain.props",
-      "exists": true,
-      "bytes": 1553,
-      "sha256": "dbd93f71ab83241659d8ca9b35c5143f054f60c831461f8872810566dfcacf20",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/debugger.sln",
-      "exists": true,
-      "bytes": 845,
-      "sha256": "a3b025a0ee8d8f1e3a0db39a0c68353d54d02481482911d8a9d87c7aae6f6ac6",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/debugger.vcxproj",
-      "exists": true,
-      "bytes": 2056,
-      "sha256": "04fe6c1b58bf91baa86f426f6fde8081c980760fd59154ccf3aae34c3e940cd0",
-      "preserved_project_relocation": false
-    },
-    {
-      "path": "debugger/main.cpp",
-      "exists": true,
-      "bytes": 1144,
-      "sha256": "d8338849ffd9156dfee7833594e572ed89322583adee551f3ceb006356b98f8c",
+      "bytes": 1162,
+      "sha256": "f907304fa2c784f3feb901f57faf95e36906bf318962761c1f35107e6374bc60",
       "preserved_project_relocation": false
     },
     {
       "path": "docs/source-debugger/ARCHITECTURE.md",
       "exists": true,
-      "bytes": 6732,
-      "sha256": "07896084bf35153bba6e215323aed5db9a08edf3d53e777a91624cb58f88912f",
+      "bytes": 6898,
+      "sha256": "5d5b30666e281593690029190b02525fb17e1d7fe4f73124956e919d220a1cb1",
       "preserved_project_relocation": false
     },
     {
       "path": "docs/source-debugger/PLAN.md",
       "exists": true,
-      "bytes": 1860,
-      "sha256": "72f5596d8d4c5144c6cd0c469daaf6cd1eeba5d0316e8ca1104176c80f4a318f",
+      "bytes": 2293,
+      "sha256": "7b5d4f0700d20e953908a5496b838c0cc544b7b86e701874ac46572727213423",
       "preserved_project_relocation": false
     },
     {
@@ -96,8 +40,8 @@
     {
       "path": "framework/README.md",
       "exists": true,
-      "bytes": 1358,
-      "sha256": "77fc8049bcba1cb0baccecfaf12f2c0a0289d8fda8f5cd69ca38cbeb677ce9cf",
+      "bytes": 1642,
+      "sha256": "bf924dfc31a9cf42264bf374b6dbe35ac7357863dd133e2077cbbb69ecc8f428",
       "preserved_project_relocation": false
     },
     {
@@ -138,43 +82,43 @@
     {
       "path": "graphify-out/source-debugger/EXTRACTION.json",
       "exists": true,
-      "bytes": 3626381,
-      "sha256": "9c47cb674be08e402e9cf18a11ff47948b842cb4109dd2331d299b5b71e8f325",
+      "bytes": 3631411,
+      "sha256": "2cff3e6deb1c240060512c8f1d98bb8b2f5bbbf9cabf0d7dbfe62fc6741b0661",
       "preserved_project_relocation": false
     },
     {
       "path": "graphify-out/source-debugger/GRAPH_REPORT.md",
       "exists": true,
-      "bytes": 6732,
-      "sha256": "07896084bf35153bba6e215323aed5db9a08edf3d53e777a91624cb58f88912f",
+      "bytes": 6898,
+      "sha256": "5d5b30666e281593690029190b02525fb17e1d7fe4f73124956e919d220a1cb1",
       "preserved_project_relocation": false
     },
     {
       "path": "graphify-out/source-debugger/PROJECTS.json",
       "exists": true,
-      "bytes": 19501,
-      "sha256": "0e4943674333eb6af5061b0fba264687b20de9f7cf45efb10cb7c9c844b008f2",
+      "bytes": 19546,
+      "sha256": "6547bcffda3413d415fa3f004ccd41d7b98a692f4971080ef8cf0268df978614",
       "preserved_project_relocation": false
     },
     {
       "path": "graphify-out/source-debugger/SOURCE_MANIFEST.json",
       "exists": true,
-      "bytes": 15544,
-      "sha256": "4d8e0ba9a0dbfb2401b64d90a10ac96dee1e9decd2d43efc6830264053fad9ca",
+      "bytes": 15580,
+      "sha256": "56cea2424a75fe10b7bf310de430a4bb0dfb6aeecd6c91f5739d8b6591cfd59a",
       "preserved_project_relocation": false
     },
     {
       "path": "graphify-out/source-debugger/graph.html",
       "exists": true,
-      "bytes": 3131868,
-      "sha256": "d0418054468830f97092d0b732d72977e9cb64e3feadc8fe4bdf93386ea883e2",
+      "bytes": 3135286,
+      "sha256": "d7433c446f1d8db0b87ac53ad2f4c23841e1faa271e0d87e48db2e2b103dedb6",
       "preserved_project_relocation": false
     },
     {
       "path": "graphify-out/source-debugger/graph.json",
       "exists": true,
-      "bytes": 3875617,
-      "sha256": "cda2e58253a0e71b35454d04ade77a9a72801a4cd0db9104caccee2e8c2aef2f",
+      "bytes": 3880162,
+      "sha256": "92d377dc6fac578442821edee2e4bd94ea96204f9153fe9a2561892bd6964069",
       "preserved_project_relocation": false
     },
     {
@@ -5500,8 +5444,8 @@
     {
       "path": "standard/DOCUMENT_INDEX.md",
       "exists": true,
-      "bytes": 2654,
-      "sha256": "f4e49bff90932673cda57151b9f1800197dfccf1287bd11bb85ef366053a3cb2",
+      "bytes": 2789,
+      "sha256": "dbead2d8c38af710be4fb14800e0ba3e296f2502bfbf8f50e4ee1cf9d47b4efe",
       "preserved_project_relocation": false
     },
     {
@@ -5514,15 +5458,15 @@
     {
       "path": "standard/README.md",
       "exists": true,
-      "bytes": 1694,
-      "sha256": "633530e6b464b645437756f3e218646cc2ddd09555d461796f15df5247cf954c",
+      "bytes": 1938,
+      "sha256": "f3e476b7abc83a4d3e1d6004bc9ce2d682b68dc1f4b76b535df396cf2656e231",
       "preserved_project_relocation": false
     },
     {
       "path": "standard/SIZE_REPORT.md",
       "exists": true,
-      "bytes": 1859,
-      "sha256": "8f1b11e72d917b79cbabd6ce7b981e9cd07e4ecc00ac2ef58faf6cce2e975cf4",
+      "bytes": 1882,
+      "sha256": "fa21a7f9c525e69b8f91bb5115ea56094d876862c4b7666748bc72d5f31d7b22",
       "preserved_project_relocation": false
     },
     {
@@ -5542,8 +5486,64 @@
     {
       "path": "standard/USER_CHECKS.md",
       "exists": true,
-      "bytes": 3026,
-      "sha256": "e8185d30f403c0d08880f5e26ffb6ccc9aeb85a6e2c970c69da610c8f744d89c",
+      "bytes": 3739,
+      "sha256": "1687d632c4dc527a678dcabd9c1a02ce1529c97e1c1e1f2516d952bf37d27de0",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/Commands.cpp",
+      "exists": true,
+      "bytes": 21278,
+      "sha256": "c4fc4257206dd7dcf11ce2c781c87e3a500ba2acc08aee924013c115dbe9eaf7",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/README.md",
+      "exists": true,
+      "bytes": 8325,
+      "sha256": "7ffec45583d3306d99a20984576ca40d8b8efc6d7d5a390071e9611682d9a264",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/SourceIndex.cpp",
+      "exists": true,
+      "bytes": 7117,
+      "sha256": "4f64680d1b9373d9b6f0d1f88b1ef61f52d5f0d635cbb104ad7e749af7e42b3d",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/SourceIndex.h",
+      "exists": true,
+      "bytes": 1109,
+      "sha256": "76e7f2a2f953f89935cc0dead6bb37a294d65ccaf958f84c8449c49951c3d2c5",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/Toolchain.props",
+      "exists": true,
+      "bytes": 1553,
+      "sha256": "dbd93f71ab83241659d8ca9b35c5143f054f60c831461f8872810566dfcacf20",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/debugger.sln",
+      "exists": true,
+      "bytes": 845,
+      "sha256": "a3b025a0ee8d8f1e3a0db39a0c68353d54d02481482911d8a9d87c7aae6f6ac6",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/debugger.vcxproj",
+      "exists": true,
+      "bytes": 2056,
+      "sha256": "04fe6c1b58bf91baa86f426f6fde8081c980760fd59154ccf3aae34c3e940cd0",
+      "preserved_project_relocation": false
+    },
+    {
+      "path": "standard/debugger/main.cpp",
+      "exists": true,
+      "bytes": 1144,
+      "sha256": "d8338849ffd9156dfee7833594e572ed89322583adee551f3ceb006356b98f8c",
       "preserved_project_relocation": false
     },
     {
@@ -5605,15 +5605,15 @@
     {
       "path": "standard/docs/DIRECT_CPP_WORKFLOW.md",
       "exists": true,
-      "bytes": 3547,
-      "sha256": "5477084ff6372106731c29c8b5c411fae36da6c5ce52da2cc5005b0a06800d0c",
+      "bytes": 4324,
+      "sha256": "f878bec98f56173c46af53aa47ae7467b6719b5bf531c674a6e24c7b4c2d3c41",
       "preserved_project_relocation": false
     },
     {
       "path": "standard/docs/DOCUMENT_CATALOG.json",
       "exists": true,
-      "bytes": 1890,
-      "sha256": "ad5e2258954c226af5d35195f311fcb15d5b8d6e4a4b83b52e50880331311521",
+      "bytes": 2041,
+      "sha256": "16bdcf7329ea60080e42e3ed77baa105ec3cdeefc3899167d4be4f92ce0029c3",
       "preserved_project_relocation": false
     },
     {
@@ -5694,6 +5694,13 @@
       "preserved_project_relocation": true
     },
     {
+      "path": "standard/docs/MODULE_LAYOUT.md",
+      "exists": true,
+      "bytes": 2421,
+      "sha256": "7fe19874ec3bf8ccbfa23b312433910df7dc4c519581c8406bc55c1332fc81b0",
+      "preserved_project_relocation": false
+    },
+    {
       "path": "standard/docs/PATTERN_COMPOSITION.md",
       "exists": false,
       "bytes": 0,
@@ -5731,8 +5738,8 @@
     {
       "path": "standard/docs/SOURCE_DEBUGGER.md",
       "exists": true,
-      "bytes": 7415,
-      "sha256": "ecc264c08759a54f8b6afe8f13a78fb921fb0692ad1e7962ee3e3920fee2dd8d",
+      "bytes": 8325,
+      "sha256": "7ffec45583d3306d99a20984576ca40d8b8efc6d7d5a390071e9611682d9a264",
       "preserved_project_relocation": false
     },
     {
@@ -6459,8 +6466,8 @@
     {
       "path": "standard/docs/viewer/documents.js",
       "exists": true,
-      "bytes": 269772,
-      "sha256": "64c67af1b8208a7f11cf14ce470c03f4f3209b4980538db8b2b6c1e90435b4ab",
+      "bytes": 283926,
+      "sha256": "53314d08c9db12bfa6f45076575189de0b76ad4a7374cd1ba87fad46976bbcf1",
       "preserved_project_relocation": false
     },
     {
@@ -6900,8 +6907,8 @@
     {
       "path": "standard/framework/README.md",
       "exists": true,
-      "bytes": 1358,
-      "sha256": "77fc8049bcba1cb0baccecfaf12f2c0a0289d8fda8f5cd69ca38cbeb677ce9cf",
+      "bytes": 1642,
+      "sha256": "bf924dfc31a9cf42264bf374b6dbe35ac7357863dd133e2077cbbb69ecc8f428",
       "preserved_project_relocation": false
     },
     {
@@ -7192,10 +7199,17 @@
       "preserved_project_relocation": true
     },
     {
+      "path": "tools/Package-Standard.py",
+      "exists": true,
+      "bytes": 4440,
+      "sha256": "57a84f0e52048939a5a8fb9c0c384ae25d3c8e083a11ffd203dcda5eb3827c29",
+      "preserved_project_relocation": false
+    },
+    {
       "path": "tools/Update-StandardDocs.py",
       "exists": true,
-      "bytes": 14564,
-      "sha256": "2117c23c1bd21f10c3c64bc870ef14d369f48f8c77b37dedb1b40a6c28037a88",
+      "bytes": 14649,
+      "sha256": "624baf77d51cfd7f5c49321e04aadc5cc116b56da3daf24a5fe6cbfda1de2f44",
       "preserved_project_relocation": false
     },
     {
@@ -7208,15 +7222,15 @@
     {
       "path": "tools/Write-SourceDebuggerDocs.py",
       "exists": true,
-      "bytes": 32561,
-      "sha256": "2c118c95b472e8ec00d1582629b9e951cc9b89f0d11494b4141b249886305a0f",
+      "bytes": 38032,
+      "sha256": "f604972d6bd04521d76d378b88ba41b14343016c42d0f42b30a04f5a74a1d85d",
       "preserved_project_relocation": false
     },
     {
       "path": "tools/Write-SourceDebuggerReport.py",
       "exists": true,
-      "bytes": 13448,
-      "sha256": "2654bf31df920d075002fec291de245a2da28b8c34488d2f2e3fdea8a3704181",
+      "bytes": 17592,
+      "sha256": "78c5629821874ec56c12bc3d4acf2a3e9122e7831c9601691ff79b2cec2bb26c",
       "preserved_project_relocation": false
     },
     {
@@ -7239,6 +7253,13 @@
       "bytes": 41120,
       "sha256": "4144dae0bef1d7db4199501c5fac9536bf8e862f6e0d91ab7d2667b7dc849d7d",
       "preserved_project_relocation": false
+    },
+    {
+      "path": "docs/source-debugger/MODULE_LAYOUT_BEFORE_AFTER.md",
+      "preserved_project_relocation": false,
+      "exists": true,
+      "bytes": 27753,
+      "sha256": "5d2c582746fca98be4d5b155441380f02a0c98d124dbef70f7cb30f363f4fe72"
     }
   ]
 }

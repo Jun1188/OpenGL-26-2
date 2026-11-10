@@ -2,26 +2,27 @@
 
 `python tools/Update-StandardDocs.py`가 실행할 때마다 다시 계산한다. 빌드 산출물 `x64/`와 Visual Studio 캐시 `.vs/`는 지워도 다시 만들어지므로 제외한다. 논리 파일 크기의 합이며 디스크 할당 크기나 ZIP 크기와 다르다.
 
-- 파일 수: 557
-- 전체: **11,205,011바이트** = 11.21 MB = 10.69 MiB
-- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 18.79 MB
+- 파일 수: 566
+- 전체: **11,268,237바이트** = 11.27 MB = 10.75 MiB
+- 한도 30 MB(30,000,000바이트) 대비: **이하**, 남은 여유 18.73 MB
 
 | 최상위 항목 | 바이트 |
 |---|---:|
-| framework | 10,822,845 |
-| docs | 358,093 |
+| framework | 10,823,129 |
+| docs | 376,506 |
+| debugger | 43,427 |
+| USER_CHECKS.md | 3,739 |
 | SceneSetup.cpp | 3,057 |
-| USER_CHECKS.md | 3,026 |
 | examples | 2,874 |
-| DOCUMENT_INDEX.md | 2,654 |
+| DOCUMENT_INDEX.md | 2,789 |
 | standard.vcxproj | 2,467 |
-| SIZE_REPORT.md | 1,831 |
-| README.md | 1,694 |
+| README.md | 1,938 |
+| SIZE_REPORT.md | 1,859 |
 | index.html | 1,590 |
 | Console.cpp | 1,394 |
 | main.cpp | 1,061 |
 | document.html | 889 |
-| standard.sln | 845 |
+| standard.sln | 827 |
 | Console.h | 467 |
 | SceneSetup.h | 224 |
 
@@ -37,7 +38,7 @@
 | framework/dependencies/glew-2.3.1/lib/Release/x64/glew32.lib | 770,808 |
 | framework/docs/IMPLEMENTATION_PATTERNS.html | 690,861 |
 | framework/dependencies/glew-2.3.1/bin/Release/x64/glew32.dll | 472,576 |
-| docs/viewer/documents.js | 269,772 |
+| docs/viewer/documents.js | 283,926 |
 | framework/dependencies/glfw-3.4.bin.WIN64/include/GLFW/glfw3.h | 248,376 |
 | framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.dll | 232,448 |
 | framework/dependencies/glfw-3.4.bin.WIN64/lib-vc2022/vcruntime140.dll | 178,616 |

@@ -20,7 +20,16 @@ DEBUGGER = r'''# Source debugger: 실제 C++ 소스 편집 안내
 
 ## 시작
 
-`debugger/debugger.sln`에서 debugger를 빌드한다. 저장소 루트 `OpenGL-26-2.sln`에는 Standard와 debugger가 별도 프로젝트로 들어 있다. 각 프로젝트의 단독 솔루션도 사용할 수 있다. debugger는 OpenGL·GLFW·GLEW·Standard 실행 파일에 의존하지 않는 Windows C++17 콘솔 프로그램이다.
+저장소 기준 `standard/debugger/debugger.sln`에서 debugger를 빌드한다. `standard/standard.sln`은 Standard만 참조한다. 루트 `OpenGL-26-2.sln`은 debugger도 표시하는 편의 솔루션이며 기본 전체 빌드는 Standard만 대상으로 한다. 이 편의 솔루션에서는 debugger 프로젝트를 선택해 별도로 빌드한다. debugger의 단독 솔루션에서는 debugger를 빌드한다. Standard와 framework는 debugger의 소스·헤더·라이브러리·실행 파일을 참조하지 않는다. debugger도 OpenGL·GLFW·GLEW·Standard 실행 파일에 의존하지 않는 Windows C++17 콘솔 프로그램이다.
+
+사용자가 Debug/x64로 debugger를 빌드한 뒤 실행할 경로는 다음과 같다.
+
+```powershell
+$glStandard = 'C:/Work/OpenGL-26-2/standard'
+& "$glStandard/debugger/x64/Debug/debugger.exe" "$glStandard"
+```
+
+이 경로는 자기 복사 위치로 바꾼다. Standard 실행 파일은 `standard/x64/Debug/standard.exe`이며 debugger 실행 파일과 별개다.
 
 실행 시 프로젝트 폴더 또는 `.vcxproj` 경로를 인수 하나로 전달하거나 아래처럼 입력한다. 예제 경로는 자기 복사 위치로 바꾼다.
 
@@ -103,15 +112,42 @@ scene.addLight("key", cfg_key);
 
 새 코드 삽입에는 `configureScene(graphics::SceneAuthoring& scene, graphics::RenderOptions& options)` 안의 독립된 `// @debug insert` 한 줄을 사용한다. 부모와 대상 객체를 먼저 등록한다. 새 코드를 수동으로 반영한 뒤 다음 명령을 입력해야 새 구획을 찾을 수 있다.
 
-색인은 선택한 폴더의 `.cpp/.h/.hpp/.glsl/.props/.vcxproj` 텍스트를 읽는다. `.vcxproj` 입력은 해당 파일의 상위 폴더를 선택한다. MSBuild의 조건·매크로·실제 컴파일 목록을 평가하는 기능은 아니다. `dependencies`, `docs`, `old_standard`, 빌드/IDE/그래프 폴더와 링크·재분석 지점은 순회하지 않는다. 파일은 UTF-8(BOM 허용), 개별 8 MiB 이하여야 한다. 다른 인코딩이나 읽기 오류는 경로와 함께 거절한다.
+색인은 선택한 폴더의 `.cpp/.h/.hpp/.glsl/.props/.vcxproj` 텍스트를 읽는다. `.vcxproj` 입력은 해당 파일의 상위 폴더를 선택한다. MSBuild의 조건·매크로·실제 컴파일 목록을 평가하는 기능은 아니다. `dependencies`, `docs`, 하위 `debugger`, `old_standard`, 빌드/IDE/그래프 폴더와 링크·재분석 지점은 순회하지 않는다. 따라서 Standard를 대상으로 찾을 때 편집 도구 자체의 구현은 섞이지 않는다. debugger 폴더 자체를 project 대상으로 지정하면 그 안의 소스는 읽을 수 있다. 파일은 UTF-8(BOM 허용), 개별 8 MiB 이하여야 한다. 다른 인코딩이나 읽기 오류는 경로와 함께 거절한다.
 
 이 프로그램은 지원 문법과 실제 텍스트를 연결하는 편집 보조 도구다. 자연어 해석기, C++ AST 분석기, 중단점/메모리 디버거 또는 컴파일러는 아니다. 임의 함수·매크로·여러 줄 초기화의 의미는 추론하지 않는다. 카메라 시선·near/far 등 속성 사이의 관계, 부모 실행 순서, 모델별 조건은 사용자가 소스와 실행으로 확인한다. 숫자의 기본 범위 검사만으로 컴파일·화면 성공을 보장하지 않는다.
 '''
 
 
 def refresh_documents():
-    write('debugger/README.md', DEBUGGER)
+    write('standard/debugger/README.md', DEBUGGER)
     write('standard/docs/SOURCE_DEBUGGER.md', DEBUGGER)
+    write('standard/docs/MODULE_LAYOUT.md', '''# Standard·framework·debugger 모듈 경계
+
+```text
+standard/
+  standard.sln             # Standard만 참조
+  standard.vcxproj         # main/Console/SceneSetup + 자기 framework
+  SceneSetup.cpp           # 사용자가 직접 편집하는 C++ 원본
+  framework/               # 독립 배포 사본, debugger 참조 없음
+  debugger/
+    debugger.sln           # 도구만 빌드하는 단독 솔루션
+    debugger.vcxproj       # 자기 C++ 소스 + Windows/표준 라이브러리
+    Toolchain.props        # 도구 내부 설정
+    x64/Debug/debugger.exe # 사용자가 빌드한 뒤 생기는 실행 파일
+```
+
+| 모듈 | 실제 빌드 입력 | 다른 모듈과의 관계 |
+|---|---|---|
+| Standard | main.cpp, Console.cpp, SceneSetup.cpp, framework/Framework.props | framework API 사용. debugger 소스·프로젝트·실행 파일 참조 없음 |
+| framework 원본/배포 사본 | 자기 헤더·detail 소스·셰이더·SDK·런타임 DLL | debugger를 include/import/link/실행하지 않음 |
+| debugger | 자기 main.cpp, Commands.cpp, SourceIndex.cpp, SourceIndex.h, Toolchain.props | Standard/framework를 링크하지 않음. 사용자가 고른 소스 파일만 읽음 |
+
+저장소 루트 OpenGL-26-2.sln은 두 프로젝트를 함께 보여주는 편의 파일이다. debugger의 기본 Build.0 선택을 두지 않는다. Standard만 빌드할 때는 standard.sln을 사용하고, 도구는 내부 debugger.sln이나 루트 솔루션의 debugger 프로젝트를 명시적으로 선택한다. 프로젝트 사이의 ProjectReference/ProjectDependencies를 추가하지 않는다.
+
+debugger의 출력은 C++ 편집 제안이며 실행 중인 Standard에 호출하는 API가 아니다. @debug 표시는 위치 검색용 주석이라서 Standard/framework 실행 의존성이 아니다. Standard를 대상으로 색인할 때 내부 debugger 폴더는 순회하지 않는다. 도구 자체를 편집하려면 debugger 폴더를 project 대상으로 명시한다.
+
+standard 전체 폴더 또는 debugger 폴더만 별도 위치로 복사할 수 있다. debugger를 뺀 Standard 복사본도 standard.sln/standard.vcxproj와 framework의 참조를 그대로 사용한다. 폴더 분리 후 빌드·실행 확인은 사용자가 수행한다. 이번 작업에서는 소스 참조와 프로젝트 구성을 읽었고 빌드·테스트·앱은 실행하지 않았다.
+''')
     examples = (ROOT / 'standard/examples/SourceExamples.h').read_text(encoding='utf-8-sig')
     write('standard/docs/EXAMPLES.md', '''# C++ 변환·조명·카메라 예제
 
@@ -140,12 +176,13 @@ source_examples::rotatingDisplay(scene, options);
 
 `SceneSetup.cpp`에 객체·변환·조명·재질·카메라를 C++ 코드로 작성한다. 수정 후 사용자가 빌드·실행한다.
 
-[전체 문서](index.html) · [작성 흐름](docs/DIRECT_CPP_WORKFLOW.md) · [두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.md) · [디버거 명령](docs/SOURCE_DEBUGGER.md) · [조명](docs/LIGHTING_AND_MATERIALS.md) · [사용자 확인](USER_CHECKS.md)
+[전체 문서](index.html) · [모듈 경계](docs/MODULE_LAYOUT.md) · [작성 흐름](docs/DIRECT_CPP_WORKFLOW.md) · [두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.md) · [디버거 명령](docs/SOURCE_DEBUGGER.md) · [조명](docs/LIGHTING_AND_MATERIALS.md) · [사용자 확인](USER_CHECKS.md)
 
-- `standard.sln`: 현재 직접 작성 프로젝트. 루트 솔루션에는 별도 debugger 프로젝트도 있다.
+- `standard.sln`: Standard만 참조하는 직접 작성 프로젝트. debugger 폴더가 없어도 이 솔루션에 도구 참조가 남지 않는다.
 - `SceneSetup.cpp`: 사용자가 직접 고치는 장면 설정. 문자열 명령·외부 assembly 파일을 실행하지 않는다.
 - `Console.cpp`: 초기화·마우스 객체 이름 확인·시간 갱신·렌더 콜백.
 - `framework/`: 이 폴더 안의 배포 사본. 상위·형제 폴더 없이 빌드/실행에 사용한다.
+- `debugger/`: 소스 편집 안내용 독립 콘솔 프로젝트. Standard와 framework의 필수 모듈이 아니다. `debugger/debugger.sln`으로 따로 연다.
 - `old_standard/`: 저장소의 형제 폴더에 보존한 이전 명령·레시피 버전. 그 폴더의 `standard.sln`으로 별도 연다.
 
 클릭은 선택한 객체 이름과 `show object 이름` 안내만 출력한다. Space는 시간 정지/재개, Home은 시간 초기화, Esc는 종료다. 객체 속성은 코드에서 편집한다. 물체 전체 선택이 기본이며 면 편집 명령 모드는 현재 Standard 실행에 포함하지 않는다. 필요하면 기존 면 변환 C++ API를 직접 사용한다.
@@ -185,7 +222,9 @@ source_examples::rotatingDisplay(scene, options);
 
 ## 배포 경계
 
-Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. debugger는 자체 소스와 Toolchain.props만 사용한다. 합본 솔루션의 프로젝트 경로는 편의용이며 각 단독 솔루션의 빌드/실행 의존성은 아니다. 실제 소스 위치는 debugger 실행 인수나 project 명령으로 선택한다. 폴더를 다른 위치로 복사한 뒤 빌드·실행하는 확인은 사용자가 수행한다.
+Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. 선택 도구는 `standard/debugger`에 있으며 자체 소스와 Toolchain.props만 사용한다. Standard의 vcxproj와 framework의 헤더/props/런타임은 debugger를 참조하지 않는다. Standard를 직접 빌드·실행할 때 debugger가 필요하지 않다. debugger도 Standard나 framework를 링크하지 않고 실행 인수로 선택한 디스크 소스를 읽는다.
+
+standard.sln은 Standard만 참조한다. 저장소 루트의 편의 솔루션은 두 프로젝트를 표시하지만 ProjectReference/ProjectDependencies를 추가하지 않으며 debugger의 Build.0 기본 선택도 제외한다. 도구를 빌드하려면 그 프로젝트를 선택하거나 내부 단독 솔루션을 사용한다. standard 폴더 전체를 복사하면 내부 두 프로젝트와 framework 사본이 함께 이동하며 상위 저장소에 실행/빌드 의존성을 두지 않는다. debugger 폴더를 뺀 복사본도 standard.sln/standard.vcxproj와 framework 소스를 그대로 사용한다. debugger 폴더 자체도 별도로 복사할 수 있다. 폴더 분리 후 실제 빌드·실행 확인은 사용자가 수행한다.
 ''')
     write('standard/docs/TRANSFORM_REFERENCE.md', '''# 객체 월드 배치와 지역 레이어
 
@@ -302,16 +341,16 @@ camera main target 0 1 0
 
 에이전트는 소스 작성·소스 열람·문서/구조 자료 생성만 수행했다. 아래 항목은 실행하지 않았다.
 
-1. 루트 `OpenGL-26-2.sln`을 Visual Studio에서 열고 Standard와 debugger를 각각 빌드한다. Standard 컴파일 목록에 Assembly*.cpp가 없고 SceneSetup.cpp와 framework/detail/SceneAuthoring.cpp가 있는지 확인한다.
+1. `standard/standard.sln`은 Standard만 참조하고 루트 `OpenGL-26-2.sln`은 두 프로젝트 중 Standard만 기본 빌드하는지 확인한다. 루트 솔루션에서 debugger는 프로젝트를 선택해 별도로 빌드한다. `standard/debugger/debugger.sln`에서는 도구만 빌드한다. Standard 컴파일 목록에 Assembly*.cpp/debugger 소스/ProjectReference가 없고 SceneSetup.cpp와 framework/detail/SceneAuthoring.cpp가 있는지 확인한다.
 2. debugger를 실행하고 `project "자신의 경로/standard/standard.vcxproj"`, `list`, `show light key`, `light key position 5 6 7`을 입력한다. 절대 경로·실제 행·before의 기존 position·after `{5.f, 6.f, 7.f}`를 소스와 대조한다. 생성 숫자는 유효한 동등 float 표기로 나올 수 있다.
 3. 소스 구획 앞에 빈 줄 두 개를 넣어 저장한 뒤 같은 명령을 반복한다. 안내 행은 두 줄 이동해야 한다. position 기존 값을 수동 수정해 저장한 뒤 before도 새 값으로 바뀌는지 확인한다. 대상 소스가 프로그램에 의해 저장되지 않는지도 확인한다.
 4. `add object gate box base`의 전체 after를 안내 위치에 반영한다. 저장 후 `show object gate`, `object gate position 3 1 0`이 새 구획과 실제 변수를 찾는지 확인한다.
 5. `layer hinge spin 30`을 수동 반영하고 Standard를 재빌드·실행한다. 부모/지역 레이어의 회전을 관찰한다. Space 정지·Home 시간 초기화·클릭의 객체 이름 출력을 확인한다.
 6. `light key parent base`와 조명 위치·강도·재질 Ks/N 수정안을 수동 반영한다. 재빌드해 광원과 재질의 효과를 각각 관찰한다. 카메라 변경 시 position/target/up과 near/far가 함께 유효한지 확인한다.
 7. 잘못된 숫자, 0 배율, 0 회전축, 없는 구획, 중복 구획, 여러 대입문, 존재하지 않는 파일/행을 입력한다. 잘못된 위치를 성공으로 안내하지 않고 오류를 표시해야 한다. 임시로 바꾼 사용자 소스는 직접 복원한다.
-8. `find "SceneAuthoring::update"`를 framework 대상으로 실행하고 실제 결과를 `code`로 읽는다. 구획이 없는 일반 실습에도 find/code/replace/insert의 before가 실제 파일과 같은지 확인한다. 이 명령은 MSBuild 활성 분기나 C++ 의미를 판정하지 않는다.
+8. `find "SceneAuthoring::update"`를 framework 대상으로 실행하고 실제 결과를 `code`로 읽는다. Standard 대상으로는 하위 debugger 소스가 검색되지 않고 debugger 폴더를 명시한 project 대상에서는 그 구현이 검색되는지 확인한다. 구획이 없는 일반 실습에도 find/code/replace/insert의 before가 실제 파일과 같은지 확인한다. 이 명령은 MSBuild 활성 분기나 C++ 의미를 판정하지 않는다.
 9. 한글·공백 경로에서 UTF-8 BOM 파일을 읽고 EOF/quit로 종료한다. 링크·재분석 지점 아래로 순회하지 않는지 확인한다.
-10. standard 폴더와 debugger 폴더를 각각 다른 위치로 복사해 단독 솔루션 빌드·실행을 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과를 확인한다.
+10. standard 폴더 전체와 그 안의 debugger 폴더를 각각 다른 위치로 복사해 단독 프로젝트 빌드·실행을 확인한다. 별도 복사본에서 debugger를 빼도 standard.sln/standard.vcxproj와 framework가 도구 없이 빌드·실행되는지 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과도 확인한다. Package-Standard와 용량 집계는 standard 및 내부 debugger의 x64/.vs를 제외하지만 framework/dependencies의 SDK 입력은 보존한다.
 
 `old_standard`는 이전 프로젝트를 보존한 폴더다. 기존 standard 내부에 x64/.vs가 없었으므로 이 이동에서 삭제된 용량은 0바이트다. 저장소 루트의 .vs, 다른 실습의 x64, 사용자 docs.zip·PDF·기존 Renderer.cpp 변경은 정리 범위에서 제외했다.
 ''')
@@ -341,6 +380,8 @@ camera main target 0 1 0
 
 현재 작성 방식은 [SceneAuthoring C++ API](docs/SOURCE_AUTHORING.md)다. ObjectSetup·LayerSetup·PointLight·Camera 값을 소스에서 직접 작성한다. 프레임워크에 명령 파서나 assembly 파일 실행 의존성을 추가하지 않는다. 낮은 수준의 Scene·TransformSystem·PatternSystem·Motion·Dynamics API도 그대로 직접 사용할 수 있다.
 
+편집 보조 도구는 Standard 폴더 내부의 독립 debugger 프로젝트다. framework는 debugger를 include/import/link하거나 실행하지 않는다. debugger 소스와 실행 파일이 없어도 framework를 사용하는 프로젝트의 빌드/실행 계약은 같다.
+
 [기존 공통 API 레퍼런스](docs/API_REFERENCE.html)는 계속 제공한다. 과거 Standard 명령·레시피·모드 설명은 이전 버전 자료이며 저장소의 old_standard에 보존한다. 현재 Standard의 작성 흐름은 SceneSetup.cpp와 새 문서를 따른다. 기존 명령 예제가 새 Standard에서 실행된다고 간주하지 않는다.
 
 조명은 기존 방향광·점광원·독립 주변광·재질 Ka/Kd/Ks/shininess와 법선 변환을 사용한다. 추가 개념은 사용자가 지정한 ComputerGraphics 저장소의 해당 소스를 확인한 뒤 반영한다. 빌드·실행·화면 확인은 사용자가 수행한다.
@@ -358,7 +399,7 @@ camera main target 0 1 0
         'uncategorized': {'id': 'other', 'title': '공통 API·기존 참고 자료', 'description': '현재 작성 흐름은 시작하기 문서를 우선한다. 과거 명령 예제는 old_standard용이다.'},
         'categories': [{'id': 'start', 'title': 'C++ 직접 작성과 편집 안내', 'description': '수동 소스 편집 → 사용자 빌드·실행',
             'documents': [{'path': path, 'title': title, 'featured': True} for path, title in [
-                ('README.md', 'Standard 시작'), ('docs/DIRECT_CPP_WORKFLOW.md', '작성 위치와 실행 흐름'),
+                ('README.md', 'Standard 시작'), ('docs/MODULE_LAYOUT.md', '모듈 경계와 내부 debugger'), ('docs/DIRECT_CPP_WORKFLOW.md', '작성 위치와 실행 흐름'),
                 ('docs/SOURCE_DEBUGGER.md', 'debugger 명령과 실제 소스 위치'), ('docs/WORKSPACE_TUTORIAL.md', '두 물체 C++ 튜토리얼'),
                 ('docs/TRANSFORM_REFERENCE.md', '월드 배치·지역 레이어'), ('docs/EXAMPLES.md', 'C++ 예제 전체 코드'), ('docs/LIGHTING_AND_MATERIALS.md', '조명·재질·참고 소스'),
                 ('framework/docs/SOURCE_AUTHORING.md', '공통 작성 API'), ('USER_CHECKS.md', '사용자 확인 절차')]]}]}

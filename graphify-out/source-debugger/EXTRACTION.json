@@ -1,484 +1,6 @@
 ﻿{
   "nodes": [
     {
-      "id": "debugger_commands",
-      "label": "Commands.cpp",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_require",
-      "label": "require()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L13",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_cpp_string",
-      "label": "string",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_words",
-      "label": "words()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L14",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_index",
-      "label": "index()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L29",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_cpp_size_t",
-      "label": "size_t",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_identifier",
-      "label": "identifier()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L35",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_number",
-      "label": "number()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L38",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field",
-      "label": "Field",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_member",
-      "label": "member",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_meaning",
-      "label": "meaning",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_count",
-      "label": "count",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_low",
-      "label": "low",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_high",
-      "label": "high",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_field_nonzero",
-      "label": "nonzero",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_escaped",
-      "label": "escaped()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L95",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_set",
-      "label": "set()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L98",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_cpp_ostream",
-      "label": "ostream",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_splitcode",
-      "label": "splitCode()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L133",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_add",
-      "label": "add()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L143",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_parent",
-      "label": "parent()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L195",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_help",
-      "label": "help()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L220",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_commands_command",
-      "label": "command()",
-      "file_type": "code",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L250",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_main",
-      "label": "main.cpp",
-      "file_type": "code",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_main_wmain",
-      "label": "wmain()",
-      "file_type": "code",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L8",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "wchar_t",
-      "label": "wchar_t",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "label": "SourceIndex.cpp",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_excluded",
-      "label": "excluded()",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L13",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_path",
-      "label": "path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_source",
-      "label": "source()",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L19",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_size_t",
-      "label": "size_t",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_ostream",
-      "label": "ostream",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_proposal",
-      "label": "proposal()",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_vector",
-      "label": "vector",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_cpp_string",
-      "label": "string",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_h_debugger_sourceindex",
-      "label": "SourceIndex.h",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourcefile",
-      "label": "SourceFile",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_h_path",
-      "label": "path",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourcefile_path",
-      "label": "path",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_h_vector",
-      "label": "vector",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_h_string",
-      "label": "string",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourcefile_lines",
-      "label": "lines",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block",
-      "label": "Block",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_h_size_t",
-      "label": "size_t",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block_file",
-      "label": "file",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block_first",
-      "label": "first",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block_last",
-      "label": "last",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block_kind",
-      "label": "kind",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_block_name",
-      "label": "name",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex",
-      "label": "SourceIndex",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L11",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_root",
-      "label": "root_",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_files",
-      "label": "files",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L14",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_blocks",
-      "label": "blocks",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L15",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_project",
-      "label": "project",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L16",
-      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\debugger\\SourceIndex.cpp",
-      "definition_location": "L24",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_refresh",
-      "label": "refresh",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L18",
-      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\debugger\\SourceIndex.cpp",
-      "definition_location": "L33",
-      "_origin": "ast"
-    },
-    {
-      "id": "debugger_sourceindex_sourceindex_print",
-      "label": "print",
-      "file_type": "code",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L21",
-      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\debugger\\SourceIndex.cpp",
-      "definition_location": "L98",
-      "_origin": "ast"
-    },
-    {
       "id": "framework_detail_animation",
       "label": "Animation.cpp",
       "file_type": "code",
@@ -27263,6 +26785,484 @@
       "_origin": "ast"
     },
     {
+      "id": "standard_debugger_commands",
+      "label": "Commands.cpp",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_require",
+      "label": "require()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_cpp_string",
+      "label": "string",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_words",
+      "label": "words()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_index",
+      "label": "index()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L29",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_cpp_size_t",
+      "label": "size_t",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_identifier",
+      "label": "identifier()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L35",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_number",
+      "label": "number()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L38",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field",
+      "label": "Field",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_member",
+      "label": "member",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_meaning",
+      "label": "meaning",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_count",
+      "label": "count",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_low",
+      "label": "low",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_high",
+      "label": "high",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_field_nonzero",
+      "label": "nonzero",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_escaped",
+      "label": "escaped()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L95",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_set",
+      "label": "set()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L98",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_cpp_ostream",
+      "label": "ostream",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_splitcode",
+      "label": "splitCode()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L133",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_add",
+      "label": "add()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L143",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_parent",
+      "label": "parent()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L195",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_help",
+      "label": "help()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L220",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_commands_command",
+      "label": "command()",
+      "file_type": "code",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L250",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_main",
+      "label": "main.cpp",
+      "file_type": "code",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_main_wmain",
+      "label": "wmain()",
+      "file_type": "code",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L8",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "wchar_t",
+      "label": "wchar_t",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "label": "SourceIndex.cpp",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_excluded",
+      "label": "excluded()",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_path",
+      "label": "path",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_source",
+      "label": "source()",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L19",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_size_t",
+      "label": "size_t",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_ostream",
+      "label": "ostream",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_proposal",
+      "label": "proposal()",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_cpp_string",
+      "label": "string",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "label": "SourceIndex.h",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourcefile",
+      "label": "SourceFile",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_h_path",
+      "label": "path",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourcefile_path",
+      "label": "path",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_h_vector",
+      "label": "vector",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_h_string",
+      "label": "string",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourcefile_lines",
+      "label": "lines",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block",
+      "label": "Block",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_h_size_t",
+      "label": "size_t",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block_file",
+      "label": "file",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block_first",
+      "label": "first",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block_last",
+      "label": "last",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block_kind",
+      "label": "kind",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_block_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex",
+      "label": "SourceIndex",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L11",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_root",
+      "label": "root_",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_files",
+      "label": "files",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_blocks",
+      "label": "blocks",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_project",
+      "label": "project",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L16",
+      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\debugger\\SourceIndex.cpp",
+      "definition_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_refresh",
+      "label": "refresh",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L18",
+      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\debugger\\SourceIndex.cpp",
+      "definition_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "standard_debugger_sourceindex_sourceindex_print",
+      "label": "print",
+      "file_type": "code",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L21",
+      "definition_file": "C:\\Users\\변준영\\바탕 화면\\college\\OpenGL\\OpenGL-26-2\\standard\\debugger\\SourceIndex.cpp",
+      "definition_location": "L98",
+      "_origin": "ast"
+    },
+    {
       "id": "standard_examples_sourceexamples",
       "label": "SourceExamples.h",
       "file_type": "code",
@@ -30713,1468 +30713,6 @@
   ],
   "edges": [
     {
-      "source": "debugger_commands",
-      "target": "debugger_sourceindex_h_debugger_sourceindex",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "algorithm",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "cmath",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "iomanip",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "limits",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "regex",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "sstream",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L7",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "stdexcept",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_require",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_require",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_words",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L14",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_words",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_index",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L29",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_index",
-      "target": "debugger_commands_cpp_size_t",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L29",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_index",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L29",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_identifier",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L35",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_identifier",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L35",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_number",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L38",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_number",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L38",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_number",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L38",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_field",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_member",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_meaning",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_count",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_low",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_high",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_field_nonzero",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L48",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_field",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L49",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_escaped",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L95",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_escaped",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L95",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_escaped",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L95",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_set",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_sourceindex_sourceindex",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_words",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_splitcode",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L133",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_splitcode",
-      "target": "debugger_commands_words",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L133",
-      "weight": 1.0,
-      "context": "return_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_splitcode",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L133",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_add",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L143",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_sourceindex_sourceindex",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L143",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_commands_words",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L143",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_commands_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L143",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_parent",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L195",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_parent",
-      "target": "debugger_sourceindex_sourceindex",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L195",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_parent",
-      "target": "debugger_commands_words",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L195",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_parent",
-      "target": "debugger_commands_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L195",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_help",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L220",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_help",
-      "target": "debugger_commands_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L220",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands",
-      "target": "debugger_commands_command",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L250",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_sourceindex_sourceindex",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L250",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L250",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L250",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_words",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L16",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_index",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L30",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_number",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L99",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_cpp_size_t",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L102",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_cpp_string",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L108",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_number",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L113",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_set",
-      "target": "debugger_commands_escaped",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L119",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L144",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_commands_identifier",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L144",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_commands_cpp_string",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L155",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_parent",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L196",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_words",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L251",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_require",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L252",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_help",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L253",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_index",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L269",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_splitcode",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L274",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_add",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L275",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_commands_parent",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L276",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main",
-      "target": "debugger_sourceindex_h_debugger_sourceindex",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main",
-      "target": "iostream",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main",
-      "target": "exception",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main",
-      "target": "windows",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main",
-      "target": "debugger_main_wmain",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L8",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main_wmain",
-      "target": "wchar_t",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/main.cpp",
-      "source_location": "L8",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_h_debugger_sourceindex",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L1",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "algorithm",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "fstream",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "framework_include_actions_h_optional",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "regex",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "stdexcept",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "windows",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_excluded",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_excluded",
-      "target": "debugger_sourceindex_cpp_path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_source",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L19",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_source",
-      "target": "debugger_sourceindex_cpp_path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L19",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_project",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L24",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_project",
-      "target": "debugger_sourceindex_cpp_path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L24",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_refresh",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L33",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_print",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_print",
-      "target": "debugger_sourceindex_sourcefile",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_print",
-      "target": "debugger_sourceindex_cpp_size_t",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_print",
-      "target": "debugger_sourceindex_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_cpp_debugger_sourceindex",
-      "target": "debugger_sourceindex_proposal",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_sourcefile",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_cpp_size_t",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_cpp_vector",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_cpp_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_proposal",
-      "target": "debugger_sourceindex_cpp_ostream",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L103",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_refresh",
-      "target": "debugger_sourceindex_cpp_path",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L39",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_refresh",
-      "target": "debugger_sourceindex_excluded",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L41",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex_refresh",
-      "target": "debugger_sourceindex_source",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.cpp",
-      "source_location": "L44",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "filesystem",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L2",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "ostream",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L3",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "debugger_sourceindex_h_string",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "debugger_sourceindex_h_vector",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "debugger_sourceindex_sourcefile",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourcefile",
-      "target": "debugger_sourceindex_h_path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourcefile",
-      "target": "debugger_sourceindex_sourcefile_path",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourcefile",
-      "target": "debugger_sourceindex_h_vector",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourcefile",
-      "target": "debugger_sourceindex_h_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourcefile",
-      "target": "debugger_sourceindex_sourcefile_lines",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L9",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "debugger_sourceindex_block",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_h_size_t",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_block_file",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_block_first",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_block_last",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_h_string",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_block_kind",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_block",
-      "target": "debugger_sourceindex_block_name",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_h_debugger_sourceindex",
-      "target": "debugger_sourceindex_sourceindex",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L11",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_h_path",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L12",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_root",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L12",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_h_vector",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourcefile",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_files",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L14",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_block",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_blocks",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L15",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_project",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L16",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_refresh",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L18",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_sourceindex_sourceindex",
-      "target": "debugger_sourceindex_sourceindex_print",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "debugger/SourceIndex.h",
-      "source_location": "L21",
-      "weight": 1.0,
-      "context": "field",
-      "_origin": "ast"
-    },
-    {
       "source": "framework_detail_animation",
       "target": "framework_framework",
       "relation": "imports",
@@ -35215,7 +33753,7 @@
     },
     {
       "source": "framework_detail_native",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -35237,7 +33775,7 @@
     },
     {
       "source": "framework_detail_native",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -48748,7 +47286,7 @@
     },
     {
       "source": "framework_include_diagnostics",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -49969,7 +48507,7 @@
     },
     {
       "source": "framework_include_graphics",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -49980,7 +48518,7 @@
     },
     {
       "source": "framework_include_graphics",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -52687,7 +51225,7 @@
     },
     {
       "source": "framework_include_model",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -52698,7 +51236,7 @@
     },
     {
       "source": "framework_include_model",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -61250,7 +59788,7 @@
     },
     {
       "source": "opengl_2dassign11_common_h_opengl_2dassign11_common",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -61261,7 +59799,7 @@
     },
     {
       "source": "opengl_2dassign11_common_h_opengl_2dassign11_common",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -62676,7 +61214,7 @@
     },
     {
       "source": "opengl_2dassign11_console_h_opengl_2dassign11_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -63774,7 +62312,7 @@
     },
     {
       "source": "opengl_2dassign11_diagramstate_h_opengl_2dassign11_diagramstate",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -64134,7 +62672,7 @@
     },
     {
       "source": "opengl_2dassign11_main",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -64871,7 +63409,7 @@
     },
     {
       "source": "opengl_2dassign12_common_h_opengl_2dassign12_common",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -64882,7 +63420,7 @@
     },
     {
       "source": "opengl_2dassign12_common_h_opengl_2dassign12_common",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -66257,7 +64795,7 @@
     },
     {
       "source": "opengl_2dassign12_diagramstate_h_opengl_2dassign12_diagramstate",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -67930,7 +66468,7 @@
     },
     {
       "source": "opengl_2dassign_10_common_h_opengl_2dassign_10_common",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -67952,7 +66490,7 @@
     },
     {
       "source": "opengl_2dassign_10_common_h_opengl_2dassign_10_common",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -72626,7 +71164,7 @@
     },
     {
       "source": "opengl_2dassign_789_common_h_opengl_2dassign_789_common",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -72637,7 +71175,7 @@
     },
     {
       "source": "opengl_2dassign_789_common_h_opengl_2dassign_789_common",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -73629,7 +72167,7 @@
     },
     {
       "source": "opengl_2dassign_789_console_cpp_opengl_2dassign_789_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -74694,7 +73232,7 @@
     },
     {
       "source": "opengl_2dassign_789_console_h_opengl_2dassign_789_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -75714,7 +74252,7 @@
     },
     {
       "source": "opengl_2dassign_789_diagramstate_h_opengl_2dassign_789_diagramstate",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -80546,7 +79084,7 @@
     },
     {
       "source": "opengl_3dassign_19_console_h_opengl_3dassign_19_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -81250,7 +79788,7 @@
     },
     {
       "source": "opengl_3dassign_20_console_h_opengl_3dassign_20_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -82508,7 +81046,7 @@
     },
     {
       "source": "opengl_3dassign_22_console_h_opengl_3dassign_22_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -83828,7 +82366,7 @@
     },
     {
       "source": "opengl_3dassign_24_console_h_opengl_3dassign_24_console",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -89552,7 +88090,7 @@
     },
     {
       "source": "opengl_assign123456_rectstate_h_opengl_assign123456_rectstate",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -91148,6 +89686,1468 @@
       "confidence": "EXTRACTED",
       "source_file": "standard/Console.h",
       "source_location": "L15",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "cmath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "iomanip",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "limits",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "regex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "sstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_require",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_require",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_words",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_words",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_index",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_index",
+      "target": "standard_debugger_commands_cpp_size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_index",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L29",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_identifier",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_identifier",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_number",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_number",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_number",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_field",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_member",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_meaning",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_count",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_low",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_high",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_field_nonzero",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L48",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_field",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L49",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_escaped",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_escaped",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L95",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_escaped",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L95",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_set",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_sourceindex_sourceindex",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_words",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_splitcode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_splitcode",
+      "target": "standard_debugger_commands_words",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "return_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_splitcode",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L133",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_add",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_sourceindex_sourceindex",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L143",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_commands_words",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L143",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_commands_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L143",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_parent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L195",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_parent",
+      "target": "standard_debugger_sourceindex_sourceindex",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L195",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_parent",
+      "target": "standard_debugger_commands_words",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L195",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_parent",
+      "target": "standard_debugger_commands_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L195",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_help",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L220",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_help",
+      "target": "standard_debugger_commands_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L220",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands",
+      "target": "standard_debugger_commands_command",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L250",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_sourceindex_sourceindex",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L250",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L250",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L250",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_words",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_index",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_number",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L99",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_cpp_size_t",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L108",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_number",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L113",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_commands_escaped",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L119",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L144",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_commands_identifier",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L144",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_commands_cpp_string",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_parent",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L196",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_words",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L251",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_require",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L252",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_help",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L253",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_index",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L269",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_splitcode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L274",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_add",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L275",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_commands_parent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L276",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main",
+      "target": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main",
+      "target": "iostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main",
+      "target": "exception",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main",
+      "target": "windows",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main",
+      "target": "standard_debugger_main_wmain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main_wmain",
+      "target": "wchar_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L8",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "algorithm",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "fstream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "framework_include_actions_h_optional",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "regex",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "stdexcept",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "windows",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_excluded",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_excluded",
+      "target": "standard_debugger_sourceindex_cpp_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_source",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_source",
+      "target": "standard_debugger_sourceindex_cpp_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L19",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_project",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_project",
+      "target": "standard_debugger_sourceindex_cpp_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_refresh",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_print",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_print",
+      "target": "standard_debugger_sourceindex_sourcefile",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_print",
+      "target": "standard_debugger_sourceindex_cpp_size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_print",
+      "target": "standard_debugger_sourceindex_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_cpp_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_proposal",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_sourcefile",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_cpp_size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_cpp_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_cpp_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_proposal",
+      "target": "standard_debugger_sourceindex_cpp_ostream",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L103",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_refresh",
+      "target": "standard_debugger_sourceindex_cpp_path",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_refresh",
+      "target": "standard_debugger_sourceindex_excluded",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex_refresh",
+      "target": "standard_debugger_sourceindex_source",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.cpp",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "filesystem",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "ostream",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "framework_include_application_h_string",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "framework_include_animation_h_vector",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_sourcefile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourcefile",
+      "target": "standard_debugger_sourceindex_h_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourcefile",
+      "target": "standard_debugger_sourceindex_sourcefile_path",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourcefile",
+      "target": "standard_debugger_sourceindex_h_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourcefile",
+      "target": "standard_debugger_sourceindex_h_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourcefile",
+      "target": "standard_debugger_sourceindex_sourcefile_lines",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L9",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_block",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_h_size_t",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_block_file",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_block_first",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_block_last",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_h_string",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_block_kind",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_block",
+      "target": "standard_debugger_sourceindex_block_name",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L10",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_h_standard_debugger_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_h_path",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_root",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_h_vector",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourcefile",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_files",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_block",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_blocks",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_project",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_refresh",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_sourceindex_sourceindex",
+      "target": "standard_debugger_sourceindex_sourceindex_print",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "standard/debugger/SourceIndex.h",
+      "source_location": "L21",
       "weight": 1.0,
       "context": "field",
       "_origin": "ast"
@@ -95711,7 +95711,7 @@
     },
     {
       "source": "standard_framework_include_graphics",
-      "target": "debugger_sourceindex_h_string",
+      "target": "framework_include_application_h_string",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -95722,7 +95722,7 @@
     },
     {
       "source": "standard_framework_include_graphics",
-      "target": "debugger_sourceindex_h_vector",
+      "target": "framework_include_animation_h_vector",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -99016,54 +99016,6 @@
       "_origin": "ast"
     },
     {
-      "source": "debugger_commands_set",
-      "target": "debugger_sourceindex_proposal",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L131",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_add",
-      "target": "debugger_sourceindex_proposal",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L192",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_parent",
-      "target": "debugger_sourceindex_proposal",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L216",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_commands_command",
-      "target": "debugger_sourceindex_proposal",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "debugger/Commands.cpp",
-      "source_location": "L274",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
       "source": "framework_detail_animation_animationsystem_addswingwithrider",
       "target": "framework_include_animation_animationsystem_addhumanoid",
       "relation": "calls",
@@ -100973,7 +100925,7 @@
     },
     {
       "source": "framework_include_geometry_generatetexcoords",
-      "target": "debugger_sourceindex_sourceindex_project",
+      "target": "standard_debugger_sourceindex_sourceindex_project",
       "relation": "calls",
       "context": "call",
       "confidence": "AMBIGUOUS",
@@ -103961,6 +103913,54 @@
       "_origin": "ast"
     },
     {
+      "source": "standard_debugger_commands_set",
+      "target": "standard_debugger_sourceindex_proposal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L131",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_add",
+      "target": "standard_debugger_sourceindex_proposal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_parent",
+      "target": "standard_debugger_sourceindex_proposal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L216",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_commands_command",
+      "target": "standard_debugger_sourceindex_proposal",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "standard/debugger/Commands.cpp",
+      "source_location": "L274",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
       "source": "standard_framework_detail_application_application_application",
       "target": "framework_include_application_application_shutdown",
       "relation": "calls",
@@ -104977,42 +104977,6 @@
       "confidence_score": 0.85,
       "source_file": "standard/framework/detail/Scene.cpp",
       "source_location": "L1199",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main_wmain",
-      "target": "debugger_sourceindex_sourceindex_project",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "debugger/main.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main_wmain",
-      "target": "debugger_sourceindex_sourceindex_refresh",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "debugger/main.cpp",
-      "source_location": "L13",
-      "weight": 1.0,
-      "_origin": "ast"
-    },
-    {
-      "source": "debugger_main_wmain",
-      "target": "debugger_sourceindex_sourceindex_root",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "debugger/main.cpp",
-      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast"
     },
@@ -108901,6 +108865,42 @@
       "confidence_score": 1.0,
       "source_file": "openGL_assign123456/RectState.cpp",
       "source_location": "L1253",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main_wmain",
+      "target": "standard_debugger_sourceindex_sourceindex_project",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main_wmain",
+      "target": "standard_debugger_sourceindex_sourceindex_refresh",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "standard_debugger_main_wmain",
+      "target": "standard_debugger_sourceindex_sourceindex_root",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "standard/debugger/main.cpp",
+      "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast"
     },

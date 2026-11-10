@@ -1,22 +1,5 @@
 ﻿[
   {
-    "project": "debugger/debugger.vcxproj",
-    "available": true,
-    "sources": [
-      "debugger/Commands.cpp",
-      "debugger/main.cpp",
-      "debugger/SourceIndex.cpp"
-    ],
-    "entrypoints": [
-      {
-        "file": "debugger/main.cpp",
-        "name": "wmain",
-        "line": 8,
-        "conditional_compilation": null
-      }
-    ]
-  },
-  {
     "project": "old_standard/standard.vcxproj",
     "available": true,
     "sources": [
@@ -507,6 +490,23 @@
         "name": "main",
         "line": 79,
         "conditional_compilation": "Review preprocessor branches in this source."
+      }
+    ]
+  },
+  {
+    "project": "standard/debugger/debugger.vcxproj",
+    "available": true,
+    "sources": [
+      "standard/debugger/Commands.cpp",
+      "standard/debugger/main.cpp",
+      "standard/debugger/SourceIndex.cpp"
+    ],
+    "entrypoints": [
+      {
+        "file": "standard/debugger/main.cpp",
+        "name": "wmain",
+        "line": 8,
+        "conditional_compilation": null
       }
     ]
   },

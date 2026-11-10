@@ -22,7 +22,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "standard", "standard\standard.vcxproj", "{AD50DC3F-7731-4954-923F-907BB2A8277C}"
 EndProject
-Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "debugger", "debugger\debugger.vcxproj", "{48D466D1-8954-4D75-A111-D8BAC65250A8}"
+Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "debugger", "standard\debugger\debugger.vcxproj", "{48D466D1-8954-4D75-A111-D8BAC65250A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,638 +31,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.ActiveCfg = Debug|x64
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.Build.0 = Debug|x64
 		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.ActiveCfg = Release|x64
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.Build.0 = Release|x64
 		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Debug|x64.ActiveCfg = Debug|x64
 		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Debug|x64.Build.0 = Debug|x64
 		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Release|x64.ActiveCfg = Release|x64
 		{AD50DC3F-7731-4954-923F-907BB2A8277C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
-````
-
-
-## debugger/Commands.cpp
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````cpp
-#include "SourceIndex.h"
-#include <algorithm>
-#include <cmath>
-#include <iomanip>
-#include <limits>
-#include <regex>
-#include <sstream>
-#include <stdexcept>
-
-namespace source_debugger {
-namespace {
-using Words = std::vector<std::string>;
-void require(bool ok, const std::string& message) { if (!ok) throw std::runtime_error(message); }
-Words words(const std::string& line) {
-    Words result; std::string current; bool quoted = false, started = false;
-    require(line.size() <= 16384, "명령은 16384바이트 이하로 입력하세요.");
-    for (std::size_t i = 0; i < line.size(); ++i) {
-        const char c = line[i];
-        if (c == '"') { quoted = !quoted; started = true; }
-        else if (quoted && c == '\\' && i + 1 < line.size() && line[i + 1] == '"') { current += '"'; ++i; }
-        else if (!quoted && (c == ' ' || c == '\t')) {
-            if (started) { result.push_back(current); current.clear(); started = false; }
-        } else { current += c; started = true; }
-    }
-    require(!quoted, "큰따옴표를 닫으세요.");
-    if (started) result.push_back(current);
-    return result;
-}
-std::size_t index(const std::string& text) {
-    require(!text.empty() && text.find_first_not_of("0123456789") == std::string::npos, "행 번호는 양의 정수입니다.");
-    std::size_t used = 0; const auto n = std::stoull(text, &used);
-    require(used == text.size() && n > 0 && n <= std::numeric_limits<std::size_t>::max(), "유효하지 않은 행 번호입니다.");
-    return static_cast<std::size_t>(n);
-}
-bool identifier(const std::string& name) {
-    return std::regex_match(name, std::regex("[A-Za-z_][A-Za-z_0-9]{0,63}"));
-}
-std::string number(const std::string& text, double low, double high, bool nonzero = false) {
-    std::size_t used = 0; const double value = std::stod(text, &used);
-    require(used == text.size() && std::isfinite(value) && value >= low && value <= high && (!nonzero || value != 0),
-        "값 범위 또는 유한성 조건을 확인하세요.");
-    const auto converted = static_cast<float>(value);
-    require(std::isfinite(converted) && (!nonzero || converted != 0), "float 변환 후 값이 유효하지 않습니다.");
-    std::ostringstream out; out << std::setprecision(9) << converted;
-    auto result = out.str(); if (result.find_first_of(".eE") == std::string::npos) result += '.';
-    return result + 'f';
-}
-struct Field { std::string member, meaning; int count; double low, high; bool nonzero = false; };
-Field field(const std::string& kind, const std::string& property) {
-    const double max = std::numeric_limits<float>::max();
-    if (kind == "object") {
-        if (property == "position") return {property, "객체 월드 배치 XYZ", 3, -max, max};
-        if (property == "rotation") return {"rotationDegrees", "월드 기준 Euler XYZ(도), 행렬 순서 Rz Ry Rx", 3, -max, max};
-        if (property == "size") return {property, "배율 적용 전 모델 크기 XYZ, 각 값 > 0", 3, 0, max, true};
-        if (property == "scale") return {property, "객체 축별 배율 XYZ, 0 제외", 3, -max, max, true};
-        if (property == "pivot") return {property, "모델 지역 피벗 XYZ; 위치를 자동 보존하지 않음", 3, -max, max};
-        if (property == "color") return {"material.color", "물체 RGB 0~1", 3, 0, 1};
-        if (property == "ambient") return {"material.ambientStrength", "주변광 재질 계수 Ka", 1, 0, 1};
-        if (property == "diffuse") return {"material.diffuseStrength", "확산광 재질 계수 Kd", 1, 0, 1};
-        if (property == "specular") return {"material.specularStrength", "정반사 재질 계수 Ks", 1, 0, 1};
-        if (property == "shininess") return {"material.shininess", "정반사 지수, 양수", 1, 0, max, true};
-        if (property == "unlit") return {"material.unlit", "재질 조명 계산 생략 on/off", 0, 0, 0};
-        if (property == "shape") return {property, "형상 box/tetra/pyramid", -1, 0, 0};
-    }
-    if (kind == "layer") {
-        if (property == "translation" || property == "pivot") return {property, "선행 레이어 기준 지역 XYZ", 3, -max, max};
-        if (property == "rotation") return {"rotationDegrees", "지역 Euler XYZ(도), 행렬 순서 Rz Ry Rx", 3, -max, max};
-        if (property == "scale") return {property, "지역 축별 배율 XYZ, 0 제외", 3, -max, max, true};
-        if (property == "axis") return {"spinAxis", "지역 회전축 XYZ, 영벡터 제외", 3, -max, max};
-        if (property == "spin") return {"spinDegreesPerSecond", "초당 회전각(도/초), 0은 정지", 1, -max, max};
-    }
-    if (kind == "light") {
-        if (property == "position") return {property, "광원 XYZ; parent가 있으면 부모 지역 좌표", 3, -max, max};
-        if (property == "color") return {property, "광원 RGB 0~1", 3, 0, 1};
-        if (property == "intensity" || property == "attenuation") return {property, "광원 강도 / 거리 제곱 감쇠 계수, 0 이상", 1, 0, max};
-    }
-    if (kind == "camera") {
-        if (property == "position" || property == "target" || property == "up") return {property, "카메라 XYZ; parent가 있으면 부모 지역 좌표", 3, -max, max};
-        if (property == "fov") return {"fieldOfViewDegrees", "수직 화각(도), 0 < FOV < 180", 1, 0.001, 179.999};
-        if (property == "near") return {"nearPlane", "근평면 거리, far보다 작은 양수", 1, 0, max, true};
-        if (property == "far") return {"farPlane", "원평면 거리, near보다 큰 양수", 1, 0, max, true};
-        if (property == "extent") return {"orthographicHalfExtent", "직교 투영 짧은 화면 축의 반길이", 1, 0, max, true};
-        if (property == "ortho") return {"orthographic", "직교 투영 on / 원근 투영 off", 0, 0, 0};
-    }
-    if (kind == "render") {
-        if (property == "lighting" || property == "textures") return {property, "조명 / 텍스처 사용 on/off", 0, 0, 0};
-        if (property == "ambient") return {"ambientColor", "독립 주변광 RGB", 3, 0, 1};
-        if (property == "sun-direction") return {"lightDirection", "표면에서 방향광을 향하는 월드 방향 XYZ", 3, -max, max};
-        if (property == "sun-color") return {"lightColor", "방향광 RGB", 3, 0, 1};
-        if (property == "sun-intensity") return {"directionalIntensity", "방향광 강도, 0이면 끄기", 1, 0, max};
-        if (property == "background") return {property, "배경 RGBA 0~1", 4, 0, 1};
-    }
-    throw std::runtime_error("지원하지 않는 속성입니다. help에서 명령 목록을 확인하세요.");
-}
-std::string escaped(const std::string& value) {
-    std::string result; for (const auto c : value) { if (c == '.') result += '\\'; result += c; } return result;
-}
-void set(SourceIndex& sources, const Words& a, std::ostream& out) {
-    require(a.size() >= 4, "<object/layer/light/camera/render> 이름 속성 값...");
-    const auto& block = sources.block(a[0], a[1]); const auto& file = sources.files[block.file];
-    const auto spec = field(a[0], a[2]);
-    require(a.size() == std::size_t(3 + (spec.count <= 0 ? 1 : spec.count)), "속성의 인수 개수가 맞지 않습니다.");
-    std::string value;
-    if (spec.count == 0) {
-        require(a[3] == "on" || a[3] == "off", "on 또는 off를 입력하세요."); value = a[3] == "on" ? "true" : "false";
-    } else if (spec.count == -1) {
-        require(a[3] == "box" || a[3] == "tetra" || a[3] == "pyramid", "box/tetra/pyramid만 지원합니다.");
-        value = "graphics::GLShape::" + std::string(a[3] == "box" ? "Cube" : a[3] == "tetra" ? "Tetra" : "Pyramid");
-    } else {
-        if (spec.count > 1) value = "{";
-        bool any = false;
-        for (int i = 0; i < spec.count; ++i) {
-            if (i) value += ", "; value += number(a[std::size_t(i) + 3], spec.low, spec.high, spec.nonzero);
-            any = any || std::stod(a[std::size_t(i) + 3]) != 0;
-        }
-        if (a[2] == "axis" || a[2] == "sun-direction" || (a[0] == "camera" && a[2] == "up")) require(any, "방향 벡터는 0이 될 수 없습니다.");
-        if (spec.count > 1) value += '}';
-    }
-    const std::regex assignment("^(\\s*)([A-Za-z_][A-Za-z_0-9]*)\\." + escaped(spec.member) + "\\s*=[^;]*;\\s*(?://.*)?$");
-    std::size_t line = 0; std::string replacement; bool found = false;
-    for (auto i = block.first + 1; i < block.last; ++i) {
-        std::smatch match;
-        if (!std::regex_match(file.lines[i], match, assignment)) continue;
-        require(!found, "같은 속성의 대입이 여러 번 있습니다. code/replace로 직접 범위를 지정하세요.");
-        found = true; line = i;
-        replacement = match[1].str() + match[2].str() + '.' + spec.member + " = " + value + ';';
-    }
-    require(found, "단일 행 속성 대입을 찾지 못했습니다. show/find 후 insert/replace로 수정안을 작성하세요.");
-    std::string meaning = a[0] + ' ' + a[1] + " / " + a[2] + " — " + spec.meaning;
-    if (a[0] == "camera") meaning += "; 위치/시선/up/near/far의 상호 유효성은 사용자 빌드·실행에서 확인";
-    proposal(file, line + 1, line + 1, {replacement}, meaning, out);
-}
-Words splitCode(std::string text) {
-    std::string decoded;
-    for (std::size_t i = 0; i < text.size(); ++i) {
-        if (text[i] == '\\' && i + 1 < text.size() && text[i + 1] == 'n') { decoded += '\n'; ++i; }
-        else decoded += text[i];
-    }
-    Words lines; std::istringstream input(decoded); std::string line;
-    while (std::getline(input, line)) lines.push_back(line);
-    return lines;
-}
-void add(SourceIndex& sources, const Words& a, std::ostream& out) {
-    require(a.size() >= 3 && identifier(a[2]), "add object/layer/light/camera 이름 ...; 이름은 ASCII 식별자입니다.");
-    const auto& kind = a[1]; const auto& name = a[2];
-    for (const auto& block : sources.blocks) require(block.kind != kind || block.name != name, "같은 구획이 이미 있습니다.");
-    const auto var = "cfg_" + kind + '_' + name;
-    Words code{"    // @debug begin " + kind + ' ' + name};
-    auto line = [&](const std::string& member, const std::string& value) { code.push_back("    " + var + '.' + member + " = " + value + ';'); };
-    std::string call;
-    if (kind == "object") {
-        require(a.size() == 4 || a.size() == 5, "add object 이름 box/tetra/pyramid [부모]");
-        require(a[3] == "box" || a[3] == "tetra" || a[3] == "pyramid", "box/tetra/pyramid만 지원합니다.");
-        code.push_back("    graphics::ObjectSetup " + var + ';');
-        line("shape", "graphics::GLShape::" + std::string(a[3] == "box" ? "Cube" : a[3] == "tetra" ? "Tetra" : "Pyramid"));
-        line("size", "{1.f, 1.f, 1.f}"); line("position", "{0.f, 0.f, 0.f}"); line("rotationDegrees", "{0.f, 0.f, 0.f}");
-        line("scale", "{1.f, 1.f, 1.f}"); line("pivot", "{0.f, 0.f, 0.f}");
-        line("material.color", "{1.f, 1.f, 1.f}"); line("material.ambientStrength", "0.25f");
-        line("material.diffuseStrength", "1.f"); line("material.specularStrength", "0.4f");
-        line("material.shininess", "32.f"); line("material.unlit", "false");
-        call = "scene.addObject(\"" + name + "\", " + var;
-    } else if (kind == "layer") {
-        require(a.size() == 4, "add layer 레이어이름 객체이름"); sources.block("object", a[3]);
-        code.push_back("    graphics::LayerSetup " + var + ';');
-        line("translation", "{0.f, 0.f, 0.f}"); line("rotationDegrees", "{0.f, 0.f, 0.f}");
-        line("scale", "{1.f, 1.f, 1.f}"); line("pivot", "{0.f, 0.f, 0.f}");
-        line("spinAxis", "{0.f, 1.f, 0.f}"); line("spinDegreesPerSecond", "0.f");
-        call = "scene.addLayer(\"" + a[3] + "\", \"" + name + "\", " + var;
-    } else if (kind == "light") {
-        require(a.size() == 3 || a.size() == 4, "add light 이름 [부모]");
-        code.push_back("    graphics::PointLight " + var + ';');
-        line("position", "{2.f, 4.f, 3.f}"); line("color", "{1.f, 1.f, 1.f}");
-        line("intensity", "1.f"); line("attenuation", "0.02f");
-        call = "scene.addLight(\"" + name + "\", " + var;
-    } else if (kind == "camera") {
-        require(a.size() == 3 || a.size() == 4, "add camera 이름 [부모]");
-        for (const auto& block : sources.blocks) require(block.kind != "camera", "카메라는 한 개의 활성 구획을 사용합니다. 기존 camera를 수정하세요.");
-        code.push_back("    graphics::Camera " + var + ';');
-        line("position", "{6.f, 4.f, 8.f}"); line("target", "{0.f, 0.f, 0.f}"); line("up", "{0.f, 1.f, 0.f}");
-        line("fieldOfViewDegrees", "45.f"); line("nearPlane", "0.1f"); line("farPlane", "100.f");
-        line("orthographic", "false"); line("orthographicHalfExtent", "4.f");
-        call = "scene.setCamera(" + var;
-    } else throw std::runtime_error("add는 object/layer/light/camera를 지원합니다.");
-    const bool parent = (kind == "object" && a.size() == 5) || ((kind == "light" || kind == "camera") && a.size() == 4);
-    if (parent) { sources.block("object", a.back()); call += ", \"" + a.back() + "\""; }
-    code.push_back("    " + call + ");"); code.push_back("    // @debug end " + kind + ' ' + name); code.push_back("");
-    const SourceFile* file = nullptr; std::size_t at = 0;
-    const std::regex insertion(R"(^\s*//\s*@debug\s+insert\s*$)");
-    for (const auto& candidate : sources.files) for (std::size_t i = 0; i < candidate.lines.size(); ++i)
-        if (std::regex_match(candidate.lines[i], insertion)) { require(!file, "삽입 지점이 여러 개입니다. project 범위를 좁히세요."); file = &candidate; at = i; }
-    require(file != nullptr, "@debug insert 지점이 없습니다. configureScene 작성 함수의 닫는 괄호 앞에 추가하세요.");
-    proposal(*file, at + 1, at, code, "configureScene(scene, options) 안에 새 " + kind + " 등록; 부모는 먼저 등록해야 함", out);
-    if (kind == "light") out << "조명 사용: render main lighting on. 기본 셰이더 점광원은 최대 8개입니다.\n";
-}
-void parent(SourceIndex& sources, const Words& a, std::ostream& out) {
-    require(a.size() == 4, "object/light/camera 이름 parent 부모이름/none");
-    const auto& block = sources.block(a[0], a[1]); const auto& file = sources.files[block.file];
-    require(a[0] == "object" || a[0] == "light" || a[0] == "camera", "parent는 object/light/camera에만 적용합니다.");
-    if (a[3] != "none") {
-        const auto& owner = sources.block("object", a[3]);
-        require(a[0] != "object" || a[1] != a[3], "자기 자신을 부모로 지정할 수 없습니다.");
-        require(owner.file == block.file && owner.last < block.first, "같은 작성 함수에서 부모 객체를 먼저 등록하세요.");
-    }
-    const std::string method = a[0] == "object" ? "addObject" : a[0] == "light" ? "addLight" : "setCamera";
-    const std::string args = a[0] == "camera" ? "" : "\"" + a[1] + "\",\\s*";
-    const std::regex call("^(\\s*)([A-Za-z_][A-Za-z_0-9]*)\\." + method + "\\(" + args + "([A-Za-z_][A-Za-z_0-9]*)(?:,\\s*\"[^\"]*\")?\\);\\s*$");
-    bool found = false; std::size_t at = 0; std::string after;
-    for (auto i = block.first + 1; i < block.last; ++i) {
-        std::smatch match; if (!std::regex_match(file.lines[i], match, call)) continue;
-        require(!found, "등록 호출이 여러 개입니다. replace로 직접 범위를 지정하세요."); found = true; at = i;
-        after = match[1].str() + match[2].str() + '.' + method + '(';
-        if (a[0] != "camera") after += '"' + a[1] + "\", ";
-        after += match[3].str(); if (a[3] != "none") after += ", \"" + a[3] + '"'; after += ");";
-    }
-    require(found, "단일 행 등록 호출을 찾지 못했습니다. show/find를 사용하세요.");
-    proposal(file, at + 1, at + 1, {after}, a[0] == "object" ? "객체 배치는 월드 좌표로 지정하고 이후 부모 변환을 상속" : "광원/카메라의 좌표를 부모 지역 좌표로 해석", out);
-}
-}
-
-void help(std::ostream& out) {
-    out << R"(project "폴더 또는 .vcxproj" [대상 지정] - 개인 절대 경로를 코드에 넣지 않음
-list [현재 소스 구획 목록] - 매 명령에서 디스크 파일을 다시 읽음
-show 종류 이름 [구획 전체 코드] - 종류 object/layer/light/camera/render
-object 이름 position/rotation/scale/size/pivot X Y Z [수정안] - 월드 배치 / 모델 크기·피벗
-object 이름 color R G B [수정안] - 재질 RGB 0~1
-object 이름 ambient/diffuse/specular/shininess 값 [수정안] - Ka/Kd/Ks/정반사 지수
-object 이름 unlit on/off [수정안] - 조명 계산 생략
-object 이름 shape box/tetra/pyramid [수정안] - 기본 형상
-layer 이름 translation/rotation/scale/pivot/axis X Y Z [수정안] - 선행 레이어 기준 지역 변환
-layer 이름 spin 도/초 [수정안] - 시간에 따른 지역 회전
-light 이름 position X Y Z / color R G B [수정안] - 부모가 있으면 지역 위치
-light 이름 intensity/attenuation 값 [수정안] - 강도/거리 제곱 감쇠
-camera 이름 position/target/up X Y Z [수정안] - 시점/주목점/up
-camera 이름 fov/near/far/extent 값 / ortho on/off [수정안] - 투영 설정
-render main lighting/textures on/off [수정안] - 렌더 옵션
-render main ambient/sun-color R G B / sun-direction X Y Z / sun-intensity 값 [수정안]
-render main background R G B A [수정안] - 배경색
-object/light/camera 이름 parent 부모이름/none [등록 코드 수정안] - 부모는 먼저 등록
-add object 이름 box/tetra/pyramid [부모] [전체 삽입 코드]
-add layer 이름 객체 [전체 삽입 코드] - 이후 레이어가 앞 레이어를 상속
-add light 이름 [부모] / add camera 이름 [부모] [전체 삽입 코드]
-find "문자열" [실제 파일·행·코드] - 일반 C++/GLSL/props에도 사용
-code "파일" 시작행 끝행 [현재 코드] - 프로젝트 내부의 색인된 파일
-replace "파일" 시작행 끝행 "코드" [정확한 before/after] - 코드 안의 \n은 줄바꿈
-insert "파일" 앞행 "코드" [삽입안] - 마지막 행+1도 가능
-help / quit [도움말/종료]
-소스 저장·컴파일·실행은 사용자가 수행합니다. 함수의 동적 실행이나 임의 C++ 의미 분석은 하지 않습니다.
-)";
-}
-bool command(SourceIndex& sources, const std::string& line, std::ostream& out) {
-    const auto a = words(line); if (a.empty()) return true;
-    if (a[0] == "quit") { require(a.size() == 1, "quit"); return false; }
-    if (a[0] == "help") { require(a.size() == 1, "help"); help(out); return true; }
-    if (a[0] == "project") { require(a.size() == 2, "project \"폴더 또는 .vcxproj\""); sources.project(fs::u8path(a[1])); }
-    sources.refresh();
-    if (a[0] == "project") { out << "대상: " << sources.root().u8string() << " | 소스 " << sources.files.size() << "개\n"; return true; }
-    if (a[0] == "list") {
-        require(a.size() == 1, "list");
-        for (const auto& b : sources.blocks) out << b.kind << ' ' << b.name << " | " << sources.files[b.file].path.u8string() << ':' << b.first + 1 << '-' << b.last + 1 << '\n';
-        if (sources.blocks.empty()) out << "@debug 구획이 없습니다. find/code/replace/insert로 일반 소스에 사용할 수 있습니다.\n";
-    } else if (a[0] == "show") {
-        require(a.size() == 3, "show 종류 이름"); const auto& b = sources.block(a[1], a[2]); sources.print(sources.files[b.file], b.first + 1, b.last + 1, out);
-    } else if (a[0] == "find") {
-        require(a.size() == 2 && !a[1].empty(), "find \"문자열\""); std::size_t count = 0;
-        for (const auto& f : sources.files) for (std::size_t i = 0; i < f.lines.size(); ++i)
-            if (f.lines[i].find(a[1]) != std::string::npos) { out << f.path.u8string() << ':' << i + 1 << " | " << f.lines[i] << '\n'; ++count; }
-        out << "검색 결과 " << count << "개.\n";
-    } else if (a[0] == "code") {
-        require(a.size() == 4, "code 파일 시작행 끝행"); sources.print(sources.file(fs::u8path(a[1])), index(a[2]), index(a[3]), out);
-    } else if (a[0] == "replace" || a[0] == "insert") {
-        const bool replace = a[0] == "replace"; require(a.size() == (replace ? 5u : 4u), "replace 파일 시작행 끝행 코드 / insert 파일 앞행 코드");
-        const auto first = index(a[2]); const auto last = replace ? index(a[3]) : first - 1;
-        require(!replace || first <= last, "시작행은 끝행 이하여야 합니다.");
-        proposal(sources.file(fs::u8path(a[1])), first, last, splitCode(a.back()), "일반 소스 편집 제안; 문법·의미는 사용자 확인", out);
-    } else if (a[0] == "add") add(sources, a, out);
-    else if (a.size() >= 3 && a[2] == "parent") parent(sources, a, out);
-    else if (a[0] == "object" || a[0] == "layer" || a[0] == "light" || a[0] == "camera" || a[0] == "render") set(sources, a, out);
-    else throw std::runtime_error("지원하지 않는 명령입니다. help를 입력하세요.");
-    return true;
-}
-} // namespace source_debugger
-````
-
-
-## debugger/SourceIndex.cpp
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````cpp
-#include "SourceIndex.h"
-#include <algorithm>
-#include <fstream>
-#include <optional>
-#include <regex>
-#include <stdexcept>
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
-
-namespace source_debugger {
-namespace {
-bool excluded(const fs::path& path) {
-    const auto name = path.filename().u8string();
-    return name == ".git" || name == ".vs" || name == "x64" || name == "Debug" || name == "Release" ||
-        name == "dependencies" || name == "docs" || name == "old_standard" || name == "graphify-out" ||
-        name == ".agents" || name == ".obj-work" || name == "dist" || name == "packages";
-}
-bool source(const fs::path& path) {
-    const auto ext = path.extension().u8string();
-    return ext == ".cpp" || ext == ".h" || ext == ".hpp" || ext == ".glsl" || ext == ".props" || ext == ".vcxproj";
-}
-}
-void SourceIndex::project(const fs::path& input) {
-    auto path = fs::canonical(input);
-    if (fs::is_regular_file(path)) {
-        if (path.extension() != ".vcxproj") throw std::runtime_error("프로젝트 폴더 또는 .vcxproj를 지정하세요.");
-        path = path.parent_path();
-    }
-    if (!fs::is_directory(path)) throw std::runtime_error("프로젝트 폴더가 아닙니다.");
-    root_ = path;
-}
-void SourceIndex::refresh() {
-    if (root_.empty()) throw std::runtime_error("project \"프로젝트 폴더 또는 .vcxproj 경로\"를 먼저 입력하세요.");
-    std::vector<SourceFile> next;
-    std::vector<fs::path> paths;
-    for (fs::recursive_directory_iterator it(root_), end; it != end; ++it) {
-        const auto status = it->symlink_status();
-        const auto attributes = GetFileAttributesW(it->path().c_str());
-        if (attributes == INVALID_FILE_ATTRIBUTES) throw std::runtime_error("소스 경로 속성을 읽지 못했습니다.");
-        if (fs::is_symlink(status) || (attributes & FILE_ATTRIBUTE_REPARSE_POINT) || excluded(it->path())) {
-            it.disable_recursion_pending(); continue;
-        }
-        if (fs::is_regular_file(status) && source(it->path())) paths.push_back(it->path());
-    }
-    std::sort(paths.begin(), paths.end());
-    for (const auto& path : paths) {
-        if (fs::file_size(path) > 8 * 1024 * 1024) throw std::runtime_error("소스 파일이 8 MiB를 초과합니다: " + path.u8string());
-        std::ifstream input(path, std::ios::binary);
-        if (!input) throw std::runtime_error("소스를 열 수 없습니다: " + path.u8string());
-        SourceFile file{path, {}};
-        std::string line;
-        while (std::getline(input, line)) {
-            if (!line.empty() && line.back() == '\r') line.pop_back();
-            if (file.lines.empty() && line.compare(0, 3, "\xEF\xBB\xBF") == 0) line.erase(0, 3);
-            if (line.find('\0') != std::string::npos) throw std::runtime_error("UTF-8 텍스트 소스가 필요합니다: " + path.u8string());
-            if (!line.empty() && MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, line.data(), int(line.size()), nullptr, 0) == 0)
-                throw std::runtime_error("UTF-8로 읽을 수 없는 소스입니다: " + path.u8string());
-            file.lines.push_back(line);
-        }
-        if (input.bad()) throw std::runtime_error("소스 읽기 실패: " + path.u8string());
-        next.push_back(std::move(file));
-    }
-    std::vector<Block> found;
-    const std::regex marker(R"(^\s*//\s*@debug\s+(begin|end)\s+(object|layer|light|camera|render)\s+([A-Za-z_][A-Za-z_0-9]*)\s*$)");
-    for (std::size_t f = 0; f < next.size(); ++f) {
-        std::optional<Block> open;
-        for (std::size_t i = 0; i < next[f].lines.size(); ++i) {
-            std::smatch match;
-            if (!std::regex_match(next[f].lines[i], match, marker)) continue;
-            if (match[1] == "begin") {
-                if (open) throw std::runtime_error("중첩 @debug 구획: " + next[f].path.u8string());
-                open = Block{f, i, i, match[2], match[3]};
-            } else {
-                if (!open || open->kind != match[2] || open->name != match[3])
-                    throw std::runtime_error("짝이 맞지 않는 @debug end: " + next[f].path.u8string());
-                open->last = i; found.push_back(*open); open.reset();
-            }
-        }
-        if (open) throw std::runtime_error("닫히지 않은 @debug 구획: " + next[f].path.u8string());
-    }
-    files = std::move(next); blocks = std::move(found);
-}
-const Block& SourceIndex::block(const std::string& kind, const std::string& name) const {
-    const Block* result = nullptr;
-    for (const auto& item : blocks) if (item.kind == kind && item.name == name) {
-        if (result) throw std::runtime_error("같은 구획이 여러 파일에 있습니다. project로 대상 폴더를 좁히세요.");
-        result = &item;
-    }
-    if (!result) throw std::runtime_error("해당 @debug 구획이 없습니다. list/find를 사용하세요.");
-    return *result;
-}
-const SourceFile& SourceIndex::file(const fs::path& input) const {
-    const auto path = fs::canonical(input.is_absolute() ? input : root_ / input);
-    for (const auto& item : files) if (fs::equivalent(item.path, path)) return item;
-    throw std::runtime_error("현재 프로젝트에 색인한 소스 파일이 아닙니다.");
-}
-void SourceIndex::print(const SourceFile& file, std::size_t first, std::size_t last, std::ostream& out) const {
-    if (first == 0 || first > last || last > file.lines.size()) throw std::runtime_error("현재 소스의 행 범위를 벗어났습니다.");
-    out << file.path.u8string() << ':' << first << '-' << last << '\n';
-    for (std::size_t i = first; i <= last; ++i) out << i << " | " << file.lines[i - 1] << '\n';
-}
-void proposal(const SourceFile& file, std::size_t first, std::size_t last,
-              const std::vector<std::string>& after, const std::string& meaning, std::ostream& out) {
-    if (first == 0 || first > file.lines.size() + 1 || last > file.lines.size() || last + 1 < first)
-        throw std::runtime_error("제안할 행 범위가 현재 파일과 맞지 않습니다.");
-    out << "[수정 제안] " << file.path.u8string() << ':' << first;
-    if (last >= first && last != first) out << '-' << last;
-    if (last < first) out << " 앞에 삽입";
-    out << "\n[위치·의미] " << meaning << "\n[before]\n";
-    if (last < first) out << "(없음: 새 코드 삽입)\n";
-    else for (auto i = first; i <= last; ++i) out << i << " | " << file.lines[i - 1] << '\n';
-    out << "[after: 복사할 C++ 코드]\n";
-    for (const auto& line : after) out << line << '\n';
-    out << "[주변 코드]\n";
-    if (first > 1) out << first - 1 << " | " << file.lines[first - 2] << '\n';
-    const auto following = last < first ? first : last + 1;
-    if (following <= file.lines.size()) out << following << " | " << file.lines[following - 1] << '\n';
-    out << "파일은 사용자가 직접 수정합니다. 다음 명령에서 디스크 소스를 다시 읽습니다.\n";
-}
-} // namespace source_debugger
-````
-
-
-## debugger/SourceIndex.h
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````cpp
-#pragma once
-#include <filesystem>
-#include <ostream>
-#include <string>
-#include <vector>
-
-namespace source_debugger {
-namespace fs = std::filesystem;
-struct SourceFile { fs::path path; std::vector<std::string> lines; };
-struct Block { std::size_t file, first, last; std::string kind, name; };
-class SourceIndex {
-    fs::path root_;
-public:
-    std::vector<SourceFile> files;
-    std::vector<Block> blocks;
-    void project(const fs::path& path);
-    const fs::path& root() const { return root_; }
-    void refresh();
-    const Block& block(const std::string& kind, const std::string& name) const;
-    const SourceFile& file(const fs::path& path) const;
-    void print(const SourceFile& source, std::size_t first, std::size_t last, std::ostream& out) const;
-};
-void proposal(const SourceFile& file, std::size_t first, std::size_t last,
-              const std::vector<std::string>& after, const std::string& meaning, std::ostream& out);
-bool command(SourceIndex& sources, const std::string& line, std::ostream& out);
-void help(std::ostream& out);
-} // namespace source_debugger
-````
-
-
-## debugger/Toolchain.props
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````xml
-<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- Import after Microsoft.Cpp.Default.props and before Microsoft.Cpp.props. -->
-  <PropertyGroup>
-    <DebuggerToolsetRoot>$(VCTargetsPath)\Platforms\x64\PlatformToolsets</DebuggerToolsetRoot>
-    <PlatformToolset Condition="'$(PlatformToolset)'=='' and '$(DefaultPlatformToolset)'!='' and Exists('$(DebuggerToolsetRoot)\$(DefaultPlatformToolset)\Toolset.props')">$(DefaultPlatformToolset)</PlatformToolset>
-    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(DebuggerToolsetRoot)\v143\Toolset.props')">v143</PlatformToolset>
-    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(DebuggerToolsetRoot)\v145\Toolset.props')">v145</PlatformToolset>
-  </PropertyGroup>
-  <Target Name="ExplainDebuggerToolchain" BeforeTargets="PrepareForBuild">
-    <Message Importance="High" Text="Debugger toolchain: VS=$(VisualStudioVersion); Platform=$(Platform); Toolset=$(PlatformToolset); VCTargetsPath=$(VCTargetsPath)" />
-    <Error Condition="'$(PlatformToolset)'=='' or !Exists('$(DebuggerToolsetRoot)\$(PlatformToolset)\Toolset.props')" Text="Debugger toolset unavailable: $(PlatformToolset). Expected $(DebuggerToolsetRoot)\$(PlatformToolset)\Toolset.props. VS 2022: install Desktop development with C++ and MSVC v143, then open the .sln (not .slnx on older VS). For a deliberate toolset override, install that toolset or change Platform Toolset in Project Properties." />
-  </Target>
-</Project>
-````
-
-
-## debugger/debugger.sln
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````text
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "debugger", "debugger.vcxproj", "{48D466D1-8954-4D75-A111-D8BAC65250A8}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Release|x64 = Release|x64
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.ActiveCfg = Debug|x64
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.Build.0 = Debug|x64
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.ActiveCfg = Release|x64
-		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.Build.0 = Release|x64
-	EndGlobalSection
-EndGlobal
-````
-
-
-## debugger/debugger.vcxproj
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````xml
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <ProjectGuid>{48D466D1-8954-4D75-A111-D8BAC65250A8}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword><ProjectName>debugger</ProjectName>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Project="Toolchain.props" />
-  <PropertyGroup Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType><CharacterSet>Unicode</CharacterSet>
-    <UseDebugLibraries Condition="'$(Configuration)'=='Debug'">true</UseDebugLibraries>
-    <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <PropertyGroup>
-    <OutDir>$(ProjectDir)x64\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)x64\$(Configuration)\obj\</IntDir>
-    <TargetName>debugger</TargetName>
-  </PropertyGroup>
-  <ItemDefinitionGroup>
-    <ClCompile><LanguageStandard>stdcpp17</LanguageStandard><WarningLevel>Level4</WarningLevel><AdditionalOptions>/utf-8 /FC %(AdditionalOptions)</AdditionalOptions></ClCompile>
-    <Link><SubSystem>Console</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation></Link>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" /><ClCompile Include="SourceIndex.cpp" /><ClCompile Include="Commands.cpp" />
-    <ClInclude Include="SourceIndex.h" /><None Include="README.md" />
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-</Project>
-````
-
-
-## debugger/main.cpp
-
-### 블록 1 · before L1 / after L1
-
-변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
-
-**before: 없음**
-
-
-**after**
-
-````cpp
-#include "SourceIndex.h"
-#include <iostream>
-#include <exception>
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <Windows.h>
-
-int wmain(int argc, wchar_t** argv) {
-    SetConsoleOutputCP(CP_UTF8); SetConsoleCP(CP_UTF8);
-    source_debugger::SourceIndex sources;
-    std::cout << "Source debugger: 실제 디스크 소스의 편집 위치와 코드를 안내합니다.\n";
-    if (argc == 2) {
-        try { sources.project(std::filesystem::path(argv[1])); sources.refresh(); std::cout << "대상: " << sources.root().u8string() << '\n'; }
-        catch (const std::exception& error) { std::cerr << "대상 오류: " << error.what() << '\n'; }
-    } else if (argc > 2) { std::cerr << "사용법: debugger.exe [\"프로젝트 폴더 또는 .vcxproj\"]\n"; return 1; }
-    source_debugger::help(std::cout);
-    std::string line;
-    while (std::cout << "dbg> " << std::flush, std::getline(std::cin, line)) {
-        try { if (!source_debugger::command(sources, line, std::cout)) break; }
-        catch (const std::exception& error) { std::cerr << "명령 거절: " << error.what() << '\n'; }
-    }
-    return 0;
-}
 ````
 
 
@@ -1296,6 +671,629 @@ void configureScene(graphics::SceneAuthoring& scene, graphics::RenderOptions& op
 ````
 
 
+## standard/debugger/Commands.cpp
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````cpp
+#include "SourceIndex.h"
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <limits>
+#include <regex>
+#include <sstream>
+#include <stdexcept>
+
+namespace source_debugger {
+namespace {
+using Words = std::vector<std::string>;
+void require(bool ok, const std::string& message) { if (!ok) throw std::runtime_error(message); }
+Words words(const std::string& line) {
+    Words result; std::string current; bool quoted = false, started = false;
+    require(line.size() <= 16384, "명령은 16384바이트 이하로 입력하세요.");
+    for (std::size_t i = 0; i < line.size(); ++i) {
+        const char c = line[i];
+        if (c == '"') { quoted = !quoted; started = true; }
+        else if (quoted && c == '\\' && i + 1 < line.size() && line[i + 1] == '"') { current += '"'; ++i; }
+        else if (!quoted && (c == ' ' || c == '\t')) {
+            if (started) { result.push_back(current); current.clear(); started = false; }
+        } else { current += c; started = true; }
+    }
+    require(!quoted, "큰따옴표를 닫으세요.");
+    if (started) result.push_back(current);
+    return result;
+}
+std::size_t index(const std::string& text) {
+    require(!text.empty() && text.find_first_not_of("0123456789") == std::string::npos, "행 번호는 양의 정수입니다.");
+    std::size_t used = 0; const auto n = std::stoull(text, &used);
+    require(used == text.size() && n > 0 && n <= std::numeric_limits<std::size_t>::max(), "유효하지 않은 행 번호입니다.");
+    return static_cast<std::size_t>(n);
+}
+bool identifier(const std::string& name) {
+    return std::regex_match(name, std::regex("[A-Za-z_][A-Za-z_0-9]{0,63}"));
+}
+std::string number(const std::string& text, double low, double high, bool nonzero = false) {
+    std::size_t used = 0; const double value = std::stod(text, &used);
+    require(used == text.size() && std::isfinite(value) && value >= low && value <= high && (!nonzero || value != 0),
+        "값 범위 또는 유한성 조건을 확인하세요.");
+    const auto converted = static_cast<float>(value);
+    require(std::isfinite(converted) && (!nonzero || converted != 0), "float 변환 후 값이 유효하지 않습니다.");
+    std::ostringstream out; out << std::setprecision(9) << converted;
+    auto result = out.str(); if (result.find_first_of(".eE") == std::string::npos) result += '.';
+    return result + 'f';
+}
+struct Field { std::string member, meaning; int count; double low, high; bool nonzero = false; };
+Field field(const std::string& kind, const std::string& property) {
+    const double max = std::numeric_limits<float>::max();
+    if (kind == "object") {
+        if (property == "position") return {property, "객체 월드 배치 XYZ", 3, -max, max};
+        if (property == "rotation") return {"rotationDegrees", "월드 기준 Euler XYZ(도), 행렬 순서 Rz Ry Rx", 3, -max, max};
+        if (property == "size") return {property, "배율 적용 전 모델 크기 XYZ, 각 값 > 0", 3, 0, max, true};
+        if (property == "scale") return {property, "객체 축별 배율 XYZ, 0 제외", 3, -max, max, true};
+        if (property == "pivot") return {property, "모델 지역 피벗 XYZ; 위치를 자동 보존하지 않음", 3, -max, max};
+        if (property == "color") return {"material.color", "물체 RGB 0~1", 3, 0, 1};
+        if (property == "ambient") return {"material.ambientStrength", "주변광 재질 계수 Ka", 1, 0, 1};
+        if (property == "diffuse") return {"material.diffuseStrength", "확산광 재질 계수 Kd", 1, 0, 1};
+        if (property == "specular") return {"material.specularStrength", "정반사 재질 계수 Ks", 1, 0, 1};
+        if (property == "shininess") return {"material.shininess", "정반사 지수, 양수", 1, 0, max, true};
+        if (property == "unlit") return {"material.unlit", "재질 조명 계산 생략 on/off", 0, 0, 0};
+        if (property == "shape") return {property, "형상 box/tetra/pyramid", -1, 0, 0};
+    }
+    if (kind == "layer") {
+        if (property == "translation" || property == "pivot") return {property, "선행 레이어 기준 지역 XYZ", 3, -max, max};
+        if (property == "rotation") return {"rotationDegrees", "지역 Euler XYZ(도), 행렬 순서 Rz Ry Rx", 3, -max, max};
+        if (property == "scale") return {property, "지역 축별 배율 XYZ, 0 제외", 3, -max, max, true};
+        if (property == "axis") return {"spinAxis", "지역 회전축 XYZ, 영벡터 제외", 3, -max, max};
+        if (property == "spin") return {"spinDegreesPerSecond", "초당 회전각(도/초), 0은 정지", 1, -max, max};
+    }
+    if (kind == "light") {
+        if (property == "position") return {property, "광원 XYZ; parent가 있으면 부모 지역 좌표", 3, -max, max};
+        if (property == "color") return {property, "광원 RGB 0~1", 3, 0, 1};
+        if (property == "intensity" || property == "attenuation") return {property, "광원 강도 / 거리 제곱 감쇠 계수, 0 이상", 1, 0, max};
+    }
+    if (kind == "camera") {
+        if (property == "position" || property == "target" || property == "up") return {property, "카메라 XYZ; parent가 있으면 부모 지역 좌표", 3, -max, max};
+        if (property == "fov") return {"fieldOfViewDegrees", "수직 화각(도), 0 < FOV < 180", 1, 0.001, 179.999};
+        if (property == "near") return {"nearPlane", "근평면 거리, far보다 작은 양수", 1, 0, max, true};
+        if (property == "far") return {"farPlane", "원평면 거리, near보다 큰 양수", 1, 0, max, true};
+        if (property == "extent") return {"orthographicHalfExtent", "직교 투영 짧은 화면 축의 반길이", 1, 0, max, true};
+        if (property == "ortho") return {"orthographic", "직교 투영 on / 원근 투영 off", 0, 0, 0};
+    }
+    if (kind == "render") {
+        if (property == "lighting" || property == "textures") return {property, "조명 / 텍스처 사용 on/off", 0, 0, 0};
+        if (property == "ambient") return {"ambientColor", "독립 주변광 RGB", 3, 0, 1};
+        if (property == "sun-direction") return {"lightDirection", "표면에서 방향광을 향하는 월드 방향 XYZ", 3, -max, max};
+        if (property == "sun-color") return {"lightColor", "방향광 RGB", 3, 0, 1};
+        if (property == "sun-intensity") return {"directionalIntensity", "방향광 강도, 0이면 끄기", 1, 0, max};
+        if (property == "background") return {property, "배경 RGBA 0~1", 4, 0, 1};
+    }
+    throw std::runtime_error("지원하지 않는 속성입니다. help에서 명령 목록을 확인하세요.");
+}
+std::string escaped(const std::string& value) {
+    std::string result; for (const auto c : value) { if (c == '.') result += '\\'; result += c; } return result;
+}
+void set(SourceIndex& sources, const Words& a, std::ostream& out) {
+    require(a.size() >= 4, "<object/layer/light/camera/render> 이름 속성 값...");
+    const auto& block = sources.block(a[0], a[1]); const auto& file = sources.files[block.file];
+    const auto spec = field(a[0], a[2]);
+    require(a.size() == std::size_t(3 + (spec.count <= 0 ? 1 : spec.count)), "속성의 인수 개수가 맞지 않습니다.");
+    std::string value;
+    if (spec.count == 0) {
+        require(a[3] == "on" || a[3] == "off", "on 또는 off를 입력하세요."); value = a[3] == "on" ? "true" : "false";
+    } else if (spec.count == -1) {
+        require(a[3] == "box" || a[3] == "tetra" || a[3] == "pyramid", "box/tetra/pyramid만 지원합니다.");
+        value = "graphics::GLShape::" + std::string(a[3] == "box" ? "Cube" : a[3] == "tetra" ? "Tetra" : "Pyramid");
+    } else {
+        if (spec.count > 1) value = "{";
+        bool any = false;
+        for (int i = 0; i < spec.count; ++i) {
+            if (i) value += ", "; value += number(a[std::size_t(i) + 3], spec.low, spec.high, spec.nonzero);
+            any = any || std::stod(a[std::size_t(i) + 3]) != 0;
+        }
+        if (a[2] == "axis" || a[2] == "sun-direction" || (a[0] == "camera" && a[2] == "up")) require(any, "방향 벡터는 0이 될 수 없습니다.");
+        if (spec.count > 1) value += '}';
+    }
+    const std::regex assignment("^(\\s*)([A-Za-z_][A-Za-z_0-9]*)\\." + escaped(spec.member) + "\\s*=[^;]*;\\s*(?://.*)?$");
+    std::size_t line = 0; std::string replacement; bool found = false;
+    for (auto i = block.first + 1; i < block.last; ++i) {
+        std::smatch match;
+        if (!std::regex_match(file.lines[i], match, assignment)) continue;
+        require(!found, "같은 속성의 대입이 여러 번 있습니다. code/replace로 직접 범위를 지정하세요.");
+        found = true; line = i;
+        replacement = match[1].str() + match[2].str() + '.' + spec.member + " = " + value + ';';
+    }
+    require(found, "단일 행 속성 대입을 찾지 못했습니다. show/find 후 insert/replace로 수정안을 작성하세요.");
+    std::string meaning = a[0] + ' ' + a[1] + " / " + a[2] + " — " + spec.meaning;
+    if (a[0] == "camera") meaning += "; 위치/시선/up/near/far의 상호 유효성은 사용자 빌드·실행에서 확인";
+    proposal(file, line + 1, line + 1, {replacement}, meaning, out);
+}
+Words splitCode(std::string text) {
+    std::string decoded;
+    for (std::size_t i = 0; i < text.size(); ++i) {
+        if (text[i] == '\\' && i + 1 < text.size() && text[i + 1] == 'n') { decoded += '\n'; ++i; }
+        else decoded += text[i];
+    }
+    Words lines; std::istringstream input(decoded); std::string line;
+    while (std::getline(input, line)) lines.push_back(line);
+    return lines;
+}
+void add(SourceIndex& sources, const Words& a, std::ostream& out) {
+    require(a.size() >= 3 && identifier(a[2]), "add object/layer/light/camera 이름 ...; 이름은 ASCII 식별자입니다.");
+    const auto& kind = a[1]; const auto& name = a[2];
+    for (const auto& block : sources.blocks) require(block.kind != kind || block.name != name, "같은 구획이 이미 있습니다.");
+    const auto var = "cfg_" + kind + '_' + name;
+    Words code{"    // @debug begin " + kind + ' ' + name};
+    auto line = [&](const std::string& member, const std::string& value) { code.push_back("    " + var + '.' + member + " = " + value + ';'); };
+    std::string call;
+    if (kind == "object") {
+        require(a.size() == 4 || a.size() == 5, "add object 이름 box/tetra/pyramid [부모]");
+        require(a[3] == "box" || a[3] == "tetra" || a[3] == "pyramid", "box/tetra/pyramid만 지원합니다.");
+        code.push_back("    graphics::ObjectSetup " + var + ';');
+        line("shape", "graphics::GLShape::" + std::string(a[3] == "box" ? "Cube" : a[3] == "tetra" ? "Tetra" : "Pyramid"));
+        line("size", "{1.f, 1.f, 1.f}"); line("position", "{0.f, 0.f, 0.f}"); line("rotationDegrees", "{0.f, 0.f, 0.f}");
+        line("scale", "{1.f, 1.f, 1.f}"); line("pivot", "{0.f, 0.f, 0.f}");
+        line("material.color", "{1.f, 1.f, 1.f}"); line("material.ambientStrength", "0.25f");
+        line("material.diffuseStrength", "1.f"); line("material.specularStrength", "0.4f");
+        line("material.shininess", "32.f"); line("material.unlit", "false");
+        call = "scene.addObject(\"" + name + "\", " + var;
+    } else if (kind == "layer") {
+        require(a.size() == 4, "add layer 레이어이름 객체이름"); sources.block("object", a[3]);
+        code.push_back("    graphics::LayerSetup " + var + ';');
+        line("translation", "{0.f, 0.f, 0.f}"); line("rotationDegrees", "{0.f, 0.f, 0.f}");
+        line("scale", "{1.f, 1.f, 1.f}"); line("pivot", "{0.f, 0.f, 0.f}");
+        line("spinAxis", "{0.f, 1.f, 0.f}"); line("spinDegreesPerSecond", "0.f");
+        call = "scene.addLayer(\"" + a[3] + "\", \"" + name + "\", " + var;
+    } else if (kind == "light") {
+        require(a.size() == 3 || a.size() == 4, "add light 이름 [부모]");
+        code.push_back("    graphics::PointLight " + var + ';');
+        line("position", "{2.f, 4.f, 3.f}"); line("color", "{1.f, 1.f, 1.f}");
+        line("intensity", "1.f"); line("attenuation", "0.02f");
+        call = "scene.addLight(\"" + name + "\", " + var;
+    } else if (kind == "camera") {
+        require(a.size() == 3 || a.size() == 4, "add camera 이름 [부모]");
+        for (const auto& block : sources.blocks) require(block.kind != "camera", "카메라는 한 개의 활성 구획을 사용합니다. 기존 camera를 수정하세요.");
+        code.push_back("    graphics::Camera " + var + ';');
+        line("position", "{6.f, 4.f, 8.f}"); line("target", "{0.f, 0.f, 0.f}"); line("up", "{0.f, 1.f, 0.f}");
+        line("fieldOfViewDegrees", "45.f"); line("nearPlane", "0.1f"); line("farPlane", "100.f");
+        line("orthographic", "false"); line("orthographicHalfExtent", "4.f");
+        call = "scene.setCamera(" + var;
+    } else throw std::runtime_error("add는 object/layer/light/camera를 지원합니다.");
+    const bool parent = (kind == "object" && a.size() == 5) || ((kind == "light" || kind == "camera") && a.size() == 4);
+    if (parent) { sources.block("object", a.back()); call += ", \"" + a.back() + "\""; }
+    code.push_back("    " + call + ");"); code.push_back("    // @debug end " + kind + ' ' + name); code.push_back("");
+    const SourceFile* file = nullptr; std::size_t at = 0;
+    const std::regex insertion(R"(^\s*//\s*@debug\s+insert\s*$)");
+    for (const auto& candidate : sources.files) for (std::size_t i = 0; i < candidate.lines.size(); ++i)
+        if (std::regex_match(candidate.lines[i], insertion)) { require(!file, "삽입 지점이 여러 개입니다. project 범위를 좁히세요."); file = &candidate; at = i; }
+    require(file != nullptr, "@debug insert 지점이 없습니다. configureScene 작성 함수의 닫는 괄호 앞에 추가하세요.");
+    proposal(*file, at + 1, at, code, "configureScene(scene, options) 안에 새 " + kind + " 등록; 부모는 먼저 등록해야 함", out);
+    if (kind == "light") out << "조명 사용: render main lighting on. 기본 셰이더 점광원은 최대 8개입니다.\n";
+}
+void parent(SourceIndex& sources, const Words& a, std::ostream& out) {
+    require(a.size() == 4, "object/light/camera 이름 parent 부모이름/none");
+    const auto& block = sources.block(a[0], a[1]); const auto& file = sources.files[block.file];
+    require(a[0] == "object" || a[0] == "light" || a[0] == "camera", "parent는 object/light/camera에만 적용합니다.");
+    if (a[3] != "none") {
+        const auto& owner = sources.block("object", a[3]);
+        require(a[0] != "object" || a[1] != a[3], "자기 자신을 부모로 지정할 수 없습니다.");
+        require(owner.file == block.file && owner.last < block.first, "같은 작성 함수에서 부모 객체를 먼저 등록하세요.");
+    }
+    const std::string method = a[0] == "object" ? "addObject" : a[0] == "light" ? "addLight" : "setCamera";
+    const std::string args = a[0] == "camera" ? "" : "\"" + a[1] + "\",\\s*";
+    const std::regex call("^(\\s*)([A-Za-z_][A-Za-z_0-9]*)\\." + method + "\\(" + args + "([A-Za-z_][A-Za-z_0-9]*)(?:,\\s*\"[^\"]*\")?\\);\\s*$");
+    bool found = false; std::size_t at = 0; std::string after;
+    for (auto i = block.first + 1; i < block.last; ++i) {
+        std::smatch match; if (!std::regex_match(file.lines[i], match, call)) continue;
+        require(!found, "등록 호출이 여러 개입니다. replace로 직접 범위를 지정하세요."); found = true; at = i;
+        after = match[1].str() + match[2].str() + '.' + method + '(';
+        if (a[0] != "camera") after += '"' + a[1] + "\", ";
+        after += match[3].str(); if (a[3] != "none") after += ", \"" + a[3] + '"'; after += ");";
+    }
+    require(found, "단일 행 등록 호출을 찾지 못했습니다. show/find를 사용하세요.");
+    proposal(file, at + 1, at + 1, {after}, a[0] == "object" ? "객체 배치는 월드 좌표로 지정하고 이후 부모 변환을 상속" : "광원/카메라의 좌표를 부모 지역 좌표로 해석", out);
+}
+}
+
+void help(std::ostream& out) {
+    out << R"(project "폴더 또는 .vcxproj" [대상 지정] - 개인 절대 경로를 코드에 넣지 않음
+list [현재 소스 구획 목록] - 매 명령에서 디스크 파일을 다시 읽음
+show 종류 이름 [구획 전체 코드] - 종류 object/layer/light/camera/render
+object 이름 position/rotation/scale/size/pivot X Y Z [수정안] - 월드 배치 / 모델 크기·피벗
+object 이름 color R G B [수정안] - 재질 RGB 0~1
+object 이름 ambient/diffuse/specular/shininess 값 [수정안] - Ka/Kd/Ks/정반사 지수
+object 이름 unlit on/off [수정안] - 조명 계산 생략
+object 이름 shape box/tetra/pyramid [수정안] - 기본 형상
+layer 이름 translation/rotation/scale/pivot/axis X Y Z [수정안] - 선행 레이어 기준 지역 변환
+layer 이름 spin 도/초 [수정안] - 시간에 따른 지역 회전
+light 이름 position X Y Z / color R G B [수정안] - 부모가 있으면 지역 위치
+light 이름 intensity/attenuation 값 [수정안] - 강도/거리 제곱 감쇠
+camera 이름 position/target/up X Y Z [수정안] - 시점/주목점/up
+camera 이름 fov/near/far/extent 값 / ortho on/off [수정안] - 투영 설정
+render main lighting/textures on/off [수정안] - 렌더 옵션
+render main ambient/sun-color R G B / sun-direction X Y Z / sun-intensity 값 [수정안]
+render main background R G B A [수정안] - 배경색
+object/light/camera 이름 parent 부모이름/none [등록 코드 수정안] - 부모는 먼저 등록
+add object 이름 box/tetra/pyramid [부모] [전체 삽입 코드]
+add layer 이름 객체 [전체 삽입 코드] - 이후 레이어가 앞 레이어를 상속
+add light 이름 [부모] / add camera 이름 [부모] [전체 삽입 코드]
+find "문자열" [실제 파일·행·코드] - 일반 C++/GLSL/props에도 사용
+code "파일" 시작행 끝행 [현재 코드] - 프로젝트 내부의 색인된 파일
+replace "파일" 시작행 끝행 "코드" [정확한 before/after] - 코드 안의 \n은 줄바꿈
+insert "파일" 앞행 "코드" [삽입안] - 마지막 행+1도 가능
+help / quit [도움말/종료]
+소스 저장·컴파일·실행은 사용자가 수행합니다. 함수의 동적 실행이나 임의 C++ 의미 분석은 하지 않습니다.
+)";
+}
+bool command(SourceIndex& sources, const std::string& line, std::ostream& out) {
+    const auto a = words(line); if (a.empty()) return true;
+    if (a[0] == "quit") { require(a.size() == 1, "quit"); return false; }
+    if (a[0] == "help") { require(a.size() == 1, "help"); help(out); return true; }
+    if (a[0] == "project") { require(a.size() == 2, "project \"폴더 또는 .vcxproj\""); sources.project(fs::u8path(a[1])); }
+    sources.refresh();
+    if (a[0] == "project") { out << "대상: " << sources.root().u8string() << " | 소스 " << sources.files.size() << "개\n"; return true; }
+    if (a[0] == "list") {
+        require(a.size() == 1, "list");
+        for (const auto& b : sources.blocks) out << b.kind << ' ' << b.name << " | " << sources.files[b.file].path.u8string() << ':' << b.first + 1 << '-' << b.last + 1 << '\n';
+        if (sources.blocks.empty()) out << "@debug 구획이 없습니다. find/code/replace/insert로 일반 소스에 사용할 수 있습니다.\n";
+    } else if (a[0] == "show") {
+        require(a.size() == 3, "show 종류 이름"); const auto& b = sources.block(a[1], a[2]); sources.print(sources.files[b.file], b.first + 1, b.last + 1, out);
+    } else if (a[0] == "find") {
+        require(a.size() == 2 && !a[1].empty(), "find \"문자열\""); std::size_t count = 0;
+        for (const auto& f : sources.files) for (std::size_t i = 0; i < f.lines.size(); ++i)
+            if (f.lines[i].find(a[1]) != std::string::npos) { out << f.path.u8string() << ':' << i + 1 << " | " << f.lines[i] << '\n'; ++count; }
+        out << "검색 결과 " << count << "개.\n";
+    } else if (a[0] == "code") {
+        require(a.size() == 4, "code 파일 시작행 끝행"); sources.print(sources.file(fs::u8path(a[1])), index(a[2]), index(a[3]), out);
+    } else if (a[0] == "replace" || a[0] == "insert") {
+        const bool replace = a[0] == "replace"; require(a.size() == (replace ? 5u : 4u), "replace 파일 시작행 끝행 코드 / insert 파일 앞행 코드");
+        const auto first = index(a[2]); const auto last = replace ? index(a[3]) : first - 1;
+        require(!replace || first <= last, "시작행은 끝행 이하여야 합니다.");
+        proposal(sources.file(fs::u8path(a[1])), first, last, splitCode(a.back()), "일반 소스 편집 제안; 문법·의미는 사용자 확인", out);
+    } else if (a[0] == "add") add(sources, a, out);
+    else if (a.size() >= 3 && a[2] == "parent") parent(sources, a, out);
+    else if (a[0] == "object" || a[0] == "layer" || a[0] == "light" || a[0] == "camera" || a[0] == "render") set(sources, a, out);
+    else throw std::runtime_error("지원하지 않는 명령입니다. help를 입력하세요.");
+    return true;
+}
+} // namespace source_debugger
+````
+
+
+## standard/debugger/SourceIndex.cpp
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````cpp
+#include "SourceIndex.h"
+#include <algorithm>
+#include <fstream>
+#include <optional>
+#include <regex>
+#include <stdexcept>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+
+namespace source_debugger {
+namespace {
+bool excluded(const fs::path& path) {
+    const auto name = path.filename().u8string();
+    return name == ".git" || name == ".vs" || name == "x64" || name == "Debug" || name == "Release" ||
+        name == "dependencies" || name == "docs" || name == "debugger" || name == "old_standard" || name == "graphify-out" ||
+        name == ".agents" || name == ".obj-work" || name == "dist" || name == "packages";
+}
+bool source(const fs::path& path) {
+    const auto ext = path.extension().u8string();
+    return ext == ".cpp" || ext == ".h" || ext == ".hpp" || ext == ".glsl" || ext == ".props" || ext == ".vcxproj";
+}
+}
+void SourceIndex::project(const fs::path& input) {
+    auto path = fs::canonical(input);
+    if (fs::is_regular_file(path)) {
+        if (path.extension() != ".vcxproj") throw std::runtime_error("프로젝트 폴더 또는 .vcxproj를 지정하세요.");
+        path = path.parent_path();
+    }
+    if (!fs::is_directory(path)) throw std::runtime_error("프로젝트 폴더가 아닙니다.");
+    root_ = path;
+}
+void SourceIndex::refresh() {
+    if (root_.empty()) throw std::runtime_error("project \"프로젝트 폴더 또는 .vcxproj 경로\"를 먼저 입력하세요.");
+    std::vector<SourceFile> next;
+    std::vector<fs::path> paths;
+    for (fs::recursive_directory_iterator it(root_), end; it != end; ++it) {
+        const auto status = it->symlink_status();
+        const auto attributes = GetFileAttributesW(it->path().c_str());
+        if (attributes == INVALID_FILE_ATTRIBUTES) throw std::runtime_error("소스 경로 속성을 읽지 못했습니다.");
+        if (fs::is_symlink(status) || (attributes & FILE_ATTRIBUTE_REPARSE_POINT) || excluded(it->path())) {
+            it.disable_recursion_pending(); continue;
+        }
+        if (fs::is_regular_file(status) && source(it->path())) paths.push_back(it->path());
+    }
+    std::sort(paths.begin(), paths.end());
+    for (const auto& path : paths) {
+        if (fs::file_size(path) > 8 * 1024 * 1024) throw std::runtime_error("소스 파일이 8 MiB를 초과합니다: " + path.u8string());
+        std::ifstream input(path, std::ios::binary);
+        if (!input) throw std::runtime_error("소스를 열 수 없습니다: " + path.u8string());
+        SourceFile file{path, {}};
+        std::string line;
+        while (std::getline(input, line)) {
+            if (!line.empty() && line.back() == '\r') line.pop_back();
+            if (file.lines.empty() && line.compare(0, 3, "\xEF\xBB\xBF") == 0) line.erase(0, 3);
+            if (line.find('\0') != std::string::npos) throw std::runtime_error("UTF-8 텍스트 소스가 필요합니다: " + path.u8string());
+            if (!line.empty() && MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, line.data(), int(line.size()), nullptr, 0) == 0)
+                throw std::runtime_error("UTF-8로 읽을 수 없는 소스입니다: " + path.u8string());
+            file.lines.push_back(line);
+        }
+        if (input.bad()) throw std::runtime_error("소스 읽기 실패: " + path.u8string());
+        next.push_back(std::move(file));
+    }
+    std::vector<Block> found;
+    const std::regex marker(R"(^\s*//\s*@debug\s+(begin|end)\s+(object|layer|light|camera|render)\s+([A-Za-z_][A-Za-z_0-9]*)\s*$)");
+    for (std::size_t f = 0; f < next.size(); ++f) {
+        std::optional<Block> open;
+        for (std::size_t i = 0; i < next[f].lines.size(); ++i) {
+            std::smatch match;
+            if (!std::regex_match(next[f].lines[i], match, marker)) continue;
+            if (match[1] == "begin") {
+                if (open) throw std::runtime_error("중첩 @debug 구획: " + next[f].path.u8string());
+                open = Block{f, i, i, match[2], match[3]};
+            } else {
+                if (!open || open->kind != match[2] || open->name != match[3])
+                    throw std::runtime_error("짝이 맞지 않는 @debug end: " + next[f].path.u8string());
+                open->last = i; found.push_back(*open); open.reset();
+            }
+        }
+        if (open) throw std::runtime_error("닫히지 않은 @debug 구획: " + next[f].path.u8string());
+    }
+    files = std::move(next); blocks = std::move(found);
+}
+const Block& SourceIndex::block(const std::string& kind, const std::string& name) const {
+    const Block* result = nullptr;
+    for (const auto& item : blocks) if (item.kind == kind && item.name == name) {
+        if (result) throw std::runtime_error("같은 구획이 여러 파일에 있습니다. project로 대상 폴더를 좁히세요.");
+        result = &item;
+    }
+    if (!result) throw std::runtime_error("해당 @debug 구획이 없습니다. list/find를 사용하세요.");
+    return *result;
+}
+const SourceFile& SourceIndex::file(const fs::path& input) const {
+    const auto path = fs::canonical(input.is_absolute() ? input : root_ / input);
+    for (const auto& item : files) if (fs::equivalent(item.path, path)) return item;
+    throw std::runtime_error("현재 프로젝트에 색인한 소스 파일이 아닙니다.");
+}
+void SourceIndex::print(const SourceFile& file, std::size_t first, std::size_t last, std::ostream& out) const {
+    if (first == 0 || first > last || last > file.lines.size()) throw std::runtime_error("현재 소스의 행 범위를 벗어났습니다.");
+    out << file.path.u8string() << ':' << first << '-' << last << '\n';
+    for (std::size_t i = first; i <= last; ++i) out << i << " | " << file.lines[i - 1] << '\n';
+}
+void proposal(const SourceFile& file, std::size_t first, std::size_t last,
+              const std::vector<std::string>& after, const std::string& meaning, std::ostream& out) {
+    if (first == 0 || first > file.lines.size() + 1 || last > file.lines.size() || last + 1 < first)
+        throw std::runtime_error("제안할 행 범위가 현재 파일과 맞지 않습니다.");
+    out << "[수정 제안] " << file.path.u8string() << ':' << first;
+    if (last >= first && last != first) out << '-' << last;
+    if (last < first) out << " 앞에 삽입";
+    out << "\n[위치·의미] " << meaning << "\n[before]\n";
+    if (last < first) out << "(없음: 새 코드 삽입)\n";
+    else for (auto i = first; i <= last; ++i) out << i << " | " << file.lines[i - 1] << '\n';
+    out << "[after: 복사할 C++ 코드]\n";
+    for (const auto& line : after) out << line << '\n';
+    out << "[주변 코드]\n";
+    if (first > 1) out << first - 1 << " | " << file.lines[first - 2] << '\n';
+    const auto following = last < first ? first : last + 1;
+    if (following <= file.lines.size()) out << following << " | " << file.lines[following - 1] << '\n';
+    out << "파일은 사용자가 직접 수정합니다. 다음 명령에서 디스크 소스를 다시 읽습니다.\n";
+}
+} // namespace source_debugger
+````
+
+
+## standard/debugger/SourceIndex.h
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````cpp
+#pragma once
+#include <filesystem>
+#include <ostream>
+#include <string>
+#include <vector>
+
+namespace source_debugger {
+namespace fs = std::filesystem;
+struct SourceFile { fs::path path; std::vector<std::string> lines; };
+struct Block { std::size_t file, first, last; std::string kind, name; };
+class SourceIndex {
+    fs::path root_;
+public:
+    std::vector<SourceFile> files;
+    std::vector<Block> blocks;
+    void project(const fs::path& path);
+    const fs::path& root() const { return root_; }
+    void refresh();
+    const Block& block(const std::string& kind, const std::string& name) const;
+    const SourceFile& file(const fs::path& path) const;
+    void print(const SourceFile& source, std::size_t first, std::size_t last, std::ostream& out) const;
+};
+void proposal(const SourceFile& file, std::size_t first, std::size_t last,
+              const std::vector<std::string>& after, const std::string& meaning, std::ostream& out);
+bool command(SourceIndex& sources, const std::string& line, std::ostream& out);
+void help(std::ostream& out);
+} // namespace source_debugger
+````
+
+
+## standard/debugger/Toolchain.props
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Import after Microsoft.Cpp.Default.props and before Microsoft.Cpp.props. -->
+  <PropertyGroup>
+    <DebuggerToolsetRoot>$(VCTargetsPath)\Platforms\x64\PlatformToolsets</DebuggerToolsetRoot>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and '$(DefaultPlatformToolset)'!='' and Exists('$(DebuggerToolsetRoot)\$(DefaultPlatformToolset)\Toolset.props')">$(DefaultPlatformToolset)</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(DebuggerToolsetRoot)\v143\Toolset.props')">v143</PlatformToolset>
+    <PlatformToolset Condition="'$(PlatformToolset)'=='' and Exists('$(DebuggerToolsetRoot)\v145\Toolset.props')">v145</PlatformToolset>
+  </PropertyGroup>
+  <Target Name="ExplainDebuggerToolchain" BeforeTargets="PrepareForBuild">
+    <Message Importance="High" Text="Debugger toolchain: VS=$(VisualStudioVersion); Platform=$(Platform); Toolset=$(PlatformToolset); VCTargetsPath=$(VCTargetsPath)" />
+    <Error Condition="'$(PlatformToolset)'=='' or !Exists('$(DebuggerToolsetRoot)\$(PlatformToolset)\Toolset.props')" Text="Debugger toolset unavailable: $(PlatformToolset). Expected $(DebuggerToolsetRoot)\$(PlatformToolset)\Toolset.props. VS 2022: install Desktop development with C++ and MSVC v143, then open the .sln (not .slnx on older VS). For a deliberate toolset override, install that toolset or change Platform Toolset in Project Properties." />
+  </Target>
+</Project>
+````
+
+
+## standard/debugger/debugger.sln
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````text
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{BC8A1FFA-BEE3-4634-8014-F334798102B3}") = "debugger", "debugger.vcxproj", "{48D466D1-8954-4D75-A111-D8BAC65250A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.ActiveCfg = Debug|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Debug|x64.Build.0 = Debug|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.ActiveCfg = Release|x64
+		{48D466D1-8954-4D75-A111-D8BAC65250A8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+EndGlobal
+````
+
+
+## standard/debugger/debugger.vcxproj
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{48D466D1-8954-4D75-A111-D8BAC65250A8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword><ProjectName>debugger</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="Toolchain.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType><CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)x64\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)x64\$(Configuration)\obj\</IntDir>
+    <TargetName>debugger</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile><LanguageStandard>stdcpp17</LanguageStandard><WarningLevel>Level4</WarningLevel><AdditionalOptions>/utf-8 /FC %(AdditionalOptions)</AdditionalOptions></ClCompile>
+    <Link><SubSystem>Console</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation></Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" /><ClCompile Include="SourceIndex.cpp" /><ClCompile Include="Commands.cpp" />
+    <ClInclude Include="SourceIndex.h" /><None Include="README.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
+````
+
+
+## standard/debugger/main.cpp
+
+### 블록 1 · before L1 / after L1
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before: 없음**
+
+
+**after**
+
+````cpp
+#include "SourceIndex.h"
+#include <iostream>
+#include <exception>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+
+int wmain(int argc, wchar_t** argv) {
+    SetConsoleOutputCP(CP_UTF8); SetConsoleCP(CP_UTF8);
+    source_debugger::SourceIndex sources;
+    std::cout << "Source debugger: 실제 디스크 소스의 편집 위치와 코드를 안내합니다.\n";
+    if (argc == 2) {
+        try { sources.project(std::filesystem::path(argv[1])); sources.refresh(); std::cout << "대상: " << sources.root().u8string() << '\n'; }
+        catch (const std::exception& error) { std::cerr << "대상 오류: " << error.what() << '\n'; }
+    } else if (argc > 2) { std::cerr << "사용법: debugger.exe [\"프로젝트 폴더 또는 .vcxproj\"]\n"; return 1; }
+    source_debugger::help(std::cout);
+    std::string line;
+    while (std::cout << "dbg> " << std::flush, std::getline(std::cin, line)) {
+        try { if (!source_debugger::command(sources, line, std::cout)) break; }
+        catch (const std::exception& error) { std::cerr << "명령 거절: " << error.what() << '\n'; }
+    }
+    return 0;
+}
+````
+
+
 ## standard/examples/SourceExamples.h
 
 ### 블록 1 · before L1 / after L1
@@ -1923,6 +1921,26 @@ public:
 
 
 
+## tools/Package-Standard.py
+
+### 블록 1 · before L31 / after L31
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before**
+
+````python
+        if relative.parts[0] in {'.vs', 'x64', '.git', '__pycache__'}:
+````
+
+**after**
+
+````python
+        build_root = relative.parts[1] if len(relative.parts) > 1 and relative.parts[0] == 'debugger' else relative.parts[0]
+        if build_root in {'.vs', 'x64', '.git', '__pycache__'}:
+````
+
+
 ## tools/Update-StandardDocs.py
 
 ### 블록 1 · before L129 / after L129
@@ -1960,7 +1978,41 @@ public:
 ````
 
 
-### 블록 3 · before L202 / after L203
+### 블록 3 · before L166 / after L167
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before**
+
+````python
+SIZE_EXCLUDED = ('x64', '.vs')
+````
+
+**after**
+
+````python
+SIZE_EXCLUDED = (('x64',), ('.vs',), ('debugger', 'x64'), ('debugger', '.vs'))
+````
+
+
+### 블록 4 · before L171 / after L172
+
+변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
+
+**before**
+
+````python
+             and p.relative_to(STANDARD).parts[0] not in SIZE_EXCLUDED]
+````
+
+**after**
+
+````python
+             and not any(p.relative_to(STANDARD).parts[:len(prefix)] == prefix for prefix in SIZE_EXCLUDED)]
+````
+
+
+### 블록 5 · before L202 / after L203
 
 변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
 
@@ -1975,7 +2027,7 @@ public:
 ````
 
 
-### 블록 4 · before L208 / after L211
+### 블록 6 · before L208 / after L211
 
 변경 이유: PLAN.md의 해당 단계에 따라 직접 C++ 작성, 실제 소스 편집 안내, 문서/프로젝트 구성 또는 구조 보고를 반영한다. 함수/클래스 이름과 호출부는 아래 실제 변경 코드 및 ARCHITECTURE.md에서 확인한다.
 
@@ -2081,7 +2133,16 @@ DEBUGGER = r'''# Source debugger: 실제 C++ 소스 편집 안내
 
 ## 시작
 
-`debugger/debugger.sln`에서 debugger를 빌드한다. 저장소 루트 `OpenGL-26-2.sln`에는 Standard와 debugger가 별도 프로젝트로 들어 있다. 각 프로젝트의 단독 솔루션도 사용할 수 있다. debugger는 OpenGL·GLFW·GLEW·Standard 실행 파일에 의존하지 않는 Windows C++17 콘솔 프로그램이다.
+저장소 기준 `standard/debugger/debugger.sln`에서 debugger를 빌드한다. `standard/standard.sln`은 Standard만 참조한다. 루트 `OpenGL-26-2.sln`은 debugger도 표시하는 편의 솔루션이며 기본 전체 빌드는 Standard만 대상으로 한다. 이 편의 솔루션에서는 debugger 프로젝트를 선택해 별도로 빌드한다. debugger의 단독 솔루션에서는 debugger를 빌드한다. Standard와 framework는 debugger의 소스·헤더·라이브러리·실행 파일을 참조하지 않는다. debugger도 OpenGL·GLFW·GLEW·Standard 실행 파일에 의존하지 않는 Windows C++17 콘솔 프로그램이다.
+
+사용자가 Debug/x64로 debugger를 빌드한 뒤 실행할 경로는 다음과 같다.
+
+```powershell
+$glStandard = 'C:/Work/OpenGL-26-2/standard'
+& "$glStandard/debugger/x64/Debug/debugger.exe" "$glStandard"
+```
+
+이 경로는 자기 복사 위치로 바꾼다. Standard 실행 파일은 `standard/x64/Debug/standard.exe`이며 debugger 실행 파일과 별개다.
 
 실행 시 프로젝트 폴더 또는 `.vcxproj` 경로를 인수 하나로 전달하거나 아래처럼 입력한다. 예제 경로는 자기 복사 위치로 바꾼다.
 
@@ -2164,15 +2225,42 @@ scene.addLight("key", cfg_key);
 
 새 코드 삽입에는 `configureScene(graphics::SceneAuthoring& scene, graphics::RenderOptions& options)` 안의 독립된 `// @debug insert` 한 줄을 사용한다. 부모와 대상 객체를 먼저 등록한다. 새 코드를 수동으로 반영한 뒤 다음 명령을 입력해야 새 구획을 찾을 수 있다.
 
-색인은 선택한 폴더의 `.cpp/.h/.hpp/.glsl/.props/.vcxproj` 텍스트를 읽는다. `.vcxproj` 입력은 해당 파일의 상위 폴더를 선택한다. MSBuild의 조건·매크로·실제 컴파일 목록을 평가하는 기능은 아니다. `dependencies`, `docs`, `old_standard`, 빌드/IDE/그래프 폴더와 링크·재분석 지점은 순회하지 않는다. 파일은 UTF-8(BOM 허용), 개별 8 MiB 이하여야 한다. 다른 인코딩이나 읽기 오류는 경로와 함께 거절한다.
+색인은 선택한 폴더의 `.cpp/.h/.hpp/.glsl/.props/.vcxproj` 텍스트를 읽는다. `.vcxproj` 입력은 해당 파일의 상위 폴더를 선택한다. MSBuild의 조건·매크로·실제 컴파일 목록을 평가하는 기능은 아니다. `dependencies`, `docs`, 하위 `debugger`, `old_standard`, 빌드/IDE/그래프 폴더와 링크·재분석 지점은 순회하지 않는다. 따라서 Standard를 대상으로 찾을 때 편집 도구 자체의 구현은 섞이지 않는다. debugger 폴더 자체를 project 대상으로 지정하면 그 안의 소스는 읽을 수 있다. 파일은 UTF-8(BOM 허용), 개별 8 MiB 이하여야 한다. 다른 인코딩이나 읽기 오류는 경로와 함께 거절한다.
 
 이 프로그램은 지원 문법과 실제 텍스트를 연결하는 편집 보조 도구다. 자연어 해석기, C++ AST 분석기, 중단점/메모리 디버거 또는 컴파일러는 아니다. 임의 함수·매크로·여러 줄 초기화의 의미는 추론하지 않는다. 카메라 시선·near/far 등 속성 사이의 관계, 부모 실행 순서, 모델별 조건은 사용자가 소스와 실행으로 확인한다. 숫자의 기본 범위 검사만으로 컴파일·화면 성공을 보장하지 않는다.
 '''
 
 
 def refresh_documents():
-    write('debugger/README.md', DEBUGGER)
+    write('standard/debugger/README.md', DEBUGGER)
     write('standard/docs/SOURCE_DEBUGGER.md', DEBUGGER)
+    write('standard/docs/MODULE_LAYOUT.md', '''# Standard·framework·debugger 모듈 경계
+
+```text
+standard/
+  standard.sln             # Standard만 참조
+  standard.vcxproj         # main/Console/SceneSetup + 자기 framework
+  SceneSetup.cpp           # 사용자가 직접 편집하는 C++ 원본
+  framework/               # 독립 배포 사본, debugger 참조 없음
+  debugger/
+    debugger.sln           # 도구만 빌드하는 단독 솔루션
+    debugger.vcxproj       # 자기 C++ 소스 + Windows/표준 라이브러리
+    Toolchain.props        # 도구 내부 설정
+    x64/Debug/debugger.exe # 사용자가 빌드한 뒤 생기는 실행 파일
+```
+
+| 모듈 | 실제 빌드 입력 | 다른 모듈과의 관계 |
+|---|---|---|
+| Standard | main.cpp, Console.cpp, SceneSetup.cpp, framework/Framework.props | framework API 사용. debugger 소스·프로젝트·실행 파일 참조 없음 |
+| framework 원본/배포 사본 | 자기 헤더·detail 소스·셰이더·SDK·런타임 DLL | debugger를 include/import/link/실행하지 않음 |
+| debugger | 자기 main.cpp, Commands.cpp, SourceIndex.cpp, SourceIndex.h, Toolchain.props | Standard/framework를 링크하지 않음. 사용자가 고른 소스 파일만 읽음 |
+
+저장소 루트 OpenGL-26-2.sln은 두 프로젝트를 함께 보여주는 편의 파일이다. debugger의 기본 Build.0 선택을 두지 않는다. Standard만 빌드할 때는 standard.sln을 사용하고, 도구는 내부 debugger.sln이나 루트 솔루션의 debugger 프로젝트를 명시적으로 선택한다. 프로젝트 사이의 ProjectReference/ProjectDependencies를 추가하지 않는다.
+
+debugger의 출력은 C++ 편집 제안이며 실행 중인 Standard에 호출하는 API가 아니다. @debug 표시는 위치 검색용 주석이라서 Standard/framework 실행 의존성이 아니다. Standard를 대상으로 색인할 때 내부 debugger 폴더는 순회하지 않는다. 도구 자체를 편집하려면 debugger 폴더를 project 대상으로 명시한다.
+
+standard 전체 폴더 또는 debugger 폴더만 별도 위치로 복사할 수 있다. debugger를 뺀 Standard 복사본도 standard.sln/standard.vcxproj와 framework의 참조를 그대로 사용한다. 폴더 분리 후 빌드·실행 확인은 사용자가 수행한다. 이번 작업에서는 소스 참조와 프로젝트 구성을 읽었고 빌드·테스트·앱은 실행하지 않았다.
+''')
     examples = (ROOT / 'standard/examples/SourceExamples.h').read_text(encoding='utf-8-sig')
     write('standard/docs/EXAMPLES.md', '''# C++ 변환·조명·카메라 예제
 
@@ -2201,12 +2289,13 @@ source_examples::rotatingDisplay(scene, options);
 
 `SceneSetup.cpp`에 객체·변환·조명·재질·카메라를 C++ 코드로 작성한다. 수정 후 사용자가 빌드·실행한다.
 
-[전체 문서](index.html) · [작성 흐름](docs/DIRECT_CPP_WORKFLOW.md) · [두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.md) · [디버거 명령](docs/SOURCE_DEBUGGER.md) · [조명](docs/LIGHTING_AND_MATERIALS.md) · [사용자 확인](USER_CHECKS.md)
+[전체 문서](index.html) · [모듈 경계](docs/MODULE_LAYOUT.md) · [작성 흐름](docs/DIRECT_CPP_WORKFLOW.md) · [두 물체 튜토리얼](docs/WORKSPACE_TUTORIAL.md) · [디버거 명령](docs/SOURCE_DEBUGGER.md) · [조명](docs/LIGHTING_AND_MATERIALS.md) · [사용자 확인](USER_CHECKS.md)
 
-- `standard.sln`: 현재 직접 작성 프로젝트. 루트 솔루션에는 별도 debugger 프로젝트도 있다.
+- `standard.sln`: Standard만 참조하는 직접 작성 프로젝트. debugger 폴더가 없어도 이 솔루션에 도구 참조가 남지 않는다.
 - `SceneSetup.cpp`: 사용자가 직접 고치는 장면 설정. 문자열 명령·외부 assembly 파일을 실행하지 않는다.
 - `Console.cpp`: 초기화·마우스 객체 이름 확인·시간 갱신·렌더 콜백.
 - `framework/`: 이 폴더 안의 배포 사본. 상위·형제 폴더 없이 빌드/실행에 사용한다.
+- `debugger/`: 소스 편집 안내용 독립 콘솔 프로젝트. Standard와 framework의 필수 모듈이 아니다. `debugger/debugger.sln`으로 따로 연다.
 - `old_standard/`: 저장소의 형제 폴더에 보존한 이전 명령·레시피 버전. 그 폴더의 `standard.sln`으로 별도 연다.
 
 클릭은 선택한 객체 이름과 `show object 이름` 안내만 출력한다. Space는 시간 정지/재개, Home은 시간 초기화, Esc는 종료다. 객체 속성은 코드에서 편집한다. 물체 전체 선택이 기본이며 면 편집 명령 모드는 현재 Standard 실행에 포함하지 않는다. 필요하면 기존 면 변환 C++ API를 직접 사용한다.
@@ -2246,7 +2335,9 @@ source_examples::rotatingDisplay(scene, options);
 
 ## 배포 경계
 
-Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. debugger는 자체 소스와 Toolchain.props만 사용한다. 합본 솔루션의 프로젝트 경로는 편의용이며 각 단독 솔루션의 빌드/실행 의존성은 아니다. 실제 소스 위치는 debugger 실행 인수나 project 명령으로 선택한다. 폴더를 다른 위치로 복사한 뒤 빌드·실행하는 확인은 사용자가 수행한다.
+Standard는 자체 framework·셰이더·헤더·라이브러리·실행 DLL을 가진다. 선택 도구는 `standard/debugger`에 있으며 자체 소스와 Toolchain.props만 사용한다. Standard의 vcxproj와 framework의 헤더/props/런타임은 debugger를 참조하지 않는다. Standard를 직접 빌드·실행할 때 debugger가 필요하지 않다. debugger도 Standard나 framework를 링크하지 않고 실행 인수로 선택한 디스크 소스를 읽는다.
+
+standard.sln은 Standard만 참조한다. 저장소 루트의 편의 솔루션은 두 프로젝트를 표시하지만 ProjectReference/ProjectDependencies를 추가하지 않으며 debugger의 Build.0 기본 선택도 제외한다. 도구를 빌드하려면 그 프로젝트를 선택하거나 내부 단독 솔루션을 사용한다. standard 폴더 전체를 복사하면 내부 두 프로젝트와 framework 사본이 함께 이동하며 상위 저장소에 실행/빌드 의존성을 두지 않는다. debugger 폴더를 뺀 복사본도 standard.sln/standard.vcxproj와 framework 소스를 그대로 사용한다. debugger 폴더 자체도 별도로 복사할 수 있다. 폴더 분리 후 실제 빌드·실행 확인은 사용자가 수행한다.
 ''')
     write('standard/docs/TRANSFORM_REFERENCE.md', '''# 객체 월드 배치와 지역 레이어
 
@@ -2363,16 +2454,16 @@ camera main target 0 1 0
 
 에이전트는 소스 작성·소스 열람·문서/구조 자료 생성만 수행했다. 아래 항목은 실행하지 않았다.
 
-1. 루트 `OpenGL-26-2.sln`을 Visual Studio에서 열고 Standard와 debugger를 각각 빌드한다. Standard 컴파일 목록에 Assembly*.cpp가 없고 SceneSetup.cpp와 framework/detail/SceneAuthoring.cpp가 있는지 확인한다.
+1. `standard/standard.sln`은 Standard만 참조하고 루트 `OpenGL-26-2.sln`은 두 프로젝트 중 Standard만 기본 빌드하는지 확인한다. 루트 솔루션에서 debugger는 프로젝트를 선택해 별도로 빌드한다. `standard/debugger/debugger.sln`에서는 도구만 빌드한다. Standard 컴파일 목록에 Assembly*.cpp/debugger 소스/ProjectReference가 없고 SceneSetup.cpp와 framework/detail/SceneAuthoring.cpp가 있는지 확인한다.
 2. debugger를 실행하고 `project "자신의 경로/standard/standard.vcxproj"`, `list`, `show light key`, `light key position 5 6 7`을 입력한다. 절대 경로·실제 행·before의 기존 position·after `{5.f, 6.f, 7.f}`를 소스와 대조한다. 생성 숫자는 유효한 동등 float 표기로 나올 수 있다.
 3. 소스 구획 앞에 빈 줄 두 개를 넣어 저장한 뒤 같은 명령을 반복한다. 안내 행은 두 줄 이동해야 한다. position 기존 값을 수동 수정해 저장한 뒤 before도 새 값으로 바뀌는지 확인한다. 대상 소스가 프로그램에 의해 저장되지 않는지도 확인한다.
 4. `add object gate box base`의 전체 after를 안내 위치에 반영한다. 저장 후 `show object gate`, `object gate position 3 1 0`이 새 구획과 실제 변수를 찾는지 확인한다.
 5. `layer hinge spin 30`을 수동 반영하고 Standard를 재빌드·실행한다. 부모/지역 레이어의 회전을 관찰한다. Space 정지·Home 시간 초기화·클릭의 객체 이름 출력을 확인한다.
 6. `light key parent base`와 조명 위치·강도·재질 Ks/N 수정안을 수동 반영한다. 재빌드해 광원과 재질의 효과를 각각 관찰한다. 카메라 변경 시 position/target/up과 near/far가 함께 유효한지 확인한다.
 7. 잘못된 숫자, 0 배율, 0 회전축, 없는 구획, 중복 구획, 여러 대입문, 존재하지 않는 파일/행을 입력한다. 잘못된 위치를 성공으로 안내하지 않고 오류를 표시해야 한다. 임시로 바꾼 사용자 소스는 직접 복원한다.
-8. `find "SceneAuthoring::update"`를 framework 대상으로 실행하고 실제 결과를 `code`로 읽는다. 구획이 없는 일반 실습에도 find/code/replace/insert의 before가 실제 파일과 같은지 확인한다. 이 명령은 MSBuild 활성 분기나 C++ 의미를 판정하지 않는다.
+8. `find "SceneAuthoring::update"`를 framework 대상으로 실행하고 실제 결과를 `code`로 읽는다. Standard 대상으로는 하위 debugger 소스가 검색되지 않고 debugger 폴더를 명시한 project 대상에서는 그 구현이 검색되는지 확인한다. 구획이 없는 일반 실습에도 find/code/replace/insert의 before가 실제 파일과 같은지 확인한다. 이 명령은 MSBuild 활성 분기나 C++ 의미를 판정하지 않는다.
 9. 한글·공백 경로에서 UTF-8 BOM 파일을 읽고 EOF/quit로 종료한다. 링크·재분석 지점 아래로 순회하지 않는지 확인한다.
-10. standard 폴더와 debugger 폴더를 각각 다른 위치로 복사해 단독 솔루션 빌드·실행을 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과를 확인한다.
+10. standard 폴더 전체와 그 안의 debugger 폴더를 각각 다른 위치로 복사해 단독 프로젝트 빌드·실행을 확인한다. 별도 복사본에서 debugger를 빼도 standard.sln/standard.vcxproj와 framework가 도구 없이 빌드·실행되는지 확인한다. Standard의 framework 배포 사본과 DLL/셰이더 복사 결과도 확인한다. Package-Standard와 용량 집계는 standard 및 내부 debugger의 x64/.vs를 제외하지만 framework/dependencies의 SDK 입력은 보존한다.
 
 `old_standard`는 이전 프로젝트를 보존한 폴더다. 기존 standard 내부에 x64/.vs가 없었으므로 이 이동에서 삭제된 용량은 0바이트다. 저장소 루트의 .vs, 다른 실습의 x64, 사용자 docs.zip·PDF·기존 Renderer.cpp 변경은 정리 범위에서 제외했다.
 ''')
@@ -2402,6 +2493,8 @@ camera main target 0 1 0
 
 현재 작성 방식은 [SceneAuthoring C++ API](docs/SOURCE_AUTHORING.md)다. ObjectSetup·LayerSetup·PointLight·Camera 값을 소스에서 직접 작성한다. 프레임워크에 명령 파서나 assembly 파일 실행 의존성을 추가하지 않는다. 낮은 수준의 Scene·TransformSystem·PatternSystem·Motion·Dynamics API도 그대로 직접 사용할 수 있다.
 
+편집 보조 도구는 Standard 폴더 내부의 독립 debugger 프로젝트다. framework는 debugger를 include/import/link하거나 실행하지 않는다. debugger 소스와 실행 파일이 없어도 framework를 사용하는 프로젝트의 빌드/실행 계약은 같다.
+
 [기존 공통 API 레퍼런스](docs/API_REFERENCE.html)는 계속 제공한다. 과거 Standard 명령·레시피·모드 설명은 이전 버전 자료이며 저장소의 old_standard에 보존한다. 현재 Standard의 작성 흐름은 SceneSetup.cpp와 새 문서를 따른다. 기존 명령 예제가 새 Standard에서 실행된다고 간주하지 않는다.
 
 조명은 기존 방향광·점광원·독립 주변광·재질 Ka/Kd/Ks/shininess와 법선 변환을 사용한다. 추가 개념은 사용자가 지정한 ComputerGraphics 저장소의 해당 소스를 확인한 뒤 반영한다. 빌드·실행·화면 확인은 사용자가 수행한다.
@@ -2419,7 +2512,7 @@ camera main target 0 1 0
         'uncategorized': {'id': 'other', 'title': '공통 API·기존 참고 자료', 'description': '현재 작성 흐름은 시작하기 문서를 우선한다. 과거 명령 예제는 old_standard용이다.'},
         'categories': [{'id': 'start', 'title': 'C++ 직접 작성과 편집 안내', 'description': '수동 소스 편집 → 사용자 빌드·실행',
             'documents': [{'path': path, 'title': title, 'featured': True} for path, title in [
-                ('README.md', 'Standard 시작'), ('docs/DIRECT_CPP_WORKFLOW.md', '작성 위치와 실행 흐름'),
+                ('README.md', 'Standard 시작'), ('docs/MODULE_LAYOUT.md', '모듈 경계와 내부 debugger'), ('docs/DIRECT_CPP_WORKFLOW.md', '작성 위치와 실행 흐름'),
                 ('docs/SOURCE_DEBUGGER.md', 'debugger 명령과 실제 소스 위치'), ('docs/WORKSPACE_TUTORIAL.md', '두 물체 C++ 튜토리얼'),
                 ('docs/TRANSFORM_REFERENCE.md', '월드 배치·지역 레이어'), ('docs/EXAMPLES.md', 'C++ 예제 전체 코드'), ('docs/LIGHTING_AND_MATERIALS.md', '조명·재질·참고 소스'),
                 ('framework/docs/SOURCE_AUTHORING.md', '공통 작성 API'), ('USER_CHECKS.md', '사용자 확인 절차')]]}]}
@@ -2459,7 +2552,7 @@ GRAPH = ROOT / 'graphify-out/source-debugger'
 OWNED = ('framework/', 'standard/', 'old_standard/', 'debugger/', 'docs/source-debugger/',
          'graphify-out/source-debugger/', 'tools/templates/standard-viewer/')
 TOOLS = {'tools/Write-SourceDebuggerDocs.py', 'tools/Write-SourceDebuggerReport.py',
-         'tools/Update-StandardDocs.py', 'tools/Update-StandardModesGraph.py', 'OpenGL-26-2.sln'}
+         'tools/Update-StandardDocs.py', 'tools/Update-StandardModesGraph.py', 'tools/Package-Standard.py', 'OpenGL-26-2.sln'}
 
 
 def git(*args):
@@ -2524,10 +2617,6 @@ def main():
                        '**before**' if old else '**before: 없음**', '', code(old, language) if old else '',
                        '**after**' if new else '**after: 없음**', '', code(new, language) if new else '', '']
     write(OUT / 'ALL_CODE_BEFORE_AFTER.md', '\n'.join(report))
-    write(OUT / 'CHANGE_MANIFEST.json', json.dumps({'baseline': BASE, 'changed_code_blocks': blocks,
-        'source_state': 'Saved source during final documentation stage; hashes include current generated artifacts.',
-        'excluded_preexisting_user_items': ['openGL_3dAssign_26/framework/detail/Renderer.cpp', 'docs.zip',
-            'lecture_pdf/homework/*', 'tools/__pycache__/*'], 'files': manifest}, ensure_ascii=False, indent=2))
 
     projects = json.loads((GRAPH / 'PROJECTS.json').read_text(encoding='utf-8-sig'))
     graph = json.loads((GRAPH / 'graph.json').read_text(encoding='utf-8-sig'))
@@ -2549,8 +2638,8 @@ def main():
         '5. Application의 기존 Scene 모션 갱신 후 Console::onRender → Application::renderScene → Renderer의 CPU 정점/인덱스 업로드와 VAO/VBO/EBO·uniform·draw 호출로 이어진다.',
         '6. Shaders.h 또는 외부 VertexShader/FragmentShader가 모델/정규행렬·조명·재질·텍스처를 처리한다. 프레임 종료 뒤 run이 GPU·창·GLFW를 정리한다.', '',
         '## 별도 debugger', '',
-        '1. wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다.',
-        '2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다.',
+        '1. standard/debugger/main.cpp의 wmain은 UTF-8 콘솔을 설정하고 인수 또는 project 명령으로 대상 폴더를 고른다. 독립 실행 프로그램이며 Standard의 메모리/렌더러를 제어하지 않는다. Standard/framework는 도구를 참조하지 않는다.',
+        '2. command는 문자열을 토큰화하고 SourceIndex::refresh로 실제 디스크 소스를 다시 읽는다. 시작/끝 구획과 현행 행 번호를 만든다. Standard 대상 검색에서 하위 debugger는 제외한다.',
         '3. set/parent는 유일한 현재 대입/등록 줄을 찾고, add는 실제 @debug insert 앞의 전체 C++ 삽입안을 만든다. find/code는 일반 소스 위치를 제공한다.',
         '4. proposal은 실제 before와 생성한 after, 경로·행·주변 코드를 stdout에 출력한다. 대상 파일 저장·프로세스 실행·컴파일 호출은 없다.',
         '5. EOF 또는 quit로 끝난다. Windows 파일 경로/콘솔 API와 C++ 표준 기능만 사용하며 OpenGL SDK 링크는 없다.', '',
@@ -2589,6 +2678,7 @@ def main():
 - 날짜: 2026-11-10
 - 승인 범위: 프레임워크 원본과 Standard 직접 작성 전환, 별도 debugger, 실제 소스의 경로·행·before/after 안내, 조명·재질·카메라와 문서·튜토리얼·예제 개편.
 - 추가 승인: 기존 Standard를 old_standard로 이동하고 그 안의 x64/.vs만 삭제. 두 폴더가 없어 실제 삭제·회수 용량은 0바이트.
+- 배치 변경 승인: debugger를 standard/debugger로 이동. standard.sln은 Standard만 참조하고, 루트 편의 솔루션의 도구 기본 Build.0은 제외한다. framework/Standard에 debugger 의존성을 추가하지 않는다.
 - 기존 사용자 Renderer.cpp 변경, docs.zip, PDF, 기존 pycache는 수정·삭제·커밋하지 않음.
 
 | 단계 | 커밋 | 내용 |
@@ -2597,7 +2687,9 @@ def main():
 | 2 | 14fefc4 | old_standard 보존, 새 Standard의 SceneSetup·콜백·컴파일 목록 |
 | 3 | d0ac31a | debugger, 실제 소스 색인·수정안·합본/단독 솔루션 |
 | 4 | 50d73c5 | 튜토리얼·예제·조명 문서·목차·생성기, 초기 부모 레이어 적용 |
-| 5 | 최종 구조/보고 커밋 | graphify AST, 프로젝트 진입점, 전체 before/after·manifest |
+| 5 | 15f88be | graphify AST, 프로젝트 진입점, 전체 before/after·manifest |
+| 6 | 13b888e | standard/debugger 이동, 독립 프로젝트 유지, 소스 검색·패키징 경계 |
+| 7 | 후속 문서/구조 커밋 | 내부 배치 문서·그래프·전체/추가 before-after 갱신 |
 
 문서 생성: python -B tools/Update-StandardDocs.py. 코드 작성·문서 생성·구조 자료 생성은 수행했고, 컴파일·테스트·검증기·앱 실행·화면 확인은 수행하지 않았다.
 
@@ -2605,7 +2697,54 @@ def main():
 
 별도 삭제할 임시파일을 만들지 않았다. graphify-out/source-debugger의 추출/캐시는 구조 자료와 재생성 근거로 보존한다. 삭제 후보로 사용자 자료를 임의 분류하지 않는다.
 ''')
+    layout_before_after()
+    listed = {item['path'] for item in manifest}
+    for name in ('docs/source-debugger/PLAN.md', 'docs/source-debugger/ARCHITECTURE.md',
+                 'docs/source-debugger/MODULE_LAYOUT_BEFORE_AFTER.md', 'graphify-out/source-debugger/GRAPH_REPORT.md'):
+        if name not in listed: manifest.append({'path': name, 'preserved_project_relocation': False})
+    # Record generated artifacts after their final writes; omit self-referential report/manifest hashes.
+    for item in manifest:
+        path = ROOT / item['path']
+        data = path.read_bytes() if path.is_file() else b''
+        item.update(exists=path.is_file(), bytes=len(data), sha256=hashlib.sha256(data).hexdigest() if path.is_file() else None)
+    write(OUT / 'CHANGE_MANIFEST.json', json.dumps({'baseline': BASE, 'changed_code_blocks': blocks,
+        'source_state': 'Saved source during final documentation stage; hashes include final generated artifacts.',
+        'excluded_preexisting_user_items': ['openGL_3dAssign_26/framework/detail/Renderer.cpp', 'docs.zip',
+            'lecture_pdf/homework/*', 'tools/__pycache__/*'], 'files': manifest}, ensure_ascii=False, indent=2))
     print(f'Generated complete before/after ({blocks} blocks), source manifest and architecture reports. No builds/tests run.')
+
+
+def layout_before_after():
+    baseline = '15f88bef3fb818026f6693a578d0c418eb896043'
+    names = set(git('diff', '--no-renames', '--name-only', baseline, '--').decode('utf-8').splitlines())
+    names.update(git('ls-files', '--others', '--exclude-standard').decode('utf-8').splitlines())
+    lines = ['# debugger 내부 배치 변경 전후', '', '이번 배치 변경 직전 커밋 `' + baseline + '` 기준이다.', '',
+        '## 이동 파일', '', '| 이전 경로 | 현재 경로 |', '|---|---|']
+    for path in sorted((ROOT / 'standard/debugger').iterdir()):
+        if path.is_file(): lines.append('| debugger/' + path.name + ' | standard/debugger/' + path.name + ' |')
+    lines += ['', '이동한 파일의 변경 없는 본문은 중복하지 않는다. 소스/설정의 실제 변경 블록은 아래에 모두 기록한다. '
+        '문서·그래프 생성물은 전체 CHANGE_MANIFEST에서 확인한다. 런타임 코드의 변경은 검색 제외 디렉터리에 debugger를 추가한 부분이다. '
+        '빌드·테스트·실행·검증기는 수행하지 않았다.', '']
+    for name in sorted(names):
+        if not (name in TOOLS or name.startswith('standard/debugger/')): continue
+        path = ROOT / name
+        if not path.is_file() or path.suffix not in {'.cpp', '.h', '.props', '.vcxproj', '.sln', '.py'}: continue
+        old_name = 'debugger/' + name[len('standard/debugger/'):] if name.startswith('standard/debugger/') else name
+        result = subprocess.run(['git', 'show', baseline + ':' + old_name], cwd=ROOT, capture_output=True)
+        left = result.stdout.decode('utf-8-sig').replace('\r\n', '\n').splitlines(keepends=True) if result.returncode == 0 else []
+        right = path.read_text(encoding='utf-8-sig').splitlines(keepends=True)
+        groups = list(difflib.SequenceMatcher(None, left, right, autojunk=False).get_grouped_opcodes(0))
+        if not groups: continue
+        lines += ['## ' + name, '']
+        for n, group in enumerate(groups, 1):
+            first, last = group[0], group[-1]
+            i, j, a, b = first[1], last[2], first[3], last[4]
+            old, new = ''.join(left[i:j]), ''.join(right[a:b])
+            lines += [f'### 블록 {n} · before L{i+1} / after L{a+1}', '',
+                '변경 이유: 도구를 Standard 내부에 배치하면서 원본/배포 프레임워크와 Standard의 빌드·실행 독립성을 유지하고 새 경로를 문서/패키징/보고에 연결한다.', '',
+                '**before**' if old else '**before: 없음**', '', code(old, 'text') if old else '',
+                '**after**' if new else '**after: 없음**', '', code(new, 'text') if new else '', '']
+    write(OUT / 'MODULE_LAYOUT_BEFORE_AFTER.md', '\n'.join(lines))
 
 
 if __name__ == '__main__':

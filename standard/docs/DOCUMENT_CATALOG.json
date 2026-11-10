@@ -19,6 +19,11 @@
           "featured": true
         },
         {
+          "path": "docs/MODULE_LAYOUT.md",
+          "title": "모듈 경계와 내부 debugger",
+          "featured": true
+        },
+        {
           "path": "docs/DIRECT_CPP_WORKFLOW.md",
           "title": "작성 위치와 실행 흐름",
           "featured": true
