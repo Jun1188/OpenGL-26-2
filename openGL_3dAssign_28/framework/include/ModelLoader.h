@@ -142,20 +142,5 @@ public:
 
     /// [API] 프로젝트 상대경로의 OBJ를 직접 파싱하여 모델·피벗·경고·오류 결과를 반환한다.
     ModelResult loadObj(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const;
-
-
-    /// [API] 기본 도형 OBJ를 읽는 호환 진입점이다. OBJ 로더로 처리를 위임한다.
-    ModelResult loadPrimitive(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const;
-
-
-    /// [API] 모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
-    ModelResult loadModel(const std::filesystem::path& relative, const LoadOptions& options = LoadOptions{}) const;
 };
-} // namespace graphics
-
-namespace graphics {
-/// [API] 모델 로딩 호환 진입점이다. 현재 구현은 loadObj로 위임하며 다른 형식 변환은 하지 않는다.
-inline ModelResult AssetLoader::loadModel(const std::filesystem::path& relative, const LoadOptions& options) const {
-    return loadObj(relative, options);
-}
 } // namespace graphics

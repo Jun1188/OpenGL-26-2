@@ -1,4 +1,4 @@
-﻿#include "../Framework.h"
+﻿#include "../include/Graphics.h"
 #include "Internal.h"
 #include <fstream>
 #include <initializer_list>
@@ -45,9 +45,6 @@ Scene::Scene() {
     geometryRevision_ = nextGeometryRevision();
     polyId_.reserve(MAX_ENTITIES);
     components_.reserve(MAX_ENTITIES);
-    tetraFaceId_.reserve(MAX_ENTITIES * 4);
-    cubeFaceId_.reserve(MAX_ENTITIES * 6);
-    pyramidFaceId_.reserve(MAX_ENTITIES * 5);
     lines_.reserve(MAX_LINES);
 }
 
@@ -131,21 +128,6 @@ std::optional<EntityId> Scene::push_entity(const Polyhedron& polyhedron, const T
 
     components_.push_back({polyhedron, transform, maximum - minimum});
     polyId_.push_back(id);
-
-    std::vector<FaceId>* faceIds = nullptr;
-
-    if (polyhedron.shape == GLShape::Cube)
-        faceIds = &cubeFaceId_;
-
-    if (polyhedron.shape == GLShape::Tetra)
-        faceIds = &tetraFaceId_;
-
-    if (polyhedron.shape == GLShape::Pyramid)
-        faceIds = &pyramidFaceId_;
-
-    if (faceIds)
-        for (std::size_t i = 0; i < polyhedron.faces.size(); ++i)
-            faceIds->push_back({id, i});
     geometryRevision_ = nextGeometryRevision();
 
     return id;
@@ -678,9 +660,6 @@ void Scene::clear() {
     }
     polyId_.clear();
     components_.clear();
-    cubeFaceId_.clear();
-    tetraFaceId_.clear();
-    pyramidFaceId_.clear();
     lines_.clear();
     geometryRevision_ = nextGeometryRevision();
 }
@@ -898,24 +877,6 @@ glm::mat4 CameraSystem::projectionMatrix(const Camera& camera, float aspect) {
     return glm::perspective(glm::radians(camera.fieldOfViewDegrees), aspect, camera.nearPlane, camera.farPlane);
 }
 
-void Scene::rebuildFaceIds() {
-    cubeFaceId_.clear();
-    tetraFaceId_.clear();
-    pyramidFaceId_.clear();
-
-    for (EntityId id : polyId_) {
-        const auto& model = components_[id].polyhedron;
-        auto* ids = model.shape == GLShape::Cube      ? &cubeFaceId_
-                    : model.shape == GLShape::Tetra   ? &tetraFaceId_
-                    : model.shape == GLShape::Pyramid ? &pyramidFaceId_
-                                                      : nullptr;
-
-        if (ids)
-            for (std::size_t f = 0; f < model.faces.size(); ++f)
-                ids->push_back({id, f});
-    }
-}
-
 std::optional<EntityId> Scene::addModel(const Model& model, const Transform3D& transform, PivotMode pivot,
                                         const glm::vec3& customPivot) {
     if (!DiagramSystem::validPolyhedron(model) || !detail::finiteVector(customPivot))
@@ -964,7 +925,6 @@ bool Scene::setModel(EntityId id, const Model& model) {
     if (replacement.pivotMode == PivotMode::BottomCenter)
         replacement.transform.localBasis = detail::bottomCenter(model);
     components_[id] = std::move(replacement);
-    rebuildFaceIds();
     geometryRevision_ = nextGeometryRevision();
 
     return true;

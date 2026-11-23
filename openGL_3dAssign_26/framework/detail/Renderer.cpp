@@ -500,11 +500,16 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
     gl.Uniform3f(lightColorLocation_, options.lightColor.red, options.lightColor.green, options.lightColor.blue);
     const auto eye = glm::vec3(glm::inverse(view)[3]);
     gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.viewPosition.c_str()), eye.x, eye.y, eye.z);
+    const bool lightOn = options.lighting;
     gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.ambientColor.c_str()),
-                 options.ambientColor.red, options.ambientColor.green, options.ambientColor.blue);
-    gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.directionalIntensity.c_str()), options.directionalIntensity);
-    gl.Uniform1i(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.pointLightCount.c_str()), int(options.pointLights.size()));
-    for (std::size_t i=0; i<options.pointLights.size(); ++i) {
+                 lightOn ? options.ambientColor.red : 0.0f,
+                 lightOn ? options.ambientColor.green : 0.0f,
+                 lightOn ? options.ambientColor.blue : 0.0f);
+    gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.directionalIntensity.c_str()),
+                 lightOn ? options.directionalIntensity : 0.0f);
+    gl.Uniform1i(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.pointLightCount.c_str()),
+                 lightOn ? int(options.pointLights.size()) : 0);
+    for (std::size_t i=0; lightOn && i<options.pointLights.size(); ++i) {
         const auto& light=options.pointLights[i];
         const auto prefix=config_.uniforms.pointLights + "[" + std::to_string(i) + "].";
         gl.Uniform3f(gl.GetUniformLocation(shaderProgramID_, (prefix+"position").c_str()), light.position.x,light.position.y,light.position.z);
@@ -596,7 +601,7 @@ bool Renderer::draw(const Scene& scene, const glm::mat4& view, const glm::mat4& 
         gl.UniformMatrix4fv(modelLocation_, 1, GL_FALSE, glm::value_ptr(model));
         gl.UniformMatrix3fv(normalLocation_, 1, GL_FALSE, glm::value_ptr(normalMatrix));
         gl.Uniform3f(tintLocation_, tint.red, tint.green, tint.blue);
-        gl.Uniform1i(lightingLocation_, face && options.lighting && !face->material.unlit);
+        gl.Uniform1i(lightingLocation_, face && !face->material.unlit);
         const Material material = face ? face->material : Material{};
         gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.materialAmbient.c_str()), material.ambientStrength);
         gl.Uniform1f(gl.GetUniformLocation(shaderProgramID_, config_.uniforms.materialDiffuse.c_str()), material.diffuseStrength);
@@ -677,9 +682,11 @@ bool Renderer::renderPass(const Scene& scene, const RenderPass& pass, int width,
         return true;
 
     bool validLights=options.pointLights.size()<=8 && std::isfinite(options.directionalIntensity) && options.directionalIntensity>=0;
+
     for (const auto& light:options.pointLights)
-        validLights=validLights && detail::finiteVector(light.position) && detail::validColor(light.color) &&
+        validLights  =    validLights && detail::finiteVector(light.position) && detail::validColor(light.color) &&
             std::isfinite(light.intensity) && light.intensity>=0 && std::isfinite(light.attenuation) && light.attenuation>=0;
+
     if (!validLights || !CameraSystem::validCamera(camera) || !detail::finiteVector(options.lightDirection) ||
         glm::length(options.lightDirection) < 1e-12f || !detail::validColor(options.lightColor) ||
         !detail::validColor(options.outlineColor) || !detail::validColor(options.ambientColor) || !std::isfinite(options.background.r) ||

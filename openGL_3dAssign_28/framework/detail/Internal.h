@@ -20,7 +20,4 @@ std::uint64_t nextGeometryRevision();
 
 
 void appendFace(Polyhedron& polyhedron, GLFace shape, std::initializer_list<glm::vec3> vertices, GlColor color);
-
-
-bool rigidRoom(const glm::mat4& matrix);
 } // namespace graphics::detail

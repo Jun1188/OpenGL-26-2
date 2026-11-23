@@ -140,6 +140,7 @@ details > summary { cursor: pointer; font-weight: 700; padding: 8px 0; }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 #toc:empty { display: none; }
+#toc:empty + article#content { grid-column: 1 / -1; }
 #toc a { display: block; padding: 3px 6px; border-radius: 4px; text-decoration: none; color: var(--text); }
 #toc a:hover { background: var(--surface-2); color: var(--accent); }
 #toc .toc-title { font-weight: 700; color: var(--muted); font-size: 12px; margin: 0 6px 6px; }

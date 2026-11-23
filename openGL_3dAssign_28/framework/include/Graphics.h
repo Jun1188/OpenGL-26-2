@@ -21,16 +21,10 @@ class Scene {
 private:
     std::vector<EntityId> polyId_;
     std::vector<Component_Poly> components_;
-    std::vector<FaceId> cubeFaceId_;
-    std::vector<FaceId> tetraFaceId_;
-    std::vector<FaceId> pyramidFaceId_;
     std::vector<Line3D> lines_;
     std::uint64_t geometryRevision_ = 0;
     MotionSystem motions_;
     std::map<EntityId, LayerId> entityLayers_;
-
-
-    void rebuildFaceIds();
 
 
 public:
@@ -278,24 +272,6 @@ public:
     const Component_Poly* getComponent(EntityId id) const;
 
 
-    /// [API] 직육면체 면 ID 목록을 읽기 전용 참조로 반환한다.
-    const std::vector<FaceId>& getCubeFaceIds() const {
-        return cubeFaceId_;
-    }
-
-
-    /// [API] 사면체 면 ID 목록을 읽기 전용 참조로 반환한다.
-    const std::vector<FaceId>& getTetraFaceIds() const {
-        return tetraFaceId_;
-    }
-
-
-    /// [API] 피라미드 면 ID 목록을 읽기 전용 참조로 반환한다.
-    const std::vector<FaceId>& getPyramidFaceIds() const {
-        return pyramidFaceId_;
-    }
-
-
     /// [API] Scene의 선 데이터 배열을 읽기 전용 참조로 반환한다.
     const std::vector<Line3D>& getLines() const {
         return lines_;
@@ -386,7 +362,7 @@ struct RenderOptions {
     GlColor outlineColor{0.05f, 0.05f, 0.05f};
     glm::vec4 background{0.12f, 0.12f, 0.16f, 1};
     CullMode cull = CullMode::None; // Append to preserve existing aggregate initializers.
-    float directionalIntensity = 1;
+    float directionalIntensity = 1; // 점광원의 방향성 강도 0 ~ 1 
     std::vector<PointLight> pointLights; // At most eight world-space lights in the default shader.
     GlColor ambientColor{0, 0, 0}; // Independent ambient light; legacy directional ambient remains.
 };

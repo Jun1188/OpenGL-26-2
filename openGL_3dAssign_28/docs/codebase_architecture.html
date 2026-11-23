@@ -1,0 +1,573 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpenGL Practice 28 &amp; Framework 아키텍처 문서</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #273449;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --violet: #a78bfa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Pretendard", "Malgun Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  header {
+    padding: 28px 32px 18px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #0f172a 0%, #172554 100%);
+  }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .stat {
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+  .stat strong { color: var(--accent); font-size: 1rem; }
+  nav.tabs {
+    display: flex;
+    gap: 8px;
+    padding: 14px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-wrap: wrap;
+  }
+  nav.tabs button {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  nav.tabs button:hover { color: var(--text); border-color: var(--accent); }
+  nav.tabs button.active {
+    background: var(--accent);
+    color: #0f172a;
+    border-color: var(--accent);
+  }
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 32px 60px;
+  }
+  section.panel { display: none; }
+  section.panel.active { display: block; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: #f8fafc;
+  }
+  .card p.desc {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .svg-wrap {
+    overflow-x: auto;
+    background: #0b1120;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 0.84rem;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .filter-bar button {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 0.82rem;
+    cursor: pointer;
+  }
+  .filter-bar button.active {
+    background: var(--violet);
+    color: #0f172a;
+    border-color: var(--violet);
+    font-weight: 700;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th { color: var(--accent); font-weight: 600; background: #162032; }
+  tr:hover td { background: rgba(56, 189, 248, 0.05); }
+  code {
+    background: #0b1120;
+    color: #7dd3fc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, "Cascadia Code", monospace;
+    font-size: 0.84em;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .b-app { background: rgba(251, 113, 133, 0.18); color: var(--rose); }
+  .b-l3 { background: rgba(56, 189, 248, 0.18); color: var(--accent); }
+  .b-l2 { background: rgba(167, 139, 250, 0.18); color: var(--violet); }
+  .b-l1 { background: rgba(52, 211, 153, 0.18); color: var(--green); }
+  .b-l0 { background: rgba(251, 191, 36, 0.18); color: var(--amber); }
+</style>
+</head>
+<body>
+<header>
+  <h1>OpenGL Practice 28 &amp; Framework 아키텍처</h1>
+  <p>경량화(미사용 특수 모듈 9개 제거) 및 단방향 계층(DAG) 리팩터링 이후의 코드베이스 구조와 프로젝트 루프 문서</p>
+  <div class="stats">
+    <div class="stat">Framework 파일: <strong>32 → 23개</strong></div>
+    <div class="stat">AST 규모: <strong>1,432 → 1,074 노드</strong></div>
+    <div class="stat">유지 확장: <strong>Dynamics · OBJ Loader · Texture</strong></div>
+    <div class="stat">의존 방향: <strong>App → Framework.h → Layer 3 → 2 → 1 → 0</strong></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="loop">1. 프로젝트 실행 루프 Flowchart</button>
+  <button data-tab="arch">2. Framework 계층 의존성 (DAG)</button>
+  <button data-tab="tank">3. 실습 28 탱크 씬 그래프</button>
+  <button data-tab="files">4. 파일별 책임 &amp; Include 목록</button>
+</nav>
+
+<main>
+  <!-- TAB 1: PROJECT LOOP -->
+  <section id="loop" class="panel active">
+    <div class="card">
+      <h2>프로젝트 실행 및 프레임 루프 (<code>main.cpp</code> → <code>Application::run</code> ↔ <code>Console</code>)</h2>
+      <p class="desc"><code>main.cpp</code>가 4개 콜백을 등록한 뒤 <code>app.run(config)</code>를 호출하면, 창 초기화 → 사용자 장면 초기화 → 매 프레임 이벤트·갱신·렌더 루프 → 자원 정리 순서로 실행됩니다.</p>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1060 760" width="1040" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"/>
+            </marker>
+            <marker id="arrow-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+            </marker>
+            <marker id="arrow-err" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#fb7185"/>
+            </marker>
+          </defs>
+
+          <!-- Start -->
+          <rect x="40" y="20" width="280" height="64" rx="10" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="180" y="45" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">main.cpp</text>
+          <text x="180" y="65" fill="#cbd5e1" font-size="11" text-anchor="middle">Application, Console 생성 · 4개 콜백 등록 → run()</text>
+
+          <line x1="320" y1="52" x2="375" y2="52" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Initialize -->
+          <rect x="380" y="20" width="300" height="64" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="530" y="45" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">Application::initialize(config)</text>
+          <text x="530" y="65" fill="#cbd5e1" font-size="11" text-anchor="middle">GLFW · OpenGL 3.3 창 · Renderer · AssetLoader</text>
+
+          <line x1="680" y1="52" x2="735" y2="52" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-ok)"/>
+
+          <!-- User Init -->
+          <rect x="740" y="20" width="280" height="64" rx="10" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="880" y="45" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">Console::initScene()</text>
+          <text x="880" y="65" fill="#cbd5e1" font-size="11" text-anchor="middle">reset() → 탱크 계층 · 포인트 라이트 · 카메라</text>
+
+          <!-- Failure path from init -->
+          <line x1="530" y1="84" x2="530" y2="120" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <line x1="880" y1="84" x2="880" y2="120" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="540" y="110" fill="#fb7185" font-size="11">실패 시 exitCode = -1 → shutdown()</text>
+
+          <!-- Main Loop Box -->
+          <rect x="40" y="135" width="980" height="495" rx="14" fill="rgba(30,41,59,0.35)" stroke="#334155" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <text x="60" y="160" fill="#38bdf8" font-size="13" font-weight="700">while (!glfwWindowShouldClose(window_))  — 메인 프레임 루프</text>
+
+          <line x1="880" y1="84" x2="880" y2="135" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-ok)"/>
+
+          <!-- Step 1: PollEvents -->
+          <rect x="70" y="185" width="260" height="72" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="200" y="210" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">1. glfwPollEvents()</text>
+          <text x="200" y="230" fill="#cbd5e1" font-size="11" text-anchor="middle">dispatch() → Console::onKey / onFocus</text>
+          <text x="200" y="246" fill="#94a3b8" font-size="10" text-anchor="middle">콜백 예외 시 callbackError_ 저장 후 rethrow</text>
+
+          <line x1="330" y1="221" x2="385" y2="221" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 2: Framebuffer check -->
+          <rect x="390" y="185" width="270" height="72" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+          <text x="525" y="210" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">2. 프레임버퍼 크기 확인</text>
+          <text x="525" y="230" fill="#cbd5e1" font-size="11" text-anchor="middle">width &lt;= 0 || height &lt;= 0 (최소화)?</text>
+          <text x="525" y="246" fill="#fbbf24" font-size="10" text-anchor="middle">Yes → WaitEvents() 후 다음 루프로 건너뜀</text>
+
+          <line x1="660" y1="221" x2="715" y2="221" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-ok)"/>
+
+          <!-- Step 3: dt -->
+          <rect x="720" y="185" width="270" height="72" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+          <text x="855" y="210" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">3. deltaTime 계산</text>
+          <text x="855" y="230" fill="#cbd5e1" font-size="11" text-anchor="middle">clamp(currentTime - previousTime, 0, 0.05)</text>
+          <text x="855" y="246" fill="#94a3b8" font-size="10" text-anchor="middle">정지 복귀 시 과도한 dt 폭주 방지</text>
+
+          <line x1="855" y1="257" x2="855" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 4: onUpdate -->
+          <rect x="690" y="310" width="300" height="82" rx="10" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="840" y="335" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">4. Console::onUpdate(dt)</text>
+          <text x="840" y="355" fill="#cbd5e1" font-size="11" text-anchor="middle">탱크 이동 · 하부/중앙/포신/폴/스왑 각도 적분</text>
+          <text x="840" y="373" fill="#cbd5e1" font-size="11" text-anchor="middle">카메라/조명 공전 → apply()로 Scene·PointLight 반영</text>
+
+          <line x1="690" y1="351" x2="625" y2="351" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 5: updateMotions -->
+          <rect x="370" y="310" width="250" height="82" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+          <text x="495" y="335" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">5. scene_.updateMotions(dt)</text>
+          <text x="495" y="355" fill="#cbd5e1" font-size="11" text-anchor="middle">MotionSystem 레이어 시간 진행</text>
+          <text x="495" y="373" fill="#94a3b8" font-size="10" text-anchor="middle">(실습 28에서는 미바인딩 상태로 통과)</text>
+
+          <line x1="370" y1="351" x2="315" y2="351" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 6: ensureContext -->
+          <rect x="70" y="310" width="240" height="82" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="190" y="335" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">6. ensureContext()</text>
+          <text x="190" y="355" fill="#cbd5e1" font-size="11" text-anchor="middle">스레드 일치 · WGL 컨텍스트 확인</text>
+          <text x="190" y="373" fill="#94a3b8" font-size="10" text-anchor="middle">실패 시 contextFailed_ = true</text>
+
+          <line x1="190" y1="392" x2="190" y2="445" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 7: renderScene -->
+          <rect x="70" y="450" width="460" height="90" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="2"/>
+          <text x="300" y="476" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">7. renderScene() → Renderer::render()</text>
+          <text x="300" y="497" fill="#cbd5e1" font-size="11" text-anchor="middle">① geometryRevision_ 변경 시만 upload(VBO/EBO/텍스처)</text>
+          <text x="300" y="516" fill="#cbd5e1" font-size="11" text-anchor="middle">② draw(): 각 faceWorldMatrix · view · projection · PointLight/Tint/Material 유니폼 → glDrawElements</text>
+
+          <line x1="530" y1="495" x2="595" y2="495" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- Step 8: SwapBuffers -->
+          <rect x="600" y="450" width="390" height="90" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+          <text x="795" y="476" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">8. glfwSwapBuffers(window_)</text>
+          <text x="795" y="497" fill="#cbd5e1" font-size="11" text-anchor="middle">프레임 버퍼 교체 및 contextErrorSerial 체크</text>
+          <text x="795" y="516" fill="#34d399" font-size="11" text-anchor="middle">정상 시 다음 프레임(1. PollEvents)으로 반복</text>
+
+          <!-- Loop back arrow -->
+          <path d="M 795 540 L 795 595 L 200 595 L 200 257" fill="none" stroke="#34d399" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-ok)"/>
+
+          <!-- Shutdown -->
+          <rect x="330" y="660" width="400" height="72" rx="10" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="530" y="688" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">Application::shutdown() → exitCode 반환</text>
+          <text x="530" y="710" fill="#cbd5e1" font-size="11" text-anchor="middle">AssetLoader 해제 → renderer_.destroy()/abandon() → DestroyWindow → glfwTerminate</text>
+          <line x1="530" y1="630" x2="530" y2="655" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow-err)"/>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:#fb7185"></i>사용자 앱 (Console / main)</span>
+        <span><i class="dot" style="background:#38bdf8"></i>Application 수명/컨텍스트</span>
+        <span><i class="dot" style="background:#a78bfa"></i>Scene / Motion / Renderer</span>
+        <span><i class="dot" style="background:#34d399"></i>정상 프레임 순환</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: ARCHITECTURE DAG -->
+  <section id="arch" class="panel">
+    <div class="card">
+      <h2>Framework 단방향 계층 의존성 (DAG)</h2>
+      <p class="desc">리팩터링 후 모든 <code>detail/*.cpp</code>는 <code>Framework.h</code>를 역참조하지 않으며, 상위 계층에서 하위 계층으로만 의존성이 흐릅니다.</p>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1040 580" width="1020" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"/>
+            </marker>
+          </defs>
+
+          <!-- App & Umbrella -->
+          <rect x="40" y="20" width="210" height="52" rx="8" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="145" y="43" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">openGL_3dAssign_28</text>
+          <text x="145" y="60" fill="#cbd5e1" font-size="10" text-anchor="middle">main.cpp · Console.h/cpp</text>
+
+          <rect x="330" y="20" width="220" height="52" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="440" y="43" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Framework.h</text>
+          <text x="440" y="60" fill="#cbd5e1" font-size="10" text-anchor="middle">공개 우산 헤더 (App + Dynamics)</text>
+
+          <line x1="250" y1="46" x2="325" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#arr2)"/>
+
+          <!-- Layer 3 -->
+          <rect x="40" y="105" width="960" height="78" rx="10" fill="rgba(56,189,248,0.06)" stroke="#334155"/>
+          <text x="55" y="125" fill="#38bdf8" font-size="11" font-weight="700">Layer 3 — Application</text>
+          <rect x="320" y="122" width="240" height="48" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+          <text x="440" y="144" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">include/Application.h</text>
+          <text x="440" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">← detail/Application.cpp</text>
+          <line x1="440" y1="72" x2="440" y2="118" stroke="#64748b" stroke-width="2" marker-end="url(#arr2)"/>
+
+          <!-- Layer 2 -->
+          <rect x="40" y="205" width="960" height="115" rx="10" fill="rgba(167,139,250,0.06)" stroke="#334155"/>
+          <text x="55" y="225" fill="#a78bfa" font-size="11" font-weight="700">Layer 2 — Scene · Renderer · Motion · AssetLoader · Picking</text>
+
+          <rect x="70" y="242" width="170" height="60" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="155" y="266" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Picking.h</text>
+          <text x="155" y="284" fill="#94a3b8" font-size="10" text-anchor="middle">화면 Ray 피킹</text>
+
+          <rect x="275" y="242" width="220" height="60" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="385" y="266" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Graphics.h</text>
+          <text x="385" y="284" fill="#94a3b8" font-size="10" text-anchor="middle">← Scene.cpp, Renderer.cpp</text>
+
+          <rect x="530" y="242" width="190" height="60" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="625" y="266" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Motion.h</text>
+          <text x="625" y="284" fill="#94a3b8" font-size="10" text-anchor="middle">← Motion.cpp</text>
+
+          <rect x="755" y="242" width="215" height="60" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="862" y="266" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">ModelLoader.h</text>
+          <text x="862" y="284" fill="#94a3b8" font-size="10" text-anchor="middle">← ObjLoader.cpp (+Texture.h)</text>
+
+          <line x1="385" y1="170" x2="385" y2="238" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="340" y1="170" x2="180" y2="238" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="520" y1="170" x2="830" y2="238" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="240" y1="272" x2="271" y2="272" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="495" y1="272" x2="526" y2="272" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+
+          <!-- Layer 1 -->
+          <rect x="40" y="340" width="960" height="105" rx="10" fill="rgba(52,211,153,0.06)" stroke="#334155"/>
+          <text x="55" y="360" fill="#34d399" font-size="11" font-weight="700">Layer 1 — Core Data · Geometry · Transform · Dynamics</text>
+
+          <rect x="70" y="375" width="210" height="54" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="175" y="399" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Model.h</text>
+          <text x="175" y="416" fill="#94a3b8" font-size="10" text-anchor="middle">Mesh · Model · Transform3D</text>
+
+          <rect x="315" y="375" width="200" height="54" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="415" y="399" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Geometry.h</text>
+          <text x="415" y="416" fill="#94a3b8" font-size="10" text-anchor="middle">UV · 법선 · 윤곽선 · 분할</text>
+
+          <rect x="550" y="375" width="200" height="54" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="650" y="399" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Transform.h</text>
+          <text x="650" y="416" fill="#94a3b8" font-size="10" text-anchor="middle">← Transform.cpp</text>
+
+          <rect x="785" y="375" width="185" height="54" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="877" y="399" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Dynamics.h</text>
+          <text x="877" y="416" fill="#94a3b8" font-size="10" text-anchor="middle">← Dynamics.cpp</text>
+
+          <line x1="385" y1="302" x2="410" y2="371" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="840" y1="302" x2="460" y2="371" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="625" y1="302" x2="645" y2="371" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+          <line x1="550" y1="46" x2="877" y2="371" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+
+          <!-- Layer 0 -->
+          <rect x="40" y="465" width="960" height="95" rx="10" fill="rgba(251,191,36,0.06)" stroke="#334155"/>
+          <text x="55" y="485" fill="#fbbf24" font-size="11" font-weight="700">Layer 0 — Diagnostics · Native GL/GLFW · Internal · Shaders</text>
+
+          <rect x="70" y="498" width="210" height="48" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.8"/>
+          <text x="175" y="520" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">Diagnostics.h</text>
+          <text x="175" y="536" fill="#94a3b8" font-size="10" text-anchor="middle">단계별 오류 추적 · failAt</text>
+
+          <rect x="315" y="498" width="210" height="48" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.8"/>
+          <text x="420" y="520" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">detail/Native.h</text>
+          <text x="420" y="536" fill="#94a3b8" font-size="10" text-anchor="middle">동적 GLEW/GLFW 로더</text>
+
+          <rect x="560" y="498" width="200" height="48" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.8"/>
+          <text x="660" y="520" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">detail/Internal.h</text>
+          <text x="660" y="536" fill="#94a3b8" font-size="10" text-anchor="middle">내부 유틸 선언</text>
+
+          <rect x="795" y="498" width="175" height="48" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.8"/>
+          <text x="882" y="520" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">detail/Shaders.h</text>
+          <text x="882" y="536" fill="#94a3b8" font-size="10" text-anchor="middle">내장 GLSL 330</text>
+
+          <line x1="175" y1="429" x2="175" y2="494" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr2)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: TANK SCENE GRAPH -->
+  <section id="tank" class="panel">
+    <div class="card">
+      <h2>실습 28 (<code>Console</code>) 탱크 씬 그래프 &amp; 키 제어</h2>
+      <p class="desc"><code>Console::reset()</code>이 <code>Scene</code>에 등록하고 <code>Console::apply()</code>가 매 프레임 변환을 갱신하는 부모-자식 엔티티 구조입니다.</p>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 980 390" width="960" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">
+          <defs>
+            <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b"/>
+            </marker>
+          </defs>
+
+          <rect x="30" y="160" width="140" height="54" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <text x="100" y="185" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">Scene</text>
+          <text x="100" y="202" fill="#94a3b8" font-size="10" text-anchor="middle">app_.getScene()</text>
+
+          <!-- ground & lamp -->
+          <rect x="230" y="30" width="210" height="50" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="335" y="52" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">ground (Group)</text>
+          <text x="335" y="69" fill="#94a3b8" font-size="10" text-anchor="middle">바닥 상자 (12 × 0.1 × 12)</text>
+
+          <rect x="230" y="100" width="210" height="50" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.8"/>
+          <text x="335" y="122" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">lamp_ (Cuboid, unlit)</text>
+          <text x="335" y="139" fill="#94a3b8" font-size="10" text-anchor="middle">y/Y 공전 · c 색 순환 · m 조명 토글</text>
+
+          <!-- root_ -->
+          <rect x="230" y="220" width="210" height="54" rx="8" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="335" y="244" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">root_ (Group)</text>
+          <text x="335" y="262" fill="#cbd5e1" font-size="10" text-anchor="middle">방향키 XZ 이동 (position_)</text>
+
+          <line x1="170" y1="175" x2="225" y2="55" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+          <line x1="170" y1="182" x2="225" y2="125" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+          <line x1="170" y1="195" x2="225" y2="247" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+
+          <!-- lower & central -->
+          <rect x="495" y="160" width="200" height="50" rx="8" fill="#1e293b" stroke="#a78bfa" stroke-width="1.8"/>
+          <text x="595" y="182" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">lower_[0..1]</text>
+          <text x="595" y="199" fill="#94a3b8" font-size="10" text-anchor="middle">h 키: Y 스케일 · 높이 연동</text>
+
+          <rect x="495" y="250" width="200" height="54" rx="8" fill="#1e293b" stroke="#fb7185" stroke-width="2"/>
+          <text x="595" y="274" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">central_ (Group)</text>
+          <text x="595" y="292" fill="#cbd5e1" font-size="10" text-anchor="middle">t 키: Y축 회전 · 중앙 몸체 포함</text>
+
+          <line x1="440" y1="238" x2="490" y2="185" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+          <line x1="440" y1="255" x2="490" y2="277" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+
+          <!-- upper_[0..1] -->
+          <rect x="750" y="150" width="200" height="50" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+          <text x="850" y="172" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">upper_[0..1] (Group)</text>
+          <text x="850" y="189" fill="#94a3b8" font-size="10" text-anchor="middle">l 키: 좌우 위치 스왑 (cos/sin)</text>
+
+          <rect x="750" y="225" width="200" height="50" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="850" y="247" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">guns_[0..1]</text>
+          <text x="850" y="264" fill="#94a3b8" font-size="10" text-anchor="middle">g 키: 반대 방향 Y축 yaw</text>
+
+          <rect x="750" y="300" width="200" height="50" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.8"/>
+          <text x="850" y="322" fill="#f8fafc" font-size="12" font-weight="700" text-anchor="middle">poles_[0..1]</text>
+          <text x="850" y="339" fill="#94a3b8" font-size="10" text-anchor="middle">p 키: 반대 방향 X축 pitch</text>
+
+          <line x1="695" y1="265" x2="745" y2="175" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+          <line x1="850" y1="200" x2="850" y2="220" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+          <path d="M 750 175 L 725 175 L 725 325 L 745 325" fill="none" stroke="#64748b" stroke-width="1.6" marker-end="url(#arr3)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: FILE REFERENCE -->
+  <section id="files" class="panel">
+    <div class="card">
+      <h2>전체 파일 역할 및 Include 관계 (26개 = 앱 3 + Framework 23)</h2>
+      <div class="filter-bar">
+        <button class="active" data-filter="all">전체</button>
+        <button data-filter="app">App (28)</button>
+        <button data-filter="l3">Layer 3</button>
+        <button data-filter="l2">Layer 2</button>
+        <button data-filter="l1">Layer 1</button>
+        <button data-filter="l0">Layer 0</button>
+      </div>
+      <table id="file-table">
+        <thead>
+          <tr><th>계층</th><th>파일</th><th>역할</th><th>주요 내부 Include</th></tr>
+        </thead>
+        <tbody>
+          <tr data-layer="app"><td><span class="badge b-app">App</span></td><td><code>main.cpp</code></td><td>진입점, 콜백 등록 및 <code>app.run</code> 실행</td><td><code>Console.h</code></td></tr>
+          <tr data-layer="app"><td><span class="badge b-app">App</span></td><td><code>Console.h / Console.cpp</code></td><td>탱크 계층 구성, 키/카메라/포인트 라이트 제어</td><td><code>framework/Framework.h</code></td></tr>
+          <tr data-layer="l3"><td><span class="badge b-l3">Entry</span></td><td><code>Framework.h</code></td><td>사용자용 우산 헤더</td><td><code>include/Application.h</code>, <code>include/Dynamics.h</code></td></tr>
+          <tr data-layer="l3"><td><span class="badge b-l3">Layer 3</span></td><td><code>include/Application.h</code><br><code>detail/Application.cpp</code></td><td>GLFW 창 수명, 입력 디스패치, 메인 루프 소유</td><td><code>Graphics.h</code>, <code>ModelLoader.h</code>, <code>Picking.h</code></td></tr>
+          <tr data-layer="l2"><td><span class="badge b-l2">Layer 2</span></td><td><code>include/Graphics.h</code><br><code>detail/Scene.cpp</code><br><code>detail/Renderer.cpp</code></td><td><code>Scene</code>(엔티티/계층/라인), <code>DiagramSystem</code>, <code>CameraSystem</code>, <code>Renderer</code></td><td><code>Geometry.h</code>, <code>Motion.h</code>, <code>RenderConfig.h</code>, <code>Native.h</code></td></tr>
+          <tr data-layer="l2"><td><span class="badge b-l2">Layer 2</span></td><td><code>include/Motion.h</code><br><code>detail/Motion.cpp</code></td><td>시간 기반 모션 단계 및 레이어 트리 합성</td><td><code>Transform.h</code></td></tr>
+          <tr data-layer="l2"><td><span class="badge b-l2">Layer 2</span></td><td><code>include/ModelLoader.h</code><br><code>detail/ObjLoader.cpp</code></td><td>프로젝트 상대경로 <code>.obj</code> 로더 (<code>loadObj</code>)</td><td><code>Geometry.h</code>, <code>Texture.h</code></td></tr>
+          <tr data-layer="l2"><td><span class="badge b-l2">Layer 2</span></td><td><code>include/Picking.h</code></td><td>화면 좌표 Ray 역투영 및 삼각형 최근접 교차 판정</td><td><code>Graphics.h</code></td></tr>
+          <tr data-layer="l2"><td><span class="badge b-l2">Layer 2</span></td><td><code>include/RenderConfig.h</code><br><code>include/Texture.h</code></td><td>커스텀 정점 레이아웃/유니폼 바인딩, WIC 이미지 디코딩</td><td><code>Model.h</code>, <code>detail/Native.h</code></td></tr>
+          <tr data-layer="l1"><td><span class="badge b-l1">Layer 1</span></td><td><code>include/Model.h</code></td><td><code>Transform3D</code>, <code>Mesh</code>, <code>Model</code>, <code>Component_Poly</code>, 유효성 검사</td><td><code>Diagnostics.h</code>, <code>glm</code></td></tr>
+          <tr data-layer="l1"><td><span class="badge b-l1">Layer 1</span></td><td><code>include/Geometry.h</code></td><td>UV 투영·변환, 법선 재계산, 윤곽선 토폴로지, 귀 자르기 분할</td><td><code>Model.h</code></td></tr>
+          <tr data-layer="l1"><td><span class="badge b-l1">Layer 1</span></td><td><code>include/Transform.h</code><br><code>detail/Transform.cpp</code></td><td>아핀/반사 행렬 및 타원·원·꺾은선·사각형 경로 함수</td><td><code>Model.h</code></td></tr>
+          <tr data-layer="l1"><td><span class="badge b-l1">Layer 1</span></td><td><code>include/Dynamics.h</code><br><code>detail/Dynamics.cpp</code></td><td>비관성 기준프레임 가속도, Euler 적분, 스프링 외력</td><td><code>Model.h</code></td></tr>
+          <tr data-layer="l0"><td><span class="badge b-l0">Layer 0</span></td><td><code>include/Diagnostics.h</code></td><td>파이프라인 단계별 오류 기록 및 추적 출력</td><td>없음 (표준 라이브러리만 사용)</td></tr>
+          <tr data-layer="l0"><td><span class="badge b-l0">Layer 0</span></td><td><code>detail/Native.h</code><br><code>detail/Internal.h</code><br><code>detail/Shaders.h</code></td><td>동적 GLEW/GLFW 로더, 내부 공유 함수, 내장 GLSL 330</td><td><code>Diagnostics.h</code>, <code>Model.h</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('nav.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('section.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('.filter-bar button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('#file-table tbody tr').forEach(tr => {
+        tr.style.display = (filter === 'all' || tr.dataset.layer === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,5 +1,0 @@
-﻿# Standard 0 generic workspace. Edit the scene here, then Ctrl+F5.
-clear
-camera pose 8 6 10 0 0 0 0 1 0
-add box box1 at 0 0 0
-select box1

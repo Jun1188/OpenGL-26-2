@@ -4,7 +4,8 @@
 #include <iostream>
 
 namespace {
-const std::array<graphics::GlColor, 3> lightColors{{{1, 1, 1}, {1, .25f, .2f}, {.25f, .45f, 1}}};
+const std::array<graphics::GlColor, 4> lightColors{
+    {{1, 1, 1}, {1, .25f, .2f}, {.25f, .95f, .35f}, {.25f, .45f, 1}}};
 
 /// 축과 각도로 회전 행렬을 만든다.
 glm::mat3 turn(float degrees, glm::vec3 axis) {
@@ -40,8 +41,8 @@ graphics::EntityId Console::box(glm::vec3 size, glm::vec3 position, graphics::En
 /// 장면 객체와 초기 상태를 구성한다.
 bool Console::initScene() {
     reset();
-    std::cout << "Practice 28: arrows move tank; d lower height; t central spin; l upper swap\n"
-              << "g guns opposite yaw; p poles opposite pitch; x/X,z/Z camera translation\n"
+    std::cout << "Practice 28: arrows move tank; h lower height; t central spin; l upper swap\n"
+              << "g guns opposite yaw; p poles opposite pitch; w/a/s/d camera move; x/X,z/Z camera translation\n"
               << "r/R camera orbit; y/Y light orbit (repeat pauses); m lighting on/off; c light color; o colors; q quit\n";
 
     return true;
@@ -58,7 +59,8 @@ void Console::reset() {
     lowerTime_ = centralAngle_ = gunAngle_ = poleTime_ = swapProgress_ = 0;
     swapDirection_ = 1;
     cameraX_ = cameraZ_ = cameraOrbit_ = 0;
-    lightAngle_ = lightOrbit_ = 0;
+    lightAngle_ = glm::degrees(std::atan2(5.0f, -7.0f));
+    lightOrbit_ = 0;
     lowerRunning_ = centralRunning_ = gunRunning_ = poleRunning_ = swapRunning_ = swapStarted_ = false;
     lightColor_ = 0;
     colorVersion_ = 0;
@@ -68,6 +70,7 @@ void Console::reset() {
     if (!scene.setParent(central_, root_))
         throw std::runtime_error("Cannot create tank root.");
 
+    //바닥 및 탱크 init 시작 
     const auto ground = scene.addGroup().value();
 
     box({12, .1f, 12}, {0, -.05f, 0}, ground);
@@ -88,7 +91,9 @@ void Console::reset() {
         box({.14f, .14f, 1.1f}, {0, 0, .55f}, guns_[i]);
         box({.08f, .85f, .08f}, {0, .425f, 0}, poles_[i]);
     }
+    //바닥 및 탱크 init 완료
 
+    //lamp 점광원 init 시작
     const auto lamp = scene.addCuboid({.25f, .25f, .25f}, {0, 3.5f, 5.0f});
     if (!lamp)
         throw std::runtime_error("Cannot create light marker.");
@@ -99,13 +104,18 @@ void Console::reset() {
         if (!scene.setMaterial(lamp_, face, material))
             throw std::runtime_error("Cannot configure light marker.");
     }
+    //점광원 init 완료
 
+    //카메라 설정 init 시작
     auto& camera = app_.getCamera();
 
     camera = graphics::Camera{};
     camera.position = {-5, 4.5f, 7};
     camera.target = {0, .7f, 0};
     camera.orthographic = false;
+    //카메라 설정 init 완료
+
+    // light 세부 퐁 옵션 init 시작
     auto& options = app_.getRenderOptions();
     options = graphics::RenderOptions{};
     options.lighting = true;
@@ -115,13 +125,14 @@ void Console::reset() {
     options.pointLights.push_back(graphics::PointLight{});
     options.pointLights[0].attenuation = .015f;
     options.pointLights[0].intensity = 1.5f;
+    //세부 옵션 완료
     recolor();
     apply();
 }
 
 /// 물체 색을 다시 지정한다.
 void Console::recolor() {
-    const std::array<graphics::GlColor, 10> palette{graphics::GlColor{.3f, .35f, .4f},
+    const std::array<graphics::GlColor, 10> palette{graphics::GlColor{.3f, .35f, .4f},//palette는 씬에 입힐 색
                                                     {.25f, .6f, .3f},
                                                     {.55f, .35f, .2f},
                                                     {.2f, .55f, .75f},
@@ -183,7 +194,21 @@ void Console::apply() {
     }
 
     const float lightRad = glm::radians(lightAngle_);
-    const glm::vec3 lightPos{5.0f * std::sin(lightRad), 3.5f, 5.0f * std::cos(lightRad)};
+    const glm::vec3 orbitPos{5.0f * std::sin(lightRad), 3.5f, 5.0f * std::cos(lightRad)};
+
+    const auto& camera = app_.getCamera();
+    glm::vec3 camForward = camera.target - camera.position;
+    camForward = glm::dot(camForward, camForward) > 1e-6f ? glm::normalize(camForward) : glm::vec3{0.0f, 0.0f, -1.0f};
+    glm::vec3 camRight = glm::cross(camForward, camera.up);
+    camRight = glm::dot(camRight, camRight) > 1e-6f ? glm::normalize(camRight) : glm::vec3{1.0f, 0.0f, 0.0f};
+    const glm::vec3 camUp = glm::cross(camRight, camForward);
+
+    // 카메라(화면) 기준 상대 오프셋: {오른쪽, 위, 앞쪽(시선 방향)}
+    constexpr glm::vec3 camRelOffset{-1.5f, -0.5f, 1.5f};
+    const glm::vec3 worldOffsetFromCam =
+        camRight * camRelOffset.x + camUp * camRelOffset.y + camForward * camRelOffset.z;
+
+    const glm::vec3 lightPos = orbitPos + worldOffsetFromCam;
     auto& light = app_.getRenderOptions().pointLights[0];
     light.position = lightPos;
     light.color = lightColors[lightColor_];
@@ -218,10 +243,10 @@ void Console::onKey(int key, int action, int mods) {
     if (action != GLFW_PRESS)
         return;
 
-    const float direction = upper ? 1.0f : -1.0f;
+    const float direction = upper ? -1.0f : 1.0f;
 
     switch (key) {
-    case GLFW_KEY_D:
+    case GLFW_KEY_H:
         lowerRunning_ = !lowerRunning_;
         break;
     case GLFW_KEY_T:
@@ -300,7 +325,21 @@ void Console::onUpdate(float dt) {
     }
 
     auto camera = app_.getCamera();
-    const glm::vec3 delta{cameraX_ * 2 * dt, 0, cameraZ_ * 2 * dt};
+    glm::vec3 forward = camera.target - camera.position;
+    forward.y = 0.0f;
+    if (glm::dot(forward, forward) > 1e-6f)
+        forward = glm::normalize(forward);
+    else
+        forward = {0.0f, 0.0f, -1.0f};
+    const glm::vec3 right = glm::normalize(glm::cross(forward, glm::vec3{0.0f, 1.0f, 0.0f}));
+    const float forwardInput = float(pressed_[GLFW_KEY_W]) - float(pressed_[GLFW_KEY_S]);
+    const float rightInput = float(pressed_[GLFW_KEY_D]) - float(pressed_[GLFW_KEY_A]);
+    glm::vec3 wasdMove = forward * forwardInput + right * rightInput;
+
+    if (glm::dot(wasdMove, wasdMove) > 1e-6f)
+        wasdMove = glm::normalize(wasdMove) * (2.0f * dt);
+
+    const glm::vec3 delta = glm::vec3{cameraX_ * 2 * dt, 0, cameraZ_ * 2 * dt} + wasdMove;
 
     camera.position += delta;
     camera.target += delta;
