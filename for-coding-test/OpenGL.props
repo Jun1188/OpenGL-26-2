@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OpenGLDependenciesDir>$(MSBuildThisFileDirectory)dependencies\</OpenGLDependenciesDir>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(OpenGLDependenciesDir)glew-2.3.1\include;$(OpenGLDependenciesDir)glfw-3.4.bin.WIN64\include;$(OpenGLDependenciesDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(OpenGLDependenciesDir)glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemGroup Condition="'$(Platform)'=='x64'">
+    <OpenGLRuntimeDll Include="$(OpenGLDependenciesDir)dll\glfw3.dll" />
+  </ItemGroup>
+
+  <Target Name="CopyOpenGLRuntimeDlls" AfterTargets="Build" Condition="'$(Platform)'=='x64' and '$(ConfigurationType)'=='Application'">
+    <Copy SourceFiles="@(OpenGLRuntimeDll)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

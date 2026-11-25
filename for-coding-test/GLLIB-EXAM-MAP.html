@@ -1,0 +1,727 @@
+﻿<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gllib.cpp 실습 지도</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f5f3ec; --panel: #fffdfa; --ink: #172e30; --muted: #526561;
+    --line: #c9d4ca; --teal: #06685e; --mint: #dbefe6; --dark: #102e30;
+    --amber: #8b490b; --sand: #fcf0db; --red: #994d3c;
+    --mono: "Cascadia Code", Consolas, monospace;
+    font: 16px/1.58 "Malgun Gothic", "맑은 고딕", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; color: var(--ink); background: var(--paper); }
+  button, select, input { font: inherit; }
+  button, select { color: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 3px solid #2667ba; outline-offset: 4px;
+  }
+  code, pre, .symbol, .position { font-family: var(--mono); }
+  code { font-size: .91em; overflow-wrap: anywhere; }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: clamp(2.05rem, 5vw, 3.3rem); letter-spacing: -.06em; line-height: 1.12; }
+  h1 code { font-size: .87em; letter-spacing: -.07em; }
+  h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); letter-spacing: -.055em; line-height: 1.32; }
+  h3 { font-size: 1.02rem; letter-spacing: -.025em; }
+  a { color: var(--teal); text-underline-offset: .2em; }
+  .wrap { width: min(1280px, calc(100% - 56px)); margin-inline: auto; }
+  .hero { position: relative; background: var(--dark); color: #f8fcf5; padding: 34px 0 23px; border-bottom: 4px solid #59bd9b; }
+  .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(90deg, transparent 0 39px, #abf4cb15 39px 40px),
+                repeating-linear-gradient(0deg, transparent 0 39px, #abf4cb15 39px 40px);
+    mask-image: linear-gradient(90deg, transparent 32%, black);
+  }
+  .hero .wrap { position: relative; }
+  .hero p { margin-top: 12px; color: #c6e4da; max-width: 710px; }
+  .tabs { display: flex; gap: 5px; margin-top: 24px; }
+  .tabs button { font-weight: 700; color: #d5eee3; border: 1px solid #56766e; background: #183d3d; padding: 8px 14px; border-radius: 7px; }
+  .tabs button[aria-pressed="true"] { color: #123c37; background: #bdf0d8; border-color: #bdf0d8; }
+  main.wrap { padding-block: 27px 40px; }
+  .intro { margin: 5px 0 21px; color: var(--muted); }
+  .layout { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(300px, 1fr); gap: 18px; align-items: start; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .graph { padding: 16px; }
+  .flow-section { display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 10px; padding: 13px 0; }
+  .flow-section + .flow-section { border-top: 1px dashed var(--line); }
+  .phase { color: var(--teal); font-size: .84rem; font-weight: 800; padding-top: 8px; }
+  .path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .path > span { color: var(--teal); font: 700 1.05rem var(--mono); }
+  .node { background: #edf5ee; border: 1px solid #b8cfc1; border-radius: 6px;
+    min-width: 0; padding: 7px 9px; text-align: left; }
+  .node .symbol { display: block; font-size: .81rem; font-weight: 700; overflow-wrap: anywhere; }
+  .node small { display: block; color: var(--muted); font-size: .74rem; }
+  .node:hover, .node[aria-pressed="true"] { background: var(--mint); border-color: var(--teal); }
+  .node[aria-pressed="true"] { box-shadow: inset 0 -3px var(--teal); }
+  .event-path { border-left: 3px solid #bc7d3c; margin: 9px 0 11px 9px; padding: 5px 0 4px 11px; }
+  .event-path p { color: var(--amber); font-size: .78rem; font-weight: 800; margin-bottom: 5px; }
+  .event-path .node { background: var(--sand); border-color: #e3cda7; }
+  .event-path .node[aria-pressed="true"] { border-color: var(--amber); box-shadow: inset 0 -3px var(--amber); }
+  .frame-tail { margin-top: 8px; }
+  .aside { padding: 20px; position: sticky; top: 14px; border-top: 4px solid var(--teal); }
+  .aside h3 { font: 750 1.15rem/1.35 var(--mono); overflow-wrap: anywhere; color: var(--teal); }
+  .aside p { margin-top: 12px; }
+  .loc { display: block; margin-top: 13px; color: var(--muted); font-size: .84rem; }
+  .loc code { display: block; font-weight: 700; color: var(--teal); }
+  .aside pre, .scenario pre { padding: 13px; background: #122f31; color: #dcf5e7;
+    border-radius: 7px; line-height: 1.55; font-size: .83rem; overflow-x: auto; tab-size: 4; }
+  .structure + .structure { border-top: 1px dashed var(--line); margin-top: 19px; padding-top: 17px; }
+  .structure h3 { margin-bottom: 9px; }
+  .structure p { margin: 9px 0; color: var(--muted); font-size: .87rem; }
+  .branches { display: grid; gap: 8px; border-left: 2px solid #7fa694; margin: 7px 0 9px 10px; padding: 3px 0 3px 13px; }
+  .owned { margin: 10px 0 0 0; }
+  .scenario-layout { display: grid; grid-template-columns: minmax(195px, .55fr) minmax(0, 2fr); gap: 18px; }
+  .scenario-nav { padding: 8px; align-self: start; }
+  .scenario-nav button { width: 100%; text-align: left; background: transparent; padding: 10px 11px; border: 1px solid transparent; border-radius: 6px; font-weight: 700; }
+  .scenario-nav button:hover, .scenario-nav button[aria-pressed="true"] { background: var(--mint); border-color: #a5c9b5; color: #05534a; }
+  .scenario { min-width: 0; padding: 20px 22px; border-top: 4px solid var(--teal); }
+  .scenario p + p { margin-top: 10px; }
+  .scenario-heading { margin-bottom: 13px; }
+  .scenario-heading p { color: var(--muted); margin-top: 4px; }
+  .route { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); }
+  .route span { display: inline-block; font: 700 .77rem/1.4 var(--mono); color: var(--muted); padding: 6px 7px; border: 1px solid #d3ddd3; border-radius: 4px; }
+  .route .active { color: #fff; background: var(--teal); border-color: var(--teal); }
+  .steps { list-style: none; margin: 15px 0; padding: 0; display: grid; gap: 10px; }
+  .steps li { border-left: 3px solid #8cc5ad; padding-left: 10px; }
+  .steps code { color: var(--teal); font-weight: 750; }
+  .steps p { margin-top: 2px; }
+  .check { padding: 10px 13px; background: var(--sand); border-left: 3px solid #bc7d3c; }
+  .check strong { color: var(--amber); }
+  .model { margin: 15px 0; border: 1px solid #b4cfc2; background: #edf6ef; border-radius: 8px; padding: 12px; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: .88rem; font-weight: 700; }
+  .controls label { display: flex; align-items: center; gap: 8px; }
+  .controls input { accent-color: var(--teal); width: min(130px, 30vw); }
+  .controls select { border: 1px solid #a7c2b4; padding: 2px 5px; background: var(--panel); border-radius: 4px; }
+  .model canvas { display: block; width: 100%; height: auto; max-height: 270px; margin-top: 4px; }
+  .position { color: #234f49; font-size: .83rem; }
+  .changes { padding: 4px 18px; }
+  .change { display: grid; grid-template-columns: 132px minmax(0, 1fr) minmax(0, 1.4fr); gap: 14px; padding: 15px 0; }
+  .change + .change { border-top: 1px solid var(--line); }
+  .change dt { font-weight: 800; }
+  .change dd { margin: 0; font-size: .88rem; }
+  .change dd:first-of-type { color: var(--muted); }
+  .change dd strong { display: block; color: var(--teal); font-size: .74rem; margin-bottom: 3px; }
+  .change dd:first-of-type strong { color: var(--muted); }
+  .source-list { list-style: none; padding: 0; margin: 14px 0 0; }
+  .source-list li { padding: 7px 0; border-top: 1px dashed var(--line); font-size: .85rem; }
+  .source-list code { color: var(--teal); font-weight: 700; }
+  .prior { margin-top: 17px; padding: 14px 16px; }
+  .prior summary { cursor: pointer; font-weight: 700; color: var(--teal); }
+  .prior p { margin-top: 10px; }
+  .prior pre { margin-bottom: 0; padding: 11px; border-radius: 6px; background: #edf5ee; overflow-x: auto; }
+  .references { margin-top: 17px; padding: 16px 18px; }
+  .references h3 + p { margin-top: 5px; color: var(--muted); font-size: .85rem; }
+  .references ul { margin: 12px 0 0; padding-left: 1.3em; }
+  .references li + li { margin-top: 9px; }
+  .references li { font-size: .88rem; }
+  .key-compare { margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .key-compare summary { font-weight: 700; color: var(--teal); cursor: pointer; }
+  .key-compare p { margin-top: 9px; font-size: .88rem; }
+  .key-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+  .key-examples h4 { font-size: .84rem; margin: 0; }
+  .key-examples pre { margin: 5px 0 0; padding: 10px; background: #edf5ee; border-radius: 6px; overflow-x: auto; }
+  .trace { margin: 12px 0 1px; color: var(--muted); font-size: .82rem; }
+  .foot { margin-top: 19px; padding-top: 10px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--muted); }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .aside { position: static; }
+    .scenario-layout { grid-template-columns: minmax(0, 1fr); }
+    .key-examples { grid-template-columns: minmax(0, 1fr); }
+    .scenario-nav { display: flex; flex-wrap: wrap; gap: 3px; }
+    .scenario-nav button { width: auto; }
+  }
+  @media (max-width: 520px) {
+    .wrap { width: calc(100% - 24px); }
+    .hero { padding-top: 23px; }
+    .tabs { flex-wrap: wrap; }
+    .tabs button { padding-inline: 8px; font-size: .8rem; }
+    .flow-section { grid-template-columns: 1fr; gap: 4px; }
+    .phase { padding: 0; }
+    .scenario, .aside { padding: 13px; }
+    .change { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 6px 10px; }
+    .change dt { grid-column: 1 / -1; }
+  }
+</style>
+<header class="hero">
+  <div class="wrap">
+    <h1><code>gllib.cpp</code> 실습 지도</h1>
+    <p>바닥과 기준 직육면체에서 시작합니다. 시험 문제가 정해지면 장면과 키를 추가하고 필요한 배치·변환 패턴을 호출하세요.</p>
+    <nav class="tabs" aria-label="지도 보기">
+      <button type="button" data-view="changes" aria-controls="changes" aria-pressed="true">변경 사항</button>
+      <button type="button" data-view="flow" aria-controls="flow" aria-pressed="false">실행 흐름</button>
+      <button type="button" data-view="ownership" aria-controls="ownership" aria-pressed="false">소유·계층</button>
+      <button type="button" data-view="scenarios" aria-controls="scenarios" aria-pressed="false">시험 시나리오</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <section id="changes" aria-labelledby="changes-title">
+    <h2 id="changes-title">기본 장면과 시험용 공통 함수</h2>
+    <p class="intro">처음 받은 문제에 맞춰 장면, 입력, 상태를 결정하는 시작 코드입니다.</p>
+    <div class="layout">
+      <dl class="panel changes">
+        <div class="change">
+          <dt>장면과 대상</dt>
+          <dd><strong>이전</strong>받침·기둥·막대를 부모와 자식으로 연결하고 막대를 직접 제어했습니다.</dd>
+          <dd><strong>현재</strong>바닥과 기준 직육면체를 하나씩 등록합니다. 치수와 배치는 <code>examLayout</code>에 있습니다. 필요한 객체 ID는 문제를 풀면서 <code>Console</code>에 저장합니다.</dd>
+        </div>
+        <div class="change">
+          <dt>키 입력</dt>
+          <dd><strong>이전</strong>방향키 분기 또는 <code>KeyState</code>로 키 상태를 기록했습니다.</dd>
+          <dd><strong>현재</strong><code>onKey()</code>의 <code>GLFW_PRESS</code> 분기에 단발 동작을 모읍니다. 누르는 동안 움직이는 문제가 나오면 해당 키의 상태만 추가합니다.</dd>
+        </div>
+        <div class="change">
+          <dt>회전 갱신</dt>
+          <dd><strong>이전</strong>저울 막대나 기본 기둥이 방향키로 회전했습니다.</dd>
+          <dd><strong>현재</strong>기본 장면은 정지 상태로 시작합니다. 회전이 필요하면 <code>EXAM_RUN</code>에서 프레임 콜백을 연결하고 <code>advanceSpin()</code>을 사용합니다.</dd>
+        </div>
+        <div class="change">
+          <dt>클릭과 드래그</dt>
+          <dd><strong>이전</strong>마우스 로그가 <code>runExam()</code> 안에 있었고 화면 광선은 <code>pickAt()</code> 내부에서 사용했습니다.</dd>
+          <dd><strong>현재</strong><code>onMouse()</code>가 선택 로그를 담당합니다. <code>screenRayAt()</code>의 광선을 삼각형 피킹과 <code>intersectRayPlane()</code>에서 함께 쓸 수 있습니다.</dd>
+        </div>
+        <div class="change">
+          <dt>장면 다시 시작</dt>
+          <dd><strong>이전</strong>장면 생성부는 주로 도형과 카메라를 구성했습니다.</dd>
+          <dd><strong>현재</strong><code>initScene()</code>은 색상 복원 기록을 초기화합니다. 장면을 재구성할 때는 먼저 <code>scene.clear()</code>를 호출하고, 문제별 ID·타이머·키 상태도 초기값으로 돌립니다.</dd>
+        </div>
+        <div class="change">
+          <dt>프레임워크 정리</dt>
+          <dd>자동 UV 투영을 제거했습니다. 기존 UV에 배율·회전·이동을 적용하는 함수도 제거했습니다. 이미지 디코딩·GPU 텍스처 경로를 제거했고 OBJ의 UV와 <code>setTexcoords()</code>는 유지했습니다.</dd>
+          <dd>직선 모션은 경로 모션의 시간 검사를 사용합니다. 자동 재생은 사용자 <code>onUpdate(dt)</code> 다음에 진행합니다. <code>Application::run()</code>은 한 곳에서 자원을 정리한 뒤 반환하거나 예외를 다시 던집니다.</dd>
+          <dd>구·원뿔·사면체 생성과 진단 단계명·진입 추적을 덜어냈습니다. 육면체와 실습 26의 사각뿔은 유지합니다. 모션은 변환 단계와 레이어를 재생하고, 시험 상태 변경은 <code>onUpdate(dt)</code>에 작성합니다.</dd>
+        </div>
+      </dl>
+      <aside class="panel aside" aria-labelledby="edit-title">
+        <h3 id="edit-title">시험에서 바꿀 곳</h3>
+        <p>장면을 만든 뒤 필요한 객체의 ID를 저장하고, 먼저 단발 키를 추가합니다. 문제에 시간에 따른 동작이 있으면 프레임 갱신을 연결합니다.</p>
+        <ul class="source-list" id="changes-sources"></ul>
+        <p class="trace"><code>C</code>는 면 색상 변경, <code>Shift+C</code>는 복원입니다. 문제의 C 키 요구는 <code>onKey()</code>에서 연결합니다.</p>
+      </aside>
+    </div>
+    <section class="panel references" aria-labelledby="reference-title">
+      <h3 id="reference-title">PDF와 함께 볼 때</h3>
+      <p>PDF의 줄 번호는 작성 당시 기준입니다. 현재 소스에서는 같은 함수 이름이나 <code>EXAM_</code> 검색어로 이동하세요.</p>
+      <ul>
+        <li>첫 실행 확인은 창과 기본 장면을 띄운 뒤 Q 또는 Esc로 닫는 절차입니다. PDF의 시작 화면은 바닥과 큐브이며, 현재 소스는 바닥과 기준 직육면체를 띄웁니다. <a href="./OPENGL-EXAM-TUTORIAL-PRINT.pdf#page=1">인쇄 요약 1–3쪽</a></li>
+        <li>입력에서 상태를 저장하고 <code>onUpdate(dt)</code>에서 기존 ID의 변환을 갱신하는 순서는 같습니다. PDF 완성 예제의 WASD 이동·관성·리셋을 적용할 때는 <code>wHeld_</code> 같은 개별 플래그를 추가하고, <code>EXAM_RUN</code>에서 갱신과 포커스 콜백을 연결합니다. <a href="./GLLIB-CALLBACK-API-GUIDE.pdf#page=4">콜백 API 가이드 4–9쪽</a></li>
+        <li>PDF의 받침·크레인·차량은 객체 생성과 피벗을 연습하는 별도 장면입니다. 바닥 위에 놓는 중심 계산과 부모 기준 배치, 자전·공전 규칙은 현재도 그대로 적용합니다. <a href="./GLLIB-CALLBACK-API-GUIDE.pdf#page=2">콜백 API 가이드 2–3쪽</a> · <a href="./GLLIB-CALLBACK-API-GUIDE.pdf#page=10">10–12쪽</a> · <a href="./OPENGL-EXAM-TUTORIAL-PRINT.pdf#page=5">인쇄 요약 5쪽</a></li>
+        <li>OBJ는 현재 소스의 <code>EXAM_PRIMITIVES</code>에서 파일 경로와 직접 등록 예시를 찾을 수 있습니다. PDF의 <code>previewObjTemplates_</code> 키 예제는 현재 시작 장면에서 <code>loadObj()</code>와 Scene 직접 등록으로 적용합니다. 외부 GLSL을 쓰는 문제는 <code>EXAM_RUN</code>에서 <code>config.shaderDirectory</code>를 지정합니다. <a href="./OPENGL-EXAM-TUTORIAL-PRINT.pdf#page=4">인쇄 요약 4쪽</a></li>
+      </ul>
+      <details class="key-compare" id="pdf-input">
+        <summary>누르는 동안 움직이는 입력과 방향을 기억하는 입력</summary>
+        <p>누르는 동안만 움직이는 문제는 PDF처럼 필요한 키의 플래그를 <code>Console</code>에 추가합니다. <code>onKey()</code>의 <code>GLFW_PRESS</code> 필터 앞에서 눌림과 해제를 기록하고, <code>onFocus(false)</code>에서도 해제합니다. 한 번 눌러 계속 돌리는 문제는 방향 값 하나를 저장합니다.</p>
+        <div class="key-examples">
+          <div>
+            <h4>PDF 5·8쪽의 입력 방향</h4>
+            <pre><code>glm::vec3 direction{
+    float(dHeld_) - float(aHeld_),
+    0.0f,
+    float(wHeld_) - float(sHeld_)
+};</code></pre>
+          </div>
+          <div>
+            <h4>계속 회전하는 문제의 방향 값</h4>
+            <pre><code>// onKey()의 GLFW_PRESS 구간
+if (key == GLFW_KEY_LEFT || key == GLFW_KEY_RIGHT) {
+    const int direction = key == GLFW_KEY_LEFT ? -1 : 1;
+    direction_ = direction_ == direction ? 0 : direction;
+}</code></pre>
+          </div>
+        </div>
+        <p>두 예제 모두 <code>EXAM_RUN</code>에서 <code>onUpdate(dt)</code>를 연결합니다. 방향을 기억하는 예는 같은 방향키를 다시 누르면 정지하고, 반대 키를 누르면 반대로 돕니다. <code>advanceSpin()</code>에 <code>direction_ × 초당 각속도</code>를 넘깁니다. <a href="./GLLIB-CALLBACK-API-GUIDE.pdf#page=5">콜백 API 가이드 5·7–8쪽</a></p>
+      </details>
+    </section>
+  </section>
+  <section id="flow" aria-labelledby="flow-title" hidden>
+    <h2 id="flow-title">main에서 화면 교체까지</h2>
+    <p class="intro">화살표는 진행 순서입니다. 함수 상자를 선택하면 호출 조건과 소스 줄이 나옵니다.</p>
+    <div class="layout">
+      <div class="panel graph" id="flow-graph"></div>
+      <aside class="panel aside" id="flow-detail" aria-live="polite"></aside>
+    </div>
+    <details class="panel prior">
+      <summary>Application::run() 상세 실행 경로</summary>
+      <ol class="steps">
+        <li><code>6013–6039행 · 실행 준비</code><p>진단을 설정하고 재귀 실행이나 다른 Application과의 동시 실행을 거부합니다. 콘솔 코드 페이지와 실행 플래그를 설정합니다.</p></li>
+        <li><code>5834행, 6045–6056행 · 초기화</code><p>initialize()가 GLFW 오류 콜백과 OpenGL 3.3 코어 창을 준비합니다. 컨텍스트를 연결한 다음 GL 함수 로더, VSync, 셰이더, 렌더러와 자산 로더를 설정하고 GLFW 이벤트를 등록합니다. 성공하면 등록된 initScene()을 한 번 부릅니다. 둘 중 하나가 실패하면 -1로 종료합니다.</p></li>
+        <li><code>1631행, 6057–6080행 · 이벤트와 대기</code><p>glfwPollEvents() 후 콜백 예외와 닫힘 요청을 확인합니다. GLFW 이벤트 콜백에서 예외가 발생하면 dispatch()가 예외를 보관하고 닫힘을 요청합니다. 프레임버퍼 폭이나 높이가 0이면 glfwWaitEvents()로 기다린 뒤 시간을 다시 기록하고 해당 반복을 건너뜁니다.</p></li>
+        <li><code>6082–6099행 · 시간과 장면 갱신</code><p>dt를 0~0.05초로 제한해 등록된 onUpdate(dt)를 실행합니다. 다시 닫힘 요청을 확인한 다음 Scene의 모션 시간을 갱신합니다. 모션 갱신이 실패하면 -1로 루프를 끝냅니다.</p></li>
+        <li><code>5793행, 6101–6123행 · 렌더와 화면 교체</code><p>ensureContext()로 렌더 스레드와 현재 GL 컨텍스트를 확인하고 필요하면 다시 연결합니다. 렌더 콜백이 있으면 실행하고, 기본 경로는 renderScene()입니다. 성공한 프레임은 glfwSwapBuffers()로 표시합니다. 컨텍스트, 렌더, 화면 교체 중 오류가 발생하면 -1로 종료합니다.</p></li>
+        <li><code>5949행, 6126–6144행 · 정리와 반환</code><p>shutdown()은 자산 로더를 정리하고, GL 컨텍스트가 유효하면 GPU 객체를 삭제합니다. 컨텍스트가 실패했다면 GL 삭제 호출을 건너뛰고 렌더러 핸들을 초기화합니다. 창을 파괴하고 GLFW를 종료한 뒤 실행 플래그를 비웁니다. 일반 종료는 코드 값을 반환하며, 예외 경로는 정리 후 예외를 다시 던집니다.</p></li>
+      </ol>
+    </details>
+    <details class="panel prior">
+      <summary>Console 정의 위의 코드 찾기</summary>
+      <ol class="steps">
+        <li><code>250행 · 전방 선언 / 410행 · 인터페이스</code><p>자료형, 별칭, 공개 함수 선언을 모은 부분입니다. 함수 인자나 필드를 찾을 때 먼저 봅니다.</p></li>
+        <li><code>1483행 · 프레임워크 구현</code><p>진단, 형상·재질, OBJ 로딩, 피킹, GL 함수 로더, 변환·경로, 모션, Scene, 셰이더, Renderer, Application의 본문이 있습니다. 장면 구현에는 Scene API를 쓰고, 렌더링이나 입력 전달 자체를 확인하려면 해당 구현으로 이동합니다.</p></li>
+        <li><code>6218행 · EXAM_TRANSFORMS</code><p>밑면 배치, 목표값 접근, 자전·공전, 부모 부착, 월드 좌표 변환 같은 재사용 함수가 있습니다.</p></li>
+        <li><code>6648행 · 시험 코드</code><p>EXAM_LAYOUT에 기본 치수와 카메라 설정이 있고, Console에는 시험 문제의 장면·입력·상태를 작성합니다. runExam()은 필요한 Console 함수를 Application에 연결합니다.</p></li>
+        <li><code>6680행 · EXAM_PATTERN_INDEX</code><p>Console 위에 있는 배치, 부모 변경, 이동·회전, 피킹·드래그 함수의 호출 예시입니다.</p></li>
+      </ol>
+    </details>
+  </section>
+  <section id="ownership" aria-labelledby="ownership-title" hidden>
+    <h2 id="ownership-title">C++ 소유권과 장면의 부모 관계</h2>
+    <p class="intro">소유 관계는 객체의 수명을, 장면의 부모 관계는 좌표 변환을 결정합니다.</p>
+    <div class="layout">
+      <div class="panel graph" id="ownership-graph"></div>
+      <aside class="panel aside" id="ownership-detail" aria-live="polite"></aside>
+    </div>
+    <details class="panel prior">
+      <summary>Scene의 생성부터 렌더와 피킹까지</summary>
+      <ol class="steps">
+        <li><code>4080행 · 생성</code><p>크기를 받아 육면체의 면을 만들고 초기 위치를 <code>Transform3D::basis</code>에 저장합니다.</p></li>
+        <li><code>4044행 · 등록</code><p>형상과 변환을 확인하고 Scene에 저장합니다. 돌려준 ID를 나중에 키 입력, 피킹, 변환에 사용합니다. 등록 시 형상 버전도 갱신합니다.</p></li>
+        <li><code>4234행 · 계층</code><p>자식 ID를 부모 ID에 연결합니다. <code>worldMatrix()</code>는 부모의 월드 행렬에 자식 변환을 합성합니다. 연결할 때 기존 월드 자세를 유지하려면 <code>setParentPreserveWorld()</code>를 사용합니다.</p></li>
+        <li><code>4460행 · 변환</code><p>이동이나 회전은 등록한 ID의 자세를 갱신합니다. 정점 자체를 교체하는 경우 렌더러가 형상 버전을 확인해 GPU 버퍼를 다시 준비합니다.</p></li>
+        <li><code>4378행 · 렌더와 피킹</code><p>두 경로에서 같은 면의 월드 행렬을 사용합니다. 렌더는 카메라 행렬을 곱해 화면에 그리고, 피킹은 월드 광선과 면의 삼각형을 비교합니다.</p></li>
+        <li><code>4590행 · 재구성</code><p>장면과 모션 연결을 비운 뒤 도형을 다시 등록하고 새 ID를 저장합니다.</p></li>
+      </ol>
+    </details>
+    <details class="panel prior">
+      <summary>이전 저울 예제로 보는 부모·자식과 피벗</summary>
+      <p><code>group → 받침 → 기둥 → 막대</code>로 연결돼 있었습니다. 메시가 없는 <code>group</code>을 옮기면 모든 자식이 함께 이동했습니다. 바닥은 별도 루트였습니다.</p>
+      <p>막대의 로컬 경첩은 <code>y=-0.10</code>, 기둥의 부착점은 기둥 로컬에서 <code>y=+0.90</code>이었습니다. 막대의 Z축 각도가 바뀌어도 월드 경첩은 <code>y=2.15</code>에 있었습니다.</p>
+      <pre><code>scene.setParent(*base, *group);
+scene.setParent(*column, *base);
+scene.setParent(*balance, *column);
+balanceTransform.basis = {0.0f, columnSize.y * 0.5f, 0.0f};
+balanceTransform.localBasis = {0.0f, -balanceSize.y * 0.5f, 0.0f};</code></pre>
+    </details>
+  </section>
+  <section id="scenarios" aria-labelledby="scenarios-title" hidden>
+    <h2 id="scenarios-title">문제의 요구를 수정 위치로 연결</h2>
+    <p class="intro">먼저 물체·크기·초기 위치·부모·입력을 적습니다. 아래에서 해당 동작을 골라 바꿀 함수와 확인 결과를 찾으세요.</p>
+    <div class="scenario-layout">
+      <nav class="panel scenario-nav" id="scenario-nav" aria-label="시험 상황"></nav>
+      <article class="panel scenario">
+        <div id="scenario-detail"></div>
+        <div class="model" id="rotation-model" hidden>
+          <div class="controls">
+            <label>회전축 <select id="axis" aria-label="회전축"><option>X</option><option>Y</option><option>Z</option></select></label>
+            <label>각도 <input type="range" id="angle" min="0" max="360" step="1" value="90"><output id="degrees" for="angle">90°</output></label>
+          </div>
+          <canvas id="transform-plot" width="710" height="270" role="img" aria-label="선택한 축과 각도에 따른 객체의 자세 또는 공전 위치"></canvas>
+          <p class="position" id="transform-position" aria-live="polite"></p>
+        </div>
+        <p class="check" id="scenario-check"></p>
+      </article>
+    </div>
+  </section>
+  <footer class="foot">소스 줄은 현재 Project1의 <a href="./gllib.cpp"><code>gllib.cpp</code></a> 기준입니다. 편집기에서 <kbd>Ctrl+G</kbd>로 이동할 수 있습니다.</footer>
+</main>
+<script>
+  const sourceLines = {
+    main: 92, scene: 969, component: 561, model: 548, renderer: 1240,
+    app: 1357, assets: 1370, plane: 2263, aabb: 2292,
+    parent: 4234, preserveWorld: 4299, world: 4311, clear: 4590,
+    attachedCamera: 4687, visible: 4942, draw: 5402,
+    init: 5834, dispatch: 5895, shutdown: 5949, render: 5974, views: 6000,
+    appRun: 6013, poll: 6059, motion: 6095, swap: 6117,
+    cursor: 6151, ray: 6155, pick: 6170,
+    place: 6222, toward: 6228, spin: 6271, advanceSpin: 6286, orbit: 6342,
+    layout: 6657, changeNote: 6711, console: 6722, start: 6757, resetState: 6760,
+    floor: 6780, box: 6781, key: 6800,
+    update: 6855, focus: 6859, mouse: 6864, pivotLog: 6876, runExam: 6900,
+  };
+
+  const nodes = {
+    main: ["main()", "진입점", sourceLines.main, "C++ 진입점이 runExam()의 반환값을 그대로 반환합니다.", "return runExam();"],
+    runExam: ["runExam()", "콜백 연결", sourceLines.runExam, "Application app과 Console console(app)을 지역 객체로 만듭니다. 기본 연결은 장면 초기화·키·마우스입니다. 시간 갱신이나 지속 입력이 필요한 문제에서는 주석으로 둔 프레임·포커스 연결을 사용합니다.", "app.setInitHandler([&console](graphics::Application&) { return console.initScene(); });"],
+    appRun: ["Application::run()", "메인 루프", sourceLines.appRun, "초기화와 프레임 루프, 종료를 관리합니다. 초기화가 성공하면 initHandler_를 한 번 실행합니다. 프레임버퍼 크기가 0이면 이벤트를 기다립니다.", "if (!initialize(config))"],
+    init: ["initialize()", "창 · GL 준비", sourceLines.init, "GLFW 창과 OpenGL 3.3 코어 컨텍스트를 만든 뒤 GL 함수 로더, 렌더러, 자산 로더를 준비하고 GLFW 콜백을 등록합니다.", "glfwSetWindowUserPointer(window_, this);"],
+    start: ["initScene()", "장면 등록", sourceLines.start, "색상 복원 기록을 비우고 카메라와 조명을 설정합니다. 바닥 하나와 기준 직육면체 하나를 등록합니다. 움직이거나 선택할 객체 ID는 시험에서 필요한 경우 저장합니다.", "const auto floor = scene.addCuboid(floorSize, floorCenter);\nconst auto box = graphics::exam::addCuboidAtBottom(scene, boxSize, boxBottomCenter);"],
+    poll: ["glfwPollEvents()", "입력 처리", sourceLines.poll, "프레임 시작에서 대기 중인 이벤트를 처리합니다. 이벤트에 대응하는 콜백이 실행됩니다. 종료 요청이 있으면 프레임을 끝냅니다.", "glfwPollEvents();"],
+    dispatch: ["GLFW 키 콜백", "Application::dispatch", sourceLines.dispatch, "GLFW 키 람다가 창의 사용자 포인터에서 Application을 찾습니다. dispatch 내부에서 modifiedKeyHandler_를 우선 호출하고, 등록된 runExam() 람다가 Console에 키를 전달합니다.", "auto& app = *static_cast<Application*>(glfwGetWindowUserPointer(window));"],
+    key: ["onKey()", "단발 키 이벤트", sourceLines.key, "GLFW_PRESS에서 키를 기록하고 Q/Esc 종료와 C/Shift+C 색상 변경·복원을 처리합니다. 단발 키를 여기에 추가합니다. 누름·해제를 모두 받을 키는 필터 앞에 둡니다.", "if (action != GLFW_PRESS)\n    return;"],
+    focus: ["onFocus()", "선택 연결 · 창 포커스", sourceLines.focus, "누름 상태를 저장하는 문제에서 등록합니다. 포커스를 잃으면 문제에서 추가한 눌림 플래그를 해제합니다.", "// 예: 눌림 플래그를 추가한 문제\nif (!focused)\n    leftHeld_ = rightHeld_ = false;"],
+    pick: ["onMouse() → pickAt()", "왼쪽 클릭", sourceLines.mouse, "좌클릭을 하면 최근접 삼각형을 찾습니다. [Pivot]은 localBasis와 basis를 출력합니다. 선택한 객체의 월드 AABB는 면 정점에서 계산합니다. 빈 곳에서는 [Pick] miss가 출력됩니다.", "const auto hit = app_.pickAt(event.windowX, event.windowY);\n// hit 확인 후 선택 객체에 대해서만 호출\ngraphics::groupWorldAabb(scene, hit->entityId, false);"],
+    ray: ["screenRayAt()", "창 좌표 → 월드 광선", sourceLines.ray, "창 좌표에 프레임버퍼 배율을 적용한 뒤 기본 카메라의 광선을 만듭니다. pickAt()은 삼각형을 찾고, intersectRayPlane()은 지정한 작업 평면의 교점을 구합니다.", "const auto ray = screenRayAt(x, y);\nreturn ray ? graphics::pick(scene_, *ray, renderOptions_.cull) : std::nullopt;"],
+    update: ["onUpdate(dt)", "선택 연결 · 프레임 갱신", sourceLines.update, "EXAM_RUN에서 연결하면 Application::run이 초 단위 dt를 0~0.05 범위로 계산해 전달합니다. 시간에 따른 이동, 목표값 접근, 회전은 이 단계에서 적용합니다.", "graphics::exam::advanceSpin(scene, id, Axis::Y, angle, direction * degreesPerSecond, dt);"],
+    motion: ["updateMotions()", "Scene 모션 갱신", sourceLines.motion, "사용자 update 다음에 Scene의 MotionSystem이 시간을 진행합니다. 이 프레임의 모션 적용 뒤 행렬이 필요한 경우 렌더 콜백에서 읽을 수 있습니다.", "scene_.updateMotions(deltaTime)"],
+    render: ["renderScene()", "렌더", sourceLines.render, "기본 경로는 전체 프레임버퍼를 그립니다. 사용자 렌더 콜백을 등록하면 renderViews()로 같은 Scene을 다른 카메라나 뷰포트에서 그릴 수 있습니다.", "return renderer_.render(scene_, camera_, width, height, renderOptions_);"],
+    draw: ["Renderer::draw()", "면 행렬 · GPU 호출", sourceLines.draw, "면별 월드 행렬과 카메라로 P × V × M을 만들어 uMVP에 보낸 뒤 glDrawElements를 호출합니다. 형상 버전이 바뀌면 renderPass가 버퍼를 갱신하고, 자세만 바뀌면 그릴 때 행렬을 다시 계산합니다. 가림은 RenderOptions::depthTest, 면 컬링은 cull과 setFaceCullMode()에서 설정합니다. 콜백 API 가이드 13쪽과 연결됩니다.", "const auto mvp = projection * view * model;"],
+    swap: ["glfwSwapBuffers()", "화면 교체", sourceLines.swap, "성공적으로 그린 프레임의 버퍼를 교체합니다. 창이 닫힐 때까지 이벤트 처리부터 다음 프레임을 반복합니다.", "glfwSwapBuffers(window_);"],
+    shutdown: ["shutdown()", "GPU · 창 정리", sourceLines.shutdown, "정상 종료 경로에서 GL 컨텍스트가 유효할 때 GPU 자원을 먼저 정리한 뒤 GLFW 창을 파괴합니다. 컨텍스트가 실패했다면 Renderer는 CPU 쪽 핸들과 캐시를 비웁니다.", "renderer_.destroy();"],
+    console: ["Console", "상태 및 비소유 참조", sourceLines.console, "Application과 독립된 클래스입니다. app_는 비소유 참조이며 두 객체 모두 runExam()의 지역 변수입니다. 기본 색상 복원 기록을 보관하고, 필요한 객체 ID와 상태는 문제에 맞춰 여기에 추가합니다.", "graphics::Application& app_;\nstd::vector<SavedFaceColors> savedFaceColors_;"],
+    app: ["Application", "실행 자원 소유", sourceLines.app, "GLFW 창·컨텍스트를 관리하고 Scene, Renderer, Camera, RenderOptions를 멤버로 보관합니다. AssetLoader는 실행 중 생성합니다. Console은 콜백과 참조로 연결됩니다.", "Scene scene_;\nCamera camera_;\nRenderer renderer_;"],
+    scene: ["Scene", "CPU 장면", sourceLines.scene, "Scene이 엔티티 벡터와 MotionSystem을 소유합니다. 엔티티를 추가하면 벡터가 재할당될 수 있으므로 Console은 EntityId를 보관하고 포인터는 필요할 때 다시 조회합니다. clear()로 장면을 비우면 ID를 다시 받습니다.", "std::vector<Component_Poly> components_;"],
+    component: ["Component_Poly", "엔티티 데이터", sourceLines.component, "엔티티 하나가 모델, Transform3D, 부모 ID, 가시성과 색조를 보관합니다. 부모 ID는 Scene의 다른 엔티티를 가리킵니다.", "std::optional<EntityId> parent;"],
+    mesh: ["Polyhedron → PlaneFigure", "모델 → 면", sourceLines.model, "Polyhedron이 PlaneFigure 배열을 소유합니다. PlaneFigure는 정점, 삼각형 인덱스, 재질, 개별 면 변환 정보를 보관합니다.", "std::vector<PlaneFigure> faces;"],
+    renderer: ["Renderer", "GPU 자원", sourceLines.renderer, "셰이더 프로그램과 VAO·VBO·EBO를 보관합니다. Scene을 참조해 정점 데이터를 올리고 면별 draw를 호출합니다.", "GLuint shaderProgramID_ = 0, vao_ = 0, vbo_ = 0, ebo_ = 0;"],
+    cameraAssets: ["Camera · AssetLoader", "카메라 · 자산 로더", sourceLines.assets, "기본 카메라와 선택적 자산 로더는 Application이 보관합니다. run()의 initialize 단계가 로더를 준비하며 종료할 때 해제합니다.", "std::optional<AssetLoader> assets_;"],
+    parent: ["setParent()", "부모 ID 연결", sourceLines.parent, "둘을 함께 움직일 때 자식에 부모 ID를 지정합니다. 이후 자식의 basis와 setPosition() 값은 부모 기준입니다. 지금 위치에서 분리할 때는 setParentPreserveWorld()를 사용합니다.", "scene.setParent(childId, parentId);"],
+    world: ["worldMatrix()", "부모 행렬 합성", sourceLines.world, "부모 ID를 따라 루트까지 올라간 뒤, 루트에서 자식 순서로 attachment·SRT·로컬 레이어 등을 합성합니다. 기본 부모·자식은 부모 월드 행렬 × 자식 로컬 행렬로 이해할 수 있습니다. localBasis는 모델 안의 피벗, basis는 그 피벗을 놓을 위치입니다.", "T(basis) × R(rotation) × S(scale) × T(-localBasis)"],
+    box: ["기준 직육면체", "별도 루트", sourceLines.box, "높이가 1.8이고 중심 y는 0.9라서 밑면이 바닥 상단 y=0에 닿습니다. 크기와 밑면 위치는 examLayout에서 지정합니다.", "graphics::exam::addCuboidAtBottom(scene, boxSize, boxBottomCenter);"],
+    floor: ["바닥", "고정 루트", sourceLines.floor, "크기 10 × 0.2 × 10, 중심 y=-0.1이므로 상단은 y=0입니다. 기준 직육면체와 배치 좌표로 맞닿습니다.", "world AABB min=(-5, -0.2, -5) max=(5, 0, 5)"],
+  };
+
+  const scenarioData = {
+    replace: {
+      title: "장면 교체·도형 추가", prompt: "바닥과 직육면체를 문제의 시작 장면으로 바꿀 때",
+      steps: [
+        ["start", "examLayout", sourceLines.layout, "도형 치수, 바닥 높이, 초기 배치, 카메라, 조명을 정합니다."],
+        ["start", "EXAM_START", sourceLines.start, "필요한 도형을 등록하고 optional ID를 확인합니다. 기준 직육면체를 빼면 외곽선 루프에서도 ID를 정리합니다."],
+        ["start", "addCuboidAtBottom()", sourceLines.place, "밑면 중심과 크기로 배치합니다. 위치 y=0을 넘기면 객체 밑면이 바닥 상단에 닿습니다."],
+        ["member", "Console 멤버", sourceLines.console, "나중에 선택하거나 움직일 물체의 EntityId를 멤버에 저장합니다."],
+        ["input", "EXAM_INPUT", sourceLines.key, "문제의 키 요구에 맞춰 단발 입력 분기와 방향키의 역할을 정합니다."],
+      ],
+      code: "const auto part = graphics::exam::addCuboidAtBottom(\n    scene, {2.0f, 0.4f, 1.0f}, {0.0f, 0.0f, 0.0f});\nif (!part)\n    return false;",
+      check: "먼저 카메라에서 물체 하나를 띄웁니다. 이 예의 물체 바닥은 월드 y=0입니다.",
+    },
+    recycle: {
+      title: "퇴장·다시 등장", prompt: "고정된 최대 개수 안에서 물체가 반복 등장할 때",
+      steps: [
+        ["start", "EXAM_START", sourceLines.start, "필요한 수만 등록한 뒤 ID를 저장하고 초기 가시성을 설정합니다."],
+        ["input", "EXAM_INPUT", sourceLines.key, "단발 토글은 GLFW_PRESS에서 가시성을 바꿉니다."],
+        ["update", "Scene::setVisible()", sourceLines.visible, "이동한 뒤 범위를 벗어났다면 숨깁니다. 재등장할 때 위치와 속도를 초기화하고 다시 표시합니다."],
+        ["start", "Scene::clear()", sourceLines.clear, "장면 전체를 재구성한다면 먼저 clear()를 호출합니다. initScene()과 문제별 초기화에서 새 ID를 받습니다."],
+        ["start", "initScene()의 색상 기록 초기화", sourceLines.resetState, "기본 코드는 색상 복원 기록을 초기화합니다. 문제에 ID·속도·타이머·키 상태가 있다면 함께 초기화합니다."],
+      ],
+      code: "scene.setVisible(id, false);\n// 재등장 시점\nscene.setPosition(id, spawnPosition);\nscene.setVisible(id, true);",
+      check: "같은 ID가 다시 나타납니다. 여러 엔티티로 이루어진 묶음은 각 엔티티의 가시성을 갱신합니다.",
+    },
+    held: {
+      title: "누르는 동안 이동", prompt: "누를 때 시작하고 뗄 때 멈추는 동작",
+      steps: [
+        ["member", "Console 멤버", sourceLines.console, "실제로 누른 동안 움직일 키만 플래그를 추가합니다. 예를 들어 aHeld_, dHeld_와 위치·속도를 둡니다."],
+        ["input", "EXAM_INPUT", sourceLines.key, "GLFW_PRESS 전용 필터 앞에서 PRESS/RELEASE를 기록합니다. 단발 토글은 필터 뒤에서 처리합니다."],
+        ["input", "onFocus()", sourceLines.focus, "EXAM_RUN에서 포커스 콜백을 연결한 뒤, 포커스 상실 시 추가한 플래그를 false로 바꿉니다."],
+        ["update", "EXAM_UPDATE", sourceLines.update, "초당 속도 × dt로 위치를 갱신합니다. 부모가 있는 경우 해당 부모 좌표를 사용합니다. 콜백 API 가이드 5·8쪽의 관성 예제는 키 상태로 목표 속도를 구한 뒤 현재 속도를 목표 쪽으로 이동시킵니다."],
+      ],
+      code: "const int moveX = int(dHeld_) - int(aHeld_);\nif (partId_ && moveX != 0) {\n    position_.x += moveX * speed_ * dt;\n    scene.setPosition(*partId_, position_);\n}",
+      check: "A와 D를 같이 누르면 X 이동이 상쇄됩니다. 키를 떼거나 창 포커스를 잃으면 멈춥니다.",
+    },
+    spin: {
+      title: "X·Y·Z축 자전", prompt: "제자리에서 몸체, 팔, 덮개의 자세를 바꿀 때",
+      steps: [
+        ["start", "EXAM_START", sourceLines.start, "localBasis에 모델 기준 경첩점을, basis에 경첩이 놓일 위치를 씁니다. 부모가 있으면 basis는 부모 좌표입니다. 초기 자세가 있으면 rotation을 저장합니다."],
+        ["input", "EXAM_INPUT", sourceLines.key, "한 번 눌러 계속 돌리는 문제는 PRESS에서 방향 하나를 저장합니다. -1과 +1은 회전 방향, 0은 정지입니다."],
+        ["update", "advanceSpin()", sourceLines.advanceSpin, "초당 각속도 × dt를 더하고 360° 주기로 각도를 정리합니다. 각속도에 방향을 곱하고, 콜백으로 연결한 EXAM_UPDATE에서 호출합니다."],
+        ["update", "setSpinAngle()", sourceLines.spin, "축은 기준 자세의 로컬 축입니다. 아래 그림은 초기 회전이 단위행렬일 때의 예입니다."],
+      ],
+      code: "if (bodyId_ && direction_ != 0)\n    graphics::exam::advanceSpin(scene, *bodyId_, graphics::exam::Axis::Z,\n        spinDegrees_, direction_ * spinSpeed_, dt, initialRotation_);",
+      check: "슬라이더를 바꿔도 피벗은 원점에 있고 몸체의 자세만 회전합니다.",
+    },
+    approach: {
+      title: "목표값까지 이동·회전", prompt: "경첩을 열고 닫거나 지정 위치에서 정확히 멈출 때",
+      steps: [
+        ["input", "EXAM_INPUT", sourceLines.key, "단발 키는 목표 위치나 목표각만 변경합니다. 움직이는 중 반대 방향을 요청하면 그 시점의 현재값부터 이어갑니다."],
+        ["update", "moveToward()", sourceLines.toward, "한 프레임의 최대 이동량은 speed × dt입니다. 목표가 그보다 가까우면 목표값에 맞춥니다. 인쇄 요약 2쪽의 목표각 이동과 같은 방식입니다."],
+        ["update", "setSpinAngle()", sourceLines.spin, "결과를 회전 적용에 사용합니다. 직선 이동이면 기존 ID에 setPosition()을 호출합니다."],
+      ],
+      code: "const double next = graphics::exam::moveToward(angle_, targetAngle_, speed_ * dt);\nif (panelId_ && graphics::exam::setSpinAngle(\n        scene, *panelId_, graphics::exam::Axis::X, next))\n    angle_ = next;",
+      check: "목표를 지나치지 않습니다. 중간에 목표를 반대로 바꾸면 현재 각도에서 이어집니다.",
+    },
+    orbit: {
+      title: "물체 기준 공전", prompt: "한 물체의 피벗을 중심으로 다른 물체가 돌 때",
+      steps: [
+        ["start", "EXAM_START", sourceLines.start, "두 ID와 0도일 때의 월드 오프셋을 저장합니다. 시작 위치가 주어지면 두 worldPivot 값의 차를 한 번 계산합니다."],
+        ["update", "EXAM_UPDATE", sourceLines.update, "중심을 먼저 갱신한 뒤 공전각을 넘깁니다. 공전할 엔티티는 자체 MotionSystem 레이어 없이 직접 갱신합니다."],
+        ["update", "orbitAroundEntity()", sourceLines.orbit, "축은 월드 X·Y·Z입니다. 그림은 X축에서 월드 +Y, Y/Z축에서 +X로 시작합니다. 시작 오프셋에서 축에 수직인 성분의 길이가 궤도 반지름입니다."],
+      ],
+      code: "orbitDegrees_ += orbitSpeed_ * dt;\ngraphics::exam::orbitAroundEntity(scene, *bodyId_, *centerId_,\n    initialOffsetWorld_, graphics::exam::Axis::Y, orbitDegrees_);",
+      check: "월드 Y축과 시작 오프셋 (2, 0, 0)을 선택하면 +90°에서 중심 기준 오프셋은 (0, 0, -2)입니다.",
+    },
+    attach: {
+      title: "부착·분리", prompt: "함께 움직이게 하거나 현재 위치에서 떼어낼 때",
+      steps: [
+        ["start", "EXAM_START", sourceLines.start, "함께 움직이는 부품은 setParent()로 부모를 설정하고, 자식 배치를 부모 로컬 좌표로 정합니다."],
+        ["input", "EXAM_INPUT", sourceLines.key, "키나 선택 이벤트로 부모 전환을 요청합니다."],
+        ["update", "setParentPreserveWorld()", sourceLines.preserveWorld, "분리나 부모 교체 순간의 월드 배치를 유지하려면 이 API를 호출합니다. GLLIB-N03처럼 분리하고 월드 기준으로 이동할 때는 시작 placementMatrix를 받아 이동 성분을 바꾸고 setWorldPlacement()를 사용할 수 있습니다."],
+        ["update", "worldMatrix()", sourceLines.world, "물체의 자세는 독립적으로 유지하며 위치만 따라가게 하려면 worldPoint() 또는 followPoint()로 대상 로컬 부착점을 월드 좌표로 계산합니다."],
+      ],
+      code: "scene.setParent(childId, parentId);\nscene.setPosition(childId, parentLocalOffset);\n// 현재 월드 배치를 유지하며 분리\nscene.setParentPreserveWorld(childId, std::nullopt);",
+      check: "부모를 회전시키면 부착물도 회전합니다. 분리한 순간에는 위치가 튀지 않습니다.",
+    },
+    picking: {
+      title: "클릭 선택·피벗·AABB", prompt: "마우스로 물체를 골라 ID, 피벗 또는 월드 경계를 사용할 때",
+      steps: [
+        ["mouse", "EXAM_MOUSE", sourceLines.mouse, "왼쪽 버튼의 PRESS에서 pickAt(windowX, windowY)를 호출합니다. 성공 시 entityId를 얻습니다."],
+        ["mouse", "Application::pickAt()", sourceLines.pick, "screenRayAt()으로 창 좌표를 광선으로 바꾸고, 그 광선으로 가장 가까운 삼각형을 찾습니다."],
+        ["mouse", "[Pivot] 출력", sourceLines.pivotLog, "localBasis는 모델 좌표이고 basis는 부모 또는 월드 기준 배치입니다. 실제 월드 피벗이 필요한 경우 worldPivot()으로 구합니다."],
+        ["mouse", "groupWorldAabb()", sourceLines.aabb, "세 번째 인자 false로 선택한 엔티티 한 개의 경계를 구합니다. 면 정점을 면별 월드 행렬로 변환하고 X·Y·Z별 min/max를 취합니다."],
+        ["member", "Console 멤버", sourceLines.console, "선택을 여러 프레임 유지하는 문제라면 적중 ID를 선택 상태로 저장합니다. 현재 기본 동작은 콘솔 로그를 출력합니다."],
+      ],
+      code: "const auto hit = app_.pickAt(event.windowX, event.windowY);\nif (hit) {\n    const auto& scene = app_.getScene();\n    const auto bounds = graphics::groupWorldAabb(scene, hit->entityId, false);\n}",
+      check: "바닥의 예상 출력은 localBasis=(0, 0, 0), basis=(0, -0.1, 0)입니다. 예상 월드 AABB는 min=(-5, -0.2, -5), max=(5, 0, 5)입니다. 빈 공간은 [Pick] miss입니다.",
+    },
+    drag: {
+      title: "작업 평면에서 드래그", prompt: "실습 10처럼 도형을 끌어 비어 있는 작업 평면에 놓을 때",
+      steps: [
+        ["mouse", "EXAM_MOUSE", sourceLines.mouse, "누르는 순간 pickAt()으로 도형을 선택합니다. 물체가 손을 따라오게 하려면 잡은 점과 피벗 사이의 월드 오프셋을 보관합니다. 버튼을 놓으면 선택 상태를 해제합니다."],
+        ["run", "setCursorHandler()", sourceLines.cursor, "EXAM_RUN에서 커서 이동을 연결합니다. 콜백에 전달된 창 좌표로 screenRayAt()을 호출합니다."],
+        ["mouse", "intersectRayPlane()", sourceLines.plane, "지정한 평면의 점과 법선을 넘깁니다. XZ 바닥 예는 점 (0, 0, 0), 법선 (0, 1, 0)입니다. 광선이 평행하거나 앞쪽 교점이 없으면 빈 결과가 반환됩니다."],
+      ],
+      code: "// partId는 부모가 없는 선택 객체\nconst auto ray = app_.screenRayAt(windowX, windowY);\nif (ray) {\n    const auto point = graphics::intersectRayPlane(*ray, {0, 0, 0}, {0, 1, 0});\n    if (point)\n        scene.setPosition(partId, *point + grabOffsetWorld);\n}",
+      check: "대상 메시가 없는 평면 위치로도 움직입니다. 부모가 있는 물체는 먼저 월드 교점을 부모 좌표로 변환합니다.",
+    },
+    camera: {
+      title: "카메라 부착·분할 화면", prompt: "장착 시점으로 전환하거나 한 장면을 두 시점으로 그릴 때",
+      steps: [
+        ["update", "CameraSystem::attached()", sourceLines.attachedCamera, "차량이나 장착 지점의 자세를 먼저 갱신한 뒤, 로컬 카메라와 해당 엔티티의 월드 행렬을 넘깁니다."],
+        ["run", "EXAM_RUN", sourceLines.runExam, "분할 화면이 필요하면 setRenderHandler()를 등록하고 getFramebufferSize()로 뷰포트 크기를 계산합니다."],
+        ["run", "Application::renderViews()", sourceLines.views, "패스의 뷰포트 원점은 왼쪽 아래입니다. 같은 Scene을 다른 카메라로 그립니다. 위치와 시간은 프레임의 onUpdate()에서 한 번 진행합니다."],
+      ],
+      code: "const auto frame = scene.worldMatrix(rigId);\nif (frame) {\n    const auto attached = graphics::CameraSystem::attached(localCamera, *frame);\n    if (attached)\n        app_.getCamera() = *attached;\n}",
+      check: "차량을 돌리면 장착 시점의 앞 방향도 바뀝니다. 분할한 두 화면에서 같은 프레임의 물체 위치를 확인합니다.",
+    },
+  };
+
+  function element(tag, text, className) {
+    const node = document.createElement(tag);
+    if (text) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  }
+
+  function pressed(buttons, selected) {
+    for (const button of buttons) button.setAttribute("aria-pressed", String(button === selected));
+  }
+
+  function path(ids, label = "→") {
+    const row = element("div", "", "path");
+    ids.forEach((id, index) => {
+      if (index) row.append(element("span", label));
+      const [symbol, desc] = nodes[id];
+      const button = element("button", "", "node");
+      button.type = "button";
+      button.dataset.node = id;
+      button.setAttribute("aria-pressed", "false");
+      button.append(element("span", symbol, "symbol"), element("small", desc));
+      row.append(button);
+    });
+    return row;
+  }
+
+  function flowSection(phase, ...rows) {
+    const section = element("div", "", "flow-section");
+    const body = element("div");
+    body.append(...rows);
+    section.append(element("div", phase, "phase"), body);
+    return section;
+  }
+
+  function structure(title, ...items) {
+    const section = element("section", "", "structure");
+    section.append(element("h3", title), ...items);
+    return section;
+  }
+
+  const flowGraph = document.querySelector("#flow-graph");
+  const eventPath = element("div", "", "event-path");
+  eventPath.append(
+    element("p", "키 이벤트"), path(["dispatch", "key"]),
+    element("p", "마우스 이벤트"), path(["pick", "ray"]),
+    element("p", "누름 상태를 추가한 문제에서 포커스 연결"), path(["focus"]),
+  );
+  const frameTail = path(["motion", "render", "draw", "swap"]);
+  frameTail.classList.add("frame-tail");
+  flowGraph.append(
+    flowSection("시작", path(["main", "runExam", "appRun", "init", "start"])),
+    flowSection("매 프레임", path(["poll"]), eventPath,
+      element("p", "EXAM_RUN에서 프레임 콜백을 연결하면 이벤트 처리와 Scene 모션 사이에서 호출됩니다.", "trace"),
+      path(["update"]), frameTail),
+    flowSection("종료", path(["shutdown"])),
+  );
+
+  const ownershipGraph = document.querySelector("#ownership-graph");
+  const branches = element("div", "", "branches");
+  branches.append(path(["app", "scene", "component", "mesh"]), path(["app", "renderer"]), path(["app", "cameraAssets"]));
+  ownershipGraph.append(
+    structure("참조와 값 멤버", path(["console", "app"]),
+      element("p", "위 화살표는 Console의 비소유 참조입니다. 아래 화살표는 값 멤버를 통한 소유입니다."),
+      branches),
+    structure("현재 기본 장면", path(["floor", "box"], "·"),
+      element("p", "두 엔티티는 각자 월드에 배치됩니다. 직육면체 밑면과 바닥 윗면은 y=0입니다.")),
+    structure("시험에서 계층을 추가할 때", path(["parent", "world"])),
+  );
+
+  function connectGraph(graph, detail) {
+    const buttons = graph.querySelectorAll("button[data-node]");
+    function show(button) {
+      const [name, subtitle, line, body, code] = nodes[button.dataset.node];
+      pressed(buttons, button);
+      const loc = element("div", "", "loc");
+      loc.append(element("code", "gllib.cpp · " + line + "행"), element("span", subtitle));
+      const block = element("pre");
+      block.append(element("code", code));
+      detail.replaceChildren(element("h3", name), loc, element("p", body), block);
+    }
+    for (const button of buttons) button.addEventListener("click", () => show(button));
+    show(buttons[0]);
+  }
+
+  connectGraph(flowGraph, document.querySelector("#flow-detail"));
+  connectGraph(ownershipGraph, document.querySelector("#ownership-detail"));
+
+  const sourceIndex = document.querySelector("#changes-sources");
+  for (const [label, line] of [
+    ["examLayout", sourceLines.layout],
+    ["Console 앞 시작 순서", sourceLines.changeNote],
+    ["EXAM_START · 장면 구성", sourceLines.start],
+    ["EXAM_INPUT · 키 입력", sourceLines.key],
+    ["EXAM_RUN · 필요한 콜백 연결", sourceLines.runExam],
+    ["EXAM_UPDATE · 변환 갱신", sourceLines.update],
+    ["EXAM_MOUSE · 피킹", sourceLines.mouse],
+    ["밑면 배치 · addCuboidAtBottom()", sourceLines.place],
+    ["목표 접근 · moveToward()", sourceLines.toward],
+    ["연속 자전 · advanceSpin()", sourceLines.advanceSpin],
+  ]) {
+    const item = element("li");
+    item.append(element("code", label), document.createTextNode(" · " + line + "행"));
+    sourceIndex.append(item);
+  }
+
+  const tabs = document.querySelectorAll(".tabs button");
+  for (const button of tabs) {
+    button.addEventListener("click", () => {
+      pressed(tabs, button);
+      for (const tab of tabs) document.getElementById(tab.dataset.view).hidden = tab !== button;
+    });
+  }
+
+  const scenarioNav = document.querySelector("#scenario-nav");
+  const scenarioDetail = document.querySelector("#scenario-detail");
+  const rotationModel = document.querySelector("#rotation-model");
+  const scenarioCheck = document.querySelector("#scenario-check");
+  const axisSelect = document.querySelector("#axis");
+  const angleInput = document.querySelector("#angle");
+  const degrees = document.querySelector("#degrees");
+  const plot = document.querySelector("#transform-plot");
+  const position = document.querySelector("#transform-position");
+  const routeStops = {
+    member: "Console 멤버", start: "EXAM_START", input: "EXAM_INPUT",
+    update: "EXAM_UPDATE", mouse: "EXAM_MOUSE", run: "EXAM_RUN",
+  };
+  let activeScenario = "replace";
+
+  function showScenario(key, button) {
+    activeScenario = key;
+    pressed(scenarioNav.querySelectorAll("button"), button);
+    const scenario = scenarioData[key];
+    const heading = element("header", "", "scenario-heading");
+    heading.append(element("h3", scenario.title), element("p", scenario.prompt));
+    const route = element("div", "", "route");
+    route.setAttribute("aria-label", "수정 경로");
+    for (const [id, name] of Object.entries(routeStops)) {
+      const active = scenario.steps.some(([step]) => step === id);
+      route.append(element("span", (active ? "• " : "") + name, active ? "active" : ""));
+    }
+    const list = element("ol", "", "steps");
+    for (const [, label, line, description] of scenario.steps) {
+      const item = element("li");
+      item.append(element("code", label + " · " + line + "행"), element("p", description));
+      list.append(item);
+    }
+    const block = element("pre");
+    block.append(element("code", scenario.code));
+    scenarioDetail.replaceChildren(heading, route, list, block);
+    scenarioCheck.replaceChildren(element("strong", "확인 "), document.createTextNode(scenario.check));
+    rotationModel.hidden = key !== "spin" && key !== "orbit";
+    if (!rotationModel.hidden) {
+      axisSelect.value = key === "spin" ? "Z" : "Y";
+      angleInput.value = key === "spin" ? "30" : "90";
+      drawTransform();
+    }
+  }
+
+  for (const [key, scenario] of Object.entries(scenarioData)) {
+    const button = element("button", scenario.title);
+    button.type = "button";
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", () => showScenario(key, button));
+    scenarioNav.append(button);
+  }
+
+  function rotate([x, y, z], axis, radians) {
+    const c = Math.cos(radians);
+    const s = Math.sin(radians);
+    if (axis === "X") return [x, y * c - z * s, y * s + z * c];
+    if (axis === "Y") return [x * c + z * s, y, -x * s + z * c];
+    return [x * c - y * s, x * s + y * c, z];
+  }
+
+  function project([x, y, z]) {
+    return [355 + 74 * (x + .58 * z), 138 - 43 * y + 25 * z + 15 * x];
+  }
+
+  function drawTransform() {
+    const context = plot.getContext("2d");
+    const axis = axisSelect.value;
+    const angle = Number(angleInput.value);
+    const radians = angle * Math.PI / 180;
+    const pivot = [0, 0, 0];
+    const orbit = activeScenario === "orbit";
+    const offset = axis === "X" ? [0, 2, 0] : [2, 0, 0];
+    const center = orbit ? rotate(offset, axis, radians) : pivot;
+    const axes = { X: [1, 0, 0], Y: [0, 1, 0], Z: [0, 0, 1] };
+    const colors = { X: "#994d3c", Y: "#00695e", Z: "#375ca0" };
+    const scale = (point, factor) => point.map(value => value * factor);
+
+    function segment(a, b, color, width = 1) {
+      context.strokeStyle = color;
+      context.lineWidth = width;
+      context.beginPath();
+      context.moveTo(...project(a));
+      context.lineTo(...project(b));
+      context.stroke();
+    }
+
+    context.clearRect(0, 0, plot.width, plot.height);
+    for (const [name, direction] of Object.entries(axes)) {
+      const end = scale(direction, 2.55);
+      segment(scale(direction, -2.55), end, colors[name], name === axis ? 2.4 : 1);
+      const [x, y] = project(end);
+      context.font = "bold 14px Consolas, monospace";
+      context.fillStyle = colors[name];
+      context.fillText("+" + name, x + 6, y - 4);
+    }
+
+    if (orbit) {
+      context.setLineDash([5, 5]);
+      context.strokeStyle = "#8b490b";
+      context.lineWidth = 1.5;
+      context.beginPath();
+      context.moveTo(...project(offset));
+      for (let step = 1; step <= 72; step++) {
+        context.lineTo(...project(rotate(offset, axis, step * Math.PI / 36)));
+      }
+      context.stroke();
+      context.setLineDash([]);
+      segment(pivot, center, "#8b490b", 1.5);
+    }
+
+    function place(point) {
+      const turned = orbit ? point : rotate(point, axis, radians);
+      return turned.map((value, index) => value + center[index]);
+    }
+    const extent = orbit ? [.25, .18, .23] : [.86, .32, .43];
+    const vertices = Array.from({ length: 8 }, (_, number) =>
+      extent.map((width, index) => number & (1 << index) ? width : -width));
+    for (const [index, vertex] of vertices.entries()) {
+      for (const bit of [1, 2, 4]) {
+        if (index < (index ^ bit)) segment(place(vertex), place(vertices[index ^ bit]), "#172e30", 2);
+      }
+    }
+    context.fillStyle = "#8b490b";
+    context.beginPath();
+    context.arc(...project(pivot), 4, 0, Math.PI * 2);
+    context.fill();
+
+    degrees.value = angle + "°";
+    const coordinates = center.map(value => Math.round(value * 100) / 100).join(", ");
+    position.textContent = orbit ? "중심 기준 오프셋 (" + coordinates + ")" : "피벗 (" + coordinates + ") · 기준 로컬 " + axis + "축 회전";
+  }
+
+  axisSelect.addEventListener("change", drawTransform);
+  angleInput.addEventListener("input", drawTransform);
+  showScenario("replace", scenarioNav.firstElementChild);
+</script>
+</html>

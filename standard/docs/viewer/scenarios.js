@@ -1,1 +1,0 @@
-﻿window.STANDARD_SCENARIOS = [];
