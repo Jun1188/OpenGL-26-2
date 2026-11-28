@@ -1,0 +1,107 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴퓨터 그래픽스 이론시험 대비 통합 허브 (강화판)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand" href="index.html">CG 이론시험 대비 패키지</a>
+      <div class="nav-links">
+        <a class="active" href="index.html">홈</a>
+        <a href="01_개념_핵심정리.html">01. 개념·파이프라인·과정</a>
+        <a href="02_시험직전_치트시트.html">02. 최종행렬·공식 치트시트</a>
+        <a href="03_파이프라인_행렬_계산법_완전정리.html">03. 행렬유도·계산 완전판</a>
+        <a href="04_지문_시나리오별_대처법.html">04. 시나리오 대처법</a>
+        <a href="05_실전_모의고사_및_해설.html">05. 실전 모의고사(3회)</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrap no-sidebar">
+    <div class="content">
+      <section class="hero">
+        <h1>컴퓨터 그래픽스 이론시험 완전 대비 패키지 (계산·행렬·타겟 강화판)</h1>
+        <p>범위: 6~10강 본 시험범위 + 3·4강 핵심 계산법·행렬 기반 · 개념(파이프라인·알고리즘 과정·정의) 30~40% + 최종 변환행렬·특정좌표·식 계산 60~70%</p>
+        <div class="hero-badges">
+          <span class="badge">★ 1순위: Liang-Barsky &amp; 사물 클리핑</span>
+          <span class="badge">★ 1순위: 투영·뷰볼륨 정규화</span>
+          <span class="badge">★ 1순위: 3D 변환 최종 단일 행렬 &amp; 좌표</span>
+          <span class="badge">★ 1순위: 카디널 스플라인 &amp; 베지어 공식</span>
+          <span class="badge">★ 1순위: 은면제거 과정 &amp; 계산</span>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>이번 시험 6대 핵심 출제 타겟 바로가기</h2>
+        <div class="grid-3">
+          <div class="mini-card">
+            <h4>① 클리핑 (특히 Liang-Barsky)</h4>
+            <p>사물(다각형·와이어프레임)을 특정 윈도우/3D 뷰볼륨 크기에 클리핑 + 뷰포트 매핑.<br>
+            → <a href="03_파이프라인_행렬_계산법_완전정리.html#s4-lb">2D/3D Liang-Barsky &amp; 사물 클리핑 계산</a></p>
+          </div>
+          <div class="mini-card">
+            <h4>② 투영 &amp; 뷰잉 정규화</h4>
+            <p>VRP·VPN·VUP 뷰 행렬, Cavalier/Cabinet, 원근 행렬, 프러스텀 3단계 정규화 유도 &amp; NDC.<br>
+            → <a href="03_파이프라인_행렬_계산법_완전정리.html#s7">투영·뷰잉 유도 및 최종 행렬</a></p>
+          </div>
+          <div class="mini-card">
+            <h4>③ 3D 기하변환 최종 단일 행렬</h4>
+            <p>기호 나열을 넘어 원소까지 다 곱한 <strong>최종 4×4 단일 행렬</strong>(블록 샌드위치 공식) + 특정 좌표.<br>
+            → <a href="03_파이프라인_행렬_계산법_완전정리.html#s0-block">블록 행렬 공식</a> · <a href="03_파이프라인_행렬_계산법_완전정리.html#s6">3D 변환 완전판</a></p>
+          </div>
+          <div class="mini-card">
+            <h4>④ 카디널(Cardinal) &amp; 스플라인</h4>
+            <p>장력 <i>t</i> → <i>s</i>=(1−<i>t</i>)/2, <i>M<sub>C</sub></i>(<i>s</i>) 한 칸씩 유도, 다중 제어점 구간 선택, <i>P</i>(<i>u</i>) 좌표 계산.<br>
+            → <a href="03_파이프라인_행렬_계산법_완전정리.html#s8-cardinal">카디널·허마이트·캣멀롬 완전판</a></p>
+          </div>
+          <div class="mini-card">
+            <h4>⑤ 베지어(Bézier) 미수록 공식 대비</h4>
+            <p>일반 <i>n</i>차 번스타인 다항식, 이항계수, 2차/3차 행렬 <i>M<sub>B</sub></i>, 접선 도함수 <i>P'</i>(<i>t</i>), de Casteljau.<br>
+            → <a href="03_파이프라인_행렬_계산법_완전정리.html#s8-bezier">베지어 공식·행렬·접선 완전판</a></p>
+          </div>
+          <div class="mini-card">
+            <h4>⑥ 은면제거 과정 &amp; 수치 판별</h4>
+            <p>뒷면 제거(평행 vs 원근 시선), Z-버퍼 스캔라인 증분 계산, 깊이 정렬 5단계 과정 &amp; 부등식.<br>
+            → <a href="01_개념_핵심정리.html#proc">과정 서술 정리</a> · <a href="03_파이프라인_행렬_계산법_완전정리.html#s9">은면제거 수치 계산</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2>전체 문서 구성 (5종 세트)</h2>
+        <div class="grid-2">
+          <a class="hub-card" href="01_개념_핵심정리.html">
+            <div class="num">DOCUMENT 01 · 개념 30~40% 완벽 대비</div>
+            <h3>01. 개념 정의 · 파이프라인 · 알고리즘 과정 총정리</h3>
+            <p>파이프라인 단계별 입출력·역할 정의, <strong>모든 핵심 알고리즘의 단계별 수행 과정(서술형 답안 직결)</strong>, 비교표, 강의 PDF 오타·주의점.</p>
+          </a>
+          <a class="hub-card" href="02_시험직전_치트시트.html">
+            <div class="num">DOCUMENT 02 · 시험 직전 암기표</div>
+            <h3>02. 최종 단일 행렬 · 핵심 공식 치트시트</h3>
+            <p>곱셈 전개 완료된 <strong>최종 단일 행렬 일람표</strong>, 블록 샌드위치 공식, 베지어 일반식·행렬, 카디널 <i>M<sub>C</sub></i>(<i>s</i>), Liang-Barsky 표, O/X 함정 20선.</p>
+          </a>
+          <a class="hub-card" href="03_파이프라인_행렬_계산법_완전정리.html">
+            <div class="num">DOCUMENT 03 · 계산 60~70% 핵심 본문 ★</div>
+            <h3>03. 파이프라인 · 행렬 유도 · 손계산 예제 완전판</h3>
+            <p>블록 행렬 초고속 곱셈법, 2D/3D 모든 변환의 <strong>유도 원리 + 최종 단일 행렬 + Full-step 수치 예제</strong>, 사물 클리핑, 투영 3단계 연립방정식 유도, 카디널·베지어·은면제거 완전 해부.</p>
+          </a>
+          <a class="hub-card" href="04_지문_시나리오별_대처법.html">
+            <div class="num">DOCUMENT 04 · 지문 상황 대처 매뉴얼</div>
+            <h3>04. 예시 지문 시나리오별 실전 대처법</h3>
+            <p>중간고사 유형을 확장한 <strong>사물 클리핑+뷰포트 복합 시나리오</strong>, 최종 단일 행렬 요구 대처, 카디널/베지어 미수록 공식 요구 대처 등 18대 실전 시나리오.</p>
+          </a>
+          <a class="hub-card" href="05_실전_모의고사_및_해설.html" style="grid-column: 1 / -1;">
+            <div class="num">DOCUMENT 05 · 실전 시뮬레이션 (총 3회분 42문항)</div>
+            <h3>05. 실전 모의고사 3회분 (표준형 · 응용형 · 핵심타겟 집중형) + 상세 풀이</h3>
+            <p>제1회(표준형 14문항), 제2회(응용형 14문항)에 더해 <strong>제3회(Liang-Barsky 사물 클리핑 · 투영 · 변환 최종행렬 · 카디널 · 베지어 · 은면제거 집중형 14문항)</strong> 수록!</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

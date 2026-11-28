@@ -1,0 +1,260 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02. 최종 행렬 · 공식 치트시트 — 컴퓨터 그래픽스 이론시험</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand" href="index.html">CG 이론시험 대비 패키지</a>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="01_개념_핵심정리.html">01. 개념·파이프라인·과정</a>
+        <a class="active" href="02_시험직전_치트시트.html">02. 최종행렬·공식 치트시트</a>
+        <a href="03_파이프라인_행렬_계산법_완전정리.html">03. 행렬유도·계산 완전판</a>
+        <a href="04_지문_시나리오별_대처법.html">04. 시나리오 대처법</a>
+        <a href="05_실전_모의고사_및_해설.html">05. 실전 모의고사(3회)</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-title">목차 (02. 치트시트)</div>
+      <ul>
+        <li><a href="#block">1. 블록 행렬 초고속 곱셈 공식 ★</a></li>
+        <li><a href="#final-mat">2. 전개 완료 최종 단일 행렬표 ★</a></li>
+        <li><a href="#proj-clip">3. 뷰잉 · 투영 · Liang-Barsky 표</a></li>
+        <li><a href="#curve-mat">4. 카디널 · 베지어 · 허마이트 표 ★</a></li>
+        <li><a href="#hsr-etc">5. 은면제거 · 컬러 · 프랙탈 공식</a></li>
+        <li><a href="#traps">6. 시험장 O/X 함정 20선</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h1>02. 시험 직전 10분 — 최종 단일 행렬 &amp; 공식 치트시트</h1>
+        <p>곱셈 기호 나열을 넘어 원소까지 완전히 전개한 "최종 단일 행렬" 암기표 · 블록 암산 공식 · 카디널/베지어/Liang-Barsky 핵심식</p>
+        <div class="hero-badges">
+          <span class="badge">최종 단일 행렬 완비</span>
+          <span class="badge">15초 블록 곱셈 치트키</span>
+          <span class="badge">베지어 일반식·행렬·접선</span>
+          <span class="badge">카디널 M_C(s)</span>
+        </div>
+      </section>
+
+      <!-- 1. 블록 곱셈 치트키 -->
+      <section class="section-card" id="block">
+        <h2>1. 최종 단일 행렬을 15초 만에 구하는 블록 곱셈 공식 ★</h2>
+        <div class="math-block col">
+          <div class="math-row">
+            <strong>① 어파인 2개 곱:</strong> &nbsp;
+            <span class="mat c2"><span><i>A</i><sub>2</sub></span><span><b>t</b><sub>2</sub></span><span><b>0</b><sup>T</sup></span><span>1</span></span>
+            <span class="mat c2"><span><i>A</i><sub>1</sub></span><span><b>t</b><sub>1</sub></span><span><b>0</b><sup>T</sup></span><span>1</span></span>
+            =
+            <span class="mat c2"><span><i>A</i><sub>2</sub><i>A</i><sub>1</sub></span><span><i>A</i><sub>2</sub><b>t</b><sub>1</sub> + <b>t</b><sub>2</sub></span><span><b>0</b><sup>T</sup></span><span>1</span></span>
+          </div>
+          <div class="math-row">
+            <strong>② 기준점 <b>p</b><sub>0</sub> 샌드위치 공식 (회전·신축·반사 만능!):</strong> &nbsp;
+            <i>T</i>(<b>p</b><sub>0</sub>) · <i>A</i> · <i>T</i>(−<b>p</b><sub>0</sub>) =
+            <span class="mat c2"><span><i>A</i></span><span>(<i>I − A</i>)<b>p</b><sub>0</sub></span><span><b>0</b><sup>T</sup></span><span>1</span></span>
+            =
+            <span class="mat c2"><span><i>A</i></span><span><b>p</b><sub>0</sub> − <i>A</i><b>p</b><sub>0</sub></span><span><b>0</b><sup>T</sup></span><span>1</span></span>
+          </div>
+        </div>
+        <p><strong>해석:</strong> 임의의 점 <b>p</b><sub>0</sub> 기준 회전/신축의 최종 단일 행렬은 좌상단 3×3에 <i>A</i>를 그대로 쓰고, <strong>4열 이동 성분만 <b>p</b><sub>0</sub> − <i>A</i><b>p</b><sub>0</sub></strong>를 적으면 행렬 3개 곱셈이 즉시 끝납니다!</p>
+      </section>
+
+      <!-- 2. 전개 완료 최종 단일 행렬 -->
+      <section class="section-card" id="final-mat">
+        <h2>2. 2D / 3D 기하변환 — 전개 완료된 최종 단일 행렬 일람표 ★</h2>
+        <div class="math-block col">
+          <div class="math-row">
+            <strong>• 2D 임의 점 (<i>x</i><sub>0</sub>, <i>y</i><sub>0</sub>) 기준 θ 회전 최종 행렬:</strong>
+            <span class="mat c3">
+              <span>cosθ</span><span>−sinθ</span><span><i>x</i><sub>0</sub>(1−cosθ) + <i>y</i><sub>0</sub>sinθ</span>
+              <span>sinθ</span><span>cosθ</span><span><i>y</i><sub>0</sub>(1−cosθ) − <i>x</i><sub>0</sub>sinθ</span>
+              <span>0</span><span>0</span><span>1</span>
+            </span>
+          </div>
+          <div class="math-row">
+            <strong>• 2D 임의 직선 <i>y = mx + b</i> 반사 최종 단일 행렬:</strong>
+            <span class="frac"><span class="num">1</span><span class="den">1 + <i>m</i><sup>2</sup></span></span>
+            <span class="mat c3">
+              <span>1 − <i>m</i><sup>2</sup></span><span>2<i>m</i></span><span>−2<i>mb</i></span>
+              <span>2<i>m</i></span><span><i>m</i><sup>2</sup> − 1</span><span>2<i>b</i></span>
+              <span>0</span><span>0</span><span>1 + <i>m</i><sup>2</sup></span>
+            </span>
+          </div>
+          <div class="math-row">
+            <strong>• 3D 임의 점 (<i>x<sub>f</sub>, y<sub>f</sub>, z<sub>f</sub></i>) 기준 신축 최종 행렬:</strong>
+            <span class="mat c4">
+              <span><i>s<sub>x</sub></i></span><span>0</span><span>0</span><span><i>x<sub>f</sub></i>(1 − <i>s<sub>x</sub></i>)</span>
+              <span>0</span><span><i>s<sub>y</sub></i></span><span>0</span><span><i>y<sub>f</sub></i>(1 − <i>s<sub>y</sub></i>)</span>
+              <span>0</span><span>0</span><span><i>s<sub>z</sub></i></span><span><i>z<sub>f</sub></i>(1 − <i>s<sub>z</sub></i>)</span>
+              <span>0</span><span>0</span><span>0</span><span>1</span>
+            </span>
+          </div>
+          <div class="math-row">
+            <strong>• 3D 기본 회전 3종 (<i>R<sub>y</sub></i> 부호 주목!):</strong>
+            <i>R<sub>z</sub></i>: <span class="mat c3"><span>c</span><span>−s</span><span>0</span><span>s</span><span>c</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            &nbsp;<i>R<sub>x</sub></i>: <span class="mat c3"><span>1</span><span>0</span><span>0</span><span>0</span><span>c</span><span>−s</span><span>0</span><span>s</span><span>c</span></span>
+            &nbsp;<i>R<sub>y</sub></i>: <span class="mat c3"><span>c</span><span>0</span><span>+s</span><span>0</span><span>1</span><span>0</span><span>−s</span><span>0</span><span>c</span></span>
+          </div>
+          <div class="math-row">
+            <strong>• 3D 일반 직선 (<i>P</i><sub>1</sub>→<i>P</i><sub>2</sub>) 회전:</strong>
+            <i>M</i> = <i>T</i>(<i>P</i><sub>1</sub>)<i>R<sub>x</sub></i>(−θ<sub><i>x</i></sub>)<i>R<sub>y</sub></i>(−θ<sub><i>y</i></sub>)<i>R<sub>z</sub></i>(θ)<i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>)<i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>)<i>T</i>(−<i>P</i><sub>1</sub>) &nbsp;|&nbsp;
+            <b>u</b>=(<i>a,b,c</i>), <i>d</i>=√(<i>b</i><sup>2</sup>+<i>c</i><sup>2</sup>) ⇒ cosθ<sub><i>x</i></sub>=<i>c/d</i>, sinθ<sub><i>x</i></sub>=<i>b/d</i>, cosθ<sub><i>y</i></sub>=<i>d</i>, sinθ<sub><i>y</i></sub>=−<i>a</i>
+          </div>
+          <div class="math-row">
+            <strong>• 3D 반사 / 밀림:</strong> 반사 <i>xy, yz, xz, 원점</i> = diag(1,1,−1,1), (−1,1,1,1), (1,−1,1,1), (−1,−1,−1,1) &nbsp;|&nbsp;
+            밀림 <i>Sh<sub>x</sub></i>(1열 <i>h<sub>y</sub>,h<sub>z</sub></i>), <i>Sh<sub>y</sub></i>(2열 <i>h<sub>x</sub>,h<sub>z</sub></i>), <i>Sh<sub>z</sub></i>(3열 <i>h<sub>x</sub>,h<sub>y</sub></i>)
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 뷰잉·투영·클리핑 -->
+      <section class="section-card" id="proj-clip">
+        <h2>3. 뷰잉 · 투영 · 윈도우-뷰포트 · Liang-Barsky 핵심 행렬/식</h2>
+        <div class="math-block col">
+          <div class="math-row">
+            <strong>• 뷰잉 변환 (VRP, VPN, VUP):</strong>
+            <b>n</b> = VPN/|VPN| (Eye·At이면 <i>Eye−At</i> 정규화), <b>u</b> = (VUP×<b>n</b>)/|…|, <b>v</b> = <b>n</b>×<b>u</b> ⇒
+            <i>M<sub>view</sub></i> =
+            <span class="mat c4"><span><i>u<sub>x</sub></i></span><span><i>u<sub>y</sub></i></span><span><i>u<sub>z</sub></i></span><span>−<b>u</b>·VRP</span><span><i>v<sub>x</sub></i></span><span><i>v<sub>y</sub></i></span><span><i>v<sub>z</sub></i></span><span>−<b>v</b>·VRP</span><span><i>n<sub>x</sub></i></span><span><i>n<sub>y</sub></i></span><span><i>n<sub>z</sub></i></span><span>−<b>n</b>·VRP</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+          </div>
+          <div class="math-row">
+            <strong>• 경사투영 <i>M<sub>obliq</sub></i>:</strong>
+            <span class="mat c4"><span>1</span><span>0</span><span>cotα cosφ</span><span>0</span><span>0</span><span>1</span><span>cotα sinφ</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            (Cavalier cot45°=1, Cabinet cot63.4°=0.5) &nbsp;|&nbsp;
+            <strong>원근(<i>z</i>=0, <i>V<sub>p</sub></i>=(0,0,<i>d</i>)):</strong> 4행 <code>[0, 0, −1/d, 1]</code>, ÷(1−<i>z/d</i>)
+          </div>
+          <div class="math-row">
+            <strong>• 원근 프러스텀 정규화 최종 단일 행렬 <i>M<sub>persp</sub></i> = <i>M<sub>normal</sub> M<sub>scale</sub> M<sub>shear</sub></i>:</strong>
+            <span class="mat c4">
+              <span><span class="frac"><span class="num">2<i>d</i></span><span class="den"><i>R−L</i></span></span></span><span>0</span><span><span class="frac"><span class="num"><i>R+L</i></span><span class="den"><i>R−L</i></span></span></span><span>0</span>
+              <span>0</span><span><span class="frac"><span class="num">2<i>d</i></span><span class="den"><i>T−B</i></span></span></span><span><span class="frac"><span class="num"><i>T+B</i></span><span class="den"><i>T−B</i></span></span></span><span>0</span>
+              <span>0</span><span>0</span><span>−<span class="frac"><span class="num"><i>F+N</i></span><span class="den"><i>F−N</i></span></span></span><span>−<span class="frac"><span class="num">2<i>FN</i></span><span class="den"><i>F−N</i></span></span></span>
+              <span>0</span><span>0</span><span>−1</span><span>0</span>
+            </span>
+            (곱한 뒤 ÷<i>h</i>, <i>h=−z</i>)
+          </div>
+          <div class="math-row">
+            <strong>• 평행 뷰볼륨 [<i>L,R</i>]×[<i>B,T</i>]×[−<i>F</i>,−<i>N</i>] → NDC [−1,1]<sup>3</sup> 정규화 최종 행렬:</strong>
+            <span class="mat c4">
+              <span><span class="frac"><span class="num">2</span><span class="den"><i>R−L</i></span></span></span><span>0</span><span>0</span><span>−<span class="frac"><span class="num"><i>R+L</i></span><span class="den"><i>R−L</i></span></span></span>
+              <span>0</span><span><span class="frac"><span class="num">2</span><span class="den"><i>T−B</i></span></span></span><span>0</span><span>−<span class="frac"><span class="num"><i>T+B</i></span><span class="den"><i>T−B</i></span></span></span>
+              <span>0</span><span>0</span><span>−<span class="frac"><span class="num">2</span><span class="den"><i>F−N</i></span></span></span><span>−<span class="frac"><span class="num"><i>F+N</i></span><span class="den"><i>F−N</i></span></span></span>
+              <span>0</span><span>0</span><span>0</span><span>1</span>
+            </span>
+          </div>
+          <div class="math-row">
+            <strong>• 윈도우→뷰포트 최종 행렬 <i>M<sub>WV</sub></i>:</strong>
+            <span class="mat c3"><span><i>s<sub>x</sub></i></span><span>0</span><span><i>x<sub>vL</sub> − s<sub>x</sub>x<sub>wL</sub></i></span><span>0</span><span><i>s<sub>y</sub></i></span><span><i>y<sub>vB</sub> − s<sub>y</sub>y<sub>wB</sub></i></span><span>0</span><span>0</span><span>1</span></span>
+            (NDC [−1,1]→뷰포트면 <i>x<sub>wL</sub></i>=−1, <i>x<sub>wR</sub></i>=1 대입!)
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Liang-Barsky 경계 <i>k</i></th><th><i>p<sub>k</sub></i></th><th><i>q<sub>k</sub></i></th><th>판정 규칙</th></tr></thead>
+            <tbody>
+              <tr><td><i>k</i>=1 (좌 <i>x<sub>min</sub></i>) / <i>k</i>=2 (우 <i>x<sub>max</sub></i>)</td><td>−<i>dx</i> &nbsp;/&nbsp; +<i>dx</i></td><td><i>x</i><sub>0</sub> − <i>x<sub>min</sub></i> &nbsp;/&nbsp; <i>x<sub>max</sub></i> − <i>x</i><sub>0</sub></td><td rowspan="3">• <i>p<sub>k</sub></i>=0 &amp; <i>q<sub>k</sub></i>&lt;0: 즉시 기각<br>• <i>p<sub>k</sub></i>&lt;0 (진입): <i>u</i><sub>1</sub> = max(0, <i>q<sub>k</sub>/p<sub>k</sub></i>)<br>• <i>p<sub>k</sub></i>&gt;0 (진출): <i>u</i><sub>2</sub> = min(1, <i>q<sub>k</sub>/p<sub>k</sub></i>)<br>• <i>u</i><sub>1</sub> &gt; <i>u</i><sub>2</sub>면 기각, 아니면 <i>P</i><sub>0</sub> + <i>u</i>Δ<i>P</i></td></tr>
+              <tr><td><i>k</i>=3 (하 <i>y<sub>min</sub></i>) / <i>k</i>=4 (상 <i>y<sub>max</sub></i>)</td><td>−<i>dy</i> &nbsp;/&nbsp; +<i>dy</i></td><td><i>y</i><sub>0</sub> − <i>y<sub>min</sub></i> &nbsp;/&nbsp; <i>y<sub>max</sub></i> − <i>y</i><sub>0</sub></td></tr>
+              <tr><td><i>k</i>=5 (뒤 <i>z<sub>min</sub></i>) / <i>k</i>=6 (앞 <i>z<sub>max</sub></i>)</td><td>−<i>dz</i> &nbsp;/&nbsp; +<i>dz</i></td><td><i>z</i><sub>0</sub> − <i>z<sub>min</sub></i> &nbsp;/&nbsp; <i>z<sub>max</sub></i> − <i>z</i><sub>0</sub></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. 카디널·베지어·허마이트 -->
+      <section class="section-card" id="curve-mat">
+        <h2>4. 스플라인(Hermite · Cardinal · Catmull-Rom) &amp; 베지어(Bézier) 핵심 공식표 ★</h2>
+        <div class="math-block col">
+          <div class="math-row">
+            <strong>• Hermite (<i>p<sub>k</sub>, p<sub>k+1</sub>, Dp<sub>k</sub>, Dp<sub>k+1</sub></i>):</strong>
+            <i>M<sub>H</sub></i> =
+            <span class="mat c4"><span>2</span><span>−2</span><span>1</span><span>1</span><span>−3</span><span>3</span><span>−2</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span></span>
+            &nbsp;|&nbsp; 배합함수(<i>u</i>=0.5): <strong>[1/2, &nbsp;1/2, &nbsp;1/8, &nbsp;−1/8]</strong>
+          </div>
+          <div class="math-row">
+            <strong>• Cardinal ★ (<i>p<sub>k−1</sub>, p<sub>k</sub>, p<sub>k+1</sub>, p<sub>k+2</sub></i>, <i>s</i> = <span class="frac"><span class="num">1−<i>t</i></span><span class="den">2</span></span>):</strong>
+            <i>M<sub>C</sub></i>(<i>s</i>) =
+            <span class="mat c4"><span>−<i>s</i></span><span>2−<i>s</i></span><span><i>s</i>−2</span><span><i>s</i></span><span>2<i>s</i></span><span><i>s</i>−3</span><span>3−2<i>s</i></span><span>−<i>s</i></span><span>−<i>s</i></span><span>0</span><span><i>s</i></span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span></span>
+            &nbsp;|&nbsp; <i>u</i>=0.5일 때 <i>P</i>(0.5) = −<span class="frac"><span class="num"><i>s</i></span><span class="den">8</span></span><i>p<sub>k−1</sub></i> + (<span class="frac"><span class="num">1</span><span class="den">2</span></span>+<span class="frac"><span class="num"><i>s</i></span><span class="den">8</span></span>)<i>p<sub>k</sub></i> + (<span class="frac"><span class="num">1</span><span class="den">2</span></span>+<span class="frac"><span class="num"><i>s</i></span><span class="den">8</span></span>)<i>p<sub>k+1</sub></i> − <span class="frac"><span class="num"><i>s</i></span><span class="den">8</span></span><i>p<sub>k+2</sub></i>
+          </div>
+          <div class="math-row">
+            <strong>• 일반 <i>n</i>차 Bézier 공식 ★:</strong>
+            <i>P</i>(<i>t</i>) = ∑<sub><i>k</i>=0..<i>n</i></sub> <i>B<sub>k,n</sub></i>(<i>t</i>)<i>P<sub>k</sub></i>, &nbsp;&nbsp;
+            <strong><i>B<sub>k,n</sub></i>(<i>t</i>) = <span class="frac"><span class="num"><i>n</i>!</span><span class="den"><i>k</i>!(<i>n−k</i>)!</span></span> <i>t<sup>k</sup></i> (1 − <i>t</i>)<sup><i>n−k</i></sup></strong> &nbsp;(0 ≤ <i>t</i> ≤ 1)
+          </div>
+          <div class="math-row">
+            <strong>• 2차 Bézier 행렬:</strong>
+            <span class="mat c3"><span>1</span><span>−2</span><span>1</span><span>−2</span><span>2</span><span>0</span><span>1</span><span>0</span><span>0</span></span>
+            &nbsp;&nbsp;<strong>• 3차 Bézier 행렬:</strong>
+            <span class="mat c4"><span>−1</span><span>3</span><span>−3</span><span>1</span><span>3</span><span>−6</span><span>3</span><span>0</span><span>−3</span><span>3</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span></span>
+            &nbsp;&nbsp;<strong>• 양끝 접선:</strong> <i>P'</i>(0) = <i>n</i>(<i>P</i><sub>1</sub>−<i>P</i><sub>0</sub>), &nbsp;<i>P'</i>(1) = <i>n</i>(<i>P<sub>n</sub></i>−<i>P<sub>n−1</sub></i>)
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. 은면·컬러·프랙탈 -->
+      <section class="section-card" id="hsr-etc">
+        <h2>5. 은면 제거 · 평면 · 컬러 · 프랙탈 · 보간 1줄 공식</h2>
+        <div class="math-block col">
+          <div class="math-row">
+            <strong>• 평면:</strong> <b>N</b>=(<i>A,B,C</i>)=(<i>P</i><sub>2</sub>−<i>P</i><sub>1</sub>)×(<i>P</i><sub>3</sub>−<i>P</i><sub>1</sub>), <i>D</i>=−<b>N</b>·<i>P</i><sub>1</sub> &nbsp;|&nbsp; 거리 <i>d</i> = |<i>Ax</i><sub>1</sub>+<i>By</i><sub>1</sub>+<i>Cz</i><sub>1</sub>+<i>D</i>| / √(<i>A</i><sup>2</sup>+<i>B</i><sup>2</sup>+<i>C</i><sup>2</sup>)
+          </div>
+          <div class="math-row">
+            <strong>• 뒷면 제거:</strong> 시선 <b>V</b> = <i>P − Eye</i> 에 대해 <strong><b>V·N</b> &lt; 0 앞면</strong>, &gt; 0 뒷면 (시선 −<i>z</i> 평행이면 <strong><i>C</i> &gt; 0 앞면</strong>, <i>C</i> &lt; 0 뒷면)
+          </div>
+          <div class="math-row">
+            <strong>• Z-버퍼 깊이:</strong> <i>z</i>(<i>x,y</i>) = −(<i>Ax+By+D</i>)/<i>C</i> &nbsp;|&nbsp; 우측 증분 <strong><i>z</i>(<i>x</i>+1,<i>y</i>) = <i>z</i> − <i>A/C</i></strong> &nbsp;|&nbsp; 스캔라인 증분 <strong><i>z</i>(<i>x,y</i>−1) = <i>z</i> + <i>B/C</i></strong>
+          </div>
+          <div class="math-row">
+            <strong>• 깊이 정렬 유지 조건(<i>S</i><sub>1</sub> 먼저):</strong> <i>S</i><sub>1</sub> 모든 정점이 <i>S</i><sub>2</sub> 식 &lt; 0 (뒤) <strong>또는</strong> <i>S</i><sub>2</sub> 모든 정점이 <i>S</i><sub>1</sub> 식 &gt; 0 (앞)
+          </div>
+          <div class="math-row">
+            <strong>• 프랙탈 차원:</strong> <i>D</i> = ln <i>N</i> / ln(1/<i>S</i>) &nbsp;|&nbsp; <strong>선형 보간:</strong> <i>P</i>(<i>s</i>) = (1−<i>s</i>)<i>P</i><sub>0</sub> + <i>sP</i><sub>1</sub> &nbsp;|&nbsp; <strong>CMY:</strong> (1−<i>R</i>, 1−<i>G</i>, 1−<i>B</i>)
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. O/X 20선 -->
+      <section class="section-card" id="traps">
+        <h2>6. 시험장 빈출 O/X 함정 20선</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th style="width:6%;">#</th><th>함정 진술</th><th style="width:8%;">답</th><th>핵심 근거</th></tr></thead>
+            <tbody>
+              <tr><td class="center">1</td><td>이동 변환은 선형 변환에 속한다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>어파인 변환에는 속하지만 원점을 보존하지 않아 선형 변환 아님.</td></tr>
+              <tr><td class="center">2</td><td><i>T</i>(<i>P</i><sub>0</sub>)·<i>A</i>·<i>T</i>(−<i>P</i><sub>0</sub>)의 최종 4열 이동 벡터는 <i>P</i><sub>0</sub> − <i>AP</i><sub>0</sub>이다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>블록 곱셈 시 (<i>I − A</i>)<i>P</i><sub>0</sub>가 되어 기준점 <i>P</i><sub>0</sub>가 불변점으로 유지됨.</td></tr>
+              <tr><td class="center">3</td><td>오른손 좌표계 <i>R<sub>y</sub></i>(θ)의 1행 3열은 −sin θ이다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td><i>R<sub>y</sub></i>만 1행 3열이 <strong>+sin θ</strong>, 3행 1열이 <strong>−sin θ</strong>!</td></tr>
+              <tr><td class="center">4</td><td>Liang-Barsky에서 <i>p<sub>k</sub></i> = 0이고 <i>q<sub>k</sub></i> ≥ 0이면 즉시 선분을 기각한다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td><i>q<sub>k</sub></i> &lt; 0일 때만 외부 평행으로 기각; <i>q<sub>k</sub></i> ≥ 0이면 내부 평행이므로 나머지 경계 계속 검사.</td></tr>
+              <tr><td class="center">5</td><td>Liang-Barsky에서 <i>p<sub>k</sub></i> &lt; 0은 밖→안 진입, <i>p<sub>k</sub></i> &gt; 0은 안→밖 진출 경계다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>진입은 <i>u</i><sub>1</sub> = max(0, …), 진출은 <i>u</i><sub>2</sub> = min(1, …).</td></tr>
+              <tr><td class="center">6</td><td>Sutherland-Hodgman에서 내부→외부 이동 시 교점과 끝점을 모두 저장한다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>내→외는 <strong>교점만</strong> 저장; 외→내일 때 교점+끝점 둘 다 저장.</td></tr>
+              <tr><td class="center">7</td><td>Cabinet 투영은 깊이 길이를 1/2배로 축소해 투영한다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>α=63.4°(tanα=2, cotα=0.5). 1배 유지는 Cavalier(α=45°).</td></tr>
+              <tr><td class="center">8</td><td>뷰 변환 행렬 <i>M<sub>view</sub></i>에서 기저벡터 <b>u, v, n</b>은 1·2·3열에 세로로 배치된다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>월드→뷰 회전은 직교 역행렬(전치)이므로 <strong>1·2·3행(가로)</strong>에 배치됨!</td></tr>
+              <tr><td class="center">9</td><td>원근 정규화 행렬 곱셈만으로 NDC 좌표가 완성되며 별도 나눗셈은 불필요하다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>4번째 동차 성분 <i>h</i> (= −<i>z</i> 또는 1−<i>z/d</i>)로 나누는 <strong>원근 나눗셈</strong>이 필수!</td></tr>
+              <tr><td class="center">10</td><td>카디널 스플라인은 4개의 제어점 <i>p</i><sub>0</sub>, <i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>을 한 구간 식 하나로 모두 통과한다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>단일 구간 곡선은 가운데 두 점 <strong><i>p</i><sub>1</sub> ~ <i>p</i><sub>2</sub> 사이만 연결</strong>하며 <i>p</i><sub>0</sub>, <i>p</i><sub>3</sub>은 접선 계산에만 사용됨!</td></tr>
+              <tr><td class="center">11</td><td>캣멀롬(Catmull-Rom) 스플라인은 카디널 스플라인에서 <i>s</i> = 1/2 (<i>t</i> = 0)인 특수 경우다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td><i>P'</i>(0) = ½(<i>p<sub>k+1</sub>−p<sub>k−1</sub></i>), <i>P'</i>(1) = ½(<i>p<sub>k+2</sub>−p<sub>k</sub></i>).</td></tr>
+              <tr><td class="center">12</td><td>5개의 제어점으로 정의되는 베지어 곡선은 5차 다항식이다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>차수 = 제어점 수 − 1 이므로 <strong>4차</strong> 다항식!</td></tr>
+              <tr><td class="center">13</td><td>베지어 배합함수들의 합은 임의의 <i>t</i> ∈ [0, 1]에서 항상 1이다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>이항정리에 의해 ∑ <i>B<sub>k,n</sub></i>(<i>t</i>) = ((1−<i>t</i>)+<i>t</i>)<sup><i>n</i></sup> = 1<sup><i>n</i></sup> = 1 (Convex Hull 성질의 근거).</td></tr>
+              <tr><td class="center">14</td><td>3차 베지어 곡선의 시작점 접선 벡터 <i>P'</i>(0)은 3(<i>P</i><sub>1</sub> − <i>P</i><sub>0</sub>)이다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>끝점 접선 벡터 <i>P'</i>(1)은 3(<i>P</i><sub>3</sub> − <i>P</i><sub>2</sub>).</td></tr>
+              <tr><td class="center">15</td><td>뒷면 제거만으로 오목 다면체나 여러 물체 간의 가림 현상을 완전히 해결할 수 있다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>앞면끼리 서로 가리는 것은 제거 못 하므로 Z-버퍼나 깊이 정렬이 추가로 필요.</td></tr>
+              <tr><td class="center">16</td><td>Z-버퍼 알고리즘은 다각형을 반드시 먼 순서대로 정렬한 뒤에 처리해야 한다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>픽셀마다 깊이를 비교·갱신하므로 다각형 입력 순서와 무관하게 동일 결과 생성!</td></tr>
+              <tr><td class="center">17</td><td>깊이 정렬(Painter's)에서 두 면이 서로 관통하면 순서 교체만으로 해결되지 않아 면 분할이 필요하다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>순환 중첩(Cyclic overlap)과 상호 관통 시 면 분할 후 재검사 수행.</td></tr>
+              <tr><td class="center">18</td><td>HSV 모델에서 <i>V</i> = 0이면 <i>H</i>와 <i>S</i> 값에 관계없이 항상 검정색이다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>명도 <i>V</i>=0은 육각뿔 꼭짓점(Black).</td></tr>
+              <tr><td class="center">19</td><td>중점 변위법은 프랙탈 생성 기법 중 하나로 산의 표면 모델링에 적합하다.</td><td class="center"><strong style="color:#0f766e;">O</strong></td><td>변의 중점을 정규분포 난수로 변위시켜 반복 세분화.</td></tr>
+              <tr><td class="center">20</td><td>역운동학(IK)은 루트 관절 각도를 입력해 말단 위치를 순차 계산하는 방식이다.</td><td class="center"><strong style="color:#b91c1c;">X</strong></td><td>그것은 운동학(FK); IK는 말단 Effector 위치로부터 중간 관절 각도를 역산.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

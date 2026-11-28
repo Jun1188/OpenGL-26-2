@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04. 지문 시나리오별 실전 대처법 (강화판) — 컴퓨터 그래픽스</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand" href="index.html">CG 이론시험 대비 패키지</a>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="01_개념_핵심정리.html">01. 개념·파이프라인·과정</a>
+        <a href="02_시험직전_치트시트.html">02. 최종행렬·공식 치트시트</a>
+        <a href="03_파이프라인_행렬_계산법_완전정리.html">03. 행렬유도·계산 완전판</a>
+        <a class="active" href="04_지문_시나리오별_대처법.html">04. 시나리오 대처법</a>
+        <a href="05_실전_모의고사_및_해설.html">05. 실전 모의고사(3회)</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-title">목차 (실전 대처법)</div>
+      <ul>
+        <li><a href="#top4">★ 기말 4대 특급 출제 시나리오</a></li>
+        <li><a class="toc-sub" href="#sp1">├ 특급 1: 사물 전체 클리핑+뷰포트</a></li>
+        <li><a class="toc-sub" href="#sp2">├ 특급 2: 최종 단일 행렬+좌표 요구</a></li>
+        <li><a class="toc-sub" href="#sp3">├ 특급 3: 카디널 장력·다중 제어점</a></li>
+        <li><a class="toc-sub" href="#sp4">└ 특급 4: 베지어 미수록 공식 요구</a></li>
+        <li><a href="#part-a">Part A. 기하변환 시나리오 (S1~S5)</a></li>
+        <li><a href="#part-b">Part B. 뷰잉·투영·클리핑 (S6~S10)</a></li>
+        <li><a href="#part-c">Part C. 평면·은면·프랙탈 (S11~S14)</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h1>04. 예시 지문 시나리오별 실전 대처법 (타겟 강화판)</h1>
+        <p>중간고사 기출 유형(특정 사물을 특정 크기 윈도우에 클리핑)과 이번 기말 최유력 타겟(Liang-Barsky, 투영, 변환 최종행렬, 카디널, 베지어, 은면제거)에 맞춘 실전 대응 매뉴얼입니다.</p>
+        <div class="hero-badges">
+          <span class="badge">사물 단위 클리핑 대응</span>
+          <span class="badge">최종 단일 행렬 15초 완성법</span>
+          <span class="badge">카디널·베지어 집중 대응</span>
+          <span class="badge">특정 좌표 검산 프로토콜</span>
+        </div>
+      </section>
+
+      <!-- ★ 기말 4대 특급 시나리오 -->
+      <section class="section-card" id="top4">
+        <h2>★ 이번 시험 최우선 대비 — 4대 특급 복합 시나리오</h2>
+
+        <div class="scenario-box" id="sp1">
+          <div class="scenario-trigger">특급 시나리오 1 (중간고사 진화형 ★): "특정 사물(3D/2D 다각형·육면체·삼각뿔)을 투영(또는 변환)한 뒤, 지정된 윈도우/뷰볼륨 크기에 Liang-Barsky로 클리핑하고 화면 뷰포트 좌표를 구하라."</div>
+          <ol class="step-list">
+            <li><strong>사물의 표현 형태부터 확인 (와이어프레임 선분 집합 vs 속이 찬 다각형 면):</strong>
+              <ul>
+                <li>지문이 <strong>"Liang-Barsky 사용"</strong> 또는 <strong>"선분/와이어프레임"</strong>이면 → 사물의 꼭짓점 쌍(모서리 <i>e</i><sub>1</sub>, <i>e</i><sub>2</sub>, …)을 나열하고 <strong>모서리별로 독립 실행</strong>!</li>
+                <li>지문이 <strong>"속이 찬 다각형(Filled polygon)"</strong>이고 알고리즘 미지정이면 → <strong>Sutherland-Hodgman</strong>(좌→상→우→하 순차 정점 갱신; 오목 분리 시 Weiler-Atherton)을 적용해야 잘린 경계 변이 닫힘!</li>
+              </ul>
+            </li>
+            <li><strong>3D 사물 + 투영 결합 시 순서 판별:</strong>
+              <ul>
+                <li><strong>3D 뷰볼륨([<i>x<sub>min</sub>,x<sub>max</sub></i>]×[<i>y<sub>min</sub>,y<sub>max</sub></i>]×[<i>z<sub>min</sub>,z<sub>max</sub></i>] 또는 NDC [−1,1]<sup>3</sup>)이 주어진 경우:</strong> 먼저 3D Liang-Barsky(<i>k</i>=1..6)로 3D 선분을 자른 뒤 투영!</li>
+                <li><strong>투영면(<i>z</i>=0) 위 2D 윈도우 크기가 주어진 경우:</strong> 먼저 사물의 모든 꼭짓점을 투영(원근/경사/직각)해 2D 투영 정점들을 구한 다음, 각 변을 2D Liang-Barsky(<i>k</i>=1..4)로 클리핑 → 살아남은 새 끝점들에만 <i>M<sub>WV</sub></i>를 곱해 뷰포트 좌표 계산!</li>
+              </ul>
+            </li>
+            <li><strong>Liang-Barsky 다중 모서리 시간 단축 팁:</strong> 수평 변(<i>dy</i>=0)이나 수직 변(<i>dx</i>=0)이 있으면 <i>p<sub>k</sub></i>=0 평행 검사를 먼저 적용해 바깥 변(<i>q<sub>k</sub></i>&lt;0)은 1초 만에 통째로 날리고, 내부 평행 변은 나머지 축 비율 암산으로 즉시 처리!</li>
+          </ol>
+        </div>
+
+        <div class="scenario-box" id="sp2">
+          <div class="scenario-trigger">특급 시나리오 2 ★: "변환 과정만 기호로 쓰지 말고, 필요한 『최종 단일 변환 행렬 M』의 모든 원소를 구하고 특정 점 P의 변환 좌표를 계산하라."</div>
+          <ol class="step-list">
+            <li><strong>절대 4×4 행렬 4~5개를 정직하게 왼쪽부터 곱하지 마세요!</strong> 부호 실수 확률이 급증합니다.</li>
+            <li><strong>1단계 (기호 순서 식 먼저 명시 — 부분점수 확보):</strong> 예: <i>M</i> = <i>T</i>(<i>t<sub>x</sub>,t<sub>y</sub>,t<sub>z</sub></i>) · <i>T</i>(<i>P</i><sub>0</sub>) · <i>R<sub>y</sub></i>(θ) · <i>T</i>(−<i>P</i><sub>0</sub>).</li>
+            <li><strong>2단계 (인접 이동 합치기 &amp; 블록 샌드위치 공식 적용):</strong><br>
+              • 인접한 이동끼리는 즉시 더함: <i>T</i>(<b>t</b>)·<i>T</i>(<i>P</i><sub>0</sub>) = <i>T</i>(<b>t</b> + <i>P</i><sub>0</sub>).<br>
+              • <i>T</i>(<i>P</i><sub>0</sub>)·<i>A</i>·<i>T</i>(−<i>P</i><sub>0</sub>) 꼴은 좌상단 3×3에 <i>A</i>를 그대로 적고, <strong>4열 상단 3칸에 <i>P</i><sub>0</sub> − <i>A·P</i><sub>0</sub></strong>를 계산해 넣으면 즉시 단일 행렬 완성!<br>
+              • 두 어파인 행렬 (<i>A</i><sub>2</sub>, <b>t</b><sub>2</sub>) · (<i>A</i><sub>1</sub>, <b>t</b><sub>1</sub>)을 곱할 때도 3×3끼리만 곱해 <i>A</i><sub>2</sub><i>A</i><sub>1</sub>을 만들고 4열은 <i>A</i><sub>2</sub><b>t</b><sub>1</sub> + <b>t</b><sub>2</sub>로 계산!</li>
+            <li><strong>3단계 (이중 검산):</strong> ① 특정 점 <i>P</i>를 단계별(이동→회전→역이동…)로 암산한 좌표와 ② 내가 구한 최종 단일 행렬 <i>M</i>에 <i>P</i>를 곱한 좌표가 <strong>100% 일치하면 행렬과 좌표 둘 다 만점 확정!</strong></li>
+          </ol>
+        </div>
+
+        <div class="scenario-box" id="sp3">
+          <div class="scenario-trigger">특급 시나리오 3 ★: "제어점들과 장력 t가 주어졌을 때 카디널(Cardinal) 스플라인의 행렬식/계수 다항식과 특정 u에서의 좌표를 구하라."</div>
+          <ol class="step-list">
+            <li><strong>장력 <i>t</i> → <i>s</i> 변환부터 최우선 기록:</strong> <strong><i>s</i> = (1 − <i>t</i>) / 2</strong>. (지문에 캣멀롬이라 하면 <i>t</i>=0 ⇒ <i>s</i>=1/2; 지문에 이미 기울기 계수 <i>s</i>로 주어졌으면 그 <i>s</i> 그대로 사용!).</li>
+            <li><strong>어느 두 점 사이 구간인지 확인:</strong> 제어점이 4개(<i>p</i><sub>0</sub>, <i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>)면 곡선은 <strong><i>p</i><sub>1</sub>(<i>u</i>=0) ~ <i>p</i><sub>2</sub>(<i>u</i>=1)</strong> 구간임! 만약 5개 이상 주어지고 "<i>p</i><sub>2</sub>와 <i>p</i><sub>3</sub> 사이 구간의 <i>u</i>=0.5"를 물으면 열벡터에 <strong>[<i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>, <i>p</i><sub>4</sub>]<sup>T</sup></strong>를 넣어야 함!</li>
+            <li><strong>요구 사항별 최적 경로:</strong>
+              <ul>
+                <li><strong>최종 행렬 <i>M<sub>C</sub></i>(<i>s</i>)나 다항식 계수 요구 시:</strong> <i>M<sub>C</sub></i>(<i>s</i>) = <span class="mat c4"><span>−<i>s</i></span><span>2−<i>s</i></span><span><i>s</i>−2</span><span><i>s</i></span><span>2<i>s</i></span><span><i>s</i>−3</span><span>3−2<i>s</i></span><span>−<i>s</i></span><span>−<i>s</i></span><span>0</span><span><i>s</i></span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span></span> 에 <i>s</i> 대입 후 제어점 곱해 [<i>a,b,c,d</i>]<sup>T</sup> 완성! (각 행의 원소 합 검산: 1·2·3행은 가로 합이 모두 <strong>0</strong>, 4행만 가로 합이 <strong>1</strong>이어야 정상!)</li>
+                <li><strong>특정 <i>u</i> 좌표만 빠르게 검산할 때:</strong> 양 끝 접선 <i>Dp<sub>k</sub></i> = <i>s</i>(<i>p<sub>k+1</sub>−p<sub>k−1</sub></i>), <i>Dp<sub>k+1</sub></i> = <i>s</i>(<i>p<sub>k+2</sub>−p<sub>k</sub></i>)를 구해 Hermite 배합함수(예: <i>u</i>=0.5일 때 ½<i>p<sub>k</sub></i> + ½<i>p<sub>k+1</sub></i> + ⅛<i>Dp<sub>k</sub></i> − ⅛<i>Dp<sub>k+1</sub></i>)에 넣으면 10초 컷!</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="scenario-box" id="sp4">
+          <div class="scenario-trigger">특급 시나리오 4 ★: "베지어(Bézier) 곡선의 일반식/행렬식을 적고, 제어점들에 대해 특정 t에서의 좌표(및 접선 벡터)를 구하라."</div>
+          <ol class="step-list">
+            <li><strong>공식 서술 요구 시:</strong> 번스타인 일반식 <i>P</i>(<i>t</i>) = ∑<sub><i>k</i>=0..<i>n</i></sub> <span class="frac"><span class="num"><i>n</i>!</span><span class="den"><i>k</i>!(<i>n−k</i>)!</span></span> <i>t<sup>k</sup></i>(1−<i>t</i>)<sup><i>n−k</i></sup> <i>P<sub>k</sub></i> 를 먼저 적고, 주어진 제어점 개수(3점→2차, 4점→3차, 5점→4차)에 맞춰 전개!</li>
+            <li><strong>행렬 <i>M<sub>B</sub></i>가 기억 안 날 때 15초 복원법:</strong> 3차 번스타인 [(1−<i>t</i>)<sup>3</sup>, 3<i>t</i>(1−<i>t</i>)<sup>2</sup>, 3<i>t</i><sup>2</sup>(1−<i>t</i>), <i>t</i><sup>3</sup>]만 전개해 <i>t</i><sup>3</sup>, <i>t</i><sup>2</sup>, <i>t</i>, 1 계수를 세로 열에 채우면 <code>[-1,3,-3,1 / 3,-6,3,0 / -3,3,0,0 / 1,0,0,0]</code> 완성! (대칭 행렬이며 1·2·3행 가로 합 = 0, 4행 가로 합 = 1!).</li>
+            <li><strong>특정 <i>t</i> 좌표 계산 &amp; 검산:</strong> 번스타인 가중치 대입 결과와 <strong>de Casteljau 단계별 내분점</strong> 결과를 둘 다 구해 대조하면 실수 확률 0%!</li>
+            <li><strong>접선(속도) 질문 시:</strong> 시작 접선 <i>n</i>(<i>P</i><sub>1</sub>−<i>P</i><sub>0</sub>), 끝 접선 <i>n</i>(<i>P<sub>n</sub></i>−<i>P<sub>n−1</sub></i>), 임의 <i>t</i> 접선은 다항식 <i>P</i>(<i>t</i>)를 <i>t</i>로 미분하여 대입.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Part A -->
+      <section class="section-card" id="part-a">
+        <h2>Part A. 기하변환 세부 시나리오 (S1 ~ S5)</h2>
+        <ul>
+          <li><strong>S1 (임의 점 복합 변환):</strong> 기준점이 명시되지 않은 후속 신축/회전은 "원점 기준 가정"을 밝히고 <i>M</i> = <i>M<sub>후속</sub> · T</i>(<i>P</i><sub>0</sub>)<i>M<sub>기준</sub>T</i>(−<i>P</i><sub>0</sub>) 작성.</li>
+          <li><strong>S2 (2D 임의 직선 <i>y=mx+b</i> 반사):</strong> 5단계 기호식 <i>T</i>(0,<i>b</i>)<i>R</i>(θ)<i>Ref<sub>x</sub>R</i>(−θ)<i>T</i>(0,−<i>b</i>)와 단일 행렬 원소식 <span class="frac"><span class="num">1</span><span class="den">1+<i>m</i><sup>2</sup></span></span><span class="mat c3"><span>1−<i>m</i><sup>2</sup></span><span>2<i>m</i></span><span>−2<i>mb</i></span><span>2<i>m</i></span><span><i>m</i><sup>2</sup>−1</span><span>2<i>b</i></span><span>0</span><span>0</span><span>1+<i>m</i><sup>2</sup></span></span>을 함께 활용.</li>
+          <li><strong>S3 (좌표축 평행 3D 회전):</strong> <i>R<sub>y</sub></i>(θ)의 sin 부호(+sinθ가 1행3열)와 "시계방향" 문구(−θ 대입)만 체크.</li>
+          <li><strong>S4 (일반 3D 직선 <i>P</i><sub>1</sub>→<i>P</i><sub>2</sub> 회전):</strong> 단위벡터 (<i>a,b,c</i>), <i>d</i>=√(<i>b</i><sup>2</sup>+<i>c</i><sup>2</sup>) → cosθ<sub><i>x</i></sub>=<i>c/d</i>, sinθ<sub><i>x</i></sub>=<i>b/d</i>, cosθ<sub><i>y</i></sub>=<i>d</i>, sinθ<sub><i>y</i></sub>=−<i>a</i> → 최종 단일 행렬 요구 시 로드리게스 3×3 + 블록 4열(<i>P</i><sub>1</sub>−<i>AP</i><sub>1</sub>)로 검산!</li>
+          <li><strong>S5 (3D 반사·밀림):</strong> 반사는 평면에 <em>없는 축</em>만 −1; 밀림은 <em>기준 축 번호의 열</em>에 밀림 계수 배치.</li>
+        </ul>
+      </section>
+
+      <!-- Part B -->
+      <section class="section-card" id="part-b">
+        <h2>Part B. 뷰잉 · 투영 · 클리핑 세부 시나리오 (S6 ~ S10)</h2>
+        <ul>
+          <li><strong>S6 (카메라 뷰 행렬):</strong> VRP·VPN·VUP이 주어지면 <b>n</b>=VPN/|VPN|; 만약 Eye·At·Up으로 주어지면 <strong><b>n</b>=(<i>Eye−At</i>)/|<i>Eye−At</i>|</strong>! 그다음 <b>u</b>=(VUP×<b>n</b>)/|…|, <b>v</b>=<b>n</b>×<b>u</b>를 구해 <strong>1·2·3행(가로)</strong>에 넣고 4열은 −<b>u</b>·VRP, −<b>v</b>·VRP, −<b>n</b>·VRP.</li>
+          <li><strong>S7 (경사 투영 Cavalier vs Cabinet):</strong> Cavalier는 cotα=1, Cabinet은 cotα=0.5 → <i>x<sub>p</sub> = x + z</i>cotα cosφ, <i>y<sub>p</sub> = y + z</i>cotα sinφ.</li>
+          <li><strong>S8 (원근 투영 단일 평면 vs 프러스텀 정규화):</strong> 단일 평면(<i>z</i>=0, 시점 (0,0,<i>d</i>))은 4행 <code>[0,0,−1/d,1]</code>; 프러스텀(<i>L,R,B,T,d,N,F</i>)은 <i>M<sub>persp</sub> = M<sub>normal</sub>M<sub>scale</sub>M<sub>shear</sub></i> 곱한 뒤 <strong>반드시 <i>h = −z</i>로 나눗셈</strong>해 NDC [−1,1]<sup>3</sup> 완성!</li>
+          <li><strong>S9 (평행 뷰볼륨 정규화):</strong> [<i>L,R</i>]×[<i>B,T</i>]×[−<i>F</i>,−<i>N</i>] 직육면체를 중심 원점 이동 후 크기 2로 신축(<i>z</i>축은 −<i>N</i>↦−1, −<i>F</i>↦+1이므로 부호 반전 포함!).</li>
+          <li><strong>S10 (3D Cohen-Sutherland):</strong> 6비트 순서 <code>[앞|뒤|위|아래|오른|왼]</code> 엄수, 한 번 자른 교점이 아직 다른 경계 밖이면 한 번 더 절단!</li>
+        </ul>
+      </section>
+
+      <!-- Part C -->
+      <section class="section-card" id="part-c">
+        <h2>Part C. 평면 · 은면 제거 · 컬러 · 절차적 그래픽스 시나리오 (S11 ~ S14)</h2>
+        <ul>
+          <li><strong>S11 (세 점 평면 방정식):</strong> 외적 <b>N</b>=(<i>P</i><sub>2</sub>−<i>P</i><sub>1</sub>)×(<i>P</i><sub>3</sub>−<i>P</i><sub>1</sub>)과 <i>D</i>=−<b>N</b>·<i>P</i><sub>1</sub>으로 구하고(크레이머 법칙 요구 시 3×3 행렬식 병기), 세 점 모두 대입해 0인지 검산.</li>
+          <li><strong>S12 (뒷면 제거):</strong> 평행 시선 −<i>z</i>이면 <i>C</i>&gt;0 앞면 / <i>C</i>&lt;0 뒷면; 원근 시점 <i>Eye</i>가 주어지면 <b>V</b> = <i>P</i><sub>1</sub> − <i>Eye</i>를 구해 <strong><b>V·N</b> &lt; 0 앞면 / ≥ 0 뒷면</strong>.</li>
+          <li><strong>S13 (Z-버퍼 &amp; 깊이 정렬):</strong> Z-버퍼는 픽셀 깊이 <i>z</i> = −(<i>Ax+By+D</i>)/<i>C</i>와 증분(우측 −<i>A/C</i>, 아랫줄 +<i>B/C</i>)으로 <strong><i>z</i>가 가장 큰 면</strong> 선택. 깊이 정렬은 먼 면 <i>S</i><sub>1</sub>부터 검사하며 <i>S</i><sub>1</sub> in <i>S</i><sub>2</sub>(&lt;0) 또는 <i>S</i><sub>2</sub> in <i>S</i><sub>1</sub>(&gt;0) 확인, 부호가 섞이면 관통이므로 <strong>면 분할</strong> 서술!</li>
+          <li><strong>S14 (컬러 · 프랙탈 · 보간 · FK/IK):</strong> 프랙탈은 축소율 <i>S</i>와 복제 개수 <i>N</i>을 뽑아 ln <i>N</i> / ln(1/<i>S</i>); 보간은 <i>s</i> 비율로 선형 결합; FK는 루트부터 오른쪽으로 로컬 이동·회전 행렬 누적 곱!</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

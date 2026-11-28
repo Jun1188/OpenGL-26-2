@@ -1,0 +1,349 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01. 개념 · 파이프라인 · 알고리즘 과정 핵심정리 — 컴퓨터 그래픽스</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand" href="index.html">CG 이론시험 대비 패키지</a>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a class="active" href="01_개념_핵심정리.html">01. 개념·파이프라인·과정</a>
+        <a href="02_시험직전_치트시트.html">02. 최종행렬·공식 치트시트</a>
+        <a href="03_파이프라인_행렬_계산법_완전정리.html">03. 행렬유도·계산 완전판</a>
+        <a href="04_지문_시나리오별_대처법.html">04. 시나리오 대처법</a>
+        <a href="05_실전_모의고사_및_해설.html">05. 실전 모의고사(3회)</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-title">목차 (01. 개념·과정)</div>
+      <ul>
+        <li><a href="#proc">★ 0. 파이프라인 &amp; 알고리즘 과정 총정리</a></li>
+        <li><a class="toc-sub" href="#proc-pipe">├ 3대 핵심 파이프라인</a></li>
+        <li><a class="toc-sub" href="#proc-clip">├ 클리핑 4종 수행 과정</a></li>
+        <li><a class="toc-sub" href="#proc-hsr">├ 은면제거 3종 수행 과정</a></li>
+        <li><a class="toc-sub" href="#proc-curve">└ 스플라인·베지어 생성 과정</a></li>
+        <li><a href="#ch3">1. 3강: 2D 변환 개념·유형</a></li>
+        <li><a href="#ch4">2. 4강: 윈도우·뷰포트·클리핑</a></li>
+        <li><a href="#ch6">3. 6강: 3D 처리과정·기하변환</a></li>
+        <li><a href="#ch7">4. 7강: 3D 투영·뷰잉·뷰볼륨</a></li>
+        <li><a href="#ch8">5. 8강: 메쉬·평면·스플라인·베지어</a></li>
+        <li><a href="#ch9">6. 9강: 은면 제거·컬러 모델</a></li>
+        <li><a href="#ch10">7. 10강: 프랙탈·애니메이션·FK/IK</a></li>
+        <li><a href="#errata">8. 강의 PDF 원문 주의점 6선</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h1>01. 개념 정의 · 파이프라인 · 알고리즘 수행 과정 총정리</h1>
+        <p>개념 문항(30~40%)의 최빈출 유형인 "파이프라인 단계 서술", "각 알고리즘의 수행 과정(Step-by-step)", "핵심 용어 정의·비교"에 바로 답할 수 있도록 정리했습니다.</p>
+        <div class="hero-badges">
+          <span class="badge">파이프라인 3종 완벽 서술</span>
+          <span class="badge">알고리즘 단계별 과정 암기</span>
+          <span class="badge">정의·장단점·비교표</span>
+          <span class="badge">슬라이드 오타/주의점</span>
+        </div>
+      </section>
+
+      <!-- ★ 0. 파이프라인 & 알고리즘 과정 총정리 (신규 대폭 강화!) -->
+      <section class="section-card" id="proc">
+        <h2>★ 0. 서술형 1순위: 파이프라인 &amp; 주요 알고리즘 수행 과정</h2>
+        <div class="callout tip">
+          <div class="callout-title">시험 개념 서술 요령</div>
+          <p>과정 서술 문제가 나오면 <strong>① 목적(한 줄 정의) → ② 입력/기준 설정 → ③ 단계별 처리 순서(화살표 흐름) → ④ 최종 출력</strong>의 4박자로 적으면 만점 답안이 됩니다.</p>
+        </div>
+
+        <h3 id="proc-pipe">0-1. 시험에 나오는 3대 파이프라인 비교</h3>
+        <div class="mini-card">
+          <h4>① 3차원 그래픽스 전체 처리 파이프라인 (6강 슬라이드 3~6)</h4>
+          <div class="pipeline">
+            <div class="pipe-box">1. 모델링 (Modeling)<small>3D 형상·위치 정의 (메쉬/스플라인/CSG 등)</small></div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">2. 뷰잉 (Viewing)<small>카메라 기준(뷰잉 좌표계)으로 변환</small></div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">3. 투영 (Projection)<small>3D 공간을 2D 투영면에 사상 (평행/원근)</small></div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">4. 렌더링 (Rendering)<small>은면제거 · 쉐이딩 · 텍스쳐 매핑</small></div>
+          </div>
+        </div>
+
+        <div class="mini-card" style="margin-top:12px;">
+          <h4>② 3차원 뷰잉(좌표 변환) 파이프라인 (7강 슬라이드 11, 14, 15, 19)</h4>
+          <div class="pipeline">
+            <div class="pipe-box">모델 좌표계<small>개별 객체 로컬 좌표</small></div>
+            <div class="pipe-arrow">→<small>모델링 변환<br><i>M<sub>model</sub></i></small></div>
+            <div class="pipe-box">월드 좌표계<small>장면 통합 좌표</small></div>
+            <div class="pipe-arrow">→<small>뷰잉 변환<br>VRP·VPN·VUP</small></div>
+            <div class="pipe-box">뷰잉 좌표계<small>카메라 원점, −<i>z</i> 시선</small></div>
+            <div class="pipe-arrow">→<small>투영·정규화 변환<br>밀림→신축→정규화</small></div>
+            <div class="pipe-box">투영(정규화) 좌표계<small>정육면체 NDC [−1,1]<sup>3</sup><br>+ 3D 클리핑</small></div>
+            <div class="pipe-arrow">→<small>윈도우-뷰포트<br><i>M<sub>WV</sub></i></small></div>
+            <div class="pipe-box">장치 좌표계<small>화면 픽셀 출력</small></div>
+          </div>
+          <ul>
+            <li><strong>월드 → 뷰잉 변환 세부 과정 (7강 슬라이드 14):</strong> ① 카메라 위치(VRP)가 월드 원점에 오도록 평행이동 → ② 카메라의 세 축(<b>u, v, n</b>)이 월드 좌표축(<i>x, y, z</i>)과 일치하도록 <i>x, y, z</i>축 회전 적용.</li>
+            <li><strong>원근 프러스텀 정규화 3단계 과정 (7강 슬라이드 19):</strong> ① <strong>밀림 변환(<i>M<sub>shear</sub></i>)</strong>: 비대칭 프러스텀의 중심선을 <i>z</i>축에 일치시켜 대칭 정렬 → ② <strong>신축 변환(<i>M<sub>scale</sub></i>)</strong>: 투영선이 <i>x = ±z, y = ±z</i>(45°)가 되도록 앞·뒷면 비율 조정 → ③ <strong>정규화 변환(<i>M<sub>normal</sub></i>) &amp; 동차 나눗셈(÷<i>h</i>)</strong>: 절두체를 [−1, 1]<sup>3</sup> 정육면체 평행 뷰볼륨으로 변환.</li>
+          </ul>
+        </div>
+
+        <div class="mini-card" style="margin-top:12px;">
+          <h4>③ 2차원 뷰잉 파이프라인 (4강 슬라이드 3)</h4>
+          <p><code>모델 좌표계</code> →(모델링 변환)→ <code>월드 좌표계</code> →(윈도우-뷰포트 변환)→ <code>뷰포트 좌표계</code> →(뷰잉 좌표계 정규화 [0,1])→ <code>정규화된 뷰잉좌표계</code> →(장치 변환)→ <code>장치 좌표계</code>.</p>
+        </div>
+
+        <h3 id="proc-clip">0-2. 클리핑 알고리즘 4종 단계별 수행 과정</h3>
+        <div class="grid-2">
+          <div class="mini-card">
+            <h4>① Liang-Barsky 선 클리핑 과정 ★ (최빈출)</h4>
+            <ol>
+              <li>선분을 매개변수식 <i>P</i>(<i>u</i>) = <i>P</i><sub>1</sub> + (<i>P</i><sub>2</sub>−<i>P</i><sub>1</sub>)<i>u</i> (0 ≤ <i>u</i> ≤ 1)로 표현.</li>
+              <li>윈도우(2D: 4경계, 3D: 6경계) 부등식을 <strong><i>u · p<sub>k</sub> ≤ q<sub>k</sub></i></strong> 형태로 정리.</li>
+              <li><strong>평행 검사(<i>p<sub>k</sub></i> = 0):</strong> 만약 <i>q<sub>k</sub></i> &lt; 0이면 경계 외부에 평행하므로 즉시 <strong>기각(Reject)</strong>.</li>
+              <li><strong>진입/진출 경계 교차 매개변수 계산(<i>p<sub>k</sub></i> ≠ 0):</strong> <i>r<sub>k</sub> = q<sub>k</sub> / p<sub>k</sub></i> 계산.<br>
+                • <i>p<sub>k</sub></i> &lt; 0 (밖→안 진입): <strong><i>u<sub>start</sub></i> = max(0, 모든 진입 <i>r<sub>k</sub></i>)</strong><br>
+                • <i>p<sub>k</sub></i> &gt; 0 (안→밖 진출): <strong><i>u<sub>end</sub></i> = min(1, 모든 진출 <i>r<sub>k</sub></i>)</strong></li>
+              <li><strong>유효 구간 판정:</strong> <i>u<sub>start</sub> &gt; u<sub>end</sub></i>이면 선분이 윈도우 밖이므로 기각; <i>u<sub>start</sub> ≤ u<sub>end</sub></i>이면 <i>P</i>(<i>u<sub>start</sub></i>), <i>P</i>(<i>u<sub>end</sub></i>)로 새 끝점 확정.</li>
+            </ol>
+          </div>
+          <div class="mini-card">
+            <h4>② Cohen-Sutherland 선 클리핑 과정</h4>
+            <ol>
+              <li>공간을 윈도우 기준 9개 영역(2D: 4비트 TBRL) 또는 27개 영역(3D: 6비트 FBABRL)으로 나누고 양 끝점에 영역코드 부여.</li>
+              <li><strong>완전 내부 검사:</strong> 두 코드 모두 0이면 그대로 그림(채택).</li>
+              <li><strong>완전 외부 검사:</strong> 두 코드의 비트 <strong>AND ≠ 0</strong>이면 같은 바깥 반공간에 있으므로 즉시 기각.</li>
+              <li><strong>교차 절단 반복:</strong> 위 두 경우가 아니면(한쪽만 0이거나, 둘 다 ≠0이고 AND=0), 외부 끝점의 비트가 1인 경계선과 교차점을 구해 외부 구간을 잘라내고 새 끝점 코드를 다시 부여해 2번부터 반복.</li>
+            </ol>
+          </div>
+          <div class="mini-card">
+            <h4>③ Sutherland-Hodgman 다각형 클리핑 과정</h4>
+            <ol>
+              <li>입력 다각형의 정점 배열을 윈도우의 <strong>한쪽 무한 경계선(예: 좌→상→우→하 순서)</strong>에 대해 하나씩 순차적으로 클리핑(파이프라인 구조).</li>
+              <li>각 경계마다 인접 정점 쌍 (<i>S → E</i>)을 따라가며 <strong>4가지 규칙</strong>으로 출력 정점 리스트 구성:<br>
+                • 외→내: <strong>교점 <i>I</i>, 끝점 <i>E</i></strong> 둘 다 저장<br>
+                • 내→내: <strong>끝점 <i>E</i></strong>만 저장<br>
+                • 내→외: <strong>교점 <i>I</i></strong>만 저장<br>
+                • 외→외: <strong>저장 안 함</strong></li>
+              <li>한 경계의 출력 정점 리스트를 다음 경계의 입력으로 넘겨 4개 경계를 모두 거치면 닫힌 채워진 다각형 완성.</li>
+            </ol>
+          </div>
+          <div class="mini-card">
+            <h4>④ Weiler-Atherton 오목 다각형 클리핑 과정</h4>
+            <ol>
+              <li>오목 다각형이 클리핑 후 여러 개의 분리된 다각형 조각으로 나뉠 때 사용.</li>
+              <li>다각형 정점과 윈도우 경계의 교점(진입점·진출점)을 구해 연결 리스트 구성.</li>
+              <li>진입점(외→내)에서 시작해 <strong>다각형 경계를 시계방향</strong>으로 추적하다가, 진출점(내→외)을 만나면 <strong>클리핑 윈도우 경계를 시계방향</strong>으로 따라 원래 진입점으로 복귀하여 하나의 닫힌 다각형 분리 완성(남은 미방문 진입점에 반복).</li>
+            </ol>
+          </div>
+        </div>
+
+        <h3 id="proc-hsr">0-3. 은면 제거 알고리즘 3종 단계별 수행 과정 ★</h3>
+        <div class="grid-3">
+          <div class="mini-card">
+            <h4>① 뒷면 제거 (Back-face Removal)</h4>
+            <ol>
+              <li>은면 제거 첫 단계에서 다면체의 보이지 않는 뒷면(약 50%)을 면 단위로 사전 제거(객체 공간법).</li>
+              <li>각 다각형 면의 바깥쪽 법선 벡터 <b>N</b> = (<i>A, B, C</i>) 계산.</li>
+              <li>시선 방향 벡터 <b>V</b>와의 내적 <b>V·N</b> 부호 검사 (시점 +<i>z</i>, 시선 −<i>z</i>일 때 <b>V·N</b> = <i>CV<sub>z</sub></i>).</li>
+              <li><strong><b>V·N</b> &lt; 0 (<i>C</i> &gt; 0)</strong>이면 앞면이므로 렌더링 유지, <strong><b>V·N</b> &gt; 0 (<i>C</i> &lt; 0)</strong>이면 뒷면이므로 제거.</li>
+            </ol>
+          </div>
+          <div class="mini-card">
+            <h4>② Z-Buffer (깊이 버퍼) 과정</h4>
+            <ol>
+              <li><strong>버퍼 2개 초기화:</strong> 모든 픽셀 (<i>x,y</i>)에 대해 <code>Depth(x,y) = −∞</code>(최소값), <code>Frame(x,y) = 배경색</code> 설정(시선 −<i>z</i> 기준).</li>
+              <li>각 다각형 면이 투영되는 모든 픽셀 (<i>x,y</i>)에 대해 평면 방정식(및 증분식 <i>z' = z − A/C</i>)으로 깊이값 <i>z</i> 계산.</li>
+              <li><strong>깊이 비교:</strong> <code>z &gt; Depth(x,y)</code>(더 시점에 가까움)이면 <code>Depth(x,y) = z</code>로 갱신하고 <code>Frame(x,y) = 면의 색상</code>으로 덮어씀.</li>
+              <li>모든 다각형 처리가 끝나면 프레임버퍼 출력(면의 처리 순서와 무관!).</li>
+            </ol>
+          </div>
+          <div class="mini-card">
+            <h4>③ 깊이 정렬 (Painter's) 과정</h4>
+            <ol>
+              <li>모든 다각형 면을 시점(투영면)으로부터의 깊이(|<i>z</i>|)에 따라 <strong>가장 먼 면부터 가까운 면 순</strong>으로 정렬.</li>
+              <li>인접한 면 <i>S</i><sub>1</sub>(먼 후보), <i>S</i><sub>2</sub>의 <strong><i>z</i> 영역이 겹치지 않으면</strong> <i>S</i><sub>1</sub>부터 즉시 그림.</li>
+              <li><strong><i>z</i> 영역이 겹치면 4가지 비가림 검사 수행:</strong> ① <i>x/y</i> 화면 영역 비겹침 ② <i>S</i><sub>1</sub> 모든 정점이 <i>S</i><sub>2</sub> 평면 뒤쪽(&lt;0) ③ <i>S</i><sub>2</sub> 모든 정점이 <i>S</i><sub>1</sub> 평면 앞쪽(&gt;0). 하나라도 참이면 <i>S</i><sub>1</sub>이 <i>S</i><sub>2</sub>를 가리지 않으므로 <i>S</i><sub>1</sub> 확정.</li>
+              <li>모두 거짓이면 <i>S</i><sub>1</sub>과 <i>S</i><sub>2</sub>의 <strong>순서를 교체</strong>해 재검사하며, 관통·순환 중첩으로 해결 불가 시 <strong>면을 분할</strong>한 뒤 그린다.</li>
+            </ol>
+          </div>
+        </div>
+
+        <h3 id="proc-curve">0-4. 스플라인 &amp; 베지어 곡선 구성 과정 요약</h3>
+        <ul>
+          <li><strong>3차 매개변수 스플라인 공통 구조:</strong> <i>P</i>(<i>u</i>) = <i>au</i><sup>3</sup>+<i>bu</i><sup>2</sup>+<i>cu+d</i> = <i>U · C</i> = <strong><i>U · M<sub>spline</sub> · M<sub>geom</sub></i></strong> (0 ≤ <i>u</i> ≤ 1). 4개의 경계조건(<i>M<sub>geom</sub></i>)을 설정하고 그 역행렬로 특성행렬 <i>M<sub>spline</sub></i>을 도출하여 다항식 계수 <i>C</i> = [<i>a,b,c,d</i>]<sup>T</sup>를 구함.</li>
+          <li><strong>허마이트 → 카디널 → 캣멀롬 발전 흐름:</strong>
+            <ul>
+              <li><strong>허마이트:</strong> 사용자가 양 끝점(<i>p<sub>k</sub>, p<sub>k+1</sub></i>)뿐 아니라 <strong>양 끝 접선 벡터(<i>Dp<sub>k</sub>, Dp<sub>k+1</sub></i>)를 직접 입력</strong>해야 함.</li>
+              <li><strong>카디널:</strong> 접선을 직접 입력하는 번거로움을 없애기 위해 <strong>이웃 제어점(<i>p<sub>k−1</sub>, p<sub>k+2</sub></i>)의 차이와 장력 <i>t</i></strong>로부터 접선 ½(1−<i>t</i>)(<i>p<sub>k+1</sub>−p<sub>k−1</sub></i>)을 <strong>자동 계산</strong>.</li>
+              <li><strong>캣멀롬:</strong> 카디널에서 장력 <i>t</i> = 0 (계수 <i>s</i> = ½)으로 고정한 표준 균일 보간 곡선.</li>
+            </ul>
+          </li>
+          <li><strong>베지어(Bézier) 생성 과정 (de Casteljau &amp; 번스타인):</strong> <i>n</i>+1개의 제어점 사이를 비율 <i>t</i> : (1−<i>t</i>)로 반복 선형 보간하여 최종 1개의 곡선 점 <i>P</i>(<i>t</i>)를 얻거나, 각 제어점에 <i>n</i>차 번스타인 배합함수를 곱해 합산.</li>
+        </ul>
+      </section>
+
+      <!-- 1. 3강 -->
+      <section class="section-card" id="ch3">
+        <h2>1. 3강: 2차원 기하변환 핵심 개념 <span class="badge badge-teal">계산 기반</span></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>변환</th><th>정의 및 보존 성질</th><th>핵심 포인트</th></tr></thead>
+            <tbody>
+              <tr><td><strong>이동 (Translation)</strong></td><td>직선 경로로 위치만 변경 (크기·모양·각도 보존)</td><td>강체 변환 O, 어파인 변환 O, <strong>선형 변환 X</strong></td></tr>
+              <tr><td><strong>회전 (Rotation)</strong></td><td>원 경로를 따라 방향 변경 (크기·모양·각도 보존)</td><td>강체·유사·선형·어파인 모두 O</td></tr>
+              <tr><td><strong>신축 (Scaling)</strong></td><td>크기 확대/축소 + 원점으로부터의 거리도 배율대로 변화</td><td>유사·선형·어파인 O (강체 X). <i>s</i>&lt;0이면 반사 동반</td></tr>
+              <tr><td><strong>반사 (Reflection)</strong></td><td>기준 축/점/직선에 대한 대칭 거울 영상</td><td>선형·어파인 O (행렬식 det = −1, 방향 뒤집힘)</td></tr>
+              <tr><td><strong>밀림 (Shearing)</strong></td><td>기준 축은 고정, 기준 축으로부터의 거리에 비례해 평행 밀림</td><td>선형·어파인 O (직선·평행성·면적 보존, 각도 불보존)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="diagram-box">
+          <svg viewBox="0 0 700 215" width="650" height="200" aria-label="변환 유형 포함 관계">
+            <rect x="10" y="10" width="680" height="195" rx="20" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+            <text x="350" y="29" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">원근/투영 변환 (Projective T) — 원근감 표현, 평행성 깨짐 (Perspective)</text>
+            <rect x="30" y="38" width="640" height="130" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+            <text x="350" y="55" text-anchor="middle" font-size="12.5" font-weight="800" fill="#5b21b6">어파인 변환 (Affine T) — 직선 · 길이의 비 · 평행성 보존</text>
+            <rect x="50" y="64" width="380" height="92" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+            <text x="200" y="81" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">선형 변환 (Linear T): T(u+v)=T(u)+T(v), T(cu)=cT(u)</text>
+            <rect x="205" y="89" width="445" height="58" rx="10" fill="rgba(16,185,129,0.10)" stroke="#059669" stroke-width="2"/>
+            <text x="535" y="104" text-anchor="middle" font-size="11.5" font-weight="800" fill="#047857">유사 변환 (Similarity T)</text>
+            <rect x="330" y="110" width="305" height="31" rx="8" fill="rgba(220,38,38,0.10)" stroke="#dc2626" stroke-width="2"/>
+            <text x="482" y="123" text-anchor="middle" font-size="11" font-weight="800" fill="#b91c1c">강체 변환 (Rigid-body T: 크기·각도 보존)</text>
+            <rect x="68" y="96" width="115" height="22" rx="5" fill="#fff" stroke="#64748b"/><text x="125" y="111" text-anchor="middle" font-size="11">Shear (밀림)</text>
+            <rect x="68" y="124" width="115" height="22" rx="5" fill="#fff" stroke="#64748b"/><text x="125" y="139" text-anchor="middle" font-size="11">Reflection (반사)</text>
+            <rect x="218" y="113" width="98" height="23" rx="5" fill="#fff" stroke="#64748b"/><text x="267" y="129" text-anchor="middle" font-size="11">Scaling (신축)</text>
+            <rect x="342" y="116" width="82" height="20" rx="5" fill="#fff" stroke="#64748b"/><text x="383" y="130" text-anchor="middle" font-size="11">Rotation</text>
+            <rect x="448" y="116" width="170" height="20" rx="5" fill="#fff" stroke="#64748b"/><text x="533" y="130" text-anchor="middle" font-size="11">Translation (선형변환 아님!)</text>
+            <rect x="275" y="174" width="150" height="23" rx="6" fill="#fff" stroke="#334155"/><text x="350" y="190" text-anchor="middle" font-size="11.5" font-weight="700">Perspective (투영)</text>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 2. 4강 -->
+      <section class="section-card" id="ch4">
+        <h2>2. 4강: 윈도우 · 뷰포트 · 클리핑 개념 <span class="badge badge-teal">계산 기반</span></h2>
+        <ul>
+          <li><strong>윈도우(Window):</strong> 세계 좌표에서 선택된 영역(<strong>"무엇을 보여줄지"</strong>) vs <strong>뷰포트(Viewport):</strong> 출력 장치 내 표시 영역(<strong>"어디에 보여줄지"</strong>).</li>
+          <li><strong>3대 효과:</strong> <strong>Zooming</strong>(윈도우 크기 축소→확대, 확장→축소), <strong>Panning</strong>(윈도우 평행이동), <strong>Multi viewport</strong>(하나의 장면을 여러 뷰포트에 동시 출력).</li>
+          <li><strong>월드 좌표 클리핑 vs 뷰포트 클리핑:</strong> 클리핑 시점만 다르고 <strong>최종 화면 결과는 동일</strong>.</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>항목</th><th>Cohen-Sutherland</th><th>Liang-Barsky ★</th></tr></thead>
+            <tbody>
+              <tr><td><strong>기본 원리</strong></td><td>영역 코드(4비트/6비트)와 비트 AND 연산</td><td>매개변수 선분식 + 경계 부등식 <i>u p<sub>k</sub> ≤ q<sub>k</sub></i></td></tr>
+              <tr><td><strong>교차점 계산</strong></td><td>경계마다 기울기 <i>m</i>으로 반복 절단</td><td><i>u<sub>start</sub>, u<sub>end</sub></i> 확정 후 <strong>딱 한 번에 직접 계산</strong></td></tr>
+              <tr><td><strong>장단점</strong></td><td>직관적, 완전 내부/외부 빠른 판별; 반복 절단 비용</td><td>나눗셈·교차 계산 횟수 최소화, <strong>수학적·계산적으로 더 효율적</strong>, 3D 확장이 매우 규칙적</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. 6강 -->
+      <section class="section-card" id="ch6">
+        <h2>3. 6강: 3차원 그래픽스 처리과정 &amp; 기하변환 <span class="badge badge-blue">본 시험범위</span></h2>
+        <ul>
+          <li><strong>모델링 7가지 기법 (슬라이드 4):</strong> ① 다각형 표면 모델링 ② 매개변수 곡면 모델링 ③ 와이어프레임 ④ 솔리드 모델링 ⑤ 스위핑 ⑥ 프랙털 기하학 ⑦ 입자 시스템.</li>
+          <li><strong>렌더링 3가지 세부 과정 (슬라이드 6):</strong> ① 은면 제거(Hidden Surface Removal) ② 쉐이딩(Shading) ③ 텍스쳐 매핑(Texture Mapping).</li>
+          <li><strong>3D 회전 3단계 난이도 구분:</strong> ① 좌표축(<i>x,y,z</i>) 회전 ② 좌표축에 평행한 직선 회전(3행렬: <i>T·R·T</i><sup>−1</sup>) ③ 일반 직선 회전(7행렬: 원점 이동 → <i>R<sub>x</sub>, R<sub>y</sub></i>로 <i>z</i>축 정렬 → <i>R<sub>z</sub></i>(θ) → 역회전 → 역이동).</li>
+        </ul>
+      </section>
+
+      <!-- 4. 7강 -->
+      <section class="section-card" id="ch7">
+        <h2>4. 7강: 3차원 투영 및 뷰잉 개념 <span class="badge badge-blue">본 시험범위</span></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>분류</th><th>하위 종류</th><th>정의 및 기하학적 특성</th><th>활용 및 핵심 수치</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="3"><strong>평행 투영</strong><br>(상대 크기 보존)</td><td><strong>직각 투영</strong></td><td>투영선 ⊥ 투영면. <i>xy</i>평면 투영 시 <i>z</i>값만 0으로 제거. 길이·각도 정확 보존.</td><td>정면도·후면도(<i>z</i>삭제), 측면도(<i>x</i>삭제), 평면도(<i>y</i>삭제) / 건축·기계</td></tr>
+              <tr><td><strong>등축 투영</strong></td><td>직각 투영 중 세 축이 투영면과 동일 각도를 이뤄 3면이 동시 노출(축간 120°).</td><td>아이소메트릭 게임, 부품 조립도</td></tr>
+              <tr><td><strong>경사 투영</strong></td><td>투영선이 투영면과 수직이 아닌 각도 α 형성, 투영 평면 내 각도 φ 사용.</td><td><strong>Cavalier:</strong> α=45°(tanα=1, 깊이 1배)<br><strong>Cabinet:</strong> α=63.4°(tanα=2, 깊이 ½배)</td></tr>
+              <tr><td><strong>원근 투영</strong><br>(원근감 표현)</td><td>1·2·3점 투시</td><td>모든 투영선이 투영 중심점(COP/시점)으로 수렴. 투영 크기가 거리에 반비례, 평행선이 소실점(Vanishing Point)에서 만남.</td><td>조감도, 3D 게임·시뮬레이션</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>뷰잉 좌표계 3요소:</strong> <strong>VRP</strong>(카메라 기준점/원점), <strong>VPN</strong>(뷰 평면 법선 → <i>z<sub>v</sub></i>축), <strong>VUP</strong>(화면 위쪽 → <i>y<sub>v</sub></i>축 방향, <i>x<sub>v</sub></i>축은 자동 외적 결정).</li>
+          <li><strong>뷰볼륨(View Volume) 정규화의 핵심 의의:</strong> 평행 뷰볼륨이나 원근 프러스텀을 모두 <strong>표준 정육면체(OpenGL NDC: [−1, 1]<sup>3</sup>)</strong>로 변환하면 ① 클리핑을 단순 경계(±1) 비교로 처리 가능하고 ② 원근 투영도 직각투영과 동일한 방식으로 처리 가능하며 ③ 장치좌표계 변환이 일관됨.</li>
+        </ul>
+      </section>
+
+      <!-- 5. 8강 -->
+      <section class="section-card" id="ch8">
+        <h2>5. 8강: 3차원 객체 모델링 (메쉬 · 평면 · 스플라인 · 베지어) <span class="badge badge-blue">본 시험범위</span></h2>
+        <ul>
+          <li><strong>삼각 메쉬 vs 사각 메쉬:</strong> 일직선이 아닌 3점은 항상 단일 평면을 결정하지만, 사각형의 4점은 비평면일 수 있어 렌더링 시 2개의 삼각형으로 분할 처리. 가속기 성능 = 초당 렌더링 삼각형 개수.</li>
+          <li><strong>스위핑 &amp; CSG:</strong> 스위핑 = 2D 단면의 병진/회전 이동으로 3D 생성; CSG = 기본 입체들의 집합 연산(∪, ∩, −) 반복 조립.</li>
+          <li><strong>평면 방정식 <i>Ax+By+Cz+D=0</i>:</strong> 법선 (<i>A,B,C</i>), &lt;0 안쪽, =0 평면 위, &gt;0 바깥쪽. 클리핑·은면제거·충돌 판정에 핵심 활용.</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>곡선 종류</th><th>보간/근사</th><th>입력 조건</th><th>핵심 특징</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Hermite</strong></td><td>보간 (통과 O)</td><td>2개 끝점 + 2개 끝점 접선</td><td>양 끝점과 접선 직접 지정, 국부 제어 가능</td></tr>
+              <tr><td><strong>Cardinal ★</strong></td><td>보간 (통과 O)</td><td>연속 4개 제어점 + 장력 <i>t</i></td><td>이웃 두 점으로 접선 자동 계산, 장력 <i>t</i>로 곡선 팽팽함/느슨함 조절</td></tr>
+              <tr><td><strong>Catmull-Rom</strong></td><td>보간 (통과 O)</td><td>연속 4개 제어점 (<i>t</i>=0)</td><td>카디널의 특수형(기울기 계수 1/2), 균일 이동 경로 보간</td></tr>
+              <tr><td><strong>Bézier ★</strong></td><td>근사 (시작·끝만 통과)</td><td><i>n</i>+1개 제어점 (→ <i>n</i>차 다항식)</td><td>번스타인 배합함수 사용, Convex Hull 내부 존재, 전역 제어(제어점 1개 이동 시 전체 영향)</td></tr>
+              <tr><td><strong>B-Spline / NURBS</strong></td><td>근사</td><td>다수 제어점 + 구간별 기저</td><td>부분 제어(Locality) 우수, 높은 연속성 유지</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. 9강 -->
+      <section class="section-card" id="ch9">
+        <h2>6. 9강: 은면 제거 &amp; 컬러 모델 <span class="badge badge-blue">본 시험범위</span></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>비교 항목</th><th>객체 공간법 (뒷면 제거, 깊이 정렬)</th><th>이미지 공간법 (Z-Buffer)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>비교 단위</strong></td><td>3D 공간의 객체/다각형 면 상호 위치 관계</td><td>투영면의 각 <strong>픽셀</strong>별 투영선 최단 관통 면</td></tr>
+              <tr><td><strong>계산 복잡도</strong></td><td>모든 면 수의 <strong>제곱(<i>O(n<sup>2</sup>)</i>)</strong>에 비례</td><td><strong>픽셀 해상도 × 객체 수</strong>에 비례</td></tr>
+              <tr><td><strong>특징·한계</strong></td><td>정밀도 높음, 객체 수 적을 때 유리; 복잡한 겹침 시 면 분할 필요</td><td>구현 단순, 임의 순서 렌더링 가능; <strong>해상도 의존 &amp; 대용량 버퍼 메모리 필요</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>빛의 3속성:</strong> 색상(Hue, 파장), 밝기(Brightness), 채도(Saturation, 순수도; 낮으면 회색). 가시광선: 빨강(4.3×10<sup>14</sup>Hz) ~ 보라(7.5×10<sup>14</sup>Hz).</li>
+          <li><strong>보색 쌍 (가산 합 = 백색):</strong> Red ↔ Cyan, Green ↔ Magenta, Blue ↔ Yellow.</li>
+          <li><strong>RGB(가산, 모니터, 원점=검정) vs CMY(감산, 프린터, 원점=흰색, 인쇄는 CMYK) vs HSV(육각뿔, 인간 직관 근접: Tints=+흰색, Shades=+검정, Tones=검정+흰색).</strong></li>
+        </ul>
+      </section>
+
+      <!-- 7. 10강 -->
+      <section class="section-card" id="ch10">
+        <h2>7. 10강: 절차적 그래픽스(프랙탈) &amp; 애니메이션 <span class="badge badge-blue">본 시험범위</span></h2>
+        <ul>
+          <li><strong>프랙탈 3대 특징:</strong> ① 비정수적 차원 ② 자기복제(Self-similarity) ③ 무한 순환 반복(확대 시 계속 새 디테일).</li>
+          <li><strong>프랙탈 생성 기법 3종:</strong> ① IFS(Barnsley 고사리) ② 생성 문법(Dragon curve: 1~4세대 선분 2→4→8→16) ③ 중점 변위법(정규분포 난수 변위, 산의 지형).</li>
+          <li><strong>애니메이션:</strong> 잔상 지속시간 이내 간격 유지(영화 24fps, NTSC 30fps). 플립북(전 프레임 저장) / 셀(배경·전경 분리 합성) / 키프레임(트위닝·선형보간) / 모핑(대응점 지정 변형) / FK(루트→말단 누진 계산) vs IK(말단 Effector 지정 → 관절 역산).</li>
+        </ul>
+      </section>
+
+      <!-- 8. 원문 주의점 -->
+      <section class="section-card" id="errata">
+        <h2>8. 강의 PDF 원문 오타·표기 불일치 주의점 6선</h2>
+        <div class="callout warn">
+          <div class="callout-title">슬라이드 원문 그대로 외우면 위험한 지점들</div>
+          <ol>
+            <li><strong>4강 p.15 (Liang-Barsky <i>p<sub>k</sub></i>=0):</strong> 아래 결론 줄의 <code>qk &lt; 0</code>은 오타이며, 올바른 조건은 <strong><i>q<sub>k</sub></i> &lt; 0 기각 / <i>q<sub>k</sub></i> ≥ 0 유지(타 경계 검사)</strong>.</li>
+            <li><strong>4강 p.24 (Weiler-Atherton):</strong> 내→외 진출 시 텍스트('폴리곤 경계')와 달리 그림처럼 <strong>클리핑 윈도우 경계</strong>를 시계방향으로 추적함.</li>
+            <li><strong>7강 p.5 vs p.6 (경사 투영 α):</strong> 수식 tan α = <i>z/L</i>과 행렬 cot α는 모두 p.6 정의("투영선과 투영면이 이루는 각 α") 기준.</li>
+            <li><strong>8강 p.16 (카디널 장력 <i>t</i>):</strong> 수식 ½(1−<i>t</i>)에서는 <i>t</i>=0이 Catmull-Rom(<i>s</i>=½), <i>t</i>=1이 접선 0. 계산은 무조건 <strong><i>s</i> = (1−<i>t</i>)/2</strong>로 수행!</li>
+            <li><strong>8강 p.20 (베지어 차수 그림):</strong> 그림 제어점 수가 1개씩 많게 그려져 있음. 공식 정의는 p.19 기준 <strong>제어점 <i>n</i>+1개 = <i>n</i>차 베지어(4점 → 3차)</strong>.</li>
+            <li><strong>10강 p.10 (시어핀스키 차원):</strong> ln 3 / ln 2 = 1.58496… (슬라이드 <code>1.6...</code> 표기). 시험에는 <strong>ln 3 / ln 2 ≈ 1.585 (약 1.6)</strong> 병기 권장.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

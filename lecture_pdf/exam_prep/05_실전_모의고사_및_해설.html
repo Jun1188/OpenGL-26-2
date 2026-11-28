@@ -1,0 +1,781 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05. 실전 모의고사 및 해설 (3회분 42문항) — 컴퓨터 그래픽스 이론시험</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a class="brand" href="index.html">CG 이론시험 대비 패키지</a>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="01_개념_핵심정리.html">01. 개념·파이프라인·과정</a>
+        <a href="02_시험직전_치트시트.html">02. 최종행렬·공식 치트시트</a>
+        <a href="03_파이프라인_행렬_계산법_완전정리.html">03. 행렬유도·계산 완전판</a>
+        <a href="04_지문_시나리오별_대처법.html">04. 시나리오 대처법</a>
+        <a class="active" href="05_실전_모의고사_및_해설.html">05. 실전 모의고사(3회)</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <aside class="toc">
+      <div class="toc-title">목차 (실전 모의고사 3회)</div>
+      <ul>
+        <li><a href="#exam3"><strong>★ 제3회 (핵심타겟 집중형)</strong></a></li>
+        <li><a class="toc-sub" href="#e3-concept">├ 파이프라인·과정 개념 (Q1~Q5)</a></li>
+        <li><a class="toc-sub" href="#e3-calc">└ 사물클리핑·최종행렬·곡선 (Q6~Q14)</a></li>
+        <li><a href="#exam1"><strong>제1회 실전 모의고사 (표준형)</strong></a></li>
+        <li><a class="toc-sub" href="#e1-concept">├ 개념 문항 (Q1~Q5)</a></li>
+        <li><a class="toc-sub" href="#e1-calc">└ 행렬·계산·상황 (Q6~Q14)</a></li>
+        <li><a href="#exam2"><strong>제2회 실전 모의고사 (응용형)</strong></a></li>
+        <li><a class="toc-sub" href="#e2-concept">├ 개념 문항 (Q1~Q5)</a></li>
+        <li><a class="toc-sub" href="#e2-calc">└ 행렬·계산·상황 (Q6~Q14)</a></li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h1>05. 실전 모의고사 3회분 (회차당 14문항 · 총 42문항)</h1>
+        <p>개념(파이프라인·알고리즘 과정·정의) 5문항(36%) + 실전 계산(최종 단일 행렬·특정 좌표·사물 Liang-Barsky 클리핑·카디널·베지어·은면제거) 9문항(64%)</p>
+        <div class="hero-badges">
+          <span class="badge">★ 제3회: 기말 핵심타겟 집중형 (추천 1순위!)</span>
+          <span class="badge">제1회: 표준 실전형 (100점)</span>
+          <span class="badge">제2회: 응용·변형 심화형 (100점)</span>
+          <span class="badge">정답·풀이·채점 기준 토글</span>
+        </div>
+      </section>
+
+      <div class="btn-bar">
+        <button class="btn" onclick="toggleAll(true)">전체 정답·해설 펼치기</button>
+        <button class="btn secondary" onclick="toggleAll(false)">전체 정답·해설 접기</button>
+        <button class="btn secondary" onclick="window.print()">시험지 / 해설 인쇄</button>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">공통 전제 (별도 언급이 없는 한 모든 문항 적용)</div>
+        <p>좌표계는 <strong>오른손 좌표계</strong>, 벡터는 <strong>열벡터 전치곱(<i>P' = M · P</i>)</strong>, 양(+)의 회전은 양의 축을 바라볼 때 <strong>반시계 방향(CCW)</strong>을 따릅니다.</p>
+      </div>
+
+      <!-- ==================== 제1회 모의고사 ==================== -->
+      <section class="section-card" id="exam1">
+        <h2>제1회 실전 모의고사 — 표준 실전형 (14문항 · 100점)</h2>
+
+        <h3 id="e1-concept">Part 1. 개념 문항 (Q1 ~ Q5, 각 5점 = 25점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q1.</span><span class="badge badge-blue">개념 · 3·6강 · 5점</span></div>
+          <p>(1) 3차원 그래픽스의 4대 주요 처리 과정을 순서대로 적고 각 역할을 1줄로 설명하시오.<br>
+          (2) 변환 유형 5종(강체·유사·선형·어파인·원근) 중 <strong>이동(Translation)</strong>이 어파인 변환에는 속하지만 <strong>선형 변환에는 속하지 않는 이유</strong>를 선형 변환의 정의와 연결해 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 4대 처리 과정:</strong> ① <strong>모델링(Modeling)</strong>: 3D 객체의 형상과 위치 정의 → ② <strong>뷰잉(Viewing)</strong>: 카메라 위치·방향 기준으로 객체를 카메라(뷰잉) 좌표계로 변환 → ③ <strong>투영(Projection)</strong>: 3D 공간을 2D 투영면에 사상 → ④ <strong>렌더링(Rendering)</strong>: 은면 제거, 쉐이딩, 텍스쳐 매핑 등을 적용해 최종 영상 생성.</p>
+            <p><strong>(2) 이동이 선형 변환이 아닌 이유:</strong> 선형 변환은 벡터 덧셈 <i>T</i>(<b>u+v</b>)=<i>T</i>(<b>u</b>)+<i>T</i>(<b>v</b>)와 스칼라 곱 <i>T</i>(<i>c</i><b>u</b>)=<i>cT</i>(<b>u</b>)를 보존해야 합니다(따라서 <i>T</i>(<b>0</b>)=<b>0</b>). 그러나 이동 변환 <i>T</i>(<b>p</b>)=<b>p</b>+<b>t</b> (<b>t</b>≠<b>0</b>)는 <i>T</i>(<b>u+v</b>)=<b>u+v+t</b> ≠ (<b>u+t</b>)+(<b>v+t</b>)이고 원점이 이동하므로 선형 변환이 아닙니다. 대신 직선·길이의 비·평행성은 보존하므로 어파인 변환에는 속하며, 이를 행렬 곱으로 통합하기 위해 동차좌표계를 사용합니다.</p>
+            <p><em>[채점 기준] 4대 과정 순서·역할(2.5점) + 선형성 조건 미충족 근거(2.5점).</em></p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q2.</span><span class="badge badge-blue">개념 · 7강 · 5점</span></div>
+          <p>(1) 경사 투영(Oblique Projection)의 두 대표 유형인 <strong>Cavalier 투영</strong>과 <strong>Cabinet 투영</strong>의 투영 각도 α, tan α 값, 그리고 투영면에 수직인 깊이 길이의 변화를 비교하시오.<br>
+          (2) 원근 투영에서 프러스텀(Frustum) 뷰볼륨을 <strong>정육면체 형태의 정규화 뷰볼륨(OpenGL NDC: [−1, 1])</strong>으로 변환하는 이유를 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) Cavalier vs Cabinet:</strong><br>
+            • <strong>Cavalier:</strong> α = 45° (tan α = 1, cot α = 1). 투영면에 수직인 선의 길이가 변환 없이 원래 길이(1배) 그대로 투영됨.<br>
+            • <strong>Cabinet:</strong> α = 63.4° (tan α = 2, cot α = 0.5). 투영면에 수직인 선의 길이가 원래의 절반(1/2배)으로 투영되어 시각적으로 더 자연스러움.</p>
+            <p><strong>(2) 정규화 이유:</strong> 프러스텀은 앞뒤 크기가 다른 비대칭/절두체 형태라 클리핑과 투영 연산이 복잡합니다. 이를 정육면체([−1, 1]<sup>3</sup>)로 변환하면 <strong>단순한 직육면체 기준 클리핑과 직각투영</strong>으로 일관되게 처리할 수 있고, 이후 장치좌표계 변환도 단순해집니다.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q3.</span><span class="badge badge-blue">개념 · 8강 · 5점</span></div>
+          <p>(1) 사각 메쉬(Quadrilateral Mesh)를 렌더링할 때 일반적으로 2개의 삼각형으로 분할하는 기하학적 이유를 쓰시오.<br>
+          (2) 스플라인 곡선에서 <strong>보간(Interpolate) vs 근사(Approximate)</strong>의 차이, <strong>Locality(부분 제어)</strong>, <strong>Convex Hull</strong>, 그리고 <strong><i>C</i><sup>0</sup>, <i>C</i><sup>1</sup>, <i>C</i><sup>2</sup> 연속성</strong>의 의미를 간략히 서술하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 사각 메쉬 분할 이유:</strong> 3차원 공간에서 3개의 점(일직선 제외)은 항상 유일한 하나의 평면을 결정하지만, 4개의 점은 일반적으로 한 평면 위에 놓이지 않을 수(비평면) 있기 때문입니다.</p>
+            <p><strong>(2) 스플라인 개념:</strong><br>
+            • <strong>보간 vs 근사:</strong> 보간은 주어진 제어점을 모두 통과(Hermite, Cardinal, Catmull-Rom), 근사는 제어점을 통과하지 않고 제어점이 곡선을 끌어당겨 근사(Bézier, B-spline, NURBS).<br>
+            • <strong>Locality:</strong> 제어점 1개 이동 시 인접한 일부분만 변하는 성질.<br>
+            • <strong>Convex Hull:</strong> 제어점을 둘러싼 최소 볼록 경계로, 곡선이 항상 이 내부에 존재.<br>
+            • <strong>연속성:</strong> <i>C</i><sup>0</sup>=위치 연결, <i>C</i><sup>1</sup>=1차 도함수(접선/속도) 연속, <i>C</i><sup>2</sup>=1·2차 도함수(곡률 변화) 부드럽게 연속.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q4.</span><span class="badge badge-blue">개념 · 9강 · 5점</span></div>
+          <p>(1) 은면 제거의 <strong>객체 공간법</strong>과 <strong>이미지 공간법</strong>을 원리·처리시간 비례 기준·메모리·대표 알고리즘 측면에서 비교하시오.<br>
+          (2) HSV 컬러 모델에서 <strong>흰색</strong>과 <strong>검정색</strong>을 표현할 때 각각 어떤 성분 값이 색상에 영향을 주지 않는지 조건과 함께 쓰시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 객체 공간법 vs 이미지 공간법:</strong><br>
+            • <strong>객체 공간법:</strong> 3D 객체/면 사이의 공간적 위치 관계 직접 비교. 처리 시간은 모든 면 수의 제곱(<i>n</i><sup>2</sup>)에 비례. 예: 뒷면 제거, 깊이 정렬(Painter's).<br>
+            • <strong>이미지 공간법:</strong> 투영면의 각 픽셀에서 투영선을 그어 가장 가까운 면을 판정. 처리 시간은 투영면 해상도 × 객체 수에 비례하며 많은 메모리(Z-버퍼 등)가 필요. 예: Z-Buffer.</p>
+            <p><strong>(2) HSV 무채색 조건:</strong> 흰색은 <strong><i>S</i> = 0, <i>V</i> = 1</strong>일 때 <strong><i>H</i>(색상)</strong>가 영향을 주지 않음. 검정색은 <strong><i>V</i> = 0</strong>일 때 <strong><i>H</i>와 <i>S</i> 모두</strong> 색상에 영향을 주지 않음.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q5.</span><span class="badge badge-blue">개념 · 10강 · 5점</span></div>
+          <p>(1) 프랙탈(Fractal)의 <strong>3가지 핵심 특징</strong>과 <strong>3가지 생성 기법</strong>(각 대표 예시 1개 포함)을 적으시오.<br>
+          (2) 캐릭터 애니메이션에서 <strong>운동학(Forward Kinematics)</strong>과 <strong>역운동학(Inverse Kinematics)</strong>의 차이를 계산 방향과 장단점 관점에서 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 프랙탈:</strong><br>
+            • <strong>3대 특징:</strong> ① 비정수적 차원 ② 자기복제 성질(Self-similarity) ③ 무한대로 순환 반복(Infinite detail at every point).<br>
+            • <strong>3대 생성 기법:</strong> ① IFS (Barnsley 고사리) ② 생성 문법 (Dragon curve) ③ 중점 변위법 (산의 표면/지형, 정규분포 난수 변위).</p>
+            <p><strong>(2) FK vs IK:</strong><br>
+            • <strong>FK:</strong> 루트 관절에서 말단까지 각 관절의 각도·위치를 누진적으로 계산. 단순 기계(로봇)엔 가능하나 사람·동물 제어는 번거롭고 비직관적.<br>
+            • <strong>IK:</strong> 말단 객체(Effector)의 목표 위치를 지정하면 중간 관절들의 각도·위치를 역으로 계산. 캐릭터 애니메이션에 효과적.</p>
+          </div></details>
+        </div>
+
+        <h3 id="e1-calc">Part 2. 상황 조건별 변환행렬 · 계산식 · 절차 서술 (Q6 ~ Q14, 75점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q6.</span><span class="badge badge-teal">3·6강 복합 변환 · 8점</span></div>
+          <p>3차원 공간의 점 <i>P</i>(4, 1, 3)에 대해 다음 두 변환을 순서대로 적용하려 한다.<br>
+          ① 점 <i>P</i><sub>0</sub>(2, 1, 0)을 지나고 <i>z</i>축에 평행한 직선을 축으로 반시계 방향 90° 회전<br>
+          ② 원점을 기준으로 <i>y</i>축 방향으로만 2배 신축 (<i>s<sub>x</sub></i>=1, <i>s<sub>y</sub></i>=2, <i>s<sub>z</sub></i>=1)<br>
+          (a) 전체 합성 변환 행렬식을 기호로 적고, 4×4 단일 행렬 <i>M</i>을 계산하시오.<br>
+          (b) 점 <i>P</i>(4, 1, 3)의 최종 변환 좌표 <i>P'</i>를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 합성 변환 행렬식 (오른쪽 → 왼쪽 순 적용):</strong><br>
+            <i>M</i> = <i>S</i>(1, 2, 1) · <i>T</i>(2, 1, 0) · <i>R<sub>z</sub></i>(90°) · <i>T</i>(−2, −1, 0)</p>
+            <div class="math-block">
+              <i>M</i> =
+              <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>2</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>2</span><span>0</span><span>1</span><span>0</span><span>1</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c4"><span>0</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>−2</span><span>0</span><span>1</span><span>0</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              =
+              <span class="mat c4"><span>0</span><span>−1</span><span>0</span><span>3</span><span>2</span><span>0</span><span>0</span><span>−2</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p><strong>(b) 최종 좌표:</strong> <i>M</i> · [4, 1, 3, 1]<sup>T</sup> = [−1+3, 8−2, 3, 1]<sup>T</sup> = <strong>(2, 6, 3)</strong>.<br>
+            <em>[단계 검산]</em> (4,1,3) → <i>T</i>(−2,−1,0) → (2,0,3) → <i>R<sub>z</sub></i>(90°) → (0,2,3) → <i>T</i>(2,1,0) → (2,3,3) → <i>S</i>(1,2,1) → (2,6,3) 일치!</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q7.</span><span class="badge badge-purple">6강 PDF 생략 핵심 ★ · 9점</span></div>
+          <p>두 점 <i>P</i><sub>1</sub>(1, 0, 2)와 <i>P</i><sub>2</sub>(3, 1, 4)를 지나는 3차원 일반 직선을 회전축으로 삼아 반시계 방향으로 θ만큼 회전하는 변환을 구성하려 한다.<br>
+          (a) 5단계 회전 절차를 반영한 7개 행렬의 합성식 <i>M</i>을 적으시오.<br>
+          (b) 회전축의 단위 방향벡터 <b>u</b> = (<i>a, b, c</i>)와 <i>yz</i>평면 투영 길이 <i>d</i>를 구하시오.<br>
+          (c) 회전축을 +<i>z</i>축에 일치시키기 위한 <i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>)와 <i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>)의 cos/sin 값 및 4×4 행렬 원소를 각각 작성하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 7행렬 합성식:</strong> <strong><i>M</i> = <i>T</i>(1, 0, 2) · <i>R<sub>x</sub></i>(−θ<sub><i>x</i></sub>) · <i>R<sub>y</sub></i>(−θ<sub><i>y</i></sub>) · <i>R<sub>z</sub></i>(θ) · <i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>) · <i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>) · <i>T</i>(−1, 0, −2)</strong></p>
+            <p><strong>(b) 방향벡터 &amp; <i>d</i>:</strong> <b>v</b> = <i>P</i><sub>2</sub>−<i>P</i><sub>1</sub> = (2, 1, 2), |<b>v</b>| = √(4+1+4) = 3.<br>
+            따라서 <strong><b>u</b> = (<i>a, b, c</i>) = (2/3, 1/3, 2/3)</strong>, &nbsp;<strong><i>d</i> = √(<i>b</i><sup>2</sup>+<i>c</i><sup>2</sup>) = √(1/9 + 4/9) = √5 / 3</strong>.</p>
+            <p><strong>(c) 각도 삼각함수 및 행렬:</strong><br>
+            • cos θ<sub><i>x</i></sub> = <i>c/d</i> = <strong>2/√5</strong>, &nbsp;sin θ<sub><i>x</i></sub> = <i>b/d</i> = <strong>1/√5</strong><br>
+            • cos θ<sub><i>y</i></sub> = <i>d</i> = <strong>√5/3</strong>, &nbsp;sin θ<sub><i>y</i></sub> = −<i>a</i> = <strong>−2/3</strong></p>
+            <div class="math-block">
+              <i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>) =
+              <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>2/√5</span><span>−1/√5</span><span>0</span><span>0</span><span>1/√5</span><span>2/√5</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              &nbsp;&nbsp;<i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>) =
+              <span class="mat c4"><span>√5/3</span><span>0</span><span>−2/3</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>2/3</span><span>0</span><span>√5/3</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p><em>[검산]</em> <i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>)·<b>u</b> = (2/3, 0, √5/3)<sup>T</sup> → <i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>) 적용 → (0, 0, 4/9 + 5/9)<sup>T</sup> = (0, 0, 1)<sup>T</sup> 완벽 일치!</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q8.</span><span class="badge badge-purple">7강 PDF 생략 핵심 ★ · 9점</span></div>
+          <p>월드 좌표계에서 카메라 뷰잉 좌표계가 다음과 같이 주어졌다:<br>
+          <code>VRP = (3, 0, 4)</code>, &nbsp;<code>VPN = (3, 0, 4)</code>, &nbsp;<code>VUP = (0, 1, 0)</code>.<br>
+          (a) 뷰잉 좌표계의 정규직교 기저벡터 <b>n</b>, <b>u</b>, <b>v</b>를 순서대로 구하시오.<br>
+          (b) 월드 좌표계 → 뷰잉 좌표계 변환 행렬 <i>M<sub>view</sub></i> = <i>R<sub>view</sub></i> · <i>T</i>(−VRP)를 4×4 행렬로 완성하시오.<br>
+          (c) 월드 좌표계의 점 <i>P<sub>world</sub></i> = (6, 2, 8)의 뷰잉 좌표 <i>P<sub>view</sub></i>를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 기저벡터:</strong><br>
+            • |VPN| = √(9+0+16) = 5 → <strong><b>n</b> = (3/5, 0, 4/5) = (0.6, 0, 0.8)</strong><br>
+            • VUP × <b>n</b> = (0,1,0) × (0.6, 0, 0.8) = (0.8, 0, −0.6), 크기 1 → <strong><b>u</b> = (0.8, 0, −0.6)</strong><br>
+            • <strong><b>v</b> = <b>n</b> × <b>u</b> = (0, 1, 0)</strong></p>
+            <p><strong>(b) 뷰 변환 행렬 <i>M<sub>view</sub></i>:</strong><br>
+            −<b>u</b>·VRP = −(2.4 − 2.4) = 0, &nbsp;−<b>v</b>·VRP = 0, &nbsp;−<b>n</b>·VRP = −(1.8 + 3.2) = −5.</p>
+            <div class="math-block">
+              <i>M<sub>view</sub></i> =
+              <span class="mat c4"><span>0.8</span><span>0</span><span>−0.6</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0.6</span><span>0</span><span>0.8</span><span>−5</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p><strong>(c) <i>P<sub>view</sub></i>:</strong> <i>M<sub>view</sub></i> · [6, 2, 8, 1]<sup>T</sup> = [4.8−4.8, 2, 3.6+6.4−5, 1]<sup>T</sup> = <strong>(0, 2, 5)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q9.</span><span class="badge badge-purple">7강 PDF 빈칸 핵심 ★ · 8점</span></div>
+          <p>투영면이 <i>z</i> = 0인 <i>xy</i> 평면이고, 공간상의 점 <i>P</i>(6, −3, −5)가 주어져 있다.<br>
+          (a) 투영 중심점(시점)이 <i>V<sub>p</sub></i> = (0, 0, 10) (즉 <i>d</i> = 10)일 때 <strong>원근 투영 4×4 동차행렬</strong>을 작성하고, 점 <i>P</i>의 동차좌표 및 원근 나눗셈 후 투영 좌표 <i>P'</i>를 구하시오.<br>
+          (b) 같은 점 <i>P</i>를 <strong>Cabinet 투영</strong> (φ = 60°)으로 투영했을 때의 투영 좌표 <i>P''</i>를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 원근 투영 행렬 및 좌표:</strong></p>
+            <div class="math-block">
+              <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>−1/10</span><span>1</span></span>
+              <span class="mat c1"><span>6</span><span>−3</span><span>−5</span><span>1</span></span>
+              =
+              <span class="mat c1"><span>6</span><span>−3</span><span>0</span><span>1.5</span></span>
+              &nbsp;⇒&nbsp; (÷ 1.5) &nbsp;<strong><i>P'</i> = (4, −2, 0)</strong>
+            </div>
+            <p><strong>(b) Cabinet 투영 (cot α = 0.5, φ = 60° ⇒ cos 60° = 0.5, sin 60° = √3/2):</strong><br>
+            <i>x<sub>p</sub></i> = 6 + (−5)(0.5)(0.5) = 6 − 1.25 = <strong>4.75</strong><br>
+            <i>y<sub>p</sub></i> = −3 + (−5)(0.5)(√3/2) = <strong>−3 − (5√3)/4 ≈ −5.165</strong>, &nbsp;<i>z<sub>p</sub></i> = 0.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q10.</span><span class="badge badge-teal">4·7강 3D 클리핑 · 8점</span></div>
+          <p>3D 클리핑 영역이 <code>[0, 10] × [0, 10] × [−10, 0]</code>일 때, <i>P</i><sub>0</sub>(−2, 4, −2)에서 <i>P</i><sub>1</sub>(8, 14, −12)로 이어지는 선분에 <strong>3D Liang-Barsky 알고리즘</strong>을 적용하여 6개 경계의 <i>p<sub>k</sub>, q<sub>k</sub>, q<sub>k</sub>/p<sub>k</sub></i>와 최종 클리핑된 두 끝점을 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><i>dx</i> = 10, &nbsp;<i>dy</i> = 10, &nbsp;<i>dz</i> = −10.</p>
+            <ul>
+              <li><i>k</i>=1 (<i>x<sub>min</sub></i>=0): <i>p</i><sub>1</sub>=−10, <i>q</i><sub>1</sub>=−2−0=−2 → <i>q/p</i> = <strong>0.2</strong> (<i>p</i>&lt;0)</li>
+              <li><i>k</i>=2 (<i>x<sub>max</sub></i>=10): <i>p</i><sub>2</sub>=10, <i>q</i><sub>2</sub>=10−(−2)=12 → <i>q/p</i> = 1.2 (<i>p</i>&gt;0)</li>
+              <li><i>k</i>=3 (<i>y<sub>min</sub></i>=0): <i>p</i><sub>3</sub>=−10, <i>q</i><sub>3</sub>=4−0=4 → <i>q/p</i> = −0.4 (<i>p</i>&lt;0)</li>
+              <li><i>k</i>=4 (<i>y<sub>max</sub></i>=10): <i>p</i><sub>4</sub>=10, <i>q</i><sub>4</sub>=10−4=6 → <i>q/p</i> = <strong>0.6</strong> (<i>p</i>&gt;0)</li>
+              <li><i>k</i>=5 (<i>z<sub>min</sub></i>=−10): <i>p</i><sub>5</sub>=−(−10)=10, <i>q</i><sub>5</sub>=−2−(−10)=8 → <i>q/p</i> = 0.8 (<i>p</i>&gt;0)</li>
+              <li><i>k</i>=6 (<i>z<sub>max</sub></i>=0): <i>p</i><sub>6</sub>=−10, <i>q</i><sub>6</sub>=0−(−2)=2 → <i>q/p</i> = −0.2 (<i>p</i>&lt;0)</li>
+            </ul>
+            <p><i>u</i><sub>1</sub> = max(0, 0.2, −0.4, −0.2) = <strong>0.2</strong>, &nbsp;<i>u</i><sub>2</sub> = min(1, 1.2, 0.6, 0.8) = <strong>0.6</strong> (<i>u</i><sub>1</sub> &lt; <i>u</i><sub>2</sub> 채택!).<br>
+            • 새 시작점 (<i>u</i><sub>1</sub>=0.2): (−2+2, 4+2, −2−2) = <strong>(0, 6, −4)</strong><br>
+            • 새 끝점 (<i>u</i><sub>2</sub>=0.6): (−2+6, 4+6, −2−6) = <strong>(4, 10, −8)</strong></p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q11.</span><span class="badge badge-purple">8강 PDF 빈칸 핵심 ★ · 8점</span></div>
+          <p><strong>허마이트(Hermite) 스플라인</strong>에서 양 끝점과 접선이 <i>p</i><sub>0</sub>=(0, 0), <i>p</i><sub>1</sub>=(4, 0), <i>Dp</i><sub>0</sub>=(0, 4), <i>Dp</i><sub>1</sub>=(0, −4)로 주어졌다.<br>
+          (a) 경계조건 행렬로부터 4×4 허마이트 기저행렬 <i>M<sub>H</sub></i>를 구해 <i>P</i>(<i>u</i>) = <i>U · M<sub>H</sub> · M<sub>geom</sub></i> 형태로 적으시오.<br>
+          (b) 매개변수 <i>u</i> = 0.5에서의 곡선 좌표 <i>P</i>(0.5)를 계산하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 허마이트 행렬식:</strong></p>
+            <div class="math-block">
+              <i>P</i>(<i>u</i>) = [<i>u</i><sup>3</sup> &nbsp;<i>u</i><sup>2</sup> &nbsp;<i>u</i> &nbsp;1]
+              <span class="mat c4"><span>2</span><span>−2</span><span>1</span><span>1</span><span>−3</span><span>3</span><span>−2</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span></span>
+              <span class="mat c1"><span><i>p</i><sub>0</sub></span><span><i>p</i><sub>1</sub></span><span><i>Dp</i><sub>0</sub></span><span><i>Dp</i><sub>1</sub></span></span>
+            </div>
+            <p><strong>(b) <i>u</i> = 0.5 대입:</strong><br>
+            배합함수 값: <i>H</i><sub>1</sub>(0.5) = 2(1/8)−3(1/4)+1 = 1/2, &nbsp;<i>H</i><sub>2</sub>(0.5) = 1/2, &nbsp;<i>H</i><sub>3</sub>(0.5) = 1/8−2/4+1/2 = 1/8, &nbsp;<i>H</i><sub>4</sub>(0.5) = 1/8−1/4 = −1/8.<br>
+            • <i>x</i>(0.5) = (1/2)(0) + (1/2)(4) + (1/8)(0) + (−1/8)(0) = <strong>2</strong><br>
+            • <i>y</i>(0.5) = (1/2)(0) + (1/2)(0) + (1/8)(4) + (−1/8)(−4) = 0.5 + 0.5 = <strong>1</strong><br>
+            따라서 <strong><i>P</i>(0.5) = (2, 1)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q12.</span><span class="badge badge-blue">8·9강 평면 &amp; 뒷면 제거 · 8점</span></div>
+          <p>삼각형 면의 세 꼭짓점이 반시계 순서로 <i>P</i><sub>1</sub>(1, 0, 0), <i>P</i><sub>2</sub>(0, 2, 0), <i>P</i><sub>3</sub>(0, 0, 2)로 주어졌다.<br>
+          (a) 이 삼각형이 이루는 평면 방정식 <i>Ax + By + Cz + D = 0</i>을 구하시오.<br>
+          (b) 점 <i>Q</i>(2, 2, 2)가 이 평면의 안쪽인지 바깥쪽인지 판별하고, 점 <i>Q</i>와 평면 사이의 거리를 구하시오.<br>
+          (c) 시점이 +<i>z</i> 방향에 있고 시선이 −<i>z</i> 방향일 때, 이 삼각형 면이 뒷면 제거(Back-face Removal)에서 <strong>보이는 앞면인지 제거되는 뒷면인지</strong> 수식 <b>V·N</b>으로 판별하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 평면 방정식:</strong><br>
+            <b>e</b><sub>1</sub> = <i>P</i><sub>2</sub>−<i>P</i><sub>1</sub> = (−1, 2, 0), &nbsp;<b>e</b><sub>2</sub> = <i>P</i><sub>3</sub>−<i>P</i><sub>1</sub> = (−1, 0, 2).<br>
+            <b>N</b> = <b>e</b><sub>1</sub> × <b>e</b><sub>2</sub> = (4, 2, 2), &nbsp;<i>D</i> = −(4·1 + 0 + 0) = −4.<br>
+            따라서 <strong>4<i>x</i> + 2<i>y</i> + 2<i>z</i> − 4 = 0</strong> (또는 양변을 2로 나눈 <strong>2<i>x</i> + <i>y</i> + <i>z</i> − 2 = 0</strong>).</p>
+            <p><strong>(b) 점 <i>Q</i>(2, 2, 2) 판별 &amp; 거리:</strong><br>
+            2(2) + 2 + 2 − 2 = <strong>+6 &gt; 0 → 평면의 바깥쪽</strong>.<br>
+            거리 <i>d</i> = |6| / √(2<sup>2</sup>+1<sup>2</sup>+1<sup>2</sup>) = 6 / √6 = <strong>√6 ≈ 2.45</strong>.</p>
+            <p><strong>(c) 뒷면 제거 판정:</strong> <b>V</b> = (0, 0, <i>V<sub>z</sub></i>) (<i>V<sub>z</sub></i> &lt; 0), <i>C</i> = 2 &gt; 0 (축약식 1 &gt; 0)이므로 <b>V·N</b> = <i>CV<sub>z</sub></i> &lt; 0 → <strong>시점에서 보이는 앞면(표시됨)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q13.</span><span class="badge badge-purple">9강 PDF 생략 핵심 ★ · 9점</span></div>
+          <p>시점이 +<i>z</i>, 시선이 −<i>z</i>, 투영면이 <i>z</i> = 0인 Z-버퍼 환경에서 두 다각형 면이 다음과 같이 주어졌다:<br>
+          • <i>S</i><sub>1</sub> (빨강): <code>2x + y + 2z − 10 = 0</code><br>
+          • <i>S</i><sub>2</sub> (파랑): <code>−2x + y + 2z − 1 = 0</code><br>
+          (a) Z-버퍼와 프레임버퍼의 초기값을 적으시오.<br>
+          (b) 픽셀 <code>(2, 1)</code>에서 각 면의 깊이값 <i>z</i><sub>1</sub>, <i>z</i><sub>2</sub>를 평면 방정식으로 구하고, 최종 프레임버퍼 색상을 판정하시오.<br>
+          (c) 인접 픽셀 <code>(3, 1)</code>의 깊이값을 <strong>평면 방정식 기반 증분식(<i>z' = z − A/C</i>)</strong>으로 계산하고, 최종 프레임버퍼 색상이 어떻게 바뀌는지 서술하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 초기화:</strong> <code>Depth(x, y) = −∞</code>, &nbsp;<code>Frame(x, y) = background</code> (시선 −<i>z</i>이므로 <i>z</i>가 클수록 가까움).</p>
+            <p><strong>(b) 픽셀 (2, 1):</strong><br>
+            • <i>S</i><sub>1</sub>: <i>z</i><sub>1</sub>(2,1) = −(2·2 + 1 − 10)/2 = <strong>2.5</strong><br>
+            • <i>S</i><sub>2</sub>: <i>z</i><sub>2</sub>(2,1) = −(−2·2 + 1 − 1)/2 = <strong>2.0</strong><br>
+            <i>z</i><sub>1</sub>(2.5) &gt; <i>z</i><sub>2</sub>(2.0)이므로 <code>Depth(2,1) = 2.5</code>, <code>Frame(2,1) = 빨강(S1)</code>.</p>
+            <p><strong>(c) 인접 픽셀 (3, 1) 증분 계산:</strong><br>
+            • <i>S</i><sub>1</sub>: Δ<i>z</i><sub>1</sub> = −<i>A</i><sub>1</sub>/<i>C</i><sub>1</sub> = −2/2 = −1 → <i>z</i><sub>1</sub>(3,1) = 2.5 − 1 = <strong>1.5</strong><br>
+            • <i>S</i><sub>2</sub>: Δ<i>z</i><sub>2</sub> = −<i>A</i><sub>2</sub>/<i>C</i><sub>2</sub> = −(−2)/2 = +1 → <i>z</i><sub>2</sub>(3,1) = 2.0 + 1 = <strong>3.0</strong><br>
+            <i>z</i><sub>2</sub>(3.0) &gt; <i>z</i><sub>1</sub>(1.5)로 역전되어 <code>Depth(3,1) = 3.0</code>, <code>Frame(3,1) = 파랑(S2)</code>로 갱신됨!</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">1회 Q14.</span><span class="badge badge-blue">10강 프랙탈 &amp; 보간 · 8점</span></div>
+          <p>(a) 정사각형의 각 변을 3등분하여 9개의 작은 정사각형으로 나눈 뒤 중앙 1개를 제거해 8개의 자기유사 정사각형을 남기는 과정을 무한 반복할 때, 이 도형의 <strong>프랙탈 차원 <i>D</i></strong>를 구하시오. (ln 식과 근삿값 함께 표기)<br>
+          (b) Koch Snowflake에서 1단계 단일 변 길이가 1일 때, 4단계의 단일 변 전체 길이를 구하시오.<br>
+          (c) 키프레임 애니메이션에서 10번 프레임의 위치·색상이 <code>P=(2,4,0), RGB=(1,0,0)</code>이고, 30번 프레임이 <code>P=(10,0,8), RGB=(0,1,1)</code>일 때, <strong>15번 프레임</strong>의 선형 보간 위치와 RGB 색상(및 대응하는 CMY 값)을 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 프랙탈 차원:</strong> <i>S</i> = 1/3, <i>N</i> = 8 → <strong><i>D</i> = ln 8 / ln 3 ≈ 1.893</strong>.</p>
+            <p><strong>(b) Koch 4단계 변 길이:</strong> 매 단계 4/3배 증가 → (4/3)<sup>4−1</sup> = (4/3)<sup>3</sup> = <strong>64/27 ≈ 2.37</strong>.</p>
+            <p><strong>(c) 15번 프레임 선형 보간:</strong><br>
+            매개변수 <i>s</i> = (15 − 10) / (30 − 10) = 5/20 = <strong>0.25</strong>.<br>
+            • 위치: 0.75(2,4,0) + 0.25(10,0,8) = (1.5+2.5, 3+0, 0+2) = <strong>(4, 3, 2)</strong>.<br>
+            • RGB: 0.75(1,0,0) + 0.25(0,1,1) = <strong>(0.75, 0.25, 0.25)</strong>.<br>
+            • CMY (= 1 − RGB): <strong>(0.25, 0.75, 0.75)</strong>.</p>
+          </div></details>
+        </div>
+      </section>
+
+      <!-- ==================== 제2회 모의고사 ==================== -->
+      <section class="section-card" id="exam2">
+        <h2>제2회 실전 모의고사 — 응용·변형 심화형 (14문항 · 100점)</h2>
+
+        <h3 id="e2-concept">Part 1. 개념 문항 (Q1 ~ Q5, 각 5점 = 25점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q1.</span><span class="badge badge-blue">개념 · 3·6강 · 5점</span></div>
+          <p>(1) 3차원 동차좌표 변환에서 행렬 곱셈의 결합법칙과 교환법칙 성립 여부를 밝히고, <strong>교환법칙이 성립하는 특수 조합 2가지</strong>를 예로 드시오.<br>
+          (2) 2차원 윈도우-뷰포트 변환에서 <strong>Zoom-in(확대)</strong>과 <strong>Panning</strong> 효과를 얻기 위해 윈도우 영역을 각각 어떻게 변경해야 하는지 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 결합/교환법칙:</strong> 결합법칙 (<i>AB</i>)<i>C</i>=<i>A</i>(<i>BC</i>)는 항상 성립하지만 교환법칙 <i>AB=BA</i>는 일반적으로 성립하지 않음. 예외(교환 성립): 이동끼리(<i>T</i><sub>1</sub><i>T</i><sub>2</sub>=<i>T</i><sub>2</sub><i>T</i><sub>1</sub>), 신축끼리(<i>S</i><sub>1</sub><i>S</i><sub>2</sub>=<i>S</i><sub>2</sub><i>S</i><sub>1</sub>), 동일 축 회전끼리(<i>R<sub>z</sub></i>(θ<sub>1</sub>)<i>R<sub>z</sub></i>(θ<sub>2</sub>)=<i>R<sub>z</sub></i>(θ<sub>2</sub>)<i>R<sub>z</sub></i>(θ<sub>1</sub>)), 균등 신축과 회전 등.</p>
+            <p><strong>(2) Zoom-in &amp; Panning:</strong> 뷰포트를 고정했을 때 <strong>Zoom-in</strong>은 윈도우의 크기를 <strong>더 작게</strong> 축소시켜 화면에 확대 사상되게 함. <strong>Panning</strong>은 윈도우의 크기는 유지한 채 <strong>위치만 평행이동</strong>시킴.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q2.</span><span class="badge badge-blue">개념 · 4·7강 · 5점</span></div>
+          <p>(1) 선 클리핑 알고리즘인 <strong>Cohen-Sutherland</strong>와 <strong>Liang-Barsky</strong>의 핵심 아이디어 및 장단점을 비교하시오.<br>
+          (2) 다각형 클리핑에서 <strong>Sutherland-Hodgman</strong>만으로는 처리가 까다롭고 <strong>Weiler-Atherton</strong> 알고리즘을 사용하게 되는 대표적인 상황을 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) CS vs LB:</strong> Cohen-Sutherland는 4비트(3D는 6비트) 영역코드와 비트 AND 연산으로 위치를 판정하고 경계와 반복 교차 계산(이해하기 쉬움). Liang-Barsky는 선분의 매개변수 방정식과 부등식(<i>up<sub>k</sub> ≤ q<sub>k</sub></i>)으로 유효 매개변수 구간 [<i>u<sub>start</sub>, u<sub>end</sub></i>]을 직접 구해 교차점을 계산(수학적으로 더 효율적).</p>
+            <p><strong>(2) Weiler-Atherton 필요 상황:</strong> <strong>오목 다각형</strong>을 클리핑할 때 윈도우 내부에 <strong>여러 개의 분리된 닫힌 영역</strong>이 생성되는 경우, Sutherland-Hodgman은 경계 위 불필요한 연결선이 생길 수 있으나 Weiler-Atherton은 교점에서 윈도우 경계를 따라가 독립된 다각형으로 분리 생성할 수 있음.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q3.</span><span class="badge badge-blue">개념 · 8강 · 5점</span></div>
+          <p>(1) 3D 객체 모델링 기법 중 <strong>스위핑(Sweeping)</strong>과 <strong>CSG(조립적 입체기하학)</strong>의 원리를 각각 예시와 함께 설명하시오.<br>
+          (2) 베지에(Bézier) 곡선에서 제어점의 개수와 다항식 차수의 관계, <strong>배합함수(Blending Function)</strong>의 역할, 그리고 곡선이 반드시 통과하는 제어점을 쓰시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 스위핑 &amp; CSG:</strong> 스위핑은 2D 평면 도형을 공간상에서 이동 또는 회전시켜 3D 객체를 생성(예: 원 → 원기둥, 도넛). CSG는 기본 3D 개체들에 집합 연산(합집합·교집합·차집합)을 반복 적용해 복잡한 입체를 생성.</p>
+            <p><strong>(2) 베지에 성질:</strong> 제어점이 <i>n</i>+1개이면 <i>n</i>차 베지에 곡선(2점→1차, 3점→2차, 4점→3차). 배합함수는 어느 한 매개변수 점에서 각 제어점이 곡선에 미치는 가중치(영향력)를 결정. 제어점 중 <strong>처음 점과 끝 점</strong>만 반드시 통과하며 나머지 중간 제어점은 보통 통과하지 않고 곡선을 끌어당김.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q4.</span><span class="badge badge-blue">개념 · 9강 · 5점</span></div>
+          <p>(1) 깊이 정렬(Painter's) 알고리즘에서 두 면 <i>S</i><sub>1</sub>, <i>S</i><sub>2</sub>의 <i>z</i> 영역이 중첩될 때 그리기 순서를 결정하는 <strong>판별 절차</strong>를 순서대로 적으시오.<br>
+          (2) 단순한 순서 교체만으로 해결되지 않아 <strong>면 분할(Splitting)</strong>이 반드시 필요한 기하학적 상황 2가지를 제시하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 중첩 판별 절차:</strong> ① <i>x</i>(또는 <i>y</i>) 영역 비겹침 확인 → ② <i>S</i><sub>1</sub> 모든 꼭짓점이 <i>S</i><sub>2</sub> 평면 뒤쪽(<i>A</i><sub>2</sub><i>x</i>+<i>B</i><sub>2</sub><i>y</i>+<i>C</i><sub>2</sub><i>z</i>+<i>D</i><sub>2</sub> &lt; 0)인지 확인 → ③ <i>S</i><sub>2</sub> 모든 꼭짓점이 <i>S</i><sub>1</sub> 평면 앞쪽(<i>A</i><sub>1</sub><i>x</i>+<i>B</i><sub>1</sub><i>y</i>+<i>C</i><sub>1</sub><i>z</i>+<i>D</i><sub>1</sub> &gt; 0)인지 확인 → ④ 모두 아니면 순서 교체 → ⑤ 해결 불가 시 면 분할 후 재검사.</p>
+            <p><strong>(2) 면 분할 필요 상황:</strong> ① 두 다각형 면이 서로 <strong>관통(교차)</strong>하는 경우 ② 3개 이상의 면이 서로 꼬리 물듯 겹치는 <strong>순환 중첩(Cyclic overlap)</strong>이 발생한 경우.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q5.</span><span class="badge badge-blue">개념 · 10강 · 5점</span></div>
+          <p>(1) 애니메이션에서 <strong>플립북(Flip-book)</strong>, <strong>셀(Cel)</strong>, <strong>키프레임(Key-Frame / Tweening)</strong>, <strong>모핑(Morphing)</strong>의 차이를 핵심 키워드 중심으로 구분하시오.<br>
+          (2) 영화와 NTSC 비디오의 표준 초당 프레임률(fps)과, 프레임 간격이 반드시 지켜야 할 시각적 조건을 쓰시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 4종 구분:</strong> 플립북=모든 프레임을 일일이 그려 저장(파일 크기 큼) / 셀=배경과 움직이는 전경 레이어를 분리해 겹쳐 합성 / 키프레임=주요 프레임만 지정하고 사이 프레임(In-between)은 보간으로 자동 생성(트위닝) / 모핑=서로 다른 두 이미지·모델 사이에 대응점을 지정해 변형 과정 중간 프레임 자동 생성.</p>
+            <p><strong>(2) 프레임률 &amp; 조건:</strong> 영화 <strong>24fps</strong>, NTSC 비디오 <strong>30fps</strong>. 조건: <strong>프레임 사이의 간격이 잔상의 지속 시간을 초과하지 않아야</strong> 끊어지지 않고 부드럽게 인식됨.</p>
+          </div></details>
+        </div>
+
+        <h3 id="e2-calc">Part 2. 상황 조건별 변환행렬 · 계산식 · 절차 서술 (Q6 ~ Q14, 75점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q6.</span><span class="badge badge-teal">3·4강 직선 반사 &amp; WV · 8점</span></div>
+          <p>(a) 2차원 평면에서 직선 <code>y = −x + 4</code>에 대하여 반사시키는 합성 변환 행렬식을 적고, 점 (1, 5)의 반사 좌표를 구하시오.<br>
+          (b) 윈도우 영역 <code>(0, 0)~(20, 10)</code>을 뷰포트 영역 <code>(100, 50)~(500, 250)</code>으로 매핑하는 3×3 변환 행렬 <i>M<sub>WV</sub></i>를 작성하고, 윈도우 내 점 (5, 4)의 뷰포트 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) <i>y = −x + 4</i> 반사:</strong> <i>m</i> = −1 (θ = −45°), <i>b</i> = 4.<br>
+            <i>M</i> = <i>T</i>(0, 4) · <i>R</i>(−45°) · <i>Ref<sub>x</sub></i> · <i>R</i>(45°) · <i>T</i>(0, −4) = <i>T</i>(0, 4) · <i>Ref<sub>y=−x</sub></i> · <i>T</i>(0, −4).</p>
+            <div class="math-block">
+              <i>M</i> =
+              <span class="mat c3"><span>1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>4</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c3"><span>0</span><span>−1</span><span>0</span><span>−1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c3"><span>1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>−4</span><span>0</span><span>0</span><span>1</span></span>
+              =
+              <span class="mat c3"><span>0</span><span>−1</span><span>4</span><span>−1</span><span>0</span><span>4</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p>(1, 5) → (4−5, 4−1) = <strong>(−1, 3)</strong>. (검산: 중점 (0, 4)가 직선 위!)</p>
+            <p><strong>(b) 윈도우-뷰포트 행렬:</strong> <i>s<sub>x</sub></i> = 400/20 = 20, &nbsp;<i>s<sub>y</sub></i> = 200/10 = 20.</p>
+            <div class="math-block">
+              <i>M<sub>WV</sub></i> = <i>T</i>(100, 50)·<i>S</i>(20, 20)·<i>T</i>(0, 0) =
+              <span class="mat c3"><span>20</span><span>0</span><span>100</span><span>0</span><span>20</span><span>50</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p>(5, 4) → (20·5+100, 20·4+50) = <strong>(200, 130)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q7.</span><span class="badge badge-blue">6강 3D 복합 변환 · 8점</span></div>
+          <p>점 <i>P</i>(3, 2, 3)에 다음 3가지 3D 변환을 순서대로 적용한다:<br>
+          ① 점 (1, 2, 3)을 지나고 <i>y</i>축에 평행한 직선을 축으로 반시계 방향 90° 회전<br>
+          ② <i>z</i>축을 기준으로 <i>x</i>방향 2, <i>y</i>방향 −1만큼 밀림(Shear)<br>
+          ③ <i>xy</i> 평면에 대해 반사<br>
+          (a) 전체 합성 변환 행렬식을 기호로 적으시오. (b) 단계별 변환 좌표와 최종 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 합성식:</strong> <strong><i>M</i> = <i>Ref<sub>xy</sub></i> · <i>Sh<sub>z</sub></i>(2, −1) · <i>T</i>(1, 2, 3) · <i>R<sub>y</sub></i>(90°) · <i>T</i>(−1, −2, −3)</strong></p>
+            <p><strong>(b) 단계별 좌표 (<i>R<sub>y</sub></i>(90°): (<i>x, y, z</i>) → (<i>z, y, −x</i>) 주의!!):</strong><br>
+            • ① 회전: (3,2,3) − (1,2,3) = (2,0,0) → <i>R<sub>y</sub></i>(90°) → (0,0,−2) → +(1,2,3) = <strong>(1, 2, 1)</strong>.<br>
+            • ② <i>z</i>축 기준 밀림 (<i>x'=x+2z, y'=y−z, z'=z</i>): (1+2·1, 2−1·1, 1) = <strong>(3, 1, 1)</strong>.<br>
+            • ③ <i>xy</i>평면 반사 (<i>z</i> 부호 반전): <strong>(3, 1, −1)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q8.</span><span class="badge badge-purple">7강 프러스텀 3단계 정규화 ★ · 10점</span></div>
+          <p>오른손 뷰잉 좌표계에서 비대칭 원근 프러스텀이 다음과 같이 주어졌다:<br>
+          <code>L = −2, R = 4, B = −1, T = 3, d = 2, N = 2, F = 10</code> (앞평면 <i>z</i>=−2, 뒷평면 <i>z</i>=−10).<br>
+          (a) 7강 슬라이드 19의 3단계 행렬 <i>M<sub>shear</sub></i>, <i>M<sub>scale</sub></i>, <i>M<sub>normal</sub></i>을 각각 수치로 작성하시오.<br>
+          (b) 세 행렬을 곱한 합성 원근 변환 행렬 <i>M<sub>persp</sub></i> = <i>M<sub>normal</sub></i> · <i>M<sub>scale</sub></i> · <i>M<sub>shear</sub></i>를 구하시오.<br>
+          (c) 뷰잉 좌표계의 점 <i>P</i>(1, 1, −2)의 클립 동차좌표 <i>P'''</i>와 원근 나눗셈 후 NDC 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 3단계 개별 행렬:</strong><br>
+            • (<i>R+L</i>)/(2<i>d</i>) = 2/4 = 1/2, &nbsp;(<i>T+B</i>)/(2<i>d</i>) = 2/4 = 1/2<br>
+            • 2<i>d</i>/(<i>R−L</i>) = 4/6 = 2/3, &nbsp;2<i>d</i>/(<i>T−B</i>) = 4/4 = 1<br>
+            • −(<i>F+N</i>)/(<i>F−N</i>) = −12/8 = −3/2, &nbsp;−2<i>FN</i>/(<i>F−N</i>) = −40/8 = −5</p>
+            <div class="math-block col">
+              <div class="math-row">
+                <i>M<sub>shear</sub></i> = <span class="mat c4"><span>1</span><span>0</span><span>1/2</span><span>0</span><span>0</span><span>1</span><span>1/2</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+                &nbsp;<i>M<sub>scale</sub></i> = <span class="mat c4"><span>2/3</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+                &nbsp;<i>M<sub>normal</sub></i> = <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>−3/2</span><span>−5</span><span>0</span><span>0</span><span>−1</span><span>0</span></span>
+              </div>
+              <div class="math-row">
+                <strong>(b) <i>M<sub>persp</sub></i> =</strong>
+                <span class="mat c4"><span>2/3</span><span>0</span><span>1/3</span><span>0</span><span>0</span><span>1</span><span>1/2</span><span>0</span><span>0</span><span>0</span><span>−3/2</span><span>−5</span><span>0</span><span>0</span><span>−1</span><span>0</span></span>
+              </div>
+            </div>
+            <p><strong>(c) 점 <i>P</i>(1, 1, −2) 변환:</strong><br>
+            <i>P'''</i> = <i>M<sub>persp</sub></i> · [1, 1, −2, 1]<sup>T</sup> = [2/3 − 2/3, 1 − 1, 3 − 5, 2]<sup>T</sup> = <strong>[0, 0, −2, 2]<sup>T</sup></strong> (<i>h</i> = 2).<br>
+            원근 나눗셈 (÷ 2): <strong><i>P<sub>NDC</sub></i> = (0, 0, −1)</strong>. (앞평면 윈도우 정중앙 (1, 1, −2)이 NDC 정중앙 앞면 (0, 0, −1)으로 매핑!)</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q9.</span><span class="badge badge-blue">7강 3D Cohen-Sutherland · 8점</span></div>
+          <p>3D 뷰볼륨이 <code>[−5, 5] × [−5, 5] × [−10, −2]</code>일 때, 슬라이드 20의 <strong>6비트 코드</strong>(<code>[앞|뒤|위|아래|오른|왼]</code>, 여기서 앞: <i>z</i>&gt;−2, 뒤: <i>z</i>&lt;−10)를 사용하여 다음 3개 선분의 끝점 코드, 비트 AND 결과 및 처리 판정을 적으시오.<br>
+          ① <i>A</i>(−2, 3, −5) — <i>B</i>(4, −1, −8)<br>
+          ② <i>C</i>(6, 7, −1) — <i>D</i>(8, 2, −6)<br>
+          ③ <i>E</i>(−6, 0, −6) — <i>F</i>(0, 6, −6) — 그리고 선분 <i>EF</i>의 클리핑된 두 끝점을 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <ul>
+              <li>① <i>A</i>=<code>000000</code>, <i>B</i>=<code>000000</code> → 둘 다 0 → <strong>완전 내부(그린다)</strong>.</li>
+              <li>② <i>C</i>=<code>101010</code>(앞·위·오른), <i>D</i>=<code>000010</code>(오른) → AND = <code>000010</code> ≠ 0 → <strong>완전 외부(기각)</strong>.</li>
+              <li>③ <i>E</i>=<code>000001</code>(왼), <i>F</i>=<code>001000</code>(위) → AND = <code>000000</code> → <strong>클리핑 필요</strong>.<br>
+              <i>z</i>=−6 일정, <i>xy</i> 기울기 <i>m</i> = (6−0)/(0−(−6)) = 1 (직선 <i>y = x + 6</i>).<br>
+              • 왼쪽 경계 <i>x</i> = −5 교점: <i>y</i> = −5 + 6 = 1 → <strong>(−5, 1, −6)</strong> (코드 <code>000000</code>).<br>
+              • 위쪽 경계 <i>y</i> = 5 교점: <i>x</i> = 5 − 6 = −1 → <strong>(−1, 5, −6)</strong> (코드 <code>000000</code>).</li>
+            </ul>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q10.</span><span class="badge badge-purple">8강 PDF 빈칸 핵심 ★ · 9점</span></div>
+          <p>4개의 연속된 제어점 <i>p</i><sub>0</sub>(0, 0), <i>p</i><sub>1</sub>(2, 2), <i>p</i><sub>2</sub>(6, 2), <i>p</i><sub>3</sub>(8, 0)이 주어졌을 때, <i>p</i><sub>1</sub>과 <i>p</i><sub>2</sub> 사이 구간을 <strong>캣멀롬(Catmull-Rom) 스플라인</strong>(카디널 스플라인 <i>t</i> = 0 ⇒ <i>s</i> = 1/2)으로 보간하려 한다.<br>
+          (a) 시작점 <i>p</i><sub>1</sub>과 끝점 <i>p</i><sub>2</sub>에서의 접선 벡터 <i>P'</i>(0), <i>P'</i>(1)을 구하시오.<br>
+          (b) 카디널 스플라인 행렬 <i>M<sub>C</sub></i>(<i>s</i>)에 <i>s</i> = 1/2을 대입한 <i>M<sub>CR</sub></i>을 적으시오.<br>
+          (c) <i>u</i> = 0.5에서의 곡선 좌표 <i>P</i>(0.5)를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 접선 벡터:</strong><br>
+            • <i>P'</i>(0) = ½(<i>p</i><sub>2</sub> − <i>p</i><sub>0</sub>) = ½(6−0, 2−0) = <strong>(3, 1)</strong><br>
+            • <i>P'</i>(1) = ½(<i>p</i><sub>3</sub> − <i>p</i><sub>1</sub>) = ½(8−2, 0−2) = <strong>(3, −1)</strong></p>
+            <p><strong>(b) Catmull-Rom 행렬:</strong></p>
+            <div class="math-block">
+              <i>M<sub>CR</sub></i> = <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+              <span class="mat c4"><span>−1</span><span>3</span><span>−3</span><span>1</span><span>2</span><span>−5</span><span>4</span><span>−1</span><span>−1</span><span>0</span><span>1</span><span>0</span><span>0</span><span>2</span><span>0</span><span>0</span></span>
+            </div>
+            <p><strong>(c) <i>u</i> = 0.5 좌표 (Hermite 배합함수 이용 시 초고속!):</strong><br>
+            <i>P</i>(0.5) = (1/2)(2,2) + (1/2)(6,2) + (1/8)(3,1) + (−1/8)(3,−1) = (4, 2) + (0, 0.25) = <strong>(4, 2.25)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q11.</span><span class="badge badge-blue">8강 베지에 곡선 · 8점</span></div>
+          <p>4개의 제어점 <i>P</i><sub>0</sub>(0, 0), <i>P</i><sub>1</sub>(0, 4), <i>P</i><sub>2</sub>(4, 4), <i>P</i><sub>3</sub>(4, 0)으로 정의되는 3차 베지에 곡선에 대해:<br>
+          (a) 3차 베지에 곡선의 다항식 전개식(또는 4×4 행렬식 <i>M<sub>B</sub></i>)을 적으시오.<br>
+          (b) <i>t</i> = 0.5에서의 좌표 <i>P</i>(0.5)를 ① 다항식 대입, ② de Casteljau 단계별 보간(<i>p</i><sub>01</sub>, <i>p</i><sub>12</sub>, <i>p</i><sub>23</sub> → <i>p</i><sub>012</sub>, <i>p</i><sub>123</sub> → <i>p</i>(0.5)) 두 가지 방법으로 각각 구해 일치함을 보이시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 전개식:</strong> <i>P</i>(<i>t</i>) = (1−<i>t</i>)<sup>3</sup><i>P</i><sub>0</sub> + 3<i>t</i>(1−<i>t</i>)<sup>2</sup><i>P</i><sub>1</sub> + 3<i>t</i><sup>2</sup>(1−<i>t</i>)<i>P</i><sub>2</sub> + <i>t</i><sup>3</sup><i>P</i><sub>3</sub>.</p>
+            <p><strong>(b) ① 다항식 대입 (<i>t</i>=0.5):</strong> (1/8)(0,0) + (3/8)(0,4) + (3/8)(4,4) + (1/8)(4,0) = (0+0+1.5+0.5, 0+1.5+1.5+0) = <strong>(2, 3)</strong>.<br>
+            <strong>② de Casteljau (중점 반복):</strong><br>
+            • 1단계: <i>p</i><sub>01</sub>=(0,2), <i>p</i><sub>12</sub>=(2,4), <i>p</i><sub>23</sub>=(4,2)<br>
+            • 2단계: <i>p</i><sub>012</sub>=(1,3), <i>p</i><sub>123</sub>=(3,3)<br>
+            • 3단계: <i>P</i>(0.5) = 중점((1,3), (3,3)) = <strong>(2, 3)</strong> (완벽 일치!)</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q12.</span><span class="badge badge-blue">9강 뒷면 제거 &amp; 깊이 정렬 · 8점</span></div>
+          <p>삼각형 면 <i>S</i><sub>2</sub>의 세 꼭짓점이 반시계 순서로 <i>A</i>(0, 0, −4), <i>B</i>(4, 0, −4), <i>C</i>(0, 4, −1)이고, 시점은 <i>Eye</i>(0, 0, 10)이다.<br>
+          (a) <i>S</i><sub>2</sub>의 평면 방정식을 구하고, 임의 시선 벡터 <b>V</b> = <i>A − Eye</i>를 이용해 뒷면 제거 여부를 판정하시오.<br>
+          (b) 깊이 정렬(Painter's) 과정에서 면 <i>S</i><sub>1</sub>의 두 꼭짓점 <i>Q</i><sub>1</sub>(2, 1, −3), <i>Q</i><sub>2</sub>(2, 2, −3)을 <i>S</i><sub>2</sub>의 평면 방정식에 대입했을 때 나타나는 부호를 확인하고, <i>S</i><sub>1</sub>과 <i>S</i><sub>2</sub>의 앞뒤 관계를 어떻게 처리해야 하는지 서술하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 평면 방정식 &amp; 뒷면 제거:</strong><br>
+            <b>e</b><sub>1</sub>=(4,0,0), <b>e</b><sub>2</sub>=(0,4,3) → <b>N</b> = <b>e</b><sub>1</sub>×<b>e</b><sub>2</sub> = (0, −12, 16) → 축약 <b>N</b> = (0, −3, 4), <i>D</i> = −(4·(−4)) = 16.<br>
+            평면식: <strong>−3<i>y</i> + 4<i>z</i> + 16 = 0</strong>.<br>
+            시선 벡터 <b>V</b> = (0, 0, −4) − (0, 0, 10) = (0, 0, −14). <b>V·N</b> = (−14)(4) = <strong>−56 &lt; 0 → 앞면(표시됨)</strong>.</p>
+            <p><strong>(b) 깊이 정렬 부호 판별:</strong><br>
+            • <i>Q</i><sub>1</sub>(2,1,−3): −3(1) + 4(−3) + 16 = <strong>+1 &gt; 0</strong> (<i>S</i><sub>2</sub>의 바깥쪽/앞쪽)<br>
+            • <i>Q</i><sub>2</sub>(2,2,−3): −3(2) + 4(−3) + 16 = <strong>−2 &lt; 0</strong> (<i>S</i><sub>2</sub>의 안쪽/뒤쪽)<br>
+            <strong>결론:</strong> <i>S</i><sub>1</sub>의 꼭짓점들이 <i>S</i><sub>2</sub> 평면의 앞쪽과 뒤쪽에 나뉘어 걸쳐 있으므로 <i>S</i><sub>1</sub>이 <i>S</i><sub>2</sub> 평면을 관통(교차)하고 있습니다. 단순 순서 교체로 해결할 수 없으므로 <strong>면 <i>S</i><sub>1</sub>(또는 <i>S</i><sub>2</sub>)을 교선을 기준으로 분할한 뒤 다시 깊이를 검사</strong>해야 합니다.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q13.</span><span class="badge badge-blue">9-2강 컬러 모델 · 8점</span></div>
+          <p>(a) 어떤 픽셀의 RGB 색상이 <code>(0.2, 0.7, 1.0)</code>일 때, ① 대응하는 <strong>CMY 값</strong>과 ② 이 빛의 <strong>보색(Complementary color)의 RGB 값</strong>을 각각 구하시오.<br>
+          (b) 다음 4가지 HSV 값이 어떤 색을 나타내는지 적고, 무채색/검정에서 무의미해지는 성분을 지적하시오:<br>
+          ① (0°, 1.0, 1.0) &nbsp; ② (120°, 1.0, 1.0) &nbsp; ③ (200°, 0.0, 1.0) &nbsp; ④ (45°, 0.8, 0.0)</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) CMY &amp; 보색:</strong><br>
+            ① CMY = (1−<i>R</i>, 1−<i>G</i>, 1−<i>B</i>) = <strong>(0.8, 0.3, 0.0)</strong>.<br>
+            ② 보색은 가산 혼합 시 White (1,1,1)이 되는 색이므로 RGB<sub>comp</sub> = (1−0.2, 1−0.7, 1−1.0) = <strong>(0.8, 0.3, 0.0)</strong>.</p>
+            <p><strong>(b) HSV 판정:</strong><br>
+            ① <strong>Red</strong> ② <strong>Green</strong> ③ <strong>White</strong> (<i>S</i>=0, <i>V</i>=1이므로 <i>H</i>=200°는 무의미!) ④ <strong>Black</strong> (<i>V</i>=0이므로 <i>H</i>=45°, <i>S</i>=0.8 모두 무의미!)</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">2회 Q14.</span><span class="badge badge-purple">10강 프랙탈·모핑·FK ★ · 8점</span></div>
+          <p>(a) 어떤 프랙탈 생성 규칙이 매 단계마다 도형의 크기를 <i>S</i> = 1/3로 축소하여 <i>N</i> = 5개의 자기유사 조각으로 대체할 때 프랙탈 차원 <i>D</i>를 구하시오.<br>
+          (b) 모핑(Morphing)에서 초기 대응점 (0, 4)가 최종 대응점 (8, 0)으로 이동할 때, <i>s</i> = 0.25, 0.5, 0.75에서의 중간 좌표를 선형 보간으로 구하시오.<br>
+          (c) 2D 로봇팔이 원점(어깨)에서 길이 <i>L</i><sub>1</sub> = 4인 상완이 <i>x</i>축 기준 반시계 방향 90° 회전해 있고, 그 끝(팔꿈치)에 연결된 길이 <i>L</i><sub>2</sub> = 3인 하완이 상완 기준 시계 방향 90°(−90°) 회전해 있다. <strong>운동학(FK)</strong> 관점에서 말단(손끝) 로컬 점 (3, 0)의 월드 좌표를 구하는 합성 행렬식과 최종 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 프랙탈 차원:</strong> <strong><i>D</i> = ln 5 / ln 3 ≈ 1.465</strong>.</p>
+            <p><strong>(b) 모핑 선형 보간 <i>P</i>(<i>s</i>) = (1−<i>s</i>)(0,4) + <i>s</i>(8,0) = (8<i>s</i>, 4−4<i>s</i>):</strong><br>
+            • <i>s</i> = 0.25 → <strong>(2, 3)</strong> &nbsp;|&nbsp; <i>s</i> = 0.5 → <strong>(4, 2)</strong> &nbsp;|&nbsp; <i>s</i> = 0.75 → <strong>(6, 1)</strong>.</p>
+            <p><strong>(c) 2링크 FK 행렬식 및 손끝 좌표:</strong><br>
+            어깨 회전 <i>R</i>(90°) → 상완 길이만큼 이동 <i>T</i>(4, 0) → 팔꿈치 회전 <i>R</i>(−90°) 순 계층 적용:<br>
+            <strong><i>P<sub>world</sub></i> = <i>R</i>(90°) · <i>T</i>(4, 0) · <i>R</i>(−90°) · [3, 0, 1]<sup>T</sup></strong>.<br>
+            • <i>R</i>(−90°)·(3,0) = (0, −3) → <i>T</i>(4,0) → (4, −3) → <i>R</i>(90°) → <strong>(3, 4)</strong>.<br>
+            <em>[직관 검산]</em> 어깨에서 위로 4 올라가 팔꿈치 (0, 4), 거기서 오른쪽으로 3 뻗어 손끝 (3, 4) 완벽 일치!</p>
+          </div></details>
+        </div>
+      </section>
+
+      <!-- ==================== 제3회 모의고사 (핵심타겟 집중형) ==================== -->
+      <section class="section-card" id="exam3">
+        <h2>★ 제3회 실전 모의고사 — 기말 핵심 타겟 집중형 (14문항 · 100점)</h2>
+        <p><em>출제 초점:</em> 파이프라인·알고리즘 수행 과정(개념) + <strong>사물 Liang-Barsky 클리핑, 투영·뷰볼륨 정규화, 변환 최종 단일 행렬+특정좌표, 카디널 스플라인, 베지어 공식·행렬·접선, 은면제거 수치 판별</strong></p>
+
+        <h3 id="e3-concept">Part 1. 파이프라인 · 알고리즘 과정 · 핵심 정의 (Q1 ~ Q5, 각 5점 = 25점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q1.</span><span class="badge badge-blue">파이프라인 과정 · 7강 · 5점</span></div>
+          <p>(1) 3차원 뷰잉 파이프라인의 5개 좌표계와 그 사이의 4단계 변환을 순서대로 적고 각 변환의 역할을 서술하시오.<br>
+          (2) 월드 좌표계를 뷰잉 좌표계로 변환하기 위해 지정하는 3가지 기준 요소(VRP, VPN, VUP)의 정의와 월드→뷰잉 변환의 기하학적 과정을 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 3D 뷰잉 파이프라인:</strong> <code>모델 좌표계</code> →[<strong>모델링 변환</strong>: 개별 객체를 월드 공간에 배치]→ <code>월드 좌표계</code> →[<strong>뷰잉 변환</strong>: 카메라 기준으로 공간 재정렬]→ <code>뷰잉 좌표계</code> →[<strong>투영 변환</strong>: 3D 뷰볼륨을 정규화하고 2D 투영좌표 생성]→ <code>투영 좌표계</code> →[<strong>윈도우-뷰포트 변환</strong>: 출력 화면 영역으로 사상]→ <code>장치 좌표계</code>.</p>
+            <p><strong>(2) VRP·VPN·VUP &amp; 과정:</strong> VRP(카메라 기준점/원점), VPN(뷰평면 법선 → <i>z<sub>v</sub></i>축), VUP(화면 위쪽 방향 → <i>y<sub>v</sub></i>축 결정, <i>x<sub>v</sub></i>축은 외적으로 결정). 과정: ① 카메라 위치(VRP)를 월드 원점으로 평행이동 → ② 뷰잉 좌표계의 세 축(<b>u, v, n</b>)이 월드 <i>x, y, z</i>축과 일치하도록 회전.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q2.</span><span class="badge badge-purple">클리핑 과정 ★ · 4·7강 · 5점</span></div>
+          <p>(1) 선 클리핑을 위한 <strong>Liang-Barsky 알고리즘의 단계별 수행 과정</strong>(매개변수 방정식, <i>p<sub>k</sub>=0</i> 조건, <i>p<sub>k</sub>&lt;0</i> 및 <i>p<sub>k</sub>&gt;0</i>의 의미와 <i>u<sub>start</sub>, u<sub>end</sub></i> 결정, 기각 조건 포함)을 서술하시오.<br>
+          (2) 속이 찬 다각형(사물)을 클리핑하는 <strong>Sutherland-Hodgman 알고리즘</strong>에서 경계선 기준 4가지 정점 재구성 규칙을 적으시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) Liang-Barsky 수행 과정:</strong> ① 선분을 <i>P</i>(<i>u</i>)=<i>P</i><sub>1</sub>+(<i>P</i><sub>2</sub>−<i>P</i><sub>1</sub>)<i>u</i> (0≤<i>u</i>≤1)로 두고 경계 부등식 <i>up<sub>k</sub> ≤ q<sub>k</sub></i> 구성 → ② <i>p<sub>k</sub></i>=0(경계 평행)일 때 <i>q<sub>k</sub></i>&lt;0이면 외부이므로 즉시 기각 → ③ <i>p<sub>k</sub></i>&lt;0이면 밖→안 진입 경계이므로 <i>u<sub>start</sub></i> = max(0, <i>q<sub>k</sub>/p<sub>k</sub></i>), <i>p<sub>k</sub></i>&gt;0이면 안→밖 진출 경계이므로 <i>u<sub>end</sub></i> = min(1, <i>q<sub>k</sub>/p<sub>k</sub></i>) 계산 → ④ <i>u<sub>start</sub> &gt; u<sub>end</sub></i>이면 기각, <i>u<sub>start</sub> ≤ u<sub>end</sub></i>이면 <i>P</i>(<i>u<sub>start</sub></i>)~<i>P</i>(<i>u<sub>end</sub></i>)를 새 끝점으로 채택.</p>
+            <p><strong>(2) Sutherland-Hodgman 4규칙 (선분 S→E):</strong> ① 외→내: 교점 <i>I</i>와 끝점 <i>E</i> 모두 저장 ② 내→내: 끝점 <i>E</i>만 저장 ③ 내→외: 교점 <i>I</i>만 저장 ④ 외→외: 저장 안 함.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q3.</span><span class="badge badge-blue">투영 정규화 과정 · 7강 · 5점</span></div>
+          <p>원근 투영의 비대칭 프러스텀(Frustum) 뷰볼륨을 표준 정육면체(정규화된 평행 뷰볼륨, [−1, 1]<sup>3</sup>)로 변환하는 <strong>3단계 변환 과정</strong>을 순서대로 적고, 각 단계가 뷰볼륨의 형태를 어떻게 바꾸는지 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p>① <strong>밀림 변환 (<i>M<sub>shear</sub></i>):</strong> 기울어진 비대칭 프러스텀의 투영 중심선이 <i>z<sub>v</sub></i>축과 일치하도록 밀어 대칭 직각 원근 프러스텀으로 정렬.<br>
+            ② <strong>신축 변환 (<i>M<sub>scale</sub></i>):</strong> 대칭 정렬된 프러스텀의 폭과 높이를 조정하여 옆면 경계선이 <i>x = ±z, y = ±z</i> (45° 절두체)가 되도록 변환.<br>
+            ③ <strong>정규화 변환 (<i>M<sub>normal</sub></i>) 및 원근 나눗셈(÷<i>h</i>):</strong> 앞평면(<i>z=−N</i>)을 −1, 뒷평면(<i>z=−F</i>)을 +1로 맞추고 동차 성분 <i>h=−z</i>로 나누어 <i>x, y, z</i> ∈ [−1, 1]인 정육면체 평행 뷰볼륨으로 완성.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q4.</span><span class="badge badge-purple">은면제거 과정 ★ · 9강 · 5점</span></div>
+          <p>은면 제거 기법인 <strong>뒷면 제거(Back-face Removal)</strong>, <strong>Z-Buffer 알고리즘</strong>, <strong>깊이 정렬(Painter's) 알고리즘</strong> 각각이 객체 공간법과 이미지 공간법 중 어디에 속하는지 분류하고, <strong>Z-Buffer 알고리즘의 단계별 수행 과정(초기화 및 갱신 조건 포함)</strong>을 서술하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>분류:</strong> 뒷면 제거 = 객체 공간법, 깊이 정렬 = 객체 공간법, Z-Buffer = 이미지 공간법.<br>
+            <strong>Z-Buffer 수행 과정 (시점 +<i>z</i>, 시선 −<i>z</i> 기준):</strong> ① 모든 픽셀 (<i>x,y</i>)에 대해 Z-버퍼는 최소값 <code>Depth(x,y) = −∞</code>, 프레임버퍼는 배경색 <code>Frame(x,y) = background</code>로 초기화 → ② 각 다각형 면이 투영되는 픽셀 (<i>x,y</i>)마다 평면 방정식(및 증분식)으로 깊이값 <i>z</i>를 계산 → ③ <code>z &gt; Depth(x,y)</code>(시점에 더 가까움)이면 <code>Depth(x,y) = z</code>, <code>Frame(x,y) = 해당 면의 색상</code>으로 갱신 → ④ 모든 면 처리 후 프레임버퍼 표시.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q5.</span><span class="badge badge-purple">카디널·베지어 개념 ★ · 8강 · 5점</span></div>
+          <p>(1) 3차 보간 곡선인 <strong>허마이트(Hermite)</strong>, <strong>카디널(Cardinal)</strong>, <strong>캣멀롬(Catmull-Rom)</strong> 스플라인이 양 끝점의 접선(기울기)을 결정하는 방식의 차이를 비교하시오.<br>
+          (2) <strong>베지어(Bézier) 곡선</strong>이 항상 제어점들의 볼록 다각형(Convex Hull) 내부에 놓이는 이유를 배합함수의 수학적 성질 2가지로 설명하시오.</p>
+          <details class="answer-box"><summary>정답 및 채점 기준 보기</summary><div class="answer-body">
+            <p><strong>(1) 접선 결정 방식 비교:</strong> 허마이트는 사용자가 양 끝점의 접선 벡터(<i>Dp<sub>k</sub>, Dp<sub>k+1</sub></i>)를 직접 지정. 카디널은 접선을 직접 입력하지 않고 인접한 두 이웃 제어점의 차이와 장력 매개변수 <i>t</i>를 이용해 ½(1−<i>t</i>)(<i>p<sub>k+1</sub>−p<sub>k−1</sub></i>)로 자동 계산. 캣멀롬은 카디널에서 장력 <i>t</i>=0(계수 ½)으로 고정한 균일 보간 곡선.</p>
+            <p><strong>(2) Convex Hull 내부 존재 이유:</strong> 0 ≤ <i>t</i> ≤ 1에서 모든 번스타인 배합함수가 ① <strong>항상 0 이상(<i>B<sub>k,n</sub></i>(<i>t</i>) ≥ 0, 비음수성)</strong>이고 ② <strong>모든 배합함수의 합이 항상 1(∑ <i>B<sub>k,n</sub></i>(<i>t</i>) = 1, 단위 분할)</strong>이므로, 곡선 점 <i>P</i>(<i>t</i>)는 제어점들의 볼록 결합(가중 평균)이 되어 볼록 다각형 밖으로 벗어날 수 없음.</p>
+          </div></details>
+        </div>
+
+        <h3 id="e3-calc">Part 2. 사물 클리핑 · 최종 단일 행렬 · 특정 좌표 · 카디널/베지어/은면 계산 (Q6 ~ Q14, 75점)</h3>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q6.</span><span class="badge badge-purple">사물 Liang-Barsky 클리핑 + 뷰포트 ★ · 9점</span></div>
+          <p>2차원 월드 공간에 세 꼭짓점 <i>A</i>(0, 4), <i>B</i>(6, 8), <i>C</i>(6, 4)로 이루어진 삼각형 와이어프레임 사물이 놓여 있다. 이를 월드 윈도우 <code>[2, 8] × [2, 6]</code> 크기에 맞춰 <strong>Liang-Barsky 알고리즘</strong>으로 클리핑한 뒤, 장치 뷰포트 <code>[100, 400] × [50, 250]</code>에 출력하려 한다.<br>
+          (a) 삼각형의 세 모서리 선분 <i>AB</i>, <i>BC</i>, <i>CA</i> 각각에 Liang-Barsky 알고리즘을 적용하여 클리핑 후 남는 선분들의 양 끝점 좌표를 모두 구하시오.<br>
+          (b) 윈도우 → 뷰포트 변환의 <strong>전개 완료된 최종 3×3 단일 행렬 <i>M<sub>WV</sub></i></strong>를 구하고, 클리핑된 변 <i>A'B'</i>의 장치 뷰포트 좌표를 계산하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 세 모서리 Liang-Barsky 클리핑:</strong><br>
+            • <strong>변 AB (0,4)→(6,8):</strong> <i>dx</i>=6, <i>dy</i>=4. <i>p</i>=[−6, 6, −4, 4], <i>q</i>=[−2, 8, 2, 2] → 진입(<i>p</i>&lt;0): <i>r</i><sub>1</sub>=1/3, <i>r</i><sub>3</sub>=−1/2 ⇒ <i>u<sub>start</sub></i> = <strong>1/3</strong>; 진출(<i>p</i>&gt;0): <i>r</i><sub>2</sub>=4/3, <i>r</i><sub>4</sub>=1/2 ⇒ <i>u<sub>end</sub></i> = <strong>1/2</strong>. 새 끝점 <i>A'B'</i>: <strong>(2, 16/3) ~ (3, 6)</strong>.<br>
+            • <strong>변 BC (6,8)→(6,4):</strong> <i>dx</i>=0(수직 평행, <i>q</i><sub>1</sub>=4≥0, <i>q</i><sub>2</sub>=2≥0 통과), <i>dy</i>=−4. <i>p</i><sub>3</sub>=4, <i>q</i><sub>3</sub>=6(<i>r</i><sub>3</sub>=1.5); <i>p</i><sub>4</sub>=−4, <i>q</i><sub>4</sub>=−2(<i>r</i><sub>4</sub>=0.5) ⇒ <i>u</i> ∈ [0.5, 1] → <strong>(6, 6) ~ (6, 4)</strong>.<br>
+            • <strong>변 CA (6,4)→(0,4):</strong> <i>dx</i>=−6, <i>dy</i>=0(수평 평행, <i>q</i><sub>3</sub>=2≥0, <i>q</i><sub>4</sub>=2≥0 통과). <i>p</i><sub>1</sub>=6, <i>q</i><sub>1</sub>=4(<i>r</i><sub>1</sub>=2/3); <i>p</i><sub>2</sub>=−6, <i>q</i><sub>2</sub>=2(<i>r</i><sub>2</sub>=−1/3) ⇒ <i>u</i> ∈ [0, 2/3] → <strong>(6, 4) ~ (2, 4)</strong>.</p>
+            <p><strong>(b) 최종 단일 행렬 <i>M<sub>WV</sub></i> 및 뷰포트 좌표:</strong><br>
+            <i>s<sub>x</sub></i> = (400−100)/(8−2) = 50, &nbsp;<i>s<sub>y</sub></i> = (250−50)/(6−2) = 50.<br>
+            <i>t<sub>x</sub></i> = 100 − 50(2) = 0, &nbsp;<i>t<sub>y</sub></i> = 50 − 50(2) = −50.</p>
+            <div class="math-block">
+              <i>M<sub>WV</sub></i> = <span class="mat c3"><span>50</span><span>0</span><span>0</span><span>0</span><span>50</span><span>−50</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p>• <i>A'</i>(2, 16/3) → (100, 800/3 − 50) = <strong>(100, 650/3) ≈ (100, 216.67)</strong><br>
+            • <i>B'</i>(3, 6) → (150, 300 − 50) = <strong>(150, 250)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q7.</span><span class="badge badge-purple">일반 3D 직선 회전 최종 단일 행렬 ★ · 9점</span></div>
+          <p>두 점 <i>P</i><sub>1</sub>(1, 1, 0)과 <i>P</i><sub>2</sub>(4, 5, 0)을 지나는 3차원 직선을 회전축으로 하여 반시계 방향 90° 회전하려 한다.<br>
+          (a) 7행렬 합성식 기호와 정렬 회전행렬 <i>R<sub>x</sub></i>(θ<sub><i>x</i></sub>), <i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>)를 구하시오.<br>
+          (b) 모든 행렬 곱을 끝까지 전개한 <strong>최종 단일 4×4 변환 행렬 <i>M</i></strong>을 완성하시오.<br>
+          (c) 점 <i>P</i>(1, 1, 5)의 회전 후 좌표 <i>P'</i>를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 합성식 및 정렬 행렬:</strong> <b>v</b>=(3,4,0), |<b>v</b>|=5 ⇒ <b>u</b>=(3/5, 4/5, 0), <i>d</i> = √((4/5)<sup>2</sup>+0) = 4/5.<br>
+            cosθ<sub><i>x</i></sub> = 0, sinθ<sub><i>x</i></sub> = 1 (θ<sub><i>x</i></sub>=90°); &nbsp;cosθ<sub><i>y</i></sub> = 4/5, sinθ<sub><i>y</i></sub> = −3/5.<br>
+            <i>M</i> = <i>T</i>(1,1,0) · <i>R<sub>x</sub></i>(−90°) · <i>R<sub>y</sub></i>(−θ<sub><i>y</i></sub>) · <i>R<sub>z</sub></i>(90°) · <i>R<sub>y</sub></i>(θ<sub><i>y</i></sub>) · <i>R<sub>x</sub></i>(90°) · <i>T</i>(−1,−1,0).</p>
+            <p><strong>(b) 최종 단일 4×4 행렬 <i>M</i>:</strong> 3×3 회전부 <i>A</i> = <span class="mat c3"><span>9/25</span><span>12/25</span><span>20/25</span><span>12/25</span><span>16/25</span><span>−15/25</span><span>−20/25</span><span>15/25</span><span>0</span></span>, 4열 이동 성분 = <i>P</i><sub>1</sub> − <i>AP</i><sub>1</sub> = (4/25, −3/25, 5/25)<sup>T</sup>:</p>
+            <div class="math-block">
+              <i>M</i> = <span class="frac"><span class="num">1</span><span class="den">25</span></span>
+              <span class="mat c4"><span>9</span><span>12</span><span>20</span><span>4</span><span>12</span><span>16</span><span>−15</span><span>−3</span><span>−20</span><span>15</span><span>0</span><span>5</span><span>0</span><span>0</span><span>0</span><span>25</span></span>
+              =
+              <span class="mat c4"><span>0.36</span><span>0.48</span><span>0.80</span><span>0.16</span><span>0.48</span><span>0.64</span><span>−0.60</span><span>−0.12</span><span>−0.80</span><span>0.60</span><span>0</span><span>0.20</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p><strong>(c) <i>P</i>(1, 1, 5) 변환:</strong> <i>M</i> · [1, 1, 5, 1]<sup>T</sup> = (0.36+0.48+4+0.16, 0.48+0.64−3−0.12, −0.8+0.6+0+0.2, 1)<sup>T</sup> = <strong>(5, −2, 0)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q8.</span><span class="badge badge-purple">3D 복합 변환 최종 행렬 + 좌표 ★ · 8점</span></div>
+          <p>3D 공간에서 ① 기준점 <i>P<sub>f</sub></i>(2, 0, −1)에 대하여 (2, 3, 1)배 신축한 뒤, ② <i>y</i>축을 기준으로 <i>x</i>방향 1, <i>z</i>방향 −2만큼 밀림(Shear) 변환을 적용하려 한다.<br>
+          (a) 필요한 <strong>최종 단일 4×4 변환 행렬 <i>M</i></strong>의 모든 원소를 구하시오.<br>
+          (b) 점 <i>P</i>(4, 2, 1)의 변환 후 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 최종 단일 행렬 <i>M</i> = <i>Sh<sub>y</sub></i>(1, −2) · [<i>T</i>(2,0,−1)<i>S</i>(2,3,1)<i>T</i>(−2,0,1)]:</strong><br>
+            먼저 <i>P<sub>f</sub></i> 기준 신축 단일 행렬의 4열 = (2(1−2), 0(1−3), −1(1−1))<sup>T</sup> = (−2, 0, 0)<sup>T</sup>:</p>
+            <div class="math-block">
+              <i>M</i> =
+              <span class="mat c4"><span>1</span><span>1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>−2</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              <span class="mat c4"><span>2</span><span>0</span><span>0</span><span>−2</span><span>0</span><span>3</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+              =
+              <span class="mat c4"><span>2</span><span>3</span><span>0</span><span>−2</span><span>0</span><span>3</span><span>0</span><span>0</span><span>0</span><span>−6</span><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span></span>
+            </div>
+            <p><strong>(b) 점 <i>P</i>(4, 2, 1) 변환:</strong> <i>M</i> · [4, 2, 1, 1]<sup>T</sup> = [8+6−2, 6, −12+1, 1]<sup>T</sup> = <strong>(12, 6, −11)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q9.</span><span class="badge badge-purple">뷰잉 + 원근투영 + 클리핑 일관 계산 ★ · 9점</span></div>
+          <p>월드 좌표계에서 카메라가 <code>Eye = (0, 0, 6)</code>에서 원점 <code>At = (0, 0, 0)</code>을 바라보고 있으며 <code>VUP = (0, 1, 0)</code>이다. 뷰잉 좌표계의 투영 중심점은 원점 (0,0,0), 투영면은 <i>z<sub>v</sub></i> = −4 (<i>d</i> = 4)이다.<br>
+          (a) 월드 → 뷰잉 변환 행렬 <i>M<sub>view</sub></i>를 구하고, 월드 공간의 선분 <i>A</i>(−4, 2, −2) — <i>B</i>(8, 10, −2)의 뷰잉 좌표를 구하시오.<br>
+          (b) 선분 <i>AB</i>를 투영면 <i>z<sub>v</sub></i> = −4에 원근 투영한 2D 좌표 (<i>x<sub>p</sub>, y<sub>p</sub></i>)를 구하시오.<br>
+          (c) 투영면 위의 윈도우 크기가 <code>[0, 3] × [0, 4]</code>일 때, 투영된 선분을 <strong>Liang-Barsky</strong>로 클리핑한 두 끝점을 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 뷰잉 변환:</strong> VPN = <i>Eye − At</i> = (0, 0, 6) ⇒ <b>n</b>=(0,0,1), <b>u</b>=(0,1,0)×(0,0,1)=(1,0,0), <b>v</b>=(0,1,0) ⇒ <strong><i>M<sub>view</sub></i> = <i>T</i>(0, 0, −6)</strong>.<br>
+            뷰잉 좌표: <i>A<sub>v</sub></i> = <strong>(−4, 2, −8)</strong>, &nbsp;<i>B<sub>v</sub></i> = <strong>(8, 10, −8)</strong>.</p>
+            <p><strong>(b) 원근 투영 (시점 원점, 투영면 <i>z<sub>v</sub></i> = −4):</strong> <i>h</i> = −<i>z<sub>v</sub>/d</i> = −(−8)/4 = 2.<br>
+            <i>A<sub>p</sub></i> = (−4/2, 2/2) = <strong>(−2, 1)</strong>, &nbsp;<i>B<sub>p</sub></i> = (8/2, 10/2) = <strong>(4, 5)</strong>.</p>
+            <p><strong>(c) 윈도우 [0,3]×[0,4] Liang-Barsky:</strong> <i>dx</i>=6, <i>dy</i>=4, <i>p</i>=[−6, 6, −4, 4], <i>q</i>=[−2, 5, 1, 3].<br>
+            <i>u<sub>start</sub></i> = max(0, 1/3, −1/4) = <strong>1/3</strong>, &nbsp;<i>u<sub>end</sub></i> = min(1, 5/6, 3/4) = <strong>3/4</strong>.<br>
+            클리핑된 끝점: <strong>(0, 7/3) ~ (2.5, 4)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q10.</span><span class="badge badge-purple">프러스텀 정규화 유도 &amp; NDC ★ · 8점</span></div>
+          <p>대칭 원근 프러스텀이 <code>L = −4, R = 4, B = −3, T = 3, d = 4, N = 4, F = 12</code>로 주어졌다.<br>
+          (a) 정규화 행렬 <i>M<sub>normal</sub></i>에서 4행이 <code>[0, 0, −1, 0]</code>일 때, 앞평면 <i>z = −N</i>이 −1로, 뒷평면 <i>z = −F</i>가 +1로 사상되도록 3행 <code>[0, 0, α, β]</code>의 α, β를 유도하시오.<br>
+          (b) 전체 합성 원근 정규화 최종 행렬 <i>M<sub>persp</sub></i>를 적고, 점 <i>P</i>(2, −3, −6)의 클립 동차좌표 및 NDC 좌표를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) α, β 유도:</strong> <i>z<sub>NDC</sub></i> = (α<i>z</i> + β)/(−<i>z</i>).<br>
+            • <i>z = −N</i> = −4 대입: (−4α + β)/4 = −1 ⇒ −4α + β = −4<br>
+            • <i>z = −F</i> = −12 대입: (−12α + β)/12 = +1 ⇒ −12α + β = 12<br>
+            두 식을 빼면 8α = −16 ⇒ <strong>α = −2</strong> (= −(<i>F+N</i>)/(<i>F−N</i>)), &nbsp;<strong>β = −12</strong> (= −2<i>FN</i>/(<i>F−N</i>)).</p>
+            <p><strong>(b) <i>M<sub>persp</sub></i> (대칭이므로 <i>M<sub>shear</sub>=I</i>, 2<i>d</i>/(<i>R−L</i>)=1, 2<i>d</i>/(<i>T−B</i>)=4/3):</strong></p>
+            <div class="math-block">
+              <i>M<sub>persp</sub></i> = <span class="mat c4"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>4/3</span><span>0</span><span>0</span><span>0</span><span>0</span><span>−2</span><span>−12</span><span>0</span><span>0</span><span>−1</span><span>0</span></span>
+            </div>
+            <p><i>P</i>(2, −3, −6, 1) 곱셈 → 클립 동차좌표 <strong>[2, −4, 0, 6]<sup>T</sup></strong> (<i>h</i> = 6) → 원근 나눗셈 (÷6): <strong><i>P<sub>NDC</sub></i> = (1/3, −2/3, 0)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q11.</span><span class="badge badge-purple">카디널 스플라인 집중 ★ · 9점</span></div>
+          <p>5개의 연속된 제어점 <i>p</i><sub>0</sub>(0, 0), <i>p</i><sub>1</sub>(2, 4), <i>p</i><sub>2</sub>(6, 4), <i>p</i><sub>3</sub>(8, 0), <i>p</i><sub>4</sub>(10, 4)와 <strong>장력 매개변수 <i>t</i> = 0.5</strong>가 주어졌다.<br>
+          (a) <i>s</i> = (1−<i>t</i>)/2 값을 구하고, 수치 카디널 행렬 <i>M<sub>C</sub></i>(<i>s</i>)의 4×4 원소를 모두 완성하시오.<br>
+          (b) 제1구간 [<i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>]의 3차 다항식 <i>x</i><sub>1</sub>(<i>u</i>), <i>y</i><sub>1</sub>(<i>u</i>)와 <i>u</i> = 0.5에서의 좌표를 구하시오.<br>
+          (c) 제2구간 [<i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>]를 계산할 때 입력해야 할 4개 제어점 열벡터를 적고, 연결점 <i>p</i><sub>2</sub>에서 제1구간 끝 접선과 제2구간 시작 접선이 같음을 확인하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) <i>s</i> = (1 − 0.5)/2 = 0.25 (= 1/4):</strong></p>
+            <div class="math-block">
+              <i>M<sub>C</sub></i>(0.25) = <span class="frac"><span class="num">1</span><span class="den">4</span></span>
+              <span class="mat c4"><span>−1</span><span>7</span><span>−7</span><span>1</span><span>2</span><span>−11</span><span>10</span><span>−1</span><span>−1</span><span>0</span><span>1</span><span>0</span><span>0</span><span>4</span><span>0</span><span>0</span></span>
+            </div>
+            <p><strong>(b) 제1구간 [<i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>] (입력: [<i>p</i><sub>0</sub>, <i>p</i><sub>1</sub>, <i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>]<sup>T</sup>):</strong><br>
+            • <i>x</i><sub>1</sub> 계수 = ¼[−0+14−42+8, 0−22+60−8, 6, 8]<sup>T</sup> = [−5, 7.5, 1.5, 2]<sup>T</sup> ⇒ <strong><i>x</i><sub>1</sub>(<i>u</i>) = −5<i>u</i><sup>3</sup> + 7.5<i>u</i><sup>2</sup> + 1.5<i>u</i> + 2</strong><br>
+            • <i>y</i><sub>1</sub> 계수 = ¼[0+28−28+0, 0−44+40+0, 4, 16]<sup>T</sup> = [0, −1, 1, 4]<sup>T</sup> ⇒ <strong><i>y</i><sub>1</sub>(<i>u</i>) = −<i>u</i><sup>2</sup> + <i>u</i> + 4</strong><br>
+            • <i>u</i> = 0.5 대입: <strong><i>P</i><sub>1</sub>(0.5) = (4, 4.25)</strong>.</p>
+            <p><strong>(c) 제2구간 [<i>p</i><sub>2</sub>, <i>p</i><sub>3</sub>] 입력 열벡터:</strong> <strong><code>[p1, p2, p3, p4]^T</code></strong>.<br>
+            제1구간 끝 접선 <i>P</i><sub>1</sub>'(1) = 0.25(<i>p</i><sub>3</sub>−<i>p</i><sub>1</sub>) = 0.25(6, −4) = <strong>(1.5, −1)</strong>.<br>
+            제2구간 시작 접선 <i>P</i><sub>2</sub>'(0) = 0.25(<i>p</i><sub>3</sub>−<i>p</i><sub>1</sub>) = <strong>(1.5, −1)</strong> → 정확히 일치(<i>C</i><sup>1</sup> 연속)!</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q12.</span><span class="badge badge-purple">베지어 공식·행렬·접선·좌표 ★ · 9점</span></div>
+          <p>(a) <i>n</i>+1개의 제어점 <i>P</i><sub>0</sub>, …, <i>P<sub>n</sub></i>으로 정의되는 일반 <i>n</i>차 베지어 곡선의 수식(번스타인 기저 다항식 <i>B<sub>k,n</sub></i>(<i>t</i>) 정의 포함)을 적으시오.<br>
+          (b) 4개의 제어점 <i>P</i><sub>0</sub>(0, 0), <i>P</i><sub>1</sub>(2, 6), <i>P</i><sub>2</sub>(6, 6), <i>P</i><sub>3</sub>(8, 0)에 대해 3차 베지어 행렬 <i>M<sub>B</sub></i>를 곱하여 다항식 <i>x</i>(<i>t</i>), <i>y</i>(<i>t</i>)를 구하시오.<br>
+          (c) <i>t</i> = 0.5에서의 곡선 좌표 <i>P</i>(0.5)와, 시작점 및 <i>t</i> = 0.5에서의 접선 벡터 <i>P'</i>(0), <i>P'</i>(0.5)를 각각 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 일반 <i>n</i>차 공식:</strong> <i>P</i>(<i>t</i>) = ∑<sub><i>k</i>=0..<i>n</i></sub> <span class="frac"><span class="num"><i>n</i>!</span><span class="den"><i>k</i>!(<i>n−k</i>)!</span></span> <i>t<sup>k</sup></i>(1−<i>t</i>)<sup><i>n−k</i></sup> <i>P<sub>k</sub></i> &nbsp;(0 ≤ <i>t</i> ≤ 1).</p>
+            <p><strong>(b) <i>M<sub>B</sub></i> 곱셈 및 다항식:</strong></p>
+            <div class="math-block">
+              <span class="mat c4"><span>−1</span><span>3</span><span>−3</span><span>1</span><span>3</span><span>−6</span><span>3</span><span>0</span><span>−3</span><span>3</span><span>0</span><span>0</span><span>1</span><span>0</span><span>0</span><span>0</span></span>
+              <span class="mat c2"><span>0</span><span>0</span><span>2</span><span>6</span><span>6</span><span>6</span><span>8</span><span>0</span></span>
+              =
+              <span class="mat c2"><span>−4</span><span>0</span><span>6</span><span>−18</span><span>6</span><span>18</span><span>0</span><span>0</span></span>
+            </div>
+            <p>⇒ <strong><i>x</i>(<i>t</i>) = −4<i>t</i><sup>3</sup> + 6<i>t</i><sup>2</sup> + 6<i>t</i>, &nbsp;&nbsp;<i>y</i>(<i>t</i>) = −18<i>t</i><sup>2</sup> + 18<i>t</i></strong>.</p>
+            <p><strong>(c) 위치 및 접선:</strong><br>
+            • <i>P</i>(0.5) = (−4(0.125)+6(0.25)+6(0.5), −18(0.25)+18(0.5)) = <strong>(4, 4.5)</strong>.<br>
+            • 도함수: <i>x'</i>(<i>t</i>) = −12<i>t</i><sup>2</sup> + 12<i>t</i> + 6, &nbsp;<i>y'</i>(<i>t</i>) = −36<i>t</i> + 18.<br>
+            • 시작 접선 <i>P'</i>(0) = 3(<i>P</i><sub>1</sub>−<i>P</i><sub>0</sub>) = <strong>(6, 18)</strong>, &nbsp;정점 접선 <i>P'</i>(0.5) = (−3+6+6, −18+18) = <strong>(9, 0)</strong>.</p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q13.</span><span class="badge badge-purple">뒷면제거(원근시점) + Z-버퍼 증분 ★ · 8점</span></div>
+          <p>(a) 반시계 순서 정점이 <i>A</i>(2, 0, −4), <i>B</i>(2, 3, −4), <i>C</i>(2, 0, −1)인 삼각형 면에 대해 ① 평행 시선 <b>V</b> = (0, 0, −1)일 때와 ② 원근 시점 <i>Eye</i> = (6, 0, 0)일 때 뒷면 제거 판정 결과를 비교하시오.<br>
+          (b) Z-버퍼 환경(시선 −<i>z</i>)에서 평면 <i>S</i><sub>1</sub>(초록): <code>2x − 4y + 2z − 6 = 0</code>과 평면 <i>S</i><sub>2</sub>(노랑): <code>z = 4.5</code>가 픽셀 <code>(1, 2)</code>, <code>(2, 2)</code>, <code>(1, 1)</code>을 모두 덮고 있다. <i>S</i><sub>1</sub>의 깊이를 증분식으로 구해 세 픽셀의 최종 색상을 각각 판정하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 뒷면 제거 비교:</strong> <b>e</b><sub>1</sub>=(0,3,0), <b>e</b><sub>2</sub>=(0,0,3) → <b>N</b> = <b>e</b><sub>1</sub>×<b>e</b><sub>2</sub> = (9, 0, 0).<br>
+            ① 평행 시선 (0,0,−1): <b>V·N</b> = 0 → 시선과 평행한 측면(면적 0, 표시 안 됨).<br>
+            ② 원근 시점 <i>Eye</i>=(6,0,0): 시선 <b>V</b> = <i>A − Eye</i> = (−4, 0, −4) → <b>V·N</b> = −36 &lt; 0 → <strong>시점을 향하는 앞면(표시됨)!</strong></p>
+            <p><strong>(b) Z-버퍼 증분 판정 (<i>S</i><sub>2</sub>는 모든 픽셀에서 <i>z</i><sub>2</sub> = 4.5):</strong><br>
+            • (1, 2): <i>z</i><sub>1</sub>(1,2) = −(2−8−6)/2 = <strong>6.0</strong> &gt; 4.5 → <strong>초록(<i>S</i><sub>1</sub>)</strong><br>
+            • (2, 2): 우측 증분 −<i>A/C</i> = −1 ⇒ <i>z</i><sub>1</sub>(2,2) = 6 − 1 = <strong>5.0</strong> &gt; 4.5 → <strong>초록(<i>S</i><sub>1</sub>)</strong><br>
+            • (1, 1): 아래 스캔라인 증분 +<i>B/C</i> = −2 ⇒ <i>z</i><sub>1</sub>(1,1) = 6 − 2 = <strong>4.0</strong> &lt; 4.5 → <strong>노랑(<i>S</i><sub>2</sub>)!</strong></p>
+          </div></details>
+        </div>
+
+        <div class="question-card">
+          <div class="q-header"><span class="q-num">3회 Q14.</span><span class="badge badge-blue">깊이 정렬 관통 판별 &amp; 프랙탈 · 6점</span></div>
+          <p>(a) 깊이 정렬(Painter's) 알고리즘에서 수평 면 <i>S</i><sub>2</sub>: <code>z + 5 = 0</code>(법선 (0,0,1))과 기울어진 삼각형 <i>S</i><sub>1</sub>: <i>P</i><sub>1</sub>(0,0,−8), <i>P</i><sub>2</sub>(3,0,−8), <i>P</i><sub>3</sub>(0,3,−3)이 <i>x, y, z</i> 영역 모두 겹친다. <i>S</i><sub>1</sub>의 세 정점을 <i>S</i><sub>2</sub> 평면식에 대입한 부호를 구하고 어떻게 처리해야 하는지 쓰시오.<br>
+          (b) 정육면체를 각 축으로 3등분(총 27개 소정육면체)한 뒤 중앙과 각 면 중심 7개를 비워 20개를 남기는 멩거 스펀지(Menger Sponge)의 프랙탈 차원 <i>D</i>를 구하시오.</p>
+          <details class="answer-box"><summary>정답 및 풀이 보기</summary><div class="answer-body">
+            <p><strong>(a) 깊이 정렬 부호:</strong> <i>S</i><sub>2</sub> 식 <i>z</i> + 5에 대입하면 <i>P</i><sub>1</sub>, <i>P</i><sub>2</sub>는 −8 + 5 = <strong>−3 &lt; 0 (뒤쪽)</strong>, <i>P</i><sub>3</sub>는 −3 + 5 = <strong>+2 &gt; 0 (앞쪽)</strong>.<br>
+            정점 부호가 갈리므로 <i>S</i><sub>1</sub>이 <i>S</i><sub>2</sub> 평면을 관통하고 있음 → 단순 순서 교체가 불가하므로 <strong><i>z</i> = −5 교선을 따라 <i>S</i><sub>1</sub>을 두 다각형으로 분할</strong>한 뒤 먼 조각(<i>z</i> ≤ −5)부터 먼저 그린다.</p>
+            <p><strong>(b) 프랙탈 차원:</strong> <i>S</i> = 1/3, <i>N</i> = 20 ⇒ <strong><i>D</i> = ln 20 / ln 3 ≈ 2.727</strong>.</p>
+          </div></details>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function toggleAll(open) {
+      document.querySelectorAll('details.answer-box').forEach(d => d.open = open);
+    }
+  </script>
+</body>
+</html>
